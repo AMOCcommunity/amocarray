@@ -32,12 +32,12 @@ moc_vertical.nc
      - Vertical coordinate in meters
    * - ``time``
      - ``time``
-     - (13779,)
+     - (14599,)
      - datetime
      - Time coordinate, 12-hour intervals
    * - ``stream_function_mar``
      - ``depth``, ``time``
-     - (307, 13779)
+     - (307, 14599)
      - Sv
      - Overturning streamfunction at 26°N
 
@@ -108,52 +108,52 @@ moc_transports.nc
      - Description
    * - ``time``
      - ``time``
-     - (13779,)
+     - (14599,)
      - datetime
      - Time coordinate, 12-hour intervals
    * - ``t_therm10``
      - ``time``
-     - (13779,)
+     - (14599,)
      - Sv
      - Thermocline recirculation 0–800 m
    * - ``t_aiw10``
      - ``time``
-     - (13779,)
+     - (14599,)
      - Sv
      - Intermediate water 800–1100 m
    * - ``t_ud10``
      - ``time``
-     - (13779,)
+     - (14599,)
      - Sv
      - Upper NADW 1100–3000 m
    * - ``t_ld10``
      - ``time``
-     - (13779,)
+     - (14599,)
      - Sv
      - Lower NADW 3000–5000 m
    * - ``t_bw10``
      - ``time``
-     - (13779,)
+     - (14599,)
      - Sv
      - AABW >5000 m
    * - ``t_gs10``
      - ``time``
-     - (13779,)
+     - (14599,)
      - Sv
      - Florida Straits transport
    * - ``t_ek10``
      - ``time``
-     - (13779,)
+     - (14599,)
      - Sv
      - Ekman transport
    * - ``t_umo10``
      - ``time``
-     - (13779,)
+     - (14599,)
      - Sv
      - Upper Mid-Ocean transport
    * - ``moc_mar_hc10``
      - ``time``
-     - (13779,)
+     - (14599,)
      - Sv
      - Overturning transport MOC index
 
@@ -234,7 +234,7 @@ meridional_transports.nc
      - Depth coordinate
    * - ``sigma0``
      - ``sigma0``
-     - (489,)
+     - (631,)
      - kg/m³ – 1000
      - Potential density anomaly (σ₀)
    * - ``amoc_depth``
@@ -269,6 +269,6 @@ meridional_transports.nc
      - Overturning streamfunction in depth space
    * - ``stream_sigma``
      - ``time``, ``sigma0``
-     - (689, 489?)
+     - (689, 631)
      - Sv
      - Overturning streamfunction in density space
