@@ -317,7 +317,7 @@ def _consolidate_contributors(cleaned: dict) -> dict:
         for key, url in inst_vocab_map.items()
     }
     for raw_key, url in inst_vocab_map.items():
-        k2 = re.sub(r"\s+", " ", raw_key.replace("\u00A0", " ")).strip().lower()
+        k2 = re.sub(r"\s+", " ", raw_key.replace("\u00a0", " ")).strip().lower()
         k2 = " ".join(raw_key.strip().casefold().split())
         inst_vocab_norm[k2] = url
 

@@ -73,7 +73,7 @@ def normalize_whitespace(attrs: dict) -> dict:
     for k, v in attrs.items():
         if isinstance(v, str):
             # 1) replace non-breaking spaces with normal spaces
-            t = v.replace("\u00A0", " ")
+            t = v.replace("\u00a0", " ")
             # 2) collapse any runs of whitespace (tabs, newlines, NBSP, etc.) to a single space
             t = ws_pattern.sub(" ", t).strip()
             cleaned[k] = t
