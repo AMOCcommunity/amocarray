@@ -1,7 +1,7 @@
 Data Format Documentation Overview
 ===================================
 
-This section contains documentation about data formats used in AMOCarray. The documentation is organized to follow the data processing workflow from native formats to standardized outputs.
+This section contains documentation about data formats used in AMOCatlas. The documentation is organized to follow the data processing workflow from native formats to standardized outputs.
 
 Understanding the Documentation Structure
 -----------------------------------------
@@ -19,24 +19,27 @@ The data format documentation is organized around four key stages of data handli
      - **Native formats** from observing arrays
      - Understanding original data structure from each array (RAPID, OSNAP, etc.)
    * - :doc:`format_oceanSITES`  
-     - **Standards compliance** requirements
-     - Implementing OceanSITES-compliant data formats
+     - **Standards compliance** requirements *(planned)*
+     - Future OceanSITES-compliant data format implementation
    * - :doc:`format_conversion`
      - **Conversion strategies** from native to standard
      - Planning how to transform native formats to standardized ones
    * - :doc:`format_AC1`
-     - **Final standardized format** specification
-     - Using ``amocatlas.convert.to_AC1()`` function output
+     - **Final standardized format** specification *(planned)*
+     - Future ``amocatlas.convert.to_AC1()`` function output
 
 Workflow Overview
 -----------------
 
-The typical data processing workflow follows this sequence:
+The planned data processing workflow follows this sequence:
 
 1. **Original Data** → Each observing array provides data in its own native format
 2. **Analysis & Planning** → Understand native formats and plan conversions  
-3. **Standardization** → Convert to OceanSITES-compliant intermediate format
-4. **Final Output** → Produce AC1 standardized format for interoperability
+3. **Standardization** → Convert to OceanSITES-compliant intermediate format *(not yet implemented)*
+4. **Final Output** → Produce AC1 standardized format for interoperability *(not yet implemented)*
+
+.. note::
+   **Current Status**: AMOCatlas currently reads native array formats and provides standardized access through the readers module. The conversion tools to produce OceanSITES-compliant and AC1 formats are planned but not yet implemented.
 
 .. code-block:: text
 
@@ -67,9 +70,9 @@ Getting Started
 ---------------
 
 - **New to the project?** Start with :doc:`format_orig` to understand the data landscape
-- **Implementing readers?** Use :doc:`format_conversion` for conversion strategies  
-- **Need standards compliance?** Refer to :doc:`format_oceanSITES` for requirements
-- **Using converted data?** See :doc:`format_AC1` for the final format specification
+- **Planning conversions?** Use :doc:`format_conversion` for conversion strategies  
+- **Need standards compliance?** Refer to :doc:`format_oceanSITES` for future requirements
+- **Planning standardized output?** See :doc:`format_AC1` for the planned format specification
 
 Questions and Contributions
 ----------------------------

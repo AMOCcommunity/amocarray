@@ -1,4 +1,4 @@
-AMOCarray Format AC1
+AMOCatlas Format AC1
 ====================
 
 This document defines the AC1 standard data format produced by the ``amocatlas.convert.to_AC1()`` function.  This format is designed to provide consistency between moored estimates of overturning transport, as from the RAPID, OSNAP, MOVE and SAMBA arrays.

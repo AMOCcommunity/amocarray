@@ -373,7 +373,7 @@ The following attributes are recommended for inclusion in all OceanSITES-complia
      - RS
    * - ``publisher_name``
      - Name of the person responsible for metadata and formatting
-     - **ex.:** "AMOCarray Development Team"
+     - **ex.:** "AMOCatlas Development Team"
      - *S*
    * - ``publisher_url``
      - Web address of the institution or data publisher
