@@ -11,9 +11,9 @@ year = datetime.datetime.now(tz=datetime.timezone.utc).date().year
 
 # General information about the project.
 project = "amocatlas"
-author = "Eleanor Frajka-Williams, FirstName LastName"
+author = "Eleanor Frajka-Williams, Isabelle Schmitz"
 copyright = f"{year}, {author}"
-release = "v0.0.0"
+release = "v0.1.1"
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -132,9 +132,9 @@ latex_elements = {
 latex_documents = [
     (
         "index",
-        "ReadtheDocsTemplate.tex",
-        "Read the Docs Template Documentation",
-        "Read the Docs",
+        "AMOCatlas.tex",
+        "AMOCatlas Documentation",
+        "Eleanor Frajka-Williams, Isabelle Schmitz",
         "manual",
     ),
 ]
