@@ -1,7 +1,7 @@
 AMOCatlas Format AC1
 ====================
 
-This document defines the AC1 standard data format produced by the ``amocatlas.convert.to_AC1()`` function.  This format is designed to provide consistency between moored estimates of overturning transport, as from the RAPID, OSNAP, MOVE and SAMBA arrays.
+This document defines the AC1 standard data format produced by the ``amocatlas.convert.to_AC1()`` function. This format is designed to provide consistency between moored estimates of overturning transport, as from the RAPID, OSNAP, MOVE and SAMBA arrays.
 
 **Relationship to Other Format Documents:**
 
@@ -13,83 +13,355 @@ This document defines the AC1 standard data format produced by the ``amocatlas.c
 1. Overview
 -----------
 
-The AC1 format improves the interoperability for Atlantic Meridional Overturning Circulation (AMOC) mooring array datasets.  It uses NetCDF (Network Common Data Format) where the software is based on ``xarray.Dataset`` objects.  It is derived from the OceanSITES data format [see here](https://www.ocean-ops.org/oceansites/data/index.html) or [https://www.ocean-ops.org/oceansites/docs/oceansites_data_format_reference_manual.pdf](oceansites_data_format_reference_manual.pdf), but additionally attempts to specify vocabularies.
+The AC1 format enhances interoperability for Atlantic Meridional Overturning Circulation (AMOC) mooring array datasets. It uses NetCDF4 format with ``xarray.Dataset`` objects and is derived from the OceanSITES data format v1.4, with enhanced vocabulary specifications for AMOC-specific variables.
 
-Note, if the link to the pdf is broken, here is a version downloaded in 2025 [oceansites_data_format_reference_manual.pdf](oceansites_data_format_reference_manual.pdf) which describes OceanSITES version 1.4.
+1.1 Design Principles
+~~~~~~~~~~~~~~~~~~~~~
 
-See [oceanSITES format](format_oceanSITES.rst) for some information about how oceanSITES format applies to the datasets collated with `amocatlas`.
+The AC1 format follows these core principles:
 
+- **Standards Compliance**: Built on CF Conventions 1.8, OceanSITES 1.4, and ACDD 1.3
+- **Controlled Vocabularies**: Uses NERC vocabulary services where available
+- **Provenance Tracking**: Maintains full attribution to original data providers
+- **Extensibility**: Supports future variables and array additions
 
-2. File Format
---------------
+1.2 Format Hierarchy
+~~~~~~~~~~~~~~~~~~~~
 
-- **File type**: NetCDF4
-- **Data structure**: ``xarray.Dataset``
-- **Dimensions**:
-  - ``N_COMPONENT`` (optional)
-  - ``TIME``
-  - ``N_LEVELS`` (for vertical)
-  - ``N_PROF`` (for a location)
-- **Coordinates**:
-  - ``TIME`` (required)
-  - ``DEPTH`` or ``PRESSURE`` (optional)
-  - ``LATITUDE``, ``LONGITUDE`` (optional, where applicable)
-- **Encoding**:
-  - Default: ``float32`` for data variables
-  - Compression: Enabled if saved to NetCDF
-  - Chunking: Optional, recommended for large datasets
+The AC1 format sits at the top of the AMOCatlas data processing hierarchy:
 
-Note that CF-conventions (https://cfconventions.org/cf-conventions/cf-conventions.html#dimensions) *recommends* that data with the "interpretions of date or time `T`, height or depth `Z`, latitude `Y`, and longitude `X` be used in the relative order `T`, then `Z`, then `Y`, then `X`.  All other dimensions should, whenever possible, be placed to the left of the spatiotemporal dimensions.
+.. code-block:: text
 
-3. Variables
-------------
+   Native Formats → OceanSITES Compatible → AC1 Standard
+   (format_orig)    (format_oceanSITES)     (format_AC1)
 
-.. list-table:: Variables.  The requirement status (RS) is shown in the last column, where **M** is mandatory, *HD* is highly desirable, and *S* is suggested.
-   :widths: 20 25 20 20 5
+1.3 Compliance Framework
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+All AC1 datasets must pass:
+
+- CF Checker validation
+- OceanSITES format compliance
+- AMOCatlas-specific validation rules
+
+1.4 Deviations from OceanSITES Standard
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. warning::
+   The following choices differ from referenced standards and may need future revision based on community feedback.
+
+The AC1 format follows oceanarray conventions and includes these deviations from OceanSITES:
+
+.. list-table:: Format Deviations
+   :widths: 30 35 35
    :header-rows: 1
 
-   * - Name
-     - Dimensions
-     - Units
-     - Description
-     - RS
-   * - TIME
-     - (TIME,)
-     - seconds since 1970-01-01
-     - Timestamps in UTC
-     - **M**
-   * - LONGITUDE
-     - scalar or (N_PROF,)
-     - degrees_east
-     - Mooring or array longitude
-     - S
-   * - LATITUDE
-     - scalar or (N_PROF,)
-     - degrees_north
-     - Mooring or array latitude
-     - S
-   * - DEPTH or PRESSURE
-     - (N_LEVELS,)
-     - m
-     - Depth levels if applicable
-     - S
-   * - TEMPERATURE
-     - (TIME, ...)
-     - degree_Celsius
-     - In situ or potential temperature
-     - S
-   * - SALINITY
-     - (TIME, ...)
-     - psu
-     - Practical or absolute salinity
-     - S
-   * - TRANSPORT
-     - (TIME,)
-     - Sverdrup
-     - Overturning transport estimate
-     - S
+   * - Attribute/Feature
+     - OceanSITES Standard
+     - AC1 Format
+   * - ``time_coverage_start``
+     - ``"YYYY-MM-DDThh:mm:ssZ"``
+     - ``"YYYYmmddTHHMMss"``
+   * - ``time_coverage_end``
+     - ``"YYYY-MM-DDThh:mm:ssZ"``
+     - ``"YYYYmmddTHHMMss"``
+   * - Contributor metadata
+     - ``creator_*``, ``principal_investigator_*``
+     - ``contributor_*`` attributes only
+   * - Density coordinates
+     - Depth/pressure coordinates only
+     - ``SIGMA0`` coordinate allowed (array-specific)
 
-4. Global Attributes
+.. note::
+   These deviations maintain ISO 8601 compatibility while reducing attribute string length and following established oceanarray patterns.
+
+2. File Specification
+---------------------
+
+2.1 Technical Requirements
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. list-table:: File Format Requirements
+   :widths: 25 75
+   :header-rows: 1
+
+   * - Property
+     - Specification
+   * - **File Format**
+     - NetCDF4 Classic
+   * - **Data Structure**
+     - ``xarray.Dataset`` compatible
+   * - **Conventions**
+     - CF-1.8, OceanSITES-1.4, ACDD-1.3
+   * - **Compression**
+     - Level 6 deflate compression (default)
+   * - **Chunking**
+     - TIME dimension chunked for optimal access
+
+2.2 Dimension Hierarchy
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Following CF conventions, dimensions are ordered as T, Z, Y, X with component dimensions leftmost:
+
+.. list-table:: Dimension Ordering
+   :widths: 20 30 50
+   :header-rows: 1
+
+   * - Category
+     - Dimensions
+     - Description
+   * - **Component**
+     - ``N_COMPONENT``
+     - Transport components (optional)
+   * - **Temporal**
+     - ``TIME``
+     - Time coordinate (unlimited)
+   * - **Vertical**
+     - ``DEPTH``, ``PRESSURE``
+     - Vertical coordinates (optional)
+   * - **Horizontal**
+     - ``LATITUDE``, ``LONGITUDE``
+     - Horizontal coordinates (optional)
+
+.. warning::
+   All datasets must include the ``TIME`` dimension. Other dimensions are optional depending on data type (timeSeries vs timeSeriesProfile).
+
+3. Variable Specification
+-------------------------
+
+3.1 Coordinate Variables
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. list-table:: Coordinate Variables
+   :widths: 15 20 55 10
+   :header-rows: 1
+
+   * - Variable
+     - Dimension
+     - Attributes and Requirements
+     - RS
+   * - ``TIME``
+     - ``TIME``
+     - **Data Type**: double (datetime64[ns])
+       
+       **Attributes**:
+       - long_name = "Time"
+       - standard_name = "time"
+       - units = "seconds since 1970-01-01T00:00:00Z"
+       - calendar = "gregorian"
+       - axis = "T"
+     - **M**
+   * - ``LATITUDE``
+     - scalar or ``N_PROF``
+     - **Data Type**: float32
+       
+       **Attributes**:
+       - long_name = "Latitude"
+       - standard_name = "latitude"
+       - units = "degrees_north"
+       - valid_min = -90.0
+       - valid_max = 90.0
+       - axis = "Y"
+     - *HD*
+   * - ``LONGITUDE``
+     - scalar or ``N_PROF``
+     - **Data Type**: float32
+       
+       **Attributes**:
+       - long_name = "Longitude"
+       - standard_name = "longitude"
+       - units = "degrees_east"
+       - valid_min = -180.0
+       - valid_max = 180.0
+       - axis = "X"
+     - *HD*
+   * - ``DEPTH``
+     - ``DEPTH``
+     - **Data Type**: float32
+       
+       **Attributes**:
+       - long_name = "Depth below sea surface"
+       - standard_name = "depth"
+       - units = "m"
+       - positive = "down"
+       - valid_min = 0.0
+       - axis = "Z"
+     - *S*
+   * - ``PRESSURE``
+     - ``PRESSURE``
+     - **Data Type**: float32
+       
+       **Attributes**:
+       - long_name = "Sea water pressure"
+       - standard_name = "sea_water_pressure"
+       - units = "dbar"
+       - positive = "down"
+       - valid_min = 0.0
+       - axis = "Z"
+     - *S*
+
+3.2 Transport Variables
+~~~~~~~~~~~~~~~~~~~~~~~
+
+.. list-table:: Transport Variables
+   :widths: 15 20 55 10
+   :header-rows: 1
+
+   * - Variable
+     - Dimension
+     - Attributes and Requirements
+     - RS
+   * - ``MOC_TRANSPORT``
+     - ``TIME``
+     - **Data Type**: float32
+       
+       **Attributes**:
+       - long_name = "Maximum meridional overturning circulation transport"
+       - standard_name = "ocean_volume_transport_across_line"
+       - vocabulary = "http://vocab.nerc.ac.uk/collection/P07/current/W946809H/"
+       - units = "sverdrup"
+       - coordinates = "TIME"
+       - _FillValue = NaNf
+     - *HD*
+   * - ``HEAT_TRANSPORT``
+     - ``TIME``
+     - **Data Type**: float32
+       
+       **Attributes**:
+       - long_name = "Northward ocean heat transport"
+       - standard_name = "northward_ocean_heat_transport"
+       - vocabulary = "http://vocab.nerc.ac.uk/collection/P07/current/CFSN0483/"
+       - units = "petawatt"
+       - coordinates = "TIME"
+       - _FillValue = NaNf
+     - *S*
+   * - ``FRESHWATER_TRANSPORT``
+     - ``TIME``
+     - **Data Type**: float32
+       
+       **Attributes**:
+       - long_name = "Northward ocean freshwater transport"
+       - standard_name = "northward_ocean_freshwater_transport"
+       - vocabulary = "http://vocab.nerc.ac.uk/collection/P07/current/CFSN0507/"
+       - units = "sverdrup"
+       - coordinates = "TIME"
+       - _FillValue = NaNf
+     - *S*
+
+3.3 Hydrographic Variables
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. list-table:: Hydrographic Variables
+   :widths: 15 20 55 10
+   :header-rows: 1
+
+   * - Variable
+     - Dimension
+     - Attributes and Requirements
+     - RS
+   * - ``TEMPERATURE``
+     - ``TIME, DEPTH, ...``
+     - **Data Type**: float32
+       
+       **Attributes**:
+       - long_name = "Sea water temperature"
+       - standard_name = "sea_water_temperature"
+       - vocabulary = "https://vocab.nerc.ac.uk/collection/P07/current/CFSN0335/"
+       - units = "degree_Celsius"
+       - coordinates = "TIME DEPTH LATITUDE LONGITUDE"
+       - _FillValue = NaNf
+       - valid_min = -2.0
+       - valid_max = 40.0
+     - *S*
+   * - ``SALINITY``
+     - ``TIME, DEPTH, ...``
+     - **Data Type**: float32
+       
+       **Attributes**:
+       - long_name = "Sea water practical salinity"
+       - standard_name = "sea_water_practical_salinity"
+       - vocabulary = "http://vocab.nerc.ac.uk/collection/P07/current/IADIHDIJ/"
+       - units = "1"
+       - coordinates = "TIME DEPTH LATITUDE LONGITUDE"
+       - _FillValue = NaNf
+       - valid_min = 0.0
+       - valid_max = 50.0
+     - *S*
+   * - ``VELOCITY_MERIDIONAL``
+     - ``TIME, DEPTH, ...``
+     - **Data Type**: float32
+       
+       **Attributes**:
+       - long_name = "Northward sea water velocity"
+       - standard_name = "northward_sea_water_velocity"
+       - vocabulary = "http://vocab.nerc.ac.uk/collection/P07/current/CFSN0494/"
+       - units = "m s-1"
+       - coordinates = "TIME DEPTH LATITUDE LONGITUDE"
+       - _FillValue = NaNf
+     - *S*
+
+.. note::
+   **Requirement Status**: **M** = Mandatory, *HD* = Highly Desired, *S* = Suggested
+
+4. Units
+--------
+
+All units must follow the `UDUNITS-2 standard <https://docs.unidata.ucar.edu/udunits/current/#Database>`_ for maximum compatibility and interoperability.
+
+.. list-table:: Unit Specifications for AC1 Format
+   :widths: 25 25 50
+   :header-rows: 1
+
+   * - Quantity
+     - UDUNITS Format
+     - Notes
+   * - **Coordinates**
+     - 
+     - 
+   * - Time
+     - ``seconds since 1970-01-01T00:00:00Z``
+     - ISO 8601 epoch reference
+   * - Latitude
+     - ``degrees_north``
+     - **[DEVIATION]** OceanSITES uses ``degrees_north`` (plural)
+   * - Longitude
+     - ``degrees_east``
+     - **[DEVIATION]** OceanSITES uses ``degrees_east`` (plural)
+   * - Depth
+     - ``m``
+     - Standard SI unit, positive downward
+   * - Pressure
+     - ``dbar``
+     - Standard oceanographic unit (decibars)
+   * - **Physical Variables**
+     - 
+     - 
+   * - Temperature
+     - ``degree_Celsius``
+     - Preferred over ``degC``
+   * - Salinity
+     - ``1``
+     - Dimensionless (practical salinity)
+   * - Velocity
+     - ``m s-1``
+     - SI derived unit
+   * - **Transport Variables**
+     - 
+     - 
+   * - Ocean Volume Transport
+     - ``sverdrup``
+     - 1 sverdrup = 10^6 m³/s (avoid ``Sv`` to prevent confusion with sievert)
+   * - Heat Transport
+     - ``petawatt``
+     - 1 PW = 10^15 W
+   * - Freshwater Transport
+     - ``sverdrup``
+     - Same as volume transport
+
+.. warning::
+   Use lowercase ``sverdrup`` (not ``Sv``) to avoid confusion with the sievert radiation unit. UDUNITS-2 recognizes ``sverdrup`` as the standard oceanographic transport unit.
+
+5. Global Attributes
 --------------------
 
 .. list-table:: Global Attributes

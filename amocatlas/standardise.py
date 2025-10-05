@@ -557,7 +557,13 @@ def standardise_array(ds: xr.Dataset, file_name: str, array_name: str) -> xr.Dat
     }
     cleaned = normalize_and_add_vocabulary(cleaned, normalizations)
 
-    # 6) Reorder metadata according
+    # 6) Ensure TIME coordinate has proper units for AC1 compliance
+    if 'TIME' in ds.coords and ds['TIME'].dtype.kind == 'M':  # datetime64 type
+        if 'units' not in ds['TIME'].attrs:
+            ds['TIME'].attrs['units'] = 'seconds since 1970-01-01T00:00:00Z'
+            log_debug("Added standard TIME units for AC1 compliance")
+    
+    # 7) Reorder metadata according
     ds.attrs = cleaned
     ds.attrs = reorder_metadata(ds.attrs)
     #    ds = utilities.safe_update_attrs(ds, cleaned, overwrite=False)
