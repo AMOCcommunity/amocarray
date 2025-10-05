@@ -41,40 +41,41 @@ def save_dataset(ds: xr.Dataset, output_file: str = "../test.nc") -> bool:
     )
     # More general
     valid_types = (str, Number, np.ndarray, np.number, list, tuple)
-    
+
     # Make a copy to avoid modifying the original dataset
     ds_copy = ds.copy()
-    
+
     # Sanitize attributes: replace None with empty string to avoid NetCDF issues
     for k, v in ds_copy.attrs.items():
         if v is None:
             ds_copy.attrs[k] = ""
-    
+
     # Handle datetime coordinate encoding conflicts
     # For datetime variables, remove manual units to let xarray handle encoding properly
     conflicting_keys = ["units", "calendar"]
     for var_name, variable in ds_copy.variables.items():
-        if variable.dtype == np.dtype('datetime64[ns]'):
-            logger.log_info(f"Configuring datetime encoding for variable '{var_name}' - removing manual units")
-            
+        if variable.dtype == np.dtype("datetime64[ns]"):
+            logger.log_info(
+                f"Configuring datetime encoding for variable '{var_name}' - removing manual units"
+            )
+
             # Remove conflicting attributes that may clash with encoding
             for key in conflicting_keys:
                 if key in ds_copy[var_name].attrs:
                     del ds_copy[var_name].attrs[key]
-            
+
             # Set proper datetime encoding
             if var_name not in ds_copy.encoding:
                 ds_copy.encoding[var_name] = {}
-            ds_copy.encoding[var_name].update({
-                'units': 'seconds since 1970-01-01T00:00:00Z',
-                'calendar': 'gregorian'
-            })
-    
+            ds_copy.encoding[var_name].update(
+                {"units": "seconds since 1970-01-01T00:00:00Z", "calendar": "gregorian"}
+            )
+
     # Set up compression encoding for data variables
     encoding = {}
     for var in ds_copy.data_vars:
         encoding[var] = {"zlib": True, "complevel": 4}
-    
+
     try:
         ds_copy.to_netcdf(output_file, format="NETCDF4_CLASSIC", encoding=encoding)
         return True
@@ -93,7 +94,9 @@ def save_dataset(ds: xr.Dataset, output_file: str = "../test.nc") -> bool:
         except Exception as e:
             print("Failed to save dataset:", e)
             datetime_vars = [
-                var for var in ds_copy.variables if ds_copy[var].dtype == "datetime64[ns]"
+                var
+                for var in ds_copy.variables
+                if ds_copy[var].dtype == "datetime64[ns]"
             ]
             print("Variables with dtype datetime64[ns]:", datetime_vars)
             float_attrs = [
@@ -118,7 +121,7 @@ def save_AC1_dataset(ds: xr.Dataset, data_dir: Union[str, Path]) -> Path:
     -------
     Path
         Full path to the saved NetCDF file.
-        
+
     Raises
     ------
     ValueError
@@ -135,8 +138,8 @@ def save_AC1_dataset(ds: xr.Dataset, data_dir: Union[str, Path]) -> Path:
 
     # Use the main save_dataset function which handles all the encoding issues
     success = save_dataset(ds, str(filepath))
-    
+
     if not success:
         raise RuntimeError(f"Failed to save AC1 dataset to {filepath}")
-    
+
     return filepath

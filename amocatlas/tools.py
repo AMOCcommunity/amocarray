@@ -64,7 +64,18 @@ base_unit_conversion = {
 unit_conversion = generate_reverse_conversions(base_unit_conversion)
 
 # Specify the preferred units, and it will convert if the conversion is available in unit_conversion
-preferred_units = ["m s-1", "dbar", "S m-1", "sverdrup", "degree_Celsius", "kg m-3", "m", "degree_north", "degree_east", "watt"]
+preferred_units = [
+    "m s-1",
+    "dbar",
+    "S m-1",
+    "sverdrup",
+    "degree_Celsius",
+    "kg m-3",
+    "m",
+    "degree_north",
+    "degree_east",
+    "watt",
+]
 
 # String formats for units.  The key is the original, the value is the desired format
 unit_str_format = {
