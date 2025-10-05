@@ -14,6 +14,9 @@ from amocatlas import compliance_checker, logger
 # Disable logging for tests
 logger.disable_logging()
 
+# Test data file - a valid AC1 file for testing modifications
+TEST_AC1_FILE = "data/OS_TEST_20040402-20240327_DPR_transports_T12H.nc"
+
 
 @pytest.fixture
 def valid_ac1_dataset():
@@ -176,8 +179,7 @@ class TestComplianceChecker:
     def test_missing_required_global_attributes(self, valid_ac1_dataset):
         """Test detection of missing required global attributes."""
         # Load actual AC1 file and modify it
-        rapid_file = "data/OS_RAPID_20040402-20240327_DPR_transports_T12H.nc"
-        ds = xr.open_dataset(rapid_file)
+        ds = xr.open_dataset(TEST_AC1_FILE)
         
         # Remove a required attribute
         ds_modified = ds.copy()
@@ -205,8 +207,7 @@ class TestComplianceChecker:
     def test_invalid_filename_pattern(self, valid_ac1_dataset):
         """Test detection of invalid filename patterns."""
         # Load actual AC1 file
-        rapid_file = "data/OS_RAPID_20040402-20240327_DPR_transports_T12H.nc"
-        ds = xr.open_dataset(rapid_file)
+        ds = xr.open_dataset(TEST_AC1_FILE)
         
         # Use invalid filename pattern
         filename = "invalid_filename.nc"
@@ -230,8 +231,7 @@ class TestComplianceChecker:
     def test_missing_required_dimensions(self, valid_ac1_dataset):
         """Test detection of missing required dimensions."""
         # Load actual AC1 file and remove TIME dimension
-        rapid_file = "data/OS_RAPID_20040402-20240327_DPR_transports_T12H.nc"
-        ds = xr.open_dataset(rapid_file)
+        ds = xr.open_dataset(TEST_AC1_FILE)
         
         # Create dataset without TIME dimension
         ds_no_time = ds.isel(TIME=0).drop_vars("TIME")
@@ -254,8 +254,7 @@ class TestComplianceChecker:
     def test_missing_variable_attributes(self, valid_ac1_dataset):
         """Test detection of missing variable attributes."""
         # Load actual AC1 file and modify it
-        rapid_file = "data/OS_RAPID_20040402-20240327_DPR_transports_T12H.nc"
-        ds = xr.open_dataset(rapid_file)
+        ds = xr.open_dataset(TEST_AC1_FILE)
         ds_modified = ds.copy()
         ds.close()
         
@@ -353,8 +352,7 @@ class TestComplianceChecker:
     def test_invalid_data_mode(self, valid_ac1_dataset):
         """Test detection of invalid data_mode values."""
         # Load actual AC1 file and modify it
-        rapid_file = "data/OS_RAPID_20040402-20240327_DPR_transports_T12H.nc"
-        ds = xr.open_dataset(rapid_file)
+        ds = xr.open_dataset(TEST_AC1_FILE)
         ds_modified = ds.copy()
         ds.close()
         
@@ -380,8 +378,7 @@ class TestComplianceChecker:
     def test_invalid_qc_indicator(self, valid_ac1_dataset):
         """Test detection of invalid QC_indicator values."""
         # Load actual AC1 file and modify it
-        rapid_file = "data/OS_RAPID_20040402-20240327_DPR_transports_T12H.nc"
-        ds = xr.open_dataset(rapid_file)
+        ds = xr.open_dataset(TEST_AC1_FILE)
         ds_modified = ds.copy()
         ds.close()
         
@@ -406,8 +403,7 @@ class TestComplianceChecker:
     def test_invalid_date_format(self, valid_ac1_dataset):
         """Test detection of invalid date formats."""
         # Load actual AC1 file and modify it
-        rapid_file = "data/OS_RAPID_20040402-20240327_DPR_transports_T12H.nc"
-        ds = xr.open_dataset(rapid_file)
+        ds = xr.open_dataset(TEST_AC1_FILE)
         ds_modified = ds.copy()
         ds.close()
         
@@ -433,8 +429,7 @@ class TestComplianceChecker:
     def test_invalid_orcid_format(self, valid_ac1_dataset):
         """Test detection of invalid ORCID formats."""
         # Load actual AC1 file and modify it
-        rapid_file = "data/OS_RAPID_20040402-20240327_DPR_transports_T12H.nc"
-        ds = xr.open_dataset(rapid_file)
+        ds = xr.open_dataset(TEST_AC1_FILE)
         ds_modified = ds.copy()
         ds.close()
         
@@ -457,8 +452,7 @@ class TestComplianceChecker:
     def test_missing_conventions(self, valid_ac1_dataset):
         """Test detection of missing conventions."""
         # Load actual AC1 file and modify it
-        rapid_file = "data/OS_RAPID_20040402-20240327_DPR_transports_T12H.nc"
-        ds = xr.open_dataset(rapid_file)
+        ds = xr.open_dataset(TEST_AC1_FILE)
         ds_modified = ds.copy()
         ds.close()
         
