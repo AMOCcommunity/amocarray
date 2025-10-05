@@ -21,9 +21,10 @@ For recommendations or bug reports, please visit https://github.com/AMOCcommunit
 
 .. toctree::
    :maxdepth: 2
-   :caption: Demo notebook
+   :caption: Demo notebooks
 
    demo-output.ipynb
+   demo-convert-output.ipynb
 
 
 
