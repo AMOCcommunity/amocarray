@@ -1,5 +1,4 @@
-"""
-AMOCatlas Data Format Conversion
+"""AMOCatlas Data Format Conversion
 
 This module provides functionality to convert standardised AMOCatlas data to the AC1 format
 following OceanSITES conventions and AC1 specifications.
@@ -26,8 +25,7 @@ CONTRIBUTOR_ORCID_LOOKUP = {
 
 
 def enrich_contributor_ids(attrs: Dict, array_name: str = None) -> Dict:
-    """
-    Enrich contributor information by adding ORCID identifiers where available.
+    """Enrich contributor information by adding ORCID identifiers where available.
 
     Parameters
     ----------
@@ -40,6 +38,7 @@ def enrich_contributor_ids(attrs: Dict, array_name: str = None) -> Dict:
     -------
     Dict
         Updated attributes with enriched contributor_id field
+
     """
     if "contributor_name" not in attrs or not array_name:
         return attrs
@@ -73,8 +72,7 @@ def enrich_contributor_ids(attrs: Dict, array_name: str = None) -> Dict:
 def to_AC1(
     ds: xr.Dataset, array_name: str = None, start_date: str = None, end_date: str = None
 ) -> List[xr.Dataset]:
-    """
-    Convert standardised AMOCatlas dataset to AC1 format datasets.
+    """Convert standardised AMOCatlas dataset to AC1 format datasets.
 
     Parameters
     ----------
@@ -96,8 +94,8 @@ def to_AC1(
     -----
     Currently supports RAPID moc_transports.nc conversion to component transports format.
     User should save the returned datasets using amocatlas.writers.save_dataset() or similar.
-    """
 
+    """
     # Determine array name
     if array_name is None:
         array_name = _determine_array_name(ds)
@@ -119,7 +117,7 @@ def to_AC1(
             ds, array_name, start_date, end_date
         )
         converted_datasets.append(ac1_dataset)
-        log.info(f"Created component transports dataset")
+        log.info("Created component transports dataset")
     else:
         raise ValueError(f"Unsupported source data type: {source_file}")
 
@@ -128,7 +126,6 @@ def to_AC1(
 
 def _determine_array_name(ds: xr.Dataset) -> str:
     """Determine array name from dataset attributes."""
-
     # Check common attribute names
     for attr in ["array", "platform", "site_code"]:
         if attr in ds.attrs:
@@ -154,7 +151,6 @@ def _determine_array_name(ds: xr.Dataset) -> str:
 
 def _determine_date_range(ds: xr.Dataset) -> Tuple[str, str]:
     """Determine date range from dataset time coordinate."""
-
     time_coord = ds["TIME"]
 
     # Convert to pandas datetime for easier handling
@@ -170,7 +166,6 @@ def _determine_date_range(ds: xr.Dataset) -> Tuple[str, str]:
 
 def _is_component_transport_data(ds: xr.Dataset) -> bool:
     """Check if dataset contains component transport data."""
-
     # Look for transport variables with specific naming patterns
     transport_vars = [
         var for var in ds.data_vars if "t_" in var or "transport" in var.lower()
@@ -182,7 +177,6 @@ def _convert_component_transports(
     ds: xr.Dataset, array_name: str, start_date: str, end_date: str
 ) -> xr.Dataset:
     """Convert dataset to AC1 component transports format."""
-
     log.info(f"Converting to component transports format for {array_name}")
 
     # Define RAPID transport variable mapping
@@ -328,7 +322,7 @@ def _convert_component_transports(
 
         if current_units is None:
             raise ValueError(
-                f"Variable moc_mar_hc10 is missing units attribute. Units should be assigned in standardise.py"
+                "Variable moc_mar_hc10 is missing units attribute. Units should be assigned in standardise.py"
             )
 
         if current_units not in acceptable_units:
@@ -388,7 +382,6 @@ def _create_ac1_global_attributes(
     ds: xr.Dataset, array_name: str, start_date: str, end_date: str, content_type: str
 ) -> Dict:
     """Create AC1-compliant global attributes."""
-
     attrs = {}
 
     # Required OceanSITES/CF/ACDD attributes
@@ -495,7 +488,6 @@ def _create_ac1_global_attributes(
 
 def _validate_ac1_output(ds: xr.Dataset, file_type: str) -> bool:
     """Validate AC1 dataset before writing."""
-
     # This could use the compliance checker we built
     # For now, just basic checks
 

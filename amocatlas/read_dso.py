@@ -45,6 +45,7 @@ def read_dso(
     redownload: bool = False,
 ) -> list[xr.Dataset]:
     """Load the Denmark Strait Overflow (DSO) datasets from a URL or local file path into xarray Datasets.
+
     Parameters
     ----------
     source : str, optional
@@ -60,6 +61,7 @@ def read_dso(
         If True, force redownload of the data.
 
     Returns
+    -------
     -------                                                         list of xr.Dataset
         List of loaded xarray datasets with basic inline and file-specific metadata.
 
@@ -68,6 +70,7 @@ def read_dso(
     ValueError
     If no source is provided for a file and no default URL mapping is found.
     FileNotFoundError                                                   If the file cannot be downloaded or does not exist locally.
+
     """
     log.info("Starting to read DSO dataset")  # Ensure file_list has a default
     if file_list is None:

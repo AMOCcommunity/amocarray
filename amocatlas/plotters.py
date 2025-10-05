@@ -296,8 +296,7 @@ def plot_amoc_timeseries(
     resample_monthly=True,
     plot_raw=True,
 ):
-    """
-    Plot original and optionally monthly-averaged AMOC time series for one or more datasets.
+    """Plot original and optionally monthly-averaged AMOC time series for one or more datasets.
 
     Parameters
     ----------
@@ -323,6 +322,7 @@ def plot_amoc_timeseries(
         If True, monthly averages are computed and plotted.
     plot_raw : bool
         If True, raw data is plotted.
+
     """
     if not isinstance(data, list):
         data = [data]
@@ -406,14 +406,12 @@ def plot_amoc_timeseries(
 
 
 def plot_monthly_anomalies(**kwargs) -> tuple[plt.Figure, list[plt.Axes]]:
-    """
-    Plot the monthly anomalies for various datasets.
+    """Plot the monthly anomalies for various datasets.
     Pass keyword arguments in the form: `label_name_data`, `label_name_label`.
     For example:
         osnap_data = standardOSNAP[0]["MOC_all"], osnap_label = "OSNAP"
         ...
     """
-
     color_cycle = [
         "blue",
         "red",

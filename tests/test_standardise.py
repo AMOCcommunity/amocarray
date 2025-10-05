@@ -80,8 +80,7 @@ PREFERRED_KEYS = {
     ],
 )
 def test_merge_metadata_aliases(attrs, expected):
-    """
-    Test that merge_metadata_aliases:
+    """Test that merge_metadata_aliases:
     - Collapses identical aliases into the canonical key.
     - Keeps first value when conflicts occur.
     - Leaves non-alias keys untouched.
@@ -141,8 +140,7 @@ def test_merge_metadata_aliases(attrs, expected):
     ],
 )
 def test_consolidate_contributors_merges_and_assigns_roles(input_dict, expected_dict):
-    """
-    _consolidate_contributors should:
+    """_consolidate_contributors should:
     - Merge name fields (creator, principal_investigator, publisher, contributor)
     - Assign roles based on source key mapping
     - Merge institution fields into contributing_institutions

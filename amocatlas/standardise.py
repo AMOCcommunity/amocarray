@@ -70,8 +70,7 @@ _INSTITUTION_CORRECTIONS = {
 
 
 def reorder_metadata(attrs: dict) -> dict:
-    """
-    Return a new dict with keys ordered according to the OG1.0 global‐attribute list.
+    """Return a new dict with keys ordered according to the OG1.0 global‐attribute list.
     Any attrs not in the spec list are appended at the end, in their original order.
     """
     # Shallow copy so we can pop
@@ -103,8 +102,7 @@ def reorder_metadata(attrs: dict) -> dict:
 def normalize_and_add_vocabulary(
     attrs: dict, normalizations: dict[str, tuple[dict[str, str], str]]
 ) -> dict:
-    """
-    For each (attr, (value_map, vocab_url)) in `normalizations`:
+    """For each (attr, (value_map, vocab_url)) in `normalizations`:
       - If `attr` exists in attrs:
           * Map attrs[attr] using value_map (or leave it if unmapped)
           * Add attrs[f"{attr}_vocabulary"] = vocab_url
@@ -121,6 +119,7 @@ def normalize_and_add_vocabulary(
     -------
     dict
         attrs with normalized values and added <attr>_vocabulary entries.
+
     """
     for attr, (value_map, vocab_url) in normalizations.items():
         if attr in attrs:
@@ -140,8 +139,7 @@ def normalize_and_add_vocabulary(
 
 
 def clean_metadata(attrs: dict, preferred_keys: dict = None) -> dict:
-    """
-    Clean up a metadata dictionary:
+    """Clean up a metadata dictionary:
     - Normalize key casing
     - Merge aliases with identical values
     - Apply standard naming (via preferred_keys mapping)
@@ -196,8 +194,7 @@ def clean_metadata(attrs: dict, preferred_keys: dict = None) -> dict:
 
 
 def _consolidate_contributors(cleaned: dict) -> dict:
-    """
-    Consolidate creators, PIs, publishers, and contributors into unified fields:
+    """Consolidate creators, PIs, publishers, and contributors into unified fields:
     - contributor_name, contributor_role, contributor_email, contributor_id aligned one-to-one
     - contributing_institutions, with placeholders for vocabularies/roles
     """
@@ -378,8 +375,7 @@ def _consolidate_contributors(cleaned: dict) -> dict:
 
 
 def merge_metadata_aliases(attrs: dict, preferred_keys: dict) -> dict:
-    """
-    Consolidate and rename metadata keys case‑insensitively (except featureType),
+    """Consolidate and rename metadata keys case‑insensitively (except featureType),
     using preferred_keys to map aliases to canonical names.
 
     Parameters
@@ -393,6 +389,7 @@ def merge_metadata_aliases(attrs: dict, preferred_keys: dict) -> dict:
     -------
     dict
         Metadata dictionary with duplicates merged and keys renamed.
+
     """
     merged = {}
     for orig_key, value in attrs.items():
@@ -486,6 +483,7 @@ def standardise_array(ds: xr.Dataset, file_name: str, array_name: str) -> xr.Dat
     ------
     ValueError
         If file_name does not match ds.attrs["source_file"].
+
     """
     # 1) Validate source_file matches
     src = ds.attrs.get("source_file")

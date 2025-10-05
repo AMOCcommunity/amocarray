@@ -54,6 +54,7 @@ def read_41n(
     """Load the 41N transport datasets from a URL or local file path into xarray Datasets.
 
     Parameters
+    ----------
     ----------                                                      source : str, optional
         Local path to the data directory (remote source is handled per-file).
     file_list : str or list of str, optional
@@ -70,9 +71,11 @@ def read_41n(
         List of loaded xarray datasets with basic inline and file-specific metadata.
 
     Raises
+    ------
     ------                                                          ValueError
         If no source is provided for a file and no default URL mapping is found.
     FileNotFoundError                                                   If the file cannot be downloaded or does not exist locally.
+
     """
     log.info("Starting to read 41N dataset")  # Ensure file_list has a default
     if file_list is None:
@@ -175,5 +178,5 @@ def read_41n(
         log_error("No valid 41N files in %s", file_list)
         raise FileNotFoundError(f"No valid data files found in {file_list}")
 
-    log_info("Succesfully loaded %d 41N dataset(s)", len(datasets))
+    log_info("Successfully loaded %d 41N dataset(s)", len(datasets))
     return datasets

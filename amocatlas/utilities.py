@@ -64,8 +64,7 @@ def apply_defaults(default_source: str, default_files: List[str]) -> Callable:
 
 
 def normalize_whitespace(attrs: dict) -> dict:
-    """
-    Replace non-breaking & other unusual whitespace in every string attr value
+    """Replace non-breaking & other unusual whitespace in every string attr value
     with a normal ASCII space, and collapse runs of whitespace down to one space.
     """
     ws_pattern = re.compile(r"\s+")
@@ -145,8 +144,7 @@ def resolve_file_path(
 
 
 def load_array_metadata(array_name: str) -> dict:
-    """
-    Load metadata YAML for a given mooring array.
+    """Load metadata YAML for a given mooring array.
 
     Parameters
     ----------
@@ -157,6 +155,7 @@ def load_array_metadata(array_name: str) -> dict:
     -------
     dict
         Dictionary containing the parsed YAML metadata.
+
     """
     try:
         with (
@@ -227,8 +226,7 @@ REQUIRED_VARIABLE_FIELDS = [
 
 
 def validate_array_yaml(array_name: str, verbose: bool = True) -> bool:
-    """
-    Validate the structure and required fields of an array-level metadata YAML.
+    """Validate the structure and required fields of an array-level metadata YAML.
 
     Parameters
     ----------
@@ -241,6 +239,7 @@ def validate_array_yaml(array_name: str, verbose: bool = True) -> bool:
     -------
     bool
         True if validation passes, False otherwise.
+
     """
     try:
         meta = load_array_metadata(array_name)

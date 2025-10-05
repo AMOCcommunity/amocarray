@@ -107,8 +107,7 @@ def save_dataset(ds: xr.Dataset, output_file: str = "../test.nc") -> bool:
 
 
 def save_AC1_dataset(ds: xr.Dataset, data_dir: Union[str, Path]) -> Path:
-    """
-    Save AC1 dataset to netCDF using the OceanSITES 'id' attribute.
+    """Save AC1 dataset to netCDF using the OceanSITES 'id' attribute.
 
     Parameters
     ----------
@@ -126,6 +125,7 @@ def save_AC1_dataset(ds: xr.Dataset, data_dir: Union[str, Path]) -> Path:
     ------
     ValueError
         If 'id' global attribute is not found.
+
     """
     if "id" not in ds.attrs:
         raise ValueError(

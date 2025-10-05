@@ -1,13 +1,10 @@
-"""
-Tests for AMOCatlas AC1 compliance checker functionality.
-"""
+"""Tests for AMOCatlas AC1 compliance checker functionality."""
 
 import pytest
 import xarray as xr
 import numpy as np
 import tempfile
 import os
-from pathlib import Path
 
 from amocatlas import compliance_checker, logger
 

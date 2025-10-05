@@ -363,7 +363,7 @@ The following attributes are recommended for inclusion in all OceanSITES-complia
    * - ``license``
      - A statement describing the data distribution policy; it may be a project- or DAC-specific statement, but must allow free use of data. OceanSITES has adopted the CLIVAR data policy, which explicitly calls for free and unrestricted data exchange. Details at: http://www.clivar.org/resources/data/data-policy (ACDD)
      - **ex.:**
-        - "Follows CLIVAR (Climate Varibility and Predictability) standards, cf. http://www.clivar.org/resources/data/data-policy. Data available free of charge. User assumes all risk for use of data. User must display citation in any publication or product using data. User must contact PI prior to any commercial use of data."
+        - "Follows CLIVAR (Climate Variability and Predictability) standards, cf. http://www.clivar.org/resources/data/data-policy. Data available free of charge. User assumes all risk for use of data. User must display citation in any publication or product using data. User must contact PI prior to any commercial use of data."
         - "CC-BY-4.0"
      - *S*
    * - ``citation``

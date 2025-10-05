@@ -1,5 +1,4 @@
-"""
-AMOCatlas AC1 Format Compliance Checker
+"""AMOCatlas AC1 Format Compliance Checker
 
 This module provides validation for transport data files converted to AC1 format
 following the OceanSITES/AC1 specification.
@@ -184,8 +183,7 @@ RAPID_SPECS = {
 
 
 class AC1ComplianceChecker:
-    """
-    Compliance checker for AMOCatlas AC1 format files.
+    """Compliance checker for AMOCatlas AC1 format files.
 
     Validates data files against generic AC1 specification and array-specific requirements.
     Separated into generic compliance tests (required for all AC1 files) and
@@ -193,20 +191,19 @@ class AC1ComplianceChecker:
     """
 
     def __init__(self, array_specs=None):
-        """
-        Initialize the compliance checker.
+        """Initialize the compliance checker.
 
         Parameters
         ----------
         array_specs : dict, optional
             Array-specific specifications. Defaults to RAPID_SPECS.
+
         """
         self.array_specs = array_specs if array_specs is not None else RAPID_SPECS
         self.generic_specs = GENERIC_SPECS
 
     def validate_file(self, filepath: str) -> ValidationResult:
-        """
-        Validate a file against AC1 format specification.
+        """Validate a file against AC1 format specification.
 
         Parameters
         ----------
@@ -217,6 +214,7 @@ class AC1ComplianceChecker:
         -------
         ValidationResult
             Validation results with errors and warnings
+
         """
         result = ValidationResult(passed=True)
 
@@ -266,7 +264,7 @@ class AC1ComplianceChecker:
         )
         if not general_match:
             result.errors.append(
-                f"Filename must follow OceanSITES pattern: OS_[PSPANCode]_[StartEndCode]_[ContentType]_[PARTX].nc"
+                "Filename must follow OceanSITES pattern: OS_[PSPANCode]_[StartEndCode]_[ContentType]_[PARTX].nc"
             )
             return None
 
@@ -320,7 +318,6 @@ class AC1ComplianceChecker:
         self, ds: xr.Dataset, file_type: str, result: ValidationResult
     ):
         """Validate dimensions according to generic and file-specific requirements."""
-
         # Generic dimension checks
         self._validate_generic_dimensions(ds, result)
 
@@ -332,7 +329,6 @@ class AC1ComplianceChecker:
 
     def _validate_generic_dimensions(self, ds: xr.Dataset, result: ValidationResult):
         """Validate generic dimension requirements."""
-
         # TIME dimension is always required
         if "TIME" not in ds.sizes:
             result.errors.append("TIME dimension is required")
@@ -344,7 +340,6 @@ class AC1ComplianceChecker:
         self, ds: xr.Dataset, file_type: str, result: ValidationResult
     ):
         """Validate array-specific dimension requirements."""
-
         if file_type not in self.array_specs["file_requirements"]:
             return
 
@@ -418,7 +413,6 @@ class AC1ComplianceChecker:
         self, ds: xr.Dataset, file_type: str, result: ValidationResult
     ):
         """Validate variables and their attributes."""
-
         # Check coordinate variables (generic)
         self._validate_coordinates(ds, result)
 
@@ -433,7 +427,6 @@ class AC1ComplianceChecker:
         self, ds: xr.Dataset, file_type: str, result: ValidationResult
     ):
         """Validate array-specific variable requirements."""
-
         if file_type not in self.array_specs["file_requirements"]:
             return
 
@@ -449,7 +442,6 @@ class AC1ComplianceChecker:
 
     def _validate_coordinates(self, ds: xr.Dataset, result: ValidationResult):
         """Validate coordinate variables using generic specifications."""
-
         for coord_name, coord_spec in self.generic_specs["coordinate_specs"].items():
             if coord_name in ds.coords:
                 coord_var = ds[coord_name]
@@ -495,7 +487,6 @@ class AC1ComplianceChecker:
         self, var_name: str, var: xr.DataArray, result: ValidationResult
     ):
         """Validate individual variable attributes."""
-
         # Required attributes for all variables
         required_attrs = ["long_name", "units"]
 
@@ -586,7 +577,6 @@ class AC1ComplianceChecker:
 
     def _validate_global_attributes(self, ds: xr.Dataset, result: ValidationResult):
         """Validate global attributes (generic and array-specific)."""
-
         # Generic global attribute checks
         self._validate_generic_global_attributes(ds, result)
 
@@ -600,7 +590,6 @@ class AC1ComplianceChecker:
         self, ds: xr.Dataset, result: ValidationResult
     ):
         """Validate generic global attributes required for all AC1 files."""
-
         # Check required attributes
         for attr in self.generic_specs["required_global_attrs"]:
             if attr not in ds.attrs:
@@ -617,7 +606,6 @@ class AC1ComplianceChecker:
         self, ds: xr.Dataset, result: ValidationResult
     ):
         """Validate array-specific global attributes."""
-
         # Check array-specific values
         if (
             "site_code" in ds.attrs
@@ -644,7 +632,6 @@ class AC1ComplianceChecker:
         self, ds: xr.Dataset, result: ValidationResult
     ):
         """Validate additional global attribute requirements."""
-
         # Check time format deviation
         for time_attr in ["time_coverage_start", "time_coverage_end"]:
             if time_attr in ds.attrs:
@@ -741,7 +728,6 @@ class AC1ComplianceChecker:
         self, ds: xr.Dataset, filepath: str, result: ValidationResult
     ):
         """Validate actual data values."""
-
         # Extract date range from filename
         filename = Path(filepath).name
         general_match = re.match(
@@ -821,8 +807,7 @@ class AC1ComplianceChecker:
 
 
 def validate_ac1_file(filepath: str, array_specs=None) -> ValidationResult:
-    """
-    Convenience function to validate an AC1 file.
+    """Convenience function to validate an AC1 file.
 
     Parameters
     ----------
@@ -835,14 +820,14 @@ def validate_ac1_file(filepath: str, array_specs=None) -> ValidationResult:
     -------
     ValidationResult
         Validation results
+
     """
     checker = AC1ComplianceChecker(array_specs)
     return checker.validate_file(filepath)
 
 
 def print_validation_report(result: ValidationResult, filepath: str):
-    """
-    Print a formatted validation report.
+    """Print a formatted validation report.
 
     Parameters
     ----------
@@ -850,6 +835,7 @@ def print_validation_report(result: ValidationResult, filepath: str):
         Validation results
     filepath : str
         Path to the validated file
+
     """
     print(f"\n{'='*60}")
     print(f"AC1 Compliance Report: {Path(filepath).name}")
@@ -876,13 +862,13 @@ def print_validation_report(result: ValidationResult, filepath: str):
 
 
 def create_array_specs_template():
-    """
-    Create a template for array-specific specifications.
+    """Create a template for array-specific specifications.
 
     Returns
     -------
     dict
         Template dictionary showing required structure for array specs
+
     """
     return {
         "file_patterns": {
