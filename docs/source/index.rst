@@ -34,7 +34,6 @@ For recommendations or bug reports, please visit https://github.com/AMOCcommunit
 
    format_overview
    format_orig
-   format_oceanSITES
    format_conversion
    format_AC1
 
