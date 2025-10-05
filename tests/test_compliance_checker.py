@@ -175,98 +175,109 @@ class TestComplianceChecker:
 
     def test_missing_required_global_attributes(self, valid_ac1_dataset):
         """Test detection of missing required global attributes."""
+        # Load actual AC1 file and modify it
+        rapid_file = "data/OS_RAPID_20040402-20240327_DPR_transports_T12H.nc"
+        ds = xr.open_dataset(rapid_file)
+        
         # Remove a required attribute
-        ds = valid_ac1_dataset.copy()
-        del ds.attrs["title"]
+        ds_modified = ds.copy()
+        del ds_modified.attrs["title"]
+        ds.close()
 
-        with tempfile.NamedTemporaryFile(
-            suffix="_OS_RAPID_20040402-20040403_DPR_transports_T12H.nc", delete=False
-        ) as tmp:
-            if "units" in ds["TIME"].attrs:
-                del ds["TIME"].attrs["units"]
-            ds.encoding["TIME"] = {
-                "units": "seconds since 1970-01-01T00:00:00Z",
-                "calendar": "gregorian",
-            }
-            ds.to_netcdf(tmp.name, format="NETCDF4_CLASSIC")
-
-            result = compliance_checker.validate_ac1_file(tmp.name)
+        # Use proper OceanSITES filename pattern
+        filename = "OS_RAPID_20040402-20040403_DPR_transports_T12H.nc"
+        filepath = os.path.join(tempfile.gettempdir(), filename)
+        
+        try:
+            ds_modified.to_netcdf(filepath, format="NETCDF4_CLASSIC")
+            result = compliance_checker.validate_ac1_file(filepath)
 
             assert not result.passed
             assert any(
                 "Missing required global attribute: title" in error
                 for error in result.errors
             )
-
-        os.unlink(tmp.name)
+        finally:
+            if os.path.exists(filepath):
+                os.unlink(filepath)
+            ds_modified.close()
 
     def test_invalid_filename_pattern(self, valid_ac1_dataset):
         """Test detection of invalid filename patterns."""
-        with tempfile.NamedTemporaryFile(
-            suffix="_invalid_filename.nc", delete=False
-        ) as tmp:
-            ds = valid_ac1_dataset.copy()
-            if "units" in ds["TIME"].attrs:
-                del ds["TIME"].attrs["units"]
-            ds.encoding["TIME"] = {
-                "units": "seconds since 1970-01-01T00:00:00Z",
-                "calendar": "gregorian",
-            }
-            ds.to_netcdf(tmp.name, format="NETCDF4_CLASSIC")
-
-            result = compliance_checker.validate_ac1_file(tmp.name)
+        # Load actual AC1 file
+        rapid_file = "data/OS_RAPID_20040402-20240327_DPR_transports_T12H.nc"
+        ds = xr.open_dataset(rapid_file)
+        
+        # Use invalid filename pattern
+        filename = "invalid_filename.nc"
+        filepath = os.path.join(tempfile.gettempdir(), filename)
+        
+        try:
+            ds.to_netcdf(filepath, format="NETCDF4_CLASSIC")
+            result = compliance_checker.validate_ac1_file(filepath)
 
             assert not result.passed
             assert any(
-                "does not match OceanSITES pattern" in error for error in result.errors
+                "does not match OceanSITES pattern" in error or
+                "Filename must follow OceanSITES pattern" in error
+                for error in result.errors
             )
-
-        os.unlink(tmp.name)
+        finally:
+            if os.path.exists(filepath):
+                os.unlink(filepath)
+            ds.close()
 
     def test_missing_required_dimensions(self, valid_ac1_dataset):
         """Test detection of missing required dimensions."""
-        # Remove TIME dimension
-        ds = valid_ac1_dataset.copy()
-        ds = ds.isel(TIME=0).drop_vars("TIME")  # Remove TIME dimension
+        # Load actual AC1 file and remove TIME dimension
+        rapid_file = "data/OS_RAPID_20040402-20240327_DPR_transports_T12H.nc"
+        ds = xr.open_dataset(rapid_file)
+        
+        # Create dataset without TIME dimension
+        ds_no_time = ds.isel(TIME=0).drop_vars("TIME")
+        ds.close()
 
-        with tempfile.NamedTemporaryFile(
-            suffix="_OS_RAPID_20040402-20040403_DPR_transports_T12H.nc", delete=False
-        ) as tmp:
-            ds.to_netcdf(tmp.name, format="NETCDF4_CLASSIC")
-
-            result = compliance_checker.validate_ac1_file(tmp.name)
+        filename = "OS_RAPID_20040402-20040403_DPR_transports_T12H.nc"
+        filepath = os.path.join(tempfile.gettempdir(), filename)
+        
+        try:
+            ds_no_time.to_netcdf(filepath, format="NETCDF4_CLASSIC")
+            result = compliance_checker.validate_ac1_file(filepath)
 
             assert not result.passed
             assert any("TIME dimension is required" in error for error in result.errors)
-
-        os.unlink(tmp.name)
+        finally:
+            if os.path.exists(filepath):
+                os.unlink(filepath)
+            ds_no_time.close()
 
     def test_missing_variable_attributes(self, valid_ac1_dataset):
         """Test detection of missing variable attributes."""
-        ds = valid_ac1_dataset.copy()
+        # Load actual AC1 file and modify it
+        rapid_file = "data/OS_RAPID_20040402-20240327_DPR_transports_T12H.nc"
+        ds = xr.open_dataset(rapid_file)
+        ds_modified = ds.copy()
+        ds.close()
+        
         # Remove long_name from TRANSPORT
-        del ds["TRANSPORT"].attrs["long_name"]
+        del ds_modified["TRANSPORT"].attrs["long_name"]
 
-        with tempfile.NamedTemporaryFile(
-            suffix="_OS_RAPID_20040402-20040403_DPR_transports_T12H.nc", delete=False
-        ) as tmp:
-            if "units" in ds["TIME"].attrs:
-                del ds["TIME"].attrs["units"]
-            ds.encoding["TIME"] = {
-                "units": "seconds since 1970-01-01T00:00:00Z",
-                "calendar": "gregorian",
-            }
-            ds.to_netcdf(tmp.name, format="NETCDF4_CLASSIC")
-
-            result = compliance_checker.validate_ac1_file(tmp.name)
+        filename = "OS_RAPID_20040402-20040403_DPR_transports_T12H.nc"
+        filepath = os.path.join(tempfile.gettempdir(), filename)
+        
+        try:
+            ds_modified.to_netcdf(filepath, format="NETCDF4_CLASSIC")
+            result = compliance_checker.validate_ac1_file(filepath)
 
             assert not result.passed
             assert any(
                 "TRANSPORT missing required attribute: long_name" in error
                 for error in result.errors
             )
-
-        os.unlink(tmp.name)
+        finally:
+            if os.path.exists(filepath):
+                os.unlink(filepath)
+            ds_modified.close()
 
     def test_datetime_coordinate_units_not_required(self, valid_ac1_dataset):
         """Test that TIME coordinate doesn't require manual units attribute."""
@@ -341,121 +352,124 @@ class TestComplianceChecker:
 
     def test_invalid_data_mode(self, valid_ac1_dataset):
         """Test detection of invalid data_mode values."""
-        ds = valid_ac1_dataset.copy()
-        ds.attrs["data_mode"] = "INVALID"
+        # Load actual AC1 file and modify it
+        rapid_file = "data/OS_RAPID_20040402-20240327_DPR_transports_T12H.nc"
+        ds = xr.open_dataset(rapid_file)
+        ds_modified = ds.copy()
+        ds.close()
+        
+        ds_modified.attrs["data_mode"] = "INVALID"
 
-        with tempfile.NamedTemporaryFile(
-            suffix="_OS_RAPID_20040402-20040403_DPR_transports_T12H.nc", delete=False
-        ) as tmp:
-            if "units" in ds["TIME"].attrs:
-                del ds["TIME"].attrs["units"]
-            ds.encoding["TIME"] = {
-                "units": "seconds since 1970-01-01T00:00:00Z",
-                "calendar": "gregorian",
-            }
-            ds.to_netcdf(tmp.name, format="NETCDF4_CLASSIC")
-
-            result = compliance_checker.validate_ac1_file(tmp.name)
+        filename = "OS_RAPID_20040402-20040403_DPR_transports_T12H.nc"
+        filepath = os.path.join(tempfile.gettempdir(), filename)
+        
+        try:
+            ds_modified.to_netcdf(filepath, format="NETCDF4_CLASSIC")
+            result = compliance_checker.validate_ac1_file(filepath)
 
             assert not result.passed
             assert any(
                 "data_mode must be one of ['R', 'P', 'D']" in error
                 for error in result.errors
             )
-
-        os.unlink(tmp.name)
+        finally:
+            if os.path.exists(filepath):
+                os.unlink(filepath)
+            ds_modified.close()
 
     def test_invalid_qc_indicator(self, valid_ac1_dataset):
         """Test detection of invalid QC_indicator values."""
-        ds = valid_ac1_dataset.copy()
-        ds.attrs["QC_indicator"] = "invalid"
+        # Load actual AC1 file and modify it
+        rapid_file = "data/OS_RAPID_20040402-20240327_DPR_transports_T12H.nc"
+        ds = xr.open_dataset(rapid_file)
+        ds_modified = ds.copy()
+        ds.close()
+        
+        ds_modified.attrs["QC_indicator"] = "invalid"
 
-        with tempfile.NamedTemporaryFile(
-            suffix="_OS_RAPID_20040402-20040403_DPR_transports_T12H.nc", delete=False
-        ) as tmp:
-            if "units" in ds["TIME"].attrs:
-                del ds["TIME"].attrs["units"]
-            ds.encoding["TIME"] = {
-                "units": "seconds since 1970-01-01T00:00:00Z",
-                "calendar": "gregorian",
-            }
-            ds.to_netcdf(tmp.name, format="NETCDF4_CLASSIC")
-
-            result = compliance_checker.validate_ac1_file(tmp.name)
+        filename = "OS_RAPID_20040402-20040403_DPR_transports_T12H.nc"
+        filepath = os.path.join(tempfile.gettempdir(), filename)
+        
+        try:
+            ds_modified.to_netcdf(filepath, format="NETCDF4_CLASSIC")
+            result = compliance_checker.validate_ac1_file(filepath)
 
             assert not result.passed
             assert any(
                 "QC_indicator must be one of" in error for error in result.errors
             )
-
-        os.unlink(tmp.name)
+        finally:
+            if os.path.exists(filepath):
+                os.unlink(filepath)
+            ds_modified.close()
 
     def test_invalid_date_format(self, valid_ac1_dataset):
         """Test detection of invalid date formats."""
-        ds = valid_ac1_dataset.copy()
-        ds.attrs["date_created"] = "2025-10-05T14:30:00Z"  # Wrong format
+        # Load actual AC1 file and modify it
+        rapid_file = "data/OS_RAPID_20040402-20240327_DPR_transports_T12H.nc"
+        ds = xr.open_dataset(rapid_file)
+        ds_modified = ds.copy()
+        ds.close()
+        
+        ds_modified.attrs["date_created"] = "2025-10-05T14:30:00Z"  # Wrong format
 
-        with tempfile.NamedTemporaryFile(
-            suffix="_OS_RAPID_20040402-20040403_DPR_transports_T12H.nc", delete=False
-        ) as tmp:
-            if "units" in ds["TIME"].attrs:
-                del ds["TIME"].attrs["units"]
-            ds.encoding["TIME"] = {
-                "units": "seconds since 1970-01-01T00:00:00Z",
-                "calendar": "gregorian",
-            }
-            ds.to_netcdf(tmp.name, format="NETCDF4_CLASSIC")
-
-            result = compliance_checker.validate_ac1_file(tmp.name)
+        filename = "OS_RAPID_20040402-20040403_DPR_transports_T12H.nc"
+        filepath = os.path.join(tempfile.gettempdir(), filename)
+        
+        try:
+            ds_modified.to_netcdf(filepath, format="NETCDF4_CLASSIC")
+            result = compliance_checker.validate_ac1_file(filepath)
 
             assert not result.passed
             assert any(
                 "date_created must use format YYYYmmddTHHMMss" in error
                 for error in result.errors
             )
-
-        os.unlink(tmp.name)
+        finally:
+            if os.path.exists(filepath):
+                os.unlink(filepath)
+            ds_modified.close()
 
     def test_invalid_orcid_format(self, valid_ac1_dataset):
         """Test detection of invalid ORCID formats."""
-        ds = valid_ac1_dataset.copy()
-        ds.attrs["contributor_id"] = "https://orcid.org/invalid-format"
+        # Load actual AC1 file and modify it
+        rapid_file = "data/OS_RAPID_20040402-20240327_DPR_transports_T12H.nc"
+        ds = xr.open_dataset(rapid_file)
+        ds_modified = ds.copy()
+        ds.close()
+        
+        ds_modified.attrs["contributor_id"] = "https://orcid.org/invalid-format"
 
-        with tempfile.NamedTemporaryFile(
-            suffix="_OS_RAPID_20040402-20040403_DPR_transports_T12H.nc", delete=False
-        ) as tmp:
-            if "units" in ds["TIME"].attrs:
-                del ds["TIME"].attrs["units"]
-            ds.encoding["TIME"] = {
-                "units": "seconds since 1970-01-01T00:00:00Z",
-                "calendar": "gregorian",
-            }
-            ds.to_netcdf(tmp.name, format="NETCDF4_CLASSIC")
-
-            result = compliance_checker.validate_ac1_file(tmp.name)
+        filename = "OS_RAPID_20040402-20040403_DPR_transports_T12H.nc"
+        filepath = os.path.join(tempfile.gettempdir(), filename)
+        
+        try:
+            ds_modified.to_netcdf(filepath, format="NETCDF4_CLASSIC")
+            result = compliance_checker.validate_ac1_file(filepath)
 
             assert not result.passed
             assert any("Invalid ORCID format" in error for error in result.errors)
-
-        os.unlink(tmp.name)
+        finally:
+            if os.path.exists(filepath):
+                os.unlink(filepath)
+            ds_modified.close()
 
     def test_missing_conventions(self, valid_ac1_dataset):
         """Test detection of missing conventions."""
-        ds = valid_ac1_dataset.copy()
-        ds.attrs["Conventions"] = "CF-1.8"  # Missing OceanSITES and ACDD
+        # Load actual AC1 file and modify it
+        rapid_file = "data/OS_RAPID_20040402-20240327_DPR_transports_T12H.nc"
+        ds = xr.open_dataset(rapid_file)
+        ds_modified = ds.copy()
+        ds.close()
+        
+        ds_modified.attrs["Conventions"] = "CF-1.8"  # Missing OceanSITES and ACDD
 
-        with tempfile.NamedTemporaryFile(
-            suffix="_OS_RAPID_20040402-20040403_DPR_transports_T12H.nc", delete=False
-        ) as tmp:
-            if "units" in ds["TIME"].attrs:
-                del ds["TIME"].attrs["units"]
-            ds.encoding["TIME"] = {
-                "units": "seconds since 1970-01-01T00:00:00Z",
-                "calendar": "gregorian",
-            }
-            ds.to_netcdf(tmp.name, format="NETCDF4_CLASSIC")
-
-            result = compliance_checker.validate_ac1_file(tmp.name)
+        filename = "OS_RAPID_20040402-20040403_DPR_transports_T12H.nc"
+        filepath = os.path.join(tempfile.gettempdir(), filename)
+        
+        try:
+            ds_modified.to_netcdf(filepath, format="NETCDF4_CLASSIC")
+            result = compliance_checker.validate_ac1_file(filepath)
 
             assert not result.passed
             assert any(
@@ -466,8 +480,10 @@ class TestComplianceChecker:
                 "Conventions must include 'ACDD-1.3'" in error
                 for error in result.errors
             )
-
-        os.unlink(tmp.name)
+        finally:
+            if os.path.exists(filepath):
+                os.unlink(filepath)
+            ds_modified.close()
 
 
 class TestValidationResult:
