@@ -1,13 +1,12 @@
 AMOCatlas Format AC1
 ====================
 
-This document defines the AC1 (AMOCatlas Comprehensive) standard data format with enhanced OceanSITES compliance. This format provides maximum interoperability between moored estimates of overturning transport from the RAPID, OSNAP, MOVE and SAMBA arrays while ensuring full compliance with international oceanographic data standards.
+This document defines the AC1 (Atlantic Circulation) standard data format which is an OceanSITES variant with small deviations.  This format provides interoperability between moored estimates of overturning transport from the RAPID, OSNAP, MOVE and SAMBA arrays while ensuring compliance with international oceanographic data standards.  Note the deviations below (:ref:`deviations-from-oceansites`).
 
 **Relationship to Other Format Documents:**
 
 - :doc:`format_orig` - Documents native data formats from each array
 - :doc:`format_conversion` - Describes conversion strategies from native to standardized formats  
-- :doc:`format_oceanSITES` - Details OceanSITES compliance requirements
 - :doc:`format_AC1` - Current standardized output format implementation
 - **This document (format_AC1)** - AC1 format with full OceanSITES integration
 
@@ -18,28 +17,28 @@ This document defines the AC1 (AMOCatlas Comprehensive) standard data format wit
 1. Overview & Context
 ---------------------
 
-The AC1 format incorporates comprehensive OceanSITES v1.4 compliance for enhanced discoverability and interoperability, while adding rich metadata and standardized naming conventions for global data exchange.
+The AC1 format incorporates OceanSITES v1.4 compliance for enhanced discoverability and interoperability, while adding additional metadata (vocabularies) and standardised naming conventions.
 
 The AC1 format provides enhanced compliance with:
 
 - **Full Standards Compliance**: Complete implementation of CF Conventions 1.8, OceanSITES 1.4, and ACDD 1.3
 - **Enhanced Discoverability**: Rich metadata using controlled vocabularies for global data catalogs
 - **Workflow Integration**: Compatible with existing AMOCatlas workflows
-- **International Interoperability**: Full compliance with OceanSITES and GDAC requirements
+- **International Interoperability**: Compliance with OceanSITES and GDAC requirements
 - **Provenance Tracking**: Comprehensive attribution to original data providers
 - **Extensibility**: Supports future variables and array additions
 
 1.1 Relationship to Standards
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The AC1 format represents the comprehensive standardization level in the AMOCatlas hierarchy:
+The AC1 format represents the standardization level in the AMOCatlas hierarchy:
 
 .. code-block:: text
 
    Native Formats → Internal standardised → AC1 Standard  
    (format_orig)       (format_Atlas)       (format_AC1)    
 
-**Compliance Framework**: AC1 datasets are designed to meet:
+**Compliance Framework**: OceanSITES AC1 datasets are designed to meet:
 
 - CF Conventions 1.8 compliance (validation tools to be implemented)
 - OceanSITES 1.4 compatibility (with documented deviations as specified in :ref:`deviations-from-oceansites`)
@@ -99,7 +98,7 @@ AC1 implements OceanSITES 1.4 with the following deviations optimized for AMOC a
 - **Coordinate Units**: `UDUNITS-2 <https://docs.unidata.ucar.edu/udunits/current/#Database>`_ singular forms provide better tool compatibility than OceanSITES plural forms
 - **Sverdrup Unit**: Full spelling prevents confusion with ``Sv`` (sievert radiation unit)
 
-These deviations maintain full CF compliance and ISO 8601 compatibility while optimizing for AMOC-specific scientific requirements.
+These deviations maintain CF compliance and ISO 8601 compatibility while optimizing for AMOC-specific scientific requirements.
 
 3. File Organisation & Naming
 -----------------------------
@@ -124,7 +123,7 @@ Files follow the OceanSITES naming pattern with AMOC-specific modifications:
 - ``OS_RAPID_20040401-20230211_D_transports_T12H.nc`` - Delayed-mode transport data
 - ``OS_OSNAP_20140801-20200601_D_sections_T1M.nc`` - Delayed-mode section data
 
-**Reference**: See OceanSITES file naming in "4.1.1 Deployment Data files Naming Convention".
+**Reference**: See OceanSITES file naming in "4.1.1 Deployment Data files Naming Convention" of the OceanSITES manual (https://ocean-uhh.github.io/oceanarray/oceanSITES_manual.html#data-files).
 
 
 
