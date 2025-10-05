@@ -180,7 +180,7 @@ class TestComplianceChecker:
         """Test detection of missing required global attributes."""
         # Load actual AC1 file and modify it
         ds = xr.open_dataset(TEST_AC1_FILE)
-        
+
         # Remove a required attribute
         ds_modified = ds.copy()
         del ds_modified.attrs["title"]
@@ -189,7 +189,7 @@ class TestComplianceChecker:
         # Use proper OceanSITES filename pattern
         filename = "OS_RAPID_20040402-20040403_DPR_transports_T12H.nc"
         filepath = os.path.join(tempfile.gettempdir(), filename)
-        
+
         try:
             ds_modified.to_netcdf(filepath, format="NETCDF4_CLASSIC")
             result = compliance_checker.validate_ac1_file(filepath)
@@ -208,19 +208,19 @@ class TestComplianceChecker:
         """Test detection of invalid filename patterns."""
         # Load actual AC1 file
         ds = xr.open_dataset(TEST_AC1_FILE)
-        
+
         # Use invalid filename pattern
         filename = "invalid_filename.nc"
         filepath = os.path.join(tempfile.gettempdir(), filename)
-        
+
         try:
             ds.to_netcdf(filepath, format="NETCDF4_CLASSIC")
             result = compliance_checker.validate_ac1_file(filepath)
 
             assert not result.passed
             assert any(
-                "does not match OceanSITES pattern" in error or
-                "Filename must follow OceanSITES pattern" in error
+                "does not match OceanSITES pattern" in error
+                or "Filename must follow OceanSITES pattern" in error
                 for error in result.errors
             )
         finally:
@@ -232,14 +232,14 @@ class TestComplianceChecker:
         """Test detection of missing required dimensions."""
         # Load actual AC1 file and remove TIME dimension
         ds = xr.open_dataset(TEST_AC1_FILE)
-        
+
         # Create dataset without TIME dimension
         ds_no_time = ds.isel(TIME=0).drop_vars("TIME")
         ds.close()
 
         filename = "OS_RAPID_20040402-20040403_DPR_transports_T12H.nc"
         filepath = os.path.join(tempfile.gettempdir(), filename)
-        
+
         try:
             ds_no_time.to_netcdf(filepath, format="NETCDF4_CLASSIC")
             result = compliance_checker.validate_ac1_file(filepath)
@@ -257,13 +257,13 @@ class TestComplianceChecker:
         ds = xr.open_dataset(TEST_AC1_FILE)
         ds_modified = ds.copy()
         ds.close()
-        
+
         # Remove long_name from TRANSPORT
         del ds_modified["TRANSPORT"].attrs["long_name"]
 
         filename = "OS_RAPID_20040402-20040403_DPR_transports_T12H.nc"
         filepath = os.path.join(tempfile.gettempdir(), filename)
-        
+
         try:
             ds_modified.to_netcdf(filepath, format="NETCDF4_CLASSIC")
             result = compliance_checker.validate_ac1_file(filepath)
@@ -355,12 +355,12 @@ class TestComplianceChecker:
         ds = xr.open_dataset(TEST_AC1_FILE)
         ds_modified = ds.copy()
         ds.close()
-        
+
         ds_modified.attrs["data_mode"] = "INVALID"
 
         filename = "OS_RAPID_20040402-20040403_DPR_transports_T12H.nc"
         filepath = os.path.join(tempfile.gettempdir(), filename)
-        
+
         try:
             ds_modified.to_netcdf(filepath, format="NETCDF4_CLASSIC")
             result = compliance_checker.validate_ac1_file(filepath)
@@ -381,12 +381,12 @@ class TestComplianceChecker:
         ds = xr.open_dataset(TEST_AC1_FILE)
         ds_modified = ds.copy()
         ds.close()
-        
+
         ds_modified.attrs["QC_indicator"] = "invalid"
 
         filename = "OS_RAPID_20040402-20040403_DPR_transports_T12H.nc"
         filepath = os.path.join(tempfile.gettempdir(), filename)
-        
+
         try:
             ds_modified.to_netcdf(filepath, format="NETCDF4_CLASSIC")
             result = compliance_checker.validate_ac1_file(filepath)
@@ -406,12 +406,12 @@ class TestComplianceChecker:
         ds = xr.open_dataset(TEST_AC1_FILE)
         ds_modified = ds.copy()
         ds.close()
-        
+
         ds_modified.attrs["date_created"] = "2025-10-05T14:30:00Z"  # Wrong format
 
         filename = "OS_RAPID_20040402-20040403_DPR_transports_T12H.nc"
         filepath = os.path.join(tempfile.gettempdir(), filename)
-        
+
         try:
             ds_modified.to_netcdf(filepath, format="NETCDF4_CLASSIC")
             result = compliance_checker.validate_ac1_file(filepath)
@@ -432,12 +432,12 @@ class TestComplianceChecker:
         ds = xr.open_dataset(TEST_AC1_FILE)
         ds_modified = ds.copy()
         ds.close()
-        
+
         ds_modified.attrs["contributor_id"] = "https://orcid.org/invalid-format"
 
         filename = "OS_RAPID_20040402-20040403_DPR_transports_T12H.nc"
         filepath = os.path.join(tempfile.gettempdir(), filename)
-        
+
         try:
             ds_modified.to_netcdf(filepath, format="NETCDF4_CLASSIC")
             result = compliance_checker.validate_ac1_file(filepath)
@@ -455,12 +455,12 @@ class TestComplianceChecker:
         ds = xr.open_dataset(TEST_AC1_FILE)
         ds_modified = ds.copy()
         ds.close()
-        
+
         ds_modified.attrs["Conventions"] = "CF-1.8"  # Missing OceanSITES and ACDD
 
         filename = "OS_RAPID_20040402-20040403_DPR_transports_T12H.nc"
         filepath = os.path.join(tempfile.gettempdir(), filename)
-        
+
         try:
             ds_modified.to_netcdf(filepath, format="NETCDF4_CLASSIC")
             result = compliance_checker.validate_ac1_file(filepath)
