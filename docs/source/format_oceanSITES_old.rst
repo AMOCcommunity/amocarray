@@ -28,15 +28,15 @@ File naming for array data products
 
 - `PSPANCode`: the `[PlatformCode]` can be replaced with an appropriate choice of site, project, array or network which can be taken from the global attributes of the underlying source data.  For `amocatlas`, we will use the `array` global attribute (should be e.g. RAPID, OSNAP, MOVE, SAMBA, 11South).
 
-- `StartEndCode`: the `[DeploymentCode]` can be replaced with a time range that is appropriate for the data in the file.  For `amocatlas`, this will be the time range of the data in the file. Preferred format is e.g. "20050301-20190831" to indicate data from March 2005 through August 2019.
+- `StartEndCode`: the `[DeploymentCode]` can be replaced with a time range that is appropriate for the data in the file.  For `amocatlas`, this will be the time range of the data in the file. Preferred format is e.g. “20050301-20190831” to indicate data from March 2005 through August 2019.
 
 - `ContentType`: the `[DataMode]` can be replaced with a three-letter code that describes the content of the file (distinguished from the deployment files, which have a one-letter code here), one of:
 
-  - LTS (not used in `amocatlas`): The data are "long time series" data that are essentially at the native instrumental resolution in space and time. The primary difference from the deployment-by-deployment files is that a single file contains merged data from multiple deployments.
+  - LTS (not used in `amocatlas`): The data are “long time series” data that are essentially at the native instrumental resolution in space and time. The primary difference from the deployment-by-deployment files is that a single file contains merged data from multiple deployments.
 
-  - GRD: The data are "gridded", meaning that some sort of binning, averaging, interpolating has been done to format the data onto a space-time grid that is different from the native resolution, and more than a simple concatenation like the "LTS" option.  This is what OSNAP and RAPID provide for their TEMPERATURE and SALINITY fields.
+  - GRD: The data are “gridded”, meaning that some sort of binning, averaging, interpolating has been done to format the data onto a space-time grid that is different from the native resolution, and more than a simple concatenation like the “LTS” option.  This is what OSNAP and RAPID provide for their TEMPERATURE and SALINITY fields.
 
-  - DPR: The data are a "derived product", which means that there are data that were derived from multiple sites or some other higher-order processing that the data provider distinguishes from the lower-level data. This is the case for the overturning transports and component transports and streamfunctions.
+  - DPR: The data are a “derived product”, which means that there are data that were derived from multiple sites or some other higher-order processing that the data provider distinguishes from the lower-level data. This is the case for the overturning transports and component transports and streamfunctions.
 
 - [PARTX] - An optional user-defined field for additional identification or explanation of data. For gridded data, this could include the record interval as subfields of ISO 8601 (PnYnMnDTnHnMnS), e.g. P1M for monthly data, T30M for 30 minutes, T1H for hourly.  For `amocatlas`, this will be a short code corresponding to the types of data in the file:
 
@@ -163,7 +163,7 @@ The following global attributes are recommended for inclusion in all OceanSITES-
      - "Oceanographic mooring data from the RAPID array at 26°N in the Atlantic since 2004.  Measured properties: temperature, salinity at 20 dbar intervals and 10-day intervals."
      - *S*
    * - ``source``
-     - Use a term from the `SeaVoX Platform Categories vocabulary (L06) <https://vocab.nerc.ac.uk/collection/L06/current/>`_ list, usually one of the following: "moored surface buoy", "subsurface mooring", "ship" (CF)
+     - Use a term from the `SeaVoX Platform Categories vocabulary (L06) <https://vocab.nerc.ac.uk/collection/L06/current/>`_ list, usually one of the following: “moored surface buoy”, “subsurface mooring”, ”ship” (CF)
      - **ex.:**
         - "subsurface mooring"
         - "orbiting satellite"
@@ -173,22 +173,38 @@ The following global attributes are recommended for inclusion in all OceanSITES-
         - "fixed benthic node"
         - "research vessel" or "ship"
      - *HD*
-   * - ``contributor_name``
-     - Name of the person(s) responsible for the scientific project. Multiple contributors are separated by commas. (Following AMOCatlas standardization pattern)
+   * - ``principal_investigator``
+     - Name of the person responsible for the scientific project.  Multiple PIs are separated by commas.
      - **ex.:** "Alice Juarez, John Smith"
      - **M**
-   * - ``contributor_email``
-     - Email address of the contributors. Multiple emails separated by commas, aligned one-to-one with contributor_name.
+   * - ``principal_investigator_email``
+     - Email address of the PI.
      - **ex.:** "ajuarez@whoi.edu, john.smith@noc.ac.uk"
+     - *S*
+   * - ``principal_investigator_id``
+     - ORCiD or other persistent ID for the PI.
+     - **ex.:** "https://orcid.org/0000-0001-5044-7079, "
      - **M**
-   * - ``contributor_id``
-     - ORCiD or other persistent ID for the contributors. Multiple IDs separated by commas.
-     - **ex.:** "https://orcid.org/0000-0001-5044-7079, https://orcid.org/0000-0002-1234-5678"
-     - *HD*
-   * - ``contributor_role``
-     - Role of each contributor. Multiple roles separated by commas, aligned one-to-one with contributor_name.
-     - **ex.:** "PI, creator"
-     - **M**
+   * - ``creator_name``
+     - Name of the person (or group) who created the dataset.  Multiple creators are separated by commas.
+     - **ex.:** "Alice Juarez"
+     - *S*
+   * - ``creator_email``
+     - Email address of the creator.
+     - **ex.:** "ajuarez@whoi.edu"
+     - *S*
+   * - ``creator_id``
+     - ORCiD or other persistent ID for the creator.
+     - **ex.:** "https://orcid.org/0000-0001-5044-7079"
+     - *S*
+   * - ``creator_type``
+     - Describes the creator entity: ``person``, ``group``, ``institution``, or ``position``.
+     - **ex.:** "institution"
+     - *S*
+   * - ``creator_institution``
+     - Institution associated with the creator.
+     - **ex.:** "WHOI"
+     - *S*
    * - ``keywords_vocabulary``
      - Vocabulary source for keywords. E.g. `GCMD Science Keywords <https://gcmd.earthdata.nasa.gov/KeywordViewer/>`_.
      - **ex.:** "GCMD Science Keywords"
@@ -202,9 +218,17 @@ The following global attributes are recommended for inclusion in all OceanSITES-
      - **ex.:** "Preliminary version; subject to revision"
      - *S*
    * - ``platform_code``
-     - A unique platform code.  This code is either assigned by the site PI (see contributor_name/contributor_role) or by the data provider.
+     - A unique platform code.  This code is either assigned by the site PI (see principal_investigator) or by the data provider.
      - Note that this is required for OceanSITES for GDAC, but it is not implemented in the current version of the `amocatlas` package.
      - **M** (for GDAC)
+   * - ``principal_investigator_url``
+     - Web URL for the PI.
+     - "https://whoi.edu/profile/ajuarez"
+     - *S*
+   * - ``creator_url``
+     - Web profile for the creator.
+     - **ex.:** "https://whoi.edu/profile/ajuarez"
+     - *S*
    * - ``network``
      - A grouping of sites based on common shore-based logistics, funding, or infrastructure.
      - **ex.:** "EuroSITES"
@@ -242,7 +266,7 @@ The following attributes are recommended for inclusion in all OceanSITES-complia
         - **format:** decimal degree
      - **M** (for GDAC)
    * - ``geospatial_lat_units``
-     - Must conform to `udunits <https://www.unidata.ucar.edu/software/udunits/>`_. If not specified then "degree_north" is assumed. (ACDD)
+     - Must conform to `udunits <https://www.unidata.ucar.edu/software/udunits/>`_. If not specified then ”degree_north” is assumed. (ACDD)
      - **ex.:** geospatial_lat_units =  "degrees_north"
      - *S*
    * - ``geospatial_lon_min``
@@ -256,7 +280,7 @@ The following attributes are recommended for inclusion in all OceanSITES-complia
         - **format:** decimal degree
      - **M** (for GDAC)
    * - ``geospatial_lon_units``
-     - Must conform to `udunits <https://www.unidata.ucar.edu/software/udunits/>`_. If not specified then "degree_east" is assumed. (ACDD)
+     - Must conform to `udunits <https://www.unidata.ucar.edu/software/udunits/>`_. If not specified then ”degree_east” is assumed. (ACDD)
      - **ex.:** geospatial_lon_units = "degrees_east"
      - *S*
    * - ``geospatial_vertical_min``
@@ -272,11 +296,11 @@ The following attributes are recommended for inclusion in all OceanSITES-complia
         - **format:** meter depth
      - **M** (for GDAC)
    * - ``geospatial_vertical_positive``
-     - Indicates which direction is positive; "up" means that z represents height, while a value of "down" means that z represents pressure or depth. If not specified then "down" is assumed. (ACDD)
+     - Indicates which direction is positive; "up" means that z represents height, while a value of "down" means that z represents pressure or depth. If not specified then “down” is assumed. (ACDD)
      - **ex.:** geospatial_vertical_positive = "down"
      - *S*
    * - ``geospatial_vertical_units``
-     - Units of depth, pressure, or height. If not specified then "meter" is assumed. (ACDD)
+     - Units of depth, pressure, or height. If not specified then “meter” is assumed. (ACDD)
      - **ex.:** geospatial_vertical_units = "m"
      - *S*
    * - ``time_coverage_start``
@@ -292,7 +316,7 @@ The following attributes are recommended for inclusion in all OceanSITES-complia
         - **format:** formatted string, ISO 8601
      - **M** (for GDAC)
    * - ``time_coverage_duration``
-     - Use ISO 8601 'duration' convention (ACDD)
+     - Use ISO 8601 ‘duration’ convention (ACDD)
      - **ex.:**
         - "P415D" (415 days)
         - "P1Y" (1 year)
@@ -313,7 +337,7 @@ The following attributes are recommended for inclusion in all OceanSITES-complia
    * - ``data_type``
      - From Reference table 1: OceanSITES specific. (GDAC)
      - **ex.:**
-        - "OceanSITES time-series data"
+        - ”OceanSITES time-series data”
      - *M*
 
 3. Conventions
@@ -358,7 +382,7 @@ The following attributes are recommended for inclusion in all OceanSITES-complia
    * - ``references``
      - Published or web-based references that describe the data or methods used to produce it. Include a reference to OceanSITES and a project-specific reference if appropriate.
      - **ex.:**
-        - "http://www.oceansites.org, http://www.noc.soton.ac.uk/animate/index.php"
+        - ”http://www.oceansites.org, http://www.noc.soton.ac.uk/animate/index.php”
      - *S*
    * - ``license``
      - A statement describing the data distribution policy; it may be a project- or DAC-specific statement, but must allow free use of data. OceanSITES has adopted the CLIVAR data policy, which explicitly calls for free and unrestricted data exchange. Details at: http://www.clivar.org/resources/data/data-policy (ACDD)
@@ -373,7 +397,7 @@ The following attributes are recommended for inclusion in all OceanSITES-complia
    * - ``acknowledgement``
      - A place to acknowledge various types of support for the project that produced this data. (ACDD)
      - **ex.:**
-        - acknowledgement="Principal funding for the NTAS experiment is provided by the US NOAA Climate Observation Division."
+        - acknowledgement=”Principal funding for the NTAS experiment is provided by the US NOAA Climate Observation Division.”
      - *S*
 
 5. Provenance
@@ -390,11 +414,11 @@ The following attributes are recommended for inclusion in all OceanSITES-complia
      - RS
    * - ``date_created``
      - The date on which the this file was created. Version date and time for the data contained in the file. See note on time format below. (ACDD)
-     - **ex.:** date_created ="2016-04-11T08:35:00Z"
+     - **ex.:** date_created =”2016-04-11T08:35:00Z”
      - **M**
    * - ``date_modified``
      - The date on which this file was last modified. (ACDD)
-     - **ex.:** date_modified ="2016-04-11T08:35:00Z"
+     - **ex.:** date_modified =”2016-04-11T08:35:00Z”
      - *S*
    * - ``history``
      - Provides an audit trail for modifications to the original data. It should contain a separate line for each modification, with each line beginning with a timestamp, and including user name, modification name, and modification arguments. The time stamp should follow the format outlined in the note on time formats below. (NUG)
@@ -402,7 +426,7 @@ The following attributes are recommended for inclusion in all OceanSITES-complia
      - *S*
    * - ``processing_level``
      - Level of processing and quality control applied to data. Preferred values are listed in reference table 3.
-     - processing_level = "Data verified against model or other contextual information" (OceanSITES specific)
+     - processing_level = ”Data verified against model or other contextual information” (OceanSITES specific)
      - *S*
    * - ``QC_indicator``
      - A value valid for the whole dataset
@@ -510,85 +534,34 @@ All variables must follow CF and OceanSITES standard_name rules (lowercase, unde
 
 Use ``standard_name`` where defined; otherwise, include descriptive ``long_name`` and appropriate ``units``.
 
-.. list-table:: Hydrographic Variables
-   :widths: 25 40 25 10
+.. list-table::
+   :widths: 19 40 28 7
    :header-rows: 1
 
-   * - Variable Name
-     - Variable Attributes
+   * - VARIABLE NAME
+     - variable attributes
      - Example
      - RS
-   * - ``TEMPERATURE``
-        - data type: float32
+   * - ``<PARAM>``
+        - data type: float
         - dimensions: (``TIME``, ``LEVEL``, ``LONGITUDE``)
      -
-        - long_name = "Sea water temperature"
-        - standard_name = "sea_water_temperature"
+        - <PARAM>:long_name = "<X>"
+        - <PARAM>:standard_name = "<X>"
+        - <PARAM>:vocabulary = "";
+        - <PARAM>:_FillValue = <X>
+        - <PARAM>:units = "<X>"
+        - <PARAM>:ancillary_variables = "<PARAM>_QC";
+        - <PARAM>:coordinates = "TIME, LEVEL, LONGITUDE"
+     - ``CT(TIME, LEVEL, LONGITUDE)``
+        - long_name = "Conservative temperature"
+        - standard_name = "sea_water_conservative_temperature"
+        - vocabulary = "https://vocab.nerc.ac.uk/collection/P07/current/IFEDAFIE/"
         - units = "degree_Celsius"
         - valid_min = -2.0
         - valid_max = 35.0
         - _FillValue = NaNf
-        - ancillary_variables = "TEMPERATURE_QC"
-        - coordinates = "TIME LEVEL LONGITUDE"
-     - ``TEMPERATURE(TIME, LEVEL, LONGITUDE)``
-        - long_name = "Sea water temperature"
-        - standard_name = "sea_water_temperature"  
-        - units = "degree_Celsius"
-        - coordinates = "TIME LEVEL LONGITUDE"
-     - *HD*
-   * - ``SALINITY``
-        - data type: float32
-        - dimensions: (``TIME``, ``LEVEL``, ``LONGITUDE``)
-     -
-        - long_name = "Sea water practical salinity"
-        - standard_name = "sea_water_practical_salinity"
-        - units = "psu"
-        - valid_min = 30.0
-        - valid_max = 40.0
-        - _FillValue = NaNf
-        - ancillary_variables = "SALINITY_QC"
-        - coordinates = "TIME LEVEL LONGITUDE"
-     - ``SALINITY(TIME, LEVEL, LONGITUDE)``
-        - long_name = "Sea water practical salinity"
-        - standard_name = "sea_water_practical_salinity"
-        - units = "psu"
-        - coordinates = "TIME LEVEL LONGITUDE"
-     - *HD*
-   * - ``VELOCITY_EAST``
-        - data type: float32
-        - dimensions: (``TIME``, ``LEVEL``, ``LONGITUDE``)
-     -
-        - long_name = "Eastward sea water velocity"
-        - standard_name = "eastward_sea_water_velocity"
-        - units = "m s-1"
-        - valid_min = -2.0
-        - valid_max = 2.0
-        - _FillValue = NaNf
-        - ancillary_variables = "VELOCITY_EAST_QC"
-        - coordinates = "TIME LEVEL LONGITUDE"
-     - ``VELOCITY_EAST(TIME, LEVEL, LONGITUDE)``
-        - long_name = "Eastward sea water velocity"
-        - standard_name = "eastward_sea_water_velocity"
-        - units = "m s-1"
-        - coordinates = "TIME LEVEL LONGITUDE"
-     - *S*
-   * - ``VELOCITY_NORTH``
-        - data type: float32
-        - dimensions: (``TIME``, ``LEVEL``, ``LONGITUDE``)
-     -
-        - long_name = "Northward sea water velocity"
-        - standard_name = "northward_sea_water_velocity"
-        - units = "m s-1"
-        - valid_min = -2.0
-        - valid_max = 2.0
-        - _FillValue = NaNf
-        - ancillary_variables = "VELOCITY_NORTH_QC"
-        - coordinates = "TIME LEVEL LONGITUDE"
-     - ``VELOCITY_NORTH(TIME, LEVEL, LONGITUDE)``
-        - long_name = "Northward sea water velocity"
-        - standard_name = "northward_sea_water_velocity"
-        - units = "m s-1"
-        - coordinates = "TIME LEVEL LONGITUDE"
+        - coordinates = "TIME, LEVEL, LONGITUDE"
      - *S*
 
 
@@ -633,174 +606,6 @@ AMOC array data
 - MOVE data files use dimensions of `TIME` only.   Standard names are missing for some variables (e.g., the `transport_component_internal` and `transport_component_internal_offset` and `transport_component_boundary`).  CF standard names does have `baroclinic_northward_sea_water_velocity` so perhaps we can use `baroclinic_transport_across_line`.
 
 - SAMBA data files are also in `TIME` only.  Standard names are everywhere `Transport_anomaly`. CF conventions allows adding `_anomaly` but then it should be something like `ocean_volume_transport_anomaly_across_line` or something similar.
-
-AMOCatlas AC1 Implementation Status
------------------------------------
-
-The current AMOCatlas AC1 format implementation (``amocatlas.convert.to_AC1()``) follows OceanSITES standards with the following specifics:
-
-**Compliance Status**: ✅ **Compliant with OceanSITES-1.4**
-
-**File Naming**: Follows the OceanSITES pattern ``OS_[PSPANCode]_[StartEndCode]_[ContentType]_[PARTX].nc``
-
-- Example: ``OS_RAPID_20040402-20240327_DPR_transports_T12H.nc``
-
-**Global Attributes**: Includes all mandatory OceanSITES attributes plus additional ACDD-1.3 and CF-1.8 attributes:
-
-.. list-table:: AMOCatlas AC1 Global Attributes Status
-   :widths: 25 15 60
-   :header-rows: 1
-
-   * - Attribute
-     - Status  
-     - Implementation Notes
-   * - **Mandatory OceanSITES**
-     - 
-     - 
-   * - ``Conventions``
-     - ✅ 
-     - ``"CF-1.8, OceanSITES-1.4, ACDD-1.3"``
-   * - ``format_version``
-     - ✅
-     - ``"1.4"``
-   * - ``data_type``
-     - ✅
-     - ``"OceanSITES time-series data"``
-   * - ``featureType``
-     - ✅
-     - ``"timeSeries"`` for transport data
-   * - ``data_mode``
-     - ✅
-     - ``"D"`` (delayed mode)
-   * - ``site_code``
-     - ✅
-     - Array name (e.g., "RAPID")
-   * - ``array``
-     - ✅
-     - Array name (e.g., "RAPID")
-   * - ``platform_code``
-     - ✅
-     - Constructed as ``{array}{latitude}`` (e.g., "RAPID26N")
-   * - ``naming_authority``
-     - ✅
-     - ``"AMOCatlas"``
-   * - ``id``
-     - ✅
-     - Filename without ``.nc`` extension
-   * - ``QC_indicator``
-     - ✅
-     - ``"excellent"`` (default)
-   * - ``processing_level``
-     - ✅
-     - ``"Data verified against model or other contextual information"``
-   * - ``date_created``
-     - ✅
-     - Compact format: ``YYYYmmddTHHMMss``
-   * - **Geo-temporal**
-     - 
-     - 
-   * - ``geospatial_lat_min/max``
-     - ✅
-     - From array latitude position
-   * - ``geospatial_lon_min/max``
-     - ✅
-     - From array longitude extent
-   * - ``time_coverage_start/end``
-     - ✅
-     - Compact format: ``YYYYmmddTHHMMss``
-   * - **Contributors**
-     - 
-     - 
-   * - ``contributor_name``
-     - ✅
-     - Array-specific PI information
-   * - ``contributor_role``
-     - ✅
-     - ``"creator, PI"``
-   * - ``contributor_id``
-     - ✅
-     - ORCID URLs where available
-   * - ``contributor_role_vocabulary``
-     - ✅
-     - ``"https://vocab.nerc.ac.uk/collection/W08/current/"``
-
-**Coordinate System**: Uses standard OceanSITES dimensions and coordinates:
-
-- ``TIME``: Unlimited dimension with axis="T"
-- ``LATITUDE``: Single point for array location with axis="Y" 
-- ``N_COMPONENT``: Component transport dimension (RAPID-specific)
-
-**Variable Structure**: Transport data follows CF naming conventions:
-
-- ``TRANSPORT(N_COMPONENT, TIME)``: Component transports with ``standard_name="ocean_volume_transport_across_line"``
-- ``MOC_TRANSPORT(TIME)``: MOC transport with same standard name
-- ``TRANSPORT_NAME(N_COMPONENT)``: Component labels (unitless descriptive)
-- ``TRANSPORT_DESCRIPTION(N_COMPONENT)``: Component descriptions (unitless descriptive)
-
-**Implementation Deviations from Standard OceanSITES**:
-
-.. list-table:: Deviations and Rationale
-   :widths: 30 40 30
-   :header-rows: 1
-
-   * - Deviation
-     - Rationale
-     - Compliance Impact
-   * - **Date Format**
-     - Uses compact ``YYYYmmddTHHMMss`` instead of ISO 8601 ``YYYY-MM-DDTHH:MM:SSZ``
-     - ⚠️ **Non-standard** but validated by compliance checker
-   * - **Component Dimension**
-     - Uses ``N_COMPONENT`` dimension for transport components
-     - ✅ **Valid** - domain-specific extension
-   * - **Unitless Variables**
-     - ``TRANSPORT_NAME`` and ``TRANSPORT_DESCRIPTION`` have no units
-     - ✅ **Valid** - descriptive/categorical data
-   * - **Units Specification**
-     - Uses ``"sverdrup"`` instead of abbreviated ``"Sv"``
-     - ✅ **Valid** - avoids confusion with sievert radiological unit
-
-**Validation**: The ``amocatlas.compliance_checker`` module validates AC1 files against:
-
-- OceanSITES-1.4 filename patterns
-- Required global attributes
-- CF-1.8 coordinate and variable conventions  
-- ACDD-1.3 discovery metadata
-- UDUNITS-2 compliant units
-
-**Example Output**:
-
-Our current implementation produces files like::
-
-    Global attributes:
-      Conventions: CF-1.8, OceanSITES-1.4, ACDD-1.3
-      format_version: 1.4
-      data_type: OceanSITES time-series data
-      featureType: timeSeries
-      data_mode: D
-      site_code: RAPID
-      array: RAPID
-      platform_code: RAPID26N
-      naming_authority: AMOCatlas
-      id: OS_RAPID_20040402-20240327_DPR_transports_T12H
-      QC_indicator: excellent
-      processing_level: Data verified against model or other contextual information
-      date_created: 20251005T124011
-      time_coverage_start: 20040402T000000
-      time_coverage_end: 20240327T235959
-      # ... plus contributor, geospatial, and institutional metadata
-
-    Variables:
-      TRANSPORT(N_COMPONENT, TIME): Component transports [sverdrup]
-      MOC_TRANSPORT(TIME): MOC transport [sverdrup] 
-      TRANSPORT_NAME(N_COMPONENT): Component names [unitless]
-      TRANSPORT_DESCRIPTION(N_COMPONENT): Component descriptions [unitless]
-
-    Coordinates:
-      TIME(TIME): Time coordinate [seconds since 1970-01-01T00:00:00Z]
-      LATITUDE(LATITUDE): Array latitude [degree_north]
-      N_COMPONENT(N_COMPONENT): Component index [unitless]
-
-**Summary**: AMOCatlas AC1 format is **fully compliant** with OceanSITES-1.4 standards, with minor formatting preferences that enhance usability without compromising interoperability.
 
 
 References

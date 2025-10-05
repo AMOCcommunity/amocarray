@@ -1,9 +1,8 @@
 
-Units Reference: for AC1
-=============================
+Reference: Units
+================
 
 This document summarizes unit definitions relevant to the `amocatlas` project, based on `udunits2-base.xml`.
-
 
 Check out `udunits <https://docs.unidata.ucar.edu/udunits/current/>`_.
 

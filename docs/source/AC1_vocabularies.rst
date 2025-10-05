@@ -1,6 +1,6 @@
 
-Controlled Vocabularies
-============
+Reference: Vocabularies
+=============================
 
 This is an analysis of what vocabularies might be useful for the AC1 datasets.
 
@@ -18,9 +18,8 @@ latitude
 
 - **CF Standard Name**: `latitude`
 - **Suggested Units**: `degree_north`
-- **Vocabulary**: [Insert NERC P07 Concept ID here]
-- **Vocabulary (URI)**: [Insert URI here]
-- **SeaDataNet Parameter**: [Optional — insert if applicable]
+- **Vocabulary**:  NERC P07 Concept ID CFSN0600
+- **Vocabulary (URI)**: http://vocab.nerc.ac.uk/collection/P07/current/CFSN0600/
 - **CMIP6 Variable Name**: `lat`
 - **Notes**:
   - Used for geographic coordinates in regular and curvilinear grids.
@@ -33,9 +32,8 @@ longitude
 
 - **CF Standard Name**: `longitude`
 - **Suggested Units**: `degree_east`
-- **Vocabulary**: [Insert NERC P07 Concept ID here]
-- **Vocabulary (URI)**: [Insert URI here]
-- **SeaDataNet Parameter**: [Optional — insert if applicable]
+- **Vocabulary**:  NERC P07 Concept ID CFSN0554
+- **Vocabulary (URI)**: http://vocab.nerc.ac.uk/collection/P07/current/CFSN0554/
 - **CMIP6 Variable Name**: `lon`
 - **Notes**:
   - Used for geographic coordinates in regular and curvilinear grids.
@@ -143,7 +141,7 @@ sea_water_practical_salinity (PSAL)
 - **Suggested Units**: unitless (PSS-78)
 - **Vocabulary**: NERC P07 Concept ID IADIHDIJ
 - **Vocabulary (URI)**: http://vocab.nerc.ac.uk/collection/P07/current/IADIHDIJ/
-- **SeaDataNet Parameter**: Not listed in https://vocab.seadatanet.org/v_bodc_vocab_v2/search.asp?lib=P02
+- **SeaDataNet Parameter**: http://vocab.nerc.ac.uk/collection/P02/current/PSAL/
 - **CMIP6 Variable Name**: `so`
 - **Definition:** Practical Salinity (S_P) is derived from conductivity measurements and expressed on the Practical Salinity Scale of 1978 (PSS-78). It is dimensionless and does not represent mass concentration.
 - **Notes**:
@@ -160,7 +158,7 @@ sea_water_salinity (SALIN)
 - **Suggested Units**: unitless or `g kg-1` depending on context
 - **Vocabulary**: NERC P07 Concept ID CFSN0331
 - **Vocabulary (URI)**: https://vocab.nerc.ac.uk/collection/P07/current/CFSN0331/
-- **SeaDataNet Parameter**: Not listed in https://vocab.seadatanet.org/v_bodc_vocab_v2/search.asp?lib=P02
+- **SeaDataNet Parameter**: Could be http://vocab.nerc.ac.uk/collection/P02/current/PSAL/
 - **CMIP6 Variable Name**: sometimes `so`
 - **Definition:** A general term for the salt content of sea water, not tied to a specific measurement scale (e.g., PSS-78). Use only when the salinity type is unknown or does not conform to a defined standard.
 - **Notes**:
@@ -183,7 +181,6 @@ sea_water_pressure (PRES)
 - **Suggested Units**: `dbar`
 - **Vocabulary**: NERC P07 Concept ID CFSN0330
 - **Vocabulary (URI)**: https://vocab.nerc.ac.uk/collection/P07/current/CFSN0330/
-- **SeaDataNet Parameter**: Not listed in https://vocab.seadatanet.org/v_bodc_vocab_v2/search.asp?lib=P02
 - **CMIP6 Variable Name**: Not typically output
 - **Notes**:
   - Often derived from depth using standard formulas or pressure sensor readings.
@@ -198,7 +195,6 @@ sea_water_pressure_at_sea_floor (BOTPRES)
 - **Suggested Units**: `dbar`
 - **Vocabulary**: NERC P07 Concept ID CF12N583
 - **Vocabulary (URI)**: http://vocab.nerc.ac.uk/collection/P07/current/CF12N583/
-- **SeaDataNet Parameter**: Not listed in https://vocab.seadatanet.org/v_bodc_vocab_v2/search.asp?lib=P02
 - **CMIP6 Variable Name**: Not commonly used
 - **Notes**:
   - Common output from bottom pressure recorders (BPRs).
@@ -213,7 +209,6 @@ reference_pressure (REFPRES)
 - **Suggested Units**: `Pa` or `dbar`
 - **Vocabulary**: NERC P07 Concept ID 9334Z59K
 - **Vocabulary (URI)**: http://vocab.nerc.ac.uk/collection/P07/current/9334Z59K/
-- **SeaDataNet Parameter**: Not listed
 - **CMIP6 Variable Name**: Not applicable
 - **Notes**:
   - Required as a scalar coordinate in CF-compliant potential temperature or density fields.
@@ -229,6 +224,7 @@ Density
 - **URI:** http://vocab.nerc.ac.uk/collection/P02/current/SIGT/
 - **Definition:** Absolute determinations of water column density plus parameters (generally expressed as density anomaly) derived from temperature and salinity
 
+
 sea_water_sigma_theta (SIGMA)
 ~~~~~~~~~~~~~~~~~~~~~
 
@@ -238,8 +234,6 @@ sea_water_sigma_theta (SIGMA)
 - **Suggested Units**: `kg m-3` (anomaly: subtract 1000 from density)
 - **Vocabulary**: NERC P07 Concept ID CFSN0333
 - **Vocabulary (URI)**: http://vocab.nerc.ac.uk/collection/P07/current/CFSN0333/
-- **SeaDataNet Parameter**: See P02 DENS
-- **CMIP6 Variable Name**: Not applicable
 - **Definition:** Potential density of sea water (density when moved adiabatically to a reference pressure), minus 1000 kg m⁻³. Commonly used to identify isopycnal surfaces. Reference pressure should be specified via a scalar coordinate with standard name `reference_pressure`.
 - **Notes**:
   - The sigma-theta value is dimensionally equivalent to density minus 1000.
@@ -254,8 +248,6 @@ sea_water_potential_density
 - **Suggested Units**: `kg m-3`
 - **Vocabulary**: NERC P07 Concept ID CFSN0395
 - **Vocabulary (URI)**: http://vocab.nerc.ac.uk/collection/P07/current/CFSN0395/
-- **SeaDataNet Parameter**: See P02 DENS
-- **CMIP6 Variable Name**: Not typically used
 - **Definition:** The density a seawater parcel would have if moved adiabatically to a reference pressure, usually sea level pressure. Reference pressure should be specified using a `reference_pressure` scalar coordinate.
 - **Notes**:
     - Subtract 1000 kg m⁻³ to obtain `sigma_theta`.
@@ -270,7 +262,6 @@ sea_water_neutral_density (GAMMA_N)
 - **Suggested Units**: `kg m-3`
 - **Vocabulary**: NERC P07 Concept ID BBAH2105
 - **Vocabulary (URI)**: http://vocab.nerc.ac.uk/collection/P07/current/BBAH2105/
-- **SeaDataNet Parameter**: See P02 DENS
 - **CMIP6 Variable Name**: `gamma_n`
 - **Definition:** Neutral density is a variable whose surfaces approximately follow the direction of no buoyant motion. Designed to represent the neutral tangent plane slope more closely than potential density.
 - **Notes**:
@@ -292,7 +283,7 @@ ocean_sigma_coordinate
 - **Definition:** A parametric vertical coordinate used primarily in terrain-following ocean models. Not to be confused with `sea_water_sigma_theta`, which is a density-related scalar field.
 - **Notes**:
     - Typically defined by formulas relating model levels to depth using pressure, surface elevation, and  bottom depth.
-    - Not equivalent to `sea_water_sigma_theta`.
+    - *Not* equivalent to `sea_water_sigma_theta`.
     - See CF Conventions Appendix D for formula terms and guidance.
 
 ocean_sigma_z_coordinate
