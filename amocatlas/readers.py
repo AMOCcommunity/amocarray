@@ -116,8 +116,8 @@ def load_dataset(
         The name of the observing array to load. Options are:
         - 'move' : MOVE 16N array
         - 'rapid' : RAPID 26N array
-        - 'osnap' : OSNAP array (2014-2022, latest version)
-        - 'osnap_2025' : OSNAP array (2014-2022, same as 'osnap')
+        - 'osnap' : OSNAP array (2014-2022, configurable version via main reader)
+        - 'osnap_2025' : OSNAP array (2014-2022, dedicated 2025 reader function)
         - 'samba' : SAMBA 34S array
         - 'fw2015' : FW2015 array
         - '41n' : 41N array

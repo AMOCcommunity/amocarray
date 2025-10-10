@@ -90,10 +90,9 @@ OSNAP_FILE_METADATA = {
 }
 
 
-@apply_defaults(None, OSNAP_2025_DEFAULT_FILES)
 def read_osnap(
-    source: str,
-    file_list: Union[str, list[str]],
+    source: str = None,
+    file_list: Union[str, list[str]] = None,
     transport_only: bool = True,
     data_dir: Union[str, Path, None] = None,
     redownload: bool = False,
@@ -107,7 +106,8 @@ def read_osnap(
         Local path to the data directory (remote source is handled per-file).
     file_list : str or list of str, optional
         Filename or list of filenames to process.
-        Defaults to OSNAP_2025_DEFAULT_FILES (latest version).
+        Defaults depend on version: OSNAP_2025_DEFAULT_FILES for "2025", 
+        OSNAP_DEFAULT_FILES for "2020".
     transport_only : bool, optional
         If True, restrict to transport files only.
     data_dir : str, Path or None, optional
