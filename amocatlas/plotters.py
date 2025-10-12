@@ -466,7 +466,8 @@ try:
     import pygmt
 
     HAS_PYGMT = True
-except ImportError:
+except Exception:
+    # Catch ImportError and any GMT library loading errors (GMTCLibNotFoundError, etc.)
     HAS_PYGMT = False
 
 
