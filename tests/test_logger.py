@@ -109,16 +109,23 @@ def test_setup_logger():
             # Test logging to the file
             logger.log_info("Test log message")
             
-            # Force flush handlers
-            for handler in logger.log.handlers:
+            # Force flush and close handlers properly
+            for handler in logger.log.handlers[:]:  # Copy list to avoid modification during iteration
                 handler.flush()
+                if hasattr(handler, 'close'):
+                    handler.close()
+                logger.log.removeHandler(handler)
             
             # Check that message was written to file
             log_content = log_files[0].read_text()
             assert "Test log message" in log_content
             
         finally:
-            # Clean up handlers
+            # Clean up handlers - ensure all are properly closed
+            for handler in logger.log.handlers[:]:
+                if hasattr(handler, 'close'):
+                    handler.close()
+                logger.log.removeHandler(handler)
             logger.log.handlers.clear()
 
 
@@ -161,6 +168,11 @@ def test_setup_logger_duplicate_handlers():
             assert final_handler_count >= 1
             
         finally:
+            # Clean up handlers properly - close file handles first
+            for handler in logger.log.handlers[:]:
+                if hasattr(handler, 'close'):
+                    handler.close()
+                logger.log.removeHandler(handler)
             logger.log.handlers.clear()
 
 
@@ -213,6 +225,11 @@ def test_logger_output_directory_creation():
             assert Path(nested_dir).is_dir()
             
         finally:
+            # Clean up handlers properly
+            for handler in logger.log.handlers[:]:
+                if hasattr(handler, 'close'):
+                    handler.close()
+                logger.log.removeHandler(handler)
             logger.log.handlers.clear()
 
 
