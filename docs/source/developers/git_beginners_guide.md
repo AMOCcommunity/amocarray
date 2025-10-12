@@ -1,4 +1,4 @@
-# Collaborating with git: Basic workflow
+# Git for Beginners: Workflow Guide
 
 See also, the description of actions in https://github.com/eleanorfrajka/template-project/pull/1.
 

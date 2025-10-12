@@ -42,6 +42,7 @@ jobs:
           set -e
           micromamba run -n amocatlas jupyter nbconvert --to notebook --execute notebooks/demo.ipynb --output=demo-output.ipynb --ExecutePreprocessor.allow_errors=False
           micromamba run -n amocatlas jupyter nbconvert --to notebook --execute notebooks/demo-convert.ipynb --output=demo-convert-output.ipynb --ExecutePreprocessor.allow_errors=False
+          micromamba run -n amocatlas jupyter nbconvert --to notebook --execute notebooks/amoc_paperfigs.ipynb --output=amoc_paperfigs-output.ipynb --ExecutePreprocessor.allow_errors=True
           mv notebooks/*output.ipynb docs/source/
           pushd docs
           micromamba run -n amocatlas make clean html

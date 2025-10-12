@@ -32,10 +32,10 @@ For recommendations or bug reports, please visit https://github.com/AMOCcommunit
    :maxdepth: 2
    :caption: Data format
 
-   format_overview
-   format_orig
-   format_conversion
-   format_AC1
+   data_formats/format_overview
+   data_formats/format_orig
+   data_formats/format_conversion
+   data_formats/format_AC1
 
 .. toctree::
    :maxdepth: 2
@@ -43,19 +43,18 @@ For recommendations or bug reports, please visit https://github.com/AMOCcommunit
 
    GitHub Repo <http://github.com/AMOCcommunity/amocatlas>
    amocatlas
-   AC1_vocabularies
-   AC1_units
-   AC1_variables
+   reference/AC1_vocabularies
+   reference/AC1_units
+   reference/AC1_variables
 
 .. toctree::
    :maxdepth: 3
    :caption: Developers' guide
 
-   developer_guide.md
-   gitcollab.md
-   actions.md
-   conventions.md
-   housekeeping.md
+   developers/developer_guide.md
+   developers/git_beginners_guide.md
+   developers/actions.md
+   developers/housekeeping.md
 
 Indices and tables
 ==================
