@@ -99,7 +99,7 @@ pytest-cov
 
 **On Github.com (original repository):** Navigate to the original repository https://github.com/AMOCcommunity/amocatlas.  Once your edits have passed all tests, a review from a repository owner (if required) and been approved, then *you* (as the originator of the change) can "merge".  This will "push" your changes onto the **upstream main** branch.
 
-Recommended (optional): If you find that you make a lot of incremental commits--like (1) you committed something, then realised you forgot to clear all outputs on your python notebook and want to re-save and commit, or (2) you made a change and committed it, then realised you had to update another function to be compatible so went and changed that then committed it--you may want to "Squash and Merge". This will turn the 5 (or 10 or 20) commits in your pull request into a single commit, which cleans up the history of the software.
+Recommended (optional): If you find that you make a lot of incremental commits--like (1) you committed something, then realised you forgot to clear all outputs on your python notebook (except `amoc_paperfigs.ipynb` which should keep outputs) and want to re-save and commit, or (2) you made a change and committed it, then realised you had to update another function to be compatible so went and changed that then committed it--you may want to "Squash and Merge". This will turn the 5 (or 10 or 20) commits in your pull request into a single commit, which cleans up the history of the software.
 
 If you have a lot of distinct commits with different purposes in the same PR, you may *not* want to squash and merge.
 

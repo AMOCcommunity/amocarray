@@ -137,6 +137,18 @@ The *.py* files are separated into broad categories of readers (to load datesets
 - For plotting, see the guidance on uniformity (using standard lineswidths, figure sizes and font sizes etc.). These are all described in `amocatlas/amocatlas.mplstyle`, in case an individual user wants to change these to their preferences.
 - Each new function should have a corresponding test, feel free to ask if you're not sure how to write a test!
 
+### Jupyter Notebook Guidelines
+
+When working with notebooks in this repository:
+
+- **Clear outputs before committing**: Generally, clear all notebook outputs before committing to keep the repository clean
+- **Exception**: `amoc_paperfigs.ipynb` should **keep its outputs** because:
+  - It requires PyGMT/GMT which are not available in CI
+  - The outputs show publication-quality figures that can't be regenerated automatically
+  - This notebook is copied (not executed) during documentation builds
+
+All other notebooks (`demo.ipynb`, `demo-convert.ipynb`, etc.) should have their outputs cleared before committing.
+
 ### Improving The Documentation
 
 Our [documentation](https://amoccommunity.github.io/amocatlas/) is built from the function docstrings and the [example notebook](https://amoccommunity.github.io/amocatlas/demo-output.html). If you think the documentation could be better, do not hesitate to suggest an improvement! Either in an Issue or a PR.
