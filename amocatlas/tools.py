@@ -1,3 +1,5 @@
+"""AMOCatlas analysis tools for data processing, filtering, and calculations."""
+
 import re
 
 import numpy as np
@@ -490,24 +492,24 @@ def apply_tukey_filter(
 
 def handle_samba_gaps(df: pd.DataFrame, time_column: str = "time") -> pd.DataFrame:
     """Handle temporal gaps in SAMBA MOC data to prevent plotting artifacts.
-    
+
     SAMBA data has significant gaps (e.g., 2011-2014) that cause plotting functions
     to draw connecting lines across missing periods. This function creates a regular
     monthly grid and masks interpolation to only occur within existing data periods,
     preventing spurious connections across large gaps.
-    
+
     Parameters
     ----------
     df : pandas.DataFrame
         Input DataFrame with time and MOC columns.
     time_column : str, default "time"
         Name of the datetime column.
-        
+
     Returns
     -------
     pandas.DataFrame
         DataFrame with regular monthly grid and gap-aware data masking.
-        
+
     Notes
     -----
     PyGMT and other plotting functions connect all valid (non-NaN) data points
@@ -517,12 +519,10 @@ def handle_samba_gaps(df: pd.DataFrame, time_column: str = "time") -> pd.DataFra
     3. Only interpolating within continuous data segments
     """
     df_input = df.copy()
-    
+
     # Create a regular monthly time grid covering the range
     monthly_time = pd.date_range(
-        start=df_input[time_column].min(),
-        end=df_input[time_column].max(), 
-        freq="ME"
+        start=df_input[time_column].min(), end=df_input[time_column].max(), freq="ME"
     )
 
     # Reindex to the monthly grid
@@ -532,23 +532,23 @@ def handle_samba_gaps(df: pd.DataFrame, time_column: str = "time") -> pd.DataFra
     if "moc" in df_monthly.columns:
         # Track where original data existed
         mask = df_monthly["moc"].notna()
-        
+
         # Create gap-aware MOC column
         df_monthly["moc_interp"] = np.nan
         df_monthly.loc[mask, "moc_interp"] = df_monthly.loc[mask, "moc"]
-        
+
         # Mark locations with original data
         df_monthly["had_data"] = mask
-        
+
         # Replace original moc with gap-aware version
         df_monthly["moc"] = df_monthly["moc_interp"].where(mask)
         df_monthly = df_monthly.drop(columns=["moc_interp"])
 
     # Reset index for further use
     df_monthly = df_monthly.reset_index().rename(columns={"index": time_column})
-    
+
     # Recalculate time_num if it exists
     if "time_num" in df_monthly.columns:
         df_monthly["time_num"] = to_decimal_year(df_monthly[time_column])
-    
+
     return df_monthly
