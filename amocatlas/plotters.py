@@ -1,3 +1,5 @@
+"""AMOCatlas plotting functions for visualization and publication figures."""
+
 import matplotlib.pyplot as plt
 import pandas as pd
 import xarray as xr
@@ -453,3 +455,616 @@ def plot_monthly_anomalies(**kwargs) -> tuple[plt.Figure, list[plt.Axes]]:
     axes[-1].set_xlabel("Time")
     plt.tight_layout()
     return fig, axes
+
+
+# ------------------------------------------------------------------------------------
+# PyGMT Publication Plotting Functions
+# ------------------------------------------------------------------------------------
+
+# Check for PyGMT availability
+try:
+    import pygmt
+
+    HAS_PYGMT = True
+except ImportError:
+    HAS_PYGMT = False
+
+
+def _check_pygmt():
+    """Check if PyGMT is available and raise informative error if not."""
+    if not HAS_PYGMT:
+        raise ImportError(
+            "PyGMT is required for publication-quality plots. "
+            "Install with: pip install pygmt\n"
+            "Note: PyGMT requires GMT to be installed separately. "
+            "See https://www.pygmt.org/latest/install.html for details."
+        )
+
+
+def _add_amocatlas_timestamp(fig):
+    """Add standardized AMOCatlas timestamp to PyGMT figure.
+
+    Parameters
+    ----------
+    fig : pygmt.Figure
+        PyGMT figure to add timestamp to.
+    """
+    fig.timestamp(
+        label="AMOCatlas", font="10p,Helvetica,gray30", timefmt="%Y-%m-%dT%H:%M"
+    )
+
+
+def plot_moc_timeseries_pygmt(
+    df: pd.DataFrame, column: str = "moc", label: str = "MOC [Sv]"
+):
+    """Plot MOC time series using PyGMT with publication-quality styling.
+
+    Parameters
+    ----------
+    df : pandas.DataFrame
+        DataFrame with 'time_num' (decimal years) and data columns.
+    column : str, default "moc"
+        Name of the column to plot.
+    label : str, default "MOC [Sv]"
+        Y-axis label for the plot.
+
+    Returns
+    -------
+    pygmt.Figure
+        PyGMT figure object.
+
+    Raises
+    ------
+    ImportError
+        If PyGMT is not installed.
+    """
+    _check_pygmt()
+
+    fig = pygmt.Figure()
+
+    pygmt.config(
+        FONT_ANNOT_PRIMARY="20p",  # tick labels
+        FONT_LABEL="20p",  # axis labels
+        FONT_TITLE="20p",  # title (if used)
+        MAP_TICK_LENGTH_PRIMARY="6p",  # major ticks longer
+        MAP_TICK_PEN_PRIMARY="1.2p",  # major ticks thicker
+        MAP_LABEL_OFFSET="10p",  # spacing axis ↔ label
+        MAP_TICK_LENGTH_SECONDARY="3p",  # minor ticks longer
+        MAP_TICK_PEN_SECONDARY="0.8p",  # minor ticks thicker
+        MAP_GRID_PEN="0.25p,gray70,10_5",  # fine dashed grid
+    )
+
+    # --- Define plotting region ---
+    col_filtered = f"{column}_filtered"
+    xmax = max(df["time_num"].max(), 2025)
+    if col_filtered not in df.columns:
+        df[col_filtered] = df[column]
+    ymin = df[[column, col_filtered]].min().min()
+    ymax = df[[column, col_filtered]].max().max()
+    region = [df["time_num"].min(), xmax, ymin, ymax]
+
+    # --- Basemap ---
+    fig.basemap(
+        region=region, projection="X25c/7c", frame=[f"xaf", f"yafg10f5+l{label}", "WS"]
+    )
+
+    # --- Plot original series ---
+    fig.plot(x=df["time_num"], y=df[column], pen=".75p,red", label="Original")
+
+    # --- Plot filtered: thick white background + black foreground ---
+    fig.plot(x=df["time_num"], y=df[col_filtered], pen="3.5p,white")
+    fig.plot(
+        x=df["time_num"], y=df[col_filtered], pen="2.5p,black", label="Filtered (Tukey)"
+    )
+
+    # Add AMOCatlas timestamp
+    _add_amocatlas_timestamp(fig)
+
+    return fig
+
+
+def plot_osnap_components_pygmt(df: pd.DataFrame):
+    """Plot OSNAP MOC components with shaded error bands using PyGMT.
+
+    Parameters
+    ----------
+    df : pandas.DataFrame
+        Must contain:
+        - time_num (decimal years)
+        - MOC_ALL, MOC_EAST, MOC_WEST
+        - MOC_EAST_ERR, MOC_WEST_ERR
+
+    Returns
+    -------
+    pygmt.Figure
+        PyGMT figure object.
+
+    Raises
+    ------
+    ImportError
+        If PyGMT is not installed.
+    """
+    _check_pygmt()
+
+    fig = pygmt.Figure()
+
+    # Styling
+    pygmt.config(
+        FONT_ANNOT_PRIMARY="20p",
+        FONT_LABEL="20p",
+        FONT_TITLE="20p",
+        MAP_TICK_LENGTH_PRIMARY="6p",
+        MAP_TICK_PEN_PRIMARY="1.2p",
+        MAP_LABEL_OFFSET="10p",
+        MAP_TICK_LENGTH_SECONDARY="3p",
+        MAP_TICK_PEN_SECONDARY="0.8p",
+        MAP_GRID_PEN="0.25p,gray70,10_5",
+    )
+
+    # Region
+    xmax = max(df["time_num"].max(), 2022)
+    ymin = df[["MOC_ALL", "MOC_EAST", "MOC_WEST"]].min().min() - 1
+    ymax = df[["MOC_ALL", "MOC_EAST", "MOC_WEST"]].max().max() + 1
+    ymin = min(ymin, -5)
+    ymax = max(ymax, 30)
+    region = [df["time_num"].min(), xmax, ymin, ymax]
+
+    # Basemap
+    fig.basemap(
+        region=region, projection="X15c/7c", frame=[f"xaf", f"yafg5f2+lMOC [Sv]", "WS"]
+    )
+
+    # --- Shaded error for EAST ---
+    east_upper = df["MOC_EAST"] + df["MOC_EAST_ERR"]
+    east_lower = df["MOC_EAST"] - df["MOC_EAST_ERR"]
+
+    # Build filled polygon for EAST
+    import numpy as np
+
+    x_east = np.concatenate([df["time_num"], df["time_num"][::-1]])
+    y_east = np.concatenate([east_upper, east_lower[::-1]])
+    fig.plot(x=x_east, y=y_east, fill="orange", transparency=70, close=True)
+
+    # --- Shaded error for WEST ---
+    west_upper = df["MOC_WEST"] + df["MOC_WEST_ERR"]
+    west_lower = df["MOC_WEST"] - df["MOC_WEST_ERR"]
+    x_west = np.concatenate([df["time_num"], df["time_num"][::-1]])
+    y_west = np.concatenate([west_upper, west_lower[::-1]])
+    fig.plot(x=x_west, y=y_west, fill="blue", transparency=70, close=True)
+
+    # --- Main curves ---
+    fig.plot(x=df["time_num"], y=df["MOC_ALL"], pen="2.5p,black", label="Total")
+    fig.plot(
+        x=df["time_num"],
+        y=df["MOC_EAST"],
+        pen="2.5p,orange",
+        label="East",
+        transparency=20,
+    )
+    fig.plot(x=df["time_num"], y=df["MOC_WEST"], pen="2.5p,blue", label="West")
+
+    # Legend
+    fig.legend(position="JMR+jMR+o-1.5i/0i", box=True)
+
+    # Add AMOCatlas timestamp
+    _add_amocatlas_timestamp(fig)
+
+    return fig
+
+
+def plot_rapid_components_pygmt(df: pd.DataFrame):
+    """Plot RAPID MOC and component transports using PyGMT.
+
+    Parameters
+    ----------
+    df : pandas.DataFrame
+        Must include:
+        - 'time_num'
+        - 'moc_mar_hc10' (total MOC)
+        - 't_gs10' (Florida Current)
+        - 't_ek10' (Ekman)
+        - 't_umo10' (upper mid-ocean)
+
+    Returns
+    -------
+    pygmt.Figure
+        PyGMT figure object.
+
+    Raises
+    ------
+    ImportError
+        If PyGMT is not installed.
+    """
+    _check_pygmt()
+
+    fig = pygmt.Figure()
+
+    pygmt.config(
+        FONT_ANNOT_PRIMARY="20p",
+        FONT_LABEL="20p",
+        FONT_TITLE="20p",
+        MAP_TICK_LENGTH_PRIMARY="6p",
+        MAP_TICK_PEN_PRIMARY="1.2p",
+        MAP_LABEL_OFFSET="10p",
+        MAP_TICK_LENGTH_SECONDARY="3p",
+        MAP_TICK_PEN_SECONDARY="0.8p",
+        MAP_GRID_PEN="0.25p,gray70,10_5",
+    )
+
+    # Set region based on full value range
+    xmax = max(df["time_num"].max(), 2025)
+    components = ["moc_mar_hc10", "t_gs10", "t_ek10", "t_umo10"]
+    ymin = df[components].min().min() - 1
+    ymax = df[components].max().max() + 1
+    region = [df["time_num"].min(), xmax, ymin, ymax]
+
+    # Basemap
+    fig.basemap(
+        region=region,
+        projection="X25c/15c",
+        frame=["xaf", "yafg5f2+lTransport [Sv]", "WS+tRAPID MOC Components"],
+    )
+
+    # Plot each component with custom colors
+    fig.plot(x=df["time_num"], y=df["moc_mar_hc10"], pen="1.5p,red", label="MOC")
+    fig.plot(x=df["time_num"], y=df["t_gs10"], pen="1.5p,blue", label="Florida Current")
+    fig.plot(x=df["time_num"], y=df["t_ek10"], pen="1.5p,black", label="Ekman")
+    fig.plot(
+        x=df["time_num"], y=df["t_umo10"], pen="1.5p,magenta", label="Upper Mid-Ocean"
+    )
+
+    # Plot labels at end of time series with slight offset
+    import pandas as pd
+
+    # Use the actual end date of the time series
+    x_label = df["time_num"].max()
+
+    y_labels = {
+        "MOC": df["moc_mar_hc10"].mean(),
+        "Florida Current": df["t_gs10"].mean(),
+        "Ekman": df["t_ek10"].mean(),
+        "Upper Mid-Ocean": df["t_umo10"].mean(),
+    }
+    colors = {
+        "MOC": "red",
+        "Florida Current": "blue",
+        "Ekman": "black",
+        "Upper Mid-Ocean": "magenta",
+    }
+    for label, y in y_labels.items():
+        fig.text(
+            x=x_label,
+            y=y,
+            text=label,
+            font=f"18p,Helvetica,{colors[label]}",
+            justify="LM",
+            no_clip=True,
+            offset="0.1i/0i",  # Offset 0.1 inches to the right
+        )
+
+    # Add AMOCatlas timestamp
+    _add_amocatlas_timestamp(fig)
+
+    return fig
+
+
+def plot_all_moc_pygmt(osnap_df, rapid_df, move_df, samba_df, filtered: bool = False):
+    """Plot all MOC time series (OSNAP, RAPID, MOVE, SAMBA) in a stacked PyGMT figure.
+
+    Parameters
+    ----------
+    osnap_df : pandas.DataFrame
+        OSNAP MOC data with 'time_num' and 'moc'/'moc_filtered'.
+    rapid_df : pandas.DataFrame
+        RAPID MOC data with 'time_num' and 'moc'/'moc_filtered'.
+    move_df : pandas.DataFrame
+        MOVE MOC data with 'time_num' and 'moc'/'moc_filtered'.
+    samba_df : pandas.DataFrame
+        SAMBA MOC data with 'time_num' and 'moc'/'moc_filtered'.
+    filtered : bool, default False
+        Whether to plot filtered data (True) or original data (False).
+
+    Returns
+    -------
+    pygmt.Figure
+        PyGMT figure object.
+
+    Raises
+    ------
+    ImportError
+        If PyGMT is not installed.
+    """
+    _check_pygmt()
+
+    magenta1 = "231/41/138"
+    red1 = "227/26/28"
+    blue1 = "8/104/172"
+    green1 = "35/139/69"
+
+    # Select column based on filtered flag
+    col = "moc_filtered" if filtered else "moc"
+
+    # Prepare data and labels
+    dfs = [
+        (osnap_df, "MOC [Sv]", (5, 25), 5, "OSNAP", green1, "W"),
+        (rapid_df, "MOC [Sv]", (5, 30), 6, "RAPID 26°N", red1, "E"),
+        (move_df, "MOC [Sv]", (5, 30), 6, "MOVE 16°N", magenta1, "W"),
+        (samba_df, "Anomaly [Sv]", (-10, 15), 6, "SAMBA 34.5°S", blue1, "ES"),
+    ]
+
+    # Find global x range
+    xmin = min(min(df["time_num"].min() for df, _, _, _, _, _, _ in dfs), 2000)
+    xmax = max(max(df["time_num"].max() for df, _, _, _, _, _, _ in dfs), 2025)
+
+    # Create figure
+    fig = pygmt.Figure()
+
+    panel_width = 20  # cm
+    pygmt.config(
+        FONT_ANNOT_PRIMARY="20p",
+        FONT_LABEL="20p",
+        FONT_TITLE="20p",
+        MAP_TICK_LENGTH_PRIMARY="6p",
+        MAP_TICK_PEN_PRIMARY="1.2p",
+        MAP_LABEL_OFFSET="10p",
+        MAP_TICK_LENGTH_SECONDARY="3p",
+        MAP_TICK_PEN_SECONDARY="0.8p",
+        MAP_GRID_PEN="0.25p,gray70,10_5",
+    )
+
+    # Set locations for labels
+    myxloc = [2000.2, 2000.2, 2000.2, 2000.2]
+    myyloc = [15, 17, 17, 0]
+    myyoff = [0, 0, 8.5, -3]
+
+    for i, (
+        df,
+        label,
+        (ymin, ymax),
+        panel_height,
+        txt_lbl,
+        pen_col,
+        frame_coord,
+    ) in enumerate(dfs):
+        region = [xmin, xmax, ymin, ymax]
+
+        fig.basemap(
+            region=region,
+            projection=f"X{panel_width}c/{panel_height}c",
+            frame=[f"xaf", f"yaff5+l{label}", frame_coord],
+        )
+
+        # Plot reference line and data
+        fig.plot(x=[xmin, xmax], y=[myyloc[i], myyloc[i]], pen="1.5p,gray50,2_2")
+
+        if filtered:
+            fig.plot(x=df["time_num"], y=df[col], pen="3.5p,white", no_clip=(i == 3))
+            fig.plot(x=df["time_num"], y=df[col], pen="2p," + pen_col, no_clip=(i == 3))
+        else:
+            fig.plot(
+                x=df["time_num"], y=df[col], pen="1.5p," + pen_col, no_clip=(i == 3)
+            )
+
+        # Add text annotation
+        fig.text(
+            text=txt_lbl,
+            x=myxloc[i],
+            y=myyloc[i] + myyoff[i] + 0.5,
+            font="18p,Helvetica",
+            justify="LB",
+        )
+
+        # Shift down for next panel, except after last
+        if i < len(dfs) - 1:
+            if i < 2:
+                fig.shift_origin(yshift=f"-{panel_height-1.5}c")
+            else:
+                fig.shift_origin(yshift=f"-{panel_height-1.2}c")
+
+    # Add AMOCatlas timestamp
+    _add_amocatlas_timestamp(fig)
+
+    return fig
+
+
+def plot_bryden2005_pygmt():
+    """Plot Bryden et al. 2005 historical AMOC estimates using PyGMT.
+
+    Creates a plot of the historical AMOC estimates from Bryden et al. (2005)
+    showing the decline from 1957 to 2004. This provides historical context
+    for modern observational time series.
+
+    Returns
+    -------
+    pygmt.Figure
+        PyGMT figure object.
+
+    Raises
+    ------
+    ImportError
+        If PyGMT is not installed.
+
+    References
+    ----------
+    Bryden, H. L., Longworth, H. R., & Cunningham, S. A. (2005).
+    Slowing of the Atlantic meridional overturning circulation at 25°N.
+    Nature, 438(7068), 655-657.
+    """
+    _check_pygmt()
+
+    import os
+    import pandas as pd
+
+    # Bryden 2005 data
+    years = [1957, 1981, 1992, 1998, 2004]
+    amoc_values = [22.9, 18.7, 19.4, 16.1, 14.8]
+    xticks = [1957, 1970, 1981, 1992, 2004]
+    xtick_labels = ["af", "af", "af", "af", "af"]
+
+    # Write custom tick annotation file
+    with open("custom_xticks.txt", "w") as f:
+        for x, label in zip(xticks, xtick_labels):
+            f.write(f"{x} {label}\n")
+
+    # Create DataFrame
+    data = pd.DataFrame({"Year": years, "AMOC": amoc_values})
+
+    # Create figure
+    fig = pygmt.Figure()
+
+    pygmt.config(
+        FONT_ANNOT_PRIMARY="18p",  # tick labels
+        FONT_LABEL="18p",  # axis labels
+        FONT_TITLE="18p",  # title (if used)
+        MAP_TICK_LENGTH_PRIMARY="6p",  # major ticks longer
+        MAP_TICK_PEN_PRIMARY="1.2p",  # major ticks thicker
+        MAP_LABEL_OFFSET="10p",  # spacing axis ↔ label
+        MAP_TICK_LENGTH_SECONDARY="3p",  # minor ticks longer
+        MAP_TICK_PEN_SECONDARY="0.8p",  # minor ticks thicker
+        MAP_GRID_PEN="0.25p,gray70,10_5",  # fine dashed grid
+    )
+
+    # Set region and frame
+    fig.basemap(
+        region=[1955, 2006, 13, 24],
+        projection="X8c/6c",
+        frame=["WS", "yaf+lMOC [Sv]", "xccustom_xticks.txt"],
+    )
+
+    # Plot red line
+    fig.plot(x=data["Year"], y=data["AMOC"], pen="2p,red")
+
+    # Plot red diamonds (with black edge)
+    fig.plot(x=data["Year"], y=data["AMOC"], style="d0.3c", fill="red", pen="red")
+
+    # Delete the custom tick file
+    if os.path.exists("custom_xticks.txt"):
+        os.remove("custom_xticks.txt")
+
+    # Add AMOCatlas timestamp
+    _add_amocatlas_timestamp(fig)
+
+    return fig
+
+
+def plot_all_moc_overlaid_pygmt(
+    osnap_df: pd.DataFrame, 
+    rapid_df: pd.DataFrame, 
+    move_df: pd.DataFrame, 
+    samba_df: pd.DataFrame, 
+    filtered: bool = False
+):
+    """Plot all MOC time series overlaid using separate coordinate systems.
+
+    This creates overlaid plots with different y-ranges for MOC data vs SAMBA anomaly,
+    similar to the original moc_tseries_pygmt notebook with shiftflag=False.
+
+    Parameters
+    ----------
+    osnap_df : pandas.DataFrame
+        OSNAP MOC data with 'time_num' and 'moc'/'moc_filtered'.
+    rapid_df : pandas.DataFrame
+        RAPID MOC data with 'time_num' and 'moc'/'moc_filtered'.
+    move_df : pandas.DataFrame
+        MOVE MOC data with 'time_num' and 'moc'/'moc_filtered'.
+    samba_df : pandas.DataFrame
+        SAMBA MOC data with 'time_num' and 'moc'/'moc_filtered'.
+    filtered : bool, default False
+        Whether to plot filtered data (True) or original data (False).
+
+    Returns
+    -------
+    pygmt.Figure
+        PyGMT figure object.
+
+    Raises
+    ------
+    ImportError
+        If PyGMT is not installed.
+    """
+    _check_pygmt()
+
+    # Color scheme matching original
+    magenta1 = "231/41/138"
+    red1 = "227/26/28"
+    blue1 = "8/104/172"
+    green1 = "35/139/69"
+
+    # Select column based on filtered flag
+    col = "moc_filtered" if filtered else "moc"
+
+    # Prepare data and labels - overlay mode (shiftflag=False)
+    dfs = [
+        (osnap_df, "MOC [Sv]", (10, 20), 6, "OSNAP", green1, "W"),
+        (rapid_df, "MOC [Sv]", (10, 20), 6, "RAPID 26°N", red1, "W"),
+        (move_df, "MOC [Sv]", (10, 20), 6, "MOVE 16°N", magenta1, "W"),
+        (samba_df, "Anomaly [Sv]", (-5, 5), 6, "SAMBA 34.5°S", blue1, "ES"),
+    ]
+
+    # Find global x range
+    xmin = min(min(df["time_num"].min() for df, _, _, _, _, _, _ in dfs), 2000)
+    xmax = max(max(df["time_num"].max() for df, _, _, _, _, _, _ in dfs), 2025)
+
+    # Create figure
+    fig = pygmt.Figure()
+
+    panel_width = 20  # cm
+    pygmt.config(
+        FONT_ANNOT_PRIMARY="20p",
+        FONT_LABEL="20p",
+        FONT_TITLE="20p",
+        MAP_TICK_LENGTH_PRIMARY="6p",
+        MAP_TICK_PEN_PRIMARY="1.2p",
+        MAP_LABEL_OFFSET="10p",
+        MAP_TICK_LENGTH_SECONDARY="3p",
+        MAP_TICK_PEN_SECONDARY="0.8p",
+        MAP_GRID_PEN="0.25p,gray70,10_5",
+    )
+
+    # Label positions for overlay mode
+    myxloc = [2018.2, 2006.2, 2000.2, 2015.2]
+    myyloc = [13.5, 19, 15, 0]
+    myyoff = [0, 0, -3, -4]
+
+    for i, (
+        df,
+        label,
+        (ymin, ymax),
+        panel_height,
+        txt_lbl,
+        pen_col,
+        frame_coord,
+    ) in enumerate(dfs):
+        region = [xmin, xmax, ymin, ymax]
+
+        fig.basemap(
+            region=region,
+            projection=f"X{panel_width}c/{panel_height}c",
+            frame=[f"xaf", f"yaff2+l{label}", frame_coord],
+        )
+
+        # Add gray horizontal line at y=0
+        fig.plot(x=[xmin, xmax], y=[0, 0], pen="1.5p,gray50,2_2")
+
+        # Plot the time series with white background + colored foreground
+        fig.plot(x=df["time_num"], y=df[col], pen="3.5p,white", no_clip=True)
+        fig.plot(x=df["time_num"], y=df[col], pen="2p," + pen_col, no_clip=True)
+
+        # Add text annotation
+        fig.text(
+            text=txt_lbl,
+            x=myxloc[i],
+            y=myyloc[i] + myyoff[i] + 0.5,
+            font=f"18p,Helvetica,{pen_col}",
+            justify="LB",
+            no_clip=True,
+        )
+
+        # No shifting between panels in overlay mode
+        if i < len(dfs) - 1:
+            fig.shift_origin(yshift=0)
+
+    # Add AMOCatlas timestamp
+    _add_amocatlas_timestamp(fig)
+
+    return fig

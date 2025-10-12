@@ -7,7 +7,7 @@ import xarray as xr
 from amocatlas import logger
 from amocatlas.logger import log_info
 from amocatlas.read_move import read_move
-from amocatlas.read_osnap import read_osnap
+from amocatlas.read_osnap import read_osnap, read_osnap_2025
 from amocatlas.read_rapid import read_rapid
 from amocatlas.read_samba import read_samba
 from amocatlas.read_fw2015 import read_fw2015
@@ -44,6 +44,7 @@ def _get_reader(array_name: str):
         "move": read_move,
         "rapid": read_rapid,
         "osnap": read_osnap,
+        "osnap_2025": read_osnap_2025,
         "samba": read_samba,
         "fw2015": read_fw2015,
         "mocha": read_mocha,
@@ -115,7 +116,8 @@ def load_dataset(
         The name of the observing array to load. Options are:
         - 'move' : MOVE 16N array
         - 'rapid' : RAPID 26N array
-        - 'osnap' : OSNAP array
+        - 'osnap' : OSNAP array (2014-2022, configurable version via main reader)
+        - 'osnap_2025' : OSNAP array (2014-2022, dedicated 2025 reader function)
         - 'samba' : SAMBA 34S array
         - 'fw2015' : FW2015 array
         - '41n' : 41N array

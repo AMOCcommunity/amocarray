@@ -1,7 +1,11 @@
+"""AMOCatlas analysis tools for data processing, filtering, and calculations."""
+
 import re
 
 import numpy as np
+import pandas as pd
 import xarray as xr
+from scipy.signal.windows import tukey
 
 from amocatlas import logger
 from amocatlas.logger import log_info, log_debug
@@ -255,3 +259,296 @@ def set_best_dtype(ds: xr.Dataset) -> xr.Dataset:
         f"Space saved by dtype downgrade: {int(100 * (bytes_in - bytes_out) / bytes_in)} %",
     )
     return ds
+
+
+# ------------------------------------------------------------------------------------
+# Time series filtering and binning functions
+# ------------------------------------------------------------------------------------
+
+
+def to_decimal_year(dates) -> pd.Series:
+    """Convert datetime series to decimal years, handling NaN values safely.
+
+    Parameters
+    ----------
+    dates : pandas.Series or pandas.DatetimeIndex
+        Series or Index of datetime objects to convert.
+
+    Returns
+    -------
+    pandas.Series
+        Series of decimal years with NaN preserved for invalid dates.
+
+    Examples
+    --------
+    >>> import pandas as pd
+    >>> dates = pd.Series(['2020-01-01', '2020-07-01', '2021-01-01'])
+    >>> dates = pd.to_datetime(dates)
+    >>> decimal_years = to_decimal_year(dates)
+    """
+    # Convert to Series if DatetimeIndex
+    if isinstance(dates, pd.DatetimeIndex):
+        dates = pd.Series(dates)
+
+    # Drop NaN values and handle them separately
+    valid_dates = dates.dropna()
+    if len(valid_dates) == 0:
+        return pd.Series([np.nan] * len(dates), index=dates.index)
+
+    year = valid_dates.dt.year
+    start = pd.to_datetime(year.astype(str) + "-01-01")
+    end = pd.to_datetime((year + 1).astype(str) + "-01-01")
+    decimal_years = year + (valid_dates - start) / (end - start)
+
+    # Create full series with NaN for invalid dates
+    result = pd.Series([np.nan] * len(dates), index=dates.index)
+    result.loc[valid_dates.index] = decimal_years
+    return result
+
+
+def extract_time_and_time_num(ds: xr.Dataset, time_var: str = "TIME") -> pd.DataFrame:
+    """Extract time coordinates from xarray Dataset and convert to pandas DataFrame.
+
+    Parameters
+    ----------
+    ds : xarray.Dataset
+        Dataset containing time coordinate.
+    time_var : str, default "TIME"
+        Name of the time variable in the dataset.
+
+    Returns
+    -------
+    pandas.DataFrame
+        DataFrame with 'time' (datetime) and 'time_num' (decimal year) columns.
+    """
+    time = pd.to_datetime(ds[time_var].values)
+    df = pd.DataFrame({"time": time})
+    df["time_num"] = to_decimal_year(df["time"])
+    return df
+
+
+def bin_average_5day(
+    df: pd.DataFrame, time_column: str = "time", value_column: str = "moc"
+) -> pd.DataFrame:
+    """Bin-average a time series into 5-day means.
+
+    Parameters
+    ----------
+    df : pandas.DataFrame
+        Input DataFrame with time and value columns.
+    time_column : str, default "time"
+        Name of the datetime column.
+    value_column : str, default "moc"
+        Name of the data column to average.
+
+    Returns
+    -------
+    pandas.DataFrame
+        DataFrame with 5-day averaged time and values.
+    """
+    df = df.copy()
+    df[time_column] = pd.to_datetime(df[time_column])
+
+    # Bin by 5-day frequency and take the mean of each bin
+    df_binned = (
+        df.set_index(time_column).resample("5D")[value_column].mean().reset_index()
+    )
+
+    # Drop NaNs and return
+    df_binned = df_binned.dropna().rename(
+        columns={value_column: value_column, time_column: "time"}
+    )
+    return df_binned
+
+
+def bin_average_monthly(df: pd.DataFrame, time_column: str = "time") -> pd.DataFrame:
+    """Bin-average a time series into monthly means.
+
+    Parameters
+    ----------
+    df : pandas.DataFrame
+        Input DataFrame with time column.
+    time_column : str, default "time"
+        Name of the datetime column.
+
+    Returns
+    -------
+    pandas.DataFrame
+        DataFrame with monthly averaged data.
+    """
+    df = df.copy()
+    df[time_column] = pd.to_datetime(df[time_column])
+    df_binned = df.set_index(time_column).resample("ME").mean().reset_index()
+    df_binned = df_binned.dropna().rename(columns={time_column: "time"})
+    return df_binned
+
+
+def check_and_bin(df: pd.DataFrame, time_column: str = "time") -> pd.DataFrame:
+    """Check temporal resolution and bin to monthly if needed.
+
+    Parameters
+    ----------
+    df : pandas.DataFrame
+        Input DataFrame with time column.
+    time_column : str, default "time"
+        Name of the datetime column.
+
+    Returns
+    -------
+    pandas.DataFrame
+        Original DataFrame if already monthly, or monthly-binned version.
+    """
+    # Calculate median time difference in days
+    time_diffs = df[time_column].sort_values().diff().dt.total_seconds().dropna() / (
+        3600 * 24
+    )
+    median_diff = time_diffs.median()
+    if median_diff < 15:
+        return bin_average_monthly(df, time_column)
+    else:
+        return df
+
+
+def apply_tukey_filter(
+    df: pd.DataFrame,
+    column: str,
+    window_months: int = 6,
+    samples_per_day: float = 0.2,
+    alpha: float = 0.5,
+    add_back_mean: bool = False,
+    output_column: str | None = None,
+) -> pd.DataFrame:
+    """Apply a Tukey filter using NumPy convolution (safely handles NaN values).
+
+    This function uses pandas DataFrame input to leverage NumPy's convolution
+    capabilities with Tukey windows, which provides more flexibility than
+    xarray's built-in rolling operations for this specific filtering approach.
+
+    Parameters
+    ----------
+    df : pandas.DataFrame
+        Input DataFrame containing the column to filter.
+    column : str
+        Name of the column to apply the filter to.
+    window_months : int, default 6
+        Filter window size in months.
+    samples_per_day : float, default 0.2
+        Expected number of samples per day in the data.
+    alpha : float, default 0.5
+        Tukey window parameter (0=rectangular, 1=Hann).
+    add_back_mean : bool, default False
+        Whether to remove and add back the overall mean.
+    output_column : str, optional
+        Name for the filtered output column. If None, uses "{column}_filtered".
+
+    Returns
+    -------
+    pandas.DataFrame
+        Copy of input DataFrame with filtered column added.
+
+    Notes
+    -----
+    Uses pandas DataFrame rather than xarray Dataset because pandas provides
+    better access to convolution operations with custom window functions.
+    """
+    df = df.copy()
+    data = df[column].astype(float).values
+
+    # Replace NaNs with nanmean for stable filtering
+    nan_mask = np.isnan(data)
+    safe_data = np.where(nan_mask, np.nanmean(data), data)
+
+    if add_back_mean:
+        overall_mean = np.nanmean(safe_data)
+        safe_data = safe_data - overall_mean
+    else:
+        overall_mean = 0.0
+
+    samples_per_month = int(round(30.44 * samples_per_day))
+    window_len = window_months * samples_per_month
+    if window_len % 2 == 0:
+        window_len += 1
+    half_width = window_len // 2
+
+    # Build normalized Tukey window
+    win = tukey(window_len, alpha)
+    win /= win.sum()
+
+    # Apply convolution
+    filtered = np.convolve(safe_data, win, mode="same")
+    filtered += overall_mean
+
+    # Restore original NaNs and edge mask
+    filtered[nan_mask] = np.nan
+    filtered[:half_width] = np.nan
+    filtered[-half_width:] = np.nan
+
+    if output_column is None:
+        output_column = f"{column}_filtered"
+
+    df[output_column] = filtered
+    return df
+
+
+def handle_samba_gaps(df: pd.DataFrame, time_column: str = "time") -> pd.DataFrame:
+    """Handle temporal gaps in SAMBA MOC data to prevent plotting artifacts.
+
+    SAMBA data has significant gaps (e.g., 2011-2014) that cause plotting functions
+    to draw connecting lines across missing periods. This function creates a regular
+    monthly grid and masks interpolation to only occur within existing data periods,
+    preventing spurious connections across large gaps.
+
+    Parameters
+    ----------
+    df : pandas.DataFrame
+        Input DataFrame with time and MOC columns.
+    time_column : str, default "time"
+        Name of the datetime column.
+
+    Returns
+    -------
+    pandas.DataFrame
+        DataFrame with regular monthly grid and gap-aware data masking.
+
+    Notes
+    -----
+    PyGMT and other plotting functions connect all valid (non-NaN) data points
+    regardless of temporal gaps. This function prevents artifacts by:
+    1. Creating a regular monthly time grid
+    2. Preserving NaN values where no original data existed
+    3. Only interpolating within continuous data segments
+    """
+    df_input = df.copy()
+
+    # Create a regular monthly time grid covering the range
+    monthly_time = pd.date_range(
+        start=df_input[time_column].min(), end=df_input[time_column].max(), freq="ME"
+    )
+
+    # Reindex to the monthly grid
+    df_monthly = df_input.set_index(time_column).reindex(monthly_time)
+
+    # For MOC column, preserve gaps by masking interpolation
+    if "moc" in df_monthly.columns:
+        # Track where original data existed
+        mask = df_monthly["moc"].notna()
+
+        # Create gap-aware MOC column
+        df_monthly["moc_interp"] = np.nan
+        df_monthly.loc[mask, "moc_interp"] = df_monthly.loc[mask, "moc"]
+
+        # Mark locations with original data
+        df_monthly["had_data"] = mask
+
+        # Replace original moc with gap-aware version
+        df_monthly["moc"] = df_monthly["moc_interp"].where(mask)
+        df_monthly = df_monthly.drop(columns=["moc_interp"])
+
+    # Reset index for further use
+    df_monthly = df_monthly.reset_index().rename(columns={"index": time_column})
+
+    # Recalculate time_num if it exists
+    if "time_num" in df_monthly.columns:
+        df_monthly["time_num"] = to_decimal_year(df_monthly[time_column])
+
+    return df_monthly
