@@ -4,7 +4,6 @@ from typing import Union
 import xarray as xr
 
 from amocatlas import logger, utilities
-from amocatlas.utilities import apply_defaults
 
 log = logger.log  # Use global logger
 
@@ -74,7 +73,7 @@ OSNAP_FILE_METADATA = {
     },
     "OSNAP_Streamfunction_201408_202207_2025.nc": {
         "data_product": "Meridional overturning streamfunction (2014-2022)",
-        "time_coverage_start": "2014-08-01", 
+        "time_coverage_start": "2014-08-01",
         "time_coverage_end": "2022-07-31",
         "dataset_version": "2025",
         "processing_software": "MATLAB R2024b",
@@ -106,7 +105,7 @@ def read_osnap(
         Local path to the data directory (remote source is handled per-file).
     file_list : str or list of str, optional
         Filename or list of filenames to process.
-        Defaults depend on version: OSNAP_2025_DEFAULT_FILES for "2025", 
+        Defaults depend on version: OSNAP_2025_DEFAULT_FILES for "2025",
         OSNAP_DEFAULT_FILES for "2020".
     transport_only : bool, optional
         If True, restrict to transport files only.
@@ -215,9 +214,9 @@ def read_osnap_2025(
     redownload: bool = False,
 ) -> list[xr.Dataset]:
     """Load the OSNAP 2025 datasets (2014-2022 coverage) from a URL or local file path.
-    
+
     This is a convenience function that calls read_osnap with version="2025".
-    
+
     Parameters
     ----------
     source : str, optional
@@ -236,6 +235,7 @@ def read_osnap_2025(
     -------
     list of xr.Dataset
         List of loaded xarray datasets with basic inline and file-specific metadata.
+
     """
     return read_osnap(
         source=source,
@@ -243,5 +243,5 @@ def read_osnap_2025(
         transport_only=transport_only,
         data_dir=data_dir,
         redownload=redownload,
-        version="2025"
+        version="2025",
     )

@@ -1,3 +1,22 @@
+"""AMOCatlas data readers: unified interface for AMOC observing arrays.
+
+This module provides the main interface for loading data from multiple
+Atlantic Meridional Overturning Circulation (AMOC) observing arrays.
+It serves as the orchestrator that routes requests to specific array
+readers and provides both sample and full dataset loading capabilities.
+
+The module supports data from:
+- RAPID (26°N)
+- MOVE (16°N)
+- OSNAP (Subpolar North Atlantic)
+- SAMBA (34.5°S)
+- MOCHA, 41°N, DSO, and FW2015 arrays
+
+Main functions:
+- load_dataset(): Load full datasets from any supported array
+- load_sample_dataset(): Load small sample datasets for testing
+"""
+
 from pathlib import Path
 from typing import Union
 

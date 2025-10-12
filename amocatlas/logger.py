@@ -1,4 +1,23 @@
-# amocatlas/logger.py
+"""AMOCatlas structured logging system.
+
+This module provides centralized logging capabilities for AMOCatlas,
+including per-dataset log files and global logging control. The logging
+system supports enabling/disabling logs dynamically and creates timestamped
+log files for each array data loading operation.
+
+Features:
+- Per-array log files with timestamps
+- Global logging enable/disable controls
+- Structured logging with consistent formatting
+- Wrapper functions for common log levels
+- Log file organization in logs/ directory
+
+Usage:
+    >>> from amocatlas.logger import log_info, disable_logging
+    >>> log_info("Dataset successfully loaded")
+    >>> disable_logging()  # Turn off all logging
+"""
+
 import datetime
 import logging
 from pathlib import Path

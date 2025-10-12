@@ -1,4 +1,4 @@
-"""AMOCatlas AC1 Format Compliance Checker
+"""AMOCatlas AC1 Format Compliance Checker.
 
 This module provides validation for transport data files converted to AC1 format
 following the OceanSITES/AC1 specification.

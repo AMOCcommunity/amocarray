@@ -488,6 +488,7 @@ def _add_amocatlas_timestamp(fig):
     ----------
     fig : pygmt.Figure
         PyGMT figure to add timestamp to.
+
     """
     fig.timestamp(
         label="AMOCatlas", font="10p,Helvetica,gray30", timefmt="%Y-%m-%dT%H:%M"
@@ -517,6 +518,7 @@ def plot_moc_timeseries_pygmt(
     ------
     ImportError
         If PyGMT is not installed.
+
     """
     _check_pygmt()
 
@@ -545,7 +547,7 @@ def plot_moc_timeseries_pygmt(
 
     # --- Basemap ---
     fig.basemap(
-        region=region, projection="X25c/7c", frame=[f"xaf", f"yafg10f5+l{label}", "WS"]
+        region=region, projection="X25c/7c", frame=["xaf", f"yafg10f5+l{label}", "WS"]
     )
 
     # --- Plot original series ---
@@ -583,6 +585,7 @@ def plot_osnap_components_pygmt(df: pd.DataFrame):
     ------
     ImportError
         If PyGMT is not installed.
+
     """
     _check_pygmt()
 
@@ -611,7 +614,7 @@ def plot_osnap_components_pygmt(df: pd.DataFrame):
 
     # Basemap
     fig.basemap(
-        region=region, projection="X15c/7c", frame=[f"xaf", f"yafg5f2+lMOC [Sv]", "WS"]
+        region=region, projection="X15c/7c", frame=["xaf", "yafg5f2+lMOC [Sv]", "WS"]
     )
 
     # --- Shaded error for EAST ---
@@ -674,6 +677,7 @@ def plot_rapid_components_pygmt(df: pd.DataFrame):
     ------
     ImportError
         If PyGMT is not installed.
+
     """
     _check_pygmt()
 
@@ -714,7 +718,6 @@ def plot_rapid_components_pygmt(df: pd.DataFrame):
     )
 
     # Plot labels at end of time series with slight offset
-    import pandas as pd
 
     # Use the actual end date of the time series
     x_label = df["time_num"].max()
@@ -773,6 +776,7 @@ def plot_all_moc_pygmt(osnap_df, rapid_df, move_df, samba_df, filtered: bool = F
     ------
     ImportError
         If PyGMT is not installed.
+
     """
     _check_pygmt()
 
@@ -831,7 +835,7 @@ def plot_all_moc_pygmt(osnap_df, rapid_df, move_df, samba_df, filtered: bool = F
         fig.basemap(
             region=region,
             projection=f"X{panel_width}c/{panel_height}c",
-            frame=[f"xaf", f"yaff5+l{label}", frame_coord],
+            frame=["xaf", f"yaff5+l{label}", frame_coord],
         )
 
         # Plot reference line and data
@@ -889,6 +893,7 @@ def plot_bryden2005_pygmt():
     Bryden, H. L., Longworth, H. R., & Cunningham, S. A. (2005).
     Slowing of the Atlantic meridional overturning circulation at 25°N.
     Nature, 438(7068), 655-657.
+
     """
     _check_pygmt()
 
@@ -948,11 +953,11 @@ def plot_bryden2005_pygmt():
 
 
 def plot_all_moc_overlaid_pygmt(
-    osnap_df: pd.DataFrame, 
-    rapid_df: pd.DataFrame, 
-    move_df: pd.DataFrame, 
-    samba_df: pd.DataFrame, 
-    filtered: bool = False
+    osnap_df: pd.DataFrame,
+    rapid_df: pd.DataFrame,
+    move_df: pd.DataFrame,
+    samba_df: pd.DataFrame,
+    filtered: bool = False,
 ):
     """Plot all MOC time series overlaid using separate coordinate systems.
 
@@ -981,6 +986,7 @@ def plot_all_moc_overlaid_pygmt(
     ------
     ImportError
         If PyGMT is not installed.
+
     """
     _check_pygmt()
 
@@ -1040,7 +1046,7 @@ def plot_all_moc_overlaid_pygmt(
         fig.basemap(
             region=region,
             projection=f"X{panel_width}c/{panel_height}c",
-            frame=[f"xaf", f"yaff2+l{label}", frame_coord],
+            frame=["xaf", f"yaff2+l{label}", frame_coord],
         )
 
         # Add gray horizontal line at y=0

@@ -431,14 +431,59 @@ def merge_metadata_aliases(attrs: dict, preferred_keys: dict) -> dict:
 
 
 def standardise_samba(ds: xr.Dataset, file_name: str) -> xr.Dataset:
+    """Standardise SAMBA array dataset to consistent format.
+
+    Parameters
+    ----------
+    ds : xr.Dataset
+        Raw SAMBA dataset to standardise.
+    file_name : str
+        Original filename for metadata.
+
+    Returns
+    -------
+    xr.Dataset
+        Standardised dataset with consistent metadata and formatting.
+
+    """
     return standardise_array(ds, file_name, array_name="samba")
 
 
 def standardise_rapid(ds: xr.Dataset, file_name: str) -> xr.Dataset:
+    """Standardise RAPID array dataset to consistent format.
+
+    Parameters
+    ----------
+    ds : xr.Dataset
+        Raw RAPID dataset to standardise.
+    file_name : str
+        Original filename for metadata.
+
+    Returns
+    -------
+    xr.Dataset
+        Standardised dataset with consistent metadata and formatting.
+
+    """
     return standardise_array(ds, file_name, array_name="rapid")
 
 
 def standardise_move(ds: xr.Dataset, file_name: str) -> xr.Dataset:
+    """Standardise MOVE array dataset to consistent format.
+
+    Parameters
+    ----------
+    ds : xr.Dataset
+        Raw MOVE dataset to standardise.
+    file_name : str
+        Original filename for metadata.
+
+    Returns
+    -------
+    xr.Dataset
+        Standardised dataset with consistent metadata and formatting.
+
+    """
     return standardise_array(ds, file_name, array_name="move")
 
 

@@ -285,6 +285,7 @@ def to_decimal_year(dates) -> pd.Series:
     >>> dates = pd.Series(['2020-01-01', '2020-07-01', '2021-01-01'])
     >>> dates = pd.to_datetime(dates)
     >>> decimal_years = to_decimal_year(dates)
+
     """
     # Convert to Series if DatetimeIndex
     if isinstance(dates, pd.DatetimeIndex):
@@ -320,6 +321,7 @@ def extract_time_and_time_num(ds: xr.Dataset, time_var: str = "TIME") -> pd.Data
     -------
     pandas.DataFrame
         DataFrame with 'time' (datetime) and 'time_num' (decimal year) columns.
+
     """
     time = pd.to_datetime(ds[time_var].values)
     df = pd.DataFrame({"time": time})
@@ -345,6 +347,7 @@ def bin_average_5day(
     -------
     pandas.DataFrame
         DataFrame with 5-day averaged time and values.
+
     """
     df = df.copy()
     df[time_column] = pd.to_datetime(df[time_column])
@@ -375,6 +378,7 @@ def bin_average_monthly(df: pd.DataFrame, time_column: str = "time") -> pd.DataF
     -------
     pandas.DataFrame
         DataFrame with monthly averaged data.
+
     """
     df = df.copy()
     df[time_column] = pd.to_datetime(df[time_column])
@@ -397,6 +401,7 @@ def check_and_bin(df: pd.DataFrame, time_column: str = "time") -> pd.DataFrame:
     -------
     pandas.DataFrame
         Original DataFrame if already monthly, or monthly-binned version.
+
     """
     # Calculate median time difference in days
     time_diffs = df[time_column].sort_values().diff().dt.total_seconds().dropna() / (
@@ -450,6 +455,7 @@ def apply_tukey_filter(
     -----
     Uses pandas DataFrame rather than xarray Dataset because pandas provides
     better access to convolution operations with custom window functions.
+
     """
     df = df.copy()
     data = df[column].astype(float).values
@@ -517,6 +523,7 @@ def handle_samba_gaps(df: pd.DataFrame, time_column: str = "time") -> pd.DataFra
     1. Creating a regular monthly time grid
     2. Preserving NaN values where no original data existed
     3. Only interpolating within continuous data segments
+
     """
     df_input = df.copy()
 
