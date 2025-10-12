@@ -17,3 +17,32 @@ Basic Usage:
     >>> datasets = readers.load_dataset("rapid")
     >>> sample_data = readers.load_sample_dataset("osnap")
 """
+
+# Import core modules to make them available at package level
+from . import (
+    readers,
+    plotters,
+    standardise,
+    utilities,
+    tools,
+    logger,
+    writers,
+    convert,
+    compliance_checker,
+)
+
+# Version information
+from ._version import __version__
+
+__all__ = [
+    "readers",
+    "plotters", 
+    "standardise",
+    "utilities",
+    "tools",
+    "logger",
+    "writers",
+    "convert",
+    "compliance_checker",
+    "__version__",
+]
