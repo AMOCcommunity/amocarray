@@ -83,6 +83,26 @@ amocatlas/
 
 **Data Flow**: User calls `readers.load_dataset("rapid")` → `readers.py` routes to `read_rapid.py` → downloads data → standardizes format → returns xarray Dataset(s)
 
+### Package-Level Imports
+
+We import modules in `__init__.py` instead of at the top of each individual module:
+
+```python
+# In amocatlas/__init__.py
+from . import (
+    readers,
+    plotters,
+    compliance_checker,
+    convert,
+    # etc.
+)
+```
+
+This means:
+- Tests can do `from amocatlas import compliance_checker` 
+- Without this, tests would need `from amocatlas.compliance_checker import ...`
+- Modules like `plotters.HAS_PYGMT` are accessible because `plotters` is imported at package level
+
 ---
 
 ## Development Environment
