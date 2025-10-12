@@ -506,5 +506,242 @@ class TestValidationResult:
         assert len(result.warnings) == 1
 
 
+class TestErrorHandling:
+    """Test error handling and edge cases."""
+
+    def test_invalid_netcdf_file(self):
+        """Test validation of invalid NetCDF file."""
+        # Create a non-NetCDF file with proper naming
+        filename = "OS_RAPID_20040402-20040403_DPR_transports_T12H.nc"
+        filepath = os.path.join(tempfile.gettempdir(), filename)
+        
+        try:
+            # Write invalid content
+            with open(filepath, 'w') as f:
+                f.write("This is not a NetCDF file")
+            
+            result = compliance_checker.validate_ac1_file(filepath)
+            
+            assert not result.passed
+            assert any("Failed to open NetCDF file" in error for error in result.errors)
+            
+        finally:
+            if os.path.exists(filepath):
+                os.unlink(filepath)
+
+    def test_invalid_filename_dates(self):
+        """Test validation with invalid date format in filename."""
+        ds = xr.open_dataset(TEST_AC1_FILE)
+        ds_copy = ds.copy()
+        ds.close()
+
+        # Create filename with invalid date format
+        filename = "OS_RAPID_20040432-20040403_DPR_transports_T12H.nc"  # 32nd day doesn't exist
+        filepath = os.path.join(tempfile.gettempdir(), filename)
+
+        try:
+            ds_copy.to_netcdf(filepath, format="NETCDF4_CLASSIC")
+            result = compliance_checker.validate_ac1_file(filepath)
+
+            assert not result.passed
+            assert any("Invalid date format in filename" in error for error in result.errors)
+
+        finally:
+            if os.path.exists(filepath):
+                os.unlink(filepath)
+            ds_copy.close()
+
+    def test_start_date_after_end_date(self):
+        """Test validation when start date is after end date."""
+        ds = xr.open_dataset(TEST_AC1_FILE)
+        ds_copy = ds.copy()
+        ds.close()
+
+        # Create filename with start date after end date
+        filename = "OS_RAPID_20040405-20040403_DPR_transports_T12H.nc"
+        filepath = os.path.join(tempfile.gettempdir(), filename)
+
+        try:
+            ds_copy.to_netcdf(filepath, format="NETCDF4_CLASSIC")
+            result = compliance_checker.validate_ac1_file(filepath)
+
+            assert not result.passed
+            assert any("Start date" in error and "must be <= end date" in error for error in result.errors)
+
+        finally:
+            if os.path.exists(filepath):
+                os.unlink(filepath)
+            ds_copy.close()
+
+    def test_non_standard_units_warning(self):
+        """Test that non-standard units generate warnings."""
+        ds = xr.open_dataset(TEST_AC1_FILE)
+        ds_modified = ds.copy()
+        ds.close()
+
+        # Create variable with unknown standard_name, matching TIME dimension size
+        time_size = ds_modified.sizes["TIME"]
+        ds_modified["CUSTOM_VAR"] = xr.DataArray(
+            np.ones(time_size),
+            dims=["TIME"],
+            attrs={
+                "standard_name": "unknown_standard_name",
+                "units": "unknown_units"
+            }
+        )
+
+        filename = "OS_RAPID_20040402-20040403_DPR_transports_T12H.nc"
+        filepath = os.path.join(tempfile.gettempdir(), filename)
+
+        try:
+            ds_modified.to_netcdf(filepath, format="NETCDF4_CLASSIC")
+            result = compliance_checker.validate_ac1_file(filepath)
+
+            # Should still pass but have warnings
+            assert result.passed or len(result.warnings) > 0
+            assert any("Unknown standard_name" in warning for warning in result.warnings)
+
+        finally:
+            if os.path.exists(filepath):
+                os.unlink(filepath)
+            ds_modified.close()
+
+    def test_units_validation_multiple_acceptable(self):
+        """Test units validation with multiple acceptable units."""
+        ds = xr.open_dataset(TEST_AC1_FILE)
+        ds_modified = ds.copy()
+        ds.close()
+
+        # Modify a variable to have wrong units (for a standard_name that has alternatives)
+        if "TRANSPORT" in ds_modified.data_vars:
+            ds_modified["TRANSPORT"].attrs["units"] = "wrong_units"
+
+        filename = "OS_RAPID_20040402-20040403_DPR_transports_T12H.nc"
+        filepath = os.path.join(tempfile.gettempdir(), filename)
+
+        try:
+            ds_modified.to_netcdf(filepath, format="NETCDF4_CLASSIC")
+            result = compliance_checker.validate_ac1_file(filepath)
+
+            assert not result.passed
+            # Should have error about non-compliant units
+            assert any("Non-compliant units" in error for error in result.errors)
+
+        finally:
+            if os.path.exists(filepath):
+                os.unlink(filepath)
+            ds_modified.close()
+
+
+class TestSpecificValidations:
+    """Test specific validation functions."""
+
+    def test_unknown_file_type_detection(self):
+        """Test handling of unknown file types."""
+        # Create dataset with minimal structure that doesn't match known patterns
+        ds = xr.Dataset(
+            {"unknown_var": (["time"], [1, 2, 3])},
+            coords={"time": [1, 2, 3]},
+            attrs={
+                "Conventions": "CF-1.8, OceanSITES-1.4, ACDD-1.3",
+                "format_version": "1.4",
+                "data_type": "OceanSITES time-series data",
+                "title": "Unknown data type",
+                "source": "test"
+            }
+        )
+
+        # Use filename that doesn't match specific patterns
+        filename = "OS_UNKNOWN_20040402-20040403_DPR_unknown_T12H.nc"
+        filepath = os.path.join(tempfile.gettempdir(), filename)
+
+        try:
+            ds.to_netcdf(filepath, format="NETCDF4_CLASSIC")
+            result = compliance_checker.validate_ac1_file(filepath)
+
+            # May pass or fail, but should handle unknown file type gracefully
+            assert isinstance(result, compliance_checker.ValidationResult)
+
+        finally:
+            if os.path.exists(filepath):
+                os.unlink(filepath)
+
+    def test_dimension_validation_errors(self):
+        """Test dimension validation edge cases."""
+        ds = xr.open_dataset(TEST_AC1_FILE)
+        ds_modified = ds.copy()
+        ds.close()
+
+        # Remove required dimension
+        if "TIME" in ds_modified.dims:
+            # Create dataset without TIME dimension
+            new_data = {}
+            for var_name, var in ds_modified.data_vars.items():
+                if "TIME" in var.dims:
+                    # Skip variables that depend on TIME
+                    continue
+                new_data[var_name] = var
+
+            ds_no_time = xr.Dataset(
+                new_data,
+                attrs=ds_modified.attrs
+            )
+
+            filename = "OS_RAPID_20040402-20040403_DPR_transports_T12H.nc"
+            filepath = os.path.join(tempfile.gettempdir(), filename)
+
+            try:
+                ds_no_time.to_netcdf(filepath, format="NETCDF4_CLASSIC")
+                result = compliance_checker.validate_ac1_file(filepath)
+
+                assert not result.passed
+                # Should have error about missing TIME dimension
+
+            finally:
+                if os.path.exists(filepath):
+                    os.unlink(filepath)
+
+        ds_modified.close()
+
+
+class TestValidationResultProperties:
+    """Test ValidationResult class edge cases."""
+
+    def test_validation_result_passed_property(self):
+        """Test that passed property can be set and retrieved."""
+        result = compliance_checker.ValidationResult(passed=True)
+        
+        # Initially should be True
+        assert result.passed == True
+        
+        # Can be manually set to False
+        result.passed = False
+        assert result.passed == False
+        
+        # Adding errors doesn't automatically change passed status
+        result.errors.append("Test error")
+        assert result.passed == False  # Still False as we set it
+        
+        # Warnings shouldn't affect pass status
+        result.warnings.append("Test warning")
+        assert result.passed == False
+        
+        # Can manually set back to True
+        result.passed = True
+        assert result.passed == True
+
+    def test_validation_result_attributes(self):
+        """Test ValidationResult attribute initialization."""
+        result = compliance_checker.ValidationResult(
+            file_type="test_type",
+            passed=False
+        )
+        
+        assert result.file_type == "test_type"
+        assert result.passed == False  # Explicitly set
+        assert isinstance(result.errors, list)
+        assert isinstance(result.warnings, list)
+
+
 if __name__ == "__main__":
     pytest.main([__file__])
