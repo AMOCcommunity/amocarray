@@ -1,6 +1,8 @@
+"""Tests for amocatlas.utilities module."""
 from pathlib import Path
 import tempfile
 import os
+from typing import Any, Tuple
 import yaml
 import pandas as pd
 
@@ -29,7 +31,7 @@ logger.disable_logging()
         ("not_a_url", False),
     ],
 )
-def test_is_valid_url(url, expected):
+def test_is_valid_url(url: str, expected: bool) -> None:
     assert utilities._is_valid_url(url) == expected
 
 
@@ -44,18 +46,20 @@ def test_is_valid_url(url, expected):
         ("non_existent_file.nc", False),
     ],
 )
-def test_is_valid_file(path, expected):
+def test_is_valid_file(path: str, expected: bool) -> None:
     assert utilities._is_valid_file(path) == expected
 
 
-def test_safe_update_attrs_add_new_attribute():
+def test_safe_update_attrs_add_new_attribute() -> None:
+    """Test adding new attributes via safe_update_attrs."""
     ds = xr.Dataset()
     new_attrs = {"project": "MOVE"}
     ds = utilities.safe_update_attrs(ds, new_attrs)
     assert ds.attrs["project"] == "MOVE"
 
 
-def test_safe_update_attrs_existing_key_logs(caplog):
+def test_safe_update_attrs_existing_key_logs(caplog: Any) -> None:
+    """Test logging when trying to overwrite existing attributes."""
     from amocatlas import logger, utilities
 
     # Re-enable logging for this test
@@ -74,14 +78,15 @@ def test_safe_update_attrs_existing_key_logs(caplog):
     )
 
 
-def test_safe_update_attrs_existing_key_with_overwrite():
+def test_safe_update_attrs_existing_key_with_overwrite() -> None:
+    """Test overwriting existing attributes when overwrite=True."""
     ds = xr.Dataset(attrs={"project": "MOVE"})
     new_attrs = {"project": "OSNAP"}
     ds = utilities.safe_update_attrs(ds, new_attrs, overwrite=True)
     assert ds.attrs["project"] == "OSNAP"
 
 
-def test_get_project_root():
+def test_get_project_root() -> None:
     """Test getting project root directory."""
     root = utilities.get_project_root()
     assert isinstance(root, Path)
@@ -92,7 +97,7 @@ def test_get_project_root():
     assert any((root / file).exists() for file in project_files)
 
 
-def test_get_default_data_dir():
+def test_get_default_data_dir() -> None:
     """Test getting default data directory."""
     data_dir = utilities.get_default_data_dir()
     assert isinstance(data_dir, Path)
@@ -101,27 +106,27 @@ def test_get_default_data_dir():
     assert data_dir.name == "data"
 
 
-def test_normalize_whitespace():
+def test_normalize_whitespace() -> None:
     """Test whitespace normalization in attributes."""
     attrs = {
         "description": "This  has  multiple   spaces",
         "comment": "Line1\nLine2\n\nLine4",
         "normal_attr": "normal_value"
     }
-    
+
     result = utilities.normalize_whitespace(attrs)
-    
+
     assert result["description"] == "This has multiple spaces"
     assert result["comment"] == "Line1 Line2 Line4"
     assert result["normal_attr"] == "normal_value"
 
 
-def test_resolve_file_path_local():
+def test_resolve_file_path_local() -> None:
     """Test resolving local file paths."""
     with tempfile.NamedTemporaryFile(suffix=".nc", delete=False) as tmp:
         tmp_path = tmp.name
         tmp.write(b"test data")
-    
+
     try:
         # Test local file
         result = utilities.resolve_file_path(
@@ -137,13 +142,13 @@ def test_resolve_file_path_local():
         os.unlink(tmp_path)
 
 
-def test_resolve_file_path_url():
+def test_resolve_file_path_url() -> None:
     """Test resolving URL-based file paths (mock scenario)."""
     with tempfile.TemporaryDirectory() as tmp_dir:
         # Create a file in cache to avoid download
         cached_file = Path(tmp_dir) / "test_file.nc"
         cached_file.write_text("test data")
-        
+
         result = utilities.resolve_file_path(
             file_name="test_file.nc",
             source="https://example.com/data/",
@@ -156,7 +161,7 @@ def test_resolve_file_path_url():
         assert result.exists()
 
 
-def test_load_array_metadata():
+def test_load_array_metadata() -> None:
     """Test loading array metadata."""
     # Test with a known array
     try:
@@ -169,7 +174,7 @@ def test_load_array_metadata():
         pytest.skip("Array metadata files not available")
 
 
-def test_validate_array_yaml():
+def test_validate_array_yaml() -> None:
     """Test YAML validation for arrays."""
     # Create a temporary YAML file for testing
     with tempfile.NamedTemporaryFile(mode='w', suffix='.yml', delete=False) as tmp:
@@ -179,23 +184,23 @@ def test_validate_array_yaml():
             "variables": {"test_var": {"units": "m"}}
         }, tmp)
         tmp_path = tmp.name
-    
+
     try:
         # This should work without errors (exact behavior depends on implementation)
         result = utilities.validate_array_yaml("test", verbose=False)
         assert isinstance(result, bool)
-    except Exception:
+    except Exception:  # noqa: BLE001
         # If validation fails due to missing schema, that's expected
         pass
     finally:
         os.unlink(tmp_path)
 
 
-def test_parse_ascii_header():
+def test_parse_ascii_header() -> None:
     """Test parsing ASCII file headers."""
     # Create a test ASCII file
     content = """% Column 1: Year
-% Column 2: Month  
+% Column 2: Month
 % Column 3: Value (m/s)
 % This is a comment
 2020 1 1.5
@@ -204,20 +209,20 @@ def test_parse_ascii_header():
     with tempfile.NamedTemporaryFile(mode='w', suffix='.txt', delete=False) as tmp:
         tmp.write(content)
         tmp_path = tmp.name
-    
+
     try:
         columns, num_header_lines = utilities.parse_ascii_header(tmp_path, comment_char="%")
-        
+
         assert len(columns) == 3
         assert "Year" in columns[0]
-        assert "Month" in columns[1] 
+        assert "Month" in columns[1]
         assert "Value" in columns[2]
         assert num_header_lines >= 3  # Returns number of header lines
     finally:
         os.unlink(tmp_path)
 
 
-def test_read_ascii_file():
+def test_read_ascii_file() -> None:
     """Test reading ASCII data files."""
     content = """% Header line
 % Another header
@@ -228,10 +233,10 @@ def test_read_ascii_file():
     with tempfile.NamedTemporaryFile(mode='w', suffix='.txt', delete=False) as tmp:
         tmp.write(content)
         tmp_path = tmp.name
-    
+
     try:
         df = utilities.read_ascii_file(tmp_path, comment_char="%")
-        
+
         assert isinstance(df, pd.DataFrame)
         # The function might skip header lines, check actual length
         assert len(df) >= 2  # At least 2 data rows
@@ -242,52 +247,52 @@ def test_read_ascii_file():
         os.unlink(tmp_path)
 
 
-def test_is_valid_url_edge_cases():
+def test_is_valid_url_edge_cases() -> None:
     """Test URL validation with edge cases."""
     # Function requires scheme, netloc, AND path
-    assert utilities._is_valid_url("https://example.com/path") == True
-    assert utilities._is_valid_url("http://test.org/data") == True
-    assert utilities._is_valid_url("ftp://ftp.example.com/files") == True
-    
+    assert utilities._is_valid_url("https://example.com/path")
+    assert utilities._is_valid_url("http://test.org/data")
+    assert utilities._is_valid_url("ftp://ftp.example.com/files")
+
     # These should fail (no path required by the function)
-    assert utilities._is_valid_url("https://example.com") == False  # No path
-    assert utilities._is_valid_url("") == False
-    assert utilities._is_valid_url("not-a-url") == False
-    assert utilities._is_valid_url("file:///local/path") == False  # Wrong scheme
+    assert not utilities._is_valid_url("https://example.com")  # No path
+    assert not utilities._is_valid_url("")
+    assert not utilities._is_valid_url("not-a-url")
+    assert not utilities._is_valid_url("file:///local/path")  # Wrong scheme
 
 
-def test_is_valid_file_edge_cases():
+def test_is_valid_file_edge_cases() -> None:
     """Test file validation with edge cases."""
     # Test with actual temporary file
     with tempfile.NamedTemporaryFile(suffix=".nc") as tmp:
-        assert utilities._is_valid_file(tmp.name) == True
-    
+        assert utilities._is_valid_file(tmp.name)
+
     # Test with non-existent file
-    assert utilities._is_valid_file("/definitely/does/not/exist.nc") == False
-    
+    assert not utilities._is_valid_file("/definitely/does/not/exist.nc")
+
     # Test with directory instead of file
     with tempfile.TemporaryDirectory() as tmp_dir:
-        assert utilities._is_valid_file(tmp_dir) == False
+        assert not utilities._is_valid_file(tmp_dir)
 
 
-def test_apply_defaults_decorator():
+def test_apply_defaults_decorator() -> None:
     """Test the apply_defaults decorator functionality."""
     @utilities.apply_defaults("default_source", ["file1.nc", "file2.nc"])
-    def test_function(source=None, file_list=None):
+    def test_function(source: str = None, file_list: list = None) -> Tuple[str, list]:
         return source, file_list
-    
+
     # Test with no arguments (should use defaults)
     source, files = test_function()
     assert source == "default_source"
     assert files == ["file1.nc", "file2.nc"]
-    
+
     # Test with custom arguments
     source, files = test_function(source="custom", file_list=["custom.nc"])
     assert source == "custom"
     assert files == ["custom.nc"]
 
 
-def test_resolve_file_path_missing_file():
+def test_resolve_file_path_missing_file() -> None:
     """Test error handling when local file is missing."""
     with tempfile.TemporaryDirectory() as tmp_dir:
         with pytest.raises(FileNotFoundError):
@@ -300,20 +305,20 @@ def test_resolve_file_path_missing_file():
             )
 
 
-def test_safe_update_attrs_edge_cases():
+def test_safe_update_attrs_edge_cases() -> None:
     """Test edge cases for safe_update_attrs."""
     # Test with empty attributes
     ds = xr.Dataset()
     result = utilities.safe_update_attrs(ds, {})
     assert len(result.attrs) == 0
-    
+
     # Test return value
     ds = xr.Dataset()
     result = utilities.safe_update_attrs(ds, {"test": "value"})
     assert result is ds  # Should modify in place and return same object
 
 
-def test_normalize_whitespace_edge_cases():
+def test_normalize_whitespace_edge_cases() -> None:
     """Test edge cases for normalize_whitespace."""
     # Test with non-string values
     attrs = {
@@ -322,7 +327,7 @@ def test_normalize_whitespace_edge_cases():
         "float_val": 3.14,
         "none_val": None
     }
-    
+
     result = utilities.normalize_whitespace(attrs)
     assert result["string_val"] == "normal text"
     assert result["int_val"] == 42  # Should remain unchanged
@@ -330,7 +335,7 @@ def test_normalize_whitespace_edge_cases():
     assert result["none_val"] is None
 
 
-def test_load_array_metadata_missing():
+def test_load_array_metadata_missing() -> None:
     """Test loading metadata for non-existent array."""
     with pytest.raises(FileNotFoundError):
         utilities.load_array_metadata("definitely_does_not_exist")

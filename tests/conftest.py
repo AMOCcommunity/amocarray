@@ -6,17 +6,19 @@ creates a dummy local file. Keeps tests fast, isolated, and reliable.
 """
 
 from pathlib import Path
+from typing import Any
 
 import pytest
 
 
 @pytest.fixture()
-def mock_download_file(monkeypatch):
+def mock_download_file(monkeypatch: Any) -> None:
     """Fixture to mock the download_file function in utilities.py.
+    
     Instead of downloading, it writes dummy data to the destination.
     """
 
-    def fake_download_file(source_url, dest_folder):
+    def fake_download_file(source_url: str, dest_folder: str) -> str:
         destination = Path(dest_folder) / Path(source_url).name
         assert destination.parent.exists(), "Destination folder does not exist in mock."
         destination.write_text("fake data")
