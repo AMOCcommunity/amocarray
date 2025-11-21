@@ -1,0 +1,46 @@
+metadata:
+  program: "Calafat2025"
+  description: "MHT estimates dataset"
+  project: "Estimates of Atlantic meridional heat transport from spatiotemporal fusion of Argo, altimetry and gravimetry data"
+  weblink: https://zenodo.org/records/16640426
+  comment: Dataset accessed and processed via http://github.com/AMOCcommunity/amocatlas
+  acknowledgment: >
+    This work has been carried out within the framework of the EPOC project funded by the European Union's Horizon Europe programme (grant agreement No 101059547), under call HORIZON-CL6-2021-CLIMATE01.
+  license:
+  featureType: timeSeries
+  Convections: CF-1.8, ACDD-1.3
+  time_coverage_start: '2004-02-15'
+  time_coverage_end: '2020-08-15'
+  platform_type: Argo floats, altimetry, gravimetry data
+
+files:
+  Bayesian_estimates_Atlantic_MHT.nc:
+    source_url: https://zenodo.org/records/16640426
+    data_product: "MHT estimates at 12 latitudes across the Atlantic based on spatiotemporal Bayesian hierarchical model"
+    acknowledgement:
+    variable_mapping:
+      "time": TIME
+      "latitude": LATITUDE
+      "mht": MHT
+      "htc": HTC
+    variables:
+      TIME:
+        long_name: "Time"
+        description: "Time in decimal years"
+        units: "decimal years"
+        standard_name: "time"
+      LATITUDE:
+        long_name: "Latitude of zonal sections"
+        description: "Latitude of zonal sections across which heat transport is computed"
+        units: "degrees"
+        standard_name: "latitude"
+      MHT:
+        long_name: "Meridional Heat Transport"
+        description: "These estimates have been computed by setting the transport at 65N equal to zero and then integrating the heat transport convergences southward. A time-mean value of 0.506 PW has been added to the transport at 60N based on estimates from the OSNAP project"
+        units: PW
+        standard_name: "heat_transport"
+      HTC:
+        long_name: "Heat Transport Convergence"
+        description: "Regions are ordered from north to south. That is, htc(:,:,1) corresponds to the northernmost region, which is bounded by latitude(1) and latitude(2)"
+        units: PW
+        standard_name: "heat_transport_convergence"
