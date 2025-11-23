@@ -506,8 +506,13 @@ def standardise_41n(ds: xr.Dataset, file_name: str) -> xr.Dataset:
 def standardise_dso(ds: xr.Dataset, file_name: str) -> xr.Dataset:
     return standardise_array(ds, file_name, array_name="dso")
 
+
 def standardise_calafat2025(ds: xr.Dataset, file_name: str) -> xr.Dataset:
     return standardise_array(ds, file_name, array_name="calafat2025")
+
+
+def standardise_amft(ds: xr.Dataset, file_name: str) -> xr.Dataset:
+    return standardise_array(ds, file_name, array_name="amft")
 
 
 def standardise_array(ds: xr.Dataset, file_name: str, array_name: str) -> xr.Dataset:
