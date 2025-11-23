@@ -12,12 +12,16 @@ metadata:
   time_coverage_start: '2004-02-15'
   time_coverage_end: '2020-08-15'
   platform_type: Argo floats, altimetry, gravimetry data
+  contributor_name: "Francisco Calafat, Parvathi Vallivattathillam, Eleanor Frajka-Williams"
+  contributor_role: "Owner, Data Scientist, PI"
+  contributor_id: "https://orcid.org/0000-0002-7474-135X, https://orcid.org/0000-0003-1670-964X, https://orcid.org/0000-0001-8773-7838"
+  contributor_role_vocabulary: http://vocab.nerc.ac.uk/search_nvs/W08/
 
 files:
   Bayesian_estimates_Atlantic_MHT.nc:
     source_url: https://zenodo.org/records/16640426
     data_product: "MHT estimates at 12 latitudes across the Atlantic based on spatiotemporal Bayesian hierarchical model"
-    acknowledgement:
+    acknowledgement: "Calafat et al. 2025, doi:10.5194/os-21-2743-2025"
     variable_mapping:
       "time": TIME
       "latitude": LATITUDE
