@@ -33,6 +33,7 @@ from amocatlas.read_fw2015 import read_fw2015
 from amocatlas.read_mocha import read_mocha
 from amocatlas.read_41n import read_41n
 from amocatlas.read_dso import read_dso
+from amocatlas.read_calafat2025 import read_calafat2025
 
 log = logger.log
 
@@ -69,6 +70,7 @@ def _get_reader(array_name: str):
         "mocha": read_mocha,
         "41n": read_41n,
         "dso": read_dso,
+        "calafat2025": read_calafat2025,
     }
     try:
         return readers[array_name.lower()]
@@ -141,6 +143,7 @@ def load_dataset(
         - 'fw2015' : FW2015 array
         - '41n' : 41N array
         - 'dso' : DSO array
+        - 'calafat2025' : CALAFAT2025 array
     source : str, optional
         URL or local path to the data source.
         If None, the reader-specific default source will be used.

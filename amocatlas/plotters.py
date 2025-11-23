@@ -258,31 +258,42 @@ def show_variables_by_dimension(
 
 
 def monthly_resample(da: xr.DataArray) -> xr.DataArray:
-    """Resample to monthly mean if data is not already monthly."""
+    """
+    Resample to monthly mean if time is datetime-like and spacing ~monthly.
+    If time is float-year, just pass through as-is (no interpolation).
+    """
+
+    # find time coordinate
     time_key = [c for c in da.coords if c.lower() == "time"]
     if not time_key:
         raise ValueError("No time coordinate found.")
     time_key = time_key[0]
 
-    # Extract time values and check spacing
     time_values = da[time_key].values
-    dt_days = np.nanmean(np.diff(time_values) / np.timedelta64(1, "D"))
-    if 20 <= dt_days <= 40:
-        return da  # Already monthly
 
-    # Drop NaT timestamps
-    mask_valid_time = ~np.isnat(time_values)
-    da = da.isel({time_key: mask_valid_time})
+    if np.issubdtype(time_values.dtype, np.datetime64):
+        # compute spacing in days
+        dt_days = np.nanmean(np.diff(time_values) / np.timedelta64(1, "D"))
 
-    # Drop duplicate timestamps (keep first)
-    _, unique_indices = np.unique(da[time_key].values, return_index=True)
-    da = da.isel({time_key: np.sort(unique_indices)})
+        # already ~monthly? pass through
+        if 20 <= dt_days <= 40:
+            return da
 
-    # Ensure strictly increasing time
-    da = da.sortby(time_key)
+        # otherwise resample
+        mask_valid_time = ~np.isnat(time_values)
+        da = da.isel({time_key: mask_valid_time})
 
-    # Now resample
-    return da.resample({time_key: "1MS"}).mean()
+        _, unique_indices = np.unique(da[time_key].values, return_index=True)
+        da = da.isel({time_key: np.sort(unique_indices)})
+
+        da = da.sortby(time_key)
+
+        return da.resample({time_key: "1MS"}).mean()
+
+    else:
+        return da  # just return the original data without interpolation
+
+
 
 
 def plot_amoc_timeseries(
@@ -297,6 +308,9 @@ def plot_amoc_timeseries(
     figsize=(10, 3),
     resample_monthly=True,
     plot_raw=True,
+    lat_idx=None,
+    region_idx=None,
+    posterior_stat="mean",  # "mean" or "median"
 ):
     """Plot original and optionally monthly-averaged AMOC time series for one or more datasets.
 
@@ -349,7 +363,32 @@ def plot_amoc_timeseries(
         else:
             da = item
 
-        # Get time coordinate (case sensitive)
+
+        dims = da.dims
+
+        # MHT(lat, time, posterior_samples)
+        if "posterior_samples" in dims:
+            if "lat" in dims and lat_idx is None:
+                raise ValueError("Dataset has 'lat'. Please provide lat_idx.")
+            if "number_regions" in dims and region_idx is None:
+                raise ValueError("Dataset has 'number_regions'. Please provide region_idx.")
+
+            if "lat" in dims:
+                da = da.isel(lat=lat_idx)
+            if "number_regions" in dims:
+                da = da.isel(number_regions=region_idx)
+
+            # collapse posterior samples
+            if posterior_stat == "mean":
+                da = da.mean("posterior_samples")
+            elif posterior_stat == "median":
+                da = da.median("posterior_samples")
+            else:
+                raise ValueError("posterior_stat must be 'mean' or 'median'.")
+
+
+
+        # Identify the time coordinate
         for coord in da.coords:
             if coord.lower() == "time":
                 time_key = coord
@@ -357,7 +396,7 @@ def plot_amoc_timeseries(
         else:
             raise ValueError("No time coordinate found in dataset.")
 
-        # Plot original
+        # Raw plot
         if plot_raw:
             ax.plot(
                 da[time_key],
@@ -365,14 +404,14 @@ def plot_amoc_timeseries(
                 color="grey",
                 alpha=0.5,
                 linewidth=0.5,
-                label=f"{label} (raw)" if label else "Original",
+                label=f"{label} (raw)",
             )
 
-        # Plot monthly average if requested
+        # Monthly mean plot
         if resample_monthly:
 
             da_monthly = monthly_resample(da)
-
+            
             ax.plot(
                 da_monthly[time_key],
                 da_monthly,
@@ -381,7 +420,7 @@ def plot_amoc_timeseries(
                 label=f"{label} Monthly Avg",
             )
 
-        # Attempt to extract ylabel from metadata if not provided
+        # Build ylabel if not set
         if ylabel is None and "standard_name" in da.attrs and "units" in da.attrs:
             ylabel = f"{da.attrs['standard_name']} [{da.attrs['units']}]"
 
