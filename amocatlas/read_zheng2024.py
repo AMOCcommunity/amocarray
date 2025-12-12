@@ -11,38 +11,35 @@ from amocatlas.utilities import apply_defaults
 
 log = logger.log  # Use the global logger
 
-# Default list of AMFT (Atlantic meridional freshwater transport) data files
-AMFT_DEFAULT_FILES = [
+# Default list of ZHENG2024 (Atlantic meridional freshwater transport) data files
+ZHENG2024_DEFAULT_FILES = [
     "atl_mft_2000_extend_gpcp_oaflux.nc"
 ]
-AMFT_TRANSPORT_FILES = ["atl_mft_2000_extend_gpcp_oaflux.nc"]
-AMFT_DEFAULT_SOURCE = "https://zenodo.org/records/12790901/files/"
+ZHENG2024_TRANSPORT_FILES = ["atl_mft_2000_extend_gpcp_oaflux.nc"]
+ZHENG2024_DEFAULT_SOURCE = "https://zenodo.org/records/12790901/files/"
 
-AMFT_METADATA = {
+ZHENG2024_METADATA = {
     "project": "An observation-based estimate of the Atlantic meridional freshwater transport",
     "weblink": "https://zenodo.org/records/12790901",
     "comment": "Dataset accessed and processed via http://github.com/AMOCcommunity/amocatlas",
-    "acknowledgement": "This study was supported by the NationalNatural Science Foundation of China(Grant 42122046, 42076202, 42075036),National Key Scientific and TechnologicalInfrastructure project “Earth SystemScience Numerical Simulator Facility”(EarthLab) and the new CornerstoneScience Foundation through theXPLORER PRIZE. F. Li acknowledgesthe financial support from the NationalKey R&D Program of China (Grant2023YFF0805102). Gratitude is extendedto Elaine L. McDonagh, who graciouslyshared RAPID freshwater transport data.",
-    "doi": "http://doi.org/10.1029/2024gl110021",
-    "paper": "Zheng, H., Cheng, L., Li, F., Pan, Y., &Zhu, C. (2024). An observation-based estimate of Atlantic meridional freshwatertransport. Geophysical Research Letters,51, e2024GL110021. http://doi.org/10.1029/2024gl110021",
 }
 
-AMFT_FILE_METADATA = {
+ZHENG2024_FILE_METADATA = {
     "atl_mft_2000_extend_gpcp_oaflux.nc": {
         "data_product": "An observation-based estimate of the Atlantic meridional freshwater transport",
     }
 }
 
 
-@apply_defaults(AMFT_DEFAULT_SOURCE, AMFT_DEFAULT_FILES)
-def read_amft(
+@apply_defaults(ZHENG2024_DEFAULT_SOURCE, ZHENG2024_DEFAULT_FILES)
+def read_zheng2024(
     source: Union[str, Path, None],
     file_list: Union[str, list[str]],
     transport_only: bool = True,
     data_dir: Union[str, Path, None] = None,
     redownload: bool = False,
 ) -> list[xr.Dataset]:
-    """Load the AMFT transport datasets from a URL or local file path into xarray Datasets.
+    """Load the ZHENG2024 transport datasets from a URL or local file path into xarray Datasets.
 
     Parameters
     ----------
@@ -52,7 +49,7 @@ def read_amft(
 
     file_list : str or list of str, optional
         Filename or list of filenames to process.
-        Defaults to AMFT_DEFAULT_FILES.  
+        Defaults to ZHENG2024_DEFAULT_FILES.  
 
     transport_only : bool, optional
         If True, restrict to transport files only.
@@ -77,11 +74,11 @@ def read_amft(
         If the file cannot be downloaded or does not exist locally.
 
     """
-    log.info("Starting to read AMFT dataset")  # Ensure file_list has a default
+    log.info("Starting to read ZHENG2024 dataset")  # Ensure file_list has a default
     if file_list is None:
-        file_list = AMFT_DEFAULT_FILES
+        file_list = ZHENG2024_DEFAULT_FILES
     if transport_only:
-        file_list = AMFT_TRANSPORT_FILES
+        file_list = ZHENG2024_TRANSPORT_FILES
     if isinstance(file_list, str):
         file_list = [file_list]
     # Determine the local storage path
@@ -111,7 +108,7 @@ def read_amft(
 
         if file.lower().endswith(".nc"):
             try:
-                log.info("Opening AMFT dataset: %s", file_path)
+                log.info("Opening ZHENG2024 dataset: %s", file_path)
                 ds = xr.open_dataset(file_path)
             except Exception as e:
                 log.error("Failed to open NetCDF file: %s: %s", file_path, e)
@@ -119,14 +116,14 @@ def read_amft(
                     f"Failed to open NetCDF file : {file_path}: {e}"
                 )
             # Attach metadata
-            file_metadata = AMFT_FILE_METADATA.get(file, {})
-            log_info("Attaching metadata to AMFT dataset from file: %s", file)
+            file_metadata = ZHENG2024_FILE_METADATA.get(file, {})
+            log_info("Attaching metadata to ZHENG2024 dataset from file: %s", file)
             utilities.safe_update_attrs(
                 ds,
                 {
                     "source_file": file,
                     "source_path": str(file_path),
-                    **AMFT_METADATA,
+                    **ZHENG2024_METADATA,
                     **file_metadata,
                 },
             )
@@ -139,8 +136,8 @@ def read_amft(
         datasets.append(ds)
 
     if not datasets:
-        log_error("No valid AMFT files in %s", file_list)
+        log_error("No valid ZHENG2024 files in %s", file_list)
         raise FileNotFoundError(f"No valid data files found in {file_list}")
 
-    log_info("Successfully loaded %d AMFT dataset(s)", len(datasets))
+    log_info("Successfully loaded %d ZHENG2024 dataset(s)", len(datasets))
     return datasets
