@@ -12,17 +12,17 @@ log = logger.log  # Use the global logger
 
 # Default file list
 SAMBA_DEFAULT_FILES = [
-    "Upper_Abyssal_Transport_Anomalies.txt",
+#    "Upper_Abyssal_Transport_Anomalies.txt",
     "MOC_TotalAnomaly_and_constituents.asc",
 ]
 SAMBA_TRANSPORT_FILES = [
-    "Upper_Abyssal_Transport_Anomalies.txt",
+#    "Upper_Abyssal_Transport_Anomalies.txt",
     "MOC_TotalAnomaly_and_constituents.asc",
 ]
 # Mapping of filenames to remote URLs
 SAMBA_FILE_URLS = {
-    "Upper_Abyssal_Transport_Anomalies.txt": "ftp://ftp.aoml.noaa.gov/phod/pub/SAM/2020_Kersale_etal_ScienceAdvances/",
-    "MOC_TotalAnomaly_and_constituents.asc": "https://www.aoml.noaa.gov/phod/SAMOC_international/documents/",
+#    "Upper_Abyssal_Transport_Anomalies.txt": "ftp://ftp.aoml.noaa.gov/phod/pub/SAM/2020_Kersale_etal_ScienceAdvances/",
+    "MOC_TotalAnomaly_and_constituents.asc": "https://www.aoml.noaa.gov/phod/SAMOC_international/documents/MOC_TotalAnomaly_and_constituents.asc",
 }
 
 # Global metadata for SAMBA
@@ -37,10 +37,10 @@ SAMBA_METADATA = {
 
 # File-specific metadata placeholders
 SAMBA_FILE_METADATA = {
-    "Upper_Abyssal_Transport_Anomalies.txt": {
-        "data_product": "Daily volume transport anomaly estimates for the upper and abyssal cells of the MOC",
-        "acknowledgement": "M. Kersalé et al., Highly variable upper and abyssal overturning cells in the South Atlantic. Sci. Adv. 6, eaba7573 (2020). DOI: 10.1126/sciadv.aba7573",
-    },
+#    "Upper_Abyssal_Transport_Anomalies.txt": {
+#        "data_product": "Daily volume transport anomaly estimates for the upper and abyssal cells of the MOC",
+#        "acknowledgement": "M. Kersalé et al., Highly variable upper and abyssal overturning cells in the South Atlantic. Sci. Adv. 6, eaba7573 (2020). DOI: 10.1126/sciadv.aba7573",
+#    },
     "MOC_TotalAnomaly_and_constituents.asc": {
         "data_product": "Daily travel time values, calibrated to a nominal pressure of 1000 dbar, and bottom pressures from the two PIES/CPIES moorings",
         "acknowledgement": "Meinen, C. S., Speich, S., Piola, A. R., Ansorge, I., Campos, E., Kersalé, M., et al. (2018). Meridional overturning circulation transport variability at 34.5°S during 2009–2017: Baroclinic and barotropic flows and the dueling influence of the boundaries. Geophysical Research Letters, 45, 4180–4188. https://doi.org/10.1029/2018GL077408",
