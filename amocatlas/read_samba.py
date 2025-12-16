@@ -21,8 +21,8 @@ SAMBA_TRANSPORT_FILES = [
 ]
 # Mapping of filenames to remote URLs
 SAMBA_FILE_URLS = {
-    "Upper_Abyssal_Transport_Anomalies.txt": "ftp://ftp.aoml.noaa.gov/phod/pub/SAM/2020_Kersale_etal_ScienceAdvances/",
-    "MOC_TotalAnomaly_and_constituents.asc": "https://www.aoml.noaa.gov/phod/SAMOC_international/documents/",
+    "Upper_Abyssal_Transport_Anomalies.txt": "ftp://ftp.aoml.noaa.gov/phod/pub/SAM/2020_Kersale_etal_ScienceAdvances/Upper_Abyssal_Transport_Anomalies.txt",
+    "MOC_TotalAnomaly_and_constituents.asc": "https://www.aoml.noaa.gov/phod/SAMOC_international/documents/MOC_TotalAnomaly_and_constituents.asc",
 }
 
 # Global metadata for SAMBA
