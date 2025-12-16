@@ -110,9 +110,9 @@ def read_fbc(
         if file.lower().endswith(".txt"):
             # file.txt
             try:
-                column_names, _ = utilities.parse_ascii_header(
-                    file_path, comment_char="%"
-                )
+                # column_names, _ = utilities.parse_ascii_header(
+                #     file_path, comment_char="%"
+                # )
                 data_start = utilities.find_data_start(file_path)
 
                 df = pd.read_csv(
