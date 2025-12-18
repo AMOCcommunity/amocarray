@@ -35,6 +35,7 @@ from amocatlas.read_41n import read_41n
 from amocatlas.read_dso import read_dso
 from amocatlas.read_calafat2025 import read_calafat2025
 from amocatlas.read_zheng2024 import read_zheng2024
+from amocatlas.read_47n import read_47n
 
 log = logger.log
 
@@ -73,6 +74,7 @@ def _get_reader(array_name: str):
         "dso": read_dso,
         "calafat2025": read_calafat2025,
         "zheng2024": read_zheng2024,
+        "47n": read_47n,
     }
     try:
         return readers[array_name.lower()]
@@ -147,6 +149,7 @@ def load_dataset(
         - 'dso' : DSO array
         - 'calafat2025' : CALAFAT2025 array
         - 'zheng2024' : ZHENG2024 array
+        - '47n' : 47N array
     source : str, optional
         URL or local path to the data source.
         If None, the reader-specific default source will be used.

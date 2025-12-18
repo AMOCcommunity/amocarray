@@ -1,0 +1,39 @@
+metadata:
+  program: "NOAC 47N array"
+  project: "Meridional Connectivity of a 25-Year Observational AMOC Record at 47°N"
+  weblink: "https://doi.pangaea.de/10.1594/PANGAEA.959558?format=textfile"
+  comment: "Dataset accessed and processed via http://github.com/AMOCcommunity/amocatlas"
+  acknowledgement: >
+    "S. Wett was funded by the German Science Foundation (DFG) through the International Research Training Group ArcTrain "Processes and impacts of climate change in the North Atlantic Ocean and the Canadian Arctic" (IRTG 1904 ArcTrain to M. Rhein). Shipboard and moored data at 47°N—the NOAC array—have been funded by the German Ministry of Education and Research (Grants 03F0443C, 03F0605C, 03F0561C to M. Rhein, and 03F0792A to M. Rhein and D. Kieke). M. Rhein and C. Mertens received funding by the EU Project 101059547—EPOC. EPOC is funded by the European Union. Views and opinions expressed are however those of the authors only and do not necessarily reflect those of the European Union. Neither the European Union nor the granting authority can be held responsible for them. The authors thank H. Nowitzki (formerly University of Bremen) for preparing data from the eastern PIES, R. Steinfeldt (University of Bremen) for calibrating the NOAC CTD data, A. Sanchez-Franks (National Oceanography Centre, Southampton) for supplying the extended transport time series at 26°N and L. Caesar (University of Bremen) for helpful comments on the manuscript. Additionally, the authors thank the editor K. Karnauskas and the reviewers S. Elipot and an anonymous reviewer for a thorough and very constructive review of the manuscript. Open Access funding enabled and organized by Projekt DEAL."
+  license:
+  featureType: "timeSeries"
+  time_coverage_start: '1993-01-01'
+  time_coverage_end: '2018-01-01'
+  contributor_name: "Wett, Simon; Rhein, Monika; Kieke, Dagmar; Mertens, Christian; Moritz, Martin; Nowitzki, Hannah "
+  contributor_role: ""
+  contributor_id: https://orcid.org/0000-0003-3876-2206, https://orcid.org/0000-0003-1496-2828, https://orcid.org/0000-0002-2414-0695, https://orcid.org/0000-0002-7602-4194, https://orcid.org/0000-0002-9878-5648, https://orcid.org/0000-0001-5936-0527
+  contributor_role_vocabulary: "http://vocab.nerc.ac.uk/search_nvs/W08/"
+
+files:
+  NOAC_AMOC.tab:
+    source_url: "https://doi.pangaea.de/10.1594/PANGAEA.959558"
+    data_product: "Basin-wide AMOC volume transport from the NOAC array at 47°N in the subpolar North Atlantic (1993-2018)"
+    acknowledgement: "S. Wett et al. (2023), https://doi.org/10.1594/PANGAEA.959558"
+    variable_mapping:
+      "TIME": TIME
+      "Trans vol [Sv]": volume_transport
+      "Trans vol [Sv].1": volume_transport_lpf
+    variables:
+      TIME:
+        long_name: "Time"
+        description: "Time in datetime format"
+        units: "dateteime64[ns]"
+        standard_name: "time"
+      volume_transport:
+        long_name: "Volumetric Transport"
+        description: "AMOC volume transport at 47N"
+        units: "Sv"
+      volume_transport_lpf:
+        long_name: "Meridional Freshwater Transport"
+        description: "AMOC volume transport at 47N, low-pass filtered"
+        units: "Sv"

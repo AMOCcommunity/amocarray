@@ -515,6 +515,10 @@ def standardise_zheng2024(ds: xr.Dataset, file_name: str) -> xr.Dataset:
     return standardise_array(ds, file_name, array_name="zheng2024")
 
 
+def standardise_47n(ds: xr.Dataset, file_name: str) -> xr.Dataset:
+    return standardise_array(ds, file_name, array_name="47n")
+
+
 def standardise_array(ds: xr.Dataset, file_name: str, array_name: str) -> xr.Dataset:
     """Standardise a mooring array dataset using YAML-based metadata.
 
