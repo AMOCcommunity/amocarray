@@ -24,6 +24,12 @@ A47N_METADATA = {
     "weblink": "https://doi.pangaea.de/10.1594/PANGAEA.959558",
     "comment": "Dataset accessed and processed via http://github.com/AMOCcommunity/amocatlas",
 }
+# Mapping of filenames to download URLs
+A47N_FILE_URLS = {
+    "NOAC_AMOC.tab": (
+        "https://doi.pangaea.de/10.1594/PANGAEA.959558?format=textfile"
+    ),
+}
 
 A47N_FILE_METADATA = {
     "NOAC_AMOC.tab": {
@@ -90,7 +96,10 @@ def read_47n(
             log_warning("Skipping unsupported file type : %s", file)
             continue
 
-        download_url = "https://doi.pangaea.de/10.1594/PANGAEA.959558?format=textfile"
+        download_url = A47N_FILE_URLS.get(file)
+        if not download_url:
+            log.error("No download URL found for file: %s", file)
+            raise ValueError(f"No download URL found for file: {file}")
 
         file_path = utilities.resolve_file_path(
             file_name=file,
