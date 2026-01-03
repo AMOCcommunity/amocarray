@@ -1,0 +1,208 @@
+metadata:
+  program: "Pan-Arctic Gateway transports since 2004"
+  description: "Input data and adjusted data derived with an inverse model of ocean velocity, temperature and salinity obtained from ocean moorings and hydrography from the four main Arctic Gateways Fram Strait, Barents Sea Opening, Bering Strait and Davis Strait"
+  project: "Explaining and predicting the ocean conveyor belt, The Fram Strait Arctic Outflow Observatory"
+  weblink: "https://doi.org/10.21334/NPOLAR.2025.80B69907"
+  comment: "Dataset accessed and processed via http://github.com/AMOCcommunity/amocatlas"
+  acknowledgement: >
+    The mooring data from the Arctic Gateways are provided by the Norwegian Polar Institute (Tromsø, Norway), the Alfred Wegener Institute (Bremerhaven, Germany), the Institute for Marine Research (Bergen, Norway) and the Applied Physics Laboratory, Univ. of Washington (Seattle, USA).
+  license: CC BY 4.0
+
+  featureType: "timeSeries"
+  Conventions: ""
+  time_coverage_start: '2004-10-15'
+  time_coverage_end: '2022-05-15'
+  contributor_name: "Fredriksen, H., de Steur, L., von Appen, W., Ingvaldsen, R., McPherson, R., Lee, C., Lenetsky, J., & Woodgate, R"
+  contributor_role: ""
+  contributor_id: "https://orcid.org/0000-0002-3598-4076, https://orcid.org/0000-0002-6043-7920, https://orcid.org/0000-0002-7200-0099, https://orcid.org/0000-0002-8261-334X, https://orcid.org/0000-0002-4449-6701, https://apl.uw.edu/people/profile.php?last_name=Lee&first_name=Craig, https://orcid.org/0000-0003-1074-2764, https://psc.apl.uw.edu/people/investigators/rebecca-woodgate/"
+  contributor_role_vocabulary: "http://vocab.nerc.ac.uk/search_nvs/W08/"
+
+files:
+  Adjusted_fulldepth/BarentsSeaOpening_adjusted_v_fulldepth.nc:
+    source_url: "https://doi.org/10.21334/NPOLAR.2025.80B69907"
+    data_product: "Pan-Arctic Gateway transports since 2004 - Barents Sea Opening"
+    variable_mapping:
+      "time": TIME
+      "depth": DEPTH
+      "lon": LONGITUDE
+      "lat": LATITUDE
+      "CT": conservative_temperature
+      "SA": absolute_salinity
+      "v": northward_velocity
+    variables:
+      TIME:
+        long_name: "Time"
+        description: "Time in datetime format"
+        units: "datetime64[ns]"
+        standard_name: "time"
+      DEPTH:
+        long_name: "Depth"
+        description: "Depth, interpolated to 4 m resolution"
+        units: "meters"
+        standard_name: "depth"
+      LONGITUDE:
+        long_name: "Longitude"
+        description: "Longitude of zonal sections across which freshwater transport is computed."
+        units: "degrees"
+        standard_name: "longitude"
+      LATITUDE:
+        long_name: "Latitude"
+        description: "Latitude of zonal sections across which freshwater transport is computed."
+        units: "degrees"
+        standard_name: "latitude"
+      conservative_temperature:
+        long_name: "Conservative Temperature"
+        description: "Conservative Temperature (TEOS-10)"
+        units: "degrees Celsius"
+        standard_name: "conservative_temperature"
+      absolute_salinity:
+        long_name: "Absolute Salinity"
+        description: "Absolute Salinity (TEOS-10)"
+        units: "g kg-1"
+        standard_name: "absolute_salinity"
+      northward_velocity:
+        long_name: "Northward Velocity"
+        description: "Northward Velocity component"
+        units: "m s-1"
+        standard_name: "northward_sea_water_velocity"
+  Adjusted_fulldepth/BeringStrait_adjusted_v_fulldepth.nc:
+    source_url: "https://doi.org/10.21334/NPOLAR.2025.80B69907"
+    data_product: "Pan-Arctic Gateway transports since 2004 - Bering Strait"
+    variable_mapping:
+      "time": TIME
+      "depth": DEPTH
+      "lon": LONGITUDE
+      "lat": LATITUDE
+      "CT": conservative_temperature
+      "SA": absolute_salinity
+      "v": northward_velocity
+    variables:
+      TIME:
+        long_name: "Time"
+        description: "Time in datetime format"
+        units: "datetime64[ns]"
+        standard_name: "time"
+      DEPTH:
+        long_name: "Depth"
+        description: "Depth, interpolated to 4 m resolution"
+        units: "meters"
+        standard_name: "depth"
+      LONGITUDE:
+        long_name: "Longitude"
+        description: "Longitude of zonal sections across which freshwater transport is computed."
+        units: "degrees"
+        standard_name: "longitude"
+      LATITUDE:
+        long_name: "Latitude"
+        description: "Latitude of zonal sections across which freshwater transport is computed."
+        units: "degrees"
+        standard_name: "latitude"
+      conservative_temperature:
+        long_name: "Conservative Temperature"
+        description: "Conservative Temperature (TEOS-10)"
+        units: "degrees Celsius"
+        standard_name: "conservative_temperature"
+      absolute_salinity:
+        long_name: "Absolute Salinity"
+        description: "Absolute Salinity (TEOS-10)"
+        units: "g kg-1"
+        standard_name: "absolute_salinity"
+      northward_velocity:
+        long_name: "Northward Velocity"
+        description: "Northward Velocity component"
+        units: "m s-1"
+        standard_name: "northward_sea_water_velocity"
+  Adjusted_fulldepth/DavisStrait_adjusted_v_fulldepth.nc:
+    source_url: "https://doi.org/10.21334/NPOLAR.2025.80B69907"
+    data_product: "Pan-Arctic Gateway transports since 2004 - Davis Strait"
+    variable_mapping:
+      "time": TIME
+      "depth": DEPTH
+      "lon": LONGITUDE
+      "lat": LATITUDE
+      "CT": conservative_temperature
+      "SA": absolute_salinity
+      "v": northward_velocity
+    variables:
+      TIME:
+        long_name: "Time"
+        description: "Time in datetime format"
+        units: "datetime64[ns]"
+        standard_name: "time"
+      DEPTH:
+        long_name: "Depth"
+        description: "Depth, interpolated to 4 m resolution"
+        units: "meters"
+        standard_name: "depth"
+      LONGITUDE:
+        long_name: "Longitude"
+        description: "Longitude of zonal sections across which freshwater transport is computed."
+        units: "degrees"
+        standard_name: "longitude"
+      LATITUDE:
+        long_name: "Latitude"
+        description: "Latitude of zonal sections across which freshwater transport is computed."
+        units: "degrees"
+        standard_name: "latitude"
+      conservative_temperature:
+        long_name: "Conservative Temperature"
+        description: "Conservative Temperature (TEOS-10)"
+        units: "degrees Celsius"
+        standard_name: "conservative_temperature"
+      absolute_salinity:
+        long_name: "Absolute Salinity"
+        description: "Absolute Salinity (TEOS-10)"
+        units: "g kg-1"
+        standard_name: "absolute_salinity"
+      northward_velocity:
+        long_name: "Northward Velocity"
+        description: "Northward Velocity component"
+        units: "m s-1"
+        standard_name: "northward_sea_water_velocity"
+  Adjusted_fulldepth/FramStrait_adjusted_v_fulldepth.nc:
+    source_url: "https://doi.org/10.21334/NPOLAR.2025.80B69907"
+    data_product: "Pan-Arctic Gateway transports since 2004 - Fram Strait"
+    variable_mapping:
+      "time": TIME
+      "depth": DEPTH
+      "lon": LONGITUDE
+      "lat": LATITUDE
+      "CT": conservative_temperature
+      "SA": absolute_salinity
+      "v": northward_velocity
+    variables:
+      TIME:
+        long_name: "Time"
+        description: "Time in datetime format"
+        units: "datetime64[ns]"
+        standard_name: "time"
+      DEPTH:
+        long_name: "Depth"
+        description: "Depth, interpolated to 4 m resolution"
+        units: "meters"
+        standard_name: "depth"
+      LONGITUDE:
+        long_name: "Longitude"
+        description: "Longitude of zonal sections across which freshwater transport is computed."
+        units: "degrees"
+        standard_name: "longitude"
+      LATITUDE:
+        long_name: "Latitude"
+        description: "Latitude of zonal sections across which freshwater transport is computed."
+        units: "degrees"
+        standard_name: "latitude"
+      conservative_temperature:
+        long_name: "Conservative Temperature"
+        description: "Conservative Temperature (TEOS-10)"
+        units: "degrees Celsius"
+        standard_name: "conservative_temperature"
+      absolute_salinity:
+        long_name: "Absolute Salinity"
+        description: "Absolute Salinity (TEOS-10)"
+        units: "g kg-1"
+        standard_name: "absolute_salinity"
+      northward_velocity:
+        long_name: "Northward Velocity"
+        description: "Northward Velocity component"
+        units: "m s-1"
+        standard_name: "northward_sea_water_velocity"

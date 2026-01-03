@@ -509,5 +509,3 @@ def find_data_start(file_path: str) -> int:
             if line and line[0].isdigit():
                 return i
     raise ValueError("No data lines found")
-
-
