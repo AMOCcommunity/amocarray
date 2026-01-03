@@ -27,7 +27,7 @@ files:
       TIME:
         long_name: "Time"
         description: "Time in datetime format"
-        units: "dateteime64[ns]"
+        units: "datetime64[ns]"
         standard_name: "time"
       volume_transport:
         long_name: "Volumetric Transport"

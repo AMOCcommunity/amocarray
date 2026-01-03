@@ -516,6 +516,21 @@ def standardise_zheng2024(ds: xr.Dataset, file_name: str) -> xr.Dataset:
 
 
 def standardise_47n(ds: xr.Dataset, file_name: str) -> xr.Dataset:
+    """Standardise 47N array dataset to a consistent format.
+
+    Parameters
+    ----------
+    ds : xr.Dataset
+        Raw 47N array dataset to standardise.
+    file_name : str
+        Original filename associated with the dataset, used for metadata.
+
+    Returns
+    -------
+    xr.Dataset
+        Standardised dataset with consistent metadata and formatting for the 47N array.
+
+    """
     return standardise_array(ds, file_name, array_name="47n")
 
 

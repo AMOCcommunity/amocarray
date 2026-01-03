@@ -8,12 +8,11 @@ import pandas as pd
 # Import the modules used
 from amocatlas import logger, utilities
 from amocatlas.logger import log_error, log_info, log_warning
-from amocatlas.read_41n import A41N_TRANSPORT_FILES
 from amocatlas.utilities import apply_defaults
 
 log = logger.log  # Use the global logger
 
-# Default list of 41N data files
+# Default list of 47N data files
 A47N_DEFAULT_FILES = [
     "NOAC_AMOC.tab",
 ]
@@ -50,8 +49,7 @@ def read_47n(
     """Load the 47N transport datasets from a URL or local file path into xarray Datasets.
 
     Parameters
-    ----------
-    ----------                                                     
+    ----------                                                  
     source : str, optional
         Local path to the data directory (remote source is handled per-file).
     file_list : str or list of str, optional
@@ -70,8 +68,7 @@ def read_47n(
         List of loaded xarray datasets with basic inline and file-specific metadata.
 
     Raises
-    ------
-    ------                                                          
+    ------                                                      
     ValueError
         If no source is provided for a file and no default URL mapping is found.
     FileNotFoundError                                                   
@@ -162,7 +159,7 @@ def read_47n(
         datasets.append(ds)
 
     if not datasets:
-        log_error("No valid 41N files in %s", file_list)
+        log_error("No valid 47N files in %s", file_list)
         raise FileNotFoundError(f"No valid data files found in {file_list}")
 
     log_info("Successfully loaded %d 47N dataset(s)", len(datasets))
