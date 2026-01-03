@@ -12,7 +12,7 @@ from amocatlas.utilities import apply_defaults
 
 log = logger.log  # Use the global logger
 
-# Default list of 41N data files
+# Default list of FBC data files
 FBC_DEFAULT_FILES = [
     "FBC_overflow_transport.txt",
 ]
@@ -40,7 +40,7 @@ def read_fbc(
     data_dir: Union[str, Path, None] = None,
     redownload: bool = False,
 ) -> list[xr.Dataset]:
-    """Load the 41N transport datasets from a URL or local file path into xarray Datasets.
+    """Load the FBC (Faroe Banks Channel) transport datasets from a URL or local file path into xarray Datasets.
 
     Parameters
     ----------
@@ -148,7 +148,7 @@ def read_fbc(
                 ds = df.set_index("TIME").to_xarray()
             except Exception as e:
                 log_error(
-                    "Failed to convert DataFrame to xarray Fataset for %s: %s",
+                    "Failed to convert DataFrame to xarray Dataset for %s: %s",
                     file,
                     e,
                 )
@@ -158,7 +158,7 @@ def read_fbc(
 
             # Attach metadata
             file_metadata = FBC_FILE_METADATA.get(file, {})
-            log_info("Attaching metadata to 41N dataset from file: %s", file)
+            log_info("Attaching metadata to FBC dataset from file: %s", file)
             utilities.safe_update_attrs(
                 ds,
                 {
