@@ -34,6 +34,6 @@ files:
         description: "AMOC volume transport at 47N"
         units: "Sv"
       volume_transport_lpf:
-        long_name: "Meridional Freshwater Transport"
+        long_name: "Volumetric Transport (Low-Pass Filtered)"
         description: "AMOC volume transport at 47N, low-pass filtered"
         units: "Sv"
