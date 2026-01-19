@@ -532,6 +532,8 @@ def standardise_47n(ds: xr.Dataset, file_name: str) -> xr.Dataset:
 
     """
     return standardise_array(ds, file_name, array_name="47n")
+def standardise_fbc(ds: xr.Dataset, file_name: str) -> xr.Dataset:
+    return standardise_array(ds, file_name, array_name="fbc")
 
 
 def standardise_array(ds: xr.Dataset, file_name: str, array_name: str) -> xr.Dataset:
