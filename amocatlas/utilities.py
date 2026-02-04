@@ -479,8 +479,7 @@ def read_ascii_file(file_path: str, comment_char: str = "#") -> pd.DataFrame:
 
 
 def find_data_start(file_path: str) -> int:
-    """
-    Locate the first line of numerical data in a legacy ASCII file.
+    """Locate the first line of numerical data in a legacy ASCII file.
 
     This function scans an ASCII text file line by line and returns the
     zero-based line index of the first row that appears to contain data.
@@ -502,6 +501,7 @@ def find_data_start(file_path: str) -> int:
     ------
     ValueError
         If no data-like lines are found in the file.
+
     """
     with open(file_path, encoding="latin-1") as f:
         for i, line in enumerate(f):

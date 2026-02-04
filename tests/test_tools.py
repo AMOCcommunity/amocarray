@@ -186,7 +186,7 @@ def test_check_and_bin():
     assert len(daily_result) < len(daily_df)
 
     # Test monthly dataset (median diff > 15 days, should remain unchanged)
-    monthly_dates = pd.date_range("2020-01-01", periods=12, freq="M")
+    monthly_dates = pd.date_range("2020-01-01", periods=12, freq="MS")
     monthly_df = pd.DataFrame({"time": monthly_dates, "moc": range(12)})
 
     monthly_result = tools.check_and_bin(monthly_df)

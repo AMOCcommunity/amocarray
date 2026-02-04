@@ -62,7 +62,7 @@ def save_dataset(ds: xr.Dataset, output_file: str = "../test.nc") -> bool:
     # For datetime variables, remove manual units to let xarray handle encoding properly
     conflicting_keys = ["units", "calendar"]
     for var_name, variable in ds_copy.variables.items():
-        if variable.dtype == np.dtype("datetime64[ns]"):
+        if np.issubdtype(variable.dtype, np.datetime64):
             logger.log_info(
                 f"Configuring datetime encoding for variable '{var_name}' - removing manual units"
             )
