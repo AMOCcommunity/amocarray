@@ -186,6 +186,9 @@ cython_debug/
 .idea/
 notebooks/demo-eleanor.ipynb
 data/meridional_transports.nc
+data/Bayesian_estimates_Atlantic_MHT.nc
+data/Bayesian_estimates_Atlantic_MHT.zip
+data/moc_vertical.nc
 
 # Claude Code
 CLAUDE.md
