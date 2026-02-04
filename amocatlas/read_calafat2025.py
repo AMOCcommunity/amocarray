@@ -90,9 +90,10 @@ def read_calafat2025(
     log.info("Starting to read CALAFAT2025 dataset")
 
     if file_list is None:
-        file_list = CALAFAT2025_DEFAULT_FILES
-    if transport_only:
-        file_list = CALAFAT2025_TRANSPORT_FILES
+        if transport_only:
+            file_list = CALAFAT2025_TRANSPORT_FILES
+        else:
+            file_list = CALAFAT2025_DEFAULT_FILES
     if isinstance(file_list, str):
         file_list = [file_list]
 
