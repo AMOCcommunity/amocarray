@@ -36,7 +36,7 @@ from . import (
 
 __all__ = [
     "readers",
-    "plotters", 
+    "plotters",
     "standardise",
     "utilities",
     "tools",

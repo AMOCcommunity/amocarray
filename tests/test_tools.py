@@ -50,9 +50,7 @@ def test_generate_reverse_conversions_zero_factor():
 
 def test_reformat_units_var():
     """Test unit reformatting for variables."""
-    ds = xr.Dataset({
-        "velocity": xr.DataArray([1, 2, 3], attrs={"units": "m/s"})
-    })
+    ds = xr.Dataset({"velocity": xr.DataArray([1, 2, 3], attrs={"units": "m/s"})})
 
     # Use the default format mapping
     result = tools.reformat_units_var(ds, "velocity")
@@ -64,9 +62,7 @@ def test_reformat_units_var():
     assert result == "meters per second"
 
     # Test with units not in format dict
-    ds2 = xr.Dataset({
-        "temp": xr.DataArray([1, 2, 3], attrs={"units": "unknown_unit"})
-    })
+    ds2 = xr.Dataset({"temp": xr.DataArray([1, 2, 3], attrs={"units": "unknown_unit"})})
     result = tools.reformat_units_var(ds2, "temp")
     assert result == "unknown_unit"  # Should return original
 
@@ -99,11 +95,13 @@ def test_set_fill_value():
 
 def test_set_best_dtype():
     """Test optimizing data types for entire dataset."""
-    ds = xr.Dataset({
-        "int_var": xr.DataArray([1, 2, 3], attrs={"units": "m"}),
-        "float_var": xr.DataArray([1.1, 2.2, 3.3], attrs={"units": "m/s"}),
-        "TIME": xr.DataArray(pd.date_range("2020-01-01", periods=3))
-    })
+    ds = xr.Dataset(
+        {
+            "int_var": xr.DataArray([1, 2, 3], attrs={"units": "m"}),
+            "float_var": xr.DataArray([1.1, 2.2, 3.3], attrs={"units": "m/s"}),
+            "TIME": xr.DataArray(pd.date_range("2020-01-01", periods=3)),
+        }
+    )
 
     result = tools.set_best_dtype(ds)
 
@@ -116,11 +114,9 @@ def test_set_best_dtype():
 
 def test_to_decimal_year():
     """Test conversion of dates to decimal years."""
-    dates = pd.Series([
-        datetime(2020, 1, 1),
-        datetime(2020, 7, 1),  # Mid-year
-        datetime(2021, 1, 1)
-    ])
+    dates = pd.Series(
+        [datetime(2020, 1, 1), datetime(2020, 7, 1), datetime(2021, 1, 1)]  # Mid-year
+    )
 
     result = tools.to_decimal_year(dates)
 
@@ -132,10 +128,9 @@ def test_to_decimal_year():
 def test_extract_time_and_time_num():
     """Test extracting time information from dataset."""
     time_values = pd.date_range("2020-01-01", periods=5, freq="D")
-    ds = xr.Dataset({
-        "data": xr.DataArray([1, 2, 3, 4, 5], dims=["TIME"]),
-        "TIME": time_values
-    })
+    ds = xr.Dataset(
+        {"data": xr.DataArray([1, 2, 3, 4, 5], dims=["TIME"]), "TIME": time_values}
+    )
 
     result = tools.extract_time_and_time_num(ds)
 
@@ -149,10 +144,9 @@ def test_bin_average_5day():
     """Test 5-day binning and averaging."""
     # Create test data with daily values for 15 days
     dates = pd.date_range("2020-01-01", periods=15, freq="D")
-    df = pd.DataFrame({
-        "time": dates,
-        "moc": range(15)  # Default column name expected by function
-    })
+    df = pd.DataFrame(
+        {"time": dates, "moc": range(15)}  # Default column name expected by function
+    )
 
     result = tools.bin_average_5day(df)
 
@@ -163,10 +157,7 @@ def test_bin_average_5day():
     assert result["moc"].iloc[0] == 2.0  # Average of 0,1,2,3,4
 
     # Test with custom column name
-    df_custom = pd.DataFrame({
-        "time": dates,
-        "value": range(15)
-    })
+    df_custom = pd.DataFrame({"time": dates, "value": range(15)})
     result_custom = tools.bin_average_5day(df_custom, value_column="value")
     assert "value" in result_custom.columns
 
@@ -175,10 +166,7 @@ def test_bin_average_monthly():
     """Test monthly binning and averaging."""
     # Create test data spanning 2 months
     dates = pd.date_range("2020-01-01", periods=60, freq="D")
-    df = pd.DataFrame({
-        "time": dates,
-        "value": range(60)
-    })
+    df = pd.DataFrame({"time": dates, "value": range(60)})
 
     result = tools.bin_average_monthly(df)
 
@@ -191,10 +179,7 @@ def test_check_and_bin():
     """Test automatic binning based on data resolution."""
     # Test daily dataset (median diff < 15 days, should use monthly binning)
     daily_dates = pd.date_range("2020-01-01", periods=100, freq="D")
-    daily_df = pd.DataFrame({
-        "time": daily_dates,
-        "moc": range(100)
-    })
+    daily_df = pd.DataFrame({"time": daily_dates, "moc": range(100)})
 
     daily_result = tools.check_and_bin(daily_df)
     # Should be monthly bins (fewer than original)
@@ -202,10 +187,7 @@ def test_check_and_bin():
 
     # Test monthly dataset (median diff > 15 days, should remain unchanged)
     monthly_dates = pd.date_range("2020-01-01", periods=12, freq="M")
-    monthly_df = pd.DataFrame({
-        "time": monthly_dates,
-        "moc": range(12)
-    })
+    monthly_df = pd.DataFrame({"time": monthly_dates, "moc": range(12)})
 
     monthly_result = tools.check_and_bin(monthly_df)
     # Should be unchanged
@@ -220,10 +202,7 @@ def test_apply_tukey_filter():
     dates = pd.date_range("2020-01-01", periods=200, freq="D")
     # Create signal with trend and noise
     signal = np.sin(np.arange(200) * 0.05) + 0.5 * np.random.normal(0, 1, 200)
-    df = pd.DataFrame({
-        "time": dates,
-        "data": signal
-    })
+    df = pd.DataFrame({"time": dates, "data": signal})
 
     result = tools.apply_tukey_filter(df, column="data", alpha=0.5, window_months=2)
 
@@ -245,10 +224,9 @@ def test_handle_samba_gaps():
     """Test SAMBA data gap handling."""
     # Create test data with a gap
     dates = pd.date_range("2020-01-01", periods=10, freq="D")
-    df = pd.DataFrame({
-        "time": dates,
-        "value": [1, 2, np.nan, np.nan, np.nan, 6, 7, 8, 9, 10]
-    })
+    df = pd.DataFrame(
+        {"time": dates, "value": [1, 2, np.nan, np.nan, np.nan, 6, 7, 8, 9, 10]}
+    )
 
     result = tools.handle_samba_gaps(df)
 

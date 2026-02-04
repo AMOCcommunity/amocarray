@@ -13,10 +13,12 @@ def sample_rapid_data():
     """Fixture providing sample RAPID data for testing."""
     # Load the same sample data used in demo-convert.ipynb
     ds_rapid = readers.load_sample_dataset()
-    ds_standardised = standardise.standardise_rapid(ds_rapid, ds_rapid.attrs["source_file"])
+    ds_standardised = standardise.standardise_rapid(
+        ds_rapid, ds_rapid.attrs["source_file"]
+    )
 
     # Fix TIME units for conversion (as done in demo notebook)
-    ds_standardised['TIME'].attrs['units'] = 'seconds since 1970-01-01T00:00:00Z'
+    ds_standardised["TIME"].attrs["units"] = "seconds since 1970-01-01T00:00:00Z"
 
     return ds_standardised
 
@@ -28,17 +30,14 @@ def sample_attributes():
         "contributor_name": "Ben Moat",
         "contributor_role": "author",
         "contributor_email": "ben.moat@noc.ac.uk",
-        "institution": "National Oceanography Centre"
+        "institution": "National Oceanography Centre",
     }
 
 
 def test_enrich_contributor_ids():
     """Test enriching contributor information with ORCID IDs."""
     # Test with known contributor
-    attrs = {
-        "contributor_name": "Ben Moat",
-        "contributor_role": "author"
-    }
+    attrs = {"contributor_name": "Ben Moat", "contributor_role": "author"}
 
     result = convert.enrich_contributor_ids(attrs, array_name="RAPID")
 
@@ -51,10 +50,7 @@ def test_enrich_contributor_ids():
 
 def test_enrich_contributor_ids_unknown():
     """Test enriching contributor information with unknown contributor."""
-    attrs = {
-        "contributor_name": "Unknown Person",
-        "contributor_role": "author"
-    }
+    attrs = {"contributor_name": "Unknown Person", "contributor_role": "author"}
 
     result = convert.enrich_contributor_ids(attrs, array_name="RAPID")
 
@@ -68,10 +64,7 @@ def test_enrich_contributor_ids_unknown():
 
 def test_enrich_contributor_ids_no_array():
     """Test enriching contributor information without array name."""
-    attrs = {
-        "contributor_name": "Ben Moat",
-        "contributor_role": "author"
-    }
+    attrs = {"contributor_name": "Ben Moat", "contributor_role": "author"}
 
     result = convert.enrich_contributor_ids(attrs)
 
@@ -120,7 +113,7 @@ def test_determine_array_name(sample_rapid_data):
     assert isinstance(array_name, str)
     assert len(array_name) > 0
     # Should be able to determine from RAPID data
-    assert array_name.lower() in ['rapid', 'unknown']
+    assert array_name.lower() in ["rapid", "unknown"]
 
 
 def test_determine_date_range(sample_rapid_data):
@@ -140,11 +133,7 @@ def test_create_ac1_global_attributes(sample_rapid_data, sample_attributes):
     """Test creation of AC1 global attributes."""
     # Test the global attributes creation
     attrs = convert._create_ac1_global_attributes(
-        sample_rapid_data,
-        "RAPID",
-        "test_file.nc",
-        "20040401",
-        "20201231"
+        sample_rapid_data, "RAPID", "test_file.nc", "20040401", "20201231"
     )
 
     assert isinstance(attrs, dict)
@@ -177,7 +166,7 @@ def test_get_ac1_filename():
         start_date="20040401",
         end_date="20201231",
         content_type="DP",
-        partx="component_transport"
+        partx="component_transport",
     )
 
     assert isinstance(filename, str)
@@ -202,7 +191,9 @@ def test_full_conversion_workflow(sample_rapid_data):
         assert "Conventions" in ac1_ds.attrs
 
         # Step 3: Save the dataset
-        filename = ac1_ds.attrs.get("suggested_filename", ac1_ds.attrs.get("id", "test_output.nc"))
+        filename = ac1_ds.attrs.get(
+            "suggested_filename", ac1_ds.attrs.get("id", "test_output.nc")
+        )
         if not filename.endswith(".nc"):
             filename += ".nc"
 
@@ -215,9 +206,9 @@ def test_full_conversion_workflow(sample_rapid_data):
         # Step 4: Run compliance check (as in demo notebook)
         result = compliance_checker.validate_ac1_file(output_file)
 
-        assert hasattr(result, 'passed')
-        assert hasattr(result, 'errors')
-        assert hasattr(result, 'warnings')
+        assert hasattr(result, "passed")
+        assert hasattr(result, "errors")
+        assert hasattr(result, "warnings")
         assert isinstance(result.errors, list)
         assert isinstance(result.warnings, list)
 
@@ -226,11 +217,13 @@ def test_conversion_with_missing_time_units():
     """Test conversion behavior when TIME units are missing."""
     # Load sample data without fixing TIME units
     ds_rapid = readers.load_sample_dataset()
-    ds_standardised = standardise.standardise_rapid(ds_rapid, ds_rapid.attrs["source_file"])
+    ds_standardised = standardise.standardise_rapid(
+        ds_rapid, ds_rapid.attrs["source_file"]
+    )
 
     # Remove TIME units to test error handling
-    if 'units' in ds_standardised['TIME'].attrs:
-        del ds_standardised['TIME'].attrs['units']
+    if "units" in ds_standardised["TIME"].attrs:
+        del ds_standardised["TIME"].attrs["units"]
 
     # Conversion should either fail or handle missing units gracefully
     try:
@@ -248,10 +241,7 @@ def test_convert_component_transports_structure(sample_rapid_data):
     """Test the structure of converted component transport data."""
     # Test the internal conversion function
     result = convert._convert_component_transports(
-        sample_rapid_data,
-        "RAPID",
-        "20040401",
-        "20201231"
+        sample_rapid_data, "RAPID", "20040401", "20201231"
     )
 
     assert isinstance(result, xr.Dataset)
@@ -275,12 +265,7 @@ def test_ac1_metadata_structure(sample_rapid_data):
     ac1_ds = ac1_datasets[0]
 
     # Test global attributes
-    required_attrs = [
-        "Conventions",
-        "data_type",
-        "format_version",
-        "date_created"
-    ]
+    required_attrs = ["Conventions", "data_type", "format_version", "date_created"]
 
     for attr in required_attrs:
         assert attr in ac1_ds.attrs, f"Missing required attribute: {attr}"

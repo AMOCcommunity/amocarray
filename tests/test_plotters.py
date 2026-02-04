@@ -1,4 +1,5 @@
 """Tests for amocatlas.plotters module."""
+
 import tempfile
 import os
 import numpy as np
@@ -9,7 +10,7 @@ import matplotlib.pyplot as plt
 import pytest
 
 # Use Agg backend for testing (no display needed)
-matplotlib.use('Agg')
+matplotlib.use("Agg")
 
 from amocatlas import logger, plotters, readers, standardise
 
@@ -22,7 +23,9 @@ def sample_dataset() -> xr.Dataset:
     try:
         # Load real RAPID sample data (same as demo notebooks)
         ds_rapid = readers.load_sample_dataset()
-        ds_standardised = standardise.standardise_rapid(ds_rapid, ds_rapid.attrs["source_file"])
+        ds_standardised = standardise.standardise_rapid(
+            ds_rapid, ds_rapid.attrs["source_file"]
+        )
         return ds_standardised
     except Exception:
         # Fallback to synthetic data if sample data not available
@@ -31,18 +34,19 @@ def sample_dataset() -> xr.Dataset:
 
         ds = xr.Dataset(
             {
-                "moc_mar_hc10": (["TIME"], data * 10, {
-                    "units": "Sverdrup",
-                    "long_name": "AMOC transport"
-                })
+                "moc_mar_hc10": (
+                    ["TIME"],
+                    data * 10,
+                    {"units": "Sverdrup", "long_name": "AMOC transport"},
+                )
             },
             coords={"TIME": time},
             attrs={
                 "title": "Test AMOC dataset",
                 "institution": "Test Institution",
                 "source": "test data",
-                "array": "RAPID"
-            }
+                "array": "RAPID",
+            },
         )
         return ds
 
@@ -55,17 +59,18 @@ def simple_dataset():
 
     ds = xr.Dataset(
         {
-            "moc_mar_hc10": (["time"], data, {
-                "units": "Sverdrup",
-                "long_name": "AMOC transport"
-            })
+            "moc_mar_hc10": (
+                ["time"],
+                data,
+                {"units": "Sverdrup", "long_name": "AMOC transport"},
+            )
         },
         coords={"time": time},
         attrs={
             "title": "Test dataset",
             "institution": "Test Institution",
-            "source": "test data"
-        }
+            "source": "test data",
+        },
     )
     return ds
 
@@ -75,11 +80,11 @@ def test_show_contents_variables_dataset(sample_dataset: xr.Dataset) -> None:
     result = plotters.show_contents(sample_dataset, content_type="variables")
 
     # Should return a Styler object
-    assert hasattr(result, 'data')
+    assert hasattr(result, "data")
 
     # Test alternative name
     result2 = plotters.show_contents(sample_dataset, content_type="vars")
-    assert hasattr(result2, 'data')
+    assert hasattr(result2, "data")
 
 
 def test_show_contents_attributes_dataset(sample_dataset: xr.Dataset) -> None:
@@ -100,7 +105,9 @@ def test_show_contents_invalid_input() -> None:
     with pytest.raises(TypeError, match="Input data must be a file path"):
         plotters.show_contents([1, 2, 3], content_type="variables")
 
-    with pytest.raises(TypeError, match="Attributes can only be shown for netCDF files"):
+    with pytest.raises(
+        TypeError, match="Attributes can only be shown for netCDF files"
+    ):
         plotters.show_contents(123, content_type="attributes")
 
 
@@ -115,7 +122,7 @@ def test_show_variables_dataset(sample_dataset: xr.Dataset) -> None:
     result = plotters.show_variables(sample_dataset)
 
     # Should return a Styler object
-    assert hasattr(result, 'data')
+    assert hasattr(result, "data")
 
     # Check that the underlying data is accessible
     df = result.data
@@ -132,13 +139,15 @@ def test_show_attributes_dataset(sample_dataset: xr.Dataset) -> None:
     assert len(result) > 0
 
 
-def test_show_variables_by_dimension_with_matching_dim(sample_dataset: xr.Dataset) -> None:
+def test_show_variables_by_dimension_with_matching_dim(
+    sample_dataset: xr.Dataset,
+) -> None:
     """Test show_variables_by_dimension function with matching dimension."""
     # Use 'TIME' as dimension since RAPID data has TIME dimension
     result = plotters.show_variables_by_dimension(sample_dataset, dimension_name="TIME")
 
     # Should return a Styler object
-    assert hasattr(result, 'data')
+    assert hasattr(result, "data")
 
 
 def test_show_variables_by_dimension_no_match(simple_dataset: xr.Dataset) -> None:
@@ -146,7 +155,9 @@ def test_show_variables_by_dimension_no_match(simple_dataset: xr.Dataset) -> Non
     # Use non-existent dimension - this will cause an error in the current implementation
     # when there are no matching variables because pandas can't access .dims on empty DataFrame
     with pytest.raises(AttributeError):
-        plotters.show_variables_by_dimension(simple_dataset, dimension_name="nonexistent")
+        plotters.show_variables_by_dimension(
+            simple_dataset, dimension_name="nonexistent"
+        )
 
 
 def test_monthly_resample() -> None:
@@ -170,7 +181,7 @@ def test_plot_amoc_timeseries_basic(simple_dataset: xr.Dataset) -> None:
         varnames=["moc_mar_hc10"],
         labels=["Test Data"],
         plot_raw=True,
-        resample_monthly=False
+        resample_monthly=False,
     )
 
     # Should return figure and axis
@@ -189,7 +200,7 @@ def test_plot_amoc_timeseries_with_resampling(simple_dataset: xr.Dataset) -> Non
         labels=["Test Data"],
         plot_raw=False,
         resample_monthly=True,
-        title="Test AMOC Plot"
+        title="Test AMOC Plot",
     )
 
     assert isinstance(fig, plt.Figure)
@@ -206,19 +217,17 @@ def test_plot_amoc_timeseries_multiple_datasets() -> None:
     time2 = pd.date_range("2020-03-01", periods=50, freq="D")
 
     ds1 = xr.Dataset(
-        {"moc_mar_hc10": (["time"], np.random.randn(50))},
-        coords={"time": time1}
+        {"moc_mar_hc10": (["time"], np.random.randn(50))}, coords={"time": time1}
     )
     ds2 = xr.Dataset(
-        {"moc_mar_hc10": (["time"], np.random.randn(50))},
-        coords={"time": time2}
+        {"moc_mar_hc10": (["time"], np.random.randn(50))}, coords={"time": time2}
     )
 
     fig, ax = plotters.plot_amoc_timeseries(
         data=[ds1, ds2],
         varnames=["moc_mar_hc10", "moc_mar_hc10"],
         labels=["Dataset 1", "Dataset 2"],
-        colors=["blue", "red"]
+        colors=["blue", "red"],
     )
 
     assert isinstance(fig, plt.Figure)
@@ -233,14 +242,14 @@ def test_plot_amoc_timeseries_error_handling() -> None:
     # Test with mismatched data and varnames lengths
     ds = xr.Dataset(
         {"moc_mar_hc10": (["time"], np.random.randn(10))},
-        coords={"time": pd.date_range("2020-01-01", periods=10)}
+        coords={"time": pd.date_range("2020-01-01", periods=10)},
     )
 
     with pytest.raises((ValueError, IndexError)):
         plotters.plot_amoc_timeseries(
             data=[ds, ds],  # 2 datasets
             varnames=["moc_mar_hc10"],  # 1 varname
-            labels=["Test"]
+            labels=["Test"],
         )
 
 
@@ -255,13 +264,20 @@ def test_plot_monthly_anomalies() -> None:
 
     # Call with required kwargs format
     fig, axes = plotters.plot_monthly_anomalies(
-        dso_data=test_da, dso_label="DSO",
-        osnap_data=test_da, osnap_label="OSNAP",
-        fortyone_data=test_da, fortyone_label="41N",
-        rapid_data=test_da, rapid_label="RAPID",
-        fw2015_data=test_da, fw2015_label="FW2015",
-        move_data=test_da, move_label="MOVE",
-        samba_data=test_da, samba_label="SAMBA"
+        dso_data=test_da,
+        dso_label="DSO",
+        osnap_data=test_da,
+        osnap_label="OSNAP",
+        fortyone_data=test_da,
+        fortyone_label="41N",
+        rapid_data=test_da,
+        rapid_label="RAPID",
+        fw2015_data=test_da,
+        fw2015_label="FW2015",
+        move_data=test_da,
+        move_label="MOVE",
+        samba_data=test_da,
+        samba_label="SAMBA",
     )
 
     assert isinstance(fig, plt.Figure)
@@ -307,14 +323,12 @@ def test_plotting_with_saving() -> None:
     """Test that plots can be saved to files."""
     ds = xr.Dataset(
         {"moc_mar_hc10": (["time"], np.random.randn(50))},
-        coords={"time": pd.date_range("2020-01-01", periods=50)}
+        coords={"time": pd.date_range("2020-01-01", periods=50)},
     )
 
     with tempfile.TemporaryDirectory() as tmp_dir:
         fig, ax = plotters.plot_amoc_timeseries(
-            data=[ds],
-            varnames=["moc_mar_hc10"],
-            labels=["Test"]
+            data=[ds], varnames=["moc_mar_hc10"], labels=["Test"]
         )
 
         # Save the figure manually
@@ -333,14 +347,16 @@ def test_plot_with_real_data() -> None:
     try:
         # Load real sample data
         ds_rapid = readers.load_sample_dataset()
-        ds_standardised = standardise.standardise_rapid(ds_rapid, ds_rapid.attrs["source_file"])
+        ds_standardised = standardise.standardise_rapid(
+            ds_rapid, ds_rapid.attrs["source_file"]
+        )
 
         # Test plotting
         fig, ax = plotters.plot_amoc_timeseries(
             data=[ds_standardised],
             varnames=["moc_mar_hc10"],
             labels=["RAPID"],
-            title="RAPID Test Plot"
+            title="RAPID Test Plot",
         )
 
         assert isinstance(fig, plt.Figure)
@@ -358,10 +374,9 @@ def test_plot_with_real_data() -> None:
 def test_pygmt_functions() -> None:
     """Test PyGMT functions if available."""
     # Create simple DataFrame for PyGMT testing
-    df = pd.DataFrame({
-        "time_num": np.arange(2020, 2025, 0.1),
-        "moc": np.random.randn(50)
-    })
+    df = pd.DataFrame(
+        {"time_num": np.arange(2020, 2025, 0.1), "moc": np.random.randn(50)}
+    )
 
     try:
         # Test basic PyGMT function
@@ -377,14 +392,11 @@ def test_pygmt_functions() -> None:
 def test_show_functions_edge_cases() -> None:
     """Test edge cases for show functions."""
     # Test with minimal dataset
-    minimal_ds = xr.Dataset(
-        {"data": (["x"], [1, 2, 3])},
-        attrs={"minimal": "test"}
-    )
+    minimal_ds = xr.Dataset({"data": (["x"], [1, 2, 3])}, attrs={"minimal": "test"})
 
     # These should work with minimal data
     result1 = plotters.show_variables(minimal_ds)
-    assert hasattr(result1, 'data')
+    assert hasattr(result1, "data")
 
     result2 = plotters.show_attributes(minimal_ds)
     assert isinstance(result2, pd.DataFrame)
@@ -392,4 +404,3 @@ def test_show_functions_edge_cases() -> None:
     # Use dimension 'x' which exists in our test dataset
     result3 = plotters.show_variables_by_dimension(minimal_ds, dimension_name="x")
     assert result3 is not None
-

@@ -14,7 +14,7 @@ import pytest
 @pytest.fixture()
 def mock_download_file(monkeypatch: Any) -> None:
     """Fixture to mock the download_file function in utilities.py.
-    
+
     Instead of downloading, it writes dummy data to the destination.
     """
 

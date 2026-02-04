@@ -160,7 +160,9 @@ def read_calafat2025(
 
                 datasets.append(ds)
         else:
-            log.warning("Non-zip CALAFAT2025 files are not currently supported: %s", file)
+            log.warning(
+                "Non-zip CALAFAT2025 files are not currently supported: %s", file
+            )
 
     if not datasets:
         log.error("No valid NetCDF files found in %s", file_list)

@@ -2,7 +2,6 @@ from pathlib import Path
 from typing import Union
 
 import xarray as xr
-import datetime
 
 # Import the modules used
 from amocatlas import logger, utilities
@@ -12,9 +11,7 @@ from amocatlas.utilities import apply_defaults
 log = logger.log  # Use the global logger
 
 # Default list of ZHENG2024 (Atlantic meridional freshwater transport) data files
-ZHENG2024_DEFAULT_FILES = [
-    "atl_mft_2000_extend_gpcp_oaflux.nc"
-]
+ZHENG2024_DEFAULT_FILES = ["atl_mft_2000_extend_gpcp_oaflux.nc"]
 ZHENG2024_TRANSPORT_FILES = ["atl_mft_2000_extend_gpcp_oaflux.nc"]
 ZHENG2024_DEFAULT_SOURCE = "https://zenodo.org/records/12790901/files/"
 
@@ -43,13 +40,13 @@ def read_zheng2024(
 
     Parameters
     ----------
-    ----------                                                     
+    ----------
     source : str, optional
         Local path to the data directory (remote source is handled per-file).
 
     file_list : str or list of str, optional
         Filename or list of filenames to process.
-        Defaults to ZHENG2024_DEFAULT_FILES.  
+        Defaults to ZHENG2024_DEFAULT_FILES.
 
     transport_only : bool, optional
         If True, restrict to transport files only.
@@ -57,7 +54,7 @@ def read_zheng2024(
     data_dir : str, Path or None, optional
         Optional local data directory.
 
-    redownload : bool, optional                                        
+    redownload : bool, optional
         If True, force redownload of the data.
 
     Returns
@@ -67,10 +64,10 @@ def read_zheng2024(
 
     Raises
     ------
-    ------                                                          
+    ------
     ValueError
         If no source is provided for a file and no default URL mapping is found.
-    FileNotFoundError                                                   
+    FileNotFoundError
         If the file cannot be downloaded or does not exist locally.
 
     """
@@ -131,7 +128,6 @@ def read_zheng2024(
             raise ValueError(
                 f"Failed to convert to xarray Dataset for {file}: {e}",
             )
-        
 
         datasets.append(ds)
 

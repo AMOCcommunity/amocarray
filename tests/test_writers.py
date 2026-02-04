@@ -1,4 +1,5 @@
 """Tests for amocatlas.writers module."""
+
 import tempfile
 import os
 from pathlib import Path
@@ -20,14 +21,18 @@ def simple_dataset() -> xr.Dataset:
 
     ds = xr.Dataset(
         {
-            "temperature": (["time"], data, {"units": "degrees_C", "long_name": "Temperature"})
+            "temperature": (
+                ["time"],
+                data,
+                {"units": "degrees_C", "long_name": "Temperature"},
+            )
         },
         coords={"time": time},
         attrs={
             "title": "Test dataset",
             "institution": "Test Institution",
-            "source": "test data"
-        }
+            "source": "test data",
+        },
     )
     return ds
 
@@ -39,9 +44,7 @@ def dataset_with_problematic_attrs() -> xr.Dataset:
     data = np.random.randn(5)
 
     ds = xr.Dataset(
-        {
-            "data": (["time"], data)
-        },
+        {"data": (["time"], data)},
         coords={"time": time},
         attrs={
             "string_attr": "normal string",
@@ -50,8 +53,8 @@ def dataset_with_problematic_attrs() -> xr.Dataset:
             "list_attr": [1, 2, 3],  # Potentially problematic
             "dict_attr": {"nested": "value"},  # Problematic
             "numpy_float": np.float64(3.14),
-            "numpy_int": np.int32(42)
-        }
+            "numpy_int": np.int32(42),
+        },
     )
     return ds
 
@@ -64,18 +67,19 @@ def ac1_dataset() -> xr.Dataset:
 
     ds = xr.Dataset(
         {
-            "TRANSPORT": (["TIME"], transport, {
-                "units": "Sverdrup",
-                "long_name": "Ocean Transport"
-            })
+            "TRANSPORT": (
+                ["TIME"],
+                transport,
+                {"units": "Sverdrup", "long_name": "Ocean Transport"},
+            )
         },
         coords={"TIME": time},
         attrs={
             "id": "OS_RAPID_20200101-20200105_DP_component_transport",
             "Conventions": "CF-1.8, OceanSITES-1.4",
             "title": "RAPID Transport Data",
-            "institution": "NOC"
-        }
+            "institution": "NOC",
+        },
     )
     return ds
 
@@ -120,8 +124,8 @@ def test_save_dataset_with_none_attrs() -> None:
             "string_attr": "normal string",
             "none_attr": None,  # This should be handled
             "numpy_float": np.float64(3.14),
-            "numpy_int": np.int32(42)
-        }
+            "numpy_int": np.int32(42),
+        },
     )
 
     with tempfile.TemporaryDirectory() as tmp_dir:
@@ -143,10 +147,7 @@ def test_save_dataset_with_datetime_encoding() -> None:
     """Test datetime variable encoding handling."""
     # Create dataset with datetime variable that has conflicting units
     time = pd.date_range("2020-01-01", periods=5, freq="D")
-    ds = xr.Dataset(
-        {"data": (["time"], np.random.randn(5))},
-        coords={"time": time}
-    )
+    ds = xr.Dataset({"data": (["time"], np.random.randn(5))}, coords={"time": time})
 
     # Add conflicting attributes that should be removed
     ds["time"].attrs["units"] = "conflicting_units"
@@ -174,9 +175,9 @@ def test_save_dataset_compression_encoding() -> None:
     ds = xr.Dataset(
         {
             "large_var": (["time"], large_data),
-            "another_var": (["time"], large_data * 2)
+            "another_var": (["time"], large_data * 2),
         },
-        coords={"time": time}
+        coords={"time": time},
     )
 
     with tempfile.TemporaryDirectory() as tmp_dir:
@@ -196,10 +197,7 @@ def test_save_dataset_compression_encoding() -> None:
 def test_save_dataset_type_conversion_fallback() -> None:
     """Test fallback type conversion when TypeError occurs on variable attributes."""
     # Create dataset with problematic variable attributes (not global attrs)
-    ds = xr.Dataset(
-        {"data": (["x"], [1, 2, 3])},
-        coords={"x": [1, 2, 3]}
-    )
+    ds = xr.Dataset({"data": (["x"], [1, 2, 3])}, coords={"x": [1, 2, 3]})
 
     # Add problematic variable attributes that should trigger conversion
     ds["data"].attrs["bool_attr"] = True  # Bool should be converted
@@ -220,7 +218,7 @@ def test_save_dataset_with_global_dict_attrs() -> None:
     # Create dataset with dict in global attrs (which writer doesn't handle)
     ds = xr.Dataset(
         {"data": (["x"], [1, 2, 3])},
-        attrs={"problematic_dict": {"nested": "value"}}  # This will cause failure
+        attrs={"problematic_dict": {"nested": "value"}},  # This will cause failure
     )
 
     with tempfile.TemporaryDirectory() as tmp_dir:
@@ -239,7 +237,9 @@ def test_save_AC1_dataset_basic(ac1_dataset: xr.Dataset) -> None:
 
         assert isinstance(result_path, Path)
         assert result_path.exists()
-        assert result_path.name == "OS_RAPID_20200101-20200105_DP_component_transport.nc"
+        assert (
+            result_path.name == "OS_RAPID_20200101-20200105_DP_component_transport.nc"
+        )
         assert result_path.parent == Path(tmp_dir)
 
         # Verify content
@@ -252,7 +252,9 @@ def test_save_AC1_dataset_basic(ac1_dataset: xr.Dataset) -> None:
 def test_save_AC1_dataset_string_path(ac1_dataset: xr.Dataset) -> None:
     """Test AC1 saving with string path instead of Path object."""
     with tempfile.TemporaryDirectory() as tmp_dir:
-        result_path = writers.save_AC1_dataset(ac1_dataset, tmp_dir)  # tmp_dir is string
+        result_path = writers.save_AC1_dataset(
+            ac1_dataset, tmp_dir
+        )  # tmp_dir is string
 
         assert isinstance(result_path, Path)
         assert result_path.exists()
@@ -260,10 +262,7 @@ def test_save_AC1_dataset_string_path(ac1_dataset: xr.Dataset) -> None:
 
 def test_save_AC1_dataset_missing_id() -> None:
     """Test AC1 saving with missing 'id' attribute."""
-    ds = xr.Dataset(
-        {"data": (["x"], [1, 2, 3])},
-        attrs={"title": "No ID dataset"}
-    )
+    ds = xr.Dataset({"data": (["x"], [1, 2, 3])}, attrs={"title": "No ID dataset"})
 
     with tempfile.TemporaryDirectory() as tmp_dir:
         with pytest.raises(ValueError, match="Global attribute 'id' not found"):
@@ -277,8 +276,8 @@ def test_save_AC1_dataset_save_failure() -> None:
         {"data": (["x"], [1, 2, 3])},
         attrs={
             "id": "test_id",
-            "problematic_dict": {"nested": "value"}  # This will cause save to fail
-        }
+            "problematic_dict": {"nested": "value"},  # This will cause save to fail
+        },
     )
 
     with tempfile.TemporaryDirectory() as tmp_dir:
@@ -293,7 +292,7 @@ def test_save_dataset_edge_cases() -> None:
         {
             "int32_var": (["x"], np.array([1, 2, 3], dtype=np.int32)),
             "float32_var": (["x"], np.array([1.1, 2.2, 3.3], dtype=np.float32)),
-            "float64_var": (["x"], np.array([1.1, 2.2, 3.3], dtype=np.float64))
+            "float64_var": (["x"], np.array([1.1, 2.2, 3.3], dtype=np.float64)),
         },
         attrs={
             "np_int32": np.int32(42),
@@ -301,8 +300,8 @@ def test_save_dataset_edge_cases() -> None:
             "np_float64": np.float64(2.718),
             "regular_int": 123,
             "regular_float": 45.6,
-            "string_attr": "test string"
-        }
+            "string_attr": "test string",
+        },
     )
 
     with tempfile.TemporaryDirectory() as tmp_dir:
@@ -323,14 +322,20 @@ def test_save_dataset_edge_cases() -> None:
 
 def test_save_dataset_variable_attributes() -> None:
     """Test handling of variable attributes during save."""
-    ds = xr.Dataset({
-        "var1": (["x"], [1, 2, 3], {
-            "valid_attr": "string",
-            "none_attr": None,
-            "bool_attr": True,
-            "list_attr": [1, 2, 3]
-        })
-    })
+    ds = xr.Dataset(
+        {
+            "var1": (
+                ["x"],
+                [1, 2, 3],
+                {
+                    "valid_attr": "string",
+                    "none_attr": None,
+                    "bool_attr": True,
+                    "list_attr": [1, 2, 3],
+                },
+            )
+        }
+    )
 
     with tempfile.TemporaryDirectory() as tmp_dir:
         output_file = os.path.join(tmp_dir, "test_var_attrs.nc")
@@ -344,8 +349,7 @@ def test_save_dataset_variable_attributes() -> None:
 def test_save_dataset_preserves_original() -> None:
     """Test that save_dataset doesn't modify the original dataset."""
     original_ds = xr.Dataset(
-        {"data": (["x"], [1, 2, 3])},
-        attrs={"test_attr": None, "other_attr": "value"}
+        {"data": (["x"], [1, 2, 3])}, attrs={"test_attr": None, "other_attr": "value"}
     )
 
     # Store original state

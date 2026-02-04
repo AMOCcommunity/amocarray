@@ -173,7 +173,9 @@ class TestComplianceChecker:
         assert result.file_type == "component_transports"
         assert len(result.errors) == 0
 
-    def test_missing_required_global_attributes(self, valid_ac1_dataset: xr.Dataset) -> None:
+    def test_missing_required_global_attributes(
+        self, valid_ac1_dataset: xr.Dataset
+    ) -> None:
         """Test detection of missing required global attributes."""
         # Load actual AC1 file and modify it
         ds = xr.open_dataset(TEST_AC1_FILE)
@@ -275,7 +277,9 @@ class TestComplianceChecker:
                 os.unlink(filepath)
             ds_modified.close()
 
-    def test_datetime_coordinate_units_not_required(self, valid_ac1_dataset: xr.Dataset) -> None:
+    def test_datetime_coordinate_units_not_required(
+        self, valid_ac1_dataset: xr.Dataset
+    ) -> None:
         """Test that TIME coordinate doesn't require manual units attribute."""
         ds = valid_ac1_dataset.copy()
         # TIME coordinate should not have manual units (xarray handles this)
@@ -517,7 +521,7 @@ class TestErrorHandling:
 
         try:
             # Write invalid content
-            with open(filepath, 'w') as f:
+            with open(filepath, "w") as f:
                 f.write("This is not a NetCDF file")
 
             result = compliance_checker.validate_ac1_file(filepath)
@@ -544,7 +548,9 @@ class TestErrorHandling:
             result = compliance_checker.validate_ac1_file(filepath)
 
             assert not result.passed
-            assert any("Invalid date format in filename" in error for error in result.errors)
+            assert any(
+                "Invalid date format in filename" in error for error in result.errors
+            )
 
         finally:
             if os.path.exists(filepath):
@@ -566,7 +572,10 @@ class TestErrorHandling:
             result = compliance_checker.validate_ac1_file(filepath)
 
             assert not result.passed
-            assert any("Start date" in error and "must be <= end date" in error for error in result.errors)
+            assert any(
+                "Start date" in error and "must be <= end date" in error
+                for error in result.errors
+            )
 
         finally:
             if os.path.exists(filepath):
@@ -584,10 +593,7 @@ class TestErrorHandling:
         ds_modified["CUSTOM_VAR"] = xr.DataArray(
             np.ones(time_size),
             dims=["TIME"],
-            attrs={
-                "standard_name": "unknown_standard_name",
-                "units": "unknown_units"
-            }
+            attrs={"standard_name": "unknown_standard_name", "units": "unknown_units"},
         )
 
         filename = "OS_RAPID_20040402-20040403_DPR_transports_T12H.nc"
@@ -599,7 +605,9 @@ class TestErrorHandling:
 
             # Should still pass but have warnings
             assert result.passed or len(result.warnings) > 0
-            assert any("Unknown standard_name" in warning for warning in result.warnings)
+            assert any(
+                "Unknown standard_name" in warning for warning in result.warnings
+            )
 
         finally:
             if os.path.exists(filepath):
@@ -647,8 +655,8 @@ class TestSpecificValidations:
                 "format_version": "1.4",
                 "data_type": "OceanSITES time-series data",
                 "title": "Unknown data type",
-                "source": "test"
-            }
+                "source": "test",
+            },
         )
 
         # Use filename that doesn't match specific patterns
@@ -682,10 +690,7 @@ class TestSpecificValidations:
                     continue
                 new_data[var_name] = var
 
-            ds_no_time = xr.Dataset(
-                new_data,
-                attrs=ds_modified.attrs
-            )
+            ds_no_time = xr.Dataset(new_data, attrs=ds_modified.attrs)
 
             filename = "OS_RAPID_20040402-20040403_DPR_transports_T12H.nc"
             filepath = os.path.join(tempfile.gettempdir(), filename)
@@ -733,8 +738,7 @@ class TestValidationResultProperties:
     def test_validation_result_attributes(self) -> None:
         """Test ValidationResult attribute initialization."""
         result = compliance_checker.ValidationResult(
-            file_type="test_type",
-            passed=False
+            file_type="test_type", passed=False
         )
 
         assert result.file_type == "test_type"

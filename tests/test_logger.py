@@ -1,4 +1,5 @@
 """Tests for amocatlas.logger module."""
+
 import tempfile
 import logging
 import os
@@ -110,9 +111,11 @@ def test_setup_logger() -> None:
             logger.log_info("Test log message")
 
             # Force flush and close handlers properly
-            for handler in logger.log.handlers[:]:  # Copy list to avoid modification during iteration
+            for handler in logger.log.handlers[
+                :
+            ]:  # Copy list to avoid modification during iteration
                 handler.flush()
-                if hasattr(handler, 'close'):
+                if hasattr(handler, "close"):
                     handler.close()
                 logger.log.removeHandler(handler)
 
@@ -123,7 +126,7 @@ def test_setup_logger() -> None:
         finally:
             # Clean up handlers - ensure all are properly closed
             for handler in logger.log.handlers[:]:
-                if hasattr(handler, 'close'):
+                if hasattr(handler, "close"):
                     handler.close()
                 logger.log.removeHandler(handler)
             logger.log.handlers.clear()
@@ -170,7 +173,7 @@ def test_setup_logger_duplicate_handlers() -> None:
         finally:
             # Clean up handlers properly - close file handles first
             for handler in logger.log.handlers[:]:
-                if hasattr(handler, 'close'):
+                if hasattr(handler, "close"):
                     handler.close()
                 logger.log.removeHandler(handler)
             logger.log.handlers.clear()
@@ -227,7 +230,7 @@ def test_logger_output_directory_creation() -> None:
         finally:
             # Clean up handlers properly
             for handler in logger.log.handlers[:]:
-                if hasattr(handler, 'close'):
+                if hasattr(handler, "close"):
                     handler.close()
                 logger.log.removeHandler(handler)
             logger.log.handlers.clear()

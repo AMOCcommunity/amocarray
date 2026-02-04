@@ -258,11 +258,9 @@ def show_variables_by_dimension(
 
 
 def monthly_resample(da: xr.DataArray) -> xr.DataArray:
-    """
-    Resample to monthly mean if time is datetime-like and spacing ~monthly.
+    """Resample to monthly mean if time is datetime-like and spacing ~monthly.
     If time is float-year, just pass through as-is (no interpolation).
     """
-
     # find time coordinate
     time_key = [c for c in da.coords if c.lower() == "time"]
     if not time_key:
@@ -292,8 +290,6 @@ def monthly_resample(da: xr.DataArray) -> xr.DataArray:
 
     else:
         return da  # just return the original data without interpolation
-
-
 
 
 def plot_amoc_timeseries(
@@ -363,7 +359,6 @@ def plot_amoc_timeseries(
         else:
             da = item
 
-
         dims = da.dims
 
         # MHT(lat, time, posterior_samples)
@@ -371,7 +366,9 @@ def plot_amoc_timeseries(
             if "lat" in dims and lat_idx is None:
                 raise ValueError("Dataset has 'lat'. Please provide lat_idx.")
             if "number_regions" in dims and region_idx is None:
-                raise ValueError("Dataset has 'number_regions'. Please provide region_idx.")
+                raise ValueError(
+                    "Dataset has 'number_regions'. Please provide region_idx."
+                )
 
             if "lat" in dims:
                 da = da.isel(lat=lat_idx)
@@ -385,8 +382,6 @@ def plot_amoc_timeseries(
                 da = da.median("posterior_samples")
             else:
                 raise ValueError("posterior_stat must be 'mean' or 'median'.")
-
-
 
         # Identify the time coordinate
         for coord in da.coords:
@@ -411,7 +406,7 @@ def plot_amoc_timeseries(
         if resample_monthly:
 
             da_monthly = monthly_resample(da)
-            
+
             ax.plot(
                 da_monthly[time_key],
                 da_monthly,
