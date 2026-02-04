@@ -1,3 +1,11 @@
+"""Data writing utilities for AMOCatlas.
+
+This module provides functions for writing and exporting AMOCatlas datasets
+to various formats, with special handling for NetCDF export, attribute
+sanitization, and datetime encoding. Includes functions to save datasets
+with proper compression and metadata formatting.
+"""
+
 from numbers import Number
 from pathlib import Path
 from typing import Union
@@ -54,7 +62,7 @@ def save_dataset(ds: xr.Dataset, output_file: str = "../test.nc") -> bool:
     # For datetime variables, remove manual units to let xarray handle encoding properly
     conflicting_keys = ["units", "calendar"]
     for var_name, variable in ds_copy.variables.items():
-        if variable.dtype == np.dtype("datetime64[ns]"):
+        if np.issubdtype(variable.dtype, np.datetime64):
             logger.log_info(
                 f"Configuring datetime encoding for variable '{var_name}' - removing manual units"
             )
@@ -81,6 +89,16 @@ def save_dataset(ds: xr.Dataset, output_file: str = "../test.nc") -> bool:
         return True
     except TypeError as e:
         print(e.__class__.__name__, e)
+
+        # Convert invalid global dataset attributes to strings
+        for k, v in ds_copy.attrs.items():
+            if not isinstance(v, valid_types) or isinstance(v, bool):
+                print(
+                    f"global: Converting attribute '{k}' with value '{v}' to string.",
+                )
+                ds_copy.attrs[k] = str(v)
+
+        # Convert invalid variable attributes to strings
         for varname, variable in ds_copy.variables.items():
             for k, v in variable.attrs.items():
                 if not isinstance(v, valid_types) or isinstance(v, bool):
@@ -91,7 +109,7 @@ def save_dataset(ds: xr.Dataset, output_file: str = "../test.nc") -> bool:
         try:
             ds_copy.to_netcdf(output_file, format="NETCDF4_CLASSIC", encoding=encoding)
             return True
-        except Exception as e:
+        except (OSError, IOError, ValueError, RuntimeError) as e:
             print("Failed to save dataset:", e)
             datetime_vars = [
                 var

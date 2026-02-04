@@ -1,4 +1,5 @@
 """Tests for amocatlas.utilities module."""
+
 from pathlib import Path
 import tempfile
 import os
@@ -32,7 +33,7 @@ logger.disable_logging()
     ],
 )
 def test_is_valid_url(url: str, expected: bool) -> None:
-    assert utilities._is_valid_url(url) == expected
+    assert utilities.is_valid_url(url) == expected
 
 
 @pytest.mark.parametrize(
@@ -111,7 +112,7 @@ def test_normalize_whitespace() -> None:
     attrs = {
         "description": "This  has  multiple   spaces",
         "comment": "Line1\nLine2\n\nLine4",
-        "normal_attr": "normal_value"
+        "normal_attr": "normal_value",
     }
 
     result = utilities.normalize_whitespace(attrs)
@@ -134,7 +135,7 @@ def test_resolve_file_path_local() -> None:
             source=os.path.dirname(tmp_path),
             download_url=None,
             local_data_dir=Path(os.path.dirname(tmp_path)),
-            redownload=False
+            redownload=False,
         )
         assert result == Path(tmp_path)
         assert result.exists()
@@ -154,7 +155,7 @@ def test_resolve_file_path_url() -> None:
             source="https://example.com/data/",
             download_url="https://example.com/data/test_file.nc",
             local_data_dir=Path(tmp_dir),
-            redownload=False
+            redownload=False,
         )
         # Should return the cached file path
         assert result == cached_file
@@ -177,12 +178,15 @@ def test_load_array_metadata() -> None:
 def test_validate_array_yaml() -> None:
     """Test YAML validation for arrays."""
     # Create a temporary YAML file for testing
-    with tempfile.NamedTemporaryFile(mode='w', suffix='.yml', delete=False) as tmp:
-        yaml.dump({
-            "array_name": "test",
-            "description": "Test array",
-            "variables": {"test_var": {"units": "m"}}
-        }, tmp)
+    with tempfile.NamedTemporaryFile(mode="w", suffix=".yml", delete=False) as tmp:
+        yaml.dump(
+            {
+                "array_name": "test",
+                "description": "Test array",
+                "variables": {"test_var": {"units": "m"}},
+            },
+            tmp,
+        )
         tmp_path = tmp.name
 
     try:
@@ -206,12 +210,14 @@ def test_parse_ascii_header() -> None:
 2020 1 1.5
 2020 2 2.0
 """
-    with tempfile.NamedTemporaryFile(mode='w', suffix='.txt', delete=False) as tmp:
+    with tempfile.NamedTemporaryFile(mode="w", suffix=".txt", delete=False) as tmp:
         tmp.write(content)
         tmp_path = tmp.name
 
     try:
-        columns, num_header_lines = utilities.parse_ascii_header(tmp_path, comment_char="%")
+        columns, num_header_lines = utilities.parse_ascii_header(
+            tmp_path, comment_char="%"
+        )
 
         assert len(columns) == 3
         assert "Year" in columns[0]
@@ -230,7 +236,7 @@ def test_read_ascii_file() -> None:
 4.0 5.0 6.0
 7.0 8.0 9.0
 """
-    with tempfile.NamedTemporaryFile(mode='w', suffix='.txt', delete=False) as tmp:
+    with tempfile.NamedTemporaryFile(mode="w", suffix=".txt", delete=False) as tmp:
         tmp.write(content)
         tmp_path = tmp.name
 
@@ -250,15 +256,15 @@ def test_read_ascii_file() -> None:
 def test_is_valid_url_edge_cases() -> None:
     """Test URL validation with edge cases."""
     # Function requires scheme, netloc, AND path
-    assert utilities._is_valid_url("https://example.com/path")
-    assert utilities._is_valid_url("http://test.org/data")
-    assert utilities._is_valid_url("ftp://ftp.example.com/files")
+    assert utilities.is_valid_url("https://example.com/path")
+    assert utilities.is_valid_url("http://test.org/data")
+    assert utilities.is_valid_url("ftp://ftp.example.com/files")
 
     # These should fail (no path required by the function)
-    assert not utilities._is_valid_url("https://example.com")  # No path
-    assert not utilities._is_valid_url("")
-    assert not utilities._is_valid_url("not-a-url")
-    assert not utilities._is_valid_url("file:///local/path")  # Wrong scheme
+    assert not utilities.is_valid_url("https://example.com")  # No path
+    assert not utilities.is_valid_url("")
+    assert not utilities.is_valid_url("not-a-url")
+    assert not utilities.is_valid_url("file:///local/path")  # Wrong scheme
 
 
 def test_is_valid_file_edge_cases() -> None:
@@ -277,6 +283,7 @@ def test_is_valid_file_edge_cases() -> None:
 
 def test_apply_defaults_decorator() -> None:
     """Test the apply_defaults decorator functionality."""
+
     @utilities.apply_defaults("default_source", ["file1.nc", "file2.nc"])
     def test_function(source: str = None, file_list: list = None) -> Tuple[str, list]:
         return source, file_list
@@ -301,7 +308,7 @@ def test_resolve_file_path_missing_file() -> None:
                 source=tmp_dir,  # Local directory
                 download_url=None,
                 local_data_dir=Path(tmp_dir),
-                redownload=False
+                redownload=False,
             )
 
 
@@ -325,7 +332,7 @@ def test_normalize_whitespace_edge_cases() -> None:
         "string_val": "normal text",
         "int_val": 42,
         "float_val": 3.14,
-        "none_val": None
+        "none_val": None,
     }
 
     result = utilities.normalize_whitespace(attrs)
@@ -339,3 +346,16 @@ def test_load_array_metadata_missing() -> None:
     """Test loading metadata for non-existent array."""
     with pytest.raises(FileNotFoundError):
         utilities.load_array_metadata("definitely_does_not_exist")
+
+
+def test_download_file() -> None:
+    """Test download functionality with error handling."""
+    # Test with invalid URL - should raise an appropriate error
+    with pytest.raises(
+        (FileNotFoundError, OSError, IOError, ConnectionError, TimeoutError)
+    ):
+        utilities.download_file(
+            "http://invalid.url.that.does.not.exist.example.com/file.nc",
+            Path("/tmp"),
+            filename="test_file.nc",
+        )

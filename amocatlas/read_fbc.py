@@ -50,15 +50,15 @@ def read_fbc(
 
     file_list : str or list of str, optional
         Filename or list of filenames to process.
-        Defaults to FBC_DEFAULT_FILES. 
-                 
+        Defaults to FBC_DEFAULT_FILES.
+
     transport_only : bool, optional
         If True, restrict to transport files only.
 
     data_dir : str, Path or None, optional
         Optional local data directory.
 
-    redownload : bool, optional                                         
+    redownload : bool, optional
     If True, force redownload of the data.
 
     Returns
@@ -68,11 +68,11 @@ def read_fbc(
 
     Raises
     ------
-    ------                                                          
+    ------
     ValueError
         If no source is provided for a file and no default URL mapping is found.
-    
-    FileNotFoundError                                                   
+
+    FileNotFoundError
     If the file cannot be downloaded or does not exist locally.
 
     """
@@ -95,7 +95,7 @@ def read_fbc(
             continue
 
         download_url = (
-            f"{source.rstrip('/')}/{file}" if utilities._is_valid_url(source) else None
+            f"{source.rstrip('/')}/{file}" if utilities.is_valid_url(source) else None
         )
 
         file_path = utilities.resolve_file_path(

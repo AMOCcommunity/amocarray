@@ -18,7 +18,7 @@ Main functions:
 """
 
 from pathlib import Path
-from typing import Union
+from typing import Callable, List, Union
 
 import pandas as pd
 import xarray as xr
@@ -44,7 +44,7 @@ log = logger.log
 server = "https://www.dropbox.com/scl/fo/4bjo8slq1krn5rkhbkyds/AM-EVfSHi8ro7u2y8WAcKyw?rlkey=16nqlykhgkwfyfeodkj274xpc&dl=0"
 
 
-def _get_reader(array_name: str):
+def _get_reader(array_name: str) -> Callable[..., List[xr.Dataset]]:
     """Return the reader function for the given array name.
 
     Parameters
@@ -83,7 +83,7 @@ def _get_reader(array_name: str):
     except KeyError:
         raise ValueError(
             f"Unknown array name: {array_name}. Valid options are: {list(readers.keys())}",
-        )
+        ) from None
 
 
 def load_sample_dataset(array_name: str = "rapid") -> xr.Dataset:
@@ -181,7 +181,6 @@ def load_dataset(
         logger.setup_logger(array_name=array_name)
 
     # Use logger globally
-    log = logger.log
     log_info(f"Loading dataset for array: {array_name}")
 
     reader = _get_reader(array_name)

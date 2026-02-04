@@ -1,3 +1,12 @@
+"""Frajka-Williams 2015 dataset reader for AMOCatlas.
+
+This module provides functions to read and process data from the
+Frajka-Williams et al. (2015) AMOC proxy dataset. This dataset provides
+a reconstruction of AMOC variability based on sea surface height and wind
+stress observations, extending the observational record beyond direct
+mooring observations.
+"""
+
 from pathlib import Path
 from typing import Union
 
@@ -158,9 +167,9 @@ def read_fw2015(
             ds.attrs["paper"] = recon.paper
             ds.attrs["version"] = recon.version
 
-        except Exception as e:
-            log.error("Failed to parse .mat file: %s: %s", file_path, e)
-            raise ValueError(f"Failed to parse .mat file: {file_path}: {e}")
+        except (OSError, IOError, ValueError, KeyError, AttributeError) as e:
+            log.exception("Failed to parse .mat file: %s", file_path)
+            raise ValueError(f"Failed to parse .mat file: {file_path}: {e}") from e
 
         # attach metadata
         file_metadata = FW2015_FILE_METADATA.get(file, {})

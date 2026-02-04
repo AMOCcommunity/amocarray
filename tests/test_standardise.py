@@ -10,7 +10,6 @@ def test_standardise_samba():
 
     # Load metadata from the YAML to match expectations
     meta = utilities.load_array_metadata("samba")
-    global_meta = meta["metadata"]
     file_metas = meta["files"]
 
     for ds in datasets:
@@ -140,7 +139,9 @@ def test_merge_metadata_aliases(attrs, expected):
     ],
 )
 def test_consolidate_contributors_merges_and_assigns_roles(input_dict, expected_dict):
-    """_consolidate_contributors should:
+    """_consolidate_contributors should handle merging of people/emails etc.
+
+    Specific actions:
     - Merge name fields (creator, principal_investigator, publisher, contributor)
     - Assign roles based on source key mapping
     - Merge institution fields into contributing_institutions

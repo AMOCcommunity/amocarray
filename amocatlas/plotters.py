@@ -159,15 +159,20 @@ def show_attributes(data: str | xr.Dataset) -> pd.DataFrame:
     from netCDF4 import Dataset
     from pandas import DataFrame
 
+    def get_attr(key: str) -> str:
+        """Get attribute value based on data type."""
+        if isinstance(data, str):
+            return getattr(rootgrp, key)
+        else:
+            return data.attrs[key]
+
     if isinstance(data, str):
         print(f"information is based on file: {data}")
         rootgrp = Dataset(data, "r", format="NETCDF4")
         attributes = rootgrp.ncattrs()
-        get_attr = lambda key: getattr(rootgrp, key)
     elif isinstance(data, xr.Dataset):
         print("information is based on xarray Dataset")
         attributes = data.attrs.keys()
-        get_attr = lambda key: data.attrs[key]
     else:
         raise TypeError("Input data must be a file path (str) or an xarray Dataset")
 
@@ -258,11 +263,9 @@ def show_variables_by_dimension(
 
 
 def monthly_resample(da: xr.DataArray) -> xr.DataArray:
-    """
-    Resample to monthly mean if time is datetime-like and spacing ~monthly.
+    """Resample to monthly mean if time is datetime-like and spacing ~monthly.
     If time is float-year, just pass through as-is (no interpolation).
     """
-
     # find time coordinate
     time_key = [c for c in da.coords if c.lower() == "time"]
     if not time_key:
@@ -292,8 +295,6 @@ def monthly_resample(da: xr.DataArray) -> xr.DataArray:
 
     else:
         return da  # just return the original data without interpolation
-
-
 
 
 def plot_amoc_timeseries(
@@ -363,7 +364,6 @@ def plot_amoc_timeseries(
         else:
             da = item
 
-
         dims = da.dims
 
         # MHT(lat, time, posterior_samples)
@@ -371,7 +371,9 @@ def plot_amoc_timeseries(
             if "lat" in dims and lat_idx is None:
                 raise ValueError("Dataset has 'lat'. Please provide lat_idx.")
             if "number_regions" in dims and region_idx is None:
-                raise ValueError("Dataset has 'number_regions'. Please provide region_idx.")
+                raise ValueError(
+                    "Dataset has 'number_regions'. Please provide region_idx."
+                )
 
             if "lat" in dims:
                 da = da.isel(lat=lat_idx)
@@ -385,8 +387,6 @@ def plot_amoc_timeseries(
                 da = da.median("posterior_samples")
             else:
                 raise ValueError("posterior_stat must be 'mean' or 'median'.")
-
-
 
         # Identify the time coordinate
         for coord in da.coords:
@@ -411,7 +411,7 @@ def plot_amoc_timeseries(
         if resample_monthly:
 
             da_monthly = monthly_resample(da)
-            
+
             ax.plot(
                 da_monthly[time_key],
                 da_monthly,
@@ -500,13 +500,16 @@ def plot_monthly_anomalies(**kwargs) -> tuple[plt.Figure, list[plt.Axes]]:
 # PyGMT Publication Plotting Functions
 # ------------------------------------------------------------------------------------
 
+# Initialize PyGMT availability flag
+HAS_PYGMT = False
+
 # Check for PyGMT availability
 try:
     import pygmt
 
     HAS_PYGMT = True
 except Exception:
-    # Catch ImportError and any GMT library loading errors (GMTCLibNotFoundError, etc.)
+    # Catch all exceptions including ImportError, OSError, GMTCLibNotFoundError, etc.
     HAS_PYGMT = False
 
 
@@ -537,7 +540,7 @@ def _add_amocatlas_timestamp(fig):
 
 def plot_moc_timeseries_pygmt(
     df: pd.DataFrame, column: str = "moc", label: str = "MOC [Sv]"
-):
+) -> "pygmt.Figure":
     """Plot MOC time series using PyGMT with publication-quality styling.
 
     Parameters
@@ -605,7 +608,7 @@ def plot_moc_timeseries_pygmt(
     return fig
 
 
-def plot_osnap_components_pygmt(df: pd.DataFrame):
+def plot_osnap_components_pygmt(df: pd.DataFrame) -> "pygmt.Figure":
     """Plot OSNAP MOC components with shaded error bands using PyGMT.
 
     Parameters
@@ -695,7 +698,7 @@ def plot_osnap_components_pygmt(df: pd.DataFrame):
     return fig
 
 
-def plot_rapid_components_pygmt(df: pd.DataFrame):
+def plot_rapid_components_pygmt(df: pd.DataFrame) -> "pygmt.Figure":
     """Plot RAPID MOC and component transports using PyGMT.
 
     Parameters
@@ -791,7 +794,13 @@ def plot_rapid_components_pygmt(df: pd.DataFrame):
     return fig
 
 
-def plot_all_moc_pygmt(osnap_df, rapid_df, move_df, samba_df, filtered: bool = False):
+def plot_all_moc_pygmt(
+    osnap_df: pd.DataFrame,
+    rapid_df: pd.DataFrame,
+    move_df: pd.DataFrame,
+    samba_df: pd.DataFrame,
+    filtered: bool = False,
+) -> "pygmt.Figure":
     """Plot all MOC time series (OSNAP, RAPID, MOVE, SAMBA) in a stacked PyGMT figure.
 
     Parameters
@@ -911,7 +920,7 @@ def plot_all_moc_pygmt(osnap_df, rapid_df, move_df, samba_df, filtered: bool = F
     return fig
 
 
-def plot_bryden2005_pygmt():
+def plot_bryden2005_pygmt() -> "pygmt.Figure":
     """Plot Bryden et al. 2005 historical AMOC estimates using PyGMT.
 
     Creates a plot of the historical AMOC estimates from Bryden et al. (2005)
@@ -998,7 +1007,7 @@ def plot_all_moc_overlaid_pygmt(
     move_df: pd.DataFrame,
     samba_df: pd.DataFrame,
     filtered: bool = False,
-):
+) -> "pygmt.Figure":
     """Plot all MOC time series overlaid using separate coordinate systems.
 
     This creates overlaid plots with different y-ranges for MOC data vs SAMBA anomaly,

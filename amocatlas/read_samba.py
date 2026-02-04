@@ -1,3 +1,10 @@
+"""SAMBA array data reader for AMOCatlas.
+
+This module provides functions to read and process data from the SAMBA
+(South Atlantic Meridional Overturning Circulation) observing array
+located at 34.5°S.
+"""
+
 from pathlib import Path
 from typing import Union
 
@@ -123,9 +130,18 @@ def read_samba(
             column_names, _ = utilities.parse_ascii_header(file_path, comment_char="%")
             df = utilities.read_ascii_file(file_path, comment_char="%")
             df.columns = column_names
-        except Exception as e:
+        except (
+            OSError,
+            IOError,
+            ValueError,
+            KeyError,
+            pd.errors.EmptyDataError,
+            pd.errors.ParserError,
+        ) as e:
             log_error("Failed to parse ASCII file: %s: %s", file_path, e)
-            raise FileNotFoundError(f"Failed to parse ASCII file: {file_path}: {e}")
+            raise FileNotFoundError(
+                f"Failed to parse ASCII file: {file_path}: {e}"
+            ) from e
 
         # Time handling
         try:
@@ -137,14 +153,14 @@ def read_samba(
             else:
                 df["TIME"] = pd.to_datetime(df[["Year", "Month", "Day", "Hour"]])
                 df = df.drop(columns=["Year", "Month", "Day", "Hour"])
-        except Exception as e:
+        except (ValueError, KeyError, TypeError) as e:
             log_error("Failed to construct TIME column for %s: %s", file, e)
-            raise ValueError(f"Failed to construct TIME column for {file}: {e}")
+            raise ValueError(f"Failed to construct TIME column for {file}: {e}") from e
 
         # Convert DataFrame to xarray Dataset
         try:
             ds = df.set_index("TIME").to_xarray()
-        except Exception as e:
+        except (ValueError, KeyError, TypeError, AttributeError) as e:
             log_error(
                 "Failed to convert DataFrame to xarray Dataset for %s: %s",
                 file,
@@ -152,7 +168,7 @@ def read_samba(
             )
             raise ValueError(
                 f"Failed to convert DataFrame to xarray Dataset for {file}: {e}",
-            )
+            ) from e
 
         # Attach metadata
         file_metadata = SAMBA_FILE_METADATA.get(file, {})

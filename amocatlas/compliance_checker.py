@@ -230,7 +230,7 @@ class AC1ComplianceChecker:
             # Load dataset
             try:
                 ds = xr.open_dataset(filepath)
-            except Exception as e:
+            except (OSError, IOError, ValueError, KeyError) as e:
                 result.errors.append(f"Failed to open NetCDF file: {e}")
                 result.passed = False
                 return result
@@ -243,7 +243,14 @@ class AC1ComplianceChecker:
 
             ds.close()
 
-        except Exception as e:
+        except (
+            OSError,
+            IOError,
+            ValueError,
+            KeyError,
+            AttributeError,
+            RuntimeError,
+        ) as e:
             result.errors.append(f"Unexpected error during validation: {e}")
             result.passed = False
 
@@ -786,7 +793,7 @@ class AC1ComplianceChecker:
                         result.errors.append(
                             "TIME values must fall within filename date range"
                         )
-                except Exception:
+                except (ValueError, TypeError, AttributeError):
                     result.warnings.append(
                         "Could not validate TIME values against filename dates"
                     )

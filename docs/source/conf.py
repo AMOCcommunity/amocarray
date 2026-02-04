@@ -1,3 +1,10 @@
+"""Configuration file for Sphinx documentation builder.
+
+This configuration file defines the settings for building the AMOCatlas
+documentation using Sphinx. It includes project metadata, extension
+configuration, and theme settings.
+"""
+
 # Configuration file for the Sphinx documentation builder.
 #
 # For the full list of built-in configuration values, see the documentation:

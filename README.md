@@ -43,6 +43,8 @@ This is a work in progress, all contributions welcome!
 | **41°N** | 41°N | North Atlantic section |
 | **DSO** | Denmark Strait | Overflow monitoring |
 | **FW2015** | 26°N | Frajka-Williams 2015 satellite-cable dataset |
+| **CALAFAT2025** | Atlantic | Bayesian estimates of Atlantic meridional heat transport |
+| **ZHENG2024** | Atlantic | Observation-based Atlantic meridional freshwater transport |
 
 ## Installation
 
@@ -108,6 +110,8 @@ amocatlas/
 ├── read_41n.py              # 41°N reader
 ├── read_dso.py              # DSO reader
 ├── read_fw2015.py           # Frajka-Williams 2015 reader
+├── read_calafat2025.py      # Calafat 2025 heat transport reader
+├── read_zheng2024.py        # Zheng 2024 freshwater transport reader
 │
 ├── utilities.py             # Shared utilities (downloads, parsing, etc.)
 ├── logger.py                # Structured logging setup

@@ -1,8 +1,17 @@
+"""41°N array data reader for AMOCatlas.
+
+This module provides functions to read and process data from the 41°N
+observing array in the North Atlantic. This array monitors the Atlantic
+Meridional Overturning Circulation and associated heat transport at the
+northern boundary of the subtropical gyre.
+"""
+
 from pathlib import Path
 from typing import Union
 
 import xarray as xr
 import datetime
+import pandas as pd
 
 # Import the modules used
 from amocatlas import logger, utilities
@@ -96,7 +105,7 @@ def read_41n(
             continue
 
         download_url = (
-            f"{source.rstrip('/')}/{file}" if utilities._is_valid_url(source) else None
+            f"{source.rstrip('/')}/{file}" if utilities.is_valid_url(source) else None
         )
 
         file_path = utilities.resolve_file_path(
@@ -114,11 +123,11 @@ def read_41n(
             try:
                 log.info("Opening 41N dataset: %s", file_path)
                 ds = xr.open_dataset(file_path)
-            except Exception as e:
-                log.error("Failed to open NetCDF file: %s: %s", file_path, e)
+            except (OSError, IOError, ValueError, KeyError) as e:
+                log.exception("Failed to open NetCDF file: %s", file_path)
                 raise FileNotFoundError(
                     f"Failed to open NetCDF file : {file_path}: {e}"
-                )
+                ) from e
         else:
             # file .txt
             try:
@@ -127,9 +136,18 @@ def read_41n(
                 )
                 df = utilities.read_ascii_file(file_path, comment_char="%")
                 df.columns = column_names
-            except Exception as e:
+            except (
+                OSError,
+                IOError,
+                ValueError,
+                KeyError,
+                pd.errors.EmptyDataError,
+                pd.errors.ParserError,
+            ) as e:
                 log_error("Failed to parse ASCII file: %s: %s", file_path, e)
-                raise FileNotFoundError(f"Failed to parse ASCII file: {file_path}: {e}")
+                raise FileNotFoundError(
+                    f"Failed to parse ASCII file: {file_path}: {e}"
+                ) from e
             # Time handling
             try:
                 df = df.apply(
@@ -150,15 +168,15 @@ def read_41n(
                 )
                 df = df.drop(columns=["Decimal year"])
                 ds = df.set_index("TIME").to_xarray()
-            except Exception as e:
+            except (ValueError, KeyError, TypeError, AttributeError) as e:
                 log_error(
-                    "Failed to convert DataFrame to xarray Fataset for %s: %s",
+                    "Failed to convert DataFrame to xarray Dataset for %s: %s",
                     file,
                     e,
                 )
                 raise ValueError(
                     f"Failed to convert DataFrame to xarray Dataset for {file}: {e}",
-                )
+                ) from e
             # Attach metadata
             file_metadata = A41N_FILE_METADATA.get(file, {})
             log_info("Attaching metadata to 41N dataset from file: %s", file)

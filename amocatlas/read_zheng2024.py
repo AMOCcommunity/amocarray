@@ -1,8 +1,15 @@
+"""Zheng et al. 2024 freshwater transport data reader for AMOCatlas.
+
+This module provides functions to read and process freshwater transport data
+from Zheng et al. (2024). This dataset provides observations and estimates
+of freshwater transport across key sections in the Atlantic Ocean, which is
+closely related to AMOC variability and climate change.
+"""
+
 from pathlib import Path
 from typing import Union
 
 import xarray as xr
-import datetime
 
 # Import the modules used
 from amocatlas import logger, utilities
@@ -12,9 +19,7 @@ from amocatlas.utilities import apply_defaults
 log = logger.log  # Use the global logger
 
 # Default list of ZHENG2024 (Atlantic meridional freshwater transport) data files
-ZHENG2024_DEFAULT_FILES = [
-    "atl_mft_2000_extend_gpcp_oaflux.nc"
-]
+ZHENG2024_DEFAULT_FILES = ["atl_mft_2000_extend_gpcp_oaflux.nc"]
 ZHENG2024_TRANSPORT_FILES = ["atl_mft_2000_extend_gpcp_oaflux.nc"]
 ZHENG2024_DEFAULT_SOURCE = "https://zenodo.org/records/12790901/files/"
 
@@ -43,13 +48,13 @@ def read_zheng2024(
 
     Parameters
     ----------
-    ----------                                                     
+    ----------
     source : str, optional
         Local path to the data directory (remote source is handled per-file).
 
     file_list : str or list of str, optional
         Filename or list of filenames to process.
-        Defaults to ZHENG2024_DEFAULT_FILES.  
+        Defaults to ZHENG2024_DEFAULT_FILES.
 
     transport_only : bool, optional
         If True, restrict to transport files only.
@@ -57,7 +62,7 @@ def read_zheng2024(
     data_dir : str, Path or None, optional
         Optional local data directory.
 
-    redownload : bool, optional                                        
+    redownload : bool, optional
         If True, force redownload of the data.
 
     Returns
@@ -67,10 +72,10 @@ def read_zheng2024(
 
     Raises
     ------
-    ------                                                          
+    ------
     ValueError
         If no source is provided for a file and no default URL mapping is found.
-    FileNotFoundError                                                   
+    FileNotFoundError
         If the file cannot be downloaded or does not exist locally.
 
     """
@@ -93,7 +98,7 @@ def read_zheng2024(
             continue
 
         download_url = (
-            f"{source.rstrip('/')}/{file}" if utilities._is_valid_url(source) else None
+            f"{source.rstrip('/')}/{file}" if utilities.is_valid_url(source) else None
         )
 
         file_path = utilities.resolve_file_path(
@@ -110,11 +115,11 @@ def read_zheng2024(
             try:
                 log.info("Opening ZHENG2024 dataset: %s", file_path)
                 ds = xr.open_dataset(file_path)
-            except Exception as e:
-                log.error("Failed to open NetCDF file: %s: %s", file_path, e)
+            except (OSError, IOError, ValueError, KeyError) as e:
+                log.exception("Failed to open NetCDF file: %s", file_path)
                 raise FileNotFoundError(
                     f"Failed to open NetCDF file : {file_path}: {e}"
-                )
+                ) from e
             # Attach metadata
             file_metadata = ZHENG2024_FILE_METADATA.get(file, {})
             log_info("Attaching metadata to ZHENG2024 dataset from file: %s", file)
@@ -129,9 +134,8 @@ def read_zheng2024(
             )
         else:
             raise ValueError(
-                f"Failed to convert to xarray Dataset for {file}: {e}",
+                f"Unsupported file type for {file}. Only .nc files are supported."
             )
-        
 
         datasets.append(ds)
 

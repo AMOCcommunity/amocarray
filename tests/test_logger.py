@@ -1,4 +1,5 @@
 """Tests for amocatlas.logger module."""
+
 import tempfile
 import logging
 import os
@@ -110,9 +111,11 @@ def test_setup_logger() -> None:
             logger.log_info("Test log message")
 
             # Force flush and close handlers properly
-            for handler in logger.log.handlers[:]:  # Copy list to avoid modification during iteration
+            for handler in logger.log.handlers[
+                :
+            ]:  # Copy list to avoid modification during iteration
                 handler.flush()
-                if hasattr(handler, 'close'):
+                if hasattr(handler, "close"):
                     handler.close()
                 logger.log.removeHandler(handler)
 
@@ -123,7 +126,7 @@ def test_setup_logger() -> None:
         finally:
             # Clean up handlers - ensure all are properly closed
             for handler in logger.log.handlers[:]:
-                if hasattr(handler, 'close'):
+                if hasattr(handler, "close"):
                     handler.close()
                 logger.log.removeHandler(handler)
             logger.log.handlers.clear()
@@ -134,7 +137,6 @@ def test_setup_logger_when_disabled() -> None:
     logger.disable_logging()
 
     # Clear existing handlers
-    original_handler_count = len(logger.log.handlers)
     logger.log.handlers.clear()
 
     try:
@@ -158,7 +160,6 @@ def test_setup_logger_duplicate_handlers() -> None:
         try:
             # Setup logger twice with same parameters
             logger.setup_logger("test_array", output_dir=tmp_dir)
-            initial_handler_count = len(logger.log.handlers)
 
             logger.setup_logger("test_array", output_dir=tmp_dir)
             final_handler_count = len(logger.log.handlers)
@@ -170,7 +171,7 @@ def test_setup_logger_duplicate_handlers() -> None:
         finally:
             # Clean up handlers properly - close file handles first
             for handler in logger.log.handlers[:]:
-                if hasattr(handler, 'close'):
+                if hasattr(handler, "close"):
                     handler.close()
                 logger.log.removeHandler(handler)
             logger.log.handlers.clear()
@@ -227,7 +228,7 @@ def test_logger_output_directory_creation() -> None:
         finally:
             # Clean up handlers properly
             for handler in logger.log.handlers[:]:
-                if hasattr(handler, 'close'):
+                if hasattr(handler, "close"):
                     handler.close()
                 logger.log.removeHandler(handler)
             logger.log.handlers.clear()
