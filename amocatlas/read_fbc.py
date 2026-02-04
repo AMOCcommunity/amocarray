@@ -31,6 +31,7 @@ FBC_FILE_METADATA = {
     },
 }
 
+
 @apply_defaults(FBC_DEFAULT_SOURCE, FBC_DEFAULT_FILES)
 def read_fbc(
     ##    source: str,
@@ -44,7 +45,7 @@ def read_fbc(
 
     Parameters
     ----------
-    ----------                                                      
+    ----------
     source : str, optional
         Local path to the data directory (remote source is handled per-file).
 

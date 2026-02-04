@@ -24,9 +24,7 @@ A47N_METADATA = {
 }
 # Mapping of filenames to download URLs
 A47N_FILE_URLS = {
-    "NOAC_AMOC.tab": (
-        "https://doi.pangaea.de/10.1594/PANGAEA.959558?format=textfile"
-    ),
+    "NOAC_AMOC.tab": ("https://doi.pangaea.de/10.1594/PANGAEA.959558?format=textfile"),
 }
 
 A47N_FILE_METADATA = {
@@ -48,17 +46,17 @@ def read_47n(
     """Load the 47N transport datasets from a URL or local file path into xarray Datasets.
 
     Parameters
-    ----------                                                  
+    ----------
     source : str, optional
         Local path to the data directory (remote source is handled per-file).
     file_list : str or list of str, optional
         Filename or list of filenames to process.
-        Defaults to 47N_DEFAULT_FILES.                            
+        Defaults to 47N_DEFAULT_FILES.
         transport_only : bool, optional
         If True, restrict to transport files only.
     data_dir : str, Path or None, optional
         Optional local data directory.
-    redownload : bool, optional                                         
+    redownload : bool, optional
     If True, force redownload of the data.
 
     Returns
@@ -67,10 +65,10 @@ def read_47n(
         List of loaded xarray datasets with basic inline and file-specific metadata.
 
     Raises
-    ------                                                      
+    ------
     ValueError
         If no source is provided for a file and no default URL mapping is found.
-    FileNotFoundError                                                   
+    FileNotFoundError
     If the file cannot be downloaded or does not exist locally.
 
     """
@@ -111,18 +109,14 @@ def read_47n(
             # file .tab
             try:
                 df = pd.read_csv(
-                file_path,
-                sep="\t",
-                skiprows=31,
-                engine="python",
-                encoding="utf-8"
-            )
+                    file_path, sep="\t", skiprows=31, engine="python", encoding="utf-8"
+                )
             except Exception as e:
                 log_error("Failed to parse ASCII file: %s: %s", file_path, e)
                 raise FileNotFoundError(f"Failed to parse ASCII file: {file_path}: {e}")
             # Time handling
             try:
-                df.rename(columns={'Date/Time': 'TIME'}, inplace=True)
+                df.rename(columns={"Date/Time": "TIME"}, inplace=True)
 
                 # Convert TIME to datetime64
                 df["TIME"] = pd.to_datetime(df["TIME"], errors="raise")

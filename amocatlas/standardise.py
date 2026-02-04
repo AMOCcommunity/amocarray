@@ -564,6 +564,11 @@ def standardise_fbc(ds: xr.Dataset, file_name: str) -> xr.Dataset:
     return standardise_array(ds, file_name, array_name="fbc")
 
 
+def standardise_arcticgateway(ds: xr.Dataset, file_name: str) -> xr.Dataset:
+    """Standardise Arctic Gateway array dataset to consistent format."""
+    return standardise_array(ds, file_name, array_name="arcticgateway")
+
+
 def standardise_array(ds: xr.Dataset, file_name: str, array_name: str) -> xr.Dataset:
     """Standardise a mooring array dataset using YAML-based metadata.
 
