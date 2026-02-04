@@ -66,7 +66,7 @@ def apply_defaults(default_source: str, default_files: List[str]) -> Callable:
                 source = default_source
             if file_list is None:
                 file_list = default_files
-            return func(*args, source=source, file_list=file_list, **kwargs)
+            return func(source=source, file_list=file_list, *args, **kwargs)
 
         return wrapper
 

@@ -47,8 +47,6 @@ def sample_dataset() -> xr.Dataset:
                 "array": "RAPID",
             },
         )
-    else:
-        pass  # ds_standardised already set in try block
 
     return ds_standardised
 

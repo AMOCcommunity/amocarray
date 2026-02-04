@@ -508,8 +508,8 @@ try:
     import pygmt
 
     HAS_PYGMT = True
-except (ImportError, OSError):
-    # Catch ImportError and any GMT library loading errors (GMTCLibNotFoundError, etc.)
+except Exception:
+    # Catch all exceptions including ImportError, OSError, GMTCLibNotFoundError, etc.
     HAS_PYGMT = False
 
 
