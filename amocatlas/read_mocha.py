@@ -1,3 +1,11 @@
+"""MOCHA dataset reader for AMOCatlas.
+
+This module provides functions to read and process data from the MOCHA
+(Meridional Overturning Circulation and Heat Transport Array) dataset.
+MOCHA provides observations of meridional
+heat transport in the North Atlantic.
+"""
+
 from pathlib import Path
 from typing import Union
 import zipfile
@@ -143,11 +151,11 @@ def read_mocha(
                 log.info("Opening MOCHA dataset: %s", nc_path)
                 try:
                     ds = xr.open_dataset(nc_path)
-                except Exception as e:
-                    log.error("Failed to open NetCDF file: %s: %s", nc_path, e)
+                except (OSError, IOError, ValueError, KeyError) as e:
+                    log.exception("Failed to open NetCDF file: %s", nc_path)
                     raise FileNotFoundError(
                         f"Failed to open NetCDF file: {nc_path}: {e}"
-                    )
+                    ) from e
 
                 metadata = MOCHA_FILE_METADATA.get(nc_file, {})
                 utilities.safe_update_attrs(

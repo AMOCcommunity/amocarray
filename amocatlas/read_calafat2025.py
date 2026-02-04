@@ -1,3 +1,11 @@
+"""Calafat et al. 2025 MHT data reader for AMOCatlas.
+
+This module provides functions to read and process Atlantic Meridional Heat
+Transport (MHT) data from Calafat et al. (2025). This dataset provides
+observations and estimates of meridional heat transport across multiple
+latitudes in the Atlantic Ocean.
+"""
+
 from pathlib import Path
 from typing import Union
 import zipfile
@@ -141,11 +149,11 @@ def read_calafat2025(
                 log.info("Opening CALAFAT2025 dataset: %s", nc_path)
                 try:
                     ds = xr.open_dataset(nc_path)
-                except Exception as e:
-                    log.error("Failed to open NetCDF file: %s: %s", nc_path, e)
+                except (OSError, IOError, ValueError, KeyError) as e:
+                    log.exception("Failed to open NetCDF file: %s", nc_path)
                     raise FileNotFoundError(
                         f"Failed to open NetCDF file: {nc_path}: {e}"
-                    )
+                    ) from e
 
                 metadata = CALAFAT2025_FILE_METADATA.get(nc_file, {})
                 utilities.safe_update_attrs(

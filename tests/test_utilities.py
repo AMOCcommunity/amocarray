@@ -33,7 +33,7 @@ logger.disable_logging()
     ],
 )
 def test_is_valid_url(url: str, expected: bool) -> None:
-    assert utilities._is_valid_url(url) == expected
+    assert utilities.is_valid_url(url) == expected
 
 
 @pytest.mark.parametrize(
@@ -256,15 +256,15 @@ def test_read_ascii_file() -> None:
 def test_is_valid_url_edge_cases() -> None:
     """Test URL validation with edge cases."""
     # Function requires scheme, netloc, AND path
-    assert utilities._is_valid_url("https://example.com/path")
-    assert utilities._is_valid_url("http://test.org/data")
-    assert utilities._is_valid_url("ftp://ftp.example.com/files")
+    assert utilities.is_valid_url("https://example.com/path")
+    assert utilities.is_valid_url("http://test.org/data")
+    assert utilities.is_valid_url("ftp://ftp.example.com/files")
 
     # These should fail (no path required by the function)
-    assert not utilities._is_valid_url("https://example.com")  # No path
-    assert not utilities._is_valid_url("")
-    assert not utilities._is_valid_url("not-a-url")
-    assert not utilities._is_valid_url("file:///local/path")  # Wrong scheme
+    assert not utilities.is_valid_url("https://example.com")  # No path
+    assert not utilities.is_valid_url("")
+    assert not utilities.is_valid_url("not-a-url")
+    assert not utilities.is_valid_url("file:///local/path")  # Wrong scheme
 
 
 def test_is_valid_file_edge_cases() -> None:
@@ -346,3 +346,16 @@ def test_load_array_metadata_missing() -> None:
     """Test loading metadata for non-existent array."""
     with pytest.raises(FileNotFoundError):
         utilities.load_array_metadata("definitely_does_not_exist")
+
+
+def test_download_file() -> None:
+    """Test download functionality with error handling."""
+    # Test with invalid URL - should raise an appropriate error
+    with pytest.raises(
+        (FileNotFoundError, OSError, IOError, ConnectionError, TimeoutError)
+    ):
+        utilities.download_file(
+            "http://invalid.url.that.does.not.exist.example.com/file.nc",
+            Path("/tmp"),
+            filename="test_file.nc",
+        )

@@ -26,13 +26,12 @@ def sample_dataset() -> xr.Dataset:
         ds_standardised = standardise.standardise_rapid(
             ds_rapid, ds_rapid.attrs["source_file"]
         )
-        return ds_standardised
     except Exception:
         # Fallback to synthetic data if sample data not available
         time = pd.date_range("2020-01-01", periods=100, freq="D")
         data = np.random.randn(100)
 
-        ds = xr.Dataset(
+        ds_standardised = xr.Dataset(
             {
                 "moc_mar_hc10": (
                     ["TIME"],
@@ -48,7 +47,10 @@ def sample_dataset() -> xr.Dataset:
                 "array": "RAPID",
             },
         )
-        return ds
+    else:
+        pass  # ds_standardised already set in try block
+
+    return ds_standardised
 
 
 @pytest.fixture

@@ -1,3 +1,11 @@
+"""Zheng et al. 2024 freshwater transport data reader for AMOCatlas.
+
+This module provides functions to read and process freshwater transport data
+from Zheng et al. (2024). This dataset provides observations and estimates
+of freshwater transport across key sections in the Atlantic Ocean, which is
+closely related to AMOC variability and climate change.
+"""
+
 from pathlib import Path
 from typing import Union
 
@@ -90,7 +98,7 @@ def read_zheng2024(
             continue
 
         download_url = (
-            f"{source.rstrip('/')}/{file}" if utilities._is_valid_url(source) else None
+            f"{source.rstrip('/')}/{file}" if utilities.is_valid_url(source) else None
         )
 
         file_path = utilities.resolve_file_path(
@@ -107,11 +115,11 @@ def read_zheng2024(
             try:
                 log.info("Opening ZHENG2024 dataset: %s", file_path)
                 ds = xr.open_dataset(file_path)
-            except Exception as e:
-                log.error("Failed to open NetCDF file: %s: %s", file_path, e)
+            except (OSError, IOError, ValueError, KeyError) as e:
+                log.exception("Failed to open NetCDF file: %s", file_path)
                 raise FileNotFoundError(
                     f"Failed to open NetCDF file : {file_path}: {e}"
-                )
+                ) from e
             # Attach metadata
             file_metadata = ZHENG2024_FILE_METADATA.get(file, {})
             log_info("Attaching metadata to ZHENG2024 dataset from file: %s", file)
@@ -126,7 +134,7 @@ def read_zheng2024(
             )
         else:
             raise ValueError(
-                f"Failed to convert to xarray Dataset for {file}: {e}",
+                f"Unsupported file type for {file}. Only .nc files are supported."
             )
 
         datasets.append(ds)

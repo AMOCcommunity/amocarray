@@ -1,3 +1,10 @@
+"""MOVE array data reader for AMOCatlas.
+
+This module provides functions to read and process data from the MOVE
+(Meridional Overturning Variability Experiment) observing array located
+at 16°N in the Atlantic.
+"""
+
 from pathlib import Path
 from typing import Union
 
@@ -96,7 +103,7 @@ def read_move(
             continue
 
         download_url = (
-            f"{source.rstrip('/')}/{file}" if utilities._is_valid_url(source) else None
+            f"{source.rstrip('/')}/{file}" if utilities.is_valid_url(source) else None
         )
 
         file_path = utilities.resolve_file_path(
@@ -111,9 +118,11 @@ def read_move(
         try:
             log.info("Opening MOVE dataset: %s", file_path)
             ds = xr.open_dataset(file_path, decode_times=False)
-        except Exception as e:
-            log.error("Failed to open NetCDF file: %s: %s", file_path, e)
-            raise FileNotFoundError(f"Failed to open NetCDF file: {file_path}: {e}")
+        except (OSError, IOError, ValueError, KeyError) as e:
+            log.exception("Failed to open NetCDF file: %s", file_path)
+            raise FileNotFoundError(
+                f"Failed to open NetCDF file: {file_path}: {e}"
+            ) from e
 
         # Clean up time variable
         if "TIME" in ds.variables:

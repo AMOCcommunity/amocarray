@@ -1,11 +1,21 @@
+"""Utility functions for AMOCatlas package.
+
+This module provides shared utility functions including:
+- File download and caching
+- Data directory management
+- URL and path validation
+- Metadata loading and validation
+- Decorator functions for default parameters
+"""
+
 from ftplib import FTP
 from functools import wraps
+from importlib import resources
 from pathlib import Path
 from typing import Callable, Dict, List, Optional, Tuple, Union
 from urllib.parse import urlparse
-import yaml
 import re
-
+import yaml
 
 import pandas as pd
 import requests
@@ -15,7 +25,6 @@ from amocatlas import logger
 from amocatlas.logger import log_debug
 
 log = logger.log
-from importlib import resources
 
 
 def get_project_root() -> Path:
@@ -24,6 +33,7 @@ def get_project_root() -> Path:
 
 
 def get_default_data_dir() -> Path:
+    """Get the default data directory path for AMOCatlas."""
     return Path(__file__).resolve().parent.parent / "data"
 
 
@@ -56,7 +66,7 @@ def apply_defaults(default_source: str, default_files: List[str]) -> Callable:
                 source = default_source
             if file_list is None:
                 file_list = default_files
-            return func(source=source, file_list=file_list, *args, **kwargs)
+            return func(*args, source=source, file_list=file_list, **kwargs)
 
         return wrapper
 
@@ -110,7 +120,7 @@ def resolve_file_path(
 
     """
     # Use local source if provided
-    if source and not _is_valid_url(source):
+    if source and not is_valid_url(source):
         source_path = Path(source)
         candidate_file = source_path / file_name
         if candidate_file.exists():
@@ -133,9 +143,9 @@ def resolve_file_path(
             return download_file(
                 download_url, local_data_dir, redownload=redownload, filename=file_name
             )
-        except Exception as e:
-            log.error("Failed to download %s: %s", download_url, e)
-            raise FileNotFoundError(f"Failed to download {download_url}: {e}")
+        except (OSError, IOError, ConnectionError, TimeoutError) as e:
+            log.exception("Failed to download %s", download_url)
+            raise FileNotFoundError(f"Failed to download {download_url}: {e}") from e
 
     # If no options succeeded
     raise FileNotFoundError(
@@ -243,7 +253,7 @@ def validate_array_yaml(array_name: str, verbose: bool = True) -> bool:
     """
     try:
         meta = load_array_metadata(array_name)
-    except Exception as e:
+    except (FileNotFoundError, yaml.YAMLError, KeyError) as e:
         if verbose:
             print(f"Failed to load metadata for array '{array_name}': {e}")
         return False
@@ -298,7 +308,7 @@ def _validate_dims(ds: xr.Dataset) -> None:
         raise ValueError(f"Dimension name '{dim_name}' is not 'TIME' or 'time'.")
 
 
-def _is_valid_url(url: str) -> bool:
+def is_valid_url(url: str) -> bool:
     """Validate if a given string is a valid URL with supported schemes.
 
     Parameters
@@ -322,7 +332,7 @@ def _is_valid_url(url: str) -> bool:
                 result.path,  # Ensure there's a path, not necessarily its format
             ],
         )
-    except Exception:
+    except (ValueError, TypeError, AttributeError):
         return False
 
 

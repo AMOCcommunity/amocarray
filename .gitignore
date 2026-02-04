@@ -189,6 +189,8 @@ data/meridional_transports.nc
 data/Bayesian_estimates_Atlantic_MHT.nc
 data/Bayesian_estimates_Atlantic_MHT.zip
 data/moc_vertical.nc
+data/Johns_2023_mht_data_2020_ERA5.zip
+data/Q_ARGO_obs_dens_2000depth_ERA5.nc
 
 # Claude Code
 CLAUDE.md

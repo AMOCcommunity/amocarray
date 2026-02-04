@@ -1,4 +1,4 @@
-"""AMOCatlas Data Format Conversion
+"""AMOCatlas Data Format Conversion.
 
 This module provides functionality to convert standardised AMOCatlas data to the AC1 format
 following OceanSITES conventions and AC1 specifications.
@@ -269,7 +269,6 @@ def _convert_component_transports(
 
     # Create TRANSPORT variable (N_COMPONENT, TIME) - validate units from standardise.py
     transport_data_list = []
-    expected_units = "sverdrup"
 
     # Validate that all transport variables have the expected units
     for var in component_names:
@@ -290,13 +289,8 @@ def _convert_component_transports(
                 f"Variable {var} has units '{current_units}' but expected one of {acceptable_units}. Units should be standardized in standardise.py"
             )
 
-        # Convert to AC1 standard if needed (only unit format changes, not values)
+        # All transport data values are used as-is (units are standardized in standardise.py)
         var_data = ds[var].values
-        if current_units in ["Sv", "Sverdrup"]:
-            final_units = "sverdrup"  # AC1 standard format
-        else:
-            final_units = current_units
-
         transport_data_list.append(var_data)
 
     transport_data = np.array(transport_data_list)

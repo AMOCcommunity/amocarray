@@ -90,4 +90,8 @@ ignore = [
   "E501",    # line‑length
   "PLR0913", # too many arguments
   "C901",    # complexity
+  "TRY003",  # avoid specifying long messages outside exception class
 ]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["E402", "SLF001", "ANN", "D103", "D100"]  # Allow module level imports, private member access, missing type annotations, and missing docstrings in tests

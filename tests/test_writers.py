@@ -214,20 +214,23 @@ def test_save_dataset_type_conversion_fallback() -> None:
 
 
 def test_save_dataset_with_global_dict_attrs() -> None:
-    """Test that global dict attributes cause failure (not handled by writer)."""
-    # Create dataset with dict in global attrs (which writer doesn't handle)
+    """Test that global dict attributes are converted to strings."""
+    # Create dataset with dict in global attrs (should be converted to string)
     ds = xr.Dataset(
         {"data": (["x"], [1, 2, 3])},
-        attrs={"problematic_dict": {"nested": "value"}},  # This will cause failure
+        attrs={
+            "problematic_dict": {"nested": "value"}
+        },  # This will be converted to string
     )
 
     with tempfile.TemporaryDirectory() as tmp_dir:
-        output_file = os.path.join(tmp_dir, "test_dict_failure.nc")
+        output_file = os.path.join(tmp_dir, "test_dict_conversion.nc")
 
         success = writers.save_dataset(ds, output_file)
 
-        # Should fail because global dict attrs aren't handled
-        assert not success
+        # Should succeed because dict attrs are converted to strings
+        assert success
+        assert os.path.exists(output_file)
 
 
 def test_save_AC1_dataset_basic(ac1_dataset: xr.Dataset) -> None:
@@ -269,20 +272,21 @@ def test_save_AC1_dataset_missing_id() -> None:
             writers.save_AC1_dataset(ds, tmp_dir)
 
 
-def test_save_AC1_dataset_save_failure() -> None:
-    """Test AC1 saving when underlying save fails due to problematic attributes."""
-    # Create dataset with 'id' but problematic attributes that will cause save to fail
+def test_save_AC1_dataset_with_dict_attrs() -> None:
+    """Test AC1 saving with dict attributes (should be converted to strings)."""
+    # Create dataset with 'id' and dict attributes that will be converted to strings
     ds = xr.Dataset(
         {"data": (["x"], [1, 2, 3])},
         attrs={
             "id": "test_id",
-            "problematic_dict": {"nested": "value"},  # This will cause save to fail
+            "problematic_dict": {"nested": "value"},  # This will be converted to string
         },
     )
 
     with tempfile.TemporaryDirectory() as tmp_dir:
-        with pytest.raises(RuntimeError, match="Failed to save AC1 dataset"):
-            writers.save_AC1_dataset(ds, tmp_dir)
+        result_path = writers.save_AC1_dataset(ds, tmp_dir)
+        assert result_path.exists()
+        assert result_path.name == "test_id.nc"
 
 
 def test_save_dataset_edge_cases() -> None:

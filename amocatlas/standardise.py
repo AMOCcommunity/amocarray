@@ -102,7 +102,8 @@ def reorder_metadata(attrs: dict) -> dict:
 def normalize_and_add_vocabulary(
     attrs: dict, normalizations: dict[str, tuple[dict[str, str], str]]
 ) -> dict:
-    """For each (attr, (value_map, vocab_url)) in `normalizations`:
+    """For each (attr, (value_map, vocab_url)) in `normalizations`.
+
       - If `attr` exists in attrs:
           * Map attrs[attr] using value_map (or leave it if unmapped)
           * Add attrs[f"{attr}_vocabulary"] = vocab_url
@@ -139,7 +140,8 @@ def normalize_and_add_vocabulary(
 
 
 def clean_metadata(attrs: dict, preferred_keys: dict = None) -> dict:
-    """Clean up a metadata dictionary:
+    """Clean up a metadata dictionary.
+
     - Normalize key casing
     - Merge aliases with identical values
     - Apply standard naming (via preferred_keys mapping)
@@ -194,7 +196,9 @@ def clean_metadata(attrs: dict, preferred_keys: dict = None) -> dict:
 
 
 def _consolidate_contributors(cleaned: dict) -> dict:
-    """Consolidate creators, PIs, publishers, and contributors into unified fields:
+    """Consolidate creators, PIs, publishers, and contributors into unified fields.
+
+    These include:
     - contributor_name, contributor_role, contributor_email, contributor_id aligned one-to-one
     - contributing_institutions, with placeholders for vocabularies/roles
     """
@@ -488,30 +492,37 @@ def standardise_move(ds: xr.Dataset, file_name: str) -> xr.Dataset:
 
 
 def standardise_osnap(ds: xr.Dataset, file_name: str) -> xr.Dataset:
+    """Standardise OSNAP array dataset to consistent format."""
     return standardise_array(ds, file_name, array_name="osnap")
 
 
 def standardise_fw2015(ds: xr.Dataset, file_name: str) -> xr.Dataset:
+    """Standardise FW2015 array dataset to consistent format."""
     return standardise_array(ds, file_name, array_name="fw2015")
 
 
 def standardise_mocha(ds: xr.Dataset, file_name: str) -> xr.Dataset:
+    """Standardise MOCHA array dataset to consistent format."""
     return standardise_array(ds, file_name, array_name="mocha")
 
 
 def standardise_41n(ds: xr.Dataset, file_name: str) -> xr.Dataset:
+    """Standardise 41N array dataset to consistent format."""
     return standardise_array(ds, file_name, array_name="41n")
 
 
 def standardise_dso(ds: xr.Dataset, file_name: str) -> xr.Dataset:
+    """Standardise DSO array dataset to consistent format."""
     return standardise_array(ds, file_name, array_name="dso")
 
 
 def standardise_calafat2025(ds: xr.Dataset, file_name: str) -> xr.Dataset:
+    """Standardise CALAFAT2025 array dataset to consistent format."""
     return standardise_array(ds, file_name, array_name="calafat2025")
 
 
 def standardise_zheng2024(ds: xr.Dataset, file_name: str) -> xr.Dataset:
+    """Standardise ZHENG2024 array dataset to consistent format."""
     return standardise_array(ds, file_name, array_name="zheng2024")
 
 

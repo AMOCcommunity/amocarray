@@ -137,7 +137,6 @@ def test_setup_logger_when_disabled() -> None:
     logger.disable_logging()
 
     # Clear existing handlers
-    original_handler_count = len(logger.log.handlers)
     logger.log.handlers.clear()
 
     try:
@@ -161,7 +160,6 @@ def test_setup_logger_duplicate_handlers() -> None:
         try:
             # Setup logger twice with same parameters
             logger.setup_logger("test_array", output_dir=tmp_dir)
-            initial_handler_count = len(logger.log.handlers)
 
             logger.setup_logger("test_array", output_dir=tmp_dir)
             final_handler_count = len(logger.log.handlers)

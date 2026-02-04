@@ -1,3 +1,10 @@
+"""OSNAP array data reader for AMOCatlas.
+
+This module provides functions to read and process data from the OSNAP
+(Overturning in the Subpolar North Atlantic Program) observing array.
+
+"""
+
 from pathlib import Path
 from typing import Union
 
@@ -178,9 +185,11 @@ def read_osnap(
         try:
             log.info("Opening OSNAP dataset: %s", file_path)
             ds = xr.open_dataset(file_path)
-        except Exception as e:
-            log.error("Failed to open NetCDF file: %s: %s", file_path, e)
-            raise FileNotFoundError(f"Failed to open NetCDF file: {file_path}: {e}")
+        except (OSError, IOError, ValueError, KeyError) as e:
+            log.exception("Failed to open NetCDF file: %s", file_path)
+            raise FileNotFoundError(
+                f"Failed to open NetCDF file: {file_path}: {e}"
+            ) from e
 
         # Attach metadata
         file_metadata = OSNAP_FILE_METADATA.get(file, {})

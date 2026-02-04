@@ -1,3 +1,11 @@
+"""DSO (Denmark Strait Overflow) data reader for AMOCatlas.
+
+This module provides functions to read and process data from the Denmark Strait
+Overflow observing array. DSO monitors the transport of dense water flowing
+southward through Denmark Strait, which is a key component of the Atlantic
+Meridional Overturning Circulation.
+"""
+
 from pathlib import Path
 from typing import Union
 
@@ -91,7 +99,7 @@ def read_dso(
             continue
 
         download_url = (
-            f"{source.rstrip('/')}/{file}" if utilities._is_valid_url(source) else None
+            f"{source.rstrip('/')}/{file}" if utilities.is_valid_url(source) else None
         )
 
         file_path = utilities.resolve_file_path(
@@ -105,9 +113,11 @@ def read_dso(
         try:
             log_info("Opening DSO dataset: %s", file_path)
             ds = xr.open_dataset(file_path)
-        except Exception as e:
+        except (OSError, IOError, ValueError, KeyError) as e:
             log_error("Failed to open NetCDF file: %s: %s", file_path, e)
-            raise FileNotFoundError(f"Failed to open NetCDF file: {file_path}: {e}")
+            raise FileNotFoundError(
+                f"Failed to open NetCDF file: {file_path}: {e}"
+            ) from e
 
         file_metadata = DSO_FILE_METADATA.get(file, {})
         log_info("Attaching metadata to DSO dataset from file: %s", file)

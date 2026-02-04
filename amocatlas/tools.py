@@ -266,7 +266,7 @@ def set_best_dtype(ds: xr.Dataset) -> xr.Dataset:
 # ------------------------------------------------------------------------------------
 
 
-def to_decimal_year(dates) -> pd.Series:
+def to_decimal_year(dates: pd.Series) -> pd.Series:
     """Convert datetime series to decimal years, handling NaN values safely.
 
     Parameters
