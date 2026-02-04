@@ -2,7 +2,6 @@ from pathlib import Path
 from typing import Union
 
 import xarray as xr
-import datetime
 import pandas as pd
 
 # Import the modules used
