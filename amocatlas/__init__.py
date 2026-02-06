@@ -29,6 +29,7 @@ from . import (
     writers,
     convert,
     compliance_checker,
+    reader_utils,
 )
 
 # Version information
@@ -44,5 +45,6 @@ __all__ = [
     "writers",
     "convert",
     "compliance_checker",
+    "reader_utils",
     "__version__",
 ]

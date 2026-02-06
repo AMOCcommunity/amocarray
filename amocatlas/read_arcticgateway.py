@@ -1,3 +1,19 @@
+"""Arctic Gateway transport data reader for AMOCatlas.
+
+This module provides functions to read and process data from the Arctic Gateway 
+transport dataset, which includes measurements from key Arctic Ocean gateways:
+Fram Strait, Davis Strait, Bering Strait, and Barents Sea Opening.
+
+The data is provided as a zip archive containing multiple NetCDF files for 
+each gateway, with full-depth velocity adjustments applied.
+
+Key functions:
+- read_arcticgateway(): Main data loading interface for Arctic Gateway transport data
+
+Data source: Pan-Arctic Gateway transports since 2004
+Project: Norwegian Polar Institute Arctic gateway transport monitoring
+"""
+
 from pathlib import Path
 from typing import Union
 import zipfile

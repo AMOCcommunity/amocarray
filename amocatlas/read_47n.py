@@ -1,3 +1,16 @@
+"""NOAC 47°N array data reader for AMOCatlas.
+
+This module provides functions to read and process data from the North Atlantic 
+Ocean Current (NOAC) observing array located at 47°N. The array provides 
+transport estimates from temperature and salinity profile data in the 
+North Atlantic.
+
+Key functions:
+- read_47n(): Main data loading interface for NOAC 47°N array data
+
+Data source: Ocean current measurements at 47°N latitude
+"""
+
 from pathlib import Path
 from typing import Union
 

@@ -1,3 +1,20 @@
+"""Faroe Bank Channel (FBC) overflow data reader for AMOCatlas.
+
+This module provides functions to read and process data from the Faroe Bank 
+Channel overflow monitoring system. The FBC is a critical pathway for dense 
+water overflow from the Nordic Seas into the North Atlantic, representing 
+an important component of the Atlantic Meridional Overturning Circulation.
+
+The dataset includes overflow transport estimates and hydrographic measurements
+from moored instruments in the channel.
+
+Key functions:
+- read_fbc(): Main data loading interface for Faroe Bank Channel overflow data
+
+Data source: Faroe Bank Channel overflow monitoring program  
+Location: Deep channel between Faroe Islands and Faroe Bank
+"""
+
 from pathlib import Path
 from typing import Union
 
