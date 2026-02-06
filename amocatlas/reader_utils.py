@@ -80,7 +80,8 @@ class ReaderUtils:
         global_metadata: Dict[str, Any],
         file_metadata: Dict[str, Any],
         datasource_id: str = None,
-    ) -> xr.Dataset:
+        track_added_attrs: bool = False,
+    ) -> Union[xr.Dataset, tuple[xr.Dataset, List[str]]]:
         """Attach standard metadata to a dataset with datasource identification.
 
         Parameters
@@ -98,29 +99,62 @@ class ReaderUtils:
         datasource_id : str, optional
             Unique identifier for the data source (e.g., 'rapid26n', 'samba34s').
             Used for automatic standardization function selection.
+        track_added_attrs : bool, optional
+            If True, return a tuple of (dataset, metadata_changes_dict).
+            If False, return only the dataset. Default is False.
 
         Returns
         -------
-        xr.Dataset
-            Dataset with attached metadata including datasource identification.
+        xr.Dataset or tuple[xr.Dataset, Dict[str, List[str]]]
+            If track_added_attrs=False: Dataset with attached metadata.
+            If track_added_attrs=True: Tuple of (dataset, dict with 'added' and 'modified' keys).
 
         """
         log_info("Attaching metadata to dataset from file: %s", file_name)
 
-        # Build metadata dictionary
+        # Keep track of original attributes if requested
+        if track_added_attrs:
+            original_attrs = dict(ds.attrs)  # Keep values to detect modifications
+            original_keys = set(ds.attrs.keys())
+
+        # Build metadata dictionary - file metadata takes precedence over YAML defaults
+        # Start with YAML defaults
         metadata = {
-            "source_file": file_name,
-            "source_path": str(file_path),
             **global_metadata,
             **file_metadata,
         }
+        
+        # Override with original file metadata (file takes precedence)
+        metadata.update(ds.attrs)
+        
+        # Add AMOCatlas-specific metadata (these are always added)
+        metadata.update({
+            "source_file": file_name,
+            "source_path": str(file_path),
+        })
 
         # Add datasource identification if provided
         if datasource_id:
             metadata["amocatlas_datasource"] = datasource_id
 
-        utilities.safe_update_attrs(ds, metadata)
-        return ds
+        # Replace dataset attributes entirely
+        ds.attrs.clear()
+        ds.attrs.update(metadata)
+        
+        if track_added_attrs:
+            # Find which attributes were added and modified
+            new_attrs = set(ds.attrs.keys())
+            added_attrs = list(new_attrs - original_keys)
+            
+            # Find modified attributes (existing keys with different values)
+            modified_attrs = []
+            for key in original_keys:
+                if key in ds.attrs and ds.attrs[key] != original_attrs[key]:
+                    modified_attrs.append(key)
+            
+            return ds, {"added": added_attrs, "modified": modified_attrs}
+        else:
+            return ds
 
     @staticmethod
     def prepare_file_list(

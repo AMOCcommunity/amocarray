@@ -62,6 +62,7 @@ def read_mocha(
     transport_only: bool = True,
     data_dir: Union[str, Path, None] = None,
     redownload: bool = False,
+    track_added_attrs: bool = False,
 ) -> list[xr.Dataset]:
     """Load the MOCHA transport dataset from a URL or local file path into xarray Datasets.
 
@@ -178,4 +179,12 @@ def read_mocha(
         raise FileNotFoundError(f"No valid NetCDF files found in {file_list}")
 
     log.info("Successfully loaded %d MOCHA dataset(s)", len(datasets))
-    return datasets
+    
+    # Handle track_added_attrs parameter
+    if track_added_attrs:
+        # TODO: Implement actual attribute tracking
+        # For now, return empty tracking info for compatibility
+        added_attrs_per_dataset = [[] for _ in datasets]
+        return datasets, added_attrs_per_dataset
+    else:
+        return datasets

@@ -66,6 +66,7 @@ def read_samba(
     transport_only: bool = True,
     data_dir: Union[str, Path, None] = None,
     redownload: bool = False,
+    track_added_attrs: bool = False,
 ) -> list[xr.Dataset]:
     """Load the SAMBA transport datasets from remote URL or local file path into xarray Datasets.
 
@@ -191,4 +192,12 @@ def read_samba(
 
     # Use ReaderUtils for validation
     ReaderUtils.validate_datasets_loaded(datasets, file_list)
-    return datasets
+    
+    # Handle track_added_attrs parameter
+    if track_added_attrs:
+        # TODO: Implement actual attribute tracking
+        # For now, return empty tracking info for compatibility
+        added_attrs_per_dataset = [[] for _ in datasets]
+        return datasets, added_attrs_per_dataset
+    else:
+        return datasets

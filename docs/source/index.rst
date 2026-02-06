@@ -40,6 +40,12 @@ For recommendations or bug reports, please visit https://github.com/AMOCcommunit
 
 .. toctree::
    :maxdepth: 2
+   :caption: Dataset Reports
+
+   reports/index
+
+.. toctree::
+   :maxdepth: 2
    :caption: Help and reference
 
    GitHub Repo <http://github.com/AMOCcommunity/amocatlas>

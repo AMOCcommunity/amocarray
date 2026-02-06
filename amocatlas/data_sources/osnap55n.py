@@ -108,6 +108,7 @@ def read_osnap(
     data_dir: Union[str, Path, None] = None,
     redownload: bool = False,
     version: str = "2025",
+    track_added_attrs: bool = False,
 ) -> list[xr.Dataset]:
     """Load the OSNAP transport datasets from a URL or local file path into xarray Datasets.
 
@@ -204,7 +205,14 @@ def read_osnap(
     # Use ReaderUtils for validation
     ReaderUtils.validate_datasets_loaded(datasets, file_list)
 
-    return datasets
+    # Handle track_added_attrs parameter
+    if track_added_attrs:
+        # TODO: Implement actual attribute tracking
+        # For now, return empty tracking info for compatibility
+        added_attrs_per_dataset = [[] for _ in datasets]
+        return datasets, added_attrs_per_dataset
+    else:
+        return datasets
 
 
 def read_osnap_2025(

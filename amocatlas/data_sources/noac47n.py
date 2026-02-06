@@ -59,7 +59,7 @@ def read_47n(
     transport_only: bool = True,
     data_dir: Union[str, Path, None] = None,
     redownload: bool = False,
-) -> list[xr.Dataset]:
+    track_added_attrs: bool = False,) -> list[xr.Dataset]:
     """Load the 47N transport datasets from a URL or local file path into xarray Datasets.
 
     Parameters
@@ -177,4 +177,14 @@ def read_47n(
         raise FileNotFoundError(f"No valid data files found in {file_list}")
 
     log_info("Successfully loaded %d 47N dataset(s)", len(datasets))
-    return datasets
+    # Handle track_added_attrs parameter
+
+    if track_added_attrs:
+
+        added_attrs_per_dataset = [[] for _ in datasets]
+
+        return datasets, added_attrs_per_dataset
+
+    else:
+
+        return datasets

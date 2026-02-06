@@ -60,7 +60,7 @@ def read_calafat2025(
     transport_only: bool = True,
     data_dir: Union[str, Path, None] = None,
     redownload: bool = False,
-) -> list[xr.Dataset]:
+    track_added_attrs: bool = False,) -> list[xr.Dataset]:
     """Load the CALAFAT2025 transport dataset from a URL or local file path into xarray Datasets.
 
     Parameters
@@ -179,4 +179,14 @@ def read_calafat2025(
         raise FileNotFoundError(f"No valid NetCDF files found in {file_list}")
 
     log.info("Successfully loaded %d CALAFAT2025 dataset(s)", len(datasets))
-    return datasets
+    # Handle track_added_attrs parameter
+
+    if track_added_attrs:
+
+        added_attrs_per_dataset = [[] for _ in datasets]
+
+        return datasets, added_attrs_per_dataset
+
+    else:
+
+        return datasets

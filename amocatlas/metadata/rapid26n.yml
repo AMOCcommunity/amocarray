@@ -10,13 +10,16 @@ metadata:
   featureType: timeSeries
   Conventions: CF-1.8, ACDD-1.3
   time_coverage_start: "2004-04-01"
-  time_coverage_end: "2023-12-31"
+  time_coverage_end: "2024-03-27"
   Creation_date: 17-Sep-2024
   platform_type: Mooring array
   creator_name: Ben Moat
   creator_email: ben.moat@noc.ac.uk
   institution: National Oceanography Centre, UK
   doi: https://doi.org/10.5285/223b34a32dc5c945e0637086abc0f274
+  version: "2024.1a"
+  citation: >
+    Moat B.I.; Smeed D.A.; Rayner D.; Johns W.E.; Smith, R.; Volkov, D.; Elipot S.; Petit T.; Kajtar J.; Baringer M. O.; and Collins, J. (2026). Atlantic meridional overturning circulation observed by the RAPID-MOCHA-WBTS (RAPID-Meridional Overturning Circulation and Heatflux Array-Western Boundary Time Series) array at 26N from 2004 to 2024 (v2024.1a), British Oceanographic Data Centre - Natural Environment Research Council, UK. doi: 10.5285/48d0bf43-0598-ceb2-e063-7086abc062f1
 
 files:
   moc_transports.nc:
@@ -128,3 +131,130 @@ files:
         description: "Streamfunction across the Atlantic at 26.5°N"
         units: Sv
         standard_name: Transport
+
+  2d_gridded.nc:
+    data_product: "RAPID 2D gridded data"
+    source_file: 2d_gridded.nc
+    variable_mapping: {}
+    variables:
+      pressure:
+        long_name: "Sea water pressure"
+        description: "Sea water pressure at depth"
+        units: dbar
+        standard_name: sea_water_pressure
+      area:
+        long_name: "Grid cell area"
+        description: "Area of each grid cell"
+        units: m2
+      CT:
+        long_name: "Conservative temperature"
+        description: "Conservative temperature following TEOS-10 standard"
+        units: degC
+        standard_name: sea_water_conservative_temperature
+      SA:
+        long_name: "Absolute salinity"
+        description: "Absolute salinity following TEOS-10 standard"
+        units: g/kg
+        standard_name: sea_water_absolute_salinity
+      V_insitu:
+        long_name: "In-situ velocity"
+        description: "In-situ meridional velocity component"
+        units: m/s
+        standard_name: northward_sea_water_velocity
+      V_ekman:
+        long_name: "Ekman velocity"
+        description: "Ekman transport velocity component"
+        units: m/s
+        standard_name: northward_sea_water_velocity
+      V_net:
+        long_name: "Net velocity"
+        description: "Net meridional velocity (in-situ + Ekman)"
+        units: m/s
+        standard_name: northward_sea_water_velocity
+    coordinates:
+      depth:
+        long_name: "Depth"
+        description: "Depth below sea surface"
+        units: m
+        standard_name: depth
+      longitude:
+        long_name: "Longitude"
+        description: "Longitude coordinate"
+        units: degrees_east
+        standard_name: longitude
+      time:
+        long_name: "Time"
+        description: "Time coordinate"
+        units: "days since 1950-01-01 00:00:00"
+        standard_name: time
+
+  meridional_transports.nc:
+    data_product: "RAPID meridional transport data"
+    source_file: meridional_transports.nc
+    variable_mapping: {}
+    variables:
+      amoc_depth:
+        long_name: "AMOC strength in depth coordinates"
+        description: "Atlantic meridional overturning circulation strength in depth coordinates"
+        units: Sv
+        standard_name: ocean_meridional_overturning_mass_streamfunction
+      amoc_sigma0:
+        long_name: "AMOC strength in sigma0 coordinates"
+        description: "Atlantic meridional overturning circulation strength in potential density (sigma0) coordinates"
+        units: Sv
+        standard_name: ocean_meridional_overturning_mass_streamfunction
+      amoc_sigma2:
+        long_name: "AMOC strength in sigma2 coordinates"
+        description: "Atlantic meridional overturning circulation strength in potential density (sigma2) coordinates"
+        units: Sv
+        standard_name: ocean_meridional_overturning_mass_streamfunction
+      heat_trans:
+        long_name: "Meridional heat transport"
+        description: "Northward oceanic heat transport"
+        units: PW
+        standard_name: northward_ocean_heat_transport
+      frwa_trans:
+        long_name: "Freshwater transport"
+        description: "Meridional freshwater transport"
+        units: Sv
+      pressure:
+        long_name: "Sea water pressure"
+        description: "Sea water pressure at depth"
+        units: dbar
+        standard_name: sea_water_pressure
+      stream_depth:
+        long_name: "Streamfunction in depth coordinates"
+        description: "Meridional overturning streamfunction in depth coordinates"
+        units: Sv
+        standard_name: ocean_meridional_overturning_mass_streamfunction
+      stream_sigma0:
+        long_name: "Streamfunction in sigma0 coordinates"
+        description: "Meridional overturning streamfunction in potential density (sigma0) coordinates"
+        units: Sv
+        standard_name: ocean_meridional_overturning_mass_streamfunction
+      stream_sigma2:
+        long_name: "Streamfunction in sigma2 coordinates"
+        description: "Meridional overturning streamfunction in potential density (sigma2) coordinates"
+        units: Sv
+        standard_name: ocean_meridional_overturning_mass_streamfunction
+    coordinates:
+      time:
+        long_name: "Time"
+        description: "Time coordinate"
+        units: "days since 1950-01-01 00:00:00"
+        standard_name: time
+      depth:
+        long_name: "Depth"
+        description: "Depth below sea surface"
+        units: m
+        standard_name: depth
+      sigma0:
+        long_name: "Potential density anomaly (sigma-theta)"
+        description: "Potential density anomaly referenced to surface (sigma-theta), density anomaly to 1000 kg/m3"
+        units: kg/m3
+        standard_name: sea_water_sigma_theta
+      sigma2:
+        long_name: "Potential density anomaly (sigma-2)"
+        description: "Potential density anomaly referenced to 2000m (sigma-2), density anomaly to 1000 kg/m3"
+        units: kg/m3
+        standard_name: sea_water_sigma_2

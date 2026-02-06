@@ -138,7 +138,8 @@ def _create_array_function(
         data_dir: Union[str, Path, None] = None,
         redownload: bool = False,
         version: str = None,
-    ) -> Union[xr.Dataset, List[xr.Dataset]]:
+        track_added_attrs: bool = False,
+    ) -> Union[xr.Dataset, List[xr.Dataset], tuple]:
         # Build kwargs for the underlying reader
         # If all_files=True, automatically disable transport_only to get all files
         effective_transport_only = transport_only and not all_files
@@ -149,6 +150,7 @@ def _create_array_function(
             "transport_only": effective_transport_only,
             "data_dir": data_dir,
             "redownload": redownload,
+            "track_added_attrs": track_added_attrs,
         }
 
         # Only pass version if the reader supports it
@@ -156,7 +158,14 @@ def _create_array_function(
             kwargs["version"] = version
 
         # Load raw datasets
-        datasets = reader_func(**kwargs)
+        reader_result = reader_func(**kwargs)
+        
+        # Handle the case where track_added_attrs=True returns a tuple
+        if track_added_attrs:
+            datasets, added_attrs_per_dataset = reader_result
+        else:
+            datasets = reader_result
+            added_attrs_per_dataset = None
 
         # Apply standardization by default (unless raw=True)
         if not raw:
@@ -198,7 +207,19 @@ def _create_array_function(
                     stacklevel=2,
                 )
 
-        return _return_single_or_list(datasets, all_files)
+        # Return datasets and optionally added_attrs
+        result = _return_single_or_list(datasets, all_files)
+        
+        if track_added_attrs:
+            # Return tuple of (datasets, added_attrs) 
+            if all_files:
+                # If returning list of datasets, return list of metadata changes dicts
+                return result, added_attrs_per_dataset
+            else:
+                # If returning single dataset, return single metadata changes dict
+                return result, added_attrs_per_dataset[0] if added_attrs_per_dataset else {"added": [], "modified": []}
+        else:
+            return result
 
     # Add proper docstring
     array_function.__doc__ = f"""Load {array_name} array data.

@@ -58,6 +58,7 @@ def read_move(
     transport_only: bool = True,
     data_dir: Union[str, Path, None] = None,
     redownload: bool = False,
+    track_added_attrs: bool = False,
 ) -> list[xr.Dataset]:
     """Load the MOVE transport dataset from a URL or local file path into xarray Datasets.
 
@@ -75,6 +76,9 @@ def read_move(
         Optional local data directory.
     redownload : bool, optional
         If True, force redownload of the data.
+    track_added_attrs : bool, optional
+        If True, track which attributes were added by AMOCatlas processing.
+        (Not yet implemented - parameter ignored for compatibility)
 
     Returns
     -------
@@ -111,13 +115,17 @@ def read_move(
             f"{source.rstrip('/')}/{file}" if utilities.is_valid_url(source) else None
         )
 
-        file_path = utilities.resolve_file_path(
-            file_name=file,
-            source=source,
-            download_url=download_url,
-            local_data_dir=local_data_dir,
-            redownload=redownload,
-        )
+        try:
+            file_path = utilities.resolve_file_path(
+                file_name=file,
+                source=source,
+                download_url=download_url,
+                local_data_dir=local_data_dir,
+                redownload=redownload,
+            )
+        except FileNotFoundError as e:
+            log.warning(f"Skipping {file}: {e}")
+            continue
 
         # Use ReaderUtils with special decode_times=False for MOVE
         # Use ReaderUtils for consistent dataset loading
@@ -177,4 +185,12 @@ def read_move(
 
     # Use ReaderUtils for validation
     ReaderUtils.validate_datasets_loaded(datasets, file_list)
-    return datasets
+    
+    # Handle track_added_attrs parameter
+    if track_added_attrs:
+        # TODO: Implement actual attribute tracking
+        # For now, return empty tracking info for compatibility
+        added_attrs_per_dataset = [[] for _ in datasets]
+        return datasets, added_attrs_per_dataset
+    else:
+        return datasets

@@ -72,7 +72,8 @@ def read_rapid(
     transport_only: bool = True,
     data_dir: Union[str, Path, None] = None,
     redownload: bool = False,
-) -> list[xr.Dataset]:
+    track_added_attrs: bool = False,
+) -> Union[list[xr.Dataset], tuple[list[xr.Dataset], list[list[str]]]]:
     """Load the RAPID transport dataset from a URL or local file path into an xarray.Dataset.
 
     Parameters
@@ -89,11 +90,15 @@ def read_rapid(
         Optional local data directory.
     redownload : bool, optional
         If True, force redownload of the data.
+    track_added_attrs : bool, optional
+        If True, return tuple of (datasets, list_of_metadata_changes_per_dataset).
+        If False, return only datasets. Default is False.
 
     Returns
     -------
-    xr.Dataset
-        The loaded xarray dataset with basic inline metadata.
+    list[xr.Dataset] or tuple[list[xr.Dataset], list[dict]]
+        If track_added_attrs=False: List of loaded datasets with metadata.
+        If track_added_attrs=True: Tuple of (datasets, list of metadata changes per dataset).
 
     Raises
     ------
@@ -105,17 +110,35 @@ def read_rapid(
     """
     log_info("Starting to read RAPID dataset")
 
+    # Load full YAML metadata
+    try:
+        yaml_metadata = utilities.load_array_metadata(DATASOURCE_ID)
+        if yaml_metadata:
+            global_metadata = yaml_metadata.get("metadata", RAPID_METADATA)
+            yaml_file_metadata = yaml_metadata.get("files", {})
+            # Add the files structure to global metadata so it's attached to dataset
+            global_metadata = {**global_metadata, "files": yaml_file_metadata}
+        else:
+            global_metadata = RAPID_METADATA
+            yaml_file_metadata = {}
+    except Exception as e:
+        log_info(f"Could not load YAML metadata, using defaults: {e}")
+        global_metadata = RAPID_METADATA
+        yaml_file_metadata = {}
+
     # Use ReaderUtils for common operations
     file_list = ReaderUtils.prepare_file_list(
         file_list, RAPID_DEFAULT_FILES, RAPID_TRANSPORT_FILES, transport_only
     )
     local_data_dir = ReaderUtils.setup_data_directory(data_dir)
 
-    # Print information about files being loaded
+    # Print information about files being loaded - use YAML metadata if available
     netcdf_files = ReaderUtils.filter_netcdf_files(file_list)
-    ReaderUtils.print_loading_info(netcdf_files, DATASOURCE_ID, RAPID_FILE_METADATA)
+    display_file_metadata = yaml_file_metadata if yaml_file_metadata else RAPID_FILE_METADATA
+    ReaderUtils.print_loading_info(netcdf_files, DATASOURCE_ID, display_file_metadata)
 
     datasets = []
+    added_attrs_per_dataset = []
 
     for file in netcdf_files:
         # RAPID-specific URL construction
@@ -133,19 +156,40 @@ def read_rapid(
 
         # Use ReaderUtils for consistent dataset loading and metadata
         ds = ReaderUtils.safe_load_dataset(file_path)
-        file_metadata = RAPID_FILE_METADATA.get(file, {})
-        ds = ReaderUtils.attach_standard_metadata(
-            ds,
-            file,
-            file_path,
-            RAPID_METADATA,
-            file_metadata,
-            datasource_id=DATASOURCE_ID,
-        )
+        
+        # Get file-specific metadata from YAML or fallback to hardcoded
+        if file in yaml_file_metadata:
+            file_metadata = yaml_file_metadata[file]
+        else:
+            file_metadata = RAPID_FILE_METADATA.get(file, {})
+        
+        if track_added_attrs:
+            ds, attr_changes = ReaderUtils.attach_standard_metadata(
+                ds,
+                file,
+                file_path,
+                global_metadata,
+                file_metadata,
+                datasource_id=DATASOURCE_ID,
+                track_added_attrs=True,
+            )
+            added_attrs_per_dataset.append(attr_changes)
+        else:
+            ds = ReaderUtils.attach_standard_metadata(
+                ds,
+                file,
+                file_path,
+                global_metadata,
+                file_metadata,
+                datasource_id=DATASOURCE_ID,
+            )
 
         datasets.append(ds)
 
     # Use ReaderUtils for validation
     ReaderUtils.validate_datasets_loaded(datasets, file_list)
 
-    return datasets
+    if track_added_attrs:
+        return datasets, added_attrs_per_dataset
+    else:
+        return datasets

@@ -1,0 +1,89 @@
+#!/usr/bin/env python3
+"""
+Generate dataset reports for Sphinx documentation.
+
+Usage:
+    python generate_report --data_source rapid
+    python generate_report --data_source osnap
+    python generate_report --data_source move
+    etc.
+"""
+
+import argparse
+import sys
+from pathlib import Path
+
+# Add the current directory to Python path so we can import amocatlas
+sys.path.insert(0, str(Path(__file__).parent))
+
+import amocatlas.report as report
+
+# Available data sources (based on data_sources/__init__.py)
+AVAILABLE_SOURCES = [
+    "rapid", "move", "osnap", "samba", "fw2015", "mocha", "arcticgateway", 
+    "dso", "fbc", "calafat2025", "zheng2024", "wh41n", "noac47n"
+]
+
+def main():
+    """Generate dataset report and save to docs directory."""
+    parser = argparse.ArgumentParser(
+        description="Generate dataset reports for AMOCatlas documentation",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog=f"""
+Available data sources:
+{', '.join(AVAILABLE_SOURCES)}
+
+Examples:
+  python generate_report --data_source rapid
+  python generate_report --data_source osnap
+        """
+    )
+    parser.add_argument(
+        "--data_source", 
+        required=True,
+        choices=AVAILABLE_SOURCES,
+        help="Data source to generate report for"
+    )
+    parser.add_argument(
+        "--output_dir",
+        default="docs/source/reports",
+        help="Output directory for the report (default: docs/source/reports)"
+    )
+    
+    args = parser.parse_args()
+    
+    print(f"Generating {args.data_source.upper()} array report...")
+    
+    # Generate the report content using the ReportUtils method
+    try:
+        from amocatlas.report import ReportUtils
+        content = ReportUtils.generate_array_report(args.data_source)
+        print(f"Generated report with {len(content)} characters")
+    except Exception as e:
+        print(f"Error generating report: {e}")
+        import traceback
+        print(f"Full traceback: {traceback.format_exc()}")
+        return 1
+    
+    # Create output directory if it doesn't exist
+    output_dir = Path(args.output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    
+    # Write the report
+    output_file = output_dir / f"{args.data_source}_report.rst"
+    try:
+        with open(output_file, 'w', encoding='utf-8') as f:
+            f.write(content)
+        print(f"Report saved to: {output_file}")
+        print(f"File size: {output_file.stat().st_size} bytes")
+    except Exception as e:
+        print(f"Error writing report: {e}")
+        return 1
+    
+    print(f"\nTo rebuild documentation, run:")
+    print("cd docs && make clean html")
+    
+    return 0
+
+if __name__ == "__main__":
+    exit(main())

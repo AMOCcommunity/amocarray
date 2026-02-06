@@ -56,7 +56,7 @@ def read_dso(
     transport_only: bool = True,
     data_dir: Union[str, Path, None] = None,
     redownload: bool = False,
-) -> list[xr.Dataset]:
+    track_added_attrs: bool = False,) -> list[xr.Dataset]:
     """Load the Denmark Strait Overflow (DSO) datasets from a URL or local file path into xarray Datasets.
 
     Parameters
@@ -138,4 +138,14 @@ def read_dso(
         log_error("No valid DSO NetCDF files found in %s", file_list)
         raise FileNotFoundError(f"No valid DSO NetCDF files found in {file_list}")
     log_info("Successfully loaded %d DSO dataset(s)", len(datasets))
-    return datasets
+    # Handle track_added_attrs parameter
+
+    if track_added_attrs:
+
+        added_attrs_per_dataset = [[] for _ in datasets]
+
+        return datasets, added_attrs_per_dataset
+
+    else:
+
+        return datasets
