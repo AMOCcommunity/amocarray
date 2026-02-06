@@ -235,11 +235,7 @@ def read_osnap(
     # Use ReaderUtils for validation
     ReaderUtils.validate_datasets_loaded(datasets, file_list)
 
-    # Handle track_added_attrs parameter
     if track_added_attrs:
-        # TODO: Implement actual attribute tracking
-        # For now, return empty tracking info for compatibility
-        added_attrs_per_dataset = [[] for _ in datasets]
         return datasets, added_attrs_per_dataset
     else:
         return datasets

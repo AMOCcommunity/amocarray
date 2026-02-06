@@ -128,6 +128,23 @@ def read_dso(
 
         # Use ReaderUtils for consistent dataset loading
         ds = ReaderUtils.safe_load_dataset(file_path)
+        
+        # Fix corrupted DEPTH value in DSO dataset
+        # The original data contains a corrupted depth value (~9.97e36)
+        # Denmark Strait sill depth is approximately 630 meters
+        if "DEPTH" in ds.coords:
+            depth_val = float(ds.DEPTH.values[0])
+            if depth_val > 1000000:  # Clearly corrupted value
+                log_info("Fixing corrupted DEPTH value %.2e -> 630.0 meters", depth_val)
+                ds["DEPTH"] = ds["DEPTH"].copy()  # Make mutable copy
+                ds["DEPTH"].values[0] = 630.0  # Denmark Strait sill depth
+                # Update or ensure proper DEPTH attributes
+                ds["DEPTH"].attrs.update({
+                    "long_name": "Depth below surface of the water",
+                    "standard_name": "depth", 
+                    "units": "meters",
+                    "comment": "Corrected from corrupted original value to Denmark Strait sill depth"
+                })
 
         # Attach metadata with optional tracking
 
@@ -170,14 +187,8 @@ def read_dso(
         log_error("No valid DSO NetCDF files found in %s", file_list)
         raise FileNotFoundError(f"No valid DSO NetCDF files found in {file_list}")
     log_info("Successfully loaded %d DSO dataset(s)", len(datasets))
-    # Handle track_added_attrs parameter
-
+    
     if track_added_attrs:
-
-        added_attrs_per_dataset = [[] for _ in datasets]
-
         return datasets, added_attrs_per_dataset
-
     else:
-
         return datasets

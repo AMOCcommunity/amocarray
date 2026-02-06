@@ -168,14 +168,30 @@ def read_mocha(
 
                 # Use ReaderUtils for consistent metadata attachment
                 file_metadata = MOCHA_FILE_METADATA.get(nc_file, {})
-                ds = ReaderUtils.attach_standard_metadata(
-                    ds,
-                    nc_file,
-                    nc_path,
-                    MOCHA_METADATA,
-                    file_metadata,
-                    datasource_id=DATASOURCE_ID,
-                )
+                
+                if track_added_attrs:
+                    # Use tracking version to collect attribute changes
+                    ds, attr_changes = ReaderUtils.attach_metadata_with_tracking(
+                        ds,
+                        nc_file,
+                        nc_path,
+                        MOCHA_METADATA,
+                        {},  # yaml metadata (MOCHA doesn't have separate YAML files)
+                        file_metadata,
+                        DATASOURCE_ID,
+                        track_added_attrs=True
+                    )
+                    added_attrs_per_dataset.append(attr_changes)
+                else:
+                    # Standard metadata attachment without tracking
+                    ds = ReaderUtils.attach_standard_metadata(
+                        ds,
+                        nc_file,
+                        nc_path,
+                        MOCHA_METADATA,
+                        file_metadata,
+                        datasource_id=DATASOURCE_ID,
+                    )
 
                 datasets.append(ds)
         else:
@@ -187,11 +203,7 @@ def read_mocha(
 
     log.info("Successfully loaded %d MOCHA dataset(s)", len(datasets))
     
-    # Handle track_added_attrs parameter
     if track_added_attrs:
-        # TODO: Implement actual attribute tracking
-        # For now, return empty tracking info for compatibility
-        added_attrs_per_dataset = [[] for _ in datasets]
         return datasets, added_attrs_per_dataset
     else:
         return datasets

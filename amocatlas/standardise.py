@@ -500,6 +500,150 @@ def standardize_time_coordinate(ds: xr.Dataset) -> xr.Dataset:
     return ds
 
 
+def standardize_longitude_coordinate(ds: xr.Dataset) -> xr.Dataset:
+    """Standardize LONGITUDE coordinate to comply with AMOCatlas specifications.
+    
+    All datasets with a LONGITUDE coordinate should have standardized attributes:
+    - data type: double
+    - long_name: "longitude east (WGS84)"
+    - standard_name: "longitude"
+    - units: "degrees_east"
+    
+    Parameters
+    ----------
+    ds : xr.Dataset
+        Dataset to standardize LONGITUDE coordinate for.
+        
+    Returns
+    -------
+    xr.Dataset
+        Dataset with standardized LONGITUDE coordinate attributes.
+    """
+    if "LONGITUDE" not in ds.coords and "LONGITUDE" not in ds.dims:
+        return ds
+    
+    # Ensure LONGITUDE is a coordinate
+    if "LONGITUDE" in ds.dims and "LONGITUDE" not in ds.coords:
+        log_debug("LONGITUDE dimension found without coordinate - creating coordinate")
+        if "LONGITUDE" in ds.data_vars:
+            ds = ds.set_coords("LONGITUDE")
+        else:
+            ds = ds.assign_coords(LONGITUDE=range(ds.sizes["LONGITUDE"]))
+    
+    # Convert to double precision if not already
+    if ds["LONGITUDE"].dtype != "float64":
+        log_debug(f"Converting LONGITUDE coordinate from {ds['LONGITUDE'].dtype} to float64")
+        ds["LONGITUDE"] = ds["LONGITUDE"].astype("float64")
+    
+    # Set standard LONGITUDE coordinate attributes
+    standard_lon_attrs = {
+        "long_name": "longitude east (WGS84)",
+        "standard_name": "longitude",
+        "units": "degrees_east"
+    }
+    
+    ds["LONGITUDE"].attrs.update(standard_lon_attrs)
+    log_debug("Standardized LONGITUDE coordinate attributes")
+    
+    return ds
+
+
+def standardize_latitude_coordinate(ds: xr.Dataset) -> xr.Dataset:
+    """Standardize LATITUDE coordinate to comply with AMOCatlas specifications.
+    
+    All datasets with a LATITUDE coordinate should have standardized attributes:
+    - data type: double
+    - long_name: "Latitude north (WGS84)"
+    - standard_name: "latitude"
+    - units: "degrees_north"
+    
+    Parameters
+    ----------
+    ds : xr.Dataset
+        Dataset to standardize LATITUDE coordinate for.
+        
+    Returns
+    -------
+    xr.Dataset
+        Dataset with standardized LATITUDE coordinate attributes.
+    """
+    if "LATITUDE" not in ds.coords and "LATITUDE" not in ds.dims:
+        return ds
+    
+    # Ensure LATITUDE is a coordinate
+    if "LATITUDE" in ds.dims and "LATITUDE" not in ds.coords:
+        log_debug("LATITUDE dimension found without coordinate - creating coordinate")
+        if "LATITUDE" in ds.data_vars:
+            ds = ds.set_coords("LATITUDE")
+        else:
+            ds = ds.assign_coords(LATITUDE=range(ds.sizes["LATITUDE"]))
+    
+    # Convert to double precision if not already
+    if ds["LATITUDE"].dtype != "float64":
+        log_debug(f"Converting LATITUDE coordinate from {ds['LATITUDE'].dtype} to float64")
+        ds["LATITUDE"] = ds["LATITUDE"].astype("float64")
+    
+    # Set standard LATITUDE coordinate attributes
+    standard_lat_attrs = {
+        "long_name": "Latitude north (WGS84)",
+        "standard_name": "latitude",
+        "units": "degrees_north"
+    }
+    
+    ds["LATITUDE"].attrs.update(standard_lat_attrs)
+    log_debug("Standardized LATITUDE coordinate attributes")
+    
+    return ds
+
+
+def standardize_depth_coordinate(ds: xr.Dataset) -> xr.Dataset:
+    """Standardize DEPTH coordinate to comply with AMOCatlas specifications.
+    
+    All datasets with a DEPTH coordinate should have standardized attributes:
+    - data type: double
+    - long_name: "Depth below surface of the water"
+    - standard_name: "depth"
+    - units: "meters"
+    
+    Parameters
+    ----------
+    ds : xr.Dataset
+        Dataset to standardize DEPTH coordinate for.
+        
+    Returns
+    -------
+    xr.Dataset
+        Dataset with standardized DEPTH coordinate attributes.
+    """
+    if "DEPTH" not in ds.coords and "DEPTH" not in ds.dims:
+        return ds
+    
+    # Ensure DEPTH is a coordinate
+    if "DEPTH" in ds.dims and "DEPTH" not in ds.coords:
+        log_debug("DEPTH dimension found without coordinate - creating coordinate")
+        if "DEPTH" in ds.data_vars:
+            ds = ds.set_coords("DEPTH")
+        else:
+            ds = ds.assign_coords(DEPTH=range(ds.sizes["DEPTH"]))
+    
+    # Convert to double precision if not already
+    if ds["DEPTH"].dtype != "float64":
+        log_debug(f"Converting DEPTH coordinate from {ds['DEPTH'].dtype} to float64")
+        ds["DEPTH"] = ds["DEPTH"].astype("float64")
+    
+    # Set standard DEPTH coordinate attributes
+    standard_depth_attrs = {
+        "long_name": "Depth below surface of the water",
+        "standard_name": "depth",
+        "units": "meters"
+    }
+    
+    ds["DEPTH"].attrs.update(standard_depth_attrs)
+    log_debug("Standardized DEPTH coordinate attributes")
+    
+    return ds
+
+
 def standardize_units(ds: xr.Dataset) -> xr.Dataset:
     """Standardize variable units throughout the dataset.
     
@@ -766,8 +910,11 @@ def standardise_array(ds: xr.Dataset, file_name: str) -> xr.Dataset:
     }
     cleaned = normalize_and_add_vocabulary(cleaned, normalizations)
 
-    # 6) Standardize TIME coordinate attributes
+    # 6) Standardize coordinate attributes
     ds = standardize_time_coordinate(ds)
+    ds = standardize_longitude_coordinate(ds)
+    ds = standardize_latitude_coordinate(ds)
+    ds = standardize_depth_coordinate(ds)
     
     # 7) Standardize units
     ds = standardize_units(ds)

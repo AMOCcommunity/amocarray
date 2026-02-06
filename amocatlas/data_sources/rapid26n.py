@@ -162,6 +162,29 @@ def read_rapid(
             file_metadata = yaml_file_metadata[file]
         else:
             file_metadata = RAPID_FILE_METADATA.get(file, {})
+            
+        # Apply variable mapping and coordinate metadata from YAML
+        if file in yaml_file_metadata and yaml_file_metadata[file]:
+            yaml_file_data = yaml_file_metadata[file]
+            
+            # Apply variable mapping (rename coordinates and variables)
+            var_mapping = yaml_file_data.get("variable_mapping", {})
+            if var_mapping:
+                ds = ds.rename(var_mapping)
+            
+            # Apply coordinate metadata from YAML
+            coord_metadata = yaml_file_data.get("coordinates", {})
+            for coord_name, coord_attrs in coord_metadata.items():
+                # Check both original and mapped names
+                actual_coord = var_mapping.get(coord_name, coord_name)
+                if actual_coord in ds.coords:
+                    ds[actual_coord].attrs.update(coord_attrs)
+            
+            # Apply variable metadata from YAML 
+            var_metadata = yaml_file_data.get("variables", {})
+            for var_name, var_attrs in var_metadata.items():
+                if var_name in ds.data_vars:
+                    ds[var_name].attrs.update(var_attrs)
         
         if track_added_attrs:
             ds, attr_changes = ReaderUtils.attach_standard_metadata(

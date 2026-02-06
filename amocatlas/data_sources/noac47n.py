@@ -159,17 +159,31 @@ def read_47n(
                 )
             # Attach metadata
             # Use ReaderUtils for consistent metadata attachment
-
             file_metadata = A47N_FILE_METADATA.get(file, {})
 
-            ds = ReaderUtils.attach_standard_metadata(
-                ds,
-                file,
-                file_path,
-                A47N_METADATA,
-                file_metadata,
-                datasource_id=DATASOURCE_ID,
-            )
+            if track_added_attrs:
+                # Use tracking version to collect attribute changes
+                ds, attr_changes = ReaderUtils.attach_metadata_with_tracking(
+                    ds,
+                    file,
+                    file_path,
+                    A47N_METADATA,
+                    {},  # yaml metadata (NOAC47N doesn't have separate YAML files)
+                    file_metadata,
+                    DATASOURCE_ID,
+                    track_added_attrs=True
+                )
+                added_attrs_per_dataset.append(attr_changes)
+            else:
+                # Standard metadata attachment without tracking
+                ds = ReaderUtils.attach_standard_metadata(
+                    ds,
+                    file,
+                    file_path,
+                    A47N_METADATA,
+                    file_metadata,
+                    datasource_id=DATASOURCE_ID,
+                )
 
         datasets.append(ds)
 
@@ -181,11 +195,6 @@ def read_47n(
     # Handle track_added_attrs parameter
 
     if track_added_attrs:
-
-        added_attrs_per_dataset = [[] for _ in datasets]
-
         return datasets, added_attrs_per_dataset
-
     else:
-
         return datasets

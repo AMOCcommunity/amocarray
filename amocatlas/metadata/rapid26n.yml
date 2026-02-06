@@ -191,7 +191,7 @@ files:
   meridional_transports.nc:
     data_product: "RAPID meridional transport data"
     source_file: meridional_transports.nc
-    variable_mapping: {}
+    variable_mapping: {time: TIME, depth: DEPTH, sigma0: SIGMA0, sigma2: SIGMA2, heat_trans: MHT, frwa_trans: MFT, pressure: PRESSURE}
     variables:
       amoc_depth:
         long_name: "AMOC strength in depth coordinates"

@@ -80,8 +80,11 @@ Examples:
             content = ReportUtils.generate_array_report(source)
             print(f"Generated report with {len(content)} characters")
         except Exception as e:
+            import traceback
             error_msg = f"Error generating {source} report: {e}"
             print(error_msg)
+            print("Full traceback:")
+            traceback.print_exc()
             errors.append(error_msg)
             continue
         

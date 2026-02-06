@@ -221,14 +221,8 @@ def read_fbc(
         raise FileNotFoundError(f"No valid data files found in {file_list}")
 
     log_info("Successfully loaded %d FBC dataset(s)", len(datasets))
-    # Handle track_added_attrs parameter
-
+    
     if track_added_attrs:
-
-        added_attrs_per_dataset = [[] for _ in datasets]
-
         return datasets, added_attrs_per_dataset
-
     else:
-
         return datasets

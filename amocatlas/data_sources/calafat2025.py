@@ -12,6 +12,7 @@ import zipfile
 import xarray as xr
 
 from amocatlas import logger, utilities
+from amocatlas.logger import log_info
 from amocatlas.utilities import apply_defaults
 from amocatlas.reader_utils import ReaderUtils
 
@@ -163,17 +164,76 @@ def read_calafat2025(
 
                 # Use ReaderUtils for consistent dataset loading
                 ds = ReaderUtils.safe_load_dataset(nc_path)
+                
+                # Fix Calafat time coordinate: convert decimal years to standard format
+                if 'time' in ds.coords:
+                    import pandas as pd
+                    import numpy as np
+                    
+                    # Convert from 'time' to 'TIME' and from decimal years to seconds since 1970
+                    decimal_years = ds['time'].values
+                    log_info("Converting Calafat decimal years to standard TIME format")
+                    
+                    # Convert decimal years to datetime
+                    datetime_values = []
+                    for year in decimal_years:
+                        # Split into year and fraction
+                        year_int = int(year)
+                        year_frac = year - year_int
+                        
+                        # Calculate days into the year
+                        year_start = pd.Timestamp(f"{year_int}-01-01")
+                        next_year = pd.Timestamp(f"{year_int + 1}-01-01")
+                        days_in_year = (next_year - year_start).days
+                        days_into_year = year_frac * days_in_year
+                        
+                        # Create the datetime
+                        result_time = year_start + pd.Timedelta(days=days_into_year)
+                        datetime_values.append(result_time)
+                    
+                    # Convert to seconds since 1970-01-01
+                    epoch = pd.Timestamp('1970-01-01')
+                    seconds_since_1970 = np.array([(dt - epoch).total_seconds() for dt in datetime_values])
+                    
+                    # Replace 'time' coordinate with 'TIME' 
+                    ds = ds.rename({'time': 'TIME'})
+                    ds = ds.assign_coords(TIME=seconds_since_1970)
+                    
+                    # Add proper TIME coordinate attributes
+                    ds['TIME'].attrs.update({
+                        "long_name": "Time elapsed since 1970-01-01T00:00:00Z",
+                        "standard_name": "time",
+                        "calendar": "gregorian", 
+                        "units": "seconds since 1970-01-01T00:00:00Z",
+                        "vocabulary": "http://vocab.nerc.ac.uk/collection/OG1/current/TIME/"
+                    })
 
                 # Use ReaderUtils for consistent metadata attachment
                 file_metadata = CALAFAT2025_FILE_METADATA.get(nc_file, {})
-                ds = ReaderUtils.attach_standard_metadata(
-                    ds,
-                    nc_file,
-                    nc_path,
-                    CALAFAT2025_METADATA,
-                    file_metadata,
-                    datasource_id=DATASOURCE_ID,
-                )
+                
+                if track_added_attrs:
+                    # Use tracking version to collect attribute changes
+                    ds, attr_changes = ReaderUtils.attach_metadata_with_tracking(
+                        ds,
+                        nc_file,
+                        nc_path,
+                        CALAFAT2025_METADATA,
+                        {},  # yaml metadata (CALAFAT2025 doesn't have separate YAML files)
+                        file_metadata,
+                        DATASOURCE_ID,
+                        track_added_attrs=True
+                    )
+                    added_attrs_per_dataset.append(attr_changes)
+                else:
+                    # Standard metadata attachment without tracking
+                    ds = ReaderUtils.attach_standard_metadata(
+                        ds,
+                        nc_file,
+                        nc_path,
+                        CALAFAT2025_METADATA,
+                        file_metadata,
+                        datasource_id=DATASOURCE_ID,
+                    )
 
                 datasets.append(ds)
         else:
@@ -189,11 +249,6 @@ def read_calafat2025(
     # Handle track_added_attrs parameter
 
     if track_added_attrs:
-
-        added_attrs_per_dataset = [[] for _ in datasets]
-
         return datasets, added_attrs_per_dataset
-
     else:
-
         return datasets

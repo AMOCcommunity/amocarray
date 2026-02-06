@@ -63,6 +63,8 @@ class ReportUtils:
             return "daily"
         elif 28 <= hours <= 35:
             return "monthly"
+        elif 720 <= hours <= 760:  # ~30-31 days 
+            return "monthly"
         else:
             return f"{hours:.1f}H"
     
@@ -158,7 +160,25 @@ class ReportUtils:
         if hasattr(time_data, 'to_pandas'):
             time_series = time_data.to_pandas()
         else:
-            time_series = pd.to_datetime(time_data.values)
+            time_values = time_data.values
+            # Handle different time formats
+            if hasattr(time_values, '__iter__') and len(time_values) > 0:
+                # Check the dtype first
+                if str(time_data.dtype).startswith('datetime64'):
+                    # Already datetime64, just convert to pandas
+                    time_series = pd.to_datetime(time_values)
+                else:
+                    # Numeric values - check if they look like seconds since 1970
+                    try:
+                        sample_val = float(time_values[0])
+                        if sample_val > 1e9:  # Likely seconds since 1970
+                            time_series = pd.to_datetime(time_values, unit='s')
+                        else:
+                            time_series = pd.to_datetime(time_values)
+                    except (ValueError, TypeError):
+                        time_series = pd.to_datetime(time_values)
+            else:
+                time_series = pd.to_datetime(time_values)
         
         # Remove invalid times
         valid_times = time_series.dropna()
@@ -203,8 +223,7 @@ class ReportUtils:
                 "Units": coord_var.attrs.get("units", str(coord_var.dtype)),
                 "Size": str(coord_var.shape),
                 "Min Value": "",  # Will fill below
-                "Max Value": "",  # Will fill below  
-                "Missing %": "0.0%"  # Coordinates typically don't have missing values
+                "Max Value": "",  # Will fill below
             }
             
             # Try to get min/max values
@@ -275,11 +294,21 @@ class ReportUtils:
                     break
         
         if not file_key:
-            file_key = list(files_metadata.keys())[0]
+            # Check if files metadata exists and has entries
+            if files_metadata:
+                file_key = list(files_metadata.keys())[0]
+            else:
+                # No files metadata available, use fallback
+                file_key = None
         
-        file_meta = files_metadata[file_key]
-        variable_mapping = file_meta.get("variable_mapping", {})
-        variables_meta = file_meta.get("variables", {})
+        if file_key and file_key in files_metadata:
+            file_meta = files_metadata[file_key]
+            variable_mapping = file_meta.get("variable_mapping", {})
+            variables_meta = file_meta.get("variables", {})
+        else:
+            # Fall back to empty mappings
+            variable_mapping = {}
+            variables_meta = {}
         
         mapping_data = []
         
@@ -517,7 +546,7 @@ class ReportUtils:
                 f'{array_name.upper()} Dataset Report',
                 '=' * (len(array_name) + 15),
                 '',
-                'Generated: 2026-02-06',
+                f'Generated: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}',
                 '',
                 f'This report covers all available {array_name.upper()} datasets.',
                 '',
@@ -703,8 +732,8 @@ class StandardizedDatasetReport(BaseDatasetReport):
             lines.append("**Added by AMOCatlas processing:**")
             lines.append("")
             for attr in added:
-                # Skip 'files' and 'variables' attributes
-                if attr.lower() in ['files', 'variables']:
+                # Skip 'files', 'variables', and 'coordinates' attributes
+                if attr.lower() in ['files', 'variables', 'coordinates']:
                     continue
                 value = self.metadata.get(attr, "")
                 lines.append(f"- **{attr.replace('_', ' ').title()}**: {value}")
@@ -714,8 +743,8 @@ class StandardizedDatasetReport(BaseDatasetReport):
             lines.append("**Modified by AMOCatlas processing:**")
             lines.append("")
             for attr in modified:
-                # Skip 'files' and 'variables' attributes
-                if attr.lower() in ['files', 'variables']:
+                # Skip 'files', 'variables', and 'coordinates' attributes
+                if attr.lower() in ['files', 'variables', 'coordinates']:
                     continue
                 value = self.metadata.get(attr, "")
                 lines.append(f"- **{attr.replace('_', ' ').title()}**: {value}")
@@ -834,11 +863,21 @@ class StandardizedDatasetReport(BaseDatasetReport):
                 break
         
         if not file_key:
-            file_key = list(self.metadata["files"].keys())[0]
+            # Check if files metadata exists
+            if "files" in self.metadata and self.metadata["files"]:
+                file_key = list(self.metadata["files"].keys())[0]
+            else:
+                # No files metadata, fall back to looking for variable_mapping directly
+                file_key = None
         
-        file_meta = self.metadata["files"][file_key]
-        variable_mapping = file_meta.get("variable_mapping", {})
-        variables_meta = file_meta.get("variables", {})
+        if file_key and "files" in self.metadata:
+            file_meta = self.metadata["files"][file_key]
+            variable_mapping = file_meta.get("variable_mapping", {})
+            variables_meta = file_meta.get("variables", {})
+        else:
+            # Fall back to dataset-level metadata
+            variable_mapping = self.metadata.get("variable_mapping", {})
+            variables_meta = self.metadata.get("variables", {})
         
         mapping_data = []
         
@@ -908,7 +947,25 @@ class StandardizedDatasetReport(BaseDatasetReport):
         if hasattr(time_data, 'to_pandas'):
             time_series = time_data.to_pandas()
         else:
-            time_series = pd.to_datetime(time_data.values)
+            time_values = time_data.values
+            # Handle different time formats
+            if hasattr(time_values, '__iter__') and len(time_values) > 0:
+                # Check the dtype first
+                if str(time_data.dtype).startswith('datetime64'):
+                    # Already datetime64, just convert to pandas
+                    time_series = pd.to_datetime(time_values)
+                else:
+                    # Numeric values - check if they look like seconds since 1970
+                    try:
+                        sample_val = float(time_values[0])
+                        if sample_val > 1e9:  # Likely seconds since 1970
+                            time_series = pd.to_datetime(time_values, unit='s')
+                        else:
+                            time_series = pd.to_datetime(time_values)
+                    except (ValueError, TypeError):
+                        time_series = pd.to_datetime(time_values)
+            else:
+                time_series = pd.to_datetime(time_values)
         
         # Remove invalid times
         valid_times = time_series.dropna()
@@ -950,6 +1007,8 @@ class StandardizedDatasetReport(BaseDatasetReport):
         elif 20 <= hours <= 28:
             return "daily"
         elif 28 <= hours <= 35:
+            return "monthly"
+        elif 720 <= hours <= 760:  # ~30-31 days 
             return "monthly"
         else:
             return f"{hours:.1f}H"
@@ -1071,31 +1130,61 @@ def analyze_dataset(dataset_name: str, transport_only: bool = True, dataset_inde
         result = read_func(all_files=True, raw=True, track_added_attrs=True)
         if isinstance(result, tuple):
             datasets, added_attrs_list = result
-            if dataset_index >= len(datasets):
-                raise ValueError(f"Dataset index {dataset_index} out of range. Available datasets: 0-{len(datasets)-1}")
-            dataset = datasets[dataset_index]
-            added_attrs = added_attrs_list[dataset_index]
+            # Handle both list and single dataset cases
+            if isinstance(datasets, list):
+                if dataset_index >= len(datasets):
+                    raise ValueError(f"Dataset index {dataset_index} out of range. Available datasets: 0-{len(datasets)-1}")
+                dataset = datasets[dataset_index]
+                added_attrs = added_attrs_list[dataset_index]
+            else:
+                # Single dataset returned
+                if dataset_index != 0:
+                    raise ValueError(f"Dataset index {dataset_index} out of range. Only one dataset available.")
+                dataset = datasets
+                added_attrs = added_attrs_list
         else:
             # Fallback if tracking not supported
             datasets = result
-            if dataset_index >= len(datasets):
-                raise ValueError(f"Dataset index {dataset_index} out of range. Available datasets: 0-{len(datasets)-1}")
-            dataset = datasets[dataset_index]
+            # Handle both list and single dataset cases
+            if isinstance(datasets, list):
+                if dataset_index >= len(datasets):
+                    raise ValueError(f"Dataset index {dataset_index} out of range. Available datasets: 0-{len(datasets)-1}")
+                dataset = datasets[dataset_index]
+            else:
+                # Single dataset returned
+                if dataset_index != 0:
+                    raise ValueError(f"Dataset index {dataset_index} out of range. Only one dataset available.")
+                dataset = datasets
             added_attrs = []
     else:
         result = read_func(transport_only=transport_only, raw=True, track_added_attrs=True)
         if isinstance(result, tuple):
             datasets, added_attrs_list = result
-            if dataset_index >= len(datasets):
-                raise ValueError(f"Dataset index {dataset_index} out of range. Available datasets: 0-{len(datasets)-1}")
-            dataset = datasets[dataset_index]
-            added_attrs = added_attrs_list[dataset_index]
+            # Handle both list and single dataset cases
+            if isinstance(datasets, list):
+                if dataset_index >= len(datasets):
+                    raise ValueError(f"Dataset index {dataset_index} out of range. Available datasets: 0-{len(datasets)-1}")
+                dataset = datasets[dataset_index]
+                added_attrs = added_attrs_list[dataset_index]
+            else:
+                # Single dataset returned
+                if dataset_index != 0:
+                    raise ValueError(f"Dataset index {dataset_index} out of range. Only one dataset available.")
+                dataset = datasets
+                added_attrs = added_attrs_list
         else:
             # Fallback if tracking not supported
             datasets = result
-            if dataset_index >= len(datasets):
-                raise ValueError(f"Dataset index {dataset_index} out of range. Available datasets: 0-{len(datasets)-1}")
-            dataset = datasets[dataset_index]
+            # Handle both list and single dataset cases
+            if isinstance(datasets, list):
+                if dataset_index >= len(datasets):
+                    raise ValueError(f"Dataset index {dataset_index} out of range. Available datasets: 0-{len(datasets)-1}")
+                dataset = datasets[dataset_index]
+            else:
+                # Single dataset returned
+                if dataset_index != 0:
+                    raise ValueError(f"Dataset index {dataset_index} out of range. Only one dataset available.")
+                dataset = datasets
             added_attrs = []
     
     log_debug(f"Loaded dataset with {len(dataset.data_vars)} variables, {len(added_attrs)} attributes added by AMOCatlas")
@@ -1197,9 +1286,18 @@ def _generate_rst_report(report_data: BaseDatasetReport, skip_source_header: boo
         
         lines.extend([
             f"- **Project**: {get_field('project')}",
-            f"- **Institution**: {get_field('institution')}",
             f"- **Description**: {get_field('description', 'No description available')}",
         ])
+        
+        # Citation field
+        citation = get_field('citation')
+        if citation and citation != 'Unknown':
+            lines.append(f"- **Citation**: {citation}")
+        
+        # Acknowledgement field  
+        acknowledgement = get_field('acknowledgement')
+        if acknowledgement and acknowledgement != 'Unknown':
+            lines.append(f"- **Acknowledgement**: {acknowledgement}")
         
         # Website field - try multiple variations
         website = get_field('website') or get_field('weblink') or get_field('web_link')
@@ -1282,7 +1380,7 @@ def _generate_rst_report(report_data: BaseDatasetReport, skip_source_header: boo
     ])
     
     if not coordinate_df.empty:
-        coord_key_columns = ["Coordinate", "Standardized Name", "Description", "Units", "Size", "Min Value", "Max Value", "Missing %"]
+        coord_key_columns = ["Coordinate", "Standardized Name", "Description", "Units", "Size", "Min Value", "Max Value"]
         coord_display_df = coordinate_df[coord_key_columns].copy()
         lines.extend(ReportUtils.dataframe_to_rst_table(coord_display_df))
     else:
@@ -1336,7 +1434,7 @@ def _generate_rst_report(report_data: BaseDatasetReport, skip_source_header: boo
     ])
     
     # Display all metadata in structured format, but filter out verbose sections
-    excluded_keys = ['citation', 'files', 'variables']  # Skip verbose metadata
+    excluded_keys = ['citation', 'files', 'variables', 'coordinates']  # Skip verbose metadata
     for key, value in metadata.items():
         if key not in excluded_keys:
             formatted_key = key.replace('_', ' ').title()

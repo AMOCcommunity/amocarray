@@ -146,12 +146,22 @@ def read_fw2015(
 
             time = recon.time  # time in decimal years
 
+            # Get variable mapping from YAML metadata
+            file_metadata = yaml_file_metadata.get(file, {})
+            variable_mapping = file_metadata.get('variable_mapping', {})
+            
+            # Apply variable mapping when creating variables dict
+            # Map original matlab variable names to target names from YAML
+            def get_mapped_name(orig_matlab_name, default_name):
+                """Get the mapped variable name from YAML, or use default."""
+                return variable_mapping.get(orig_matlab_name, default_name)
+            
             variables = {
-                "MOC_PROXY": recon.mocproxy,
-                "EK": recon.ek,
-                "H1UMO": recon.h1umo,
-                "GS": recon.gs,
-                "UMO_PROXY": recon.umoproxy,
+                get_mapped_name("mocproxy", "MOC_PROXY"): recon.mocproxy,
+                get_mapped_name("ek", "EK"): recon.ek,
+                get_mapped_name("h1umo", "H1UMO"): recon.h1umo,  # Maps h1umo -> SSHA from YAML
+                get_mapped_name("gs", "GS"): recon.gs,
+                get_mapped_name("umoproxy", "UMO_PROXY"): recon.umoproxy,
                 "MOC_GRID": mocgrid.moc,
                 "EK_GRID": mocgrid.ek,
                 "GS_GRID": mocgrid.gs,
@@ -217,18 +227,8 @@ def read_fw2015(
         raise FileNotFoundError(f"No valid data files found in {file_list}")
 
     log.info("Successfully loaded %d FW2015 dataset(s)", len(datasets))
-    # Handle track_added_attrs parameter
-
+    
     if track_added_attrs:
-
-        # TODO: Implement actual attribute tracking
-
-        # For now, return empty tracking info for compatibility
-
-        added_attrs_per_dataset = [[] for _ in datasets]
-
         return datasets, added_attrs_per_dataset
-
     else:
-
         return datasets

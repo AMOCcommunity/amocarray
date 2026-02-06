@@ -204,11 +204,6 @@ def read_arcticgateway(
     # Handle track_added_attrs parameter
 
     if track_added_attrs:
-
-        added_attrs_per_dataset = [[] for _ in datasets]
-
         return datasets, added_attrs_per_dataset
-
     else:
-
         return datasets

@@ -12,7 +12,7 @@ metadata:
   time_coverage_end: '2014-12-15'
 
 files:
-  MOCproxy_for_figshare_v1.0.mat:
+  MOCproxy_for_figshare_v1.mat:
     source_url: "https://figshare.com/articles/dataset/MOCproxy_for_figshare_v1_0_mat/1463479?file=3369779"
     data_product: "a proxy for the meridional overturning circulation at 26N, using sea level anomaly and cable measurements"
     acknowledgement: >
