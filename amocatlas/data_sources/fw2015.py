@@ -92,6 +92,12 @@ def read_fw2015(
     """
     log_info("Starting to read FW2015 dataset")
 
+
+    # Load YAML metadata with fallback
+    global_metadata, yaml_file_metadata = ReaderUtils.load_array_metadata_with_fallback(
+        DATASOURCE_ID, FW2015_METADATA
+    )
+
     # ensure file_list has a default
     if file_list is None:
         file_list = FW2015_DEFAULT_FILES
@@ -109,6 +115,7 @@ def read_fw2015(
 
     datasets = []
 
+    added_attrs_per_dataset = [] if track_added_attrs else None
     for file in file_list:
         if not (file.lower().endswith(".txt") or file.lower().endswith(".mat")):
             log_warning("Skipping unsupported file type: %s", file)
@@ -179,16 +186,29 @@ def read_fw2015(
             raise ValueError(f"Failed to parse .mat file: {file_path}: {e}") from e
 
         # attach metadata
-        # Use ReaderUtils for consistent metadata attachment
-        file_metadata = FW2015_FILE_METADATA.get(file, {})
-        ds = ReaderUtils.attach_standard_metadata(
-            ds,
-            file,
-            file_path,
-            FW2015_METADATA,
-            file_metadata,
-            datasource_id=DATASOURCE_ID,
-        )
+        # Attach metadata with optional tracking
+
+        if track_added_attrs:
+
+            ds, attr_changes = ReaderUtils.attach_metadata_with_tracking(
+
+                ds, file, file_path, global_metadata, yaml_file_metadata, 
+
+                FW2015_FILE_METADATA, DATASOURCE_ID, track_added_attrs=True
+
+            )
+
+            added_attrs_per_dataset.append(attr_changes)
+
+        else:
+
+            ds = ReaderUtils.attach_metadata_with_tracking(
+
+                ds, file, file_path, global_metadata, yaml_file_metadata,
+
+                FW2015_FILE_METADATA, DATASOURCE_ID, track_added_attrs=False
+
+            )
 
         datasets.append(ds)
 

@@ -106,6 +106,7 @@ def read_41n(
 
     datasets = []
 
+    added_attrs_per_dataset = [] if track_added_attrs else None
     for file in file_list:
         if not (file.lower().endswith(".txt") or file.lower().endswith(".nc")):
             log_warning("Skipping unsupported file type : %s", file)

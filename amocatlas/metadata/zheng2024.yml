@@ -5,7 +5,11 @@ metadata:
   weblink: "https://zenodo.org/records/12790901"
   comment: "Dataset accessed and processed via http://github.com/AMOCcommunity/amocatlas"
   acknowledgement: >
-    "This study was supported by the National Natural Science Foundation of China (Grant 42122046, 42076202, 42075036), National Key Scientific and Technological Infrastructure project: Earth System Science Numerical Simulator Facility, (EarthLab) and the new Cornerstone Science Foundation through the XPLORER PRIZE. F. Li acknowledges the financial support from the National Key R&D Program of China (Grant 2023YFF0805102). Gratitude is extended to Elaine L. McDonagh, who graciously shared RAPID freshwater transport data. and the new Cornerstone Science Foundation through XPLORER PRIZE. F. Li acknowledges th financial support from the National Key R&D Program of China (Grant 2023YFF0805102). Gratitude is extended to Elaine L. McDonagh, who graciously shared RAPID freshwater transprot data."
+    "This study was supported by the National Natural Science Foundation of China (Grant 42122046, 42076202, 42075036), National Key Scientific and Technological Infrastructure project: Earth System Science Numerical Simulator Facility, (EarthLab) and the new Cornerstone Science Foundation through the XPLORER PRIZE. F. Li acknowledges the financial support from the National Key R&D Program of China (Grant 2023YFF0805102). Gratitude is extended to Elaine L. McDonagh, who graciously shared RAPID freshwater transport data."
+  citation: >
+    Zheng, H. (2024). An observation-based estimate of the Atlantic meridional freshwater transport [Data set]. Zenodo. https://doi.org/10.5281/zenodo.12790901
+  references: >
+    Zheng, H., Cheng, L., Li, F., Pan, Y., & Zhu, C. (2024). An observation-based estimate of Atlantic meridional freshwater transport. Geophysical Research Letters, 51, e2024GL110021. https://doi.org/10.1029/2024GL110021
   license:
   featureType: "timeSeries"
   Conventions: "CF-1.8, ACDD-1.3"

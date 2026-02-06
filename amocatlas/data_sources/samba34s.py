@@ -99,6 +99,11 @@ def read_samba(
     """
     log_info("Starting to read SAMBA dataset")
 
+    # Load YAML metadata with fallback
+    global_metadata, yaml_file_metadata = ReaderUtils.load_array_metadata_with_fallback(
+        DATASOURCE_ID, SAMBA_METADATA
+    )
+
     # Ensure file_list has a default
     if file_list is None:
         file_list = SAMBA_DEFAULT_FILES
@@ -113,6 +118,7 @@ def read_samba(
     ReaderUtils.print_loading_info(file_list, DATASOURCE_ID, SAMBA_FILE_METADATA)
 
     datasets = []
+    added_attrs_per_dataset = [] if track_added_attrs else None
 
     for file in file_list:
         if not (file.lower().endswith(".txt") or file.lower().endswith(".asc")):
@@ -177,16 +183,18 @@ def read_samba(
                 f"Failed to convert DataFrame to xarray Dataset for {file}: {e}",
             ) from e
 
-        # Use ReaderUtils for consistent metadata attachment
-        file_metadata = SAMBA_FILE_METADATA.get(file, {})
-        ds = ReaderUtils.attach_standard_metadata(
-            ds,
-            file,
-            file_path,
-            SAMBA_METADATA,
-            file_metadata,
-            datasource_id=DATASOURCE_ID,
-        )
+        # Attach metadata with optional tracking
+        if track_added_attrs:
+            ds, attr_changes = ReaderUtils.attach_metadata_with_tracking(
+                ds, file, file_path, global_metadata, yaml_file_metadata, 
+                SAMBA_FILE_METADATA, DATASOURCE_ID, track_added_attrs=True
+            )
+            added_attrs_per_dataset.append(attr_changes)
+        else:
+            ds = ReaderUtils.attach_metadata_with_tracking(
+                ds, file, file_path, global_metadata, yaml_file_metadata,
+                SAMBA_FILE_METADATA, DATASOURCE_ID, track_added_attrs=False
+            )
 
         datasets.append(ds)
 
@@ -195,9 +203,6 @@ def read_samba(
     
     # Handle track_added_attrs parameter
     if track_added_attrs:
-        # TODO: Implement actual attribute tracking
-        # For now, return empty tracking info for compatibility
-        added_attrs_per_dataset = [[] for _ in datasets]
         return datasets, added_attrs_per_dataset
     else:
         return datasets

@@ -18,9 +18,9 @@ Dataset Overview
 - **DOI**: http://dx.doi.org/10.1016/j.dsr.2005.12.007 http://dx.doi.org/10.1029/2011GL049801
 - **Source File**: OS_MOVE_20000206-20221014_DPR_VOLUMETRANSPORT.nc
 - **Data Product**: MOVE transport time series
-- **Time Coverage**: -9223372036.9 to 1.7
-- **Record Length**: 4,164 observations (9223372038.5 years)
-- **Sampling Frequency**: <1H
+- **Time Coverage**: -9223372036854775808.0 to 1665705600.0
+- **Record Length**: 4,164 observations (9223372038520481792.0 years)
+- **Sampling Frequency**: 4147200.0H
 
 **Citation:**
 
@@ -38,17 +38,17 @@ Coordinate Information
 
 The following table shows information about the dataset coordinates:
 
-+---------------------------+---------------------------+-----------------------------------------+------------------------------------+---------+-----------+-----------+-----------+
-| Coordinate                | Standardized Name         | Description                             | Units                              | Size    | Min Value | Max Value | Missing % |
-+===========================+===========================+=========================================+====================================+=========+===========+===========+===========+
-| TIME                      | TIME                      | Time elapsed since 1970-01-01T00:00:00Z | seconds since 1970-01-01T00:00:00Z | (4164,) | N/A       | N/A       | 0.0%      |
-+---------------------------+---------------------------+-----------------------------------------+------------------------------------+---------+-----------+-----------+-----------+
-| location_center_latitude  | location_center_latitude  | No description available                | degrees_north                      | ()      | 16.04     | 16.04     | 0.0%      |
-+---------------------------+---------------------------+-----------------------------------------+------------------------------------+---------+-----------+-----------+-----------+
-| location_center_longitude | location_center_longitude | No description available                | degrees_east                       | ()      | -57.56    | -57.56    | 0.0%      |
-+---------------------------+---------------------------+-----------------------------------------+------------------------------------+---------+-----------+-----------+-----------+
-| location_center_vertical  | location_center_vertical  | No description available                | dbar                               | ()      | 2750.00   | 2750.00   | 0.0%      |
-+---------------------------+---------------------------+-----------------------------------------+------------------------------------+---------+-----------+-----------+-----------+
++---------------------------+---------------------------+-----------------------------------------+------------------------------------+---------+-------------------------+---------------+-----------+
+| Coordinate                | Standardized Name         | Description                             | Units                              | Size    | Min Value               | Max Value     | Missing % |
++===========================+===========================+=========================================+====================================+=========+=========================+===============+===========+
+| TIME                      | TIME                      | Time elapsed since 1970-01-01T00:00:00Z | seconds since 1970-01-01T00:00:00Z | (4164,) | -9223372036854775808.00 | 1665705600.00 | 0.0%      |
++---------------------------+---------------------------+-----------------------------------------+------------------------------------+---------+-------------------------+---------------+-----------+
+| location_center_latitude  | location_center_latitude  | No description available                | degrees_north                      | ()      | 16.04                   | 16.04         | 0.0%      |
++---------------------------+---------------------------+-----------------------------------------+------------------------------------+---------+-------------------------+---------------+-----------+
+| location_center_longitude | location_center_longitude | No description available                | degrees_east                       | ()      | -57.56                  | -57.56        | 0.0%      |
++---------------------------+---------------------------+-----------------------------------------+------------------------------------+---------+-------------------------+---------------+-----------+
+| location_center_vertical  | location_center_vertical  | No description available                | dbar                               | ()      | 2750.00                 | 2750.00       | 0.0%      |
++---------------------------+---------------------------+-----------------------------------------+------------------------------------+---------+-------------------------+---------------+-----------+
 
 
 Variable Mapping and Statistics
@@ -96,8 +96,8 @@ The following metadata provides comprehensive information about this dataset:
 - **Title**: Ocean Volume Transport across the MOVE Line at 16 N
 - **Platform**: mooring
 - **Platform Vocabulary**: https://vocab.nerc.ac.uk/collection/L06/
-- **Time Coverage Start**: -9223372036.9
-- **Time Coverage End**: 1.7
+- **Time Coverage Start**: -9223372036854775808.0
+- **Time Coverage End**: 1665705600.0
 - **Program**: MOVE
 - **Project**: Meridional Overturning Variability Experiment (MOVE)
 - **Contributor Name**: Uwe Send, Matthias Lankhorst, Matthias Lankhorst
@@ -131,19 +131,19 @@ Metadata Processing Changes
 
 **Added by AMOCatlas processing:**
 
-- **Doi**: http://dx.doi.org/10.1016/j.dsr.2005.12.007 http://dx.doi.org/10.1029/2011GL049801
-- **Weblink**: 
-- **Time Coverage End**: 2018-06-30
 - **Source Path**: /Users/eddifying/Cloudfree/github/AMOCatlas/data/OS_MOVE_20000206-20221014_DPR_VOLUMETRANSPORT.nc
-- **Description**: MOVE transport estimates dataset from UCSD mooring project
+- **Doi**: http://dx.doi.org/10.1016/j.dsr.2005.12.007 http://dx.doi.org/10.1029/2011GL049801
 - **Program**: MOVE
-- **Amocatlas Datasource**: move16n
+- **Weblink**: 
 - **Time Coverage Start**: 2000-01-01
 - **Reference**: 
+- **Amocatlas Datasource**: move16n
 - **Source File**: OS_MOVE_20000206-20221014_DPR_VOLUMETRANSPORT.nc
 - **Data Product**: MOVE transport time series
-- **Contributor Url**: 
 - **Platform Type**: 
+- **Time Coverage End**: 2018-06-30
+- **Description**: MOVE transport estimates dataset from UCSD mooring project
+- **Contributor Url**: 
 
 OS_MOVE_20000101-20221021_GRD_CURRENTS-AT-SITES-MOVE3-MOVE4.nc
 --------------------------------------------------------------
@@ -157,9 +157,9 @@ Dataset Overview
 - **Description**: MOVE transport estimates dataset from UCSD mooring project
 - **DOI**: http://dx.doi.org/10.1016/j.dsr.2005.12.007 http://dx.doi.org/10.1029/2011GL049801
 - **Source File**: OS_MOVE_20000101-20221021_GRD_CURRENTS-AT-SITES-MOVE3-MOVE4.nc
-- **Time Coverage**: 0.9 to 1.7
-- **Record Length**: 8,330 observations (0.7 years)
-- **Sampling Frequency**: <1H
+- **Time Coverage**: 946684800.0 to 1666310400.0
+- **Record Length**: 8,330 observations (719625600.0 years)
+- **Sampling Frequency**: 2073600.0H
 
 **Citation:**
 
@@ -177,17 +177,17 @@ Coordinate Information
 
 The following table shows information about the dataset coordinates:
 
-+------------+-------------------+----------------------------------------------------------------+------------------------------------+---------+------------+------------+-----------+
-| Coordinate | Standardized Name | Description                                                    | Units                              | Size    | Min Value  | Max Value  | Missing % |
-+============+===================+================================================================+====================================+=========+============+============+===========+
-| TIME       | TIME              | Time elapsed since 1970-01-01T00:00:00Z                        | seconds since 1970-01-01T00:00:00Z | (8330,) | 1970-01-01 | 1970-01-01 | 0.0%      |
-+------------+-------------------+----------------------------------------------------------------+------------------------------------+---------+------------+------------+-----------+
-| PRESSURE   | PRESSURE          | Sea water pressure due to sea water, i.e. air pressure removed | dbar                               | (38,)   | 1250.00    | 4950.00    | 0.0%      |
-+------------+-------------------+----------------------------------------------------------------+------------------------------------+---------+------------+------------+-----------+
-| LATITUDE   | LATITUDE          | Nominal latitude of site                                       | degree_north                       | (2,)    | 16.33      | 16.34      | 0.0%      |
-+------------+-------------------+----------------------------------------------------------------+------------------------------------+---------+------------+------------+-----------+
-| LONGITUDE  | LONGITUDE         | Nominal longitude of site                                      | degree_east                        | (2,)    | -60.61     | -60.51     | 0.0%      |
-+------------+-------------------+----------------------------------------------------------------+------------------------------------+---------+------------+------------+-----------+
++------------+-------------------+----------------------------------------------------------------+------------------------------------+---------+--------------+---------------+-----------+
+| Coordinate | Standardized Name | Description                                                    | Units                              | Size    | Min Value    | Max Value     | Missing % |
++============+===================+================================================================+====================================+=========+==============+===============+===========+
+| TIME       | TIME              | Time elapsed since 1970-01-01T00:00:00Z                        | seconds since 1970-01-01T00:00:00Z | (8330,) | 946684800.00 | 1666310400.00 | 0.0%      |
++------------+-------------------+----------------------------------------------------------------+------------------------------------+---------+--------------+---------------+-----------+
+| PRESSURE   | PRESSURE          | Sea water pressure due to sea water, i.e. air pressure removed | dbar                               | (38,)   | 1250.00      | 4950.00       | 0.0%      |
++------------+-------------------+----------------------------------------------------------------+------------------------------------+---------+--------------+---------------+-----------+
+| LATITUDE   | LATITUDE          | Nominal latitude of site                                       | degree_north                       | (2,)    | 16.33        | 16.34         | 0.0%      |
++------------+-------------------+----------------------------------------------------------------+------------------------------------+---------+--------------+---------------+-----------+
+| LONGITUDE  | LONGITUDE         | Nominal longitude of site                                      | degree_east                        | (2,)    | -60.61       | -60.51        | 0.0%      |
++------------+-------------------+----------------------------------------------------------------+------------------------------------+---------+--------------+---------------+-----------+
 
 
 Variable Mapping and Statistics
@@ -229,8 +229,8 @@ The following metadata provides comprehensive information about this dataset:
 - **Geospatial Lon Max**: -60.494327545166016
 - **Geospatial Vertical Min**: 1250.0
 - **Geospatial Vertical Max**: 4950.0
-- **Time Coverage Start**: 0.9
-- **Time Coverage End**: 1.7
+- **Time Coverage Start**: 946684800.0
+- **Time Coverage End**: 1666310400.0
 - **Program**: MOVE
 - **Project**: Meridional Overturning Variability Experiment (MOVE)
 - **Contributor Name**: Uwe Send, Matthias Lankhorst, Matthias Lankhorst
@@ -270,16 +270,16 @@ Metadata Processing Changes
 
 **Added by AMOCatlas processing:**
 
-- **Doi**: http://dx.doi.org/10.1016/j.dsr.2005.12.007 http://dx.doi.org/10.1029/2011GL049801
-- **Weblink**: 
 - **Source Path**: /Users/eddifying/Cloudfree/github/AMOCatlas/data/OS_MOVE_20000101-20221021_GRD_CURRENTS-AT-SITES-MOVE3-MOVE4.nc
-- **Description**: MOVE transport estimates dataset from UCSD mooring project
+- **Doi**: http://dx.doi.org/10.1016/j.dsr.2005.12.007 http://dx.doi.org/10.1029/2011GL049801
 - **Program**: MOVE
-- **Amocatlas Datasource**: move16n
-- **Reference**: 
+- **Weblink**: 
 - **Source File**: OS_MOVE_20000101-20221021_GRD_CURRENTS-AT-SITES-MOVE3-MOVE4.nc
-- **Contributor Url**: 
+- **Reference**: 
+- **Amocatlas Datasource**: move16n
 - **Platform Type**: 
+- **Description**: MOVE transport estimates dataset from UCSD mooring project
+- **Contributor Url**: 
 
 OS_MOVE_20000101-20221018_GRD_TEMPERATURE-SALINITY-AT-SITES-MOVE1-MOVE3.nc
 --------------------------------------------------------------------------
@@ -293,9 +293,9 @@ Dataset Overview
 - **Description**: MOVE transport estimates dataset from UCSD mooring project
 - **DOI**: http://dx.doi.org/10.1016/j.dsr.2005.12.007 http://dx.doi.org/10.1029/2011GL049801
 - **Source File**: OS_MOVE_20000101-20221018_GRD_TEMPERATURE-SALINITY-AT-SITES-MOVE1-MOVE3.nc
-- **Time Coverage**: 0.9 to 1.7
-- **Record Length**: 4,164 observations (0.7 years)
-- **Sampling Frequency**: <1H
+- **Time Coverage**: 946684800.0 to 1666051200.0
+- **Record Length**: 4,164 observations (719366400.0 years)
+- **Sampling Frequency**: 4147200.0H
 
 **Citation:**
 
@@ -313,17 +313,17 @@ Coordinate Information
 
 The following table shows information about the dataset coordinates:
 
-+------------+-------------------+----------------------------------------------------------------+------------------------------------+---------+------------+------------+-----------+
-| Coordinate | Standardized Name | Description                                                    | Units                              | Size    | Min Value  | Max Value  | Missing % |
-+============+===================+================================================================+====================================+=========+============+============+===========+
-| TIME       | TIME              | Time elapsed since 1970-01-01T00:00:00Z                        | seconds since 1970-01-01T00:00:00Z | (4164,) | 1970-01-01 | 1970-01-01 | 0.0%      |
-+------------+-------------------+----------------------------------------------------------------+------------------------------------+---------+------------+------------+-----------+
-| PRESSURE   | PRESSURE          | Sea water pressure due to sea water, i.e. air pressure removed | dbar                               | (99,)   | 50.00      | 4950.00    | 0.0%      |
-+------------+-------------------+----------------------------------------------------------------+------------------------------------+---------+------------+------------+-----------+
-| LATITUDE   | LATITUDE          | Nominal latitude of site                                       | degree_north                       | (2,)    | 15.45      | 16.34      | 0.0%      |
-+------------+-------------------+----------------------------------------------------------------+------------------------------------+---------+------------+------------+-----------+
-| LONGITUDE  | LONGITUDE         | Nominal longitude of site                                      | degree_east                        | (2,)    | -60.51     | -51.51     | 0.0%      |
-+------------+-------------------+----------------------------------------------------------------+------------------------------------+---------+------------+------------+-----------+
++------------+-------------------+----------------------------------------------------------------+------------------------------------+---------+--------------+---------------+-----------+
+| Coordinate | Standardized Name | Description                                                    | Units                              | Size    | Min Value    | Max Value     | Missing % |
++============+===================+================================================================+====================================+=========+==============+===============+===========+
+| TIME       | TIME              | Time elapsed since 1970-01-01T00:00:00Z                        | seconds since 1970-01-01T00:00:00Z | (4164,) | 946684800.00 | 1666051200.00 | 0.0%      |
++------------+-------------------+----------------------------------------------------------------+------------------------------------+---------+--------------+---------------+-----------+
+| PRESSURE   | PRESSURE          | Sea water pressure due to sea water, i.e. air pressure removed | dbar                               | (99,)   | 50.00        | 4950.00       | 0.0%      |
++------------+-------------------+----------------------------------------------------------------+------------------------------------+---------+--------------+---------------+-----------+
+| LATITUDE   | LATITUDE          | Nominal latitude of site                                       | degree_north                       | (2,)    | 15.45        | 16.34         | 0.0%      |
++------------+-------------------+----------------------------------------------------------------+------------------------------------+---------+--------------+---------------+-----------+
+| LONGITUDE  | LONGITUDE         | Nominal longitude of site                                      | degree_east                        | (2,)    | -60.51       | -51.51        | 0.0%      |
++------------+-------------------+----------------------------------------------------------------+------------------------------------+---------+--------------+---------------+-----------+
 
 
 Variable Mapping and Statistics
@@ -365,8 +365,8 @@ The following metadata provides comprehensive information about this dataset:
 - **Geospatial Lon Max**: -51.5
 - **Geospatial Vertical Min**: 50.0
 - **Geospatial Vertical Max**: 4950.0
-- **Time Coverage Start**: 0.9
-- **Time Coverage End**: 1.7
+- **Time Coverage Start**: 946684800.0
+- **Time Coverage End**: 1666051200.0
 - **Program**: MOVE
 - **Project**: Meridional Overturning Variability Experiment (MOVE)
 - **Contributor Name**: Uwe Send, Matthias Lankhorst, Matthias Lankhorst
@@ -406,13 +406,13 @@ Metadata Processing Changes
 
 **Added by AMOCatlas processing:**
 
-- **Doi**: http://dx.doi.org/10.1016/j.dsr.2005.12.007 http://dx.doi.org/10.1029/2011GL049801
-- **Weblink**: 
 - **Source Path**: /Users/eddifying/Cloudfree/github/AMOCatlas/data/OS_MOVE_20000101-20221018_GRD_TEMPERATURE-SALINITY-AT-SITES-MOVE1-MOVE3.nc
-- **Description**: MOVE transport estimates dataset from UCSD mooring project
+- **Doi**: http://dx.doi.org/10.1016/j.dsr.2005.12.007 http://dx.doi.org/10.1029/2011GL049801
 - **Program**: MOVE
-- **Amocatlas Datasource**: move16n
-- **Reference**: 
+- **Weblink**: 
 - **Source File**: OS_MOVE_20000101-20221018_GRD_TEMPERATURE-SALINITY-AT-SITES-MOVE1-MOVE3.nc
-- **Contributor Url**: 
+- **Reference**: 
+- **Amocatlas Datasource**: move16n
 - **Platform Type**: 
+- **Description**: MOVE transport estimates dataset from UCSD mooring project
+- **Contributor Url**: 

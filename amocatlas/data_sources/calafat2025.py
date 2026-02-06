@@ -93,6 +93,12 @@ def read_calafat2025(
     """
     log.info("Starting to read CALAFAT2025 dataset")
 
+
+    # Load YAML metadata with fallback
+    global_metadata, yaml_file_metadata = ReaderUtils.load_array_metadata_with_fallback(
+        DATASOURCE_ID, CALAFAT2025_METADATA
+    )
+
     if file_list is None:
         if transport_only:
             file_list = CALAFAT2025_TRANSPORT_FILES
@@ -110,6 +116,7 @@ def read_calafat2025(
 
     datasets = []
 
+    added_attrs_per_dataset = [] if track_added_attrs else None
     for file in file_list:
         download_url = CALAFAT2025_FILE_URLS.get(file)
         if not download_url:

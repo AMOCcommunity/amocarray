@@ -287,3 +287,104 @@ class ReaderUtils:
             raise FileNotFoundError(f"No valid NetCDF files found in {file_list}")
 
         log_info("Successfully loaded %d dataset(s)", len(datasets))
+    
+    @staticmethod
+    def load_array_metadata_with_fallback(datasource_id: str, fallback_metadata: dict) -> tuple[dict, dict]:
+        """Load YAML metadata with fallback to hardcoded metadata.
+        
+        Parameters
+        ----------
+        datasource_id : str
+            Datasource identifier (e.g., 'rapid26n', 'move16n').
+        fallback_metadata : dict
+            Hardcoded metadata to use if YAML loading fails.
+        
+        Returns
+        -------
+        tuple[dict, dict]
+            (global_metadata, yaml_file_metadata)
+            global_metadata: Combined metadata for dataset attributes
+            yaml_file_metadata: File-specific metadata from YAML
+        """
+        try:
+            yaml_metadata = utilities.load_array_metadata(datasource_id)
+            if yaml_metadata:
+                global_metadata = yaml_metadata.get("metadata", fallback_metadata)
+                yaml_file_metadata = yaml_metadata.get("files", {})
+                # Add the files structure to global metadata so it's attached to dataset
+                global_metadata = {**global_metadata, "files": yaml_file_metadata}
+            else:
+                global_metadata = fallback_metadata
+                yaml_file_metadata = {}
+        except Exception as e:
+            log.warning(f"Could not load YAML metadata for {datasource_id}: {e}")
+            global_metadata = fallback_metadata
+            yaml_file_metadata = {}
+        
+        return global_metadata, yaml_file_metadata
+    
+    @staticmethod
+    def attach_metadata_with_tracking(
+        dataset: xr.Dataset,
+        file: str, 
+        file_path: Path,
+        global_metadata: dict,
+        yaml_file_metadata: dict,
+        fallback_file_metadata: dict,
+        datasource_id: str,
+        track_added_attrs: bool = False
+    ) -> Union[xr.Dataset, tuple[xr.Dataset, dict]]:
+        """Attach metadata to dataset with optional attribute tracking.
+        
+        Parameters
+        ----------
+        dataset : xr.Dataset
+            Dataset to attach metadata to.
+        file : str
+            Filename being processed.
+        file_path : Path
+            Full path to the file.
+        global_metadata : dict
+            Global metadata dictionary.
+        yaml_file_metadata : dict
+            File-specific metadata from YAML.
+        fallback_file_metadata : dict
+            Hardcoded file-specific metadata fallback.
+        datasource_id : str
+            Datasource identifier.
+        track_added_attrs : bool, optional
+            Whether to track which attributes were added.
+        
+        Returns
+        -------
+        xr.Dataset or tuple[xr.Dataset, dict]
+            If track_added_attrs=False: Dataset with metadata attached.
+            If track_added_attrs=True: (Dataset, attribute_changes_dict).
+        """
+        # Get file-specific metadata from YAML or fallback to hardcoded
+        if file in yaml_file_metadata:
+            file_metadata = yaml_file_metadata[file]
+        else:
+            file_metadata = fallback_file_metadata.get(file, {})
+        
+        if track_added_attrs:
+            dataset, attr_changes = ReaderUtils.attach_standard_metadata(
+                dataset,
+                file,
+                file_path,
+                global_metadata,
+                file_metadata,
+                datasource_id=datasource_id,
+                track_added_attrs=True,
+            )
+            return dataset, attr_changes
+        else:
+            dataset = ReaderUtils.attach_standard_metadata(
+                dataset,
+                file,
+                file_path,
+                global_metadata,
+                file_metadata,
+                datasource_id=datasource_id,
+            )
+            return dataset

@@ -1,7 +1,7 @@
 CALAFAT2025 Dataset Report
 ==========================
 
-Generated: 2026-02-06 16:42:07
+Generated: 2026-02-06 17:31:23
 
 Bayesian_estimates_Atlantic_MHT.nc
 ----------------------------------
@@ -18,6 +18,10 @@ Dataset Overview
 - **Record Length**: 67 observations (16.5 years)
 - **Sampling Frequency**: 6.0H
 
+**Citation:**
+
+    Calafat, F. M., Vallivattathillam, P., & Frajka-Williams, E. (2025). Estimates of Atlantic meridional heat transport from spatiotemporal fusion of Argo, altimetry and gravimetry data [Data set]. Zenodo. https://doi.org/10.5281/zenodo.16640426
+
 Dataset Statistics
 ^^^^^^^^^^^^^^^^^^
 
@@ -30,11 +34,11 @@ Coordinate Information
 
 The following table shows information about the dataset coordinates:
 
-+------------+-------------------+-------------+---------------+------+-----------+-----------+-----------+
-| Coordinate | Standardized Name | Description | Units         | Size | Min Value | Max Value | Missing % |
-+============+===================+=============+===============+======+===========+===========+===========+
-| TIME       | TIME              | Time        | decimal years | 67   | 2004.12   | 2020.62   | 0.0%      |
-+------------+-------------------+-------------+---------------+------+-----------+-----------+-----------+
++------------+-------------------+-----------------------------------------+------------------------------------+-------+------------+------------+-----------+
+| Coordinate | Standardized Name | Description                             | Units                              | Size  | Min Value  | Max Value  | Missing % |
++============+===================+=========================================+====================================+=======+============+============+===========+
+| TIME       | TIME              | Time elapsed since 1970-01-01T00:00:00Z | seconds since 1970-01-01T00:00:00Z | (67,) | 1970-01-01 | 1970-01-01 | 0.0%      |
++------------+-------------------+-----------------------------------------+------------------------------------+-------+------------+------------+-----------+
 
 
 Variable Mapping and Statistics

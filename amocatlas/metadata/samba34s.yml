@@ -18,7 +18,7 @@ files:
   Upper_Abyssal_Transport_Anomalies.txt:
     source_url: ftp://ftp.aoml.noaa.gov/phod/pub/SAM/2020_Kersale_etal_ScienceAdvances/
     data_product: "Daily volume transport anomaly estimates for the upper and abyssal cells of the MOC"
-    acknowledgement: >
+    citation: >
       M. Kersalé et al., Highly variable upper and abyssal overturning cells in the South Atlantic.
       Sci. Adv. 6, eaba7573 (2020). DOI: 10.1126/sciadv.aba7573
     variable_mapping:
@@ -39,7 +39,7 @@ files:
   MOC_TotalAnomaly_and_constituents.asc:
     source_url: https://www.aoml.noaa.gov/phod/SAMOC_international/documents/
     data_product: "Daily travel time values, calibrated to a nominal pressure of 1000 dbar, and bottom pressures from the two PIES/CPIES moorings"
-    acknowledgement: >
+    citation: >
       Meinen, C. S., Speich, S., Piola, A. R., Ansorge, I., Campos, E., Kersalé, M., et al. (2018).
       Meridional overturning circulation transport variability at 34.5°S during 2009–2017:
       Baroclinic and barotropic flows and the dueling influence of the boundaries.

@@ -1,7 +1,7 @@
 DSO Dataset Report
 ==================
 
-Generated: 2026-02-06 17:31:22
+Generated: 2026-02-06 17:28:06
 
 DSO_transport_hourly_1996_2021.nc
 ---------------------------------
@@ -14,9 +14,9 @@ Dataset Overview
 - **Description**: Denmark Strait Overflow
 - **Source File**: DSO_transport_hourly_1996_2021.nc
 - **Data Product**: Overflow time-series through Denmark Strait
-- **Time Coverage**: 830908800.0 to 1628355600.0
-- **Record Length**: 221,514 observations (797446800.0 years)
-- **Sampling Frequency**: 86400.0H
+- **Time Coverage**: 830908800000000000.0 to 1628355600000003328.0
+- **Record Length**: 221,514 observations (797446800000003328.0 years)
+- **Sampling Frequency**: 86399999920128.0H
 
 **Citation:**
 
@@ -37,7 +37,7 @@ The following table shows information about the dataset coordinates:
 +------------+-------------------+-----------------------------------------+------------------------------------+-----------+------------------------------------------+------------------------------------------+-----------+
 | Coordinate | Standardized Name | Description                             | Units                              | Size      | Min Value                                | Max Value                                | Missing % |
 +============+===================+=========================================+====================================+===========+==========================================+==========================================+===========+
-| TIME       | TIME              | Time elapsed since 1970-01-01T00:00:00Z | seconds since 1970-01-01T00:00:00Z | (221514,) | 1996-05-01                               | 2021-08-07                               | 0.0%      |
+| TIME       | TIME              | Time elapsed since 1970-01-01T00:00:00Z | seconds since 1970-01-01T00:00:00Z | (221514,) | N/A                                      | N/A                                      | 0.0%      |
 +------------+-------------------+-----------------------------------------+------------------------------------+-----------+------------------------------------------+------------------------------------------+-----------+
 | LATITUDE   | LATITUDE          | Latitude of each location               | degrees_north                      | (1,)      | 66.00                                    | 66.00                                    | 0.0%      |
 +------------+-------------------+-----------------------------------------+------------------------------------+-----------+------------------------------------------+------------------------------------------+-----------+
@@ -74,8 +74,8 @@ The following metadata provides comprehensive information about this dataset:
 - **Geospatial Lat Max**: 66
 - **Geospatial Lon Min**: -27
 - **Geospatial Lon Max**: -27
-- **Time Coverage Start**: 830908800.0
-- **Time Coverage End**: 1628355600.0
+- **Time Coverage Start**: 830908800000000000.0
+- **Time Coverage End**: 1628355600000003328.0
 - **Program**: DSO
 - **Project**: Overflow time-series through Denmark Strait
 - **Network**: GSR

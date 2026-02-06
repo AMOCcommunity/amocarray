@@ -201,7 +201,7 @@ class ReportUtils:
                 "Standardized Name": coord_name,  # No mapping for raw data
                 "Description": coord_var.attrs.get("long_name", coord_var.attrs.get("description", "No description available")),
                 "Units": coord_var.attrs.get("units", str(coord_var.dtype)),
-                "Size": coord_var.size,
+                "Size": str(coord_var.shape),
                 "Min Value": "",  # Will fill below
                 "Max Value": "",  # Will fill below  
                 "Missing %": "0.0%"  # Coordinates typically don't have missing values
@@ -209,7 +209,31 @@ class ReportUtils:
             
             # Try to get min/max values
             try:
-                if coord_var.dtype.kind in ['f', 'i']:  # Numeric data
+                # Special handling for TIME coordinates
+                if coord_name == "TIME":
+                    
+                    # Handle different TIME coordinate formats
+                    if coord_var.dtype.kind == 'M':  # datetime64 type
+                        # Convert datetime64 directly to readable dates
+                        min_date = pd.to_datetime(coord_var.min().values).strftime('%Y-%m-%d')
+                        max_date = pd.to_datetime(coord_var.max().values).strftime('%Y-%m-%d')
+                        coord_info["Min Value"] = min_date
+                        coord_info["Max Value"] = max_date
+                    elif coord_var.attrs.get("units", "").startswith("seconds since 1970"):
+                        # Handle seconds since 1970 (standardized format)
+                        min_timestamp = float(coord_var.min())
+                        max_timestamp = float(coord_var.max())
+                        
+                        min_date = pd.to_datetime(min_timestamp, unit='s').strftime('%Y-%m-%d')
+                        max_date = pd.to_datetime(max_timestamp, unit='s').strftime('%Y-%m-%d')
+                        
+                        coord_info["Min Value"] = min_date
+                        coord_info["Max Value"] = max_date
+                    else:
+                        # Fallback to numeric handling
+                        coord_info["Min Value"] = f"{float(coord_var.min()):.2f}"
+                        coord_info["Max Value"] = f"{float(coord_var.max()):.2f}"
+                elif coord_var.dtype.kind in ['f', 'i']:  # Numeric data
                     coord_info["Min Value"] = f"{float(coord_var.min()):.2f}"
                     coord_info["Max Value"] = f"{float(coord_var.max()):.2f}"
                 elif coord_var.dtype.kind == 'M':  # Datetime
@@ -283,8 +307,13 @@ class ReportUtils:
             else:
                 display_description = "No description available"
             
-            # Get size from variable
-            size = var_data.size if hasattr(var_data, 'size') else 0
+            # Get size from variable - show shape instead of total elements
+            if hasattr(var_data, 'shape'):
+                size = str(var_data.shape)
+            elif hasattr(var_data, 'size'):
+                size = str(var_data.size)
+            else:
+                size = "unknown"
             
             row = {
                 "Original Variable": orig_var,
@@ -674,6 +703,9 @@ class StandardizedDatasetReport(BaseDatasetReport):
             lines.append("**Added by AMOCatlas processing:**")
             lines.append("")
             for attr in added:
+                # Skip 'files' and 'variables' attributes
+                if attr.lower() in ['files', 'variables']:
+                    continue
                 value = self.metadata.get(attr, "")
                 lines.append(f"- **{attr.replace('_', ' ').title()}**: {value}")
             lines.append("")
@@ -682,6 +714,9 @@ class StandardizedDatasetReport(BaseDatasetReport):
             lines.append("**Modified by AMOCatlas processing:**")
             lines.append("")
             for attr in modified:
+                # Skip 'files' and 'variables' attributes
+                if attr.lower() in ['files', 'variables']:
+                    continue
                 value = self.metadata.get(attr, "")
                 lines.append(f"- **{attr.replace('_', ' ').title()}**: {value}")
             lines.append("")
@@ -831,8 +866,13 @@ class StandardizedDatasetReport(BaseDatasetReport):
             else:
                 display_description = "No description available"
             
-            # Get size from variable
-            size = var_data.size if hasattr(var_data, 'size') else 0
+            # Get size from variable - show shape instead of total elements
+            if hasattr(var_data, 'shape'):
+                size = str(var_data.shape)
+            elif hasattr(var_data, 'size'):
+                size = str(var_data.size)
+            else:
+                size = "unknown"
             
             row = {
                 "Original Variable": orig_var,

@@ -24,6 +24,8 @@ AVAILABLE_SOURCES = [
     "dso", "fbc", "calafat2025", "zheng2024", "wh41n", "noac47n"
 ]
 
+ALL_SOURCES = AVAILABLE_SOURCES + ["all"]
+
 def main():
     """Generate dataset report and save to docs directory."""
     parser = argparse.ArgumentParser(
@@ -35,14 +37,15 @@ Available data sources:
 
 Examples:
   python generate_report --data_source rapid
-  python generate_report --data_source osnap
+  python generate_report --data_source osnap  
+  python generate_report --data_source all
         """
     )
     parser.add_argument(
         "--data_source", 
         required=True,
-        choices=AVAILABLE_SOURCES,
-        help="Data source to generate report for"
+        choices=ALL_SOURCES,
+        help="Data source to generate report for (use 'all' to generate all reports)"
     )
     parser.add_argument(
         "--output_dir",
@@ -52,32 +55,56 @@ Examples:
     
     args = parser.parse_args()
     
-    print(f"Generating {args.data_source.upper()} array report...")
-    
-    # Generate the report content using the ReportUtils method
-    try:
-        from amocatlas.report import ReportUtils
-        content = ReportUtils.generate_array_report(args.data_source)
-        print(f"Generated report with {len(content)} characters")
-    except Exception as e:
-        print(f"Error generating report: {e}")
-        import traceback
-        print(f"Full traceback: {traceback.format_exc()}")
-        return 1
+    # Determine which data sources to process
+    if args.data_source == "all":
+        sources_to_process = AVAILABLE_SOURCES
+        print(f"Generating reports for ALL {len(sources_to_process)} data sources...")
+    else:
+        sources_to_process = [args.data_source]
+        print(f"Generating {args.data_source.upper()} array report...")
     
     # Create output directory if it doesn't exist
     output_dir = Path(args.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
     
-    # Write the report
-    output_file = output_dir / f"{args.data_source}_report.rst"
-    try:
-        with open(output_file, 'w', encoding='utf-8') as f:
-            f.write(content)
-        print(f"Report saved to: {output_file}")
-        print(f"File size: {output_file.stat().st_size} bytes")
-    except Exception as e:
-        print(f"Error writing report: {e}")
+    # Process each data source
+    total_generated = 0
+    errors = []
+    
+    for source in sources_to_process:
+        print(f"\n--- Processing {source.upper()} ---")
+        
+        # Generate the report content using the ReportUtils method
+        try:
+            from amocatlas.report import ReportUtils
+            content = ReportUtils.generate_array_report(source)
+            print(f"Generated report with {len(content)} characters")
+        except Exception as e:
+            error_msg = f"Error generating {source} report: {e}"
+            print(error_msg)
+            errors.append(error_msg)
+            continue
+        
+        # Write the report
+        output_file = output_dir / f"{source}_report.rst"
+        try:
+            with open(output_file, 'w', encoding='utf-8') as f:
+                f.write(content)
+            print(f"Report saved to: {output_file}")
+            print(f"File size: {output_file.stat().st_size} bytes")
+            total_generated += 1
+        except Exception as e:
+            error_msg = f"Error writing {source} report: {e}"
+            print(error_msg)
+            errors.append(error_msg)
+    
+    # Summary
+    print(f"\n=== SUMMARY ===")
+    print(f"Successfully generated {total_generated} report(s)")
+    if errors:
+        print(f"Encountered {len(errors)} error(s):")
+        for error in errors:
+            print(f"  - {error}")
         return 1
     
     print(f"\nTo rebuild documentation, run:")

@@ -434,6 +434,104 @@ def merge_metadata_aliases(attrs: dict, preferred_keys: dict) -> dict:
     return merged
 
 
+def standardize_time_coordinate(ds: xr.Dataset) -> xr.Dataset:
+    """Standardize TIME coordinate to comply with AMOCatlas specifications.
+    
+    All datasets with a TIME coordinate should have standardized attributes:
+    - data type: double
+    - long_name: "Time elapsed since 1970-01-01T00:00:00Z" 
+    - standard_name: "time"
+    - calendar: "gregorian"
+    - units: "seconds since 1970-01-01T00:00:00Z"
+    - vocabulary: "http://vocab.nerc.ac.uk/collection/OG1/current/TIME/"
+    
+    Parameters
+    ----------
+    ds : xr.Dataset
+        Dataset to standardize TIME coordinate for.
+        
+    Returns
+    -------
+    xr.Dataset
+        Dataset with standardized TIME coordinate attributes.
+    """
+    if "TIME" not in ds.coords and "TIME" not in ds.dims:
+        return ds
+    
+    # Ensure TIME is a coordinate
+    if "TIME" in ds.dims and "TIME" not in ds.coords:
+        # If TIME is only a dimension, create a coordinate
+        log_debug("TIME dimension found without coordinate - creating coordinate")
+        if "TIME" in ds.data_vars:
+            # If there's a TIME data variable, promote it to coordinate
+            ds = ds.set_coords("TIME")
+        else:
+            # Create a simple index coordinate
+            ds = ds.assign_coords(TIME=range(ds.sizes["TIME"]))
+    
+    time_coord = ds["TIME"]
+    
+    # Convert to seconds since 1970-01-01 if not already
+    if time_coord.dtype != "float64":
+        log_debug(f"Converting TIME coordinate from {time_coord.dtype} to float64")
+        
+        if time_coord.dtype.kind == 'M':  # datetime64 type
+            # Convert datetime64 to seconds since 1970-01-01T00:00:00Z
+            import pandas as pd
+            seconds_since_1970 = pd.to_datetime(time_coord.values).astype('int64') / 1e9
+            ds["TIME"] = ("TIME", seconds_since_1970.astype("float64"))
+        else:
+            # For other types, just convert dtype
+            ds["TIME"] = time_coord.astype("float64")
+    
+    # Set standard TIME coordinate attributes
+    standard_time_attrs = {
+        "long_name": "Time elapsed since 1970-01-01T00:00:00Z",
+        "standard_name": "time", 
+        "calendar": "gregorian",
+        "units": "seconds since 1970-01-01T00:00:00Z",
+        "vocabulary": "http://vocab.nerc.ac.uk/collection/OG1/current/TIME/"
+    }
+    
+    # Update TIME coordinate attributes
+    ds["TIME"].attrs.update(standard_time_attrs)
+    log_debug("Standardized TIME coordinate attributes")
+    
+    return ds
+
+
+def standardize_units(ds: xr.Dataset) -> xr.Dataset:
+    """Standardize variable units throughout the dataset.
+    
+    Converts non-standard unit abbreviations to full names:
+    - "Sv" → "Sverdrup"
+    
+    Parameters
+    ----------
+    ds : xr.Dataset
+        Dataset to standardize units for.
+        
+    Returns
+    -------
+    xr.Dataset
+        Dataset with standardized variable units.
+    """
+    # Units mapping for standardization
+    unit_standardization = {
+        "Sv": "Sverdrup"
+    }
+    
+    # Update units for all variables
+    for var_name in ds.data_vars:
+        current_units = ds[var_name].attrs.get("units", "")
+        if current_units in unit_standardization:
+            new_units = unit_standardization[current_units]
+            ds[var_name].attrs["units"] = new_units
+            log_debug(f"Standardized units for {var_name}: {current_units} → {new_units}")
+    
+    return ds
+
+
 def standardise_samba(ds: xr.Dataset, file_name: str) -> xr.Dataset:
     """Standardise SAMBA array dataset to consistent format.
 
@@ -668,13 +766,13 @@ def standardise_array(ds: xr.Dataset, file_name: str) -> xr.Dataset:
     }
     cleaned = normalize_and_add_vocabulary(cleaned, normalizations)
 
-    # 6) Ensure TIME coordinate has proper units for AC1 compliance
-    if "TIME" in ds.coords and ds["TIME"].dtype.kind == "M":  # datetime64 type
-        if "units" not in ds["TIME"].attrs:
-            ds["TIME"].attrs["units"] = "seconds since 1970-01-01T00:00:00Z"
-            log_debug("Added standard TIME units for AC1 compliance")
+    # 6) Standardize TIME coordinate attributes
+    ds = standardize_time_coordinate(ds)
+    
+    # 7) Standardize units
+    ds = standardize_units(ds)
 
-    # 7) Reorder metadata according
+    # 8) Reorder metadata according
     ds.attrs = cleaned
     ds.attrs = reorder_metadata(ds.attrs)
     #    ds = utilities.safe_update_attrs(ds, cleaned, overwrite=False)

@@ -95,6 +95,11 @@ def read_move(
     """
     log.info("Starting to read MOVE dataset")
 
+    # Load YAML metadata with fallback
+    global_metadata, yaml_file_metadata = ReaderUtils.load_array_metadata_with_fallback(
+        DATASOURCE_ID, MOVE_METADATA
+    )
+
     if transport_only:
         file_list = MOVE_TRANSPORT_FILES
     if isinstance(file_list, str):
@@ -106,6 +111,7 @@ def read_move(
     ReaderUtils.print_loading_info(file_list, DATASOURCE_ID, MOVE_FILE_METADATA)
 
     datasets = []
+    added_attrs_per_dataset = [] if track_added_attrs else None
 
     netcdf_files = ReaderUtils.filter_netcdf_files(file_list)
 
@@ -170,16 +176,18 @@ def read_move(
 
                 ds = ds.isel(TIME=valid_time_mask)
 
-        # Use ReaderUtils for consistent metadata attachment
-        file_metadata = MOVE_FILE_METADATA.get(file, {})
-        ds = ReaderUtils.attach_standard_metadata(
-            ds,
-            file,
-            file_path,
-            MOVE_METADATA,
-            file_metadata,
-            datasource_id=DATASOURCE_ID,
-        )
+        # Attach metadata with optional tracking
+        if track_added_attrs:
+            ds, attr_changes = ReaderUtils.attach_metadata_with_tracking(
+                ds, file, file_path, global_metadata, yaml_file_metadata, 
+                MOVE_FILE_METADATA, DATASOURCE_ID, track_added_attrs=True
+            )
+            added_attrs_per_dataset.append(attr_changes)
+        else:
+            ds = ReaderUtils.attach_metadata_with_tracking(
+                ds, file, file_path, global_metadata, yaml_file_metadata,
+                MOVE_FILE_METADATA, DATASOURCE_ID, track_added_attrs=False
+            )
 
         datasets.append(ds)
 
@@ -188,9 +196,6 @@ def read_move(
     
     # Handle track_added_attrs parameter
     if track_added_attrs:
-        # TODO: Implement actual attribute tracking
-        # For now, return empty tracking info for compatibility
-        added_attrs_per_dataset = [[] for _ in datasets]
         return datasets, added_attrs_per_dataset
     else:
         return datasets

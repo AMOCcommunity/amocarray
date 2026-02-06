@@ -96,6 +96,12 @@ def read_mocha(
     """
     log.info("Starting to read MOCHA dataset")
 
+
+    # Load YAML metadata with fallback
+    global_metadata, yaml_file_metadata = ReaderUtils.load_array_metadata_with_fallback(
+        DATASOURCE_ID, MOCHA_METADATA
+    )
+
     if file_list is None:
         file_list = MOCHA_DEFAULT_FILES
     if transport_only:
@@ -112,6 +118,7 @@ def read_mocha(
 
     datasets = []
 
+    added_attrs_per_dataset = [] if track_added_attrs else None
     for file in file_list:
         download_url = MOCHA_FILE_URLS.get(file)
         if not download_url:

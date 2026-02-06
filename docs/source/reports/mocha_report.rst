@@ -1,7 +1,7 @@
 MOCHA Dataset Report
 ====================
 
-Generated: 2026-02-06 16:35:18
+Generated: 2026-02-06 17:31:19
 
 mocha_mht_data_ERA5_v2020.nc
 ----------------------------
@@ -15,9 +15,9 @@ Dataset Overview
 - **DOI**: https://doi.org/10.17604/3nfq-va20
 - **Source File**: mocha_mht_data_ERA5_v2020.nc
 - **Data Product**: MOCHA heat transport at 26.5°N
-- **Time Coverage**: 2004-04-02 to 2020-12-14
-- **Record Length**: 12,202 observations (16.7 years)
-- **Sampling Frequency**: 12H
+- **Time Coverage**: 1080864000.0 to 1607947200.0
+- **Record Length**: 12,202 observations (527083200.0 years)
+- **Sampling Frequency**: 1036800.0H
 
 Dataset Statistics
 ^^^^^^^^^^^^^^^^^^
@@ -31,11 +31,11 @@ Coordinate Information
 
 The following table shows information about the dataset coordinates:
 
-+------------+-------------------+-------------+------------------------------------+-------+------------+------------+-----------+
-| Coordinate | Standardized Name | Description | Units                              | Size  | Min Value  | Max Value  | Missing % |
-+============+===================+=============+====================================+=======+============+============+===========+
-| TIME       | TIME              | time        | seconds since 1970-01-01T00:00:00Z | 12202 | 2004-04-02 | 2020-12-14 | 0.0%      |
-+------------+-------------------+-------------+------------------------------------+-------+------------+------------+-----------+
++------------+-------------------+-----------------------------------------+------------------------------------+----------+------------+------------+-----------+
+| Coordinate | Standardized Name | Description                             | Units                              | Size     | Min Value  | Max Value  | Missing % |
++============+===================+=========================================+====================================+==========+============+============+===========+
+| TIME       | TIME              | Time elapsed since 1970-01-01T00:00:00Z | seconds since 1970-01-01T00:00:00Z | (12202,) | 2004-04-02 | 2020-12-14 | 0.0%      |
++------------+-------------------+-----------------------------------------+------------------------------------+----------+------------+------------+-----------+
 
 
 Variable Mapping and Statistics
@@ -64,8 +64,8 @@ The following metadata provides comprehensive information about this dataset:
 - **Title**: MOCHA Heat Transport Data 3/29/2004-12/14/2020
 - **Platform**: mooring
 - **Platform Vocabulary**: https://vocab.nerc.ac.uk/collection/L06/
-- **Time Coverage Start**: 2004-04-02
-- **Time Coverage End**: 2020-12-14
+- **Time Coverage Start**: 1080864000.0
+- **Time Coverage End**: 1607947200.0
 - **Program**: RAPID
 - **Project**: RAPID-MOCHA
 - **Contributor Name**: William Johns, William Johns, William E. Johns, Shane Elipot, D. A. Smeed, B. Moat, B. King, D. L. Volkov, R. H. Smith

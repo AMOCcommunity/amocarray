@@ -18,9 +18,9 @@ Dataset Overview
 - **DOI**: http://doi.org/10.5281/zenodo.8170365
 - **Source File**: hobbs_willis_amoc41N_tseries.txt
 - **Data Product**: Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations
-- **Time Coverage**: 2002-02-15 to 2024-12-16
-- **Record Length**: 275 observations (22.8 years)
-- **Sampling Frequency**: 730.6H
+- **Time Coverage**: 1013785200.0 to 1734370945.9
+- **Record Length**: 275 observations (720585745.9 years)
+- **Sampling Frequency**: 63122457.6H
 
 Dataset Statistics
 ^^^^^^^^^^^^^^^^^^
@@ -34,11 +34,11 @@ Coordinate Information
 
 The following table shows information about the dataset coordinates:
 
-+------------+-------------------+--------------------------+------------------------------------+------+------------+------------+-----------+
-| Coordinate | Standardized Name | Description              | Units                              | Size | Min Value  | Max Value  | Missing % |
-+============+===================+==========================+====================================+======+============+============+===========+
-| TIME       | TIME              | No description available | seconds since 1970-01-01T00:00:00Z | 275  | 2002-02-15 | 2024-12-16 | 0.0%      |
-+------------+-------------------+--------------------------+------------------------------------+------+------------+------------+-----------+
++------------+-------------------+-----------------------------------------+------------------------------------+--------+------------+------------+-----------+
+| Coordinate | Standardized Name | Description                             | Units                              | Size   | Min Value  | Max Value  | Missing % |
++============+===================+=========================================+====================================+========+============+============+===========+
+| TIME       | TIME              | Time elapsed since 1970-01-01T00:00:00Z | seconds since 1970-01-01T00:00:00Z | (275,) | 2002-02-15 | 2024-12-16 | 0.0%      |
++------------+-------------------+-----------------------------------------+------------------------------------+--------+------------+------------+-----------+
 
 
 Variable Mapping and Statistics
@@ -66,8 +66,8 @@ The following metadata provides comprehensive information about this dataset:
 
 - **Platform**: Argo floats
 - **Platform Vocabulary**: https://vocab.nerc.ac.uk/collection/L06/
-- **Time Coverage Start**: 2002-02-15
-- **Time Coverage End**: 2024-12-16
+- **Time Coverage Start**: 1013785200.0
+- **Time Coverage End**: 1734370945.9
 - **Program**: 41N
 - **Project**: Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations
 - **Doi**: https://doi.org/10.5281/zenodo.8170365
@@ -96,10 +96,10 @@ Dataset Overview
 ^^^^^^^^^^^^^^^^
 
 - **Source File**: ARGO_heat_transport_write.ncl
-- **Error**: Could not generate full analysis - 'numpy.int32' object has no attribute 'days'
+- **Error**: Could not generate full analysis - cannot access local variable 'pd' where it is not associated with a value
 
 Dataset Overview
 ^^^^^^^^^^^^^^^^
 
 - **Source File**: ARGO_heat_transport_write.ncl
-- **Error**: Could not generate full analysis - 'numpy.int32' object has no attribute 'days'
+- **Error**: Could not generate full analysis - cannot access local variable 'pd' where it is not associated with a value

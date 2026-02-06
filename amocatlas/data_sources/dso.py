@@ -85,7 +85,14 @@ def read_dso(
     FileNotFoundError                                                   If the file cannot be downloaded or does not exist locally.
 
     """
-    log.info("Starting to read DSO dataset")  # Ensure file_list has a default
+    log.info("Starting to read DSO dataset")
+
+    # Load YAML metadata with fallback
+    global_metadata, yaml_file_metadata = ReaderUtils.load_array_metadata_with_fallback(
+        DATASOURCE_ID, DSO_METADATA
+    )
+
+    # Ensure file_list has a default
     if file_list is None:
         file_list = DSO_DEFAULT_FILES
     if transport_only:
@@ -101,6 +108,7 @@ def read_dso(
 
     datasets = []
 
+    added_attrs_per_dataset = [] if track_added_attrs else None
     for file in file_list:
         if not file.lower().endswith(".nc"):
             log_warning("Skipping non-NetCDF file: %s", file)
@@ -121,16 +129,40 @@ def read_dso(
         # Use ReaderUtils for consistent dataset loading
         ds = ReaderUtils.safe_load_dataset(file_path)
 
-        # Use ReaderUtils for consistent metadata attachment
-        file_metadata = DSO_FILE_METADATA.get(file, {})
-        ds = ReaderUtils.attach_standard_metadata(
-            ds,
-            file,
-            file_path,
-            DSO_METADATA,
-            file_metadata,
-            datasource_id=DATASOURCE_ID,
-        )
+        # Attach metadata with optional tracking
+
+
+        if track_added_attrs:
+
+
+            ds, attr_changes = ReaderUtils.attach_metadata_with_tracking(
+
+
+                ds, file, file_path, global_metadata, yaml_file_metadata, 
+
+
+                DSO_FILE_METADATA, DATASOURCE_ID, track_added_attrs=True
+
+
+            )
+
+
+            added_attrs_per_dataset.append(attr_changes)
+
+
+        else:
+
+
+            ds = ReaderUtils.attach_metadata_with_tracking(
+
+
+                ds, file, file_path, global_metadata, yaml_file_metadata,
+
+
+                DSO_FILE_METADATA, DATASOURCE_ID, track_added_attrs=False
+
+
+            )
 
         datasets.append(ds)
 
