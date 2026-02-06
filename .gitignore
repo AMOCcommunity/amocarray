@@ -192,6 +192,11 @@ data/moc_vertical.nc
 data/Johns_2023_mht_data_2020_ERA5.zip
 data/Q_ARGO_obs_dens_2000depth_ERA5.nc
 
+# Large data files to avoid in commits
+data/Adjusted_fulldepth_v0.zip
+data/Adjusted_fulldepth/
+data/ts_gridded.nc.corrupted
+data/ts_gridded.nc
+
 # Claude Code
-CLAUDE.md
 .claude/

@@ -13,11 +13,13 @@ import numpy as np
 import pandas as pd
 
 from amocatlas import logger, utilities
-from amocatlas.logger import log_error, log_info, log_warning
 from amocatlas.utilities import apply_defaults
 from amocatlas.reader_utils import ReaderUtils
 
 log = logger.log  # ✅ use the global logger
+
+# Datasource identifier for automatic standardization
+DATASOURCE_ID = "move16n"
 
 # Default source and file list
 MOVE_DEFAULT_SOURCE = (
@@ -96,10 +98,13 @@ def read_move(
 
     local_data_dir = ReaderUtils.setup_data_directory(data_dir)
 
+    # Print information about files being loaded
+    ReaderUtils.print_loading_info(file_list, DATASOURCE_ID, MOVE_FILE_METADATA)
+
     datasets = []
 
     netcdf_files = ReaderUtils.filter_netcdf_files(file_list)
-    
+
     for file in netcdf_files:
 
         download_url = (
@@ -115,14 +120,9 @@ def read_move(
         )
 
         # Use ReaderUtils with special decode_times=False for MOVE
-        try:
-            log_info("Opening MOVE dataset: %s", file_path)
-            ds = xr.open_dataset(file_path, decode_times=False)
-        except (OSError, IOError, ValueError, KeyError) as e:
-            log_error("Failed to open NetCDF file: %s", file_path)
-            raise FileNotFoundError(
-                f"Failed to open NetCDF file: {file_path}: {e}"
-            ) from e
+        # Use ReaderUtils for consistent dataset loading
+
+        ds = ReaderUtils.safe_load_dataset(file_path, decode_times=False)
 
         # Clean up time variable
         if "TIME" in ds.variables:
@@ -165,7 +165,12 @@ def read_move(
         # Use ReaderUtils for consistent metadata attachment
         file_metadata = MOVE_FILE_METADATA.get(file, {})
         ds = ReaderUtils.attach_standard_metadata(
-            ds, file, file_path, MOVE_METADATA, file_metadata
+            ds,
+            file,
+            file_path,
+            MOVE_METADATA,
+            file_metadata,
+            datasource_id=DATASOURCE_ID,
         )
 
         datasets.append(ds)

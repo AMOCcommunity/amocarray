@@ -15,8 +15,12 @@ import xarray as xr
 from amocatlas import logger, utilities
 from amocatlas.logger import log_error, log_info, log_warning
 from amocatlas.utilities import apply_defaults
+from amocatlas.reader_utils import ReaderUtils
 
 log = logger.log  # Use the global logger
+
+# Datasource identifier for automatic standardization
+DATASOURCE_ID = "zheng2024"
 
 # Default list of ZHENG2024 (Atlantic meridional freshwater transport) data files
 ZHENG2024_DEFAULT_FILES = ["atl_mft_2000_extend_gpcp_oaflux.nc"]
@@ -90,6 +94,9 @@ def read_zheng2024(
     local_data_dir = Path(data_dir) if data_dir else utilities.get_default_data_dir()
     local_data_dir.mkdir(parents=True, exist_ok=True)
 
+    # Print information about files being loaded
+    ReaderUtils.print_loading_info(file_list, DATASOURCE_ID, ZHENG2024_FILE_METADATA)
+
     datasets = []
 
     for file in file_list:
@@ -112,25 +119,21 @@ def read_zheng2024(
         # Open dataset
 
         if file.lower().endswith(".nc"):
-            try:
-                log.info("Opening ZHENG2024 dataset: %s", file_path)
-                ds = xr.open_dataset(file_path)
-            except (OSError, IOError, ValueError, KeyError) as e:
-                log.exception("Failed to open NetCDF file: %s", file_path)
-                raise FileNotFoundError(
-                    f"Failed to open NetCDF file : {file_path}: {e}"
-                ) from e
+            # Use ReaderUtils for consistent dataset loading
+
+            ds = ReaderUtils.safe_load_dataset(file_path)
             # Attach metadata
+            # Use ReaderUtils for consistent metadata attachment
+
             file_metadata = ZHENG2024_FILE_METADATA.get(file, {})
-            log_info("Attaching metadata to ZHENG2024 dataset from file: %s", file)
-            utilities.safe_update_attrs(
+
+            ds = ReaderUtils.attach_standard_metadata(
                 ds,
-                {
-                    "source_file": file,
-                    "source_path": str(file_path),
-                    **ZHENG2024_METADATA,
-                    **file_metadata,
-                },
+                file,
+                file_path,
+                ZHENG2024_METADATA,
+                file_metadata,
+                datasource_id=DATASOURCE_ID,
             )
         else:
             raise ValueError(

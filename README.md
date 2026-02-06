@@ -41,7 +41,10 @@ This is a work in progress, all contributions welcome!
 | **OSNAP** | Subpolar North Atlantic | Overturning circulation |
 | **SAMBA** | 34.5°S | South Atlantic MOC |
 | **41°N** | 41°N | North Atlantic section |
+| **47°N** | 47°N | North Atlantic Ocean Current monitoring |
 | **DSO** | Denmark Strait | Overflow monitoring |
+| **FBC** | Faroe Bank Channel | Overflow transport monitoring |
+| **Arctic Gateway** | Arctic Ocean | Pan-Arctic gateway transports |
 | **FW2015** | 26°N | Frajka-Williams 2015 satellite-cable dataset |
 | **CALAFAT2025** | Atlantic | Bayesian estimates of Atlantic meridional heat transport |
 | **ZHENG2024** | Atlantic | Observation-based Atlantic meridional freshwater transport |
@@ -69,11 +72,15 @@ This installs amocatlas locally. The `-e` ensures that any edits you make in the
 
 ### Load Sample Data
 ```python
-from amocatlas import readers
+from amocatlas import read
 
-# Load RAPID sample dataset
-ds = readers.load_sample_dataset("rapid")
+# Load RAPID sample dataset (new API - recommended)
+ds = read.rapid()
 print(ds)
+
+# Or use the legacy API
+from amocatlas import readers
+ds = readers.load_sample_dataset("rapid")
 ```
 
 ### Load Full Datasets
@@ -89,6 +96,35 @@ for ds in datasets:
 A `*.log` file will be written to `logs/` by default.
 
 Data will be cached in `~/.amocatlas_data/` unless you specify a custom location.
+
+### New Intuitive API (v0.2.0+)
+
+AMOCatlas now provides a more user-friendly API that returns **standardized, analysis-ready data by default**:
+
+```python
+from amocatlas import read
+
+# Get clean, standardized data (recommended for most users)
+data = read.rapid()                    # Single dataset, ready for analysis
+osnap = read.osnap(version="2025")     # Automatic parameter handling
+arctic = read.arcticgateway()          # Consistent across all arrays
+
+# Get all files for an array (power users)
+all_rapid = read.rapid(all_files=True)
+
+# Get raw data in original format (debugging, special cases)
+raw_data = read.rapid(raw=True)
+```
+
+**Major changes:**
+- **Standardized by default**: Consistent variable names, metadata, and units following oceanographic conventions
+- **Flexible**: Use `raw=True` to get data in original file formats when needed
+
+**Legacy API still supported:**
+```python
+from amocatlas import readers
+datasets = readers.load_dataset("rapid")  # Returns raw data as before
+```
 
 ## Documentation
 

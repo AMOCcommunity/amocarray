@@ -8,7 +8,7 @@ with consistent interfaces and error handling.
 
 Module naming convention:
 - Arrays include latitude: rapid26n, move16n, osnap55n, samba34s
-- Special locations: wh41n (Willis & Hobbs), noac47n (North Atlantic Ocean Current) 
+- Special locations: wh41n (Willis & Hobbs), noac47n (North Atlantic Ocean Current)
 - Datasets by author/year: fw2015, calafat2025, zheng2024
 - Overflow locations: dso (Denmark Strait), fbc (Faroe Bank Channel)
 """
@@ -30,7 +30,7 @@ from .noac47n import read_47n
 
 __all__ = [
     "read_rapid",
-    "read_move", 
+    "read_move",
     "read_osnap",
     "read_osnap_2025",
     "read_samba",

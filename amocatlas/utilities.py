@@ -153,13 +153,13 @@ def resolve_file_path(
     )
 
 
-def load_array_metadata(array_name: str) -> dict:
-    """Load metadata YAML for a given mooring array.
+def load_array_metadata(datasource_id: str) -> dict:
+    """Load metadata YAML for a given data source.
 
     Parameters
     ----------
-    array_name : str
-        Name of the mooring array (e.g., 'samba').
+    datasource_id : str
+        Datasource identifier (e.g., 'rapid26n', 'samba34s').
 
     Returns
     -------
@@ -170,16 +170,18 @@ def load_array_metadata(array_name: str) -> dict:
     try:
         with (
             resources.files("amocatlas.metadata")
-            .joinpath(f"{array_name.lower()}_array.yml")
+            .joinpath(f"{datasource_id.lower()}.yml")
             .open("r") as f
         ):
             return yaml.safe_load(f)
     except FileNotFoundError as e:
         raise FileNotFoundError(
-            f"No metadata file found for array: {array_name}"
+            f"No metadata file found for datasource: {datasource_id}"
         ) from e
     except Exception as e:
-        raise RuntimeError(f"Error loading metadata for array {array_name}: {e}") from e
+        raise RuntimeError(
+            f"Error loading metadata for datasource {datasource_id}: {e}"
+        ) from e
 
 
 def safe_update_attrs(
@@ -235,13 +237,13 @@ REQUIRED_VARIABLE_FIELDS = [
 ]
 
 
-def validate_array_yaml(array_name: str, verbose: bool = True) -> bool:
-    """Validate the structure and required fields of an array-level metadata YAML.
+def validate_array_yaml(datasource_id: str, verbose: bool = True) -> bool:
+    """Validate the structure and required fields of a datasource metadata YAML.
 
     Parameters
     ----------
-    array_name : str
-        The array name (e.g., 'samba').
+    datasource_id : str
+        The datasource identifier (e.g., 'rapid26n', 'samba34s').
     verbose : bool
         If True, print detailed validation messages.
 
@@ -252,10 +254,10 @@ def validate_array_yaml(array_name: str, verbose: bool = True) -> bool:
 
     """
     try:
-        meta = load_array_metadata(array_name)
+        meta = load_array_metadata(datasource_id)
     except (FileNotFoundError, yaml.YAMLError, KeyError) as e:
         if verbose:
-            print(f"Failed to load metadata for array '{array_name}': {e}")
+            print(f"Failed to load metadata for datasource '{datasource_id}': {e}")
         return False
 
     success = True
@@ -281,7 +283,7 @@ def validate_array_yaml(array_name: str, verbose: bool = True) -> bool:
                         )
 
     if success and verbose:
-        print(f"Validation passed for array '{array_name}'.")
+        print(f"Validation passed for datasource '{datasource_id}'.")
 
     return success
 

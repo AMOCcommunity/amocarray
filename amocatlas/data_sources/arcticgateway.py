@@ -1,10 +1,10 @@
 """Arctic Gateway transport data reader for AMOCatlas.
 
-This module provides functions to read and process data from the Arctic Gateway 
+This module provides functions to read and process data from the Arctic Gateway
 transport dataset, which includes measurements from key Arctic Ocean gateways:
 Fram Strait, Davis Strait, Bering Strait, and Barents Sea Opening.
 
-The data is provided as a zip archive containing multiple NetCDF files for 
+The data is provided as a zip archive containing multiple NetCDF files for
 each gateway, with full-depth velocity adjustments applied.
 
 Key functions:
@@ -20,11 +20,13 @@ import zipfile
 import xarray as xr
 
 from amocatlas import logger, utilities
-from amocatlas.logger import log_error, log_info, log_warning
 from amocatlas.utilities import apply_defaults
 from amocatlas.reader_utils import ReaderUtils
 
 log = logger.log  # ✅ use the global logger
+
+# Datasource identifier for automatic standardization
+DATASOURCE_ID = "arcticgateway"
 
 # Default source and file list
 ARCTIC_DEFAULT_SOURCE = "https://next.api.npolar.no/dataset/80b69907-f303-457e-ae41-45d8e2c0787c/attachment/1c52a414-2b76-46d9-b79c-bbf915be35eb/_blob"
@@ -121,6 +123,9 @@ def read_arcticgateway(
 
     local_data_dir = ReaderUtils.setup_data_directory(data_dir)
 
+    # Print information about files being loaded
+    ReaderUtils.print_loading_info(file_list, DATASOURCE_ID, ARCTIC_FILE_METADATA)
+
     datasets = []
 
     for file in file_list:
@@ -173,7 +178,12 @@ def read_arcticgateway(
                 # Use ReaderUtils for consistent metadata attachment
                 file_metadata = ARCTIC_FILE_METADATA.get(nc_file, {})
                 ds = ReaderUtils.attach_standard_metadata(
-                    ds, nc_file, nc_path, ARCTIC_METADATA, file_metadata
+                    ds,
+                    nc_file,
+                    nc_path,
+                    ARCTIC_METADATA,
+                    file_metadata,
+                    datasource_id=DATASOURCE_ID,
                 )
 
                 datasets.append(ds)

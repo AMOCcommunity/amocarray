@@ -19,7 +19,7 @@ files:
       "TIME": TIME
       "Month": Month
       "Day": Day
-      "Flux": Flux
+      "Flux": TRANSPORT
     variables:
       TIME:
         long_name: "Time"
@@ -36,8 +36,8 @@ files:
         description: "Day"
         units:
         standard_name:
-      Flux:
-        long_name: "Faroe Banks Channel Overflow Transport"
+      TRANSPORT:
+        long_name: "Faroe Bank Channel Overflow Transport"
         description: "FBC Overflow transport time series"
         units: Sv
-        standard_name:
+        standard_name: Transport

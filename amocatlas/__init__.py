@@ -14,12 +14,12 @@ Key Features:
 
 Basic Usage:
     >>> from amocatlas import read
-    >>> data = read.rapid()                    # Single transport dataset  
+    >>> data = read.rapid()                    # Single transport dataset
     >>> osnap = read.osnap(version="2025")     # Latest OSNAP data
     >>> all_data = read.rapid(all_files=True)  # All RAPID files as list
-    
+
     # Legacy API (still supported):
-    >>> from amocatlas import readers  
+    >>> from amocatlas import readers
     >>> datasets = readers.load_dataset("rapid")
     >>> sample_data = readers.load_sample_dataset("osnap")
 """
@@ -46,7 +46,7 @@ from . import (
 __all__ = [
     "readers",
     "read",
-    "plotters", 
+    "plotters",
     "standardise",
     "utilities",
     "tools",

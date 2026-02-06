@@ -450,7 +450,7 @@ def standardise_samba(ds: xr.Dataset, file_name: str) -> xr.Dataset:
         Standardised dataset with consistent metadata and formatting.
 
     """
-    return standardise_array(ds, file_name, array_name="samba")
+    return standardise_array(ds, file_name)
 
 
 def standardise_rapid(ds: xr.Dataset, file_name: str) -> xr.Dataset:
@@ -469,7 +469,7 @@ def standardise_rapid(ds: xr.Dataset, file_name: str) -> xr.Dataset:
         Standardised dataset with consistent metadata and formatting.
 
     """
-    return standardise_array(ds, file_name, array_name="rapid")
+    return standardise_array(ds, file_name)
 
 
 def standardise_move(ds: xr.Dataset, file_name: str) -> xr.Dataset:
@@ -488,42 +488,42 @@ def standardise_move(ds: xr.Dataset, file_name: str) -> xr.Dataset:
         Standardised dataset with consistent metadata and formatting.
 
     """
-    return standardise_array(ds, file_name, array_name="move")
+    return standardise_array(ds, file_name)
 
 
 def standardise_osnap(ds: xr.Dataset, file_name: str) -> xr.Dataset:
     """Standardise OSNAP array dataset to consistent format."""
-    return standardise_array(ds, file_name, array_name="osnap")
+    return standardise_array(ds, file_name)
 
 
 def standardise_fw2015(ds: xr.Dataset, file_name: str) -> xr.Dataset:
     """Standardise FW2015 array dataset to consistent format."""
-    return standardise_array(ds, file_name, array_name="fw2015")
+    return standardise_array(ds, file_name)
 
 
 def standardise_mocha(ds: xr.Dataset, file_name: str) -> xr.Dataset:
     """Standardise MOCHA array dataset to consistent format."""
-    return standardise_array(ds, file_name, array_name="mocha")
+    return standardise_array(ds, file_name)
 
 
 def standardise_41n(ds: xr.Dataset, file_name: str) -> xr.Dataset:
     """Standardise 41N array dataset to consistent format."""
-    return standardise_array(ds, file_name, array_name="41n")
+    return standardise_array(ds, file_name)
 
 
 def standardise_dso(ds: xr.Dataset, file_name: str) -> xr.Dataset:
     """Standardise DSO array dataset to consistent format."""
-    return standardise_array(ds, file_name, array_name="dso")
+    return standardise_array(ds, file_name)
 
 
 def standardise_calafat2025(ds: xr.Dataset, file_name: str) -> xr.Dataset:
     """Standardise CALAFAT2025 array dataset to consistent format."""
-    return standardise_array(ds, file_name, array_name="calafat2025")
+    return standardise_array(ds, file_name)
 
 
 def standardise_zheng2024(ds: xr.Dataset, file_name: str) -> xr.Dataset:
     """Standardise ZHENG2024 array dataset to consistent format."""
-    return standardise_array(ds, file_name, array_name="zheng2024")
+    return standardise_array(ds, file_name)
 
 
 def standardise_47n(ds: xr.Dataset, file_name: str) -> xr.Dataset:
@@ -542,7 +542,7 @@ def standardise_47n(ds: xr.Dataset, file_name: str) -> xr.Dataset:
         Standardised dataset with consistent metadata and formatting for the 47N array.
 
     """
-    return standardise_array(ds, file_name, array_name="47n")
+    return standardise_array(ds, file_name)
 
 
 def standardise_fbc(ds: xr.Dataset, file_name: str) -> xr.Dataset:
@@ -561,25 +561,23 @@ def standardise_fbc(ds: xr.Dataset, file_name: str) -> xr.Dataset:
         Standardised dataset with consistent metadata and formatting.
 
     """
-    return standardise_array(ds, file_name, array_name="fbc")
+    return standardise_array(ds, file_name)
 
 
 def standardise_arcticgateway(ds: xr.Dataset, file_name: str) -> xr.Dataset:
     """Standardise Arctic Gateway array dataset to consistent format."""
-    return standardise_array(ds, file_name, array_name="arcticgateway")
+    return standardise_array(ds, file_name)
 
 
-def standardise_array(ds: xr.Dataset, file_name: str, array_name: str) -> xr.Dataset:
+def standardise_array(ds: xr.Dataset, file_name: str) -> xr.Dataset:
     """Standardise a mooring array dataset using YAML-based metadata.
 
     Parameters
     ----------
     ds : xr.Dataset
-        Raw dataset loaded from a reader.
+        Raw dataset loaded from a reader with amocatlas_datasource metadata.
     file_name : str
         Filename (e.g., 'moc_transports.nc') expected to match ds.attrs["source_file"].
-    array_name : str
-        Name of the mooring array (e.g., 'samba', 'rapid', 'move', 'osnap', 'fw2015', 'mocha').
 
     Returns
     -------
@@ -590,16 +588,24 @@ def standardise_array(ds: xr.Dataset, file_name: str, array_name: str) -> xr.Dat
     ------
     ValueError
         If file_name does not match ds.attrs["source_file"].
+    ValueError
+        If amocatlas_datasource is not found in dataset metadata.
 
     """
     # 1) Validate source_file matches
     src = ds.attrs.get("source_file")
     if src and src != file_name:
         raise ValueError(f"file_name {file_name!r} ≠ ds.attrs['source_file'] {src!r}")
-    log_debug(f"Standardising {file_name} for {array_name.upper()}")
 
-    # 2) Collect new attrs from YAML
-    meta = utilities.load_array_metadata(array_name)
+    # 2) Get datasource ID from dataset metadata
+    datasource_id = ds.attrs.get("amocatlas_datasource")
+    if not datasource_id:
+        raise ValueError("Dataset missing required 'amocatlas_datasource' metadata")
+
+    log_debug(f"Standardising {file_name} for {datasource_id.upper()}")
+
+    # 3) Collect new attrs from YAML
+    meta = utilities.load_array_metadata(datasource_id)
     file_meta = meta["files"].get(file_name, {})
 
     # Rename variables

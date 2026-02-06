@@ -12,11 +12,14 @@ import xarray as xr
 
 # Import the modules used
 from amocatlas import logger, utilities
-from amocatlas.logger import log_error, log_info, log_warning
+from amocatlas.logger import log_info
 from amocatlas.utilities import apply_defaults
 from amocatlas.reader_utils import ReaderUtils
 
 log = logger.log  # Use the global logger
+
+# Datasource identifier for automatic standardization
+DATASOURCE_ID = "rapid26n"
 
 # Default list of RAPID data files
 RAPID_DEFAULT_SOURCE = "https://rapid.ac.uk/sites/default/files/rapid_data/"
@@ -40,19 +43,19 @@ RAPID_METADATA = {
 # File-specific metadata placeholder
 RAPID_FILE_METADATA = {
     "moc_transports.nc": {
-        "data_product": "RAPID layer transport time series",
+        "data_product": "Layer transports - individual water mass transport components (thermocline, intermediate water, NADW, AABW, Ekman, Florida Straits)",
     },
     "moc_vertical.nc": {
-        "data_product": "RAPID vertical streamfunction time series",
+        "data_product": "Vertical streamfunction - overturning circulation streamfunction as function of depth and time",
     },
     "ts_gridded.nc": {
-        "data_product": "RAPID gridded temperature and salinity",
+        "data_product": "Gridded temperature and salinity - T/S profiles from moorings across the basin",
     },
     "2d_gridded.nc": {
-        "data_product": "RAPID 2D gridded temperature and salinity",
+        "data_product": "Monthly velocity and hydrography fields - Conservative Temperature (CT), Absolute Salinity (SA), and velocities on regular grid",
     },
     "meridional_transports.nc": {
-        "data_product": "RAPID meridional transport time series",
+        "data_product": "Heat and freshwater transports - AMOC strength, heat transport, freshwater transport, and overturning streamfunctions in density space",
     },
 }
 # https://rapid.ac.uk/sites/default/files/rapid_data/ts_gridded.nc
@@ -108,8 +111,11 @@ def read_rapid(
     )
     local_data_dir = ReaderUtils.setup_data_directory(data_dir)
 
-    datasets = []
+    # Print information about files being loaded
     netcdf_files = ReaderUtils.filter_netcdf_files(file_list)
+    ReaderUtils.print_loading_info(netcdf_files, DATASOURCE_ID, RAPID_FILE_METADATA)
+
+    datasets = []
 
     for file in netcdf_files:
         # RAPID-specific URL construction
@@ -129,7 +135,12 @@ def read_rapid(
         ds = ReaderUtils.safe_load_dataset(file_path)
         file_metadata = RAPID_FILE_METADATA.get(file, {})
         ds = ReaderUtils.attach_standard_metadata(
-            ds, file, file_path, RAPID_METADATA, file_metadata
+            ds,
+            file,
+            file_path,
+            RAPID_METADATA,
+            file_metadata,
+            datasource_id=DATASOURCE_ID,
         )
 
         datasets.append(ds)

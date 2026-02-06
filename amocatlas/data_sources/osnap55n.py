@@ -11,10 +11,13 @@ from typing import Union
 import xarray as xr
 
 from amocatlas import logger, utilities
-from amocatlas.logger import log_error, log_info, log_warning
+from amocatlas.logger import log_error
 from amocatlas.reader_utils import ReaderUtils
 
 log = logger.log  # Use global logger
+
+# Datasource identifier for automatic standardization
+DATASOURCE_ID = "osnap55n"
 
 # Default file list - 2020 version (legacy)
 OSNAP_DEFAULT_FILES = [
@@ -161,10 +164,13 @@ def read_osnap(
 
     local_data_dir = ReaderUtils.setup_data_directory(data_dir)
 
+    # Print information about files being loaded
+    ReaderUtils.print_loading_info(file_list, DATASOURCE_ID, OSNAP_FILE_METADATA)
+
     datasets = []
 
     netcdf_files = ReaderUtils.filter_netcdf_files(file_list)
-    
+
     for file in netcdf_files:
         download_url = OSNAP_FILE_URLS.get(file)
         if not download_url:
@@ -185,7 +191,12 @@ def read_osnap(
         # Use ReaderUtils for consistent metadata attachment
         file_metadata = OSNAP_FILE_METADATA.get(file, {})
         ds = ReaderUtils.attach_standard_metadata(
-            ds, file, file_path, OSNAP_METADATA, file_metadata
+            ds,
+            file,
+            file_path,
+            OSNAP_METADATA,
+            file_metadata,
+            datasource_id=DATASOURCE_ID,
         )
 
         datasets.append(ds)

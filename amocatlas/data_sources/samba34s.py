@@ -18,6 +18,9 @@ from amocatlas.reader_utils import ReaderUtils
 
 log = logger.log  # Use the global logger
 
+# Datasource identifier for automatic standardization
+DATASOURCE_ID = "samba34s"
+
 # Default file list
 SAMBA_DEFAULT_FILES = [
     "Upper_Abyssal_Transport_Anomalies.txt",
@@ -105,6 +108,9 @@ def read_samba(
 
     local_data_dir = ReaderUtils.setup_data_directory(data_dir)
 
+    # Print information about files being loaded
+    ReaderUtils.print_loading_info(file_list, DATASOURCE_ID, SAMBA_FILE_METADATA)
+
     datasets = []
 
     for file in file_list:
@@ -173,7 +179,12 @@ def read_samba(
         # Use ReaderUtils for consistent metadata attachment
         file_metadata = SAMBA_FILE_METADATA.get(file, {})
         ds = ReaderUtils.attach_standard_metadata(
-            ds, file, file_path, SAMBA_METADATA, file_metadata
+            ds,
+            file,
+            file_path,
+            SAMBA_METADATA,
+            file_metadata,
+            datasource_id=DATASOURCE_ID,
         )
 
         datasets.append(ds)

@@ -34,9 +34,7 @@ def test_calafat2025_file_validation():
     from amocatlas.data_sources import calafat2025
 
     # Test that constants are defined properly
-    assert (
-        "Bayesian_estimates_Atlantic_MHT.zip" in calafat2025.CALAFAT2025_FILE_URLS
-    )
+    assert "Bayesian_estimates_Atlantic_MHT.zip" in calafat2025.CALAFAT2025_FILE_URLS
     assert len(calafat2025.CALAFAT2025_DEFAULT_FILES) > 0
 
 
@@ -245,27 +243,37 @@ def test_zheng2024_defaults():
 def test_reader_url_constants(module_name, expected_url_constants):
     """Test that all data source readers have proper URL/SOURCE constants defined."""
     import importlib
-    
+
     # Import the module dynamically
     module = importlib.import_module(f"amocatlas.data_sources.{module_name}")
-    
+
     # Check each expected URL constant exists and is not None/empty
     for constant_name in expected_url_constants:
-        assert hasattr(module, constant_name), f"{module_name} should have {constant_name} constant"
+        assert hasattr(
+            module, constant_name
+        ), f"{module_name} should have {constant_name} constant"
         constant_value = getattr(module, constant_name)
         assert constant_value is not None, f"{constant_name} should not be None"
-        
+
         if isinstance(constant_value, str):
-            assert len(constant_value.strip()) > 0, f"{constant_name} should not be empty string"
+            assert (
+                len(constant_value.strip()) > 0
+            ), f"{constant_name} should not be empty string"
             # Basic URL validation for SOURCE constants
             if "_SOURCE" in constant_name:
-                assert constant_value.startswith(("http://", "https://", "ftp://")), f"{constant_name} should be a valid URL"
+                assert constant_value.startswith(
+                    ("http://", "https://", "ftp://")
+                ), f"{constant_name} should be a valid URL"
         elif isinstance(constant_value, dict):
-            assert len(constant_value) > 0, f"{constant_name} dictionary should not be empty"
+            assert (
+                len(constant_value) > 0
+            ), f"{constant_name} dictionary should not be empty"
             # Check that all URLs in the dictionary are valid
             for url in constant_value.values():
                 if isinstance(url, str):
-                    assert url.startswith(("http://", "https://", "ftp://")), f"URL in {constant_name} should be valid"
+                    assert url.startswith(
+                        ("http://", "https://", "ftp://")
+                    ), f"URL in {constant_name} should be valid"
 
 
 @pytest.mark.parametrize(

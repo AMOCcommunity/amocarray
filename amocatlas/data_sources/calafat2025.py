@@ -13,8 +13,12 @@ import xarray as xr
 
 from amocatlas import logger, utilities
 from amocatlas.utilities import apply_defaults
+from amocatlas.reader_utils import ReaderUtils
 
 log = logger.log  # ✅ use the global logger
+
+# Datasource identifier for automatic standardization
+DATASOURCE_ID = "calafat2025"
 
 # Default source and file list
 CALAFAT2025_DEFAULT_SOURCE = "https://zenodo.org/records/16640426/files/Bayesian_estimates_Atlantic_MHT.zip?download=1"
@@ -101,6 +105,9 @@ def read_calafat2025(
     local_data_dir = Path(data_dir) if data_dir else utilities.get_default_data_dir()
     local_data_dir.mkdir(parents=True, exist_ok=True)
 
+    # Print information about files being loaded
+    ReaderUtils.print_loading_info(file_list, DATASOURCE_ID, CALAFAT2025_FILE_METADATA)
+
     datasets = []
 
     for file in file_list:
@@ -147,24 +154,18 @@ def read_calafat2025(
                         f"Expected NetCDF file not found: {nc_path}"
                     )
 
-                log.info("Opening CALAFAT2025 dataset: %s", nc_path)
-                try:
-                    ds = xr.open_dataset(nc_path)
-                except (OSError, IOError, ValueError, KeyError) as e:
-                    log.exception("Failed to open NetCDF file: %s", nc_path)
-                    raise FileNotFoundError(
-                        f"Failed to open NetCDF file: {nc_path}: {e}"
-                    ) from e
+                # Use ReaderUtils for consistent dataset loading
+                ds = ReaderUtils.safe_load_dataset(nc_path)
 
-                metadata = CALAFAT2025_FILE_METADATA.get(nc_file, {})
-                utilities.safe_update_attrs(
+                # Use ReaderUtils for consistent metadata attachment
+                file_metadata = CALAFAT2025_FILE_METADATA.get(nc_file, {})
+                ds = ReaderUtils.attach_standard_metadata(
                     ds,
-                    {
-                        "source_file": nc_file,
-                        "source_path": str(nc_path),
-                        **CALAFAT2025_METADATA,
-                        **metadata,
-                    },
+                    nc_file,
+                    nc_path,
+                    CALAFAT2025_METADATA,
+                    file_metadata,
+                    datasource_id=DATASOURCE_ID,
                 )
 
                 datasets.append(ds)

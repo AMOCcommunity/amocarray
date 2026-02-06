@@ -27,7 +27,7 @@ from amocatlas import logger
 from amocatlas.logger import log_info
 from amocatlas.data_sources import (
     read_move,
-    read_osnap, 
+    read_osnap,
     read_osnap_2025,
     read_rapid,
     read_samba,
