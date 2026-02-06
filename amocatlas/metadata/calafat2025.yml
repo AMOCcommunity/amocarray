@@ -34,19 +34,19 @@ files:
         long_name: "Time"
         description: "Time in decimal years"
         units: "decimal years"
-        standard_name: "time"
+        standard_name: time
       LATITUDE:
         long_name: "Latitude of zonal sections"
         description: "Latitude of zonal sections across which heat transport is computed"
-        units: "degrees"
-        standard_name: "latitude"
+        units: "degrees_north"
+        standard_name: latitude
       MHT:
         long_name: "Meridional Heat Transport"
         description: "These estimates have been computed by setting the transport at 65N equal to zero and then integrating the heat transport convergences southward. A time-mean value of 0.506 PW has been added to the transport at 60N based on estimates from the OSNAP project"
         units: PW
-        standard_name: "heat_transport"
+        standard_name: northward_ocean_heat_transport
       HTC:
         long_name: "Heat Transport Convergence"
         description: "Regions are ordered from north to south. That is, htc(:,:,1) corresponds to the northernmost region, which is bounded by latitude(1) and latitude(2)"
         units: PW
-        standard_name: "heat_transport_convergence"
+        standard_name: ocean_heat_transport_convergence

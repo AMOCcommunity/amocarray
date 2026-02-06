@@ -17,15 +17,18 @@ files:
     data_product: "Daily averaged kinematic FBC-overflow flux (transport) in Sv"
     variable_mapping:
       "TIME": TIME
-      "Month": Month
-      "Day": Day
-      "Flux": TRANSPORT
+      "Flux": TRANS_FBC
     variables:
       TIME:
         long_name: "Time"
         description: "Time in datetime format"
         units: datetime64[ns]
         standard_name: TIME
+      Flux:
+        long_name: "Faroe Bank Channel Overflow Transport"
+        description: "FBC Overflow transport time series"
+        units: Sv
+        standard_name: ocean_volume_transport_across_line
       Month:
         long_name: "Month"
         description: "Month"
@@ -36,8 +39,3 @@ files:
         description: "Day"
         units:
         standard_name:
-      TRANSPORT:
-        long_name: "Faroe Bank Channel Overflow Transport"
-        description: "FBC Overflow transport time series"
-        units: Sv
-        standard_name: Transport

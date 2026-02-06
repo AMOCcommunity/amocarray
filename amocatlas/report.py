@@ -35,6 +35,24 @@ class ReportUtils:
     """Shared utilities for AMOCatlas report generation."""
     
     @staticmethod
+    def handle_yyyymm_time_format(time_data) -> pd.Series:
+        """Handle YYYYMM time format (e.g., 200201 = February 2002)."""
+        try:
+            time_values = time_data.values
+            # Convert YYYYMM to datetime: 200201 -> 2002-01-01
+            datetime_strings = []
+            for val in time_values:
+                year = val // 100
+                month = val % 100
+                if month == 0:
+                    month = 1  # Handle edge case
+                datetime_strings.append(f"{year}-{month:02d}-01")
+            return pd.to_datetime(datetime_strings)
+        except Exception:
+            # Fallback to regular conversion
+            return pd.to_datetime(time_data.values)
+    
+    @staticmethod
     def estimate_frequency(median_diff) -> str:
         """Estimate sampling frequency from median time difference."""
         try:
@@ -42,8 +60,22 @@ class ReportUtils:
             if hasattr(median_diff, 'total_seconds'):
                 hours = median_diff.total_seconds() / 3600
             else:
-                # Handle numeric difference (assume days)
-                hours = float(median_diff) * 24
+                # Handle numeric difference - need to determine the units
+                diff_value = float(median_diff)
+                
+                # Heuristic to determine time units based on typical values:
+                # - If diff > 1000, likely seconds (typical: 3600s=1h, 43200s=12h)  
+                # - If 1 < diff < 100, likely days (typical: 1day, 30days)
+                # - If diff < 1, likely fractional days 
+                if diff_value > 1000:
+                    # Assume seconds
+                    hours = diff_value / 3600
+                elif diff_value > 1:
+                    # Assume days  
+                    hours = diff_value * 24
+                else:
+                    # Assume fractional days
+                    hours = diff_value * 24
         except Exception:
             return "unknown"
         
@@ -65,6 +97,12 @@ class ReportUtils:
             return "monthly"
         elif 720 <= hours <= 760:  # ~30-31 days 
             return "monthly"
+        elif 2000 <= hours <= 2300:  # ~3 months (quarterly)
+            return "3-monthly"
+        elif 4000 <= hours <= 4500:  # ~6 months
+            return "6-monthly"
+        elif 8000 <= hours <= 9000:  # ~12 months (annual)
+            return "annual"
         else:
             return f"{hours:.1f}H"
     
@@ -115,21 +153,55 @@ class ReportUtils:
     def _safe_time_diff_days(time_max, time_min):
         """Safely calculate time difference in days, handling different data types."""
         try:
-            # Try standard datetime difference
+            # Try standard datetime difference first
             diff = time_max - time_min
             if hasattr(diff, 'days'):
                 return diff.days
             else:
-                # Handle numeric time - check if it looks like seconds since 1970
+                # Handle numeric time values
                 try:
                     numeric_diff = float(diff)
+                    max_val = max(abs(float(time_max)), abs(float(time_min)))
+                    
+                    # Check for obviously invalid/sentinel values (very large negative numbers)
+                    if max_val > 1e10:  # Very large values likely indicate data corruption
+                        # Return 0 to avoid wildly incorrect time spans
+                        return 0
+                    
+                    # Check if these look like YYYYMM format (e.g., 200201, 202412)
+                    if 190000 <= max_val <= 300000 and abs(numeric_diff) < 10000:
+                        # Convert YYYYMM to actual dates and calculate difference
+                        try:
+                            from datetime import datetime
+                            # Convert YYYYMM to datetime
+                            min_year = int(time_min) // 100
+                            min_month = int(time_min) % 100
+                            max_year = int(time_max) // 100
+                            max_month = int(time_max) % 100
+                            
+                            min_date = datetime(min_year, min_month, 1)
+                            max_date = datetime(max_year, max_month, 1)
+                            
+                            return (max_date - min_date).days
+                        except (ValueError, TypeError):
+                            # Fallback to rough approximation if conversion fails
+                            return abs(numeric_diff) * 30.44
+                    
                     # Check if the values look like unix timestamps (> 1e9)
-                    if max(abs(time_max), abs(time_min)) > 1e9:
+                    elif max_val > 1e9:
                         # Assume difference is in seconds, convert to days
-                        return numeric_diff / 86400.0  # seconds to days
+                        return abs(numeric_diff) / 86400.0  # seconds to days
+                    
+                    # Check if values are small and could be decimal years since some reference
+                    elif max_val < 100:
+                        # Likely decimal years (e.g., 0.95, 1.66)
+                        # These are probably years since 2000 or similar
+                        return abs(numeric_diff) * 365.25
+                    
                     else:
-                        # Assume years 
-                        return numeric_diff * 365.25
+                        # Other numeric formats - be conservative and assume days
+                        return abs(numeric_diff)
+                        
                 except (ValueError, TypeError):
                     return 0
         except Exception:
@@ -184,20 +256,38 @@ class ReportUtils:
                     # Already datetime64, just convert to pandas
                     time_series = pd.to_datetime(time_values)
                 else:
-                    # Numeric values - check if they look like seconds since 1970
-                    try:
-                        sample_val = float(time_values[0])
-                        if sample_val > 1e9:  # Likely seconds since 1970
-                            time_series = pd.to_datetime(time_values, unit='s')
-                        else:
+                    # Check for YYYYMM format first
+                    units = time_data.attrs.get('units', '').upper()
+                    if (units == 'YYYYMM' or 
+                        (len(time_values) > 0 and isinstance(time_values[0], (int, np.integer)) 
+                         and 190000 <= time_values[0] <= 300000)):
+                        # Handle YYYYMM format
+                        time_series = ReportUtils.handle_yyyymm_time_format(time_data)
+                    else:
+                        # Numeric values - check if they look like seconds since 1970
+                        try:
+                            sample_val = float(time_values[0])
+                            if sample_val > 1e9:  # Likely seconds since 1970
+                                time_series = pd.to_datetime(time_values, unit='s')
+                            else:
+                                time_series = pd.to_datetime(time_values)
+                        except (ValueError, TypeError):
                             time_series = pd.to_datetime(time_values)
-                    except (ValueError, TypeError):
-                        time_series = pd.to_datetime(time_values)
             else:
                 time_series = pd.to_datetime(time_values)
         
-        # Remove invalid times
+        # Remove invalid times and extreme outliers
         valid_times = time_series.dropna()
+        
+        # Filter out extremely unrealistic dates (e.g., from sentinel values)
+        # Keep only dates between 1900 and 2100 (reasonable range for oceanographic data)
+        try:
+            min_year = pd.Timestamp('1900-01-01')
+            max_year = pd.Timestamp('2100-01-01')
+            valid_times = valid_times[(valid_times >= min_year) & (valid_times <= max_year)]
+        except (TypeError, ValueError):
+            # If date filtering fails, just keep the dropna() result
+            pass
         
         if len(valid_times) == 0:
             return {"has_time": True, "valid_times": False}
@@ -231,12 +321,13 @@ class ReportUtils:
             if time_info["time_span_years"] > 50:
                 warnings.append(f"WARNING: Record length of {time_info['time_span_years']:.1f} years seems unusually long")
             
-            # Check for extremely high sampling frequency values (>100 hours)
+            # Check for extremely high sampling frequency values (>5000 hours = ~7 months)  
+            # Allow quarterly data (~2200H) and other reasonable oceanographic intervals
             freq_str = time_info["estimated_frequency"]
             if freq_str.endswith("H") and not freq_str.endswith("min"):
                 try:
                     freq_hours = float(freq_str.replace("H", ""))
-                    if freq_hours > 100:
+                    if freq_hours > 5000:
                         warnings.append(f"WARNING: Sampling frequency of {freq_hours}H seems unusually high - possible time parsing issue")
                 except ValueError:
                     pass
@@ -389,7 +480,7 @@ class ReportUtils:
                 "Original Variable": orig_var,
                 "Standardized Name": standardized_name,
                 "Description": display_description,
-                "Units": var_meta.get("units", var_data.attrs.get("units", "unknown")),
+                "Units": var_data.attrs.get("units", var_meta.get("units", "unknown")),
                 "Data Type": var_stats.get("dtype", "unknown"),
                 "Dimensions": str(var_stats.get("dimensions", [])),
                 "Size": size,
@@ -823,14 +914,6 @@ class StandardizedDatasetReport(BaseDatasetReport):
             self._statistics = ReportUtils.compute_dataset_statistics(self.dataset)
         return self._statistics
     
-    @property
-    def variable_mapping(self) -> pd.DataFrame:
-        """Get variable mapping table."""
-        if self._variable_mapping is None:
-            self._variable_mapping = ReportUtils.create_variable_mapping_table(
-                self.dataset, self.statistics, self.metadata
-            )
-        return self._variable_mapping
     
     @property
     def temporal_info(self) -> Dict[str, Any]:
@@ -890,41 +973,110 @@ class StandardizedDatasetReport(BaseDatasetReport):
     
     def _create_variable_mapping_table(self) -> pd.DataFrame:
         """Create variable mapping table from metadata."""
-        # Get the first file's metadata (for transport_only, should be transport file)
-        if "files" not in self.metadata:
-            return pd.DataFrame()
+        # Check for actual applied variable mapping first (tracks what was renamed)
+        applied_mapping = self.metadata.get("applied_variable_mapping", {})
         
-        # Find the transport file or use the first file
-        transport_files = ["moc_transports.nc", "transport.nc", "transports.nc"]
-        file_key = None
+        if applied_mapping:
+            # Use actual renaming that occurred during standardization
+            mapping_data = []
+            reverse_mapping = {new: orig for orig, new in applied_mapping.items()}
+            
+            # Get variable metadata from YAML for descriptions
+            files_meta = self.metadata.get("files", {})
+            variables_meta = {}
+            
+            # Find variable metadata from any file (usually there's only one)
+            for file_meta in files_meta.values():
+                if "variables" in file_meta:
+                    variables_meta.update(file_meta.get("variables", {}))
+            
+            # Process only data variables that were renamed (coords handled separately)
+            for orig_var, std_var in applied_mapping.items():
+                # Check if variable exists in dataset as a data variable (not coordinate)
+                if std_var not in self.dataset.data_vars:
+                    continue
+                
+                # Get variable metadata (try standardized name first, then original)
+                var_meta = variables_meta.get(std_var, variables_meta.get(orig_var, {}))
+                var_data = self.dataset[std_var]
+                var_stats = self.statistics["variables"].get(std_var, {})
+                
+                # Get description and long_name from metadata or attributes
+                description = var_meta.get("description", var_data.attrs.get("description", ""))
+                long_name = var_meta.get("long_name", var_data.attrs.get("long_name", ""))
+                
+                # Create display description: prioritize description, then add long_name in bold
+                if description:
+                    if long_name and long_name != std_var and long_name != description:
+                        display_description = f"**{long_name}**: {description}"
+                    else:
+                        display_description = description
+                elif long_name and long_name != std_var:
+                    display_description = long_name
+                else:
+                    display_description = "No description available"
+                
+                # Get size from variable - show shape instead of total elements
+                if hasattr(var_data, 'shape'):
+                    size = str(var_data.shape)
+                elif hasattr(var_data, 'size'):
+                    size = str(var_data.size)
+                else:
+                    size = "unknown"
+                
+                row = {
+                    "Original Variable": orig_var,
+                    "Standardized Name": std_var,
+                    "Description": display_description,
+                    "Units": var_data.attrs.get("units", var_meta.get("units", "unknown")),
+                    "Data Type": var_stats.get("dtype", "unknown"),
+                    "Dimensions": str(var_stats.get("dimensions", [])),
+                    "Size": size,
+                    "Min Value": var_stats.get("min", "N/A"),
+                    "Max Value": var_stats.get("max", "N/A"),
+                    "Missing %": f"{var_stats.get('missing_data_pct', 0.0):.1f}%"
+                }
+                mapping_data.append(row)
+                
+            return pd.DataFrame(mapping_data)
         
-        for transport_file in transport_files:
-            if transport_file in self.metadata["files"]:
-                file_key = transport_file
-                break
-        
-        if not file_key:
-            # Check if files metadata exists
-            if "files" in self.metadata and self.metadata["files"]:
-                file_key = list(self.metadata["files"].keys())[0]
-            else:
-                # No files metadata, fall back to looking for variable_mapping directly
-                file_key = None
-        
-        if file_key and "files" in self.metadata:
-            file_meta = self.metadata["files"][file_key]
-            variable_mapping = file_meta.get("variable_mapping", {})
-            variables_meta = file_meta.get("variables", {})
         else:
-            # Fall back to dataset-level metadata
-            variable_mapping = self.metadata.get("variable_mapping", {})
-            variables_meta = self.metadata.get("variables", {})
-        
-        mapping_data = []
-        
-        for orig_var in self.dataset.data_vars:
-            # Get standardized name from mapping, default to original if not mapped
-            standardized_name = variable_mapping.get(orig_var, orig_var)
+            # Fall back to original logic if no applied_variable_mapping exists
+            # Get the first file's metadata (for transport_only, should be transport file)
+            if "files" not in self.metadata:
+                return pd.DataFrame()
+            
+            # Find the transport file or use the first file
+            transport_files = ["moc_transports.nc", "transport.nc", "transports.nc"]
+            file_key = None
+            
+            for transport_file in transport_files:
+                if transport_file in self.metadata["files"]:
+                    file_key = transport_file
+                    break
+            
+            if not file_key:
+                # Check if files metadata exists
+                if "files" in self.metadata and self.metadata["files"]:
+                    file_key = list(self.metadata["files"].keys())[0]
+                else:
+                    # No files metadata, fall back to looking for variable_mapping directly
+                    file_key = None
+            
+            if file_key and "files" in self.metadata:
+                file_meta = self.metadata["files"][file_key]
+                variable_mapping = file_meta.get("variable_mapping", {})
+                variables_meta = file_meta.get("variables", {})
+            else:
+                # Fall back to dataset-level metadata
+                variable_mapping = self.metadata.get("variable_mapping", {})
+                variables_meta = self.metadata.get("variables", {})
+            
+            mapping_data = []
+            
+            for orig_var in self.dataset.data_vars:
+                # Get standardized name from mapping, default to original if not mapped
+                standardized_name = variable_mapping.get(orig_var, orig_var)
             
             # Get variable metadata
             var_meta = variables_meta.get(orig_var, {})
@@ -958,7 +1110,7 @@ class StandardizedDatasetReport(BaseDatasetReport):
                 "Original Variable": orig_var,
                 "Standardized Name": standardized_name,
                 "Description": display_description,
-                "Units": var_meta.get("units", var_data.attrs.get("units", "unknown")),
+                "Units": var_data.attrs.get("units", var_meta.get("units", "unknown")),
                 "Data Type": var_stats.get("dtype", "unknown"),
                 "Dimensions": str(var_stats.get("dimensions", [])),
                 "Size": size,
@@ -969,6 +1121,91 @@ class StandardizedDatasetReport(BaseDatasetReport):
             mapping_data.append(row)
         
         return pd.DataFrame(mapping_data)
+    
+    def _create_coordinate_info_table(self) -> pd.DataFrame:
+        """Create coordinate information table with original→standardized mapping."""
+        coord_data = []
+        
+        # Get applied variable mapping (includes coordinates)
+        applied_mapping = self.metadata.get("applied_variable_mapping", {})
+        
+        # Create reverse mapping (standardized → original)
+        reverse_mapping = {std: orig for orig, std in applied_mapping.items()}
+        
+        for coord_name in self.dataset.coords:
+            coord_var = self.dataset[coord_name]
+            
+            # Get original coordinate name if it was renamed
+            original_name = reverse_mapping.get(coord_name, coord_name)
+            
+            # Basic coordinate info
+            coord_info = {
+                "Coordinate": original_name,  # Show original name
+                "Standardized Name": coord_name,  # Show standardized name
+                "Description": coord_var.attrs.get("long_name", coord_var.attrs.get("description", "No description available")),
+                "Units": coord_var.attrs.get("units", str(coord_var.dtype)),
+                "Size": str(coord_var.shape),
+                "Min Value": "",  # Will fill below
+                "Max Value": "",  # Will fill below
+            }
+            
+            # Try to get min/max values (same logic as base class)
+            try:
+                # Special handling for TIME coordinates
+                if coord_name == "TIME":
+                    
+                    # Handle different TIME coordinate formats
+                    if coord_var.dtype.kind == 'M':  # datetime64 type
+                        # Convert datetime64 directly to readable dates
+                        min_date = pd.to_datetime(coord_var.min().values).strftime('%Y-%m-%d')
+                        max_date = pd.to_datetime(coord_var.max().values).strftime('%Y-%m-%d')
+                        coord_info["Min Value"] = min_date
+                        coord_info["Max Value"] = max_date
+                    elif coord_var.attrs.get("units", "").startswith("seconds since 1970"):
+                        # Handle seconds since 1970 (standardized format)
+                        min_timestamp = float(coord_var.min())
+                        max_timestamp = float(coord_var.max())
+                        
+                        min_date = pd.to_datetime(min_timestamp, unit='s').strftime('%Y-%m-%d')
+                        max_date = pd.to_datetime(max_timestamp, unit='s').strftime('%Y-%m-%d')
+                        
+                        coord_info["Min Value"] = min_date
+                        coord_info["Max Value"] = max_date
+                    else:
+                        # For other time formats, try to convert using xarray's capabilities
+                        try:
+                            coord_pd = coord_var.to_pandas()
+                            min_date = coord_pd.min().strftime('%Y-%m-%d') if hasattr(coord_pd.min(), 'strftime') else str(coord_pd.min())
+                            max_date = coord_pd.max().strftime('%Y-%m-%d') if hasattr(coord_pd.max(), 'strftime') else str(coord_pd.max())
+                            coord_info["Min Value"] = min_date
+                            coord_info["Max Value"] = max_date
+                        except Exception:
+                            # Fall back to raw values
+                            coord_info["Min Value"] = str(coord_var.min().values)[:20]  
+                            coord_info["Max Value"] = str(coord_var.max().values)[:20]
+                else:
+                    # For non-TIME coordinates, show raw min/max
+                    if coord_var.size > 0 and coord_var.dtype.kind in ['i', 'u', 'f', 'c']:  # Numeric types
+                        coord_info["Min Value"] = f"{float(coord_var.min()):.3g}"
+                        coord_info["Max Value"] = f"{float(coord_var.max()):.3g}"
+                    else:
+                        coord_info["Min Value"] = str(coord_var.values[0]) if coord_var.size > 0 else ""
+                        coord_info["Max Value"] = str(coord_var.values[-1]) if coord_var.size > 0 else ""
+            except Exception:
+                # If anything fails, leave min/max empty
+                coord_info["Min Value"] = "N/A"
+                coord_info["Max Value"] = "N/A"
+            
+            coord_data.append(coord_info)
+        
+        return pd.DataFrame(coord_data)
+        
+    @property
+    def coordinate_info(self) -> pd.DataFrame:
+        """Coordinate information table with mapping information for standardized datasets."""
+        if self._coordinate_info is None:
+            self._coordinate_info = self._create_coordinate_info_table()
+        return self._coordinate_info
     
     def _analyze_temporal_coverage(self) -> Dict[str, Any]:
         """Analyze temporal coverage of the dataset."""
@@ -996,20 +1233,38 @@ class StandardizedDatasetReport(BaseDatasetReport):
                     # Already datetime64, just convert to pandas
                     time_series = pd.to_datetime(time_values)
                 else:
-                    # Numeric values - check if they look like seconds since 1970
-                    try:
-                        sample_val = float(time_values[0])
-                        if sample_val > 1e9:  # Likely seconds since 1970
-                            time_series = pd.to_datetime(time_values, unit='s')
-                        else:
+                    # Check for YYYYMM format first
+                    units = time_data.attrs.get('units', '').upper()
+                    if (units == 'YYYYMM' or 
+                        (len(time_values) > 0 and isinstance(time_values[0], (int, np.integer)) 
+                         and 190000 <= time_values[0] <= 300000)):
+                        # Handle YYYYMM format
+                        time_series = ReportUtils.handle_yyyymm_time_format(time_data)
+                    else:
+                        # Numeric values - check if they look like seconds since 1970
+                        try:
+                            sample_val = float(time_values[0])
+                            if sample_val > 1e9:  # Likely seconds since 1970
+                                time_series = pd.to_datetime(time_values, unit='s')
+                            else:
+                                time_series = pd.to_datetime(time_values)
+                        except (ValueError, TypeError):
                             time_series = pd.to_datetime(time_values)
-                    except (ValueError, TypeError):
-                        time_series = pd.to_datetime(time_values)
             else:
                 time_series = pd.to_datetime(time_values)
         
-        # Remove invalid times
+        # Remove invalid times and extreme outliers
         valid_times = time_series.dropna()
+        
+        # Filter out extremely unrealistic dates (e.g., from sentinel values)
+        # Keep only dates between 1900 and 2100 (reasonable range for oceanographic data)
+        try:
+            min_year = pd.Timestamp('1900-01-01')
+            max_year = pd.Timestamp('2100-01-01')
+            valid_times = valid_times[(valid_times >= min_year) & (valid_times <= max_year)]
+        except (TypeError, ValueError):
+            # If date filtering fails, just keep the dropna() result
+            pass
         
         if len(valid_times) == 0:
             return {"has_time": True, "valid_times": False}
@@ -1054,6 +1309,12 @@ class StandardizedDatasetReport(BaseDatasetReport):
             return "monthly"
         elif 720 <= hours <= 760:  # ~30-31 days 
             return "monthly"
+        elif 2000 <= hours <= 2300:  # ~3 months (quarterly)
+            return "3-monthly"
+        elif 4000 <= hours <= 4500:  # ~6 months
+            return "6-monthly"
+        elif 8000 <= hours <= 9000:  # ~12 months (annual)
+            return "annual"
         else:
             return f"{hours:.1f}H"
     

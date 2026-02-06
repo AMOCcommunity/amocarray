@@ -146,28 +146,20 @@ def read_fw2015(
 
             time = recon.time  # time in decimal years
 
-            # Get variable mapping from YAML metadata
-            file_metadata = yaml_file_metadata.get(file, {})
-            variable_mapping = file_metadata.get('variable_mapping', {})
-            
-            # Apply variable mapping when creating variables dict
-            # Map original matlab variable names to target names from YAML
-            def get_mapped_name(orig_matlab_name, default_name):
-                """Get the mapped variable name from YAML, or use default."""
-                return variable_mapping.get(orig_matlab_name, default_name)
-            
+            # Use original MATLAB field names (renaming will happen in standardization)
+            # Note: time is used as coordinate, not as a data variable
             variables = {
-                get_mapped_name("mocproxy", "MOC_PROXY"): recon.mocproxy,
-                get_mapped_name("ek", "EK"): recon.ek,
-                get_mapped_name("h1umo", "H1UMO"): recon.h1umo,  # Maps h1umo -> SSHA from YAML
-                get_mapped_name("gs", "GS"): recon.gs,
-                get_mapped_name("umoproxy", "UMO_PROXY"): recon.umoproxy,
-                "MOC_GRID": mocgrid.moc,
-                "EK_GRID": mocgrid.ek,
-                "GS_GRID": mocgrid.gs,
-                "LNADW_GRID": mocgrid.lnadw,
-                "UMO_GRID": mocgrid.umo,
-                "UNADW_GRID": mocgrid.unadw,
+                "mocproxy": recon.mocproxy,
+                "ek": recon.ek,
+                "h1umo": recon.h1umo,  # Original name, will be renamed to SSHA in standardization
+                "gs": recon.gs,
+                "umoproxy": recon.umoproxy,
+                "moc": mocgrid.moc,      # Grid variables use original names too
+                "ek_grid": mocgrid.ek,   # Use lowercase with underscore for consistency
+                "gs_grid": mocgrid.gs,
+                "lnadw": mocgrid.lnadw,
+                "umo": mocgrid.umo,
+                "unadw": mocgrid.unadw,
             }
 
             # Convert decimal years to datetime
@@ -179,10 +171,10 @@ def read_fw2015(
             # Build dataset
             ds = xr.Dataset(
                 {
-                    name: ("TIME", np.asarray(values))
+                    name: ("time", np.asarray(values))
                     for name, values in variables.items()
                 },
-                coords={"TIME": time},
+                coords={"time": time},
             )
 
             # add global attributes

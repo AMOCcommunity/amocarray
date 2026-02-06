@@ -1,7 +1,7 @@
 DSO Dataset Report
 ==================
 
-Generated: 2026-02-06 17:31:22
+Generated: 2026-02-06 23:23:18
 
 DSO_transport_hourly_1996_2021.nc
 ---------------------------------
@@ -10,13 +10,13 @@ Dataset Overview
 ^^^^^^^^^^^^^^^^
 
 - **Project**: Overflow time-series through Denmark Strait
-- **Institution**: Unknown
 - **Description**: Denmark Strait Overflow
+- **Citation**: Jochumsen, K., Moritz, M., Nunes, N., Quadfasel, D., Larsen, K. M. H., Hansen, B., Valdimarsson, H., and Jonsson, S.: Revised transportestimates of the Denmark Strait overflow, Journal of Geophysical Research: Oceans, 122, doi:10.1002/2017JC012803, 2017.
 - **Source File**: DSO_transport_hourly_1996_2021.nc
 - **Data Product**: Overflow time-series through Denmark Strait
-- **Time Coverage**: 830908800.0 to 1628355600.0
-- **Record Length**: 221,514 observations (797446800.0 years)
-- **Sampling Frequency**: 86400.0H
+- **Time Coverage**: 830908800.0 to 2021-08-07
+- **Record Length**: 221,514 observations (25.3 years)
+- **Sampling Frequency**: <1H
 
 **Citation:**
 
@@ -34,17 +34,17 @@ Coordinate Information
 
 The following table shows information about the dataset coordinates:
 
-+------------+-------------------+-----------------------------------------+------------------------------------+-----------+------------------------------------------+------------------------------------------+-----------+
-| Coordinate | Standardized Name | Description                             | Units                              | Size      | Min Value                                | Max Value                                | Missing % |
-+============+===================+=========================================+====================================+===========+==========================================+==========================================+===========+
-| TIME       | TIME              | Time elapsed since 1970-01-01T00:00:00Z | seconds since 1970-01-01T00:00:00Z | (221514,) | 1996-05-01                               | 2021-08-07                               | 0.0%      |
-+------------+-------------------+-----------------------------------------+------------------------------------+-----------+------------------------------------------+------------------------------------------+-----------+
-| LATITUDE   | LATITUDE          | Latitude of each location               | degrees_north                      | (1,)      | 66.00                                    | 66.00                                    | 0.0%      |
-+------------+-------------------+-----------------------------------------+------------------------------------+-----------+------------------------------------------+------------------------------------------+-----------+
-| LONGITUDE  | LONGITUDE         | Longitude of each location              | degrees_east                       | (1,)      | -27.00                                   | -27.00                                   | 0.0%      |
-+------------+-------------------+-----------------------------------------+------------------------------------+-----------+------------------------------------------+------------------------------------------+-----------+
-| DEPTH      | DEPTH             | Depth of each measurement               | meters                             | (1,)      | 9969209968386869046778552952102584320.00 | 9969209968386869046778552952102584320.00 | 0.0%      |
-+------------+-------------------+-----------------------------------------+------------------------------------+-----------+------------------------------------------+------------------------------------------+-----------+
++------------+-------------------+-----------------------------------------+------------------------------------+-----------+------------+------------+
+| Coordinate | Standardized Name | Description                             | Units                              | Size      | Min Value  | Max Value  |
++============+===================+=========================================+====================================+===========+============+============+
+| TIME       | TIME              | Time elapsed since 1970-01-01T00:00:00Z | seconds since 1970-01-01T00:00:00Z | (221514,) | 1996-05-01 | 2021-08-07 |
++------------+-------------------+-----------------------------------------+------------------------------------+-----------+------------+------------+
+| LATITUDE   | LATITUDE          | Latitude north (WGS84)                  | degrees_north                      | (1,)      | 66         | 66         |
++------------+-------------------+-----------------------------------------+------------------------------------+-----------+------------+------------+
+| LONGITUDE  | LONGITUDE         | longitude east (WGS84)                  | degrees_east                       | (1,)      | -27        | -27        |
++------------+-------------------+-----------------------------------------+------------------------------------+-----------+------------+------------+
+| DEPTH      | DEPTH             | Depth below surface of the water        | meter                              | (1,)      | 630        | 630        |
++------------+-------------------+-----------------------------------------+------------------------------------+-----------+------------+------------+
 
 
 Variable Mapping and Statistics
@@ -53,11 +53,11 @@ Variable Mapping and Statistics
 The following table shows the mapping from original variable names to standardized names,
 along with key statistics for each variable.
 
-+-------------------+-------------------+------------------------------------------+-------+-------------+-----------+-----------+-----------+
-| Original Variable | Standardized Name | Description                              | Units | Size        | Min Value | Max Value | Missing % |
-+===================+===================+==========================================+=======+=============+===========+===========+===========+
-| DSO               | DSO               | Denmark Strait Overflow volume transport | Sv    | (221514, 1) | -9.66     | 3.08      | 8.3%      |
-+-------------------+-------------------+------------------------------------------+-------+-------------+-----------+-----------+-----------+
++-------------------+-------------------+------------------------------------------+--------+-------------+-----------+-----------+-----------+
+| Original Variable | Standardized Name | Description                              | Units  | Size        | Min Value | Max Value | Missing % |
++===================+===================+==========================================+========+=============+===========+===========+===========+
+| DSO_tr            | TRANS_DSO         | Denmark Strait Overflow volume transport | m3 s-1 | (221514, 1) | -9.66     | 3.08      | 8.3%      |
++-------------------+-------------------+------------------------------------------+--------+-------------+-----------+-----------+-----------+
 
 
 Complete Metadata
@@ -75,14 +75,14 @@ The following metadata provides comprehensive information about this dataset:
 - **Geospatial Lon Min**: -27
 - **Geospatial Lon Max**: -27
 - **Time Coverage Start**: 830908800.0
-- **Time Coverage End**: 1628355600.0
+- **Time Coverage End**: 2021-08-07
 - **Program**: DSO
 - **Project**: Overflow time-series through Denmark Strait
 - **Network**: GSR
-- **Contributor Name**: Armin Koehl, Armin Koehl
-- **Contributor Email**: armin.koehl@uni-hamburg.de, armin.koehl@uni-hamburg.de
-- **Contributor Id**: https://www.ifm.uni-hamburg.de/institute/staff/koehl.html, https://www.ifm.uni-hamburg.de/en/institute/staff/koehl.html
-- **Contributor Role**: publisher, PI
+- **Contributor Name**: Armin Koehl
+- **Contributor Email**: armin.koehl@uni-hamburg.de
+- **Contributor Id**: https://www.ifm.uni-hamburg.de/institute/staff/koehl.html
+- **Contributor Role**: publisher
 - **Web Link**: https://www.cen.uni-hamburg.de/en/icdc/data/ocean/denmark-strait-overflow.html
 - **Comment**: Dataset accessed and processed via http://github.com/AMOCcommunity/amocatlas
 - **Date Created**: 2021-12-06T19:37:07Z
@@ -92,7 +92,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Convections**: CF-1.8, ACDD-1.3
 - **Data Product**: Overflow time-series through Denmark Strait
 - **Acknowledgement**: None
-- **Variable Mapping**: {'DSO_tr': 'DSO'}
+- **Variable Mapping**: {'DSO_tr': 'TRANS_DSO'}
 - **Site Code**: GSR
 - **Platform Code**: DSO
 - **Source**: subsurface moorings
@@ -126,9 +126,24 @@ The following metadata provides comprehensive information about this dataset:
 - **Source File**: DSO_transport_hourly_1996_2021.nc
 - **Source Path**: /Users/eddifying/Cloudfree/github/AMOCatlas/data/DSO_transport_hourly_1996_2021.nc
 - **Amocatlas Datasource**: dso
+- **Applied Variable Mapping**: {'DSO_tr': 'TRANS_DSO'}
 - **Featuretype Vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 
 Metadata Processing Changes
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-*No metadata modifications detected.*
+**Added by AMOCatlas processing:**
+
+- **Source Path**: /Users/eddifying/Cloudfree/github/AMOCatlas/data/DSO_transport_hourly_1996_2021.nc
+- **Description**: Denmark Strait Overflow
+- **Program**: DSO
+- **Data Product**: Overflow time-series through Denmark Strait
+- **Source Url**: 
+- **Platform Type**: 
+- **Featuretype**: timeSeries
+- **Amocatlas Datasource**: dso
+- **Variable Mapping**: {'DSO_tr': 'TRANS_DSO'}
+- **Convections**: 
+- **Weblink**: 
+- **Source File**: DSO_transport_hourly_1996_2021.nc
+- **Acknowledgment**: The timeseries was generated by Institution of Oceanography Hamburg and Hafranns�knastofnun / Marine and Freshwater Research Institute (Reykjavik, Iceland). They were supported through funding from the NACLIM, EU-FP7, grant agr. n.308299, until 2016, and from RACE II (F�rderkennzeichen 03F0729B, until 2018), RACE-Synthese (F�rderkennzeichen 03F0825B, until 2020) German Federal Ministry for Education and Research (BMBF). Nordic WOCE, VEINS, MOEN (contract no. EVK2-CT-2002-00141), ASOF-W (contract no. EVK2-CT-2002-00149), NAClim (grant agr. nr. 308299) THOR (grant agr. nr. 212643), AtlantOS, Blue Action

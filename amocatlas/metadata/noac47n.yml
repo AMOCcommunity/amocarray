@@ -23,8 +23,8 @@ files:
     acknowledgement: "S. Wett et al. (2023), https://doi.org/10.1594/PANGAEA.959558"
     variable_mapping:
       "TIME": TIME
-      "Trans vol [Sv]": volume_transport
-      "Trans vol [Sv].1": volume_transport_lpf
+      "Trans vol [Sv]": MOC
+      "Trans vol [Sv].1": MOC_LPF
     variables:
       TIME:
         long_name: "Time"
@@ -35,7 +35,9 @@ files:
         long_name: "Volumetric Transport"
         description: "AMOC volume transport at 47N"
         units: "Sv"
+        standard_name: "ocean_meridional_overturning_transport"
       volume_transport_lpf:
         long_name: "Volumetric Transport (Low-Pass Filtered)"
         description: "AMOC volume transport at 47N, low-pass filtered"
         units: "Sv"
+        standard_name: "ocean_meridional_overturning_transport"

@@ -19,28 +19,28 @@ files:
     data_product: "Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations"
     acknowledgement:
     variable_mapping:
-      "Ekman Volume Transport (Sverdrups)": EKMAN
-      "Northward Geostrophic Transport (Sverdrups)": V_GEOS
-      "Meridional Overturning Volume Transport (Sverdrups)": MOT
-      "Meridional Overturning Heat Transport (PetaWatts)": MOHT
+      "Ekman Volume Transport (Sverdrups)": TRANS_EKMAN
+      "Northward Geostrophic Transport (Sverdrups)": TRANS_GEO
+      "Meridional Overturning Volume Transport (Sverdrups)": MOC
+      "Meridional Overturning Heat Transport (PetaWatts)": MHT
     variables:
       EKMAN:
         long_name: "Ekman transport"
         description: "Ekman Volume Transport"
         units: Sv
-        standard_name: Transport
+        standard_name: ocean_volume_transport_across_line
       V_GEOS:
         long_name: "Northward Geostrophic Transport"
         description: "Northward Geostrophic Transport"
         units: Sv
-        standard_name: Transport
+        standard_name: ocean_volume_transport_across_line
       MOT:
         long_name: "Meridional Overturning Transport"
         description: "Meridional Overturning Volume Transport"
         units: Sv
-        standard_name: Transport
+        standard_name: ocean_meridional_overturning_transport
       MOHT:
         long_name: "Meridional Heat Transport"
         description: "Meridional Overturning Heat Transport"
         units: PW
-        standard_name: Heat_transport
+        standard_name: northward_ocean_heat_transport

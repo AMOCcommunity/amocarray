@@ -33,6 +33,35 @@ metadata:
       OceanSITES file OS_MOVE_MULTISITE_GRIDDED_V.nc, created 2019-01-17T00:40:57Z
 
 files:
+  OS_MOVE_20000206-20221014_DPR_VOLUMETRANSPORT.nc:
+    data_product: "MOVE transport time series (2000-2022)"
+    variable_mapping:
+      TRANSPORT_TOTAL: MOC
+      transport_component_internal: MOC_INTERNAL
+      transport_component_internal_offset: MOC_INTERNAL_OFFSET  
+      transport_component_boundary: MOC_BOUNDARY
+    variables:
+      MOC_TOTAL:
+        long_name: "Total ocean volume transport"
+        description: "Ocean volume transport across the MOVE line"
+        units: Sverdrup
+        standard_name: ocean_meridional_overturning_transport
+      MOC_INTERNAL:
+        long_name: "Internal transport component"
+        description: "Internal component of ocean volume transport across the MOVE line"
+        units: Sverdrup
+        standard_name: ocean_volume_transport_across_line
+      MOC_INTERNAL_OFFSET:
+        long_name: "Internal transport offset"
+        description: "Offset to be added to internal component of ocean volume transport across the MOVE line"
+        units: Sverdrup
+        standard_name: ocean_volume_transport_across_line
+      MOC_BOUNDARY:
+        long_name: "Boundary transport component"
+        description: "Boundary component of ocean volume transport across the MOVE line"
+        units: Sverdrup
+        standard_name: ocean_volume_transport_across_line
+
   OS_MOVE_TRANSPORTS.nc:
     source_file: OS_MOVE_TRANSPORTS.nc
     source_path: /Users/eddifying/Cloudfree/gitlab-cloudfree/amocatlas/data/OS_MOVE_TRANSPORTS.nc
@@ -43,7 +72,7 @@ files:
         long_name: ocean_volume_transport_across_line
         description: "Total ocean volume transport across the MOVE line between Guadeloupe and Researcher Ridge in the depth layer defined by pressures 1200 to 4950 dbar"
         units: Sv
-        standard_name: Transport
+        standard_name: ocean_volume_transport_across_line
         valid_min: -100.0
         valid_max: 100.0
 
@@ -51,7 +80,7 @@ files:
         long_name: "Transport"
         description: "Internal component of ocean volume transport across the MOVE line"
         units: Sv
-        standard_name: Transport
+        standard_name: ocean_volume_transport_across_line
         valid_min: -100.0
         valid_max: 100.0
 
@@ -59,7 +88,7 @@ files:
         long_name: "Transport"
         description: "Offset to be added to internal component of ocean volume transport across the MOVE line"
         units: Sv
-        standard_name: Transport
+        standard_name: ocean_volume_transport_across_line
         valid_min: -100.0
         valid_max: 100.0
 
@@ -67,6 +96,6 @@ files:
         long_name: "Transport"
         description: "Boundary component of ocean volume transport across the MOVE line"
         units: Sv
-        standard_name: Transport
+        standard_name: ocean_volume_transport_across_line
         valid_min: -100.0
         valid_max: 100.0

@@ -65,7 +65,11 @@ class ReaderUtils:
         """
         try:
             log_info("Opening dataset: %s", file_path)
-            return xr.open_dataset(file_path, **kwargs)
+            # Suppress SerializationWarning for problematic time coordinates
+            import warnings
+            with warnings.catch_warnings():
+                warnings.filterwarnings("ignore", message="Unable to decode time axis into full numpy.datetime64", category=UserWarning)
+                return xr.open_dataset(file_path, **kwargs)
         except (OSError, IOError, ValueError, KeyError) as e:
             log_error("Failed to open NetCDF file: %s: %s", file_path, e)
             raise FileNotFoundError(

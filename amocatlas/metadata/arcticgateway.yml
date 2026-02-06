@@ -26,9 +26,7 @@ files:
       "depth": DEPTH
       "lon": LONGITUDE
       "lat": LATITUDE
-      "CT": conservative_temperature
-      "SA": absolute_salinity
-      "v": northward_velocity
+      "v": VCUR
     variables:
       TIME:
         long_name: "Time"
@@ -54,12 +52,12 @@ files:
         long_name: "Conservative Temperature"
         description: "Conservative Temperature (TEOS-10)"
         units: "degrees Celsius"
-        standard_name: "conservative_temperature"
+        standard_name: "sea_water_conservative_temperature"
       absolute_salinity:
         long_name: "Absolute Salinity"
         description: "Absolute Salinity (TEOS-10)"
         units: "g kg-1"
-        standard_name: "absolute_salinity"
+        standard_name: "sea_water_absolute_salinity"
       northward_velocity:
         long_name: "Northward Velocity"
         description: "Northward Velocity component"
@@ -73,9 +71,7 @@ files:
       "depth": DEPTH
       "lon": LONGITUDE
       "lat": LATITUDE
-      "CT": conservative_temperature
-      "SA": absolute_salinity
-      "v": northward_velocity
+      "v": VCUR
     variables:
       TIME:
         long_name: "Time"
@@ -101,17 +97,17 @@ files:
         long_name: "Conservative Temperature"
         description: "Conservative Temperature (TEOS-10)"
         units: "degrees Celsius"
-        standard_name: "conservative_temperature"
+        standard_name: sea_water_conservative_temperature
       absolute_salinity:
         long_name: "Absolute Salinity"
         description: "Absolute Salinity (TEOS-10)"
         units: "g kg-1"
-        standard_name: "absolute_salinity"
+        standard_name: sea_water_absolute_salinity
       northward_velocity:
         long_name: "Northward Velocity"
         description: "Northward Velocity component"
         units: "m s-1"
-        standard_name: "northward_sea_water_velocity"
+        standard_name: northward_sea_water_velocity
   Adjusted_fulldepth/DavisStrait_adjusted_v_fulldepth.nc:
     source_url: "https://doi.org/10.21334/NPOLAR.2025.80B69907"
     data_product: "Pan-Arctic Gateway transports since 2004 - Davis Strait"
@@ -120,9 +116,7 @@ files:
       "depth": DEPTH
       "lon": LONGITUDE
       "lat": LATITUDE
-      "CT": conservative_temperature
-      "SA": absolute_salinity
-      "v": northward_velocity
+      "v": VCUR
     variables:
       TIME:
         long_name: "Time"
@@ -144,21 +138,21 @@ files:
         description: "Latitude of zonal sections across which freshwater transport is computed."
         units: "degrees"
         standard_name: "latitude"
-      conservative_temperature:
+      CT:
         long_name: "Conservative Temperature"
         description: "Conservative Temperature (TEOS-10)"
         units: "degrees Celsius"
-        standard_name: "conservative_temperature"
-      absolute_salinity:
+        standard_name: sea_water_conservative_temperature
+      SA:
         long_name: "Absolute Salinity"
         description: "Absolute Salinity (TEOS-10)"
         units: "g kg-1"
-        standard_name: "absolute_salinity"
-      northward_velocity:
+        standard_name: sea_water_absolute_salinity
+      v:
         long_name: "Northward Velocity"
         description: "Northward Velocity component"
         units: "m s-1"
-        standard_name: "northward_sea_water_velocity"
+        standard_name: northward_sea_water_velocity
   Adjusted_fulldepth/FramStrait_adjusted_v_fulldepth.nc:
     source_url: "https://doi.org/10.21334/NPOLAR.2025.80B69907"
     data_product: "Pan-Arctic Gateway transports since 2004 - Fram Strait"
@@ -167,9 +161,7 @@ files:
       "depth": DEPTH
       "lon": LONGITUDE
       "lat": LATITUDE
-      "CT": conservative_temperature
-      "SA": absolute_salinity
-      "v": northward_velocity
+      "v": VCUR
     variables:
       TIME:
         long_name: "Time"
@@ -191,18 +183,18 @@ files:
         description: "Latitude of zonal sections across which freshwater transport is computed."
         units: "degrees"
         standard_name: "latitude"
-      conservative_temperature:
+      CT:
         long_name: "Conservative Temperature"
         description: "Conservative Temperature (TEOS-10)"
         units: "degrees Celsius"
-        standard_name: "conservative_temperature"
-      absolute_salinity:
+        standard_name: sea_water_conservative_temperature
+      SA:
         long_name: "Absolute Salinity"
         description: "Absolute Salinity (TEOS-10)"
         units: "g kg-1"
-        standard_name: "absolute_salinity"
-      northward_velocity:
+        standard_name: sea_water_absolute_salinity
+      v:
         long_name: "Northward Velocity"
         description: "Northward Velocity component"
         units: "m s-1"
-        standard_name: "northward_sea_water_velocity"
+        standard_name: northward_sea_water_velocity

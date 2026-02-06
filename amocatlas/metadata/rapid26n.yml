@@ -26,58 +26,88 @@ files:
     data_product: "RAPID layer transport time series"
     variable_mapping:
       time: TIME
+      t_therm10: TRANS_0_800
+      t_aiw10: TRANS_800_1100
+      t_ud10: TRANS_1100_3000
+      t_ld10: TRANS_3000_5000
+      t_bw10: TRANS_below_5000
+      t_gs10: TRANS_FC
+      t_ek10: TRANS_EKMAN
+      t_umo10: TRANS_UMO
+      moc_mar_hc10: MOC
     variables:
       t_therm10:
         long_name: "Transport"
         description: "Thermocline recirculation 0-800m"
         units: Sv
-        standard_name: Transport
+        standard_name: ocean_volume_transport_across_line
       t_aiw10:
         long_name: "Transport"
         description: "Intermediate water 800-1100m"
         units: Sv
-        standard_name: Transport
+        standard_name: ocean_volume_transport_across_line
       t_ud10:
         long_name: "Transport"
         description: "upper NADW 1100-3000m"
         units: Sv
-        standard_name: Transport
+        standard_name: ocean_volume_transport_across_line
       t_ld10:
         long_name: "Transport"
         description: "lower NADW 3000-5000m"
         units: Sv
-        standard_name: Transport
+        standard_name: ocean_volume_transport_across_line
       t_bw10:
         long_name: "Transport"
         description: "AABW > 5000m"
         units: Sv
-        standard_name: Transport
+        standard_name: ocean_volume_transport_across_line
       t_gs10:
         long_name: "Florida Straits Transport"
         description: "Florida Current from cable measurements"
         units: Sv
-        standard_name: Transport
+        standard_name: ocean_volume_transport_across_line
       t_ek10:
         long_name: "Ekman Transport"
         description: "Ekman transport from wind stress"
         units: Sv
-        standard_name: Transport
+        standard_name: ocean_volume_transport_across_line
       t_umo10:
         long_name: "Transport"
         description: "Upper Mid-Ocean transport"
         units: Sv
-        standard_name: Transport
+        standard_name: ocean_volume_transport_across_line
       moc_mar_hc10:
         long_name: "overturning transport"
         description: "MOC strength"
         units: Sv
-        standard_name: Transport
+        standard_name: ocean_meridional_overturning_transport
 
   ts_gridded.nc:
     data_product: "RAPID gridded temperature and salinity"
     source_file: ts_gridded.nc
     source_path: /Users/eddifying/Cloudfree/gitlab-cloudfree/amocatlas/data/ts_gridded.nc
-    variable_mapping: {}
+    variable_mapping: 
+      time: TIME
+      TG_west: TEMP_WEST
+      TG_east: TEMP_EAST
+      TG_marwest: TEMP_MARWEST
+      TG_mareast: TEMP_MAREAST
+      TG_wb3: TEMP_WB3
+      SG_west: PSAL_WEST
+      SG_east: PSAL_EAST
+      SG_marwest: PSAL_MARWEST
+      SG_mareast: PSAL_MAREAST
+      SG_wb3: PSAL_WB3
+      TG_west_flag: TEMP_WEST_FLAG
+      TG_east_flag: TEMP_EAST_FLAG
+      TG_marwest_flag: TEMP_MARWEST_FLAG
+      TG_mareast_flag: TEMP_MAREAST_FLAG
+      TG_wb3_flag: TEMP_WB3_FLAG
+      SG_west_flag: PSAL_WEST_FLAG
+      SG_east_flag: PSAL_EAST_FLAG
+      SG_marwest_flag: PSAL_MARWEST_FLAG
+      SG_mareast_flag: PSAL_MAREAST_FLAG
+      SG_wb3_flag: PSAL_WB3_FLAG
     variables:
       TG_west:
         long_name: "Temperature west 26.52N/76.74W"
@@ -124,18 +154,31 @@ files:
     data_product: "RAPID vertical streamfunction time series"
     source_file: moc_vertical.nc
     source_path: /Users/eddifying/Cloudfree/gitlab-cloudfree/amocatlas/data/moc_vertical.nc
-    variable_mapping: {}
+    variable_mapping: 
+      time: TIME
+      depth: DEPTH
+      stream_function_mar: STREAMFUNCTION_Z
     variables:
       stream_function_mar:
         long_name: "Meridional overturning"
         description: "Streamfunction across the Atlantic at 26.5°N"
         units: Sv
-        standard_name: Transport
+        standard_name: ocean_meridional_overturning_streamfunction
 
   2d_gridded.nc:
     data_product: "RAPID 2D gridded data"
     source_file: 2d_gridded.nc
-    variable_mapping: {}
+    variable_mapping: 
+      time: TIME
+      depth: DEPTH
+      longitude: LONGITUDE
+      pressure: PRESSURE
+      area: AREA
+      CT: CT
+      SA: SA
+      V_insitu: VCUR_INSITU
+      V_ekman: VCUR_EKMAN
+      V_net: VCUR_NET
     variables:
       pressure:
         long_name: "Sea water pressure"
@@ -191,23 +234,36 @@ files:
   meridional_transports.nc:
     data_product: "RAPID meridional transport data"
     source_file: meridional_transports.nc
-    variable_mapping: {time: TIME, depth: DEPTH, sigma0: SIGMA0, sigma2: SIGMA2, heat_trans: MHT, frwa_trans: MFT, pressure: PRESSURE}
+    variable_mapping: 
+      time: TIME
+      depth: DEPTH
+      sigma0: SIGMA0
+      sigma2: SIGMA2
+      heat_trans: MHT
+      frwa_trans: MFT
+      pressure: PRESSURE
+      amoc_depth: MOC_Z
+      amoc_sigma0: MOC_SIGMA0
+      amoc_sigma2: MOC_SIGMA2
+      stream_depth: STREAMFUNCTION_Z
+      stream_sigma0: STREAMFUNCTION_SIGMA0
+      stream_sigma2: STREAMFUNCTION_SIGMA2
     variables:
       amoc_depth:
         long_name: "AMOC strength in depth coordinates"
         description: "Atlantic meridional overturning circulation strength in depth coordinates"
         units: Sv
-        standard_name: ocean_meridional_overturning_mass_streamfunction
+        standard_name: ocean_meridional_overturning_transport
       amoc_sigma0:
         long_name: "AMOC strength in sigma0 coordinates"
         description: "Atlantic meridional overturning circulation strength in potential density (sigma0) coordinates"
         units: Sv
-        standard_name: ocean_meridional_overturning_mass_streamfunction
+        standard_name: ocean_meridional_overturning_transport
       amoc_sigma2:
         long_name: "AMOC strength in sigma2 coordinates"
         description: "Atlantic meridional overturning circulation strength in potential density (sigma2) coordinates"
         units: Sv
-        standard_name: ocean_meridional_overturning_mass_streamfunction
+        standard_name: ocean_meridional_overturning_transport
       heat_trans:
         long_name: "Meridional heat transport"
         description: "Northward oceanic heat transport"
@@ -217,6 +273,7 @@ files:
         long_name: "Freshwater transport"
         description: "Meridional freshwater transport"
         units: Sv
+        standard_name: northward_ocean_freshwater_transport
       pressure:
         long_name: "Sea water pressure"
         description: "Sea water pressure at depth"
@@ -226,17 +283,17 @@ files:
         long_name: "Streamfunction in depth coordinates"
         description: "Meridional overturning streamfunction in depth coordinates"
         units: Sv
-        standard_name: ocean_meridional_overturning_mass_streamfunction
+        standard_name: ocean_meridional_overturning_streamfunction
       stream_sigma0:
         long_name: "Streamfunction in sigma0 coordinates"
         description: "Meridional overturning streamfunction in potential density (sigma0) coordinates"
         units: Sv
-        standard_name: ocean_meridional_overturning_mass_streamfunction
+        standard_name: ocean_meridional_overturning_streamfunction
       stream_sigma2:
         long_name: "Streamfunction in sigma2 coordinates"
         description: "Meridional overturning streamfunction in potential density (sigma2) coordinates"
         units: Sv
-        standard_name: ocean_meridional_overturning_mass_streamfunction
+        standard_name: ocean_meridional_overturning_streamfunction
     coordinates:
       time:
         long_name: "Time"

@@ -18,10 +18,10 @@ Basic Usage:
     >>> osnap = read.osnap(version="2025")     # Latest OSNAP data
     >>> all_data = read.rapid(all_files=True)  # All RAPID files as list
 
-    # Legacy API (still supported):
+    # Legacy API (still supported but deprecated):
     >>> from amocatlas import readers
-    >>> datasets = readers.load_dataset("rapid")
-    >>> sample_data = readers.load_sample_dataset("osnap")
+    >>> datasets = readers.load_dataset("rapid")  # deprecated
+    >>> sample_data = readers.load_sample_dataset("osnap")  # deprecated
 """
 
 # Import core modules to make them available at package level

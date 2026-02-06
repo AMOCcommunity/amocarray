@@ -18,10 +18,10 @@ files:
     data_product: "Overflow time-series through Denmark Strait"
     acknowledgement:
     variable_mapping:
-      "DSO_tr": DSO
+      "DSO_tr": TRANS_DSO
     variables:
       DSO:
         long_name: "Denmark Strait Overflow volume transport"
         description: "Denmark Strait Overflow volume transport"
         units: Sv
-        standard_name: Transport
+        standard_name: ocean_volume_transport_across_line

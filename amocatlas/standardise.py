@@ -741,8 +741,7 @@ def standardize_depth_coordinate(ds: xr.Dataset) -> xr.Dataset:
 def standardize_units(ds: xr.Dataset) -> xr.Dataset:
     """Standardize variable units throughout the dataset.
     
-    Converts non-standard unit abbreviations to full names:
-    - "Sv" → "Sverdrup"
+    Uses the comprehensive unit mapping from utilities module.
     
     Parameters
     ----------
@@ -754,20 +753,8 @@ def standardize_units(ds: xr.Dataset) -> xr.Dataset:
     xr.Dataset
         Dataset with standardized variable units.
     """
-    # Units mapping for standardization
-    unit_standardization = {
-        "Sv": "Sverdrup"
-    }
-    
-    # Update units for all variables
-    for var_name in ds.data_vars:
-        current_units = ds[var_name].attrs.get("units", "")
-        if current_units in unit_standardization:
-            new_units = unit_standardization[current_units]
-            ds[var_name].attrs["units"] = new_units
-            log_debug(f"Standardized units for {var_name}: {current_units} → {new_units}")
-    
-    return ds
+    from .utilities import standardize_dataset_units
+    return standardize_dataset_units(ds, log_changes=True)
 
 
 def standardise_samba(ds: xr.Dataset, file_name: str) -> xr.Dataset:
@@ -944,9 +931,52 @@ def standardise_array(ds: xr.Dataset, file_name: str) -> xr.Dataset:
     meta = utilities.load_array_metadata(datasource_id)
     file_meta = meta["files"].get(file_name, {})
 
-    # Rename variables
-    rename_dict = file_meta.get("variable_mapping", {})
-    ds = ds.rename(rename_dict)
+    # Rename variables and track what was actually renamed
+    # Prefer dataset's variable_mapping (which may have sanitized names) over YAML
+    rename_dict = ds.attrs.get("variable_mapping", file_meta.get("variable_mapping", {}))
+    applied_mapping = {}
+    
+    if rename_dict:
+        # Only rename variables that actually exist and need renaming
+        valid_renames = {old: new for old, new in rename_dict.items() 
+                        if old in ds.variables and old != new}
+        
+        if valid_renames:
+            ds = ds.rename(valid_renames)
+            applied_mapping.update(valid_renames)
+            log_debug("Applied variable renaming: %s", valid_renames)
+        
+        # For variables that couldn't be renamed (case mismatch, etc.), 
+        # try to find them with case-insensitive matching and track pass-through
+        failed_renames = {old: new for old, new in rename_dict.items() 
+                         if old not in ds.variables and old != new}
+        
+        if failed_renames:
+            log_debug("Failed to find exact matches for renaming: %s", failed_renames)
+            
+            # Try case-insensitive matching for pass-through tracking
+            ds_vars_lower = {var.lower(): var for var in ds.variables}
+            for orig_name, std_name in failed_renames.items():
+                orig_lower = orig_name.lower()
+                if orig_lower in ds_vars_lower:
+                    actual_var = ds_vars_lower[orig_lower]
+                    # Track as pass-through: actual_name -> actual_name (no rename occurred)
+                    applied_mapping[actual_var] = actual_var
+                    log_debug("Pass-through (case mismatch): %s (expected %s -> %s)", 
+                             actual_var, orig_name, std_name)
+        
+        # Track coordinates that were successfully renamed
+        coord_renames = {old: new for old, new in rename_dict.items() 
+                        if old in ds.coords and old != new}
+        if coord_renames:
+            applied_mapping.update(coord_renames)
+    
+    # Always track applied mapping (even if empty) for consistent reporting
+    if applied_mapping:
+        ds.attrs["applied_variable_mapping"] = applied_mapping
+        log_debug("Total applied mapping (renames + pass-throughs): %s", applied_mapping)
+    else:
+        log_debug("No variable_mapping found or applied for %s", file_name)
 
     # Apply per-variable metadata
     var_meta = file_meta.get("variables", {})
@@ -1016,5 +1046,10 @@ def standardise_array(ds: xr.Dataset, file_name: str) -> xr.Dataset:
     # 8) Reorder metadata according
     ds.attrs = cleaned
     ds.attrs = reorder_metadata(ds.attrs)
+    
+    # 9) Apply unit standardization again after metadata processing
+    # This ensures units are not overwritten by YAML metadata operations
+    ds = standardize_units(ds)
+    
     #    ds = utilities.safe_update_attrs(ds, cleaned, overwrite=False)
     return ds

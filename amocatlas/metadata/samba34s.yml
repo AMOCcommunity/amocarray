@@ -29,12 +29,12 @@ files:
         long_name: "Transport_anomaly"
         description: "Upper-cell volume transport anomaly (relative to record-length average of 17.3 Sv)"
         units: Sv
-        standard_name: Transport_anomaly
+        standard_name: ocean_volume_transport_across_line
       ABYSSAL_TRANSPORT:
         long_name: "Transport_anomaly"
         description: "Abyssal-cell volume transport anomaly (relative to record-length average of 7.8 Sv)"
         units: Sv
-        standard_name: Transport_anomaly
+        standard_name: ocean_volume_transport_across_line
 
   MOC_TotalAnomaly_and_constituents.asc:
     source_url: https://www.aoml.noaa.gov/phod/SAMOC_international/documents/
@@ -58,39 +58,39 @@ files:
         long_name: "Transport_anomaly"
         description: "MOC Total Anomaly (relative to record-length average of 14.7 Sv)"
         units: Sv
-        standard_name: Transport_anomaly
+        standard_name: ocean_meridional_overturning_transport
       RELATIVE_MOC:
         long_name: "Transport_anomaly"
         description: "Relative (density gradient) contribution to the MOC anomaly"
         units: Sv
-        standard_name: Transport_anomaly
+        standard_name: ocean_meridional_overturning_transport
       BAROTROPIC_MOC:
         long_name: "Transport_anomaly"
         description: "Reference (bottom pressure gradient) contribution to the MOC anomaly"
         units: Sv
-        standard_name: Transport_anomaly
+        standard_name: ocean_meridional_overturning_transport
       EKMAN:
         long_name: "Transport_anomaly"
         description: "Ekman (wind) contribution to the MOC anomaly"
         units: Sv
-        standard_name: Transport_anomaly
+        standard_name: ocean_volume_transport_across_line
       WESTERN_DENSITY:
         long_name: "Transport_anomaly"
         description: "Western density contribution to the MOC anomaly"
         units: Sv
-        standard_name: Transport_anomaly
+        standard_name: ocean_meridional_overturning_transport
       EASTERN_DENSITY:
         long_name: "Transport_anomaly"
         description: "Eastern density contribution to the MOC anomaly"
         units: Sv
-        standard_name: Transport_anomaly
+        standard_name: ocean_meridional_overturning_transport
       WESTERN_BOT_PRESSURE:
         long_name: "Transport_anomaly"
         description: "Western bottom pressure contribution to the MOC anomaly"
         units: Sv
-        standard_name: Transport_anomaly
+        standard_name: ocean_meridional_overturning_transport
       EASTERN_BOT_PRESSURE:
         long_name: "Transport_anomaly"
         description: "Eastern bottom pressure contribution to the MOC anomaly"
         units: Sv
-        standard_name: Transport_anomaly
+        standard_name: ocean_meridional_overturning_transport

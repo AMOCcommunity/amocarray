@@ -1,7 +1,7 @@
 FBC Dataset Report
 ==================
 
-Generated: 2026-02-06 17:31:22
+Generated: 2026-02-06 23:23:18
 
 FBC_overflow_transport.txt
 --------------------------
@@ -10,13 +10,12 @@ Dataset Overview
 ^^^^^^^^^^^^^^^^
 
 - **Project**: B. Hansen et al.: A stable Faroe Bank Channel overflow
-- **Institution**: Unknown
 - **Description**: FBC Overflow transport time series
 - **Source File**: FBC_overflow_transport.txt
 - **Data Product**: Daily averaged kinematic FBC-overflow flux (transport) in Sv
-- **Time Coverage**: 816260112.0 to 1684483344.0
-- **Record Length**: 9,497 observations (868223232.0 years)
-- **Sampling Frequency**: 2270592.0H
+- **Time Coverage**: 816260112.0 to 2023-05-19
+- **Record Length**: 9,497 observations (27.5 years)
+- **Sampling Frequency**: daily
 
 Dataset Statistics
 ^^^^^^^^^^^^^^^^^^
@@ -30,11 +29,11 @@ Coordinate Information
 
 The following table shows information about the dataset coordinates:
 
-+------------+-------------------+-----------------------------------------+------------------------------------+---------+------------+------------+-----------+
-| Coordinate | Standardized Name | Description                             | Units                              | Size    | Min Value  | Max Value  | Missing % |
-+============+===================+=========================================+====================================+=========+============+============+===========+
-| TIME       | TIME              | Time elapsed since 1970-01-01T00:00:00Z | seconds since 1970-01-01T00:00:00Z | (9497,) | 1995-11-13 | 2023-05-19 | 0.0%      |
-+------------+-------------------+-----------------------------------------+------------------------------------+---------+------------+------------+-----------+
++------------+-------------------+-----------------------------------------+------------------------------------+---------+------------+------------+
+| Coordinate | Standardized Name | Description                             | Units                              | Size    | Min Value  | Max Value  |
++============+===================+=========================================+====================================+=========+============+============+
+| TIME       | TIME              | Time elapsed since 1970-01-01T00:00:00Z | seconds since 1970-01-01T00:00:00Z | (9497,) | 1995-11-13 | 2023-05-19 |
++------------+-------------------+-----------------------------------------+------------------------------------+---------+------------+------------+
 
 
 Variable Mapping and Statistics
@@ -46,11 +45,7 @@ along with key statistics for each variable.
 +-------------------+-------------------+-------------------------------------------------------------------------------+-------+---------+-----------+-----------+-----------+
 | Original Variable | Standardized Name | Description                                                                   | Units | Size    | Min Value | Max Value | Missing % |
 +===================+===================+===============================================================================+=======+=========+===========+===========+===========+
-| Month             | Month             | Month                                                                         | None  | (9497,) | 1.00      | 12.00     | 0.0%      |
-+-------------------+-------------------+-------------------------------------------------------------------------------+-------+---------+-----------+-----------+-----------+
-| Day               | Day               | Day                                                                           | None  | (9497,) | 1.00      | 31.00     | 0.0%      |
-+-------------------+-------------------+-------------------------------------------------------------------------------+-------+---------+-----------+-----------+-----------+
-| TRANSPORT         | TRANSPORT         | **Faroe Bank Channel Overflow Transport**: FBC Overflow transport time series | Sv    | (9497,) | 0.50      | 4.86      | 0.0%      |
+| Flux              | TRANS_FBC         | **Faroe Bank Channel Overflow Transport**: FBC Overflow transport time series | Sv    | (9497,) | 0.50      | 4.86      | 0.0%      |
 +-------------------+-------------------+-------------------------------------------------------------------------------+-------+---------+-----------+-----------+-----------+
 
 
@@ -70,7 +65,7 @@ Complete Metadata
 The following metadata provides comprehensive information about this dataset:
 
 - **Time Coverage Start**: 816260112.0
-- **Time Coverage End**: 1684483344.0
+- **Time Coverage End**: 2023-05-19
 - **Program**: FBC
 - **Project**: B. Hansen et al.: A stable Faroe Bank Channel overflow
 - **Contributor Name**: 
@@ -84,14 +79,32 @@ The following metadata provides comprehensive information about this dataset:
 - **Acknowledgment**: The authors wish to thank captains and crew on the RV Magnus Heinason as well as Regin Kristiansen for unfailing support during measurements at sea, and Ebba Mortensen for data processing. Funding for the in situ measurements has been obtained from the Environmental Research Programme of the Nordic Council of Ministers (NMR) 1993–1998, from national Nordic research councils, from the Danish DANCEA programme, and from the European Framework Programs, lately under grant agreement no. GA212643 (THOR) and under grant agreement no. 308299 (NACLIM). Analysis and preparation of this manuscript was mainly funded by the NACLIM project. We thank three anonymous referees for very constructive comments.
 - **License**: None
 - **Data Product**: Daily averaged kinematic FBC-overflow flux (transport) in Sv
-- **Variable Mapping**: {'TIME': 'TIME', 'Month': 'Month', 'Day': 'Day', 'Flux': 'TRANSPORT'}
+- **Variable Mapping**: {'TIME': 'TIME', 'Flux': 'TRANS_FBC'}
 - **Source File**: FBC_overflow_transport.txt
 - **Source Path**: /Users/eddifying/Cloudfree/github/AMOCatlas/data/FBC_overflow_transport.txt
 - **Amocatlas Datasource**: fbc
+- **Applied Variable Mapping**: {'Flux': 'TRANS_FBC'}
 - **Summary**: FBC Overflow transport time series
 - **Featuretype Vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 
 Metadata Processing Changes
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-*No metadata modifications detected.*
+**Added by AMOCatlas processing:**
+
+- **Description**: FBC Overflow transport time series
+- **Comment**: Dataset accessed and processed via http://github.com/AMOCcommunity/amocatlas
+- **Program**: FBC
+- **Time Coverage End**: 2023-05-19
+- **Data Product**: Daily averaged kinematic FBC-overflow flux (transport) in Sv
+- **Amocatlas Datasource**: fbc
+- **Time Coverage Start**: 1995-11-13
+- **Source Path**: /Users/eddifying/Cloudfree/github/AMOCatlas/data/FBC_overflow_transport.txt
+- **Source File**: FBC_overflow_transport.txt
+- **License**: None
+- **Acknowledgment**: The authors wish to thank captains and crew on the RV Magnus Heinason as well as Regin Kristiansen for unfailing support during measurements at sea, and Ebba Mortensen for data processing. Funding for the in situ measurements has been obtained from the Environmental Research Programme of the Nordic Council of Ministers (NMR) 1993–1998, from national Nordic research councils, from the Danish DANCEA programme, and from the European Framework Programs, lately under grant agreement no. GA212643 (THOR) and under grant agreement no. 308299 (NACLIM). Analysis and preparation of this manuscript was mainly funded by the NACLIM project. We thank three anonymous referees for very constructive comments.
+- **Source Url**: 
+- **Variable Mapping**: {'TIME': 'TIME', 'Flux': 'TRANS_FBC'}
+- **Featuretype**: timeSeries
+- **Weblink**: 
+- **Project**: B. Hansen et al.: A stable Faroe Bank Channel overflow
