@@ -13,7 +13,9 @@ import numpy as np
 import pandas as pd
 
 from amocatlas import logger, utilities
+from amocatlas.logger import log_error, log_info, log_warning
 from amocatlas.utilities import apply_defaults
+from amocatlas.reader_utils import ReaderUtils
 
 log = logger.log  # ✅ use the global logger
 
@@ -92,15 +94,13 @@ def read_move(
     if isinstance(file_list, str):
         file_list = [file_list]
 
-    local_data_dir = Path(data_dir) if data_dir else utilities.get_default_data_dir()
-    local_data_dir.mkdir(parents=True, exist_ok=True)
+    local_data_dir = ReaderUtils.setup_data_directory(data_dir)
 
     datasets = []
 
-    for file in file_list:
-        if not file.lower().endswith(".nc"):
-            log.warning("Skipping non-NetCDF file: %s", file)
-            continue
+    netcdf_files = ReaderUtils.filter_netcdf_files(file_list)
+    
+    for file in netcdf_files:
 
         download_url = (
             f"{source.rstrip('/')}/{file}" if utilities.is_valid_url(source) else None
@@ -114,12 +114,12 @@ def read_move(
             redownload=redownload,
         )
 
-        # Open dataset
+        # Use ReaderUtils with special decode_times=False for MOVE
         try:
-            log.info("Opening MOVE dataset: %s", file_path)
+            log_info("Opening MOVE dataset: %s", file_path)
             ds = xr.open_dataset(file_path, decode_times=False)
         except (OSError, IOError, ValueError, KeyError) as e:
-            log.exception("Failed to open NetCDF file: %s", file_path)
+            log_error("Failed to open NetCDF file: %s", file_path)
             raise FileNotFoundError(
                 f"Failed to open NetCDF file: {file_path}: {e}"
             ) from e
@@ -162,24 +162,14 @@ def read_move(
 
                 ds = ds.isel(TIME=valid_time_mask)
 
-        # Attach metadata
+        # Use ReaderUtils for consistent metadata attachment
         file_metadata = MOVE_FILE_METADATA.get(file, {})
-        log.info("Attaching metadata to dataset from file: %s", file)
-        utilities.safe_update_attrs(
-            ds,
-            {
-                "source_file": file,
-                "source_path": str(file_path),
-                **MOVE_METADATA,
-                **file_metadata,
-            },
+        ds = ReaderUtils.attach_standard_metadata(
+            ds, file, file_path, MOVE_METADATA, file_metadata
         )
 
         datasets.append(ds)
 
-    if not datasets:
-        log.error("No valid NetCDF files found in %s", file_list)
-        raise FileNotFoundError(f"No valid NetCDF files found in {file_list}")
-
-    log.info("Successfully loaded %d MOVE dataset(s)", len(datasets))
+    # Use ReaderUtils for validation
+    ReaderUtils.validate_datasets_loaded(datasets, file_list)
     return datasets

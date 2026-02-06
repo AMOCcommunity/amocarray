@@ -14,6 +14,7 @@ import xarray as xr
 from amocatlas import logger, utilities
 from amocatlas.logger import log_error, log_info, log_warning
 from amocatlas.utilities import apply_defaults
+from amocatlas.reader_utils import ReaderUtils
 
 log = logger.log  # Use the global logger
 
@@ -101,23 +102,17 @@ def read_rapid(
     """
     log_info("Starting to read RAPID dataset")
 
-    if file_list is None:
-        file_list = RAPID_DEFAULT_FILES
-    if transport_only:
-        file_list = RAPID_TRANSPORT_FILES
-    if isinstance(file_list, str):
-        file_list = [file_list]
-
-    local_data_dir = Path(data_dir) if data_dir else utilities.get_default_data_dir()
-    local_data_dir.mkdir(parents=True, exist_ok=True)
+    # Use ReaderUtils for common operations
+    file_list = ReaderUtils.prepare_file_list(
+        file_list, RAPID_DEFAULT_FILES, RAPID_TRANSPORT_FILES, transport_only
+    )
+    local_data_dir = ReaderUtils.setup_data_directory(data_dir)
 
     datasets = []
+    netcdf_files = ReaderUtils.filter_netcdf_files(file_list)
 
-    for file in file_list:
-        if not file.lower().endswith(".nc"):
-            log_warning("Skipping non-NetCDF file: %s", file)
-            continue
-
+    for file in netcdf_files:
+        # RAPID-specific URL construction
         download_url = (
             f"{source.rstrip('/')}/{file}" if utilities.is_valid_url(source) else None
         )
@@ -130,33 +125,16 @@ def read_rapid(
             redownload=redownload,
         )
 
-        try:
-            log_info("Opening RAPID dataset: %s", file_path)
-            ds = xr.open_dataset(file_path)
-        except (OSError, IOError, ValueError, KeyError) as e:
-            log_error("Failed to open NetCDF file: %s: %s", file_path, e)
-            raise FileNotFoundError(
-                f"Failed to open NetCDF file: {file_path}: {e}"
-            ) from e
-
+        # Use ReaderUtils for consistent dataset loading and metadata
+        ds = ReaderUtils.safe_load_dataset(file_path)
         file_metadata = RAPID_FILE_METADATA.get(file, {})
-        log_info("Attaching metadata to RAPID dataset from file: %s", file)
-        utilities.safe_update_attrs(
-            ds,
-            {
-                "source_file": file,
-                "source_path": str(file_path),
-                **RAPID_METADATA,
-                **file_metadata,
-            },
+        ds = ReaderUtils.attach_standard_metadata(
+            ds, file, file_path, RAPID_METADATA, file_metadata
         )
 
         datasets.append(ds)
 
-    if not datasets:
-        log_error("No valid RAPID NetCDF files found in %s", file_list)
-        raise FileNotFoundError(f"No valid RAPID NetCDF files found in {file_list}")
-
-    log_info("Successfully loaded %d RAPID dataset(s)", len(datasets))
+    # Use ReaderUtils for validation
+    ReaderUtils.validate_datasets_loaded(datasets, file_list)
 
     return datasets

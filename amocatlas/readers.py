@@ -25,19 +25,22 @@ import xarray as xr
 
 from amocatlas import logger
 from amocatlas.logger import log_info
-from amocatlas.read_move import read_move
-from amocatlas.read_osnap import read_osnap, read_osnap_2025
-from amocatlas.read_rapid import read_rapid
-from amocatlas.read_samba import read_samba
-from amocatlas.read_fw2015 import read_fw2015
-from amocatlas.read_mocha import read_mocha
-from amocatlas.read_41n import read_41n
-from amocatlas.read_dso import read_dso
-from amocatlas.read_calafat2025 import read_calafat2025
-from amocatlas.read_zheng2024 import read_zheng2024
-from amocatlas.read_47n import read_47n
-from amocatlas.read_fbc import read_fbc
-from amocatlas.read_arcticgateway import read_arcticgateway
+from amocatlas.data_sources import (
+    read_move,
+    read_osnap, 
+    read_osnap_2025,
+    read_rapid,
+    read_samba,
+    read_fw2015,
+    read_mocha,
+    read_41n,
+    read_dso,
+    read_calafat2025,
+    read_zheng2024,
+    read_47n,
+    read_fbc,
+    read_arcticgateway,
+)
 
 log = logger.log
 

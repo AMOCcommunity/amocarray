@@ -1,0 +1,46 @@
+"""AMOCatlas data source readers.
+
+This package contains individual reader modules for each AMOC data source,
+including observing arrays, datasets, and overflow measurements.
+
+Each module provides a read function for accessing its specific data source
+with consistent interfaces and error handling.
+
+Module naming convention:
+- Arrays include latitude: rapid26n, move16n, osnap55n, samba34s
+- Special locations: wh41n (Willis & Hobbs), noac47n (North Atlantic Ocean Current) 
+- Datasets by author/year: fw2015, calafat2025, zheng2024
+- Overflow locations: dso (Denmark Strait), fbc (Faroe Bank Channel)
+"""
+
+# Import reader functions with clean naming
+from .rapid26n import read_rapid
+from .move16n import read_move
+from .osnap55n import read_osnap, read_osnap_2025
+from .samba34s import read_samba
+from .fw2015 import read_fw2015
+from .mocha26n import read_mocha
+from .arcticgateway import read_arcticgateway
+from .dso import read_dso
+from .fbc import read_fbc
+from .calafat2025 import read_calafat2025
+from .zheng2024 import read_zheng2024
+from .wh41n import read_41n
+from .noac47n import read_47n
+
+__all__ = [
+    "read_rapid",
+    "read_move", 
+    "read_osnap",
+    "read_osnap_2025",
+    "read_samba",
+    "read_fw2015",
+    "read_mocha",
+    "read_arcticgateway",
+    "read_dso",
+    "read_fbc",
+    "read_calafat2025",
+    "read_zheng2024",
+    "read_41n",
+    "read_47n",
+]

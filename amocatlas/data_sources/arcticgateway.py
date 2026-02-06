@@ -20,7 +20,9 @@ import zipfile
 import xarray as xr
 
 from amocatlas import logger, utilities
+from amocatlas.logger import log_error, log_info, log_warning
 from amocatlas.utilities import apply_defaults
+from amocatlas.reader_utils import ReaderUtils
 
 log = logger.log  # ✅ use the global logger
 
@@ -117,9 +119,7 @@ def read_arcticgateway(
     if isinstance(file_list, str):
         file_list = [file_list]
 
-    # Determine the local storage path
-    local_data_dir = Path(data_dir) if data_dir else utilities.get_default_data_dir()
-    local_data_dir.mkdir(parents=True, exist_ok=True)
+    local_data_dir = ReaderUtils.setup_data_directory(data_dir)
 
     datasets = []
 
@@ -167,24 +167,13 @@ def read_arcticgateway(
                         f"Expected NetCDF file not found: {nc_path}"
                     )
 
-                log.info("Opening ARCTIC Gateway dataset: %s", nc_path)
-                try:
-                    ds = xr.open_dataset(nc_path)
-                except Exception as e:
-                    log.error("Failed to open NetCDF file: %s: %s", nc_path, e)
-                    raise FileNotFoundError(
-                        f"Failed to open NetCDF file: {nc_path}: {e}"
-                    )
+                # Use ReaderUtils for consistent dataset loading
+                ds = ReaderUtils.safe_load_dataset(nc_path)
 
-                metadata = ARCTIC_FILE_METADATA.get(nc_file, {})
-                utilities.safe_update_attrs(
-                    ds,
-                    {
-                        "source_file": nc_file,
-                        "source_path": str(nc_path),
-                        **ARCTIC_METADATA,
-                        **metadata,
-                    },
+                # Use ReaderUtils for consistent metadata attachment
+                file_metadata = ARCTIC_FILE_METADATA.get(nc_file, {})
+                ds = ReaderUtils.attach_standard_metadata(
+                    ds, nc_file, nc_path, ARCTIC_METADATA, file_metadata
                 )
 
                 datasets.append(ds)
@@ -193,9 +182,6 @@ def read_arcticgateway(
                 "Non-zip ARCTIC Gateway files are not currently supported: %s", file
             )
 
-    if not datasets:
-        log.error("No valid NetCDF files found in %s", file_list)
-        raise FileNotFoundError(f"No valid NetCDF files found in {file_list}")
-
-    log.info("Successfully loaded %d ARCTIC Gateway dataset(s)", len(datasets))
+    # Use ReaderUtils for validation
+    ReaderUtils.validate_datasets_loaded(datasets, file_list)
     return datasets

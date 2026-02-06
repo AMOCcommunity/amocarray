@@ -14,6 +14,7 @@ import xarray as xr
 from amocatlas import logger, utilities
 from amocatlas.logger import log_error, log_info, log_warning
 from amocatlas.utilities import apply_defaults
+from amocatlas.reader_utils import ReaderUtils
 
 log = logger.log  # Use the global logger
 
@@ -102,8 +103,7 @@ def read_samba(
     if isinstance(file_list, str):
         file_list = [file_list]
 
-    local_data_dir = Path(data_dir) if data_dir else utilities.get_default_data_dir()
-    local_data_dir.mkdir(parents=True, exist_ok=True)
+    local_data_dir = ReaderUtils.setup_data_directory(data_dir)
 
     datasets = []
 
@@ -170,24 +170,14 @@ def read_samba(
                 f"Failed to convert DataFrame to xarray Dataset for {file}: {e}",
             ) from e
 
-        # Attach metadata
+        # Use ReaderUtils for consistent metadata attachment
         file_metadata = SAMBA_FILE_METADATA.get(file, {})
-        log_info("Attaching metadata to SAMBA dataset from file: %s", file)
-        utilities.safe_update_attrs(
-            ds,
-            {
-                "source_file": file,
-                "source_path": str(file_path),
-                **SAMBA_METADATA,
-                **file_metadata,
-            },
+        ds = ReaderUtils.attach_standard_metadata(
+            ds, file, file_path, SAMBA_METADATA, file_metadata
         )
 
         datasets.append(ds)
 
-    if not datasets:
-        log_error("No valid SAMBA files found in %s", file_list)
-        raise FileNotFoundError(f"No valid data files found in {file_list}")
-
-    log_info("Successfully loaded %d SAMBA dataset(s)", len(datasets))
+    # Use ReaderUtils for validation
+    ReaderUtils.validate_datasets_loaded(datasets, file_list)
     return datasets
