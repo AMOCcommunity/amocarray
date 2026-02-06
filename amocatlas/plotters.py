@@ -312,7 +312,7 @@ def plot_amoc_timeseries(
     lat_idx: int | None = None,
     region_idx: int | None = None,
     posterior_stat: str = "mean",  # "mean" or "median"
-) -> None:
+) -> tuple[plt.Figure, plt.Axes]:
     """Plot original and optionally monthly-averaged AMOC time series for one or more datasets.
 
     Parameters

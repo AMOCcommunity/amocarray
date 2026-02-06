@@ -44,11 +44,19 @@ The package handles downloading, caching, and organizing the data so you can foc
 Getting started
 ---------------
 
-The quickest way to try it out::
+The quickest way to try it out (new API - recommended)::
+
+    from amocatlas import read
+
+    # Load standardized data ready for analysis
+    ds = read.rapid()
+    print(ds)
+
+Or use the legacy API::
 
     from amocatlas import readers
-
-    # Load a sample dataset
+    
+    # Load sample dataset (returns raw data)
     ds = readers.load_sample_dataset("rapid")
     print(ds)
 

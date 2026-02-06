@@ -40,9 +40,9 @@ Available Array Functions
 .. autofunction:: arcticgateway
 .. autofunction:: fw2015
 .. autofunction:: mocha
-.. autofunction:: array_41n
-.. autofunction:: dso
-.. autofunction:: array_47n
+.. autofunction:: wh41n
+.. autofunction:: dso  
+.. autofunction:: noac47n
 .. autofunction:: fbc
 .. autofunction:: calafat2025
 .. autofunction:: zheng2024
