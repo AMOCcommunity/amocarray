@@ -90,13 +90,17 @@ Density
      - CMIP6 Name
      - Description
    * - sea_water_sigma_theta
-     - 
+     - SIGMA0
      - sigma0
      - Density anomaly to 1000, surface reference
    * - sea_water_potential_density
-     - 
+     - SIGMA0
      - 
      - Same as sigma-theta
+   * - sea_water_sigma_2
+     - SIGMA2
+     - 
+     - 
    * - sea_water_neutral_density
      - 
      - gamma_n

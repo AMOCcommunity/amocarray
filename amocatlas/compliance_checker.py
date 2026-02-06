@@ -190,7 +190,7 @@ class AC1ComplianceChecker:
     array-specific tests (specific to individual observing arrays).
     """
 
-    def __init__(self, array_specs=None):
+    def __init__(self, array_specs: dict = None) -> None:
         """Initialize the compliance checker.
 
         Parameters
@@ -813,7 +813,7 @@ class AC1ComplianceChecker:
                         )
 
 
-def validate_ac1_file(filepath: str, array_specs=None) -> ValidationResult:
+def validate_ac1_file(filepath: str, array_specs: dict = None) -> ValidationResult:
     """Convenience function to validate an AC1 file.
 
     Parameters

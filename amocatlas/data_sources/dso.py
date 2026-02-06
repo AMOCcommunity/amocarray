@@ -15,8 +15,13 @@ import xarray as xr
 from amocatlas import logger, utilities
 from amocatlas.logger import log_error, log_info, log_warning
 from amocatlas.utilities import apply_defaults
+from amocatlas.reader_utils import ReaderUtils
 
 log = logger.log  # Use the global logger
+
+# Datasource identifier for automatic standardization
+DATASOURCE_ID = "dso"
+
 # Denmark Strait Overflow
 # Default source and file list DSO
 
@@ -91,6 +96,9 @@ def read_dso(
     local_data_dir = Path(data_dir) if data_dir else utilities.get_default_data_dir()
     local_data_dir.mkdir(parents=True, exist_ok=True)
 
+    # Print information about files being loaded
+    ReaderUtils.print_loading_info(file_list, DATASOURCE_ID, DSO_FILE_METADATA)
+
     datasets = []
 
     for file in file_list:
@@ -110,26 +118,18 @@ def read_dso(
             redownload=redownload,
         )
 
-        try:
-            log_info("Opening DSO dataset: %s", file_path)
-            ds = xr.open_dataset(file_path)
-        except (OSError, IOError, ValueError, KeyError) as e:
-            log_error("Failed to open NetCDF file: %s: %s", file_path, e)
-            raise FileNotFoundError(
-                f"Failed to open NetCDF file: {file_path}: {e}"
-            ) from e
+        # Use ReaderUtils for consistent dataset loading
+        ds = ReaderUtils.safe_load_dataset(file_path)
 
+        # Use ReaderUtils for consistent metadata attachment
         file_metadata = DSO_FILE_METADATA.get(file, {})
-        log_info("Attaching metadata to DSO dataset from file: %s", file)
-
-        utilities.safe_update_attrs(
+        ds = ReaderUtils.attach_standard_metadata(
             ds,
-            {
-                "source_file": file,
-                "source_path": str(file_path),
-                **DSO_METADATA,
-                **file_metadata,
-            },
+            file,
+            file_path,
+            DSO_METADATA,
+            file_metadata,
+            datasource_id=DATASOURCE_ID,
         )
 
         datasets.append(ds)

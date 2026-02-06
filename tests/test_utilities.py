@@ -164,12 +164,12 @@ def test_resolve_file_path_url() -> None:
 
 def test_load_array_metadata() -> None:
     """Test loading array metadata."""
-    # Test with a known array
+    # Test with a known datasource
     try:
-        metadata = utilities.load_array_metadata("rapid")
+        metadata = utilities.load_array_metadata("rapid26n")
         assert isinstance(metadata, dict)
         # Should contain basic structure
-        assert "array_name" in metadata or len(metadata) > 0
+        assert "metadata" in metadata or len(metadata) > 0
     except FileNotFoundError:
         # If metadata files don't exist, test the exception handling
         pytest.skip("Array metadata files not available")

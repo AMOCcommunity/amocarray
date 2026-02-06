@@ -14,13 +14,25 @@ configuration, and theme settings.
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 import datetime
 
+# Get version from package
+try:
+    from amocatlas._version import __version__
+
+    release = __version__
+    version = __version__.split(".")[0:3]  # Short version (e.g., "0.1.2")
+    version = ".".join(version)
+    print(f"✓ Sphinx: Using version {version}, release {release}")
+except ImportError:
+    release = "unknown"
+    version = "unknown"
+    print("⚠ Sphinx: Could not import version, using 'unknown'")
+
 year = datetime.datetime.now(tz=datetime.timezone.utc).date().year
 
 # General information about the project.
 project = "amocatlas"
 author = "Eleanor Frajka-Williams, Isabelle Schmitz"
 copyright = f"{year}, {author}"
-release = "v0.1.1"
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration

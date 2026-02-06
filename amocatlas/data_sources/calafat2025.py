@@ -1,3 +1,11 @@
+"""Calafat et al. 2025 MHT data reader for AMOCatlas.
+
+This module provides functions to read and process Atlantic Meridional Heat
+Transport (MHT) data from Calafat et al. (2025). This dataset provides
+observations and estimates of meridional heat transport across multiple
+latitudes in the Atlantic Ocean.
+"""
+
 from pathlib import Path
 from typing import Union
 import zipfile
@@ -5,73 +13,64 @@ import xarray as xr
 
 from amocatlas import logger, utilities
 from amocatlas.utilities import apply_defaults
+from amocatlas.reader_utils import ReaderUtils
 
 log = logger.log  # ✅ use the global logger
 
+# Datasource identifier for automatic standardization
+DATASOURCE_ID = "calafat2025"
+
 # Default source and file list
-ARCTIC_DEFAULT_SOURCE = "https://next.api.npolar.no/dataset/80b69907-f303-457e-ae41-45d8e2c0787c/attachment/1c52a414-2b76-46d9-b79c-bbf915be35eb/_blob"
-ARCTIC_DEFAULT_FILES = ["Adjusted_fulldepth_v0.zip"]
-ARCTIC_TRANSPORT_FILES = ["Adjusted_fulldepth_v0.zip"]
-ARCTIC_ZIP_CONTENTS = {
-    "Adjusted_fulldepth_v0.zip": {
-        "Adjusted_fulldepth/BarentsSeaOpening_adjusted_v_fulldepth.nc",
-        "Adjusted_fulldepth/BeringStrait_adjusted_v_fulldepth.nc",
-        "Adjusted_fulldepth/DavisStrait_adjusted_v_fulldepth.nc",
-        "Adjusted_fulldepth/FramStrait_adjusted_v_fulldepth.nc",
+CALAFAT2025_DEFAULT_SOURCE = "https://zenodo.org/records/16640426/files/Bayesian_estimates_Atlantic_MHT.zip?download=1"
+CALAFAT2025_DEFAULT_FILES = ["Bayesian_estimates_Atlantic_MHT.zip"]
+CALAFAT2025_TRANSPORT_FILES = ["Bayesian_estimates_Atlantic_MHT.zip"]
+CALAFAT2025_ZIP_CONTENTS = {
+    "Bayesian_estimates_Atlantic_MHT.zip": {
+        "Bayesian_estimates_Atlantic_MHT.nc",
+        "README.txt",
     }
 }
 
 # Mapping of filenames to download URLs
-ARCTIC_FILE_URLS = {
-    "Adjusted_fulldepth_v0.zip": (
-        "https://next.api.npolar.no/dataset/80b69907-f303-457e-ae41-45d8e2c0787c/attachment/1c52a414-2b76-46d9-b79c-bbf915be35eb/_blob"
+CALAFAT2025_FILE_URLS = {
+    "Bayesian_estimates_Atlantic_MHT.zip": (
+        "https://zenodo.org/records/16640426/files/Bayesian_estimates_Atlantic_MHT.zip?download=1"
     ),
 }
 
-# Global metadata for ARCTIC
-ARCTIC_METADATA = {
+# Global metadata for MOCHA
+CALAFAT2025_METADATA = {
     "comment": "Dataset accessed and processed via http://github.com/AMOCcommunity/amocatlas",
 }
 
 # File-specific metadata placeholder
-ARCTIC_FILE_METADATA = {
-    "BarentsSeaOpening_adjusted_v_fulldepth.nc": {
-        "data_product": "Gateway transport Barents Sea Opening",
-        "project": "Pan-Arctic Gateway transports since 2004",
-    },
-    "BeringStrait_adjusted_v_fulldepth.nc": {
-        "data_product": "Gateway transport Bering Strait",
-        "project": "Pan-Arctic Gateway transports since 2004",
-    },
-    "DavisStrait_adjusted_v_fulldepth.nc": {
-        "data_product": "Gateway transport Davis Strait",
-        "project": "Pan-Arctic Gateway transports since 2004",
-    },
-    "FramStrait_adjusted_v_fulldepth.nc": {
-        "data_product": "Gateway transport Fram Strait",
-        "project": "Pan-Arctic Gateway transports since 2004",
+CALAFAT2025_FILE_METADATA = {
+    "Bayesian_estimates_Atlantic_MHT.nc": {
+        "data_product": "MHT estimates at 12 latitudes across the Atlantic based on spatiotemporal Bayesian hierarchical model",
+        "project": "CALAFAT2025",
+        # Add specific acknowledgments here if needed in future
     },
 }
 
 
-@apply_defaults(None, ARCTIC_DEFAULT_FILES)
-def read_arcticgateway(
+@apply_defaults(None, CALAFAT2025_DEFAULT_FILES)
+def read_calafat2025(
     source: str,
     file_list: str | list[str],
     transport_only: bool = True,
     data_dir: Union[str, Path, None] = None,
     redownload: bool = False,
 ) -> list[xr.Dataset]:
-    """Load the ARCTIC Gateway transport dataset from a URL or local file path into xarray Datasets.
+    """Load the CALAFAT2025 transport dataset from a URL or local file path into xarray Datasets.
 
     Parameters
     ----------
     source : str, optional
         URL or local path to the NetCDF file(s).
-        Defaults to the ARCTIC data repository URL.
+        Defaults to the CALAFAT2025 data repository URL.
     file_list : str or list of str, optional
         Filename or list of filenames to process.
-        Defaults to ARCTIC_DEFAULT_FILES.
+        Defaults to CALAFAT2025_DEFAULT_FILES.
     transport_only : bool, optional
         If True, restrict to transport files only.
     data_dir : str, Path or None, optional
@@ -92,12 +91,13 @@ def read_arcticgateway(
         If the file cannot be downloaded or does not exist locally.
 
     """
-    log.info("Starting to read ARCTIC Gateway dataset")
+    log.info("Starting to read CALAFAT2025 dataset")
 
     if file_list is None:
-        file_list = ARCTIC_DEFAULT_FILES
-    if transport_only:
-        file_list = ARCTIC_TRANSPORT_FILES
+        if transport_only:
+            file_list = CALAFAT2025_TRANSPORT_FILES
+        else:
+            file_list = CALAFAT2025_DEFAULT_FILES
     if isinstance(file_list, str):
         file_list = [file_list]
 
@@ -105,10 +105,13 @@ def read_arcticgateway(
     local_data_dir = Path(data_dir) if data_dir else utilities.get_default_data_dir()
     local_data_dir.mkdir(parents=True, exist_ok=True)
 
+    # Print information about files being loaded
+    ReaderUtils.print_loading_info(file_list, DATASOURCE_ID, CALAFAT2025_FILE_METADATA)
+
     datasets = []
 
     for file in file_list:
-        download_url = ARCTIC_FILE_URLS.get(file)
+        download_url = CALAFAT2025_FILE_URLS.get(file)
         if not download_url:
             log.error("No download URL found for file: %s", file)
             raise ValueError(f"No download URL found for file: {file}")
@@ -124,7 +127,7 @@ def read_arcticgateway(
         # If the file is a zip, extract all contents
         file_path = Path(file_path)
         if file_path.suffix == ".zip":
-            contents = ARCTIC_ZIP_CONTENTS.get(file)
+            contents = CALAFAT2025_ZIP_CONTENTS.get(file)
             if not contents:
                 raise ValueError(
                     f"No internal file mapping provided for zip file: {file}"
@@ -151,35 +154,29 @@ def read_arcticgateway(
                         f"Expected NetCDF file not found: {nc_path}"
                     )
 
-                log.info("Opening ARCTIC Gateway dataset: %s", nc_path)
-                try:
-                    ds = xr.open_dataset(nc_path)
-                except Exception as e:
-                    log.error("Failed to open NetCDF file: %s: %s", nc_path, e)
-                    raise FileNotFoundError(
-                        f"Failed to open NetCDF file: {nc_path}: {e}"
-                    )
+                # Use ReaderUtils for consistent dataset loading
+                ds = ReaderUtils.safe_load_dataset(nc_path)
 
-                metadata = ARCTIC_FILE_METADATA.get(nc_file, {})
-                utilities.safe_update_attrs(
+                # Use ReaderUtils for consistent metadata attachment
+                file_metadata = CALAFAT2025_FILE_METADATA.get(nc_file, {})
+                ds = ReaderUtils.attach_standard_metadata(
                     ds,
-                    {
-                        "source_file": nc_file,
-                        "source_path": str(nc_path),
-                        **ARCTIC_METADATA,
-                        **metadata,
-                    },
+                    nc_file,
+                    nc_path,
+                    CALAFAT2025_METADATA,
+                    file_metadata,
+                    datasource_id=DATASOURCE_ID,
                 )
 
                 datasets.append(ds)
         else:
             log.warning(
-                "Non-zip ARCTIC Gateway files are not currently supported: %s", file
+                "Non-zip CALAFAT2025 files are not currently supported: %s", file
             )
 
     if not datasets:
         log.error("No valid NetCDF files found in %s", file_list)
         raise FileNotFoundError(f"No valid NetCDF files found in {file_list}")
 
-    log.info("Successfully loaded %d ARCTIC Gateway dataset(s)", len(datasets))
+    log.info("Successfully loaded %d CALAFAT2025 dataset(s)", len(datasets))
     return datasets

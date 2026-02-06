@@ -234,3 +234,136 @@ def test_handle_samba_gaps():
     assert isinstance(result, pd.DataFrame)
     # Should have same columns
     assert list(result.columns) == list(df.columns)
+
+
+def test_convert_units_var_edge_cases():
+    """Test unit conversion with edge cases."""
+    # Test with numpy array
+    values = np.array([1.0, 2.0, 3.0])
+    result = tools.convert_units_var(values, "m", "cm")
+    expected = np.array([100.0, 200.0, 300.0])
+    np.testing.assert_array_equal(result, expected)
+
+    # Test with single float
+    result = tools.convert_units_var(5.0, "m", "cm")
+    assert result == 500.0
+
+    # Test with same units (no conversion)
+    result = tools.convert_units_var(10.0, "m", "m")
+    assert result == 10.0
+
+    # Test invalid unit conversion (should return original values, not raise)
+    original_value = 1.0
+    result = tools.convert_units_var(original_value, "invalid_unit", "m")
+    assert result == original_value  # Should return unchanged
+
+
+def test_to_decimal_year_edge_cases():
+    """Test decimal year conversion with edge cases."""
+    # Test with different date formats
+    dates = pd.Series(
+        [
+            pd.Timestamp("2020-01-01"),
+            pd.Timestamp("2020-07-01"),  # Mid-year
+            pd.Timestamp("2020-12-31"),  # End of year
+        ]
+    )
+
+    result = tools.to_decimal_year(dates)
+
+    # First day should be close to 2020.0
+    assert abs(result.iloc[0] - 2020.0) < 0.01
+    # Mid-year should be around 2020.5
+    assert abs(result.iloc[1] - 2020.5) < 0.1
+    # End of year should be close to 2021.0
+    assert abs(result.iloc[2] - 2021.0) < 0.01
+
+
+def test_apply_tukey_filter_edge_cases():
+    """Test Tukey filter with edge cases."""
+    # Test with larger dataset to avoid window size issues
+    dates = pd.date_range("2020-01-01", periods=100, freq="D")
+    larger_df = pd.DataFrame({"time": dates, "data": range(100)})
+
+    # Use smaller window for the dataset size
+    result = tools.apply_tukey_filter(
+        larger_df, column="data", window_months=1, samples_per_day=1.0
+    )
+    assert len(result) == len(larger_df)
+
+    # Test with custom output column
+    result = tools.apply_tukey_filter(
+        larger_df,
+        column="data",
+        output_column="filtered_data",
+        window_months=1,
+        samples_per_day=1.0,
+    )
+    assert "filtered_data" in result.columns
+    assert "data" in result.columns  # Original should still be there
+
+
+def test_bin_average_functions_edge_cases():
+    """Test binning functions with edge cases."""
+    # Test bin_average_5day with single day
+    single_day = pd.DataFrame({"time": [pd.Timestamp("2020-01-01")], "moc": [10.0]})
+    result = tools.bin_average_5day(single_day)
+    assert len(result) >= 1
+
+    # Test bin_average_monthly with single month
+    result_monthly = tools.bin_average_monthly(single_day)
+    assert len(result_monthly) >= 1
+
+    # Test with missing values
+    dates = pd.date_range("2020-01-01", periods=5, freq="D")
+    df_with_nans = pd.DataFrame({"time": dates, "moc": [1.0, np.nan, 3.0, np.nan, 5.0]})
+    result = tools.bin_average_5day(df_with_nans)
+    assert isinstance(result, pd.DataFrame)
+
+
+def test_set_fill_value_edge_cases():
+    """Test set_fill_value with different dtypes."""
+    # Test with different numpy dtypes
+    # int16: 2^(16-1) - 1 = 32767
+    int16_fill = tools.set_fill_value(np.dtype("int16"))
+    assert int16_fill == 32767
+
+    # int32: 2^(32-1) - 1 = 2147483647
+    int32_fill = tools.set_fill_value(np.dtype("int32"))
+    assert int32_fill == 2147483647
+
+    # float32: 2^(32-1) - 1 = 2147483647
+    float32_fill = tools.set_fill_value(np.dtype("float32"))
+    assert float32_fill == 2147483647
+
+
+def test_find_best_dtype_comprehensive():
+    """Test find_best_dtype with various data ranges."""
+    # Test with small integer values
+    small_vals = xr.DataArray([1, 2, 3, 4, 5])
+    dtype = tools.find_best_dtype("test_var", small_vals)
+    assert dtype in [np.int16, np.int32]
+
+    # Test with large integer values
+    large_vals = xr.DataArray([100000, 200000, 300000])
+    dtype = tools.find_best_dtype("test_var", large_vals)
+    assert dtype in [np.int32, np.float32]
+
+    # Test with float values
+    float_vals = xr.DataArray([1.1, 2.2, 3.3])
+    dtype = tools.find_best_dtype("test_var", float_vals)
+    assert dtype == np.float32
+
+
+def test_extract_time_and_time_num_edge_cases():
+    """Test time extraction with edge cases."""
+    # Create dataset with different time formats
+    times = pd.date_range("2020-01-01", periods=3, freq="D")
+    ds = xr.Dataset({"data": (["TIME"], [1, 2, 3]), "TIME": times})
+
+    # Test with custom time variable name
+    result = tools.extract_time_and_time_num(ds, time_var="TIME")
+    assert isinstance(result, pd.DataFrame)
+    assert len(result) == 3
+    assert "time" in result.columns
+    assert "time_num" in result.columns

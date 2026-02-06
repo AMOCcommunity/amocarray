@@ -21,9 +21,14 @@ What arrays are included?
 * **OSNAP (Subpolar)** - Covers the subpolar North Atlantic
 * **SAMBA (34.5°S)** - South Atlantic monitoring
 * **41°N** - Uses Argo float data and altimetry
+* **47°N** - North Atlantic Ocean Current monitoring
 * **DSO** - Denmark Strait overflow
+* **FBC** - Faroe Bank Channel overflow transport monitoring
+* **Arctic Gateway** - Pan-Arctic gateway transports
 * **RAPID/MOCHA** - Heat transport estimates from 26°N
 * **FW2015** - Altimetry-based transport estimates at 26°N
+* **CALAFAT2025** - Bayesian estimates of Atlantic meridional heat transport
+* **ZHENG2024** - Observation-based Atlantic meridional freshwater transport
 
 What can you do with it?
 ------------------------
@@ -39,11 +44,19 @@ The package handles downloading, caching, and organizing the data so you can foc
 Getting started
 ---------------
 
-The quickest way to try it out::
+The quickest way to try it out (new API - recommended)::
+
+    from amocatlas import read
+
+    # Load standardized data ready for analysis
+    ds = read.rapid()
+    print(ds)
+
+Or use the legacy API::
 
     from amocatlas import readers
-
-    # Load a sample dataset
+    
+    # Load sample dataset (returns raw data)
     ds = readers.load_sample_dataset("rapid")
     print(ds)
 

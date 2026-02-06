@@ -11,8 +11,13 @@ from typing import Union
 import xarray as xr
 
 from amocatlas import logger, utilities
+from amocatlas.logger import log_error
+from amocatlas.reader_utils import ReaderUtils
 
 log = logger.log  # Use global logger
+
+# Datasource identifier for automatic standardization
+DATASOURCE_ID = "osnap55n"
 
 # Default file list - 2020 version (legacy)
 OSNAP_DEFAULT_FILES = [
@@ -157,20 +162,19 @@ def read_osnap(
     if isinstance(file_list, str):
         file_list = [file_list]
 
-    # Determine the local storage path
-    local_data_dir = Path(data_dir) if data_dir else utilities.get_default_data_dir()
-    local_data_dir.mkdir(parents=True, exist_ok=True)
+    local_data_dir = ReaderUtils.setup_data_directory(data_dir)
+
+    # Print information about files being loaded
+    ReaderUtils.print_loading_info(file_list, DATASOURCE_ID, OSNAP_FILE_METADATA)
 
     datasets = []
 
-    for file in file_list:
-        if not file.lower().endswith(".nc"):
-            log.warning("Skipping non-NetCDF file: %s", file)
-            continue
+    netcdf_files = ReaderUtils.filter_netcdf_files(file_list)
 
+    for file in netcdf_files:
         download_url = OSNAP_FILE_URLS.get(file)
         if not download_url:
-            log.error("No download URL defined for OSNAP file: %s", file)
+            log_error("No download URL defined for OSNAP file: %s", file)
             raise FileNotFoundError(f"No download URL defined for OSNAP file {file}")
 
         file_path = utilities.resolve_file_path(
@@ -181,36 +185,24 @@ def read_osnap(
             redownload=redownload,
         )
 
-        # Open dataset
-        try:
-            log.info("Opening OSNAP dataset: %s", file_path)
-            ds = xr.open_dataset(file_path)
-        except (OSError, IOError, ValueError, KeyError) as e:
-            log.exception("Failed to open NetCDF file: %s", file_path)
-            raise FileNotFoundError(
-                f"Failed to open NetCDF file: {file_path}: {e}"
-            ) from e
+        # Use ReaderUtils for consistent dataset loading
+        ds = ReaderUtils.safe_load_dataset(file_path)
 
-        # Attach metadata
+        # Use ReaderUtils for consistent metadata attachment
         file_metadata = OSNAP_FILE_METADATA.get(file, {})
-        log.info("Attaching metadata to dataset from file: %s", file)
-        utilities.safe_update_attrs(
+        ds = ReaderUtils.attach_standard_metadata(
             ds,
-            {
-                "source_file": file,
-                "source_path": str(file_path),
-                **OSNAP_METADATA,
-                **file_metadata,
-            },
+            file,
+            file_path,
+            OSNAP_METADATA,
+            file_metadata,
+            datasource_id=DATASOURCE_ID,
         )
 
         datasets.append(ds)
 
-    if not datasets:
-        log.error("No valid NetCDF files found in %s", file_list)
-        raise FileNotFoundError(f"No valid NetCDF files found in {file_list}")
-
-    log.info("Successfully loaded %d OSNAP dataset(s)", len(datasets))
+    # Use ReaderUtils for validation
+    ReaderUtils.validate_datasets_loaded(datasets, file_list)
 
     return datasets
 

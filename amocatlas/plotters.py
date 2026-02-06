@@ -298,21 +298,21 @@ def monthly_resample(da: xr.DataArray) -> xr.DataArray:
 
 
 def plot_amoc_timeseries(
-    data,
-    varnames=None,
-    labels=None,
-    colors=None,
-    title="AMOC Time Series",
-    ylabel=None,
-    time_limits=None,
-    ylim=None,
-    figsize=(10, 3),
-    resample_monthly=True,
-    plot_raw=True,
-    lat_idx=None,
-    region_idx=None,
-    posterior_stat="mean",  # "mean" or "median"
-):
+    data: list[xr.Dataset | xr.DataArray] | xr.Dataset | xr.DataArray,
+    varnames: list[str] | None = None,
+    labels: list[str] | None = None,
+    colors: list[str] | None = None,
+    title: str = "AMOC Time Series",
+    ylabel: str | None = None,
+    time_limits: tuple[str | pd.Timestamp, str | pd.Timestamp] | None = None,
+    ylim: tuple[float, float] | None = None,
+    figsize: tuple[float, float] = (10, 3),
+    resample_monthly: bool = True,
+    plot_raw: bool = True,
+    lat_idx: int | None = None,
+    region_idx: int | None = None,
+    posterior_stat: str = "mean",  # "mean" or "median"
+) -> tuple[plt.Figure, plt.Axes]:
     """Plot original and optionally monthly-averaged AMOC time series for one or more datasets.
 
     Parameters

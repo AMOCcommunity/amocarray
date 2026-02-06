@@ -5,11 +5,9 @@
    :maxdepth: 2
    :caption: API Reference
 
+   read
    readers
-   read_move
-   read_rapid
-   read_osnap
-   read_samba
+   data_sources
    plotters
    writers
    tools
@@ -18,47 +16,30 @@
 
 Load and process transport estimates from major AMOC observing arrays.
 
-readers
-=======
+New Intuitive API (v0.2.0+)
+============================
 
-Shared utilities and base classes for AMOC readers.
+The recommended API that returns standardized, analysis-ready data by default.
+
+.. automodule:: amocatlas.read
+   :members:
+   :undoc-members:
+
+readers (Legacy API)
+====================
+
+Legacy API that returns raw data. Still supported for backwards compatibility.
 
 .. automodule:: amocatlas.readers
    :members:
    :undoc-members:
 
-Submodules
-^^^^^^^^^^
+data_sources
+============
 
-read_rapid
-~~~~~~~~~~
-Reader for RAPID-MOCHA-WBTS array data at 26°N.
+Individual data source readers organized by array/dataset.
 
-.. automodule:: amocatlas.read_rapid
-   :members:
-   :undoc-members:
-
-read_osnap
-~~~~~~~~~~
-Reader for OSNAP (Overturning in the Subpolar North Atlantic Program) data.
-
-.. automodule:: amocatlas.read_osnap
-   :members:
-   :undoc-members:
-
-read_move
-~~~~~~~~~
-Reader for MOVE (Meridional Overturning Variability Experiment) data.
-
-.. automodule:: amocatlas.read_move
-   :members:
-   :undoc-members:
-
-read_samba
-~~~~~~~~~~
-Reader for SAMBA (South Atlantic MOC Basin-wide Array) data.
-
-.. automodule:: amocatlas.read_samba
+.. automodule:: amocatlas.data_sources
    :members:
    :undoc-members:
 

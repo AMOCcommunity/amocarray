@@ -8,8 +8,9 @@ def test_standardise_samba():
     # Load datasets (could be one or two files)
     datasets = readers.load_dataset("samba")
 
-    # Load metadata from the YAML to match expectations
-    meta = utilities.load_array_metadata("samba")
+    # Get datasource_id from first dataset to load correct metadata
+    datasource_id = datasets[0].attrs.get("amocatlas_datasource")
+    meta = utilities.load_array_metadata(datasource_id)
     file_metas = meta["files"]
 
     for ds in datasets:

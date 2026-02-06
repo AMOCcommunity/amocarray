@@ -17,8 +17,12 @@ import pandas as pd
 from amocatlas import logger, utilities
 from amocatlas.logger import log_error, log_info, log_warning
 from amocatlas.utilities import apply_defaults
+from amocatlas.reader_utils import ReaderUtils
 
 log = logger.log  # Use the global logger
+
+# Datasource identifier for automatic standardization
+DATASOURCE_ID = "wh41n"
 
 # Default list of 41N data files
 A41N_DEFAULT_FILES = [
@@ -97,6 +101,9 @@ def read_41n(
     local_data_dir = Path(data_dir) if data_dir else utilities.get_default_data_dir()
     local_data_dir.mkdir(parents=True, exist_ok=True)
 
+    # Print information about files being loaded
+    ReaderUtils.print_loading_info(file_list, DATASOURCE_ID, A41N_FILE_METADATA)
+
     datasets = []
 
     for file in file_list:
@@ -120,14 +127,9 @@ def read_41n(
 
         if file.lower().endswith(".nc"):
             # file .nc
-            try:
-                log.info("Opening 41N dataset: %s", file_path)
-                ds = xr.open_dataset(file_path)
-            except (OSError, IOError, ValueError, KeyError) as e:
-                log.exception("Failed to open NetCDF file: %s", file_path)
-                raise FileNotFoundError(
-                    f"Failed to open NetCDF file : {file_path}: {e}"
-                ) from e
+            # Use ReaderUtils for consistent dataset loading
+
+            ds = ReaderUtils.safe_load_dataset(file_path)
         else:
             # file .txt
             try:
@@ -177,17 +179,15 @@ def read_41n(
                 raise ValueError(
                     f"Failed to convert DataFrame to xarray Dataset for {file}: {e}",
                 ) from e
-            # Attach metadata
+            # Use ReaderUtils for consistent metadata attachment
             file_metadata = A41N_FILE_METADATA.get(file, {})
-            log_info("Attaching metadata to 41N dataset from file: %s", file)
-            utilities.safe_update_attrs(
+            ds = ReaderUtils.attach_standard_metadata(
                 ds,
-                {
-                    "source_file": file,
-                    "source_path": str(file_path),
-                    **A41N_METADATA,
-                    **file_metadata,
-                },
+                file,
+                file_path,
+                A41N_METADATA,
+                file_metadata,
+                datasource_id=DATASOURCE_ID,
             )
 
         datasets.append(ds)

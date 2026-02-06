@@ -12,10 +12,14 @@ import xarray as xr
 
 # Import the modules used
 from amocatlas import logger, utilities
-from amocatlas.logger import log_error, log_info, log_warning
+from amocatlas.logger import log_info
 from amocatlas.utilities import apply_defaults
+from amocatlas.reader_utils import ReaderUtils
 
 log = logger.log  # Use the global logger
+
+# Datasource identifier for automatic standardization
+DATASOURCE_ID = "rapid26n"
 
 # Default list of RAPID data files
 RAPID_DEFAULT_SOURCE = "https://rapid.ac.uk/sites/default/files/rapid_data/"
@@ -39,19 +43,19 @@ RAPID_METADATA = {
 # File-specific metadata placeholder
 RAPID_FILE_METADATA = {
     "moc_transports.nc": {
-        "data_product": "RAPID layer transport time series",
+        "data_product": "Layer transports - individual water mass transport components (thermocline, intermediate water, NADW, AABW, Ekman, Florida Straits)",
     },
     "moc_vertical.nc": {
-        "data_product": "RAPID vertical streamfunction time series",
+        "data_product": "Vertical streamfunction - overturning circulation streamfunction as function of depth and time",
     },
     "ts_gridded.nc": {
-        "data_product": "RAPID gridded temperature and salinity",
+        "data_product": "Gridded temperature and salinity - T/S profiles from moorings across the basin",
     },
     "2d_gridded.nc": {
-        "data_product": "RAPID 2D gridded temperature and salinity",
+        "data_product": "Monthly velocity and hydrography fields - Conservative Temperature (CT), Absolute Salinity (SA), and velocities on regular grid",
     },
     "meridional_transports.nc": {
-        "data_product": "RAPID meridional transport time series",
+        "data_product": "Heat and freshwater transports - AMOC strength, heat transport, freshwater transport, and overturning streamfunctions in density space",
     },
 }
 # https://rapid.ac.uk/sites/default/files/rapid_data/ts_gridded.nc
@@ -101,23 +105,20 @@ def read_rapid(
     """
     log_info("Starting to read RAPID dataset")
 
-    if file_list is None:
-        file_list = RAPID_DEFAULT_FILES
-    if transport_only:
-        file_list = RAPID_TRANSPORT_FILES
-    if isinstance(file_list, str):
-        file_list = [file_list]
+    # Use ReaderUtils for common operations
+    file_list = ReaderUtils.prepare_file_list(
+        file_list, RAPID_DEFAULT_FILES, RAPID_TRANSPORT_FILES, transport_only
+    )
+    local_data_dir = ReaderUtils.setup_data_directory(data_dir)
 
-    local_data_dir = Path(data_dir) if data_dir else utilities.get_default_data_dir()
-    local_data_dir.mkdir(parents=True, exist_ok=True)
+    # Print information about files being loaded
+    netcdf_files = ReaderUtils.filter_netcdf_files(file_list)
+    ReaderUtils.print_loading_info(netcdf_files, DATASOURCE_ID, RAPID_FILE_METADATA)
 
     datasets = []
 
-    for file in file_list:
-        if not file.lower().endswith(".nc"):
-            log_warning("Skipping non-NetCDF file: %s", file)
-            continue
-
+    for file in netcdf_files:
+        # RAPID-specific URL construction
         download_url = (
             f"{source.rstrip('/')}/{file}" if utilities.is_valid_url(source) else None
         )
@@ -130,33 +131,21 @@ def read_rapid(
             redownload=redownload,
         )
 
-        try:
-            log_info("Opening RAPID dataset: %s", file_path)
-            ds = xr.open_dataset(file_path)
-        except (OSError, IOError, ValueError, KeyError) as e:
-            log_error("Failed to open NetCDF file: %s: %s", file_path, e)
-            raise FileNotFoundError(
-                f"Failed to open NetCDF file: {file_path}: {e}"
-            ) from e
-
+        # Use ReaderUtils for consistent dataset loading and metadata
+        ds = ReaderUtils.safe_load_dataset(file_path)
         file_metadata = RAPID_FILE_METADATA.get(file, {})
-        log_info("Attaching metadata to RAPID dataset from file: %s", file)
-        utilities.safe_update_attrs(
+        ds = ReaderUtils.attach_standard_metadata(
             ds,
-            {
-                "source_file": file,
-                "source_path": str(file_path),
-                **RAPID_METADATA,
-                **file_metadata,
-            },
+            file,
+            file_path,
+            RAPID_METADATA,
+            file_metadata,
+            datasource_id=DATASOURCE_ID,
         )
 
         datasets.append(ds)
 
-    if not datasets:
-        log_error("No valid RAPID NetCDF files found in %s", file_list)
-        raise FileNotFoundError(f"No valid RAPID NetCDF files found in {file_list}")
-
-    log_info("Successfully loaded %d RAPID dataset(s)", len(datasets))
+    # Use ReaderUtils for validation
+    ReaderUtils.validate_datasets_loaded(datasets, file_list)
 
     return datasets

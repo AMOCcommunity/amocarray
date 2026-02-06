@@ -13,6 +13,12 @@ Key Features:
 - Analysis functions for filtering and processing time series
 
 Basic Usage:
+    >>> from amocatlas import read
+    >>> data = read.rapid()                    # Single transport dataset
+    >>> osnap = read.osnap(version="2025")     # Latest OSNAP data
+    >>> all_data = read.rapid(all_files=True)  # All RAPID files as list
+
+    # Legacy API (still supported):
     >>> from amocatlas import readers
     >>> datasets = readers.load_dataset("rapid")
     >>> sample_data = readers.load_sample_dataset("osnap")
@@ -21,6 +27,7 @@ Basic Usage:
 # Import core modules to make them available at package level
 from . import (
     readers,
+    read,  # New intuitive API namespace
     plotters,
     standardise,
     utilities,
@@ -29,6 +36,8 @@ from . import (
     writers,
     convert,
     compliance_checker,
+    reader_utils,
+    data_sources,  # New data sources package
 )
 
 # Version information
@@ -36,6 +45,7 @@ from . import (
 
 __all__ = [
     "readers",
+    "read",
     "plotters",
     "standardise",
     "utilities",
@@ -44,5 +54,7 @@ __all__ = [
     "writers",
     "convert",
     "compliance_checker",
+    "reader_utils",
+    "data_sources",
     "__version__",
 ]
