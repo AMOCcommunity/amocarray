@@ -31,23 +31,23 @@ This is a work in progress, all contributions welcome!
 - 📈 **Visualization Tools**: Built-in plotting functions with consistent styling
 - 🧪 **Sample Datasets**: Quick access to example data for testing and development
 
-## Supported Arrays
+## Available Data Sources
 
-| Array | Location | Description |
-|-------|----------|-------------|
-| **RAPID** | 26°N | Continuous monitoring since 2004 |
-| **MOCHA** |  26°N | Heat transport since 2004 |
-| **MOVE** | 16°N | Meridional heat transport |
-| **OSNAP** | Subpolar North Atlantic | Overturning circulation |
-| **SAMBA** | 34.5°S | South Atlantic MOC |
-| **41°N** | 41°N | North Atlantic section |
-| **47°N** | 47°N | North Atlantic Ocean Current monitoring |
-| **DSO** | Denmark Strait | Overflow monitoring |
-| **FBC** | Faroe Bank Channel | Overflow transport monitoring |
-| **Arctic Gateway** | Arctic Ocean | Pan-Arctic gateway transports |
-| **FW2015** | 26°N | Frajka-Williams 2015 satellite-cable dataset |
-| **CALAFAT2025** | Atlantic | Bayesian estimates of Atlantic meridional heat transport |
-| **ZHENG2024** | Atlantic | Observation-based Atlantic meridional freshwater transport |
+| Data Source | Location | Description | Read Command |
+|-------------|----------|-------------|--------------|
+| **RAPID** | 26°N | Continuous monitoring since 2004 | `read.rapid()` |
+| **MOCHA** | 26°N | Heat transport since 2004 | `read.mocha()` |
+| **MOVE** | 16°N | Meridional heat transport | `read.move()` |
+| **OSNAP** | Subpolar North Atlantic | Overturning circulation | `read.osnap()` |
+| **SAMBA** | 34.5°S | South Atlantic MOC | `read.samba()` |
+| **41°N Array** | 41°N | North Atlantic section | `read.wh41n()` |
+| **NOAC 47°N** | 47°N | North Atlantic Ocean Current monitoring | `read.noac47n()` |
+| **DSO** | Denmark Strait | Overflow monitoring | `read.dso()` |
+| **FBC** | Faroe Bank Channel | Overflow transport monitoring | `read.fbc()` |
+| **Arctic Gateway** | Arctic Ocean | Pan-Arctic gateway transports | `read.arcticgateway()` |
+| **FW2015** | 26°N | Frajka-Williams 2015 satellite-cable dataset | `read.fw2015()` |
+| **CALAFAT2025** | Atlantic | Bayesian estimates of Atlantic meridional heat transport | `read.calafat2025()` |
+| **ZHENG2024** | Atlantic | Observation-based Atlantic meridional freshwater transport | `read.zheng2024()` |
 
 ## Installation
 
@@ -85,42 +85,45 @@ ds = readers.load_sample_dataset("rapid")
 
 ### Load Full Datasets
 ```python
-from amocatlas import readers
+from amocatlas import read
 
-# Load complete dataset (downloads and caches data)
-datasets = readers.load_dataset("osnap")
-for ds in datasets:
-    print(ds)
+# Load complete dataset (downloads and caches data) - new API
+ds = read.osnap()                          # Single standardized dataset
+all_files = read.osnap(all_files=True)     # Get all files for array
+
+# Or use the legacy API
+from amocatlas import readers
+datasets = readers.load_dataset("osnap")  # Returns list of raw datasets
 ```
 
 A `*.log` file will be written to `logs/` by default.
 
 Data will be cached in `~/.amocatlas_data/` unless you specify a custom location.
 
-### New Intuitive API (v0.2.0+)
+### API Features (v0.2.0+)
 
-AMOCatlas now provides a more user-friendly API that returns **standardized, analysis-ready data by default**:
+AMOCatlas provides **standardized, analysis-ready data by default** with the new `read` API:
+
+**Key Benefits:**
+- 🧹 **Clean Data**: Consistent variable names, metadata, and units
+- 🚀 **Easy to Use**: Single function calls instead of complex workflows  
+- 🔄 **Flexible**: Get raw data when needed with `raw=True`
+- 📊 **Smart Defaults**: Automatically handles array-specific parameters
 
 ```python
 from amocatlas import read
 
-# Get clean, standardized data (recommended for most users)
-data = read.rapid()                    # Single dataset, ready for analysis
-osnap = read.osnap(version="2025")     # Automatic parameter handling
-arctic = read.arcticgateway()          # Consistent across all arrays
+# Standard workflow - recommended for most users
+rapid_data = read.rapid()              # Single standardized dataset
+osnap_data = read.osnap()              # Automatically uses latest version
+arctic_data = read.arcticgateway()     # Consistent across all arrays
 
-# Get all files for an array (power users)
-all_rapid = read.rapid(all_files=True)
-
-# Get raw data in original format (debugging, special cases)
-raw_data = read.rapid(raw=True)
+# Advanced usage
+all_rapid = read.rapid(all_files=True) # Get all files for an array
+raw_data = read.rapid(raw=True)        # Original format for special cases
 ```
 
-**Major changes:**
-- **Standardized by default**: Consistent variable names, metadata, and units following oceanographic conventions
-- **Flexible**: Use `raw=True` to get data in original file formats when needed
-
-**Legacy API still supported:**
+**Legacy API (still supported):**
 ```python
 from amocatlas import readers
 datasets = readers.load_dataset("rapid")  # Returns raw data as before
@@ -137,26 +140,34 @@ Check out the demo notebook `notebooks/demo.ipynb` for example functionality.
 ```
 amocatlas/
 │
-├── readers.py               # Orchestrator for loading datasets
-├── read_move.py             # MOVE reader
-├── read_rapid.py            # RAPID reader
-├── read_osnap.py            # OSNAP reader
-├── read_samba.py            # SAMBA reader
-├── read_mocha.py            # MOCHA reader
-├── read_41n.py              # 41°N reader
-├── read_dso.py              # DSO reader
-├── read_fw2015.py           # Frajka-Williams 2015 reader
-├── read_calafat2025.py      # Calafat 2025 heat transport reader
-├── read_zheng2024.py        # Zheng 2024 freshwater transport reader
+├── read.py                  # 🆕 Modern API namespace (read.rapid(), read.osnap(), etc.)
+├── readers.py               # Legacy orchestrator for loading datasets
+├── reader_utils.py          # Shared utilities for all data source readers
 │
-├── utilities.py             # Shared utilities (downloads, parsing, etc.)
-├── logger.py                # Structured logging setup
-├── plotters.py              # Visualization functions
+├── data_sources/            # 🆕 Organized data source readers
+│   ├── rapid26n.py          # RAPID array (26°N)
+│   ├── move16n.py           # MOVE array (16°N)
+│   ├── osnap55n.py          # OSNAP array (Subpolar North Atlantic)
+│   ├── samba34s.py          # SAMBA array (34.5°S)
+│   ├── mocha26n.py          # MOCHA dataset (26°N)
+│   ├── wh41n.py             # 41°N array
+│   ├── dso.py               # DSO overflow
+│   ├── fbc.py               # Faroe Bank Channel
+│   ├── fw2015.py            # Frajka-Williams 2015 dataset
+│   ├── arcticgateway.py     # Arctic Gateway transports
+│   ├── calafat2025.py       # Calafat 2025 heat transport
+│   ├── zheng2024.py         # Zheng 2024 freshwater transport
+│   └── noac47n.py           # NOAC 47°N monitoring
+│
+├── metadata/                # 🆕 YAML metadata files for standardization
+├── utilities.py             # Core utilities (downloads, parsing, validation)
+├── logger.py                # Structured logging system
+├── standardise.py           # Data standardization functions
+├── plotters.py              # Visualization and plotting functions
 ├── tools.py                 # Analysis and calculation functions
-├── standardise.py           # Common formatting and metadata
 ├── writers.py               # Data export functionality
 │
-└── tests/                   # Unit tests
+└── tests/                   # Comprehensive unit tests
 ```
 
 ## Development
@@ -197,14 +208,13 @@ This project is supported by the Horizon Europe project **EPOC - Explaining and 
 
 *Funded by the European Union. Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union. Neither the European Union nor the granting authority can be held responsible for them.*
 
-## Roadmap
 
-- [ ] Add test coverage for utilities and readers
-- [ ] Add dataset summary output at end of load_dataset()
-- [x] Optional global logging helpers (disable_logging(), enable_logging())
-- [ ] Extend load_sample_dataset() to support all arrays
-- [x] Metadata enrichment (source paths, processing dates)
-- [ ] Clarify separation between added metadata and original metadata
+## Current Roadmap
+
+- [ ] Improve test coverage for data sources with <40% coverage
+- [ ] Add more comprehensive visualization function tests  
+- [ ] Expand plotting capabilities with additional array-specific visualizations
+- [ ] Performance optimization for large dataset handling
 
 ## Acknowledgements
 
