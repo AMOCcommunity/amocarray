@@ -184,14 +184,28 @@ def read_arcticgateway(
 
                 # Use ReaderUtils for consistent metadata attachment
                 file_metadata = ARCTIC_FILE_METADATA.get(nc_file, {})
-                ds = ReaderUtils.attach_standard_metadata(
-                    ds,
-                    nc_file,
-                    nc_path,
-                    ARCTIC_METADATA,
-                    file_metadata,
-                    datasource_id=DATASOURCE_ID,
-                )
+                if track_added_attrs:
+                    # Attach metadata with tracking
+                    ds, attr_changes = ReaderUtils.attach_standard_metadata(
+                        ds,
+                        nc_file,
+                        nc_path,
+                        ARCTIC_METADATA,
+                        file_metadata,
+                        datasource_id=DATASOURCE_ID,
+                        track_added_attrs=True,
+                    )
+                    added_attrs_per_dataset.append(attr_changes)
+                else:
+                    # Standard metadata attachment without tracking
+                    ds = ReaderUtils.attach_standard_metadata(
+                        ds,
+                        nc_file,
+                        nc_path,
+                        ARCTIC_METADATA,
+                        file_metadata,
+                        datasource_id=DATASOURCE_ID,
+                    )
 
                 datasets.append(ds)
         else:

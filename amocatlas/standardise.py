@@ -249,6 +249,93 @@ def _consolidate_contributors(cleaned: dict) -> dict:
                 roles.append(role_map[key])
                 sources.append(key)
     log_debug("Names: %s; Roles: %s; Sources: %s", names, roles, sources)
+    
+    # Step B2: deduplicate names and consolidate emails for the same person
+    if names and email_buckets:
+        # Collect all available emails from any email bucket
+        all_emails = []
+        for email_list in email_buckets.values():
+            all_emails.extend(email_list)
+        
+        # Check if we have emails that might belong to specific people
+        if all_emails and any(email.strip() for email in all_emails):
+            # Look for duplicate names that might need deduplication
+            name_counts = {}
+            for name in names:
+                name_counts[name] = name_counts.get(name, 0) + 1
+            
+            duplicates_found = any(count > 1 for count in name_counts.values())
+            log_debug("Name counts: %s, Duplicates found: %s", name_counts, duplicates_found)
+            
+            if duplicates_found:
+                # We have duplicated names - try to consolidate with emails
+                # Since emails could be in any field (publisher_email, contributor_email, etc.)
+                # we'll try to match emails to the last occurrence of duplicated names
+                
+                # Create mapping: find emails for people with duplicate names
+                name_to_emails = {}
+                
+                # Strategy: if "M. Susan Lozier" appears twice and we have 
+                # "susan.lozier@gatech.edu" in emails, assign it to M. Susan Lozier
+                for name in names:
+                    if name_counts[name] > 1:  # This name is duplicated
+                        # Look for matching email in all_emails
+                        name_parts = name.lower().split()
+                        if len(name_parts) >= 2:
+                            # Extract meaningful name components, skipping initials
+                            meaningful_parts = []
+                            for part in name_parts:
+                                # Skip single letters or initials like "m."
+                                if len(part) > 2 or (len(part) == 2 and not part.endswith('.')):
+                                    meaningful_parts.append(part)
+                            
+                            if len(meaningful_parts) >= 2:
+                                # Use first meaningful name and last name
+                                first_meaningful = meaningful_parts[0] 
+                                last = meaningful_parts[-1]
+                                
+                                for email in all_emails:
+                                    if email.strip():
+                                        email_lower = email.strip().lower()
+                                        # Check if email contains meaningful name parts
+                                        if first_meaningful in email_lower and last in email_lower:
+                                            if name not in name_to_emails:
+                                                name_to_emails[name] = []
+                                            name_to_emails[name].append(email.strip())
+                            elif len(meaningful_parts) == 1:
+                                # Handle case with only one meaningful part (like single surnames)
+                                single_part = meaningful_parts[0]
+                                for email in all_emails:
+                                    if email.strip():
+                                        email_lower = email.strip().lower()
+                                        if single_part in email_lower:
+                                            if name not in name_to_emails:
+                                                name_to_emails[name] = []
+                                            name_to_emails[name].append(email.strip())
+                
+                log_debug("Name to emails mapping: %s", name_to_emails)
+                
+                # Deduplicate names while preserving order of first occurrence
+                dedupe_names, dedupe_roles, dedupe_sources = [], [], []
+                seen_names = set()
+                for name, role, source in zip(names, roles, sources):
+                    if name not in seen_names:
+                        dedupe_names.append(name)
+                        dedupe_roles.append(role)
+                        dedupe_sources.append(source)
+                        seen_names.add(name)
+                
+                # Create consolidated email list aligned with deduplicated names
+                consolidated_emails = []
+                for name in dedupe_names:
+                    emails_for_name = name_to_emails.get(name, [])
+                    consolidated_emails.append(emails_for_name[0] if emails_for_name else "")
+                
+                # Update email buckets with consolidated emails
+                # Use contributor_email as the primary target
+                email_buckets['contributor_email'] = consolidated_emails
+                names, roles, sources = dedupe_names, dedupe_roles, dedupe_sources
+                log_debug("After deduplication - Names: %s; Emails: %s", names, consolidated_emails)
 
     # Step C: build contributor fields
     if names:
@@ -262,14 +349,21 @@ def _consolidate_contributors(cleaned: dict) -> dict:
         )
 
         # C2: align emails one‑to‑one
-        aligned_emails = []
-        email_copy = {k: v.copy() for k, v in email_buckets.items()}
-        for src in sources:
-            base = src[:-5] if src.endswith("_name") else src
-            ek = f"{base}_email"
-            aligned_emails.append(
-                email_copy.get(ek, []).pop(0) if email_copy.get(ek) else ""
-            )
+        # If we have already aligned emails from deduplication, use those
+        if 'contributor_email' in email_buckets and len(email_buckets['contributor_email']) == len(names):
+            # Use the already correctly aligned emails from deduplication
+            aligned_emails = email_buckets['contributor_email']
+            log_debug("Using deduplicated emails: %s", aligned_emails)
+        else:
+            # Fall back to original alignment logic
+            aligned_emails = []
+            email_copy = {k: v.copy() for k, v in email_buckets.items()}
+            for src in sources:
+                base = src[:-5] if src.endswith("_name") else src
+                ek = f"{base}_email"
+                aligned_emails.append(
+                    email_copy.get(ek, []).pop(0) if email_copy.get(ek) else ""
+                )
         cleaned["contributor_email"] = ", ".join(aligned_emails)
         log_debug("Aligned contributor_email=%r", cleaned["contributor_email"])
 

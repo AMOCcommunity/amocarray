@@ -119,12 +119,19 @@ class ReportUtils:
             diff = time_max - time_min
             if hasattr(diff, 'days'):
                 return diff.days
-            # Handle numeric time (assume years or similar)
-            elif hasattr(diff, 'item'):
-                # Convert numpy scalar to Python float
-                return float(diff.item()) * 365.25  # Assume years
             else:
-                return float(diff) * 365.25  # Assume years
+                # Handle numeric time - check if it looks like seconds since 1970
+                try:
+                    numeric_diff = float(diff)
+                    # Check if the values look like unix timestamps (> 1e9)
+                    if max(abs(time_max), abs(time_min)) > 1e9:
+                        # Assume difference is in seconds, convert to days
+                        return numeric_diff / 86400.0  # seconds to days
+                    else:
+                        # Assume years 
+                        return numeric_diff * 365.25
+                except (ValueError, TypeError):
+                    return 0
         except Exception:
             # Fallback for any other cases
             return 0
@@ -136,8 +143,17 @@ class ReportUtils:
             if hasattr(date_obj, 'strftime'):
                 return date_obj.strftime('%Y-%m-%d')
             else:
-                # Handle numeric date (assume year)
-                return f"{float(date_obj):.1f}"
+                # Check if this looks like seconds since 1970 (unix timestamp)
+                try:
+                    numeric_val = float(date_obj)
+                    if numeric_val > 1e9:  # Likely seconds since 1970
+                        import pandas as pd
+                        return pd.to_datetime(numeric_val, unit='s').strftime('%Y-%m-%d')
+                    else:
+                        # Assume it's a year
+                        return f"{numeric_val:.1f}"
+                except (ValueError, TypeError):
+                    return str(date_obj)
         except Exception:
             return str(date_obj)
     
@@ -187,15 +203,18 @@ class ReportUtils:
             return {"has_time": True, "valid_times": False}
         
         # Calculate temporal statistics
+        start_date = valid_times.min()
+        end_date = valid_times.max()
+        
         time_info = {
             "has_time": True,
             "valid_times": True,
             "coordinate_name": time_coord,
-            "start_date": valid_times.min(),
-            "end_date": valid_times.max(),
+            "start_date": start_date,
+            "end_date": end_date,
             "total_records": len(valid_times),
-            "time_span_days": ReportUtils._safe_time_diff_days(valid_times.max(), valid_times.min()),
-            "time_span_years": ReportUtils._safe_time_diff_days(valid_times.max(), valid_times.min()) / 365.25,
+            "time_span_days": ReportUtils._safe_time_diff_days(end_date, start_date),
+            "time_span_years": ReportUtils._safe_time_diff_days(end_date, start_date) / 365.25,
         }
         
         # Estimate sampling frequency
@@ -204,6 +223,28 @@ class ReportUtils:
             median_diff = time_diffs.median()
             time_info["median_sampling_interval"] = median_diff
             time_info["estimated_frequency"] = ReportUtils.estimate_frequency(median_diff)
+            
+            # Add warnings for problematic values
+            warnings = []
+            
+            # Check for extremely long record length (>50 years)
+            if time_info["time_span_years"] > 50:
+                warnings.append(f"WARNING: Record length of {time_info['time_span_years']:.1f} years seems unusually long")
+            
+            # Check for extremely high sampling frequency values (>100 hours)
+            freq_str = time_info["estimated_frequency"]
+            if freq_str.endswith("H") and not freq_str.endswith("min"):
+                try:
+                    freq_hours = float(freq_str.replace("H", ""))
+                    if freq_hours > 100:
+                        warnings.append(f"WARNING: Sampling frequency of {freq_hours}H seems unusually high - possible time parsing issue")
+                except ValueError:
+                    pass
+            
+            if warnings:
+                time_info["warnings"] = warnings
+                for warning in warnings:
+                    print(f"  {warning}")
         
         return time_info
     
@@ -974,15 +1015,18 @@ class StandardizedDatasetReport(BaseDatasetReport):
             return {"has_time": True, "valid_times": False}
         
         # Calculate temporal statistics
+        start_date = valid_times.min()
+        end_date = valid_times.max()
+        
         time_info = {
             "has_time": True,
             "valid_times": True,
             "coordinate_name": time_coord,
-            "start_date": valid_times.min(),
-            "end_date": valid_times.max(),
+            "start_date": start_date,
+            "end_date": end_date,
             "total_records": len(valid_times),
-            "time_span_days": ReportUtils._safe_time_diff_days(valid_times.max(), valid_times.min()),
-            "time_span_years": ReportUtils._safe_time_diff_days(valid_times.max(), valid_times.min()) / 365.25,
+            "time_span_days": ReportUtils._safe_time_diff_days(end_date, start_date),
+            "time_span_years": ReportUtils._safe_time_diff_days(end_date, start_date) / 365.25,
         }
         
         # Estimate sampling frequency

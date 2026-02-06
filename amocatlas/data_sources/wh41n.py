@@ -129,7 +129,6 @@ def read_41n(
         if file.lower().endswith(".nc"):
             # file .nc
             # Use ReaderUtils for consistent dataset loading
-
             ds = ReaderUtils.safe_load_dataset(file_path)
         else:
             # file .txt
@@ -180,8 +179,23 @@ def read_41n(
                 raise ValueError(
                     f"Failed to convert DataFrame to xarray Dataset for {file}: {e}",
                 ) from e
-            # Use ReaderUtils for consistent metadata attachment
-            file_metadata = A41N_FILE_METADATA.get(file, {})
+        
+        # Use ReaderUtils for consistent metadata attachment (for all file types)
+        file_metadata = A41N_FILE_METADATA.get(file, {})
+        if track_added_attrs:
+            # Attach metadata with tracking
+            ds, attr_changes = ReaderUtils.attach_standard_metadata(
+                ds,
+                file,
+                file_path,
+                A41N_METADATA,
+                file_metadata,
+                datasource_id=DATASOURCE_ID,
+                track_added_attrs=True,
+            )
+            added_attrs_per_dataset.append(attr_changes)
+        else:
+            # Standard metadata attachment without tracking
             ds = ReaderUtils.attach_standard_metadata(
                 ds,
                 file,
