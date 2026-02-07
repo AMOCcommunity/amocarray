@@ -5,7 +5,9 @@ metadata:
   weblink: https://envofar.fo/data/index.php?dir=Timeseries&sort=N&order=A 
   comment: Dataset accessed and processed via http://github.com/AMOCcommunity/amocatlas
   acknowledgment: >
-    The authors wish to thank captains and crew on the RV Magnus Heinason as well as Regin Kristiansen for unfailing support during measurements at sea, and Ebba Mortensen for data processing. Funding for the in situ measurements has been obtained from the Environmental Research Programme of the Nordic Council of Ministers (NMR) 1993–1998, from national Nordic research councils, from the Danish DANCEA programme, and from the European Framework Programs, lately under grant agreement no. GA212643 (THOR) and under grant agreement no. 308299 (NACLIM). Analysis and preparation of this manuscript was mainly funded by the NACLIM project. We thank three anonymous referees for very constructive comments.
+   Funding for the in situ Faroe Bank Channel measurements is from the Environmental Research Programme of the Nordic Council of Ministers (NMR) 1993–1998, from national Nordic research councils, from the Danish DANCEA programme, and from the European Framework Programs, lately under grant agreement no. GA212643 (THOR) and under grant agreement no. 308299 (NACLIM).
+  citation: >
+    Hansen, B., Húsgarð Larsen, K. M., Hátún, H., and Østerhus, S.: A stable Faroe Bank Channel overflow 1995–2015, Ocean Sci., 12, 1205–1220, https://doi.org/10.5194/os-12-1205-2016, 2016.
   license: 
   featureType: timeSeries
   time_coverage_start: '1995-11-13'
@@ -15,17 +17,12 @@ files:
   FBC_overflow_transport.txt:
     source_url: https://envofar.fo/var/ftp/Timeseries/FBC_overflow_transport.txt
     data_product: "Daily averaged kinematic FBC-overflow flux (transport) in Sv"
+    variables_to_remove: [Day, Month]
     variable_mapping:
-      "TIME": TIME
       "Flux": TRANS_FBC
-    variables:
-      TIME:
-        long_name: "Time"
-        description: "Time in datetime format"
-        units: datetime64[ns]
-        standard_name: TIME
+    original_variable_metadata:
       Flux:
-        long_name: "Faroe Bank Channel Overflow Transport"
+        long_name: "FBC Overflow"
         description: "FBC Overflow transport time series"
         units: Sv
         standard_name: ocean_volume_transport_across_line

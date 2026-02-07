@@ -3,9 +3,10 @@
 Generate dataset reports for Sphinx documentation.
 
 Usage:
-    python generate_report --data_source rapid
-    python generate_report --data_source osnap
-    python generate_report --data_source move
+    python generate_report                      # generates all reports (default)
+    python generate_report --data_source rapid  # generates only RAPID report
+    python generate_report --data_source osnap  # generates only OSNAP report
+    python generate_report --data_source move   # generates only MOVE report
     etc.
 """
 
@@ -36,16 +37,16 @@ Available data sources:
 {', '.join(AVAILABLE_SOURCES)}
 
 Examples:
-  python generate_report --data_source rapid
-  python generate_report --data_source osnap  
-  python generate_report --data_source all
+  python generate_report                      # generates all reports (default)
+  python generate_report --data_source rapid  # generates only RAPID report
+  python generate_report --data_source osnap  # generates only OSNAP report
         """
     )
     parser.add_argument(
         "--data_source", 
-        required=True,
+        default="all",
         choices=ALL_SOURCES,
-        help="Data source to generate report for (use 'all' to generate all reports)"
+        help="Data source to generate report for (default: 'all' to generate all reports)"
     )
     parser.add_argument(
         "--output_dir",

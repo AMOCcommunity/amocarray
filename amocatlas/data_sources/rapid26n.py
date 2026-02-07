@@ -110,21 +110,10 @@ def read_rapid(
     """
     log_info("Starting to read RAPID dataset")
 
-    # Load full YAML metadata
-    try:
-        yaml_metadata = utilities.load_array_metadata(DATASOURCE_ID)
-        if yaml_metadata:
-            global_metadata = yaml_metadata.get("metadata", RAPID_METADATA)
-            yaml_file_metadata = yaml_metadata.get("files", {})
-            # Add the files structure to global metadata so it's attached to dataset
-            global_metadata = {**global_metadata, "files": yaml_file_metadata}
-        else:
-            global_metadata = RAPID_METADATA
-            yaml_file_metadata = {}
-    except Exception as e:
-        log_info(f"Could not load YAML metadata, using defaults: {e}")
-        global_metadata = RAPID_METADATA
-        yaml_file_metadata = {}
+    # Load YAML metadata with fallback
+    global_metadata, yaml_file_metadata = ReaderUtils.load_array_metadata_with_fallback(
+        DATASOURCE_ID, RAPID_METADATA
+    )
 
     # Use ReaderUtils for common operations
     file_list = ReaderUtils.prepare_file_list(

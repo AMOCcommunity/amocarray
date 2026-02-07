@@ -1,7 +1,9 @@
 NOAC47N Dataset Report
 ======================
 
-Generated: 2026-02-06 23:23:21
+Generated: 2026-02-07 15:48:49
+
+----
 
 NOAC_AMOC.tab
 -------------
@@ -11,46 +13,15 @@ Dataset Overview
 
 - **Project**: Meridional Connectivity of a 25-Year Observational AMOC Record at 47°N
 - **Description**: No description available
-- **Acknowledgement**: S. Wett et al. (2023), https://doi.org/10.1594/PANGAEA.959558
 - **Source File**: NOAC_AMOC.tab
 - **Data Product**: Basin-wide AMOC volume transport from the NOAC array at 47°N in the subpolar North Atlantic (1993-2018)
-- **Time Coverage**: 725846400.0 to 2018-01-01
+- **Time Coverage**: 1993-01-01 to 2018-01-01
 - **Record Length**: 301 observations (25.0 years)
 - **Sampling Frequency**: monthly
 
-Dataset Statistics
-^^^^^^^^^^^^^^^^^^
+**Citation:**
 
-- **Total Variables**: 2
-- **Total Coordinates**: 1
-- **Dataset Size**: 0.01 MB
-
-Coordinate Information
-^^^^^^^^^^^^^^^^^^^^^^
-
-The following table shows information about the dataset coordinates:
-
-+------------+-------------------+-----------------------------------------+------------------------------------+--------+------------+------------+
-| Coordinate | Standardized Name | Description                             | Units                              | Size   | Min Value  | Max Value  |
-+============+===================+=========================================+====================================+========+============+============+
-| TIME       | TIME              | Time elapsed since 1970-01-01T00:00:00Z | seconds since 1970-01-01T00:00:00Z | (301,) | 1993-01-01 | 2018-01-01 |
-+------------+-------------------+-----------------------------------------+------------------------------------+--------+------------+------------+
-
-
-Variable Mapping and Statistics
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-The following table shows the mapping from original variable names to standardized names,
-along with key statistics for each variable.
-
-+-------------------+-------------------+--------------------------+-------+--------+-----------+-----------+-----------+
-| Original Variable | Standardized Name | Description              | Units | Size   | Min Value | Max Value | Missing % |
-+===================+===================+==========================+=======+========+===========+===========+===========+
-| Trans vol [Sv]    | MOC               | No description available | 1     | (301,) | 4.08      | 37.33     | 0.0%      |
-+-------------------+-------------------+--------------------------+-------+--------+-----------+-----------+-----------+
-| Trans vol [Sv].1  | MOC_LPF           | No description available | 1     | (301,) | 13.85     | 21.50     | 0.0%      |
-+-------------------+-------------------+--------------------------+-------+--------+-----------+-----------+-----------+
-
+    Wett, Simon; Rhein, Monika; Kieke, Dagmar; Mertens, Christian; Moritz, Martin; Nowitzki, Hannah (2023): Basin-wide AMOC volume transport from the NOAC array at 47°N in the subpolar North Atlantic (1993-2018) [dataset]. PANGAEA, https://doi.org/10.1594/PANGAEA.959558
 
 Dataset Visualization
 ^^^^^^^^^^^^^^^^^^^^^
@@ -62,42 +33,99 @@ Dataset Visualization
 
    Time series plot for NOAC47N dataset.
 
-Complete Metadata
+Dataset Statistics
+^^^^^^^^^^^^^^^^^^
+
+- **Total Variables**: 2
+- **Total Coordinates**: 1
+- **Dataset Size**: 0.01 MB
+
+Coordinate Information
+^^^^^^^^^^^^^^^^^^^^^^
+
+The following table shows information about the dataset coordinates in the standardised version, including coordinate name remapping from the original, if any:
+
+.. list-table::
+   :widths: 14 14 14 14 14 14 14
+   :header-rows: 1
+
+   * - Coordinate
+     - Description
+     - Units
+     - Size
+     - Min Value
+     - Max Value
+     - Missing %
+   * - **TIME**
+     - Time
+     - datetime64[ns]
+     - (301,)
+     - 1993-01-01
+     - 2018-01-01
+     - 0.0%
+
+
+Variable Information
+^^^^^^^^^^^^^^^^^^^^
+
+The following table shows the mapping from original variable names to standardized names,
+along with key statistics for each variable.
+
+.. list-table::
+   :widths: 14 14 14 14 14 14 14
+   :header-rows: 1
+
+   * - Variable
+     - Description
+     - Units
+     - Size
+     - Min Value
+     - Max Value
+     - Missing %
+   * - *Trans vol [Sv]* → **MOC**
+     - **MOC_sigma0**: AMOC volume transport at 47N
+     - Sverdrup
+     - (301,)
+     - 4.08
+     - 37.33
+     - 0.0%
+   * - *Trans vol [Sv].1* → **MOC_LPF**
+     - **MOC_sigma0 (filtered)**: AMOC volume transport at 47N, low-pass filtered
+     - Sverdrup
+     - (301,)
+     - 13.85
+     - 21.50
+     - 0.0%
+
+
+Metadata (edits applied noted)
 ^^^^^^^^^^^^^^^^^
 
 The following metadata provides comprehensive information about this dataset:
 
-- **Time Coverage Start**: 725846400.0
-- **Time Coverage End**: 2018-01-01
-- **Program**: NOAC 47N array
-- **Project**: Meridional Connectivity of a 25-Year Observational AMOC Record at 47°N
-- **Contributor Name**: Wett, Simon, Rhein, Monika, Kieke, Dagmar, Mertens, Christian, Moritz, Martin, Nowitzki, Hannah
-- **Contributor Email**: , , , , , , , , , , , 
-- **Contributor Id**: , , , , , , , , , , , 
-- **Contributor Role**: 
-- **Contributor Role Vocabulary**: http://vocab.nerc.ac.uk/search_nvs/W08/
-- **Web Link**: https://doi.pangaea.de/10.1594/PANGAEA.959558
-- **Comment**: Dataset accessed and processed via http://github.com/AMOCcommunity/amocatlas
-- **Featuretype**: timeSeries
-- **Source File**: NOAC_AMOC.tab
-- **Source Path**: /Users/eddifying/Cloudfree/github/AMOCatlas/data/NOAC_AMOC.tab
-- **Amocatlas Datasource**: noac47n
-- **Applied Variable Mapping**: {'Trans vol [Sv]': 'MOC', 'Trans vol [Sv].1': 'MOC_LPF'}
-- **Acknowledgement**: S. Wett et al. (2023), https://doi.org/10.1594/PANGAEA.959558
-- **References**: Wett, S., Rhein, M., Kieke, D., Mertens, C., & Moritz, M. (2023). Meridional connectivity of a 25-year observational AMOC record at 47°N. Geophysical Research Letters, 50, e2023GL103284. https://doi.org/10.1029/2023GL103284
-- **License**: None
 - **Summary**: 
-- **Data Product**: Basin-wide AMOC volume transport from the NOAC array at 47°N in the subpolar North Atlantic (1993-2018)
+- **Program\***: NOAC 47N array
+- **Project\***: Meridional Connectivity of a 25-Year Observational AMOC Record at 47°N
+- **License\***: None
+- **References\***: Wett, S., Rhein, M., Kieke, D., Mertens, C., & Moritz, M. (2023). Meridional connectivity of a 25-year observational AMOC record at 47°N. Geophysical Research Letters, 50, e2023GL103284. https://doi.org/10.1029/2023GL103284
+- **Weblink\***: https://doi.pangaea.de/10.1594/PANGAEA.959558
+- **Data Product\***: Basin-wide AMOC volume transport from the NOAC array at 47°N in the subpolar North Atlantic (1993-2018)
+- **Time Coverage Start\***: 1993-01-01
+- **Time Coverage End\***: 2018-01-01
+- **Contributor Name\***: Wett, Simon, Rhein, Monika, Kieke, Dagmar, Mertens, Christian, Moritz, Martin, Nowitzki, Hannah
+- **Contributor Role\***: 
+- **Contributor Role Vocabulary\***: http://vocab.nerc.ac.uk/search_nvs/W08/
+- **Contributor Email**: , , , , , , , , , , , 
+- **Contributor Id\***: , , , , , , , , , , , 
+- **Conventions**: CF-1.8, ACDD-1.3, OceanSITES-1.5
+- **Featuretype\***: timeSeries
 - **Featuretype Vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
-
-Metadata Processing Changes
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-**Added by AMOCatlas processing:**
-
-- **Source Path**: /Users/eddifying/Cloudfree/github/AMOCatlas/data/NOAC_AMOC.tab
-- **Weblink**: 
-- **Comment**: Dataset accessed and processed via http://github.com/AMOCcommunity/amocatlas
-- **Source File**: NOAC_AMOC.tab
-- **Amocatlas Datasource**: noac47n
-- **Project**: Meridional Connectivity of a 25-Year Observational AMOC Record at 47°N
+- **Source File\***: NOAC_AMOC.tab
+- **Source Path\***: ~/AMOCatlas/data/NOAC_AMOC.tab
+- **Date Modified**: 2026-02-07T14:48:49Z
+- **Processing Software**: http://github.com/AMOCcommunity/amocatlas
+- **Processing Version**: v0.2.0
+- **Variable Mapping\***: {'Trans vol [Sv]': 'MOC', 'Trans vol [Sv].1': 'MOC_LPF'}
+- **Original Variable Metadata\***: [Complex metadata structure - 2 items]
+- **Applied Variable Mapping**: {'Trans vol [Sv]': 'MOC', 'Trans vol [Sv].1': 'MOC_LPF'}
+- **Processing Datasource\***: noac47n

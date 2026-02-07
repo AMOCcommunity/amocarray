@@ -44,11 +44,6 @@ Each dataset report includes:
    - Missing data percentages
    - Dataset size and structure
 
-✅ **Quality Assessment**
-   - Metadata completeness scoring
-   - Data integrity validation
-   - Standardization readiness check
-
 Automated Generation
 --------------------
 

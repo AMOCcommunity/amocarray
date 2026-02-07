@@ -17,6 +17,7 @@ Usage:
     >>> rst_output = report.generate_dataset_report("rapid26n")
 """
 
+import builtins
 import pandas as pd
 import xarray as xr
 from typing import Dict, Any, Optional, List, Union
@@ -121,6 +122,7 @@ class ReportUtils:
             "total_attributes": len(dataset.attrs),
             "file_size_mb": dataset.nbytes / (1024 * 1024),
             "variables": {},
+            "coordinates": {},
         }
 
         # Compute statistics for each data variable
@@ -156,6 +158,49 @@ class ReportUtils:
                     ) * 100
 
             stats["variables"][var_name] = var_stats
+
+        # Compute statistics for each coordinate
+        for coord_name, coord in dataset.coords.items():
+            coord_stats = {
+                "dtype": str(coord.dtype),
+                "shape": coord.shape,
+                "dimensions": list(coord.dims),
+                "units": coord.attrs.get("units", "unknown"),
+                "long_name": coord.attrs.get("long_name", coord_name),
+                "missing_data_pct": 0.0,
+            }
+
+            # Compute min/max for numeric coordinates
+            if np.issubdtype(coord.dtype, np.number):
+                # Handle potential NaN values
+                valid_data = coord.where(np.isfinite(coord), drop=True)
+                if valid_data.size > 0:
+                    coord_stats.update(
+                        {
+                            "min": float(valid_data.min().values),
+                            "max": float(valid_data.max().values),
+                            "mean": float(valid_data.mean().values),
+                        }
+                    )
+                else:
+                    coord_stats.update({"min": None, "max": None, "mean": None})
+            elif coord.dtype.kind == "M":  # Datetime
+                coord_stats.update(
+                    {
+                        "min": str(coord.min().values)[:10],
+                        "max": str(coord.max().values)[:10],
+                    }
+                )
+            else:
+                # For non-numeric coordinates, just store first and last values
+                coord_stats.update(
+                    {
+                        "min": str(coord.values[0]) if coord.size > 0 else None,
+                        "max": str(coord.values[-1]) if coord.size > 0 else None,
+                    }
+                )
+
+            stats["coordinates"][coord_name] = coord_stats
 
         return stats
 
@@ -471,40 +516,9 @@ class ReportUtils:
             Table with variable/coordinate information
 
         """
-        # Use only what's in the dataset metadata - no separate YAML loading
-        files_metadata = metadata.get("files", {})
-
-        # Find the transport file or use the first file
-        transport_files = ["moc_transports.nc", "transport.nc", "transports.nc"]
-        file_key = None
-
-        # Get source file from dataset attributes
-        source_file = dataset.attrs.get("source_file", "")
-        if source_file in files_metadata:
-            file_key = source_file
-        else:
-            # Fallback to transport files
-            for transport_file in transport_files:
-                if transport_file in files_metadata:
-                    file_key = transport_file
-                    break
-
-        if not file_key:
-            # Check if files metadata exists and has entries
-            if files_metadata:
-                file_key = list(files_metadata.keys())[0]
-            else:
-                # No files metadata available, use fallback
-                file_key = None
-
-        if file_key and file_key in files_metadata:
-            file_meta = files_metadata[file_key]
-            variable_mapping = file_meta.get("variable_mapping", {})
-            variables_meta = file_meta.get("variables", {})
-        else:
-            # Fall back to dataset attributes - no YAML file metadata available
-            variable_mapping = dataset.attrs.get("applied_variable_mapping", {})
-            variables_meta = {}
+        # For standardized reports, use ONLY dataset attributes - no YAML metadata
+        # Get the applied variable mapping from the standardized dataset
+        variable_mapping = dataset.attrs.get("applied_variable_mapping", {})
 
         mapping_data = []
 
@@ -512,9 +526,15 @@ class ReportUtils:
         applied_mapping = dataset.attrs.get("applied_variable_mapping", {})
 
         # Create reverse mapping: standardized -> original for display purposes
-        reverse_mapping = {
-            std_var: orig_var for orig_var, std_var in applied_mapping.items()
-        }
+        # Prioritize actual renames over identity mappings
+        reverse_mapping = {}
+        for orig_var, std_var in applied_mapping.items():
+            if orig_var != std_var:
+                # This is an actual rename - use it
+                reverse_mapping[std_var] = orig_var
+            elif std_var not in reverse_mapping:
+                # This is an identity mapping - only use if no actual rename exists
+                reverse_mapping[std_var] = orig_var
 
         # Get items to process based on table type
         if table_type == "variables":
@@ -531,23 +551,21 @@ class ReportUtils:
 
             # Create display name using new format: *orig* → **standardized** or just **standardized**
             if item_name in reverse_mapping:
-                # This item was renamed
+                # This item is in the mapping - check if it was actually renamed
                 orig_name = reverse_mapping[item_name]
-                display_name = f"*{orig_name}* → **{item_name}**"
-                # Get metadata - prefer original name, fallback to standardized
-                item_meta = variables_meta.get(
-                    orig_name, variables_meta.get(item_name, {})
-                )
+                if orig_name != item_name:
+                    # Only show mapping if names are actually different (case-sensitive)
+                    display_name = f"*{orig_name}* → **{item_name}**"
+                else:
+                    # Names are identical - no rename occurred
+                    display_name = f"**{item_name}**"
             else:
-                # This item was not renamed
+                # This item was not in the mapping at all
                 display_name = f"**{item_name}**"
-                item_meta = variables_meta.get(item_name, {})
 
-            # Get description and long_name from metadata or attributes
-            description = item_meta.get(
-                "description", item_data.attrs.get("description", "")
-            )
-            long_name = item_meta.get("long_name", item_data.attrs.get("long_name", ""))
+            # Get description and long_name from standardized dataset attributes only
+            description = item_data.attrs.get("description", "")
+            long_name = item_data.attrs.get("long_name", "")
 
             # Create display description: prioritize description, then add long_name in bold
             if description:
@@ -610,9 +628,7 @@ class ReportUtils:
             row = {
                 column_name: display_name,
                 "Description": display_description,
-                "Units": item_data.attrs.get(
-                    "units", item_meta.get("units", "unknown")
-                ),
+                "Units": item_data.attrs.get("units", "unknown"),
                 "Size": size,
                 "Min Value": min_val,
                 "Max Value": max_val,
@@ -649,10 +665,8 @@ class ReportUtils:
             plots_dir = Path("docs/source/_static/reports")
             plots_dir.mkdir(parents=True, exist_ok=True)
 
-            # Generate plot filename (clean dataset name for filename)
+            # Generate base filename (clean dataset name for filename)
             clean_name = dataset_name.replace(" ", "_").replace(".nc", "")
-            plot_filename = f"{clean_name}_timeseries.png"
-            plot_path = plots_dir / plot_filename
 
             # Find 1-dimensional time series variables indexed against time
             data_vars = list(dataset.data_vars.keys())
@@ -664,8 +678,9 @@ class ReportUtils:
 
             time_coord = time_coords[0]  # Use first time coordinate
 
-            # Find 1D time series variables
+            # Find 1D time series and 2D variables
             timeseries_vars = []
+            twod_vars = []
             for var in data_vars:
                 var_data = dataset[var]
                 # Check if variable is 1D and has time as its dimension
@@ -676,58 +691,157 @@ class ReportUtils:
                     and "flag" not in var.lower()
                 ):  # not a flag variable
                     timeseries_vars.append(var)
+                # Check for 2D variables with single element in non-time dimension (treat as 1D)
+                elif (
+                    len(var_data.dims) == 2
+                    and time_coord in var_data.dims
+                    and var_data.dtype.kind in ["f", "i"]  # numeric
+                    and "flag" not in var.lower()
+                    and any(
+                        var_data.shape[i] == 1
+                        for i, dim in enumerate(var_data.dims)
+                        if dim != time_coord
+                    )
+                ):  # 2D with single element in non-time dimension
+                    timeseries_vars.append(var)
+                # Check if variable is 2D with time and another dimension (true 2D)
+                elif (
+                    len(var_data.dims) == 2
+                    and time_coord in var_data.dims
+                    and var_data.dtype.kind in ["f", "i"]  # numeric
+                    and "flag" not in var.lower()
+                    and builtins.all(
+                        var_data.shape[i] > 1
+                        for i, dim in enumerate(var_data.dims)
+                        if dim != time_coord
+                    )
+                ):  # true 2D variable
+                    twod_vars.append(var)
 
-            if not timeseries_vars:
-                print(f"  No 1D time series variables found in {dataset_name}")
-                return None
+            # Determine plotting strategy: prefer 2D for certain variables, fall back to 1D
+            plot_2d = False
+            var_to_plot = None
+            plot_type = "Time Series"
 
-            # Prioritize variables by type for time series
-            moc_vars = [var for var in timeseries_vars if "moc" in var.lower()]
-            transport_vars = [
-                var
-                for var in timeseries_vars
-                if any(x in var.lower() for x in ["transport", "_t_", "t_", "stream"])
+            # Priority order for 2D variables (using standardized names)
+            twod_priority = [
+                "streamfunction",
+                "vcur",  # Standardized name for meridional velocity
+                "temperature",
+                "temp",  # Temperature variables
+                "moc",
+                "sal",
+                "density",
+                "profile",
             ]
-            temp_vars = [
-                var
-                for var in timeseries_vars
-                if any(x in var.lower() for x in ["temp", "tg_"])
-            ]
 
-            # Choose variable to plot in order of preference
-            if moc_vars:
-                var_to_plot = moc_vars[0]
-                plot_type = "MOC"
-            elif transport_vars:
-                var_to_plot = transport_vars[0]
-                plot_type = "Transport"
-            elif temp_vars:
-                var_to_plot = temp_vars[0]
-                plot_type = "Temperature"
-            else:
-                var_to_plot = timeseries_vars[0]
-                plot_type = "Time Series"
+            # Find best 2D variable based on priority
+            for priority_term in twod_priority:
+                matching_vars = [
+                    var for var in twod_vars if priority_term in var.lower()
+                ]
+                if matching_vars:
+                    var_to_plot = matching_vars[0]
+                    plot_type = "2D Data"
+                    plot_2d = True
+                    break
 
-            print(f"  Generating plot for {dataset_name} using variable: {var_to_plot}")
+            if not plot_2d and twod_vars:
+                # Any other 2D variable
+                var_to_plot = twod_vars[0]
+                plot_type = "2D Data"
+                plot_2d = True
 
-            # Use plotters to create the plot
-            title = f"{dataset_name.upper()} {plot_type} Time Series"
-            fig, ax = plotters.plot_amoc_timeseries(
-                dataset,
-                varnames=[var_to_plot],
-                title=title,
-                resample_monthly=False,
-                plot_raw=True,
-                figsize=(8, 3),
+            if not plot_2d:
+                # Fall back to 1D time series
+                if not timeseries_vars:
+                    print(
+                        f"  No suitable variables found for plotting in {dataset_name}"
+                    )
+                    return None
+
+                # Priority order for 1D variables
+                oned_priority = [
+                    "moc",
+                    "mht",
+                    "trans",
+                    "transport",
+                    "_t_",
+                    "t_",
+                    "stream",
+                    "temp",
+                    "tg_",
+                ]
+
+                # Find best 1D variable based on priority
+                for priority_term in oned_priority:
+                    matching_vars = [
+                        var for var in timeseries_vars if priority_term in var.lower()
+                    ]
+                    if matching_vars:
+                        var_to_plot = matching_vars[0]
+                        if "moc" in priority_term:
+                            plot_type = "MOC"
+                        elif "mht" in priority_term:
+                            plot_type = "Heat Transport"
+                        elif any(
+                            x in priority_term
+                            for x in ["trans", "transport", "_t_", "t_", "stream"]
+                        ):
+                            plot_type = "Transport"
+                        elif any(x in priority_term for x in ["temp", "tg_"]):
+                            plot_type = "Temperature"
+                        else:
+                            plot_type = "Time Series"
+                        break
+
+                if var_to_plot is None:
+                    var_to_plot = timeseries_vars[0]
+                    plot_type = "Time Series"
+
+            print(
+                f"  Generating plot for {dataset_name} using variable: {var_to_plot} ({'2D' if plot_2d else '1D'})"
             )
+
+            # Generate plot filename based on plot type
+            if plot_2d:
+                plot_filename = f"{clean_name}_2d_gridded.png"
+            else:
+                plot_filename = f"{clean_name}_timeseries.png"
+            plot_path = plots_dir / plot_filename
+
+            # Use appropriate plotter based on data dimensions
+            title = f"{dataset_name.upper()} {plot_type}"
+
+            if plot_2d:
+                # Use 2D plotting function
+                fig, ax = plotters.plot_amoc_2d_data(
+                    dataset,
+                    varname=var_to_plot,
+                    title=title,
+                    figsize=(8, 4),
+                )
+            else:
+                # Use 1D time series plotting function
+                fig, ax = plotters.plot_amoc_timeseries(
+                    dataset,
+                    varnames=[var_to_plot],
+                    title=title,
+                    resample_monthly=False,
+                    plot_raw=True,
+                    figsize=(8, 3),
+                )
 
             # Customize plot
             if hasattr(fig, "get_axes") and fig.get_axes():
                 ax = fig.get_axes()[0]
                 if hasattr(ax, "legend"):
-                    legend = ax.legend()
-                    if legend:
-                        legend.set_visible(False)
+                    # Only create legend if there are labeled artists
+                    handles, labels = ax.get_legend_handles_labels()
+                    if handles:
+                        legend = ax.legend()
+                        if legend:
+                            legend.set_visible(False)
 
             # Save plot
             fig.savefig(plot_path, dpi=150, bbox_inches="tight", facecolor="white")
@@ -871,9 +985,11 @@ class ReportUtils:
                     )
                     rst_lines = individual_rst.split("\n")
 
-                    # Add filename as section header
+                    # Add filename as section header with horizontal rule
                     lines.extend(
                         [
+                            "----",
+                            "",
                             source_file,
                             "-" * len(source_file),
                             "",
@@ -1564,6 +1680,8 @@ def _generate_rst_report(
         source_file = report_data.dataset.attrs.get("source_file", "Unknown source")
         lines.extend(
             [
+                "----",
+                "",
                 source_file,
                 "-" * len(source_file),
                 "",
@@ -1579,38 +1697,34 @@ def _generate_rst_report(
         ]
     )
 
-    if metadata:
-        # Use case-insensitive lookup for common fields
-        def get_field(field_name, default="Unknown"):
-            # Try exact match first
-            if field_name in metadata:
-                return metadata[field_name]
-            # Try capitalized version
-            cap_field = field_name.capitalize()
-            if cap_field in metadata:
-                return metadata[cap_field]
-            # Try title case version
-            title_field = field_name.replace("_", " ").title().replace(" ", "_")
-            if title_field in metadata:
-                return metadata[title_field]
+    # Use case-insensitive lookup for common fields (metadata is standardized dataset attributes)
+    def get_field(field_name, default="Unknown"):
+        if not metadata:
             return default
+        # Try exact match first
+        if field_name in metadata:
+            return metadata[field_name]
+        # Try capitalized version
+        cap_field = field_name.capitalize()
+        if cap_field in metadata:
+            return metadata[cap_field]
+        # Try title case version
+        title_field = field_name.replace("_", " ").title().replace(" ", "_")
+        if title_field in metadata:
+            return metadata[title_field]
+        return default
 
+    # Store citation and acknowledgement for later display
+    citation_for_later = get_field("citation")
+    acknowledgement_for_later = get_field("acknowledgement")
+
+    if metadata:
         lines.extend(
             [
                 f"- **Project**: {get_field('project')}",
                 f"- **Description**: {get_field('description', 'No description available')}",
             ]
         )
-
-        # Citation field
-        citation = get_field("citation")
-        if citation and citation != "Unknown":
-            lines.append(f"- **Citation**: {citation}")
-
-        # Acknowledgement field
-        acknowledgement = get_field("acknowledgement")
-        if acknowledgement and acknowledgement != "Unknown":
-            lines.append(f"- **Acknowledgement**: {acknowledgement}")
 
         # Website field - try multiple variations
         website = get_field("website") or get_field("weblink") or get_field("web_link")
@@ -1651,31 +1765,62 @@ def _generate_rst_report(
         if "estimated_frequency" in temporal:
             lines.append(f"- **Sampling Frequency**: {temporal['estimated_frequency']}")
 
-    # Add citation if available
-    if metadata.get("citation"):
-        citation = metadata["citation"]
+    # Add citation and acknowledgement if available (from standardized dataset attributes)
+    citation_to_display = citation_for_later
+    acknowledgement_to_display = acknowledgement_for_later
 
+    if citation_to_display and citation_to_display != "Unknown":
         # Make DOI clickable if present
         import re
 
         doi_pattern = r"doi:\s*([0-9]+\.[0-9]+/[^\s]+)"
-        doi_match = re.search(doi_pattern, citation)
+        doi_match = re.search(doi_pattern, citation_to_display)
 
         if doi_match:
             doi = doi_match.group(1)
             doi_url = f"http://doi.org/{doi}"
-            citation = re.sub(doi_pattern, f"doi: {doi_url}", citation)
+            citation_to_display = re.sub(
+                doi_pattern, f"doi: {doi_url}", citation_to_display
+            )
 
         lines.extend(
             [
                 "",
                 "**Citation:**",
                 "",
-                f"    {citation}",
+                f"    {citation_to_display}",
+            ]
+        )
+
+    if acknowledgement_to_display and acknowledgement_to_display != "Unknown":
+        lines.extend(
+            [
+                "",
+                "**Acknowledgement:**",
+                "",
+                f"    {acknowledgement_to_display}",
             ]
         )
 
     lines.append("")
+
+    # Add plot if available
+    plot_path = report_data.plot_path
+    if plot_path:
+        lines.extend(
+            [
+                "Dataset Visualization",
+                "^^^^^^^^^^^^^^^^^^^^^",
+                "",
+                f".. figure:: {plot_path}",
+                "   :alt: AMOC time series plot",
+                "   :align: center",
+                "   :scale: 80%",
+                "",
+                f"   Time series plot for {dataset_name.upper()} dataset.",
+                "",
+            ]
+        )
 
     # Dataset Statistics
     lines.extend(
@@ -1696,7 +1841,7 @@ def _generate_rst_report(
             "Coordinate Information",
             "^^^^^^^^^^^^^^^^^^^^^^",
             "",
-            "The following table shows information about the dataset coordinates:",
+            "The following table shows information about the dataset coordinates in the standardised version, including coordinate name remapping from the original, if any:",
             "",
         ]
     )
@@ -1718,11 +1863,11 @@ def _generate_rst_report(
 
     lines.append("")
 
-    # Variable Mapping Table
+    # Variable Information Table
     lines.extend(
         [
-            "Variable Mapping and Statistics",
-            "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+            "Variable Information",
+            "^^^^^^^^^^^^^^^^^^^^",
             "",
             "The following table shows the mapping from original variable names to standardized names,",
             "along with key statistics for each variable.",
@@ -1748,28 +1893,10 @@ def _generate_rst_report(
 
     lines.append("")
 
-    # Add plot if available
-    plot_path = report_data.plot_path
-    if plot_path:
-        lines.extend(
-            [
-                "Dataset Visualization",
-                "^^^^^^^^^^^^^^^^^^^^^",
-                "",
-                f".. figure:: {plot_path}",
-                "   :alt: AMOC time series plot",
-                "   :align: center",
-                "   :scale: 80%",
-                "",
-                f"   Time series plot for {dataset_name.upper()} dataset.",
-                "",
-            ]
-        )
-
     # Complete Metadata
     lines.extend(
         [
-            "Complete Metadata",
+            "Metadata (edits applied noted)",
             "^^^^^^^^^^^^^^^^^",
             "",
             "The following metadata provides comprehensive information about this dataset:",
@@ -1784,9 +1911,21 @@ def _generate_rst_report(
         "variables",
         "coordinates",
     ]  # Skip verbose metadata
+
+    # Get information about which attributes were modified by AMOCatlas, if available
+    added_attrs = set()
+    modified_attrs = set()
+    if isinstance(report_data, StandardizedDatasetReport):
+        added_attrs = set(report_data.attr_changes.get("added", []))
+        modified_attrs = set(report_data.attr_changes.get("modified", []))
+
     for key, value in metadata.items():
         if key not in excluded_keys:
-            formatted_key = key.replace("_", " ").title()
+            # Preserve exact case for case-sensitive attributes
+            if key in ["Conventions", "featureType", "featureType_vocabulary"]:
+                formatted_key = key  # Keep exact case and formatting
+            else:
+                formatted_key = key.replace("_", " ").title()
 
             # Update time coverage with actual dataset values if available
             if (
@@ -1799,16 +1938,23 @@ def _generate_rst_report(
                 elif key == "time_coverage_end":
                     value = ReportUtils._safe_format_date(temporal["end_date"])
 
+            # Add annotation if this field was edited by AMOCatlas
+            annotation = ""
+            if key in added_attrs or key in modified_attrs:
+                annotation = r"\*"
+
             if isinstance(value, (list, tuple)):
-                lines.append(f"- **{formatted_key}**: {', '.join(map(str, value))}")
+                lines.append(
+                    f"- **{formatted_key}{annotation}**: {', '.join(map(str, value))}"
+                )
             elif isinstance(value, dict):
                 # Skip large dictionary dumps
                 if len(str(value)) > 200:
                     lines.append(
-                        f"- **{formatted_key}**: [Complex metadata structure - {len(value)} items]"
+                        f"- **{formatted_key}{annotation}**: [Complex metadata structure - {len(value)} items]"
                     )
                 else:
-                    lines.append(f"- **{formatted_key}**: {str(value)}")
+                    lines.append(f"- **{formatted_key}{annotation}**: {str(value)}")
             else:
                 # Make DOI clickable if it's a DOI field
                 if (
@@ -1818,7 +1964,7 @@ def _generate_rst_report(
                     doi_value = str(value).strip()
                     if doi_value.startswith("http"):
                         # Already a URL
-                        lines.append(f"- **{formatted_key}**: {doi_value}")
+                        lines.append(f"- **{formatted_key}{annotation}**: {doi_value}")
                     else:
                         # Convert to clickable URL
                         if doi_value.startswith("doi:"):
@@ -1826,23 +1972,12 @@ def _generate_rst_report(
                         elif doi_value.startswith("10."):
                             pass  # Already just the DOI part
                         lines.append(
-                            f"- **{formatted_key}**: https://doi.org/{doi_value}"
+                            f"- **{formatted_key}{annotation}**: https://doi.org/{doi_value}"
                         )
                 else:
-                    lines.append(f"- **{formatted_key}**: {value}")
+                    lines.append(f"- **{formatted_key}{annotation}**: {value}")
 
     lines.append("")
-
-    # Add metadata changes section for StandardizedDatasetReport
-    if isinstance(report_data, StandardizedDatasetReport):
-        lines.extend(
-            [
-                "Metadata Processing Changes",
-                "^^^^^^^^^^^^^^^^^^^^^^^^^^^",
-                "",
-                report_data.metadata_changes_summary,
-            ]
-        )
 
     return "\n".join(lines)
 

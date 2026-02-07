@@ -4,8 +4,6 @@ metadata:
   project: "An observation based estimate of the Atlantic meridional freshwater transport"
   weblink: "https://zenodo.org/records/12790901"
   comment: "Dataset accessed and processed via http://github.com/AMOCcommunity/amocatlas"
-  acknowledgement: >
-    "This study was supported by the National Natural Science Foundation of China (Grant 42122046, 42076202, 42075036), National Key Scientific and Technological Infrastructure project: Earth System Science Numerical Simulator Facility, (EarthLab) and the new Cornerstone Science Foundation through the XPLORER PRIZE. F. Li acknowledges the financial support from the National Key R&D Program of China (Grant 2023YFF0805102). Gratitude is extended to Elaine L. McDonagh, who graciously shared RAPID freshwater transport data."
   citation: >
     Zheng, H. (2024). An observation-based estimate of the Atlantic meridional freshwater transport [Data set]. Zenodo. https://doi.org/10.5281/zenodo.12790901
   references: >
@@ -15,34 +13,33 @@ metadata:
   Conventions: "CF-1.8, ACDD-1.3"
   time_coverage_start: '2004-04-30'
   time_coverage_end: '2020-12-31'
-  platform_type: "Salinity observations used in this study are from the Institute of Atmospheric Physics (IAP). Argo floats, CTD salinity sensors, bottles, mooring, sourced from the World Ocean Database (WOD). Precipitation and evaporation observations are derived from the Global Precipitation Climatology Project (GPCP)."
+  comment: "Salinity observations used in this study are from the Institute of Atmospheric Physics (IAP). Argo floats, CTD salinity sensors, bottles, mooring, sourced from the World Ocean Database (WOD). Precipitation and evaporation observations are derived from the Global Precipitation Climatology Project (GPCP)."
   contributor_name: "Huayi Zheng, Lijing Cheng, Feili Li, Yuying Pan, Chenyu Zhu"
   contributor_role: ""
   contributor_id: "https://orcid.org/0009-0004-5333-7595, https://orcid.org/0000-0002-9854-0392, https://scholar.google.com/citations?user=fXejLAwAAAAJ, https://orcid.org/0000-0001-7694-2625, https://orcid.org/0000-0002-9330-4294"
   contributor_role_vocabulary: "http://vocab.nerc.ac.uk/search_nvs/W08/"
+  source_url: "https://zenodo.org/records/12790901"
 
 files:
   atl_mft_2000_extend_gpcp_oaflux.nc:
-    source_url: "https://zenodo.org/records/12790901"
     data_product: "An observation based estimate of the Atlantic meridional freshwater transport"
-    acknowledgement: "Zheng et al. (2024), http://doi.org/10.1029/2024gl110021"
     variable_mapping:
       "time": TIME
       "lat": LATITUDE
       "mft": MFT
-    variables:
-      TIME:
+    original_variable_metadata:
+      time:
         long_name: "Time"
         description: "Time in datetime format"
-        units: "dateteime64[ns]"
+        units: "datetime64[ns]"
         standard_name: "time"
-      LATITUDE:
+      lat:
         long_name: "Latitude of zonal sections"
         description: "Latitude of zonal sections across which freshwater transport is computed. Values lie between 34.5°S and 66.5°N."
-        units: "degrees"
+        units: "degrees_north"
         standard_name: "latitude"
-      MFT:
-        long_name: "Meridional Freshwater Transport"
+      mft:
+        long_name: "Freshwater"
         description: "An Observation-Based Estimate of Atlantic Meridional Freshwater Transport. AMFT given by RAPID array at 26.5°N was integrated southward and northward in combination with ocean freshwater content (calculated by salinity) and surface freshwater flux, with the residual of the freshwater budget equation being the AMFT."
         units: "Sv"
         standard_name: "northward_ocean_freshwater_transport"

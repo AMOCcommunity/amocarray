@@ -165,6 +165,52 @@ def read_calafat2025(
                 # Use ReaderUtils for consistent dataset loading
                 ds = ReaderUtils.safe_load_dataset(nc_path)
 
+                # Fix latitude coordinate: promote LATITUDE variable to coordinate
+                if "latitude" in ds.variables and "lat" in ds.dims:
+                    # Rename to uppercase and make it a coordinate
+                    ds = ds.rename({"latitude": "LATITUDE"})
+                    ds = ds.set_coords("LATITUDE")
+
+                    # Create LAT_BOUNDS coordinate from LATITUDE values
+                    lat_values = ds["LATITUDE"].values
+                    log_info(
+                        f"Creating LAT_BOUNDS from {len(lat_values)} latitude values"
+                    )
+
+                    # Create bounds as tuples - each bound is the midpoint between adjacent latitudes
+                    bounds_list = []
+                    for i in range(len(lat_values)):
+                        if i == 0:
+                            # First bound: extrapolate from first two points
+                            lower = lat_values[0] - (lat_values[1] - lat_values[0]) / 2
+                            upper = (lat_values[0] + lat_values[1]) / 2
+                        elif i == len(lat_values) - 1:
+                            # Last bound: extrapolate from last two points
+                            lower = (lat_values[i - 1] + lat_values[i]) / 2
+                            upper = (
+                                lat_values[i] + (lat_values[i] - lat_values[i - 1]) / 2
+                            )
+                        else:
+                            # Middle bounds: midpoint with neighbors
+                            lower = (lat_values[i - 1] + lat_values[i]) / 2
+                            upper = (lat_values[i] + lat_values[i + 1]) / 2
+                        bounds_list.append((lower, upper))
+
+                    # Add LAT_BOUNDS as a coordinate
+                    import numpy as np
+
+                    bounds_array = np.array(bounds_list)
+                    ds = ds.assign_coords(LAT_BOUNDS=(["lat", "bound"], bounds_array))
+
+                    # Add attributes to LAT_BOUNDS
+                    ds["LAT_BOUNDS"].attrs.update(
+                        {
+                            "long_name": "Latitude cell boundaries",
+                            "units": "degrees_north",
+                            "standard_name": "latitude_bounds",
+                        }
+                    )
+
                 # Fix Calafat time coordinate: convert decimal years to standard format
                 if "time" in ds.coords:
                     import pandas as pd

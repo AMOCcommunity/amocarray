@@ -90,7 +90,14 @@ def read_47n(
     If the file cannot be downloaded or does not exist locally.
 
     """
-    log.info("Starting to read 47N dataset")  # Ensure file_list has a default
+    log.info("Starting to read 47N dataset")
+
+    # Load YAML metadata with fallback
+    global_metadata, yaml_file_metadata = ReaderUtils.load_array_metadata_with_fallback(
+        DATASOURCE_ID, A47N_METADATA
+    )
+
+    # Ensure file_list has a default
     if file_list is None:
         file_list = A47N_DEFAULT_FILES
     if transport_only:
@@ -160,7 +167,9 @@ def read_47n(
                 )
             # Attach metadata
             # Use ReaderUtils for consistent metadata attachment
-            file_metadata = A47N_FILE_METADATA.get(file, {})
+            file_metadata = yaml_file_metadata.get(
+                file, A47N_FILE_METADATA.get(file, {})
+            )
 
             if track_added_attrs:
                 # Use tracking version to collect attribute changes
@@ -168,9 +177,9 @@ def read_47n(
                     ds,
                     file,
                     file_path,
-                    A47N_METADATA,
-                    {},  # yaml metadata (NOAC47N doesn't have separate YAML files)
-                    file_metadata,
+                    global_metadata,
+                    yaml_file_metadata,
+                    A47N_FILE_METADATA,
                     DATASOURCE_ID,
                     track_added_attrs=True,
                 )
@@ -181,7 +190,7 @@ def read_47n(
                     ds,
                     file,
                     file_path,
-                    A47N_METADATA,
+                    global_metadata,
                     file_metadata,
                     datasource_id=DATASOURCE_ID,
                 )

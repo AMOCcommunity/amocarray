@@ -1,7 +1,9 @@
 DSO Dataset Report
 ==================
 
-Generated: 2026-02-06 23:23:18
+Generated: 2026-02-07 15:48:44
+
+----
 
 DSO_transport_hourly_1996_2021.nc
 ---------------------------------
@@ -11,16 +13,25 @@ Dataset Overview
 
 - **Project**: Overflow time-series through Denmark Strait
 - **Description**: Denmark Strait Overflow
-- **Citation**: Jochumsen, K., Moritz, M., Nunes, N., Quadfasel, D., Larsen, K. M. H., Hansen, B., Valdimarsson, H., and Jonsson, S.: Revised transportestimates of the Denmark Strait overflow, Journal of Geophysical Research: Oceans, 122, doi:10.1002/2017JC012803, 2017.
 - **Source File**: DSO_transport_hourly_1996_2021.nc
 - **Data Product**: Overflow time-series through Denmark Strait
-- **Time Coverage**: 830908800.0 to 2021-08-07
+- **Time Coverage**: 1996-05-01 to 2021-08-07
 - **Record Length**: 221,514 observations (25.3 years)
-- **Sampling Frequency**: <1H
+- **Sampling Frequency**: hourly
 
 **Citation:**
 
-    Jochumsen, K., Moritz, M., Nunes, N., Quadfasel, D., Larsen, K. M. H., Hansen, B., Valdimarsson, H., and Jonsson, S.: Revised transportestimates of the Denmark Strait overflow, Journal of Geophysical Research: Oceans, 122, doi: http://doi.org/10.1002/2017JC012803, 2017.
+    Jochumsen, K., Moritz, M., Nunes, N., Quadfasel, D., Larsen, K. M. H., Hansen, B., Valdimarsson, H., and Jonsson, S.: Revised transport estimates of the Denmark Strait overflow, Journal of Geophysical Research: Oceans, 122, doi: http://doi.org/10.1002/2017JC012803, 2017.
+
+Dataset Visualization
+^^^^^^^^^^^^^^^^^^^^^
+
+.. figure:: ../_static/reports/DSO_timeseries.png
+   :alt: AMOC time series plot
+   :align: center
+   :scale: 80%
+
+   Time series plot for DSO dataset.
 
 Dataset Statistics
 ^^^^^^^^^^^^^^^^^^
@@ -32,79 +43,134 @@ Dataset Statistics
 Coordinate Information
 ^^^^^^^^^^^^^^^^^^^^^^
 
-The following table shows information about the dataset coordinates:
+The following table shows information about the dataset coordinates in the standardised version, including coordinate name remapping from the original, if any:
 
-+------------+-------------------+-----------------------------------------+------------------------------------+-----------+------------+------------+
-| Coordinate | Standardized Name | Description                             | Units                              | Size      | Min Value  | Max Value  |
-+============+===================+=========================================+====================================+===========+============+============+
-| TIME       | TIME              | Time elapsed since 1970-01-01T00:00:00Z | seconds since 1970-01-01T00:00:00Z | (221514,) | 1996-05-01 | 2021-08-07 |
-+------------+-------------------+-----------------------------------------+------------------------------------+-----------+------------+------------+
-| LATITUDE   | LATITUDE          | Latitude north (WGS84)                  | degrees_north                      | (1,)      | 66         | 66         |
-+------------+-------------------+-----------------------------------------+------------------------------------+-----------+------------+------------+
-| LONGITUDE  | LONGITUDE         | longitude east (WGS84)                  | degrees_east                       | (1,)      | -27        | -27        |
-+------------+-------------------+-----------------------------------------+------------------------------------+-----------+------------+------------+
-| DEPTH      | DEPTH             | Depth below surface of the water        | meter                              | (1,)      | 630        | 630        |
-+------------+-------------------+-----------------------------------------+------------------------------------+-----------+------------+------------+
+.. list-table::
+   :widths: 14 14 14 14 14 14 14
+   :header-rows: 1
+
+   * - Coordinate
+     - Description
+     - Units
+     - Size
+     - Min Value
+     - Max Value
+     - Missing %
+   * - **DEPTH**
+     - **Depth**:  Depth below surface of the water
+     - meters
+     - (1,)
+     - 630.00
+     - 630.00
+     - 0.0%
+   * - **LATITUDE**
+     - **Latitude**: Latitude north (WGS84)
+     - degrees_north
+     - (1,)
+     - 66.00
+     - 66.00
+     - 0.0%
+   * - **LONGITUDE**
+     - **Longitude**: Longitude east (WGS84)
+     - degrees_east
+     - (1,)
+     - -27.00
+     - -27.00
+     - 0.0%
+   * - **TIME**
+     - Time
+     - datetime64[ns]
+     - (221514,)
+     - 1996-05-01
+     - 2021-08-07
+     - 0.0%
 
 
-Variable Mapping and Statistics
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Variable Information
+^^^^^^^^^^^^^^^^^^^^
 
 The following table shows the mapping from original variable names to standardized names,
 along with key statistics for each variable.
 
-+-------------------+-------------------+------------------------------------------+--------+-------------+-----------+-----------+-----------+
-| Original Variable | Standardized Name | Description                              | Units  | Size        | Min Value | Max Value | Missing % |
-+===================+===================+==========================================+========+=============+===========+===========+===========+
-| DSO_tr            | TRANS_DSO         | Denmark Strait Overflow volume transport | m3 s-1 | (221514, 1) | -9.66     | 3.08      | 8.3%      |
-+-------------------+-------------------+------------------------------------------+--------+-------------+-----------+-----------+-----------+
+.. list-table::
+   :widths: 14 14 14 14 14 14 14
+   :header-rows: 1
+
+   * - Variable
+     - Description
+     - Units
+     - Size
+     - Min Value
+     - Max Value
+     - Missing %
+   * - *DSO_tr* → **TRANS_DSO**
+     - **DS Overflow**: Denmark Strait Overflow volume transport
+     - Sverdrup
+     - (221514, 1)
+     - -9.66
+     - 3.08
+     - 8.3%
 
 
-Complete Metadata
+Metadata (edits applied noted)
 ^^^^^^^^^^^^^^^^^
 
 The following metadata provides comprehensive information about this dataset:
 
 - **Title**: Volume transport timeseries in the North Atlantic
-- **Platform**: mooring
-- **Platform Vocabulary**: https://vocab.nerc.ac.uk/collection/L06/
+- **Summary**: Denmark Strait Overflow
+- **Description\***: Denmark Strait Overflow
+- **Program\***: DSO
+- **Project**: Overflow time-series through Denmark Strait
+- **Source**: subsurface moorings
 - **Id**: OS_2GSR_DSO_D
 - **Naming Authority**: OceanSITES
+- **License**: void
+- **Acknowledgment**: The DSO was generated by the University of Hamburg and Hafrannsóknastofnun / Marine and Freshwater Research Institute (Reykjavik, Iceland) with support from NACLIM (no. 308299), until 2016, and from RACE II (no. 03F0729B, until 2018), RACE-Synthese (no. 03F0825B, until 2020) German Federal Ministry for Education and Research (BMBF). Nordic WOCE, VEINS, MOEN (no. EVK2-CT-2002-00141), ASOF-W (no. EVK2-CT-2002-00149), THOR (grant agr. nr. 212643), AtlantOS, Blue Action.
+
+- **References**: http://www.oceansites.org/tma/index.html
+- **Weblink\***: https://www.cen.uni-hamburg.de/en/icdc/data/ocean/denmark-strait-overflow.html
+- **Platform**: mooring
+- **Platform Vocabulary**: https://vocab.nerc.ac.uk/collection/L06/
+- **Platform Code**: DSO
+- **Processing Level**: Known bad data has been replaced with values based on surrounding data, Data interpolated, Data manually reviewed
+- **Data Product\***: Overflow time-series through Denmark Strait
+- **Site Code**: GSR
+- **Array**: GSR
+- **Network**: GSR
+- **Time Coverage Start**: 1996-05-01
+- **Time Coverage End**: 2021-08-07
 - **Geospatial Lat Min**: 66
 - **Geospatial Lat Max**: 66
 - **Geospatial Lon Min**: -27
 - **Geospatial Lon Max**: -27
-- **Time Coverage Start**: 830908800.0
-- **Time Coverage End**: 2021-08-07
-- **Program**: DSO
-- **Project**: Overflow time-series through Denmark Strait
-- **Network**: GSR
 - **Contributor Name**: Armin Koehl
+- **Contributor Role**: publisher
 - **Contributor Email**: armin.koehl@uni-hamburg.de
 - **Contributor Id**: https://www.ifm.uni-hamburg.de/institute/staff/koehl.html
-- **Contributor Role**: publisher
-- **Web Link**: https://www.cen.uni-hamburg.de/en/icdc/data/ocean/denmark-strait-overflow.html
-- **Comment**: Dataset accessed and processed via http://github.com/AMOCcommunity/amocatlas
-- **Date Created**: 2021-12-06T19:37:07Z
-- **Featuretype**: timeSeries
-- **Description**: Denmark Strait Overflow
-- **Acknowledgment**: The timeseries was generated by Institution of Oceanography Hamburg and Hafranns�knastofnun / Marine and Freshwater Research Institute (Reykjavik, Iceland). They were supported through funding from the NACLIM, EU-FP7, grant agr. n.308299, until 2016, and from RACE II (F�rderkennzeichen 03F0729B, until 2018), RACE-Synthese (F�rderkennzeichen 03F0825B, until 2020) German Federal Ministry for Education and Research (BMBF). Nordic WOCE, VEINS, MOEN (contract no. EVK2-CT-2002-00141), ASOF-W (contract no. EVK2-CT-2002-00149), NAClim (grant agr. nr. 308299) THOR (grant agr. nr. 212643), AtlantOS, Blue Action
-- **Convections**: CF-1.8, ACDD-1.3
-- **Data Product**: Overflow time-series through Denmark Strait
-- **Acknowledgement**: None
-- **Variable Mapping**: {'DSO_tr': 'TRANS_DSO'}
-- **Site Code**: GSR
-- **Platform Code**: DSO
-- **Source**: subsurface moorings
-- **Data Mode**: D
+- **Conventions**: OceanSITES-1.3, OceanSITES-1.5
+- **Featuretype\***: timeSeries
+- **Featuretype Vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
+- **Cdm Data Type**: Station
 - **Data Type**: OceanSITES time series data
+- **Source File\***: DSO_transport_hourly_1996_2021.nc
+- **Source Path\***: ~/AMOCatlas/data/DSO_transport_hourly_1996_2021.nc
+- **Date Created**: 2021-12-06T19:37:07Z
+- **Date Modified**: 2026-02-07T14:48:44Z
+- **History**: 2021-12-06T19:37:07ZOceanSITES file with provisional transport data sent to DAC by Ursula Schauer
+- **Processing Software**: http://github.com/AMOCcommunity/amocatlas
+- **Processing Version**: v0.2.0
 - **Format Version**: 1.3
-- **Update Interval**: void
-- **Summary**: Denmark Strait Overflow
-- **Wmo Platfrom Code**: void
-- **Array**: GSR
-- **Keywords Vocabulary**: AGU Index Terms
+- **Variable Mapping\***: {'DSO_tr': 'TRANS_DSO'}
+- **Original Variable Metadata\***: {'DSO_tr': {'long_name': 'DS Overflow', 'description': 'Denmark Strait Overflow volume transport', 'units': 'Sv', 'standard_name': 'ocean_volume_transport_across_line'}}
+- **Applied Variable Mapping**: {'DSO_tr': 'TRANS_DSO'}
 - **Keywords**: OCEANOGRAPHY: PHYSICAL >Currents, OCEANOGRAPHY: GENERAL >North Atlantic oceanography, OCEANOGRAPHY: GENERAL >Time series experiments
+- **Keywords Vocabulary**: AGU Index Terms
+- **Update Interval**: void
+- **Acknowledgment Overwrite\***: The DSO was generated by the University of Hamburg and Hafrannsóknastofnun / Marine and Freshwater Research Institute (Reykjavik, Iceland) with support from NACLIM (no. 308299), until 2016, and from RACE II (no. 03F0729B, until 2018), RACE-Synthese (no. 03F0825B, until 2020) German Federal Ministry for Education and Research (BMBF). Nordic WOCE, VEINS, MOEN (no. EVK2-CT-2002-00141), ASOF-W (no. EVK2-CT-2002-00149), THOR (grant agr. nr. 212643), AtlantOS, Blue Action.
+- **Convections**: CF-1.8, ACDD-1.3
+- **Data Mode**: D
+- **Wmo Platfrom Code**: void
 - **Area**: North Atlantic Ocean
 - **Geospatial Lat Units**: degrees_north
 - **Geospatial Lon Units**: degrees_east
@@ -112,38 +178,8 @@ The following metadata provides comprehensive information about this dataset:
 - **Geospatial Vertical Units**: meter
 - **Time Coverage Duration**: P21Y4M17D
 - **Time Coverage Resolution**: PT1H
-- **Cdm Data Type**: Station
-- **Conventions**: OceanSITES-1.3
 - **Netcdf Version**: 3.5
-- **References**: http://www.oceansites.org/tma/index.html
 - **Data Assembly Center**: void
-- **License**: void
-- **Date Modified**: 2021-12-06T19:37:07Z
-- **History**: 2021-12-06T19:37:07ZOceanSITES file with provisional transport data sent to DAC by Ursula Schauer
-- **Processing Level**: Known bad data has been replaced with values based on surrounding data, Data interpolated, Data manually reviewed
 - **Qc Indicator**: excellent
 - **Instituion**: Institute of Oceanography (Hamburg) and the Marine Research Institute (Reykjavik, Iceland)
-- **Source File**: DSO_transport_hourly_1996_2021.nc
-- **Source Path**: /Users/eddifying/Cloudfree/github/AMOCatlas/data/DSO_transport_hourly_1996_2021.nc
-- **Amocatlas Datasource**: dso
-- **Applied Variable Mapping**: {'DSO_tr': 'TRANS_DSO'}
-- **Featuretype Vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
-
-Metadata Processing Changes
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-**Added by AMOCatlas processing:**
-
-- **Source Path**: /Users/eddifying/Cloudfree/github/AMOCatlas/data/DSO_transport_hourly_1996_2021.nc
-- **Description**: Denmark Strait Overflow
-- **Program**: DSO
-- **Data Product**: Overflow time-series through Denmark Strait
-- **Source Url**: 
-- **Platform Type**: 
-- **Featuretype**: timeSeries
-- **Amocatlas Datasource**: dso
-- **Variable Mapping**: {'DSO_tr': 'TRANS_DSO'}
-- **Convections**: 
-- **Weblink**: 
-- **Source File**: DSO_transport_hourly_1996_2021.nc
-- **Acknowledgment**: The timeseries was generated by Institution of Oceanography Hamburg and Hafranns�knastofnun / Marine and Freshwater Research Institute (Reykjavik, Iceland). They were supported through funding from the NACLIM, EU-FP7, grant agr. n.308299, until 2016, and from RACE II (F�rderkennzeichen 03F0729B, until 2018), RACE-Synthese (F�rderkennzeichen 03F0825B, until 2020) German Federal Ministry for Education and Research (BMBF). Nordic WOCE, VEINS, MOEN (contract no. EVK2-CT-2002-00141), ASOF-W (contract no. EVK2-CT-2002-00149), NAClim (grant agr. nr. 308299) THOR (grant agr. nr. 212643), AtlantOS, Blue Action
+- **Processing Datasource\***: dso

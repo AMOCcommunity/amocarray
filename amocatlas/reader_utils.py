@@ -74,7 +74,14 @@ class ReaderUtils:
                     message="Unable to decode time axis into full numpy.datetime64",
                     category=UserWarning,
                 )
-                return xr.open_dataset(file_path, **kwargs)
+                ds = xr.open_dataset(file_path, **kwargs)
+
+            # Mask values outside valid_min/valid_max ranges
+            from .utilities import mask_invalid_values
+
+            ds = mask_invalid_values(ds)
+
+            return ds
         except (OSError, IOError, ValueError, KeyError) as e:
             log_error("Failed to open NetCDF file: %s: %s", file_path, e)
             raise FileNotFoundError(
@@ -146,7 +153,7 @@ class ReaderUtils:
 
         # Add datasource identification if provided
         if datasource_id:
-            metadata["amocatlas_datasource"] = datasource_id
+            metadata["processing_datasource"] = datasource_id
 
         # Replace dataset attributes entirely
         ds.attrs.clear()

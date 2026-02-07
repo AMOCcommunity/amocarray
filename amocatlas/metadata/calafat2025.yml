@@ -23,29 +23,28 @@ files:
   Bayesian_estimates_Atlantic_MHT.nc:
     source_url: https://zenodo.org/records/16640426
     data_product: "MHT estimates at 12 latitudes across the Atlantic based on spatiotemporal Bayesian hierarchical model"
-    acknowledgement: "Calafat et al. 2025, doi:10.5194/os-21-2743-2025"
     variable_mapping:
       "time": TIME
       "latitude": LATITUDE
       "mht": MHT
       "htc": HTC
-    variables:
-      TIME:
+    original_variable_metadata:
+      time:
         long_name: "Time"
         description: "Time in decimal years"
         units: "decimal years"
         standard_name: time
-      LATITUDE:
+      latitude:
         long_name: "Latitude of zonal sections"
         description: "Latitude of zonal sections across which heat transport is computed"
         units: "degrees_north"
         standard_name: latitude
-      MHT:
-        long_name: "Meridional Heat Transport"
+      mht:
+        long_name: "MHT"
         description: "These estimates have been computed by setting the transport at 65N equal to zero and then integrating the heat transport convergences southward. A time-mean value of 0.506 PW has been added to the transport at 60N based on estimates from the OSNAP project"
         units: PW
         standard_name: northward_ocean_heat_transport
-      HTC:
+      htc:
         long_name: "Heat Transport Convergence"
         description: "Regions are ordered from north to south. That is, htc(:,:,1) corresponds to the northernmost region, which is bounded by latitude(1) and latitude(2)"
         units: PW

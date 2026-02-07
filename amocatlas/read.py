@@ -174,7 +174,7 @@ def _create_array_function(
                 standardized_datasets = []
                 for i, ds in enumerate(datasets):
                     # Get datasource_id from dataset metadata
-                    datasource_id = ds.attrs.get("amocatlas_datasource")
+                    datasource_id = ds.attrs.get("processing_datasource")
 
                     if datasource_id and datasource_id in SUPPORTED_STANDARDIZATION:
                         # Get file name for standardization (needed by standardize functions)
@@ -199,6 +199,10 @@ def _create_array_function(
             except Exception as e:
                 # If standardization fails, log warning but continue with raw data
                 import warnings
+
+                # Print a visible warning message
+                print(f"!! WARNING: Standardization failed for {array_name}: {e}")
+                print("!! Returning raw data instead of standardized data.")
 
                 warnings.warn(
                     f"Standardization failed for {array_name}: {e}. Returning raw data.",

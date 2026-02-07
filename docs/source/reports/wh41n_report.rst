@@ -1,9 +1,11 @@
 WH41N Dataset Report
 ====================
 
-Generated: 2026-02-06 23:23:18
+Generated: 2026-02-07 15:48:45
 
 This report covers all available WH41N datasets.
+
+----
 
 hobbs_willis_amoc41N_tseries.txt
 --------------------------------
@@ -14,50 +16,15 @@ Dataset Overview
 
 - **Project**: Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations
 - **Description**: 41N transport estimates dataset
-- **DOI**: http://doi.org/10.5281/zenodo.8170365
 - **Source File**: hobbs_willis_amoc41N_tseries.txt
 - **Data Product**: Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations
 - **Time Coverage**: 2002-02-15 to 2024-12-16
 - **Record Length**: 275 observations (22.8 years)
 - **Sampling Frequency**: monthly
 
-Dataset Statistics
-^^^^^^^^^^^^^^^^^^
+**Citation:**
 
-- **Total Variables**: 4
-- **Total Coordinates**: 1
-- **Dataset Size**: 0.01 MB
-
-Coordinate Information
-^^^^^^^^^^^^^^^^^^^^^^
-
-The following table shows information about the dataset coordinates:
-
-+------------+-------------------+-----------------------------------------+------------------------------------+--------+------------+------------+
-| Coordinate | Standardized Name | Description                             | Units                              | Size   | Min Value  | Max Value  |
-+============+===================+=========================================+====================================+========+============+============+
-| TIME       | TIME              | Time elapsed since 1970-01-01T00:00:00Z | seconds since 1970-01-01T00:00:00Z | (275,) | 2002-02-15 | 2024-12-16 |
-+------------+-------------------+-----------------------------------------+------------------------------------+--------+------------+------------+
-
-
-Variable Mapping and Statistics
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-The following table shows the mapping from original variable names to standardized names,
-along with key statistics for each variable.
-
-+-----------------------------------------------------+-------------------+--------------------------+-------+--------+-----------+-----------+-----------+
-| Original Variable                                   | Standardized Name | Description              | Units | Size   | Min Value | Max Value | Missing % |
-+=====================================================+===================+==========================+=======+========+===========+===========+===========+
-| Ekman Volume Transport (Sverdrups)                  | TRANS_EKMAN       | No description available | 1     | (275,) | -8.79     | 0.51      | 0.0%      |
-+-----------------------------------------------------+-------------------+--------------------------+-------+--------+-----------+-----------+-----------+
-| Northward Geostrophic Transport (Sverdrups)         | TRANS_GEO         | No description available | 1     | (275,) | 6.75      | 21.39     | 0.0%      |
-+-----------------------------------------------------+-------------------+--------------------------+-------+--------+-----------+-----------+-----------+
-| Meridional Overturning Volume Transport (Sverdrups) | MOC               | No description available | 1     | (275,) | 2.82      | 18.47     | 0.0%      |
-+-----------------------------------------------------+-------------------+--------------------------+-------+--------+-----------+-----------+-----------+
-| Meridional Overturning Heat Transport (PetaWatts)   | MHT               | No description available | 1     | (275,) | -0.07     | 0.90      | 0.0%      |
-+-----------------------------------------------------+-------------------+--------------------------+-------+--------+-----------+-----------+-----------+
-
+    Willis, J. K., and Hobbs, W. R., Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations. Dataset access [YYYY-MM-DD] at 10.5281/zenodo.8170366.
 
 Dataset Visualization
 ^^^^^^^^^^^^^^^^^^^^^
@@ -69,50 +36,120 @@ Dataset Visualization
 
    Time series plot for HOBBS_WILLIS_AMOC41N_TSERIES.TXT dataset.
 
-Complete Metadata
+Dataset Statistics
+^^^^^^^^^^^^^^^^^^
+
+- **Total Variables**: 4
+- **Total Coordinates**: 1
+- **Dataset Size**: 0.01 MB
+
+Coordinate Information
+^^^^^^^^^^^^^^^^^^^^^^
+
+The following table shows information about the dataset coordinates in the standardised version, including coordinate name remapping from the original, if any:
+
+.. list-table::
+   :widths: 14 14 14 14 14 14 14
+   :header-rows: 1
+
+   * - Coordinate
+     - Description
+     - Units
+     - Size
+     - Min Value
+     - Max Value
+     - Missing %
+   * - **TIME**
+     - Time
+     - datetime64[ns]
+     - (275,)
+     - 2002-02-15
+     - 2024-12-16
+     - 0.0%
+
+
+Variable Information
+^^^^^^^^^^^^^^^^^^^^
+
+The following table shows the mapping from original variable names to standardized names,
+along with key statistics for each variable.
+
+.. list-table::
+   :widths: 14 14 14 14 14 14 14
+   :header-rows: 1
+
+   * - Variable
+     - Description
+     - Units
+     - Size
+     - Min Value
+     - Max Value
+     - Missing %
+   * - *Meridional Overturning Heat Transport (PetaWatts)* → **MHT**
+     - Meridional Overturning Heat Transport
+     - PW
+     - (275,)
+     - -0.07
+     - 0.90
+     - 0.0%
+   * - *Meridional Overturning Volume Transport (Sverdrups)* → **MOC**
+     - **MOC_z**: Meridional Overturning Volume Transport
+     - Sverdrup
+     - (275,)
+     - 2.82
+     - 18.47
+     - 0.0%
+   * - *Ekman Volume Transport (Sverdrups)* → **TRANS_EKMAN**
+     - **Ekman**: Ekman Volume Transport
+     - Sverdrup
+     - (275,)
+     - -8.79
+     - 0.51
+     - 0.0%
+   * - *Northward Geostrophic Transport (Sverdrups)* → **TRANS_GEO**
+     - **Geostrophic Transport**: Northward Geostrophic Transport
+     - Sverdrup
+     - (275,)
+     - 6.75
+     - 21.39
+     - 0.0%
+
+
+Metadata (edits applied noted)
 ^^^^^^^^^^^^^^^^^
 
 The following metadata provides comprehensive information about this dataset:
 
+- **Summary**: 41N transport estimates dataset
+- **Description\***: 41N transport estimates dataset
+- **Program\***: 41N
+- **Project\***: Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations
+- **License\***: None
+- **Weblink\***: https://doi.org/10.5281/zenodo.8170365
 - **Platform**: Argo floats
 - **Platform Vocabulary**: https://vocab.nerc.ac.uk/collection/L06/
-- **Time Coverage Start**: 2002-02-15
-- **Time Coverage End**: 2024-12-16
-- **Program**: 41N
-- **Project**: Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations
-- **Doi**: https://doi.org/10.5281/zenodo.8170365
-- **Web Link**: https://zenodo.org/records/14681441
-- **Comment**: Dataset accessed and processed via http://github.com/AMOCcommunity/amocatlas
-- **Featuretype**: timeSeries
-- **Acknowledgement**: None
-- **Paper**: Willis, J. K., and Hobbs, W. R., Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations. Dataset access [2025-05-27] at 10.5281/zenodo.8170366.
-- **Data Product**: Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations
-- **Source File**: hobbs_willis_amoc41N_tseries.txt
-- **Source Path**: /Users/eddifying/Cloudfree/github/AMOCatlas/data/hobbs_willis_amoc41N_tseries.txt
-- **Amocatlas Datasource**: wh41n
-- **Applied Variable Mapping**: [Complex metadata structure - 4 items]
-- **Description**: 41N transport estimates dataset
-- **Acknowledgment**: These data were collected and made freely available by the International Argo Program and the national programs that contribute to it. (https://argo.ucsd.edu, https://www.ocean-ops.org). The Argo Program is part of the Global Ocean Observing System.
-- **License**: None
-- **Convections**: CF-1.8, ACDD-1.3
-- **Summary**: 41N transport estimates dataset
+- **Data Product\***: Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations
+- **Time Coverage Start\***: 2002-02-15
+- **Time Coverage End\***: 2024-12-16
+- **Contributor Name**: 
+- **Contributor Role**: 
+- **Contributor Email**: 
+- **Contributor Id**: https://doi.org/10.5281/zenodo.8170365
+- **Conventions**: CF-1.8, ACDD-1.3, OceanSITES-1.5
+- **Featuretype\***: timeSeries
 - **Featuretype Vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
+- **Source File\***: hobbs_willis_amoc41N_tseries.txt
+- **Source Path\***: ~/AMOCatlas/data/hobbs_willis_amoc41N_tseries.txt
+- **Date Modified**: 2026-02-07T14:48:45Z
+- **Processing Software**: http://github.com/AMOCcommunity/amocatlas
+- **Processing Version**: v0.2.0
+- **Variable Mapping\***: [Complex metadata structure - 4 items]
+- **Original Variable Metadata\***: [Complex metadata structure - 4 items]
+- **Applied Variable Mapping**: [Complex metadata structure - 4 items]
+- **Convections**: CF-1.8, ACDD-1.3
+- **Processing Datasource\***: wh41n
 
-Metadata Processing Changes
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-**Added by AMOCatlas processing:**
-
-- **Source Path**: /Users/eddifying/Cloudfree/github/AMOCatlas/data/hobbs_willis_amoc41N_tseries.txt
-- **Comment**: Dataset accessed and processed via http://github.com/AMOCcommunity/amocatlas
-- **Acknowledgement**: None
-- **Data Product**: Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations
-- **Amocatlas Datasource**: wh41n
-- **Doi**: 10.5281/zenodo.8170365
-- **Paper**: Willis, J. K., and Hobbs, W. R., Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations. Dataset access [2025-05-27] at 10.5281/zenodo.8170366.
-- **Weblink**: 
-- **Source File**: hobbs_willis_amoc41N_tseries.txt
-- **Project**: Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations
+----
 
 trans_ARGO_ERA5.nc
 ------------------
@@ -123,12 +160,25 @@ Dataset Overview
 
 - **Project**: Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations
 - **Description**: 41N transport estimates dataset
-- **Acknowledgement**: This study has been conducted using E.U. Copernicus Marine Service Information; https://doi.org/10.48670/moi-00149 and https://doi.org/10.48670/moi-00148. These data were collected and made freely available by the International Argo Program and the national programs that contribute to it. (https://argo.ucsd.edu, https://www.ocean-ops.org). The Argo Program is part of the Global Ocean Observing System.
-- **DOI**: http://doi.org/10.5281/zenodo.8170365
 - **Source File**: trans_ARGO_ERA5.nc
-- **Time Coverage**: 200201.0 to 202412.0
+- **Data Product**: Transport components from ARGO and ERA5
+- **Time Coverage**: 2002-01-15 to 2024-12-15
 - **Record Length**: 276 observations (22.9 years)
-- **Sampling Frequency**: daily
+- **Sampling Frequency**: monthly
+
+**Citation:**
+
+    Willis, J. K., and Hobbs, W. R., Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations. Dataset access [YYYY-MM-DD] at 10.5281/zenodo.8170366.
+
+Dataset Visualization
+^^^^^^^^^^^^^^^^^^^^^
+
+.. figure:: ../_static/reports/trans_ARGO_ERA5_2d_gridded.png
+   :alt: AMOC time series plot
+   :align: center
+   :scale: 80%
+
+   Time series plot for TRANS_ARGO_ERA5 dataset.
 
 Dataset Statistics
 ^^^^^^^^^^^^^^^^^^
@@ -140,77 +190,128 @@ Dataset Statistics
 Coordinate Information
 ^^^^^^^^^^^^^^^^^^^^^^
 
-The following table shows information about the dataset coordinates:
+The following table shows information about the dataset coordinates in the standardised version, including coordinate name remapping from the original, if any:
 
-+------------+-------------------+---------------------------+---------------+--------+-----------+-----------+
-| Coordinate | Standardized Name | Description               | Units         | Size   | Min Value | Max Value |
-+============+===================+===========================+===============+========+===========+===========+
-| depth      | depth             | Depth below ocean surface | 1             | (201,) | 0         | 2e+03     |
-+------------+-------------------+---------------------------+---------------+--------+-----------+-----------+
-| lon        | lon               | longitude                 | degrees_east  | (320,) | 280       | 360       |
-+------------+-------------------+---------------------------+---------------+--------+-----------+-----------+
-| time       | time              | time                      | YYYYMM        | (276,) | 2e+05     | 2.02e+05  |
-+------------+-------------------+---------------------------+---------------+--------+-----------+-----------+
-| lat        | lat               | latitude                  | degrees_north | (4,)   | 40        | 41.5      |
-+------------+-------------------+---------------------------+---------------+--------+-----------+-----------+
+.. list-table::
+   :widths: 14 14 14 14 14 14 14
+   :header-rows: 1
+
+   * - Coordinate
+     - Description
+     - Units
+     - Size
+     - Min Value
+     - Max Value
+     - Missing %
+   * - *depth* → **DEPTH**
+     - **Depth**:  Depth below surface of the water
+     - meters
+     - (201,)
+     - 0.00
+     - 2000.00
+     - 0.0%
+   * - *lat* → **LATITUDE**
+     - **Latitude**: Latitude north (WGS84)
+     - degrees_north
+     - (4,)
+     - 40.00
+     - 41.50
+     - 0.0%
+   * - *lon* → **LONGITUDE**
+     - **Longitude**: Longitude east (WGS84)
+     - degrees_east
+     - (320,)
+     - 280.12
+     - 359.88
+     - 0.0%
+   * - **TIME**
+     - Time
+     - datetime64[ns]
+     - (276,)
+     - 2002-01-15
+     - 2024-12-15
+     - 0.0%
 
 
-Variable Mapping and Statistics
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Variable Information
+^^^^^^^^^^^^^^^^^^^^
 
 The following table shows the mapping from original variable names to standardized names,
 along with key statistics for each variable.
 
-No variable mapping information available.
+.. list-table::
+   :widths: 14 14 14 14 14 14 14
+   :header-rows: 1
 
-Complete Metadata
+   * - Variable
+     - Description
+     - Units
+     - Size
+     - Min Value
+     - Max Value
+     - Missing %
+   * - *moc* → **MOC**
+     - **MOC_z**: Overturning circulation transport
+     - Sverdrup
+     - (276, 4)
+     - -2.95
+     - 20.00
+     - 0.0%
+   * - *trans* → **TRANS_GEO**
+     - **Geostrophic transport**: Observed geostrophic transport from ARGO
+     - Sverdrup
+     - (276, 4, 320, 201)
+     - -0.18
+     - 0.18
+     - 26.2%
+   * - *Vek* → **VEL_EKMAN**
+     - **Ekman**: Ekman transport from ERA5 reanalysis
+     - Sverdrup
+     - (276, 4)
+     - -8.99
+     - 0.73
+     - 0.0%
+
+
+Metadata (edits applied noted)
 ^^^^^^^^^^^^^^^^^
 
 The following metadata provides comprehensive information about this dataset:
 
 - **Title**: transport from ARGO/SSH data
+- **Summary**: 41N transport estimates dataset
+- **Description\***: 41N transport estimates dataset
+- **Program\***: 41N
+- **Project\***: Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations
+- **License\***: None
+- **Weblink\***: https://doi.org/10.5281/zenodo.8170365
 - **Platform**: Argo floats
 - **Platform Vocabulary**: https://vocab.nerc.ac.uk/collection/L06/
-- **Time Coverage Start**: 200201.0
-- **Time Coverage End**: 202412.0
-- **Program**: 41N
-- **Project**: Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations
-- **Doi**: https://doi.org/10.5281/zenodo.8170365
-- **Web Link**: https://zenodo.org/records/14681441
-- **Comment**: Dataset accessed and processed via http://github.com/AMOCcommunity/amocatlas
+- **Data Product\***: Transport components from ARGO and ERA5
+- **Time Coverage Start\***: 2002-01-15
+- **Time Coverage End\***: 2024-12-15
+- **Contributor Name**: 
+- **Contributor Role**: 
+- **Contributor Email**: 
+- **Contributor Id**: https://doi.org/10.5281/zenodo.8170365
+- **Conventions**: CF-1.8, ACDD-1.3, OceanSITES-1.5
+- **Featuretype\***: timeSeries
+- **Featuretype Vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
+- **Source File\***: trans_ARGO_ERA5.nc
+- **Source Path\***: ~/AMOCatlas/data/trans_ARGO_ERA5.nc
 - **Date Created**: Thu 16 Jan 2025 16:09:16 AEDT
-- **Featuretype**: timeSeries
-- **Acknowledgement**: This study has been conducted using E.U. Copernicus Marine Service Information; https://doi.org/10.48670/moi-00149 and https://doi.org/10.48670/moi-00148. These data were collected and made freely available by the International Argo Program and the national programs that contribute to it. (https://argo.ucsd.edu, https://www.ocean-ops.org). The Argo Program is part of the Global Ocean Observing System.
-- **Paper**: Willis, J. K., and Hobbs, W. R., Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations. Dataset access [2025-05-27] at 10.5281/zenodo.8170366.
+- **Date Modified**: 2026-02-07T14:48:45Z
+- **Processing Software**: http://github.com/AMOCcommunity/amocatlas
+- **Processing Version**: v0.2.0
+- **Variable Mapping\***: {'Vek': 'VEL_EKMAN', 'trans': 'TRANS_GEO', 'moc': 'MOC', 'depth': 'DEPTH', 'lat': 'LATITUDE', 'lon': 'LONGITUDE'}
+- **Original Variable Metadata\***: [Complex metadata structure - 3 items]
+- **Applied Variable Mapping**: {'Vek': 'VEL_EKMAN', 'trans': 'TRANS_GEO', 'moc': 'MOC', 'depth': 'DEPTH', 'lat': 'LATITUDE', 'lon': 'LONGITUDE', 'MOC': 'MOC', 'DEPTH': 'DEPTH'}
+- **Convections**: CF-1.8, ACDD-1.3
 - **Reference Temp**: kelvin
 - **Wind Stress**: ERA5
-- **Source File**: trans_ARGO_ERA5.nc
-- **Source Path**: /Users/eddifying/Cloudfree/github/AMOCatlas/data/trans_ARGO_ERA5.nc
-- **Amocatlas Datasource**: wh41n
-- **Description**: 41N transport estimates dataset
-- **Acknowledgment**: These data were collected and made freely available by the International Argo Program and the national programs that contribute to it. (https://argo.ucsd.edu, https://www.ocean-ops.org). The Argo Program is part of the Global Ocean Observing System.
-- **License**: None
-- **Convections**: CF-1.8, ACDD-1.3
-- **Summary**: 41N transport estimates dataset
-- **Featuretype Vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
+- **Processing Datasource\***: wh41n
 
-Metadata Processing Changes
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-**Added by AMOCatlas processing:**
-
-- **Comment**: Dataset accessed and processed via http://github.com/AMOCcommunity/amocatlas
-- **Acknowledgement**: This study has been conducted using E.U. Copernicus Marine Service Information; https://doi.org/10.48670/moi-00149 and https://doi.org/10.48670/moi-00148. These data were collected and made freely available by the International Argo Program and the national programs that contribute to it. (https://argo.ucsd.edu, https://www.ocean-ops.org). The Argo Program is part of the Global Ocean Observing System.
-- **Amocatlas Datasource**: wh41n
-- **Doi**: 10.5281/zenodo.8170365
-- **Paper**: Willis, J. K., and Hobbs, W. R., Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations. Dataset access [2025-05-27] at 10.5281/zenodo.8170366.
-- **Weblink**: 
-- **Source Path**: /Users/eddifying/Cloudfree/github/AMOCatlas/data/trans_ARGO_ERA5.nc
-- **Project**: Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations
-
-**Modified by AMOCatlas processing:**
-
-- **Source File**: trans_ARGO_ERA5.nc
+----
 
 Q_ARGO_obs_dens_2000depth_ERA5.nc
 ---------------------------------
@@ -221,96 +322,160 @@ Dataset Overview
 
 - **Project**: Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations
 - **Description**: 41N transport estimates dataset
-- **Acknowledgement**: This study has been conducted using E.U. Copernicus Marine Service Information; https://doi.org/10.48670/moi-00149 and https://doi.org/10.48670/moi-00148. These data were collected and made freely available by the International Argo Program and the national programs that contribute to it. (https://argo.ucsd.edu, https://www.ocean-ops.org). The Argo Program is part of the Global Ocean Observing System.
-- **DOI**: http://doi.org/10.5281/zenodo.8170365
 - **Source File**: Q_ARGO_obs_dens_2000depth_ERA5.nc
-- **Data Product**: Time series of heat transport based on various assumptions about the temperature of the ocean for depths below 2000m
-- **Time Coverage**: 200201.0 to 202412.0
+- **Data Product**: Heat transport based on various assumptions about temperature below 2000m
+- **Time Coverage**: 2002-01-15 to 2024-12-15
 - **Record Length**: 276 observations (22.9 years)
-- **Sampling Frequency**: daily
+- **Sampling Frequency**: monthly
+
+**Citation:**
+
+    Willis, J. K., and Hobbs, W. R., Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations. Dataset access [YYYY-MM-DD] at 10.5281/zenodo.8170366.
+
+Dataset Visualization
+^^^^^^^^^^^^^^^^^^^^^
+
+.. figure:: ../_static/reports/Q_ARGO_obs_dens_2000depth_ERA5_2d_gridded.png
+   :alt: AMOC time series plot
+   :align: center
+   :scale: 80%
+
+   Time series plot for Q_ARGO_OBS_DENS_2000DEPTH_ERA5 dataset.
 
 Dataset Statistics
 ^^^^^^^^^^^^^^^^^^
 
 - **Total Variables**: 3
 - **Total Coordinates**: 5
-- **Dataset Size**: 270.90 MB
+- **Dataset Size**: 270.91 MB
 
 Coordinate Information
 ^^^^^^^^^^^^^^^^^^^^^^
 
-The following table shows information about the dataset coordinates:
+The following table shows information about the dataset coordinates in the standardised version, including coordinate name remapping from the original, if any:
 
-+------------+-------------------+----------------------------+---------------+--------+-----------+-----------+
-| Coordinate | Standardized Name | Description                | Units         | Size   | Min Value | Max Value |
-+============+===================+============================+===============+========+===========+===========+
-| depth      | depth             | Depth below ocean surface  | 1             | (201,) | 0         | 2e+03     |
-+------------+-------------------+----------------------------+---------------+--------+-----------+-----------+
-| lon        | lon               | longitude                  | degrees_east  | (320,) | 280       | 360       |
-+------------+-------------------+----------------------------+---------------+--------+-----------+-----------+
-| lat        | lat               | latitude                   | degrees_north | (4,)   | 40        | 41.5      |
-+------------+-------------------+----------------------------+---------------+--------+-----------+-----------+
-| time       | time              | time                       | YYYYMM        | (276,) | 2e+05     | 2.02e+05  |
-+------------+-------------------+----------------------------+---------------+--------+-----------+-----------+
-| Hpar       | Hpar              | deep ocean volumetric Heat | J/m^3         | (4,)   | 1.12e+09  | 1.13e+09  |
-+------------+-------------------+----------------------------+---------------+--------+-----------+-----------+
+.. list-table::
+   :widths: 14 14 14 14 14 14 14
+   :header-rows: 1
+
+   * - Coordinate
+     - Description
+     - Units
+     - Size
+     - Min Value
+     - Max Value
+     - Missing %
+   * - *depth* → **DEPTH**
+     - **Depth**:  Depth below surface of the water
+     - meters
+     - (201,)
+     - 0.00
+     - 2000.00
+     - 0.0%
+   * - **Hpar**
+     - deep ocean volumetric Heat
+     - J/m^3
+     - (4,)
+     - 1115000064.00
+     - 1129299968.00
+     - 0.0%
+   * - *lat* → **LATITUDE**
+     - **Latitude**: Latitude north (WGS84)
+     - degrees_north
+     - (4,)
+     - 40.00
+     - 41.50
+     - 0.0%
+   * - *lon* → **LONGITUDE**
+     - **Longitude**: Longitude east (WGS84)
+     - degrees_east
+     - (320,)
+     - 280.12
+     - 359.88
+     - 0.0%
+   * - **TIME**
+     - Time
+     - datetime64[ns]
+     - (276,)
+     - 2002-01-15
+     - 2024-12-15
+     - 0.0%
 
 
-Variable Mapping and Statistics
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Variable Information
+^^^^^^^^^^^^^^^^^^^^
 
 The following table shows the mapping from original variable names to standardized names,
 along with key statistics for each variable.
 
-No variable mapping information available.
+.. list-table::
+   :widths: 14 14 14 14 14 14 14
+   :header-rows: 1
 
-Complete Metadata
+   * - Variable
+     - Description
+     - Units
+     - Size
+     - Min Value
+     - Max Value
+     - Missing %
+   * - *Q* → **MHT**
+     - Observed meridional heat transport
+     - PW
+     - (276, 4, 320, 201)
+     - -0.21
+     - 0.21
+     - 26.2%
+   * - *Qek* → **MHT_EKMAN**
+     - **MHT Ekman**: Ekman meridional heat transport
+     - PW
+     - (276, 4)
+     - -10.56
+     - 0.88
+     - 0.0%
+   * - *Qnet* → **MHT_NET**
+     - **Net heat transport**: Net meridional heat transport
+     - PW
+     - (276, 4, 4)
+     - -0.44
+     - 1.20
+     - 0.0%
+
+
+Metadata (edits applied noted)
 ^^^^^^^^^^^^^^^^^
 
 The following metadata provides comprehensive information about this dataset:
 
 - **Title**: heat transport from ARGO/SSH data
+- **Summary**: 41N transport estimates dataset
+- **Description\***: 41N transport estimates dataset
+- **Program\***: 41N
+- **Project\***: Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations
+- **License\***: None
+- **Weblink\***: https://doi.org/10.5281/zenodo.8170365
 - **Platform**: Argo floats
 - **Platform Vocabulary**: https://vocab.nerc.ac.uk/collection/L06/
-- **Time Coverage Start**: 200201.0
-- **Time Coverage End**: 202412.0
-- **Program**: 41N
-- **Project**: Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations
-- **Doi**: https://doi.org/10.5281/zenodo.8170365
-- **Web Link**: https://zenodo.org/records/14681441
-- **Comment**: Dataset accessed and processed via http://github.com/AMOCcommunity/amocatlas
+- **Data Product\***: Heat transport based on various assumptions about temperature below 2000m
+- **Time Coverage Start\***: 2002-01-15
+- **Time Coverage End\***: 2024-12-15
+- **Contributor Name**: 
+- **Contributor Role**: 
+- **Contributor Email**: 
+- **Contributor Id**: https://doi.org/10.5281/zenodo.8170365
+- **Conventions**: CF-1.8, ACDD-1.3, OceanSITES-1.5
+- **Featuretype\***: timeSeries
+- **Featuretype Vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
+- **Source File\***: Q_ARGO_obs_dens_2000depth_ERA5.nc
+- **Source Path\***: ~/AMOCatlas/data/Q_ARGO_obs_dens_2000depth_ERA5.nc
 - **Date Created**: Thu 16 Jan 2025 16:09:16 AEDT
-- **Featuretype**: timeSeries
-- **Acknowledgement**: This study has been conducted using E.U. Copernicus Marine Service Information; https://doi.org/10.48670/moi-00149 and https://doi.org/10.48670/moi-00148. These data were collected and made freely available by the International Argo Program and the national programs that contribute to it. (https://argo.ucsd.edu, https://www.ocean-ops.org). The Argo Program is part of the Global Ocean Observing System.
-- **Paper**: Willis, J. K., and Hobbs, W. R., Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations. Dataset access [2025-05-27] at 10.5281/zenodo.8170366.
-- **Data Product**: Time series of heat transport based on various assumptions about the temperature of the ocean for depths below 2000m
+- **Date Modified**: 2026-02-07T14:48:45Z
+- **Processing Software**: http://github.com/AMOCcommunity/amocatlas
+- **Processing Version**: v0.2.0
+- **Variable Mapping\***: {'Qnet': 'MHT_NET', 'Qek': 'MHT_EKMAN', 'Q': 'MHT', 'depth': 'DEPTH', 'lat': 'LATITUDE', 'lon': 'LONGITUDE', 'time': 'TIME'}
+- **Original Variable Metadata\***: [Complex metadata structure - 3 items]
+- **Applied Variable Mapping**: {'Qnet': 'MHT_NET', 'Qek': 'MHT_EKMAN', 'Q': 'MHT', 'depth': 'DEPTH', 'lat': 'LATITUDE', 'lon': 'LONGITUDE', 'DEPTH': 'DEPTH', 'TIME': 'TIME'}
+- **Convections**: CF-1.8, ACDD-1.3
 - **Reference Temp**: kelvin
 - **Wind Stress**: ERA5
-- **Source File**: Q_ARGO_obs_dens_2000depth_ERA5.nc
-- **Source Path**: /Users/eddifying/Cloudfree/github/AMOCatlas/data/Q_ARGO_obs_dens_2000depth_ERA5.nc
-- **Amocatlas Datasource**: wh41n
-- **Description**: 41N transport estimates dataset
-- **Acknowledgment**: These data were collected and made freely available by the International Argo Program and the national programs that contribute to it. (https://argo.ucsd.edu, https://www.ocean-ops.org). The Argo Program is part of the Global Ocean Observing System.
-- **License**: None
-- **Convections**: CF-1.8, ACDD-1.3
-- **Summary**: 41N transport estimates dataset
-- **Featuretype Vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
-
-Metadata Processing Changes
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-**Added by AMOCatlas processing:**
-
-- **Comment**: Dataset accessed and processed via http://github.com/AMOCcommunity/amocatlas
-- **Acknowledgement**: This study has been conducted using E.U. Copernicus Marine Service Information; https://doi.org/10.48670/moi-00149 and https://doi.org/10.48670/moi-00148. These data were collected and made freely available by the International Argo Program and the national programs that contribute to it. (https://argo.ucsd.edu, https://www.ocean-ops.org). The Argo Program is part of the Global Ocean Observing System.
-- **Data Product**: Time series of heat transport based on various assumptions about the temperature of the ocean for depths below 2000m
-- **Amocatlas Datasource**: wh41n
-- **Doi**: 10.5281/zenodo.8170365
-- **Paper**: Willis, J. K., and Hobbs, W. R., Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations. Dataset access [2025-05-27] at 10.5281/zenodo.8170366.
-- **Weblink**: 
-- **Source Path**: /Users/eddifying/Cloudfree/github/AMOCatlas/data/Q_ARGO_obs_dens_2000depth_ERA5.nc
-- **Project**: Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations
-
-**Modified by AMOCatlas processing:**
-
-- **Source File**: Q_ARGO_obs_dens_2000depth_ERA5.nc
+- **Processing Datasource\***: wh41n

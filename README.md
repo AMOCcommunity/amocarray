@@ -180,6 +180,27 @@ pytest --cov=amocatlas --cov-report term-missing tests/
 
 Try to ensure that all the lines of your contribution are covered in the tests.
 
+### Generating Dataset Reports
+AMOCatlas includes automated report generation for comprehensive dataset documentation:
+
+```bash
+# Generate reports for all supported arrays
+python generate_report
+
+# Generate report for a specific dataset
+python generate_report --data_source rapid26n
+
+# Generate reports with custom output directory
+python generate_report --output_dir custom_reports/
+```
+
+Reports are generated as structured RST files in `docs/source/reports/` with:
+- Dataset visualization plots
+- Variable mapping tables (original → standardized names)
+- Comprehensive metadata documentation
+- Temporal coverage analysis
+- Statistical summaries
+
 ### Code Quality
 ```bash
 black amocatlas/ tests/          # Format code

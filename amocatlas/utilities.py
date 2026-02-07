@@ -329,16 +329,13 @@ def sanitize_variable_name(name: str) -> str:
     Examples
     --------
     >>> sanitize_variable_name("Total MOC anomaly (relative to record-length average of 14.7 Sv)")
-    'Total_MOC_anomaly_relative_to_record_length_average_of_14_7_Sv'
+    'Total_MOC_anomaly__relative_to_record_length_average_of_14_7_Sv'
     >>> sanitize_variable_name("Upper-cell volume transport anomaly")
     'Upper_cell_volume_transport_anomaly'
 
     """
     # Replace any character that is not alphanumeric or underscore with underscore
     sanitized = re.sub(r"[^a-zA-Z0-9_]", "_", name)
-
-    # Collapse multiple consecutive underscores into single underscore
-    sanitized = re.sub(r"_{2,}", "_", sanitized)
 
     # Remove leading/trailing underscores
     sanitized = sanitized.strip("_")
@@ -594,15 +591,19 @@ def get_standard_unit_mappings() -> Dict[str, str]:
         "degC": "degrees_Celsius",
         "°C": "degrees_Celsius",
         "celsius": "degrees_Celsius",
+        "degrees C": "degrees_Celsius",
         "C": "degrees_Celsius",
         "deg_C": "degrees_Celsius",
         "degree_C": "degrees_Celsius",
         "degree_celsius": "degrees_Celsius",
+        "degrees_celsius": "degrees_Celsius",
+        "degrees Celsius": "degrees_Celsius",
         # Salinity units
-        #        "psu": "psu",  # Practical Salinity Units are dimensionless
-        "PSU": "psu",
-        "pss": "psu",  # Practical Salinity Scale
-        "PSS": "psu",
+        "psu": "PSU",  # Practical Salinity Units are dimensionless
+        "PSU": "PSU", 
+        "pss": "PSU",  # Practical Salinity Scale
+        "PSS": "PSU",
+        "1": "PSU",  # Fix missing units that default to "1"
         "g/kg": "g kg-1",  # Convert to CF-compliant form
         "g kg^-1": "g kg-1",
         # Pressure units
@@ -815,3 +816,90 @@ def apply_unit_standardization_after_metadata(ds: xr.Dataset) -> xr.Dataset:
 
     log_info("Applying final unit standardization to override any metadata conflicts")
     return standardize_dataset_units(ds, log_changes=True)
+
+
+def mask_invalid_values(ds: xr.Dataset) -> xr.Dataset:
+    """Mask values outside valid_min/valid_max ranges as NaN.
+
+    Many netCDF files contain valid_min and valid_max attributes that define
+    the valid range for variables. Values outside this range should be treated
+    as missing data but are often not automatically masked by xarray.
+
+    Parameters
+    ----------
+    ds : xr.Dataset
+        Dataset to check for invalid values.
+
+    Returns
+    -------
+    xr.Dataset
+        Dataset with values outside valid ranges masked as NaN.
+
+    Examples
+    --------
+    >>> # Variable has valid_min=-100, valid_max=100 but contains 9.97e+36
+    >>> ds_clean = mask_invalid_values(ds)
+    >>> # Now extreme values are masked as NaN
+
+    """
+    from .logger import log_info, log_debug
+    import numpy as np
+
+    variables_masked = 0
+    total_values_masked = 0
+
+    # Process all variables (data variables and coordinates)
+    for var_name in ds.variables:
+        var = ds[var_name]
+
+        # Check if variable has valid range attributes
+        valid_min = var.attrs.get("valid_min")
+        valid_max = var.attrs.get("valid_max")
+
+        if valid_min is not None or valid_max is not None:
+            # Create mask for invalid values
+            invalid_mask = np.zeros(var.shape, dtype=bool)
+
+            if valid_min is not None:
+                invalid_mask |= var.values < valid_min
+
+            if valid_max is not None:
+                invalid_mask |= var.values > valid_max
+
+            # Count invalid values
+            invalid_count = invalid_mask.sum()
+
+            if invalid_count > 0:
+                log_info(
+                    f"Masking {invalid_count} invalid values in '{var_name}' "
+                    f"(valid range: {valid_min} to {valid_max})"
+                )
+                log_debug(
+                    f"  Original min/max: {np.nanmin(var.values):.2e} / {np.nanmax(var.values):.2e}"
+                )
+
+                # Apply mask by setting invalid values to NaN
+                masked_values = var.values.copy()
+                masked_values[invalid_mask] = np.nan
+
+                # Update the variable data
+                ds[var_name] = (var.dims, masked_values, var.attrs)
+
+                log_debug(
+                    f"  Masked min/max: {np.nanmin(masked_values):.2e} / {np.nanmax(masked_values):.2e}"
+                )
+
+                variables_masked += 1
+                total_values_masked += invalid_count
+            else:
+                log_debug(
+                    f"Variable '{var_name}' has valid range but no invalid values"
+                )
+
+    if variables_masked > 0:
+        log_info(
+            f"Masked invalid values in {variables_masked} variables "
+            f"({total_values_masked} total values)"
+        )
+
+    return ds

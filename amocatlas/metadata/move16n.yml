@@ -5,19 +5,16 @@ metadata:
   weblink: https://mooring.ucsd.edu/move/
   comment: Dataset accessed and processed via http://github.com/AMOCcommunity/amocatlas
   acknowledgement: >
-    The MOVE project is made possible with funding from the NOAA Climate Program Office under award NA15OAR4320071. Initial funding came from the German Bundesministerium fuer Bildung und Forschung.
+    The MOVE project is made possible with funding from the NOAA Climate Program Office under award NA15OAR4320071 and carried out by principal investigators Uwe Send and Matthias Lankhorst. Initial funding came from the German Bundesministerium fuer Bildung und Forschung. MOVE data are made freely available through the international OceanSITES program.
   license: >
     Data freely available. User assumes all risk for use of data. Please give due credit to the authors, project, and funding sources when using these data, e.g. by including the 'citation' text provided here.
-  acknowledgement: >
-    Collection of MOVE data was funded by NOAA Research, and carried out by principal investigators
-    Uwe Send and Matthias Lankhorst. MOVE data are made freely available through the international OceanSITES program.
   creator_url: http://orcid.org/0000-0002-4166-4044
   contributor_name: Uwe Send, Matthias Lankhorst
   contributor_role: Principal Investigator, Creator
   contributor_url: _ , http://orcid.org/0000-0002-4166-4044
   institution: Scripps Institution of Oceanography
-  reference: >
-    Uwe Send, Matthias Lankhorst, Torsten Kanzow: Observation of decadal change in the Atlantic Meridional Overturning Circulation
+  citation: >
+    Send, U., Lankhorst, M., Kanzow, T.: Observation of decadal change in the Atlantic Meridional Overturning Circulation
     using 10 years of continuous transport data. Geophysical Research Letters, Vol. 38, L24606, 2011. doi: 10.1029/2011GL049801.
   doi: >
     http://dx.doi.org/10.1016/j.dsr.2005.12.007 http://dx.doi.org/10.1029/2011GL049801
@@ -35,41 +32,132 @@ metadata:
 files:
   OS_MOVE_20000206-20221014_DPR_VOLUMETRANSPORT.nc:
     data_product: "MOVE transport time series (2000-2022)"
+    comment: "Locations are the center latitude, longitude and vertical"
     variable_mapping:
       TRANSPORT_TOTAL: MOC
       transport_component_internal: MOC_INTERNAL
       transport_component_internal_offset: MOC_INTERNAL_OFFSET  
       transport_component_boundary: MOC_BOUNDARY
-    variables:
-      MOC_TOTAL:
-        long_name: "Total ocean volume transport"
+      location_center_latitude: LATITUDE
+      location_center_longitude: LONGITUDE
+      location_center_vertical: PRESSURE
+    original_variable_metadata:
+      TRANSPORT_TOTAL:
+        long_name: "MOC_z"
         description: "Ocean volume transport across the MOVE line"
         units: Sverdrup
         standard_name: ocean_meridional_overturning_transport
-      MOC_INTERNAL:
-        long_name: "Internal transport component"
+      transport_component_internal:
+        long_name: "Internal transport"
         description: "Internal component of ocean volume transport across the MOVE line"
         units: Sverdrup
         standard_name: ocean_volume_transport_across_line
-      MOC_INTERNAL_OFFSET:
-        long_name: "Internal transport offset"
+      transport_component_internal_offset:
+        long_name: "Transport offset"
         description: "Offset to be added to internal component of ocean volume transport across the MOVE line"
         units: Sverdrup
         standard_name: ocean_volume_transport_across_line
-      MOC_BOUNDARY:
-        long_name: "Boundary transport component"
+      transport_component_boundary:
+        long_name: "Boundary transport"
         description: "Boundary component of ocean volume transport across the MOVE line"
         units: Sverdrup
         standard_name: ocean_volume_transport_across_line
+      location_vertices_latitude:
+        long_name: "Latitude of location vertices"
+        description: "Latitude of location vertices for transport estimates across the MOVE line"
+        units: degrees_north
+        standard_name: latitude
+      location_vertices_longitude:
+        long_name: "Longitude of location vertices"
+        description: "Longitude of location vertices for transport estimates across the MOVE line"
+        units: degrees_east
+        standard_name: longitude
+      location_vertices_vertical:
+        long_name: "Vertical coordinate of location vertices"
+        description: "Vertical coordinate of location vertices for transport estimates across the MOVE line"
+        units: dbar
+        standard_name: sea_water_pressure
+
+  OS_MOVE_20000101-20221018_GRD_TEMPERATURE-SALINITY-AT-SITES-MOVE1-MOVE3.nc:
+    data_product: "MOVE gridded temperature and salinity at sites MOVE1-MOVE3"
+    variable_mapping:
+      TEMPERATURE: TEMP
+      SALINITY: PSAL
+      instrument_depth_time_varying: DEPTH
+      latitude_time_varying: LATITUDE_VARYING
+      longitude_time_varying: LONGITUDE_VARYING
+    original_variable_metadata:
+      TEMPERATURE:
+        long_name: "Temperature (ITS-90)"
+        description: "Temperature at MOVE sites MOVE1-MOVE3 (ITS-90)"
+        units: degrees Celsius
+        standard_name: sea_water_temperature
+      SALINITY:
+        long_name: "Salinity"
+        description: "Salinity at MOVE sites MOVE1-MOVE3"
+        units: PSU
+        standard_name: sea_water_salinity
+      instrument_depth_time_varying:
+        long_name: "Depth"
+        description: "Depth of temperature and salinity measurements at MOVE sites MOVE1-MOVE3"
+        units: meters
+        standard_name: depth
+      latitude_time_varying:
+        long_name: "Latitude"
+        description: "Latitude of site, including differences between deployments"
+        units: degrees_north
+        standard_name: latitude
+      longitude_time_varying:
+        long_name: "Longitude"
+        description: "Longitude of site, including differences between deployments"
+        units: degrees_east
+        standard_name: longitude
+
+  OS_MOVE_20000101-20221021_GRD_CURRENTS-AT-SITES-MOVE3-MOVE4.nc:
+    data_product: "MOVE gridded currents at sites MOVE3-MOVE4"
+    variable_mapping: 
+      VELOCITY_U: UCUR
+      VELOCITY_V: VCUR
+      instrument_depth_time_varying: DEPTH
+      latitude_time_varying: LATITUDE_VARYING
+      longitude_time_varying: LONGITUDE_VARYING
+    original_variable_metadata:
+      VELOCITY_U:
+        long_name: "Zonal velocity"
+        description: "Zonal velocity at MOVE sites MOVE3-MOVE4"
+        units: m/s
+        standard_name: eastward_sea_water_velocity
+      VELOCITY_V:
+        long_name: "Meridional velocity"
+        description: "Meridional velocity at MOVE sites MOVE3-MOVE4"
+        units: m/s
+        standard_name: northward_sea_water_velocity
+      instrument_depth_time_varying:
+        long_name: "Depth"
+        description: "Depth of velocity measurements at MOVE sites MOVE3-MOVE4"
+        units: meters
+        standard_name: depth
+      latitude_time_varying:
+        long_name: "Latitude"
+        description: "Latitude of site, including differences between deployments"
+        units: degrees_north
+        standard_name: latitude
+      longitude_time_varying:
+        long_name: "Longitude"
+        description: "Longitude of site, including differences between deployments"
+        units: degrees_east
+        standard_name: longitude  
+
+
 
   OS_MOVE_TRANSPORTS.nc:
     source_file: OS_MOVE_TRANSPORTS.nc
     source_path: /Users/eddifying/Cloudfree/gitlab-cloudfree/amocatlas/data/OS_MOVE_TRANSPORTS.nc
     data_product: "MOVE transport time series"
     variable_mapping: {}
-    variables:
+    original_variable_metadata:
       MOVE:
-        long_name: ocean_volume_transport_across_line
+        long_name: "MOC"
         description: "Total ocean volume transport across the MOVE line between Guadeloupe and Researcher Ridge in the depth layer defined by pressures 1200 to 4950 dbar"
         units: Sv
         standard_name: ocean_volume_transport_across_line
@@ -77,7 +165,7 @@ files:
         valid_max: 100.0
 
       transport_component_internal:
-        long_name: "Transport"
+        long_name: "Internal transport"
         description: "Internal component of ocean volume transport across the MOVE line"
         units: Sv
         standard_name: ocean_volume_transport_across_line
@@ -85,7 +173,7 @@ files:
         valid_max: 100.0
 
       transport_component_internal_offset:
-        long_name: "Transport"
+        long_name: "Transport offset"
         description: "Offset to be added to internal component of ocean volume transport across the MOVE line"
         units: Sv
         standard_name: ocean_volume_transport_across_line
@@ -93,9 +181,24 @@ files:
         valid_max: 100.0
 
       transport_component_boundary:
-        long_name: "Transport"
+        long_name: "Boundary transport"
         description: "Boundary component of ocean volume transport across the MOVE line"
         units: Sv
         standard_name: ocean_volume_transport_across_line
         valid_min: -100.0
         valid_max: 100.0
+      MOC_INTERNAL:
+        long_name: "Internal transport"
+        description: "Internal component of ocean volume transport across the MOVE line"
+        units: Sverdrup
+        standard_name: ocean_volume_transport_across_line
+      MOC_INTERNAL_OFFSET:
+        long_name: "Transport offset"
+        description: "Offset to be added to internal component of ocean volume transport across the MOVE line"
+        units: Sverdrup
+        standard_name: ocean_volume_transport_across_line
+      MOC_BOUNDARY:
+        long_name: "Boundary transport"
+        description: "Boundary component of ocean volume transport across the MOVE line"
+        units: Sverdrup
+        standard_name: ocean_volume_transport_across_line

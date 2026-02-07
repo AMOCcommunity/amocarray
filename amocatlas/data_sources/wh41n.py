@@ -11,7 +11,6 @@ from typing import Union
 
 import xarray as xr
 import datetime
-import pandas as pd
 
 # Import the modules used
 from amocatlas import logger, utilities
@@ -91,7 +90,14 @@ def read_41n(
     FileNotFoundError                                                   If the file cannot be downloaded or does not exist locally.
 
     """
-    log.info("Starting to read 41N dataset")  # Ensure file_list has a default
+    log.info("Starting to read 41N dataset")
+
+    # Load YAML metadata with fallback
+    global_metadata, yaml_file_metadata = ReaderUtils.load_array_metadata_with_fallback(
+        DATASOURCE_ID, A41N_METADATA
+    )
+
+    # Ensure file_list has a default
     if file_list is None:
         file_list = A41N_DEFAULT_FILES
     if transport_only:
@@ -131,6 +137,45 @@ def read_41n(
             # file .nc
             # Use ReaderUtils for consistent dataset loading
             ds = ReaderUtils.safe_load_dataset(file_path)
+
+            # Fix time coordinate for ARGO files: convert YYYYMM to datetime
+            if ("trans_ARGO_ERA5" in file or "Q_ARGO" in file) and "time" in ds.coords:
+                time_data = ds["time"]
+                if hasattr(
+                    time_data.values, "dtype"
+                ) and time_data.values.dtype.kind in ["i", "u"]:
+                    # Check if values look like YYYYMM format
+                    first_val = int(time_data.values[0])
+                    if 200000 <= first_val <= 250000:  # YYYYMM range check
+                        log_info(
+                            f"Converting YYYYMM time format to datetime for {file}"
+                        )
+
+                        import pandas as pd
+
+                        # Convert YYYYMM to datetime
+                        yyyymm_values = time_data.values
+                        datetime_values = []
+                        for yyyymm in yyyymm_values:
+                            year = yyyymm // 100
+                            month = yyyymm % 100
+                            # Use 15th of month as representative date
+                            dt = pd.Timestamp(year=year, month=month, day=15)
+                            datetime_values.append(dt)
+
+                        # Replace time coordinate with TIME and convert to standard format
+                        ds = ds.rename({"time": "TIME"})
+                        ds = ds.assign_coords(TIME=datetime_values)
+
+                        # Add proper TIME coordinate attributes
+                        ds["TIME"].attrs.update(
+                            {
+                                "long_name": "Time",
+                                "standard_name": "time",
+                                "calendar": "gregorian",
+                                "units": "datetime64[ns]",
+                            }
+                        )
         else:
             # file .txt
             try:
@@ -182,14 +227,14 @@ def read_41n(
                 ) from e
 
         # Use ReaderUtils for consistent metadata attachment (for all file types)
-        file_metadata = A41N_FILE_METADATA.get(file, {})
+        file_metadata = yaml_file_metadata.get(file, A41N_FILE_METADATA.get(file, {}))
         if track_added_attrs:
             # Attach metadata with tracking
             ds, attr_changes = ReaderUtils.attach_standard_metadata(
                 ds,
                 file,
                 file_path,
-                A41N_METADATA,
+                global_metadata,
                 file_metadata,
                 datasource_id=DATASOURCE_ID,
                 track_added_attrs=True,
@@ -201,7 +246,7 @@ def read_41n(
                 ds,
                 file,
                 file_path,
-                A41N_METADATA,
+                global_metadata,
                 file_metadata,
                 datasource_id=DATASOURCE_ID,
             )

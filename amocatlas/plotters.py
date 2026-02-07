@@ -8,6 +8,159 @@ from pandas import DataFrame
 from pandas.io.formats.style import Styler
 
 
+def format_variable_name_for_plotting(name: str) -> str:
+    """Convert variable names with subscripts to matplotlib LaTeX format.
+
+    This function translates variable naming patterns that include Greek letters
+    and other subscripts into proper matplotlib LaTeX syntax for publication-quality plots.
+
+    Parameters
+    ----------
+    name : str
+        Variable name that may contain subscript patterns.
+
+    Returns
+    -------
+    str
+        Variable name formatted with matplotlib LaTeX syntax for subscripts.
+
+    Examples
+    --------
+    >>> format_variable_name_for_plotting("MOC_sigma0")
+    'MOC$_{\\sigma_0}$'
+    >>> format_variable_name_for_plotting("MOC_z")
+    'MOC$_{z}$'
+    >>> format_variable_name_for_plotting("density_theta")
+    'density$_{\\theta}$'
+    >>> format_variable_name_for_plotting("temp_ref")
+    'temp$_{ref}$'
+
+    Notes
+    -----
+    The function converts patterns with underscores to LaTeX subscripts:
+    - Single letters: MOC_z → MOC$_{z}$
+    - Greek patterns: MOC_sigma → MOC$_{\\sigma}$
+    - Numbers: MOC_sigma0 → MOC$_{\\sigma_0}$
+    - Multiple parts: Only the first underscore pattern is converted
+
+    Matplotlib subscript syntax: $_{text}$
+
+    """
+    # Dictionary of Greek letter patterns to LaTeX equivalents
+    greek_letters = {
+        "alpha": r"\alpha",
+        "beta": r"\beta",
+        "gamma": r"\gamma",
+        "delta": r"\delta",
+        "epsilon": r"\epsilon",
+        "zeta": r"\zeta",
+        "eta": r"\eta",
+        "theta": r"\theta",
+        "iota": r"\iota",
+        "kappa": r"\kappa",
+        "lambda": r"\lambda",
+        "mu": r"\mu",
+        "nu": r"\nu",
+        "xi": r"\xi",
+        "pi": r"\pi",
+        "rho": r"\rho",
+        "sigma": r"\sigma",
+        "tau": r"\tau",
+        "upsilon": r"\upsilon",
+        "phi": r"\phi",
+        "chi": r"\chi",
+        "psi": r"\psi",
+        "omega": r"\omega",
+    }
+
+    # Split on underscores
+    parts = name.split("_")
+
+    # If no underscores, return as is
+    if len(parts) < 2:
+        return name
+
+    # Take the first part as the main variable name
+    main_name = parts[0]
+    subscript_part = parts[1]
+
+    # Check if the subscript part is a Greek letter pattern
+    subscript_lower = subscript_part.lower()
+
+    # Handle special cases like "sigma0", "sigma1", etc.
+    if subscript_lower.startswith("sigma") and len(subscript_lower) > 5:
+        # Extract number or additional characters after sigma
+        suffix = subscript_lower[5:]  # Everything after 'sigma'
+        formatted_subscript = f"{greek_letters['sigma']}_{suffix}"
+    elif subscript_lower in greek_letters:
+        # Pure Greek letter
+        formatted_subscript = greek_letters[subscript_lower]
+    else:
+        # Regular text subscript (including single letters like 'z')
+        formatted_subscript = subscript_part
+
+    # Join remaining parts if any
+    if len(parts) > 2:
+        remaining = "_".join(parts[2:])
+        return f"{main_name}$_{{{formatted_subscript}}}$_{remaining}"
+    else:
+        return f"{main_name}$_{{{formatted_subscript}}}$"
+
+
+def format_units_for_plotting(units: str) -> str:
+    """Convert verbose units to concise plotting format.
+
+    Translates full unit names to standard abbreviations commonly
+    used in oceanographic plots and publications.
+
+    Parameters
+    ----------
+    units : str
+        Full unit string (e.g., from netCDF attributes).
+
+    Returns
+    -------
+    str
+        Abbreviated unit string suitable for plot labels.
+
+    Examples
+    --------
+    >>> format_units_for_plotting("Sverdrup")
+    'Sv'
+    >>> format_units_for_plotting("degrees_north")
+    '°N'
+    >>> format_units_for_plotting("degrees_Celsius")
+    '°C'
+
+    """
+    unit_mappings = {
+        "Sverdrup": "Sv",
+        "sverdrup": "Sv",
+        "degrees_north": "°N",
+        "degrees_south": "°S",
+        "degrees_east": "°E",
+        "degrees_west": "°W",
+        "degrees_Celsius": "°C",
+        "degrees_celsius": "°C",
+        "degree_Celsius": "°C",
+        "degree_celsius": "°C",
+        "degrees C": "°C",
+        "deg C": "°C",
+        "meters": "m",
+        "meter": "m",
+        "seconds": "s",
+        "second": "s",
+        "PetaWatts": "PW",
+        "petawatts": "PW",
+        "PW": "PW",
+        "kg m-3": "kg/m³",
+        "kg/m3": "kg/m³",
+        "kg m^-3": "kg/m³",
+    }
+
+    return unit_mappings.get(units, units)
+
+
 # ------------------------------------------------------------------------------------
 # Views of the ds or nc file
 # ------------------------------------------------------------------------------------
@@ -297,6 +450,24 @@ def monthly_resample(da: xr.DataArray) -> xr.DataArray:
         return da  # just return the original data without interpolation
 
 
+def _format_units_for_plots(units: str) -> str:
+    """Convert verbose unit names to abbreviated forms for plot labels.
+
+    Parameters
+    ----------
+    units : str
+        Original unit string
+
+    Returns
+    -------
+    str
+        Abbreviated unit string for plots
+
+    """
+    # Use the comprehensive unit formatting function
+    return format_units_for_plotting(units)
+
+
 def plot_amoc_timeseries(
     data: list[xr.Dataset | xr.DataArray] | xr.Dataset | xr.DataArray,
     varnames: list[str] | None = None,
@@ -423,8 +594,20 @@ def plot_amoc_timeseries(
             )
 
         # Build ylabel if not set
-        if ylabel is None and "standard_name" in da.attrs and "units" in da.attrs:
-            ylabel = f"{da.attrs['standard_name']} [{da.attrs['units']}]"
+        if ylabel is None:
+            # Use long_name first, then standard_name, then variable name
+            label_text = da.attrs.get(
+                "long_name", da.attrs.get("standard_name", da.name or "Data")
+            )
+            # Format variable names with Greek characters
+            label_text = format_variable_name_for_plotting(label_text)
+
+            units = da.attrs.get("units", "")
+            if units:
+                formatted_units = _format_units_for_plots(units)
+                ylabel = f"{label_text} [{formatted_units}]"
+            else:
+                ylabel = label_text
 
     # Horizontal zero line
     ax.axhline(0, color="black", linestyle="--", linewidth=0.5)
@@ -1127,3 +1310,212 @@ def plot_all_moc_overlaid_pygmt(
     _add_amocatlas_timestamp(fig)
 
     return fig
+
+
+"""2D plotting function for AMOCatlas."""
+
+import matplotlib.pyplot as plt
+import pandas as pd
+import xarray as xr
+
+
+def plot_amoc_2d_data(
+    data: xr.Dataset | xr.DataArray,
+    varname: str | None = None,
+    title: str = "AMOC 2D Data",
+    ylabel: str | None = None,
+    time_limits: tuple[str | pd.Timestamp, str | pd.Timestamp] | None = None,
+    ylim: tuple[float, float] | None = None,
+    figsize: tuple[float, float] = (12, 6),
+    colormap: str = "RdBu_r",
+    vmin: float | None = None,
+    vmax: float | None = None,
+) -> tuple[plt.Figure, plt.Axes]:
+    """Plot 2D AMOC data with time on x-axis and depth/other coordinate on y-axis.
+
+    This function creates a color-filled contour plot suitable for visualizing
+    2D oceanographic data such as MOC streamfunction vs depth and time, or
+    temperature profiles over time.
+
+    Parameters
+    ----------
+    data : xr.Dataset or xr.DataArray
+        Dataset or DataArray containing 2D data to plot.
+    varname : str, optional
+        Variable name to extract from dataset. Not needed if DataArray is passed.
+    title : str
+        Title of the plot.
+    ylabel : str, optional
+        Label for the y-axis (vertical coordinate). If None, inferred from data attributes.
+    time_limits : tuple of str or pd.Timestamp, optional
+        X-axis time limits (start, end).
+    ylim : tuple of float, optional
+        Y-axis limits (min, max).
+    figsize : tuple
+        Size of the figure.
+    colormap : str
+        Colormap for the 2D data. Default is 'RdBu_r' (polar colormap).
+    vmin : float, optional
+        Minimum value for color scale. If None, inferred from data.
+    vmax : float, optional
+        Maximum value for color scale. If None, inferred from data.
+
+    Returns
+    -------
+    tuple[plt.Figure, plt.Axes]
+        The matplotlib figure and axes objects.
+
+    Raises
+    ------
+    ValueError
+        If data doesn't have the required dimensions or if TIME coordinate is missing.
+
+    """
+    # Extract DataArray if needed
+    if isinstance(data, xr.Dataset):
+        if varname is None:
+            raise ValueError("varname must be specified when passing a Dataset")
+        if varname not in data:
+            raise ValueError(f"Variable '{varname}' not found in dataset")
+        da = data[varname]
+    else:
+        da = data
+
+    # Find time coordinate
+    time_coord = None
+    for coord in da.coords:
+        if coord.lower() in ["time", "times"]:
+            time_coord = coord
+            break
+
+    if time_coord is None:
+        raise ValueError("No TIME coordinate found in data")
+
+    # Find the other dimension (should be depth, level, etc.)
+    dims = list(da.dims)
+    dims.remove(time_coord)
+    if len(dims) != 1:
+        raise ValueError(
+            f"Data must be 2D with TIME and one other dimension. Found dimensions: {da.dims}"
+        )
+
+    vertical_dim = dims[0]
+
+    # Prioritize vertical coordinates in order: DEPTH, PRESSURE, SIGMA0, SIGMA2
+    # Look for coordinates that match the vertical dimension
+    vertical_coord = None
+    coord_priority = ["DEPTH", "PRESSURE", "SIGMA0", "SIGMA2"]
+
+    for coord_name in coord_priority:
+        if coord_name in da.coords:
+            coord = da.coords[coord_name]
+            # Check if this coordinate has the same dimension as our vertical dimension
+            if len(coord.dims) == 1 and coord.dims[0] == vertical_dim:
+                vertical_coord = coord_name
+                break
+
+    # If no prioritized coordinate found, fall back to the dimension name
+    if vertical_coord is None:
+        vertical_coord = vertical_dim
+
+    # Set up the plot
+    fig, ax = plt.subplots(figsize=figsize)
+
+    # Determine color scale limits if not provided
+    if vmin is None or vmax is None:
+        data_finite = da.values[np.isfinite(da.values)]
+        if len(data_finite) > 0:
+            if vmin is None:
+                vmin = np.percentile(data_finite, 2)
+            if vmax is None:
+                vmax = np.percentile(data_finite, 98)
+        else:
+            vmin, vmax = -1, 1
+
+    # Create 2D contour plot
+    im = da.plot.contourf(
+        ax=ax,
+        x=time_coord,
+        y=vertical_coord,
+        cmap=colormap,
+        levels=50,
+        vmin=vmin,
+        vmax=vmax,
+        add_colorbar=True,
+        cbar_kwargs={"shrink": 0.8, "aspect": 20},
+    )
+
+    # Set colorbar label to use long_name [units] format
+    if hasattr(im, "colorbar") and im.colorbar is not None:
+        # Get label text from data variable attributes
+        label_text = da.attrs.get(
+            "long_name", da.attrs.get("standard_name", varname or "Data")
+        )
+        # Format variable names with Greek characters
+        label_text = format_variable_name_for_plotting(label_text)
+
+        units = da.attrs.get("units", "")
+        if units:
+            formatted_units = _format_units_for_plots(units)
+            colorbar_label = f"{label_text} [{formatted_units}]"
+        else:
+            colorbar_label = label_text
+        im.colorbar.set_label(colorbar_label, fontsize=12)
+
+    # Set labels and title
+    ax.set_title(title, fontsize=14, fontweight="bold")
+    ax.set_xlabel("Time", fontsize=12)
+
+    # Set y-axis label
+    if ylabel is None:
+        # Try to infer from coordinate attributes
+        try:
+            vertical_var = da.coords[vertical_coord]
+            ylabel = vertical_var.attrs.get(
+                "long_name",
+                vertical_var.attrs.get("standard_name", vertical_coord.title()),
+            )
+            # Format variable names with Greek characters
+            ylabel = format_variable_name_for_plotting(ylabel)
+
+            # Add units if available
+            units = vertical_var.attrs.get("units", "")
+            if units:
+                formatted_units = _format_units_for_plots(units)
+                ylabel += f" [{formatted_units}]"
+        except KeyError:
+            # Coordinate doesn't exist in dataset, use dimension name as fallback
+            ylabel = format_variable_name_for_plotting(vertical_coord.title())
+
+    ax.set_ylabel(ylabel, fontsize=12)
+
+    # Apply axis limits if specified
+    if time_limits is not None:
+        ax.set_xlim(time_limits)
+
+    if ylim is not None:
+        ax.set_ylim(ylim)
+    else:
+        # For depth coordinates, invert y-axis (shallow at top)
+        if (
+            vertical_coord.lower() in ["depth", "z", "level"]
+            or "depth" in ylabel.lower()
+        ):
+            ax.invert_yaxis()
+
+    # Format time axis nicely
+    fig.autofmt_xdate()
+
+    # Add grid for better readability
+    ax.grid(True, alpha=0.3)
+
+    # Use AMOCatlas style
+    try:
+        plt.style.use("amocatlas.mplstyle")
+    except OSError:
+        # If style not found, use default
+        pass
+
+    plt.tight_layout()
+
+    return fig, ax
