@@ -140,7 +140,7 @@ The following metadata provides comprehensive information about this dataset:
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: hobbs_willis_amoc41N_tseries.txt
 - **Source Path\***: ~/AMOCatlas/data/hobbs_willis_amoc41N_tseries.txt
-- **Date Modified**: 2026-02-07T21:43:29Z
+- **Date Modified**: 2026-02-07T22:15:44Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: wh41n
@@ -299,7 +299,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source File\***: trans_ARGO_ERA5.nc
 - **Source Path\***: ~/AMOCatlas/data/trans_ARGO_ERA5.nc
 - **Date Created**: Thu 16 Jan 2025 16:09:16 AEDT
-- **Date Modified**: 2026-02-07T21:43:29Z
+- **Date Modified**: 2026-02-07T22:15:44Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: wh41n
@@ -467,7 +467,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source File\***: Q_ARGO_obs_dens_2000depth_ERA5.nc
 - **Source Path\***: ~/AMOCatlas/data/Q_ARGO_obs_dens_2000depth_ERA5.nc
 - **Date Created**: Thu 16 Jan 2025 16:09:16 AEDT
-- **Date Modified**: 2026-02-07T21:43:29Z
+- **Date Modified**: 2026-02-07T22:15:44Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: wh41n

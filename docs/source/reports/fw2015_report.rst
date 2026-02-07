@@ -183,7 +183,7 @@ The following metadata provides comprehensive information about this dataset:
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: MOCproxy_for_figshare_v1.mat
 - **Source Path\***: ~/AMOCatlas/data/MOCproxy_for_figshare_v1.mat
-- **Date Modified**: 2026-02-07T21:43:22Z
+- **Date Modified**: 2026-02-07T22:15:37Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: fw2015

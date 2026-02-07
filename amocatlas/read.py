@@ -139,7 +139,7 @@ def _create_array_function(
         redownload: bool = False,
         version: str = None,
         track_added_attrs: bool = False,
-    ) -> Union[xr.Dataset, List[xr.Dataset], tuple]:
+    ) -> Union[xr.Dataset, List[xr.Dataset]]:
         # Build kwargs for the underlying reader
         # If all_files=True, automatically disable transport_only to get all files
         effective_transport_only = transport_only and not all_files
@@ -163,9 +163,17 @@ def _create_array_function(
         # Handle the case where track_added_attrs=True returns a tuple
         if track_added_attrs:
             datasets, added_attrs_per_dataset = reader_result
+            # Embed metadata changes into each dataset's attributes
+            for i, ds in enumerate(datasets):
+                if i < len(added_attrs_per_dataset):
+                    ds.attrs["_amocatlas_metadata_changes"] = added_attrs_per_dataset[i]
+                else:
+                    ds.attrs["_amocatlas_metadata_changes"] = {
+                        "added": [],
+                        "modified": [],
+                    }
         else:
             datasets = reader_result
-            _added_attrs_per_dataset = None
 
         # Apply standardization by default (unless raw=True)
         if not raw:
@@ -210,23 +218,8 @@ def _create_array_function(
                     stacklevel=2,
                 )
 
-        # Return datasets and optionally added_attrs
-        result = _return_single_or_list(datasets, all_files)
-
-        if track_added_attrs:
-            # Return tuple of (datasets, added_attrs)
-            if all_files:
-                # If returning list of datasets, return list of metadata changes dicts
-                return result, added_attrs_per_dataset
-            else:
-                # If returning single dataset, return single metadata changes dict
-                return result, (
-                    added_attrs_per_dataset[0]
-                    if added_attrs_per_dataset
-                    else {"added": [], "modified": []}
-                )
-        else:
-            return result
+        # Return datasets (metadata changes are now embedded in dataset attributes)
+        return _return_single_or_list(datasets, all_files)
 
     # Add proper docstring
     array_function.__doc__ = f"""Load {array_name} array data.
@@ -254,6 +247,12 @@ def _create_array_function(
         Force redownload of data. Default: False.
     version : str, optional
         Dataset version{' (used for version selection)' if supports_version else ' (ignored for this array)'}. Default: None.
+    track_added_attrs : bool, optional
+        **INTERNAL USE ONLY** - Track which attributes were added during metadata 
+        enrichment. When True, embeds a temporary '_amocatlas_metadata_changes' 
+        attribute in each returned dataset containing {{"added": [...], "modified": [...]}}.
+        This attribute should be extracted and removed by calling code (e.g., report 
+        generation). Not intended for end users. Default: False.
         
     Returns
     -------

@@ -883,6 +883,12 @@ class ReportUtils:
         str
             RST content of the report
 
+        Notes
+        -----
+        This function uses track_added_attrs=True internally to track metadata changes
+        during data loading. The '_amocatlas_metadata_changes' attribute is temporarily
+        embedded in each dataset and then extracted/removed during report generation.
+
         Examples
         --------
         >>> from amocatlas.report import ReportUtils
@@ -921,24 +927,20 @@ class ReportUtils:
             else:
                 raise
 
-        # Handle both single dataset and multiple dataset returns
-        if isinstance(result, tuple):
-            datasets_or_dataset, attr_changes_or_list = result
-            if isinstance(datasets_or_dataset, list):
-                datasets = datasets_or_dataset
-                attr_changes_list = attr_changes_or_list
-            else:
-                # Single dataset returned
-                datasets = [datasets_or_dataset]
-                attr_changes_list = [attr_changes_or_list]
+        # Extract datasets and metadata changes (now embedded in dataset attributes)
+        if isinstance(result, list):
+            datasets = result
         else:
-            # No tracking enabled, fallback
-            if isinstance(result, list):
-                datasets = result
-                attr_changes_list = [{"added": [], "modified": []} for _ in datasets]
-            else:
-                datasets = [result]
-                attr_changes_list = [{"added": [], "modified": []}]
+            datasets = [result]
+
+        # Extract metadata changes from dataset attributes
+        attr_changes_list = []
+        for ds in datasets:
+            # Pop the embedded metadata changes (removes it from dataset)
+            changes = ds.attrs.pop(
+                "_amocatlas_metadata_changes", {"added": [], "modified": []}
+            )
+            attr_changes_list.append(changes)
 
         print(f"Loaded {len(datasets)} {array_name.upper()} datasets")
 
@@ -1557,42 +1559,24 @@ def analyze_dataset(
 
     # Load dataset with standardization applied and track added attributes
     result = read_func(transport_only=transport_only, track_added_attrs=True)
-    if isinstance(result, tuple):
-        datasets, added_attrs_list = result
-        # Handle both list and single dataset cases
-        if isinstance(datasets, list):
-            if dataset_index >= len(datasets):
-                raise ValueError(
-                    f"Dataset index {dataset_index} out of range. Available datasets: 0-{len(datasets)-1}"
-                )
-            dataset = datasets[dataset_index]
-            added_attrs = added_attrs_list[dataset_index]
-        else:
-            # Single dataset returned
-            if dataset_index != 0:
-                raise ValueError(
-                    f"Dataset index {dataset_index} out of range. Only one dataset available."
-                )
-            dataset = datasets
-            added_attrs = added_attrs_list
-    else:
-        # Fallback if tracking not supported
+
+    # Extract datasets (metadata changes are now embedded in dataset attributes)
+    if isinstance(result, list):
         datasets = result
-        # Handle both list and single dataset cases
-        if isinstance(datasets, list):
-            if dataset_index >= len(datasets):
-                raise ValueError(
-                    f"Dataset index {dataset_index} out of range. Available datasets: 0-{len(datasets)-1}"
-                )
-            dataset = datasets[dataset_index]
-        else:
-            # Single dataset returned
-            if dataset_index != 0:
-                raise ValueError(
-                    f"Dataset index {dataset_index} out of range. Only one dataset available."
-                )
-            dataset = datasets
-        added_attrs = []
+    else:
+        datasets = [result]
+
+    # Check dataset index
+    if dataset_index >= len(datasets):
+        raise ValueError(
+            f"Dataset index {dataset_index} out of range. Available datasets: 0-{len(datasets)-1}"
+        )
+
+    # Get the requested dataset and extract its metadata changes
+    dataset = datasets[dataset_index]
+    added_attrs = dataset.attrs.pop(
+        "_amocatlas_metadata_changes", {"added": [], "modified": []}
+    )
 
     log_debug(
         f"Loaded dataset with {len(dataset.data_vars)} variables, {len(added_attrs)} attributes added by AMOCatlas"
@@ -1624,6 +1608,13 @@ def generate_dataset_report(
     -------
     str
         Generated report in the specified format
+
+    Notes
+    -----
+    This function uses track_added_attrs=True internally to track which metadata
+    attributes were added during data loading. The '_amocatlas_metadata_changes'
+    attribute is temporarily embedded in the dataset and extracted/removed during
+    the analysis phase.
 
     """
     # Analyze the standardized dataset (with variable mapping and metadata tracking)

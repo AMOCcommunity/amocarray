@@ -127,7 +127,7 @@ The following metadata provides comprehensive information about this dataset:
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: Upper_Abyssal_Transport_Anomalies.txt
 - **Source Path\***: ~/AMOCatlas/data/Upper_Abyssal_Transport_Anomalies.txt
-- **Date Modified**: 2026-02-07T21:43:22Z
+- **Date Modified**: 2026-02-07T22:15:37Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: samba34s
@@ -301,7 +301,7 @@ The following metadata provides comprehensive information about this dataset:
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: MOC_TotalAnomaly_and_constituents.asc
 - **Source Path\***: ~/AMOCatlas/data/MOC_TotalAnomaly_and_constituents.asc
-- **Date Modified**: 2026-02-07T21:43:22Z
+- **Date Modified**: 2026-02-07T22:15:37Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: samba34s
