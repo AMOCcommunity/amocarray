@@ -9,6 +9,7 @@ Meridional Overturning Circulation.
 from pathlib import Path
 from typing import Union
 
+import numpy as np
 import pandas as pd
 import xarray as xr
 
@@ -146,8 +147,6 @@ def read_dso(
             if depth_val > 1000000:  # Clearly corrupted value
                 log_info("Marking corrupted DEPTH value %.2e as NaN", depth_val)
                 # Set depth to NaN to indicate missing/corrupted data
-                import numpy as np
-
                 depth_copy = ds["DEPTH"].copy()
                 depth_copy.values[0] = np.nan
                 ds["DEPTH"] = depth_copy

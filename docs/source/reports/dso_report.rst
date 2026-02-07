@@ -60,8 +60,8 @@ The following table shows information about the dataset coordinates in the stand
      - **Depth**:  Depth below surface of the water
      - meters
      - (1,)
-     - 630.00
-     - 630.00
+     - None
+     - None
      - 0.0%
    * - **LATITUDE**
      - **Latitude**: Latitude north (WGS84)
@@ -156,8 +156,8 @@ The following metadata provides comprehensive information about this dataset:
 - **Source File\***: DSO_transport_hourly_1996_2021.nc
 - **Source Path\***: ~/AMOCatlas/data/DSO_transport_hourly_1996_2021.nc
 - **Date Created**: 2021-12-06T19:37:07Z
-- **Date Modified**: 2026-02-07T22:15:43Z
-- **History**: 2021-12-06T19:37:07ZOceanSITES file with provisional transport data sent to DAC by Ursula Schauer
+- **Date Modified**: 2026-02-07T22:35:54Z
+- **History**: 2021-12-06T19:37:07ZOceanSITES file with provisional transport data sent to DAC by Ursula Schauer; 2026-02-07T22:35:54Z AMOCatlas: Corrupted DEPTH value in DSO_transport_hourly_1996_2021.nc marked as NaN (was 9.97e+36)
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: dso
