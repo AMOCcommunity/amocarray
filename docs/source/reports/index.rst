@@ -2,8 +2,8 @@ Dataset Reports
 ===============
 
 AMOCatlas provides comprehensive automated reports for all supported datasets.
-These reports include variable mappings, statistical summaries, temporal coverage
-analysis, and data quality assessments.
+These reports include variable mappings, statistical summaries, and temporal coverage
+analysis.
 
 .. toctree::
    :maxdepth: 1
@@ -37,7 +37,6 @@ Each dataset report includes:
    - Original variable names from source files
    - Standardized variable names (for AC1 conversion)
    - Units, descriptions, and statistical summaries
-   - Data quality indicators
 
 📈 **Statistical Analysis**
    - Min/max values for each variable
@@ -47,7 +46,25 @@ Each dataset report includes:
 Automated Generation
 --------------------
 
-Reports are automatically generated from the actual datasets using::
+Reports are automatically generated from the actual datasets using the command line tool or Python API.
+
+**Command Line Generation:**
+
+Generate reports for all supported arrays::
+
+    python generate_report
+
+Generate report for a specific dataset::
+
+    python generate_report --data_source rapid26n
+
+Generate reports with custom output directory::
+
+    python generate_report --output_dir custom_reports/
+
+**Python API:**
+
+Reports can also be generated programmatically::
 
     from amocatlas import report
     

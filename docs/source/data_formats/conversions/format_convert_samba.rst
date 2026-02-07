@@ -1,6 +1,7 @@
 .. _convert-samba:
+
 SAMBA conversion thoughts
-----------------------
+=========================
 
 SAMBA (Upper_Abyssal_Transport_Anomalies.txt) has two main variables which are (``TIME``,), named 'upper-cell volume transport anomaly' which suggests a quantity TRANSPORT_ANOMALY (``N_LEVELS``, ``TIME``), where we would then have again a DEPTH_BOUND (``N_LEVELS``, 2).
 

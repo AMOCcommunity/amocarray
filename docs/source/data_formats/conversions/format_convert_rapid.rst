@@ -1,6 +1,7 @@
 .. _convert-rapid:
+
 RAPID conversion thoughts
---------------------------
+=========================
 
 
 For example, at 26°N, the RAPID array produces an AMOC transport time series (volume transport in depth space) which is a 1-dimensional time series with a single registered latitude (26.5) and no registered longitude.  It also provides profiles of temperature, salinity and dynamic height representing individual locations (single latitude, single nominal longitude) on a vertical grid of 20 dbar.  Several locations are provided, with names like WB, MAR_WEST, MAR_EAST, EB.  So there are N_PROF locations, with N_LEVELS and also TIME as dimensions. And the LATITUDE would be ``N_PROF`` (a small number, like 4, representing mooring locations)
@@ -25,7 +26,7 @@ Check CF conventions for standard names: https://github.com/cf-convention/vocabu
 - ``meridional_transports.nc``:
 
 Potential reformats:
-~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~
 
 
 

@@ -1,6 +1,7 @@
 .. _convert-move:
+
 MOVE conversion thoughts
-----------------------
+========================
 
 MOVE provides the TRANSPORT_TOTAL which corresponds to the MOC, but also things like transport_component_internal (``TIME``,), transport_component_internal_offset (``TIME``,), and transport_component_boundary (``TIME``,).  This would be similar to RAPID's version of "interior transport" and "western boundary wedge", but it's not so clear how to make these similarly named.
 

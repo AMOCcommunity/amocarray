@@ -1,7 +1,7 @@
 # AMOCatlas
 
 
-[![PyPI version](https://badge.fury.io/py/AMOCatlas.svg)](https://badge.fury.io/py/AMOCatlas)
+[![PyPI version](https://img.shields.io/pypi/v/AMOCatlas.svg)](https://pypi.org/project/AMOCatlas/)
 [![Python](https://img.shields.io/pypi/pyversions/AMOCatlas.svg)](https://pypi.org/project/AMOCatlas/)
 [![License](https://img.shields.io/github/license/AMOCcommunity/amocatlas.svg)](LICENSE)
 
@@ -236,6 +236,12 @@ This project is supported by the Horizon Europe project **EPOC - Explaining and 
 - [ ] Add more comprehensive visualization function tests  
 - [ ] Expand plotting capabilities with additional array-specific visualizations
 - [ ] Performance optimization for large dataset handling
+- [ ] Create summary table of variable names, standard_names, long_names and units across all datasets
+- [ ] Create summary table of default units and formatting conventions used for standardization
+- [ ] Document deviations from OceanSITES-1.5 standard and rationale for changes
+- [ ] Enrich metadata with ORCID identifiers for contributors
+- [ ] Enrich metadata with https://edmo.seadatanet.org identifiers for contributing institutions
+- [ ] Create sample 3D plots for Arctic Gateway and Calafat2025 datasets
 
 ## Acknowledgements
 
