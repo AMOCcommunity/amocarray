@@ -185,6 +185,7 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 .idea/
 notebooks/demo-eleanor.ipynb
+notebooks/demo-convert.ipynb
 data/meridional_transports.nc
 data/Bayesian_estimates_Atlantic_MHT.nc
 data/Bayesian_estimates_Atlantic_MHT.zip
