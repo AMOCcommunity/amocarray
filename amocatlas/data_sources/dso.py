@@ -9,6 +9,7 @@ Meridional Overturning Circulation.
 from pathlib import Path
 from typing import Union
 
+import pandas as pd
 import xarray as xr
 
 # Import the modules used
@@ -79,6 +80,13 @@ def read_dso(
     -------                                                         list of xr.Dataset
         List of loaded xarray datasets with basic inline and file-specific metadata.
 
+    Notes
+    -----
+    The original DSO_transport_hourly_1996_2021.nc file contains a corrupted DEPTH
+    coordinate value (9.97e+36). This function automatically detects and corrects
+    this by setting the DEPTH to NaN and documenting the correction in the dataset's
+    history attribute.
+
     Raises
     ------
     ValueError
@@ -132,24 +140,38 @@ def read_dso(
 
         # Fix corrupted DEPTH value in DSO dataset
         # The original data contains a corrupted depth value (~9.97e36)
-        # Denmark Strait sill depth is approximately 630 meters
+        # Mark as missing rather than inserting estimated value
         if "DEPTH" in ds.coords:
             depth_val = float(ds.DEPTH.values[0])
             if depth_val > 1000000:  # Clearly corrupted value
-                log_info("Fixing corrupted DEPTH value %.2e -> 630.0 meters", depth_val)
-                # Make mutable copy and update DEPTH value
+                log_info("Marking corrupted DEPTH value %.2e as NaN", depth_val)
+                # Set depth to NaN to indicate missing/corrupted data
+                import numpy as np
+
                 depth_copy = ds["DEPTH"].copy()
-                depth_copy.values[0] = 630.0  # Denmark Strait sill depth
+                depth_copy.values[0] = np.nan
                 ds["DEPTH"] = depth_copy
-                # Update or ensure proper DEPTH attributes
+
+                # Update DEPTH attributes to reflect missing data
                 ds["DEPTH"].attrs.update(
                     {
                         "long_name": "Depth below surface of the water",
                         "standard_name": "depth",
                         "units": "meters",
-                        "comment": "Corrected from corrupted original value to Denmark Strait sill depth",
+                        "QC_indicator": "bad data",
+                        "comment": "Original depth value was corrupted (9.97e+36), set to NaN",
                     }
                 )
+
+                # Document the fix in the history attribute
+                current_time = pd.Timestamp.now(tz="UTC").strftime("%Y-%m-%dT%H:%M:%SZ")
+                existing_history = ds.attrs.get("history", "")
+                corruption_note = f"{current_time} AMOCatlas: Corrupted DEPTH value in DSO_transport_hourly_1996_2021.nc marked as NaN (was 9.97e+36)"
+
+                if existing_history:
+                    ds.attrs["history"] = f"{existing_history}; {corruption_note}"
+                else:
+                    ds.attrs["history"] = corruption_note
 
         # Attach metadata with optional tracking
 
