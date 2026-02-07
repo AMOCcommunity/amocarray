@@ -600,7 +600,7 @@ def get_standard_unit_mappings() -> Dict[str, str]:
         "degrees Celsius": "degrees_Celsius",
         # Salinity units
         "psu": "PSU",  # Practical Salinity Units are dimensionless
-        "PSU": "PSU", 
+        "PSU": "PSU",
         "pss": "PSU",  # Practical Salinity Scale
         "PSS": "PSU",
         "1": "PSU",  # Fix missing units that default to "1"
