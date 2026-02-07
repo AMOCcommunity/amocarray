@@ -63,7 +63,8 @@ def read_41n(
     transport_only: bool = True,
     data_dir: Union[str, Path, None] = None,
     redownload: bool = False,
-    track_added_attrs: bool = False,) -> list[xr.Dataset]:
+    track_added_attrs: bool = False,
+) -> list[xr.Dataset]:
     """Load the 41N transport datasets from a URL or local file path into xarray Datasets.
 
     Parameters
@@ -179,7 +180,7 @@ def read_41n(
                 raise ValueError(
                     f"Failed to convert DataFrame to xarray Dataset for {file}: {e}",
                 ) from e
-        
+
         # Use ReaderUtils for consistent metadata attachment (for all file types)
         file_metadata = A41N_FILE_METADATA.get(file, {})
         if track_added_attrs:

@@ -134,7 +134,9 @@ def read_rapid(
 
     # Print information about files being loaded - use YAML metadata if available
     netcdf_files = ReaderUtils.filter_netcdf_files(file_list)
-    display_file_metadata = yaml_file_metadata if yaml_file_metadata else RAPID_FILE_METADATA
+    display_file_metadata = (
+        yaml_file_metadata if yaml_file_metadata else RAPID_FILE_METADATA
+    )
     ReaderUtils.print_loading_info(netcdf_files, DATASOURCE_ID, display_file_metadata)
 
     datasets = []
@@ -156,28 +158,28 @@ def read_rapid(
 
         # Use ReaderUtils for consistent dataset loading and metadata
         ds = ReaderUtils.safe_load_dataset(file_path)
-        
+
         # Get file-specific metadata from YAML or fallback to hardcoded
         if file in yaml_file_metadata:
             file_metadata = yaml_file_metadata[file]
         else:
             file_metadata = RAPID_FILE_METADATA.get(file, {})
-            
+
         # Apply variable mapping and coordinate metadata from YAML
         if file in yaml_file_metadata and yaml_file_metadata[file]:
             yaml_file_data = yaml_file_metadata[file]
-            
+
             # Variable mapping will be handled in standardization stage (Option A approach)
             # Store mapping for later use but don't apply renaming here
             var_mapping = yaml_file_data.get("variable_mapping", {})
-            
-            # Apply coordinate metadata from YAML  
+
+            # Apply coordinate metadata from YAML
             # Since we're not renaming in reader, use original coordinate names
             coord_metadata = yaml_file_data.get("coordinates", {})
             for coord_name, coord_attrs in coord_metadata.items():
                 if coord_name in ds.coords:
                     ds[coord_name].attrs.update(coord_attrs)
-            
+
             # Apply variable metadata from YAML using original variable names
             # (standardized names will get metadata applied during standardization)
             var_metadata = yaml_file_data.get("variables", {})
@@ -188,11 +190,11 @@ def read_rapid(
                     if std == std_var_name:
                         orig_var_name = orig
                         break
-                
+
                 # Apply metadata to original variable name if it exists in dataset
                 if orig_var_name and orig_var_name in ds.data_vars:
                     ds[orig_var_name].attrs.update(var_attrs)
-        
+
         if track_added_attrs:
             ds, attr_changes = ReaderUtils.attach_standard_metadata(
                 ds,

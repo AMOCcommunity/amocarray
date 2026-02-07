@@ -13,6 +13,7 @@ Currently implemented:
 import xarray as xr
 from collections import OrderedDict
 import re
+import warnings
 from amocatlas import logger, utilities
 from amocatlas.logger import log_debug
 
@@ -249,33 +250,35 @@ def _consolidate_contributors(cleaned: dict) -> dict:
                 roles.append(role_map[key])
                 sources.append(key)
     log_debug("Names: %s; Roles: %s; Sources: %s", names, roles, sources)
-    
+
     # Step B2: deduplicate names and consolidate emails for the same person
     if names and email_buckets:
         # Collect all available emails from any email bucket
         all_emails = []
         for email_list in email_buckets.values():
             all_emails.extend(email_list)
-        
+
         # Check if we have emails that might belong to specific people
         if all_emails and any(email.strip() for email in all_emails):
             # Look for duplicate names that might need deduplication
             name_counts = {}
             for name in names:
                 name_counts[name] = name_counts.get(name, 0) + 1
-            
+
             duplicates_found = any(count > 1 for count in name_counts.values())
-            log_debug("Name counts: %s, Duplicates found: %s", name_counts, duplicates_found)
-            
+            log_debug(
+                "Name counts: %s, Duplicates found: %s", name_counts, duplicates_found
+            )
+
             if duplicates_found:
                 # We have duplicated names - try to consolidate with emails
                 # Since emails could be in any field (publisher_email, contributor_email, etc.)
                 # we'll try to match emails to the last occurrence of duplicated names
-                
+
                 # Create mapping: find emails for people with duplicate names
                 name_to_emails = {}
-                
-                # Strategy: if "M. Susan Lozier" appears twice and we have 
+
+                # Strategy: if "M. Susan Lozier" appears twice and we have
                 # "susan.lozier@gatech.edu" in emails, assign it to M. Susan Lozier
                 for name in names:
                     if name_counts[name] > 1:  # This name is duplicated
@@ -286,19 +289,24 @@ def _consolidate_contributors(cleaned: dict) -> dict:
                             meaningful_parts = []
                             for part in name_parts:
                                 # Skip single letters or initials like "m."
-                                if len(part) > 2 or (len(part) == 2 and not part.endswith('.')):
+                                if len(part) > 2 or (
+                                    len(part) == 2 and not part.endswith(".")
+                                ):
                                     meaningful_parts.append(part)
-                            
+
                             if len(meaningful_parts) >= 2:
                                 # Use first meaningful name and last name
-                                first_meaningful = meaningful_parts[0] 
+                                first_meaningful = meaningful_parts[0]
                                 last = meaningful_parts[-1]
-                                
+
                                 for email in all_emails:
                                     if email.strip():
                                         email_lower = email.strip().lower()
                                         # Check if email contains meaningful name parts
-                                        if first_meaningful in email_lower and last in email_lower:
+                                        if (
+                                            first_meaningful in email_lower
+                                            and last in email_lower
+                                        ):
                                             if name not in name_to_emails:
                                                 name_to_emails[name] = []
                                             name_to_emails[name].append(email.strip())
@@ -312,9 +320,9 @@ def _consolidate_contributors(cleaned: dict) -> dict:
                                             if name not in name_to_emails:
                                                 name_to_emails[name] = []
                                             name_to_emails[name].append(email.strip())
-                
+
                 log_debug("Name to emails mapping: %s", name_to_emails)
-                
+
                 # Deduplicate names while preserving order of first occurrence
                 dedupe_names, dedupe_roles, dedupe_sources = [], [], []
                 seen_names = set()
@@ -324,18 +332,24 @@ def _consolidate_contributors(cleaned: dict) -> dict:
                         dedupe_roles.append(role)
                         dedupe_sources.append(source)
                         seen_names.add(name)
-                
+
                 # Create consolidated email list aligned with deduplicated names
                 consolidated_emails = []
                 for name in dedupe_names:
                     emails_for_name = name_to_emails.get(name, [])
-                    consolidated_emails.append(emails_for_name[0] if emails_for_name else "")
-                
+                    consolidated_emails.append(
+                        emails_for_name[0] if emails_for_name else ""
+                    )
+
                 # Update email buckets with consolidated emails
                 # Use contributor_email as the primary target
-                email_buckets['contributor_email'] = consolidated_emails
+                email_buckets["contributor_email"] = consolidated_emails
                 names, roles, sources = dedupe_names, dedupe_roles, dedupe_sources
-                log_debug("After deduplication - Names: %s; Emails: %s", names, consolidated_emails)
+                log_debug(
+                    "After deduplication - Names: %s; Emails: %s",
+                    names,
+                    consolidated_emails,
+                )
 
     # Step C: build contributor fields
     if names:
@@ -350,9 +364,11 @@ def _consolidate_contributors(cleaned: dict) -> dict:
 
         # C2: align emails one‑to‑one
         # If we have already aligned emails from deduplication, use those
-        if 'contributor_email' in email_buckets and len(email_buckets['contributor_email']) == len(names):
+        if "contributor_email" in email_buckets and len(
+            email_buckets["contributor_email"]
+        ) == len(names):
             # Use the already correctly aligned emails from deduplication
-            aligned_emails = email_buckets['contributor_email']
+            aligned_emails = email_buckets["contributor_email"]
             log_debug("Using deduplicated emails: %s", aligned_emails)
         else:
             # Fall back to original alignment logic
@@ -530,28 +546,29 @@ def merge_metadata_aliases(attrs: dict, preferred_keys: dict) -> dict:
 
 def standardize_time_coordinate(ds: xr.Dataset) -> xr.Dataset:
     """Standardize TIME coordinate to comply with AMOCatlas specifications.
-    
+
     All datasets with a TIME coordinate should have standardized attributes:
-    - data type: double
-    - long_name: "Time elapsed since 1970-01-01T00:00:00Z" 
+    - data type: datetime64[ns]
+    - long_name: "Time elapsed since 1970-01-01T00:00:00Z"
     - standard_name: "time"
     - calendar: "gregorian"
     - units: "seconds since 1970-01-01T00:00:00Z"
     - vocabulary: "http://vocab.nerc.ac.uk/collection/OG1/current/TIME/"
-    
+
     Parameters
     ----------
     ds : xr.Dataset
         Dataset to standardize TIME coordinate for.
-        
+
     Returns
     -------
     xr.Dataset
         Dataset with standardized TIME coordinate attributes.
+
     """
     if "TIME" not in ds.coords and "TIME" not in ds.dims:
         return ds
-    
+
     # Ensure TIME is a coordinate
     if "TIME" in ds.dims and "TIME" not in ds.coords:
         # If TIME is only a dimension, create a coordinate
@@ -562,60 +579,101 @@ def standardize_time_coordinate(ds: xr.Dataset) -> xr.Dataset:
         else:
             # Create a simple index coordinate
             ds = ds.assign_coords(TIME=range(ds.sizes["TIME"]))
-    
+
     time_coord = ds["TIME"]
-    
-    # Convert to seconds since 1970-01-01 if not already
-    if time_coord.dtype != "float64":
-        log_debug(f"Converting TIME coordinate from {time_coord.dtype} to float64")
-        
-        if time_coord.dtype.kind == 'M':  # datetime64 type
-            # Convert datetime64 to seconds since 1970-01-01T00:00:00Z
+
+    # Convert to datetime64[ns] if not already
+    if time_coord.dtype.kind != "M":  # Not datetime64 type
+        log_debug(
+            f"Converting TIME coordinate from {time_coord.dtype} to datetime64[ns]"
+        )
+
+        if time_coord.dtype.kind in ["f", "i"]:  # numeric type (seconds since epoch)
+            # Convert numeric time to datetime64[ns]
             import pandas as pd
-            seconds_since_1970 = pd.to_datetime(time_coord.values).astype('int64') / 1e9
-            ds["TIME"] = ("TIME", seconds_since_1970.astype("float64"))
+
+            try:
+                # Handle different epoch references - assume 1970-01-01 if no units specified
+                units = time_coord.attrs.get(
+                    "units", "seconds since 1970-01-01T00:00:00Z"
+                )
+                if "since" in units.lower():
+                    # Parse the units and convert
+                    time_datetime = pd.to_datetime(
+                        time_coord.values,
+                        unit="s",
+                        origin="1970-01-01",
+                        errors="coerce",
+                    )
+                else:
+                    # Assume seconds since 1970-01-01
+                    time_datetime = pd.to_datetime(
+                        time_coord.values,
+                        unit="s",
+                        origin="1970-01-01",
+                        errors="coerce",
+                    )
+
+                ds["TIME"] = ("TIME", time_datetime.astype("datetime64[ns]"))
+            except Exception as e:
+                log_debug(f"Failed to convert numeric TIME to datetime64[ns]: {e}")
+                # Keep original values but warn
+                ds["TIME"] = time_coord
         else:
-            # For other types, just convert dtype
-            ds["TIME"] = time_coord.astype("float64")
-    
-    # Set standard TIME coordinate attributes
+            log_debug(f"Unknown TIME coordinate dtype: {time_coord.dtype}")
+            # Keep original values
+            ds["TIME"] = time_coord
+    elif time_coord.dtype != "datetime64[ns]":
+        # Convert datetime64 to nanosecond precision
+        log_debug("Converting datetime64 TIME coordinate to nanosecond precision")
+        import pandas as pd
+
+        time_datetime = pd.to_datetime(time_coord.values, errors="coerce").astype(
+            "datetime64[ns]"
+        )
+        ds["TIME"] = ("TIME", time_datetime)
+
+    # Set standard TIME coordinate attributes for datetime64 format
     standard_time_attrs = {
-        "long_name": "Time elapsed since 1970-01-01T00:00:00Z",
-        "standard_name": "time", 
+        "long_name": "Time",
+        "standard_name": "time",
         "calendar": "gregorian",
-        "units": "seconds since 1970-01-01T00:00:00Z",
-        "vocabulary": "http://vocab.nerc.ac.uk/collection/OG1/current/TIME/"
+        "units": "datetime64[ns]",  # Use datetime64 units for clarity
+        "vocabulary": "http://vocab.nerc.ac.uk/collection/P01/current/ELTMEP01/",
     }
-    
+
+    # Note: 'units' attribute not needed for datetime64 coordinates per CF conventions
+
     # Update TIME coordinate attributes
     ds["TIME"].attrs.update(standard_time_attrs)
     log_debug("Standardized TIME coordinate attributes")
-    
+
     return ds
 
 
 def standardize_longitude_coordinate(ds: xr.Dataset) -> xr.Dataset:
     """Standardize LONGITUDE coordinate to comply with AMOCatlas specifications.
-    
+
     All datasets with a LONGITUDE coordinate should have standardized attributes:
     - data type: double
     - long_name: "longitude east (WGS84)"
     - standard_name: "longitude"
     - units: "degrees_east"
-    
+
     Parameters
     ----------
     ds : xr.Dataset
         Dataset to standardize LONGITUDE coordinate for.
-        
+
     Returns
     -------
     xr.Dataset
         Dataset with standardized LONGITUDE coordinate attributes.
+
     """
     if "LONGITUDE" not in ds.coords and "LONGITUDE" not in ds.dims:
         return ds
-    
+
     # Ensure LONGITUDE is a coordinate
     if "LONGITUDE" in ds.dims and "LONGITUDE" not in ds.coords:
         log_debug("LONGITUDE dimension found without coordinate - creating coordinate")
@@ -623,47 +681,50 @@ def standardize_longitude_coordinate(ds: xr.Dataset) -> xr.Dataset:
             ds = ds.set_coords("LONGITUDE")
         else:
             ds = ds.assign_coords(LONGITUDE=range(ds.sizes["LONGITUDE"]))
-    
+
     # Convert to double precision if not already
     if ds["LONGITUDE"].dtype != "float64":
-        log_debug(f"Converting LONGITUDE coordinate from {ds['LONGITUDE'].dtype} to float64")
+        log_debug(
+            f"Converting LONGITUDE coordinate from {ds['LONGITUDE'].dtype} to float64"
+        )
         ds["LONGITUDE"] = ds["LONGITUDE"].astype("float64")
-    
+
     # Set standard LONGITUDE coordinate attributes
     standard_lon_attrs = {
         "long_name": "longitude east (WGS84)",
         "standard_name": "longitude",
-        "units": "degrees_east"
+        "units": "degrees_east",
     }
-    
+
     ds["LONGITUDE"].attrs.update(standard_lon_attrs)
     log_debug("Standardized LONGITUDE coordinate attributes")
-    
+
     return ds
 
 
 def standardize_latitude_coordinate(ds: xr.Dataset) -> xr.Dataset:
     """Standardize LATITUDE coordinate to comply with AMOCatlas specifications.
-    
+
     All datasets with a LATITUDE coordinate should have standardized attributes:
     - data type: double
     - long_name: "Latitude north (WGS84)"
     - standard_name: "latitude"
     - units: "degrees_north"
-    
+
     Parameters
     ----------
     ds : xr.Dataset
         Dataset to standardize LATITUDE coordinate for.
-        
+
     Returns
     -------
     xr.Dataset
         Dataset with standardized LATITUDE coordinate attributes.
+
     """
     if "LATITUDE" not in ds.coords and "LATITUDE" not in ds.dims:
         return ds
-    
+
     # Ensure LATITUDE is a coordinate
     if "LATITUDE" in ds.dims and "LATITUDE" not in ds.coords:
         log_debug("LATITUDE dimension found without coordinate - creating coordinate")
@@ -671,47 +732,50 @@ def standardize_latitude_coordinate(ds: xr.Dataset) -> xr.Dataset:
             ds = ds.set_coords("LATITUDE")
         else:
             ds = ds.assign_coords(LATITUDE=range(ds.sizes["LATITUDE"]))
-    
+
     # Convert to double precision if not already
     if ds["LATITUDE"].dtype != "float64":
-        log_debug(f"Converting LATITUDE coordinate from {ds['LATITUDE'].dtype} to float64")
+        log_debug(
+            f"Converting LATITUDE coordinate from {ds['LATITUDE'].dtype} to float64"
+        )
         ds["LATITUDE"] = ds["LATITUDE"].astype("float64")
-    
+
     # Set standard LATITUDE coordinate attributes
     standard_lat_attrs = {
         "long_name": "Latitude north (WGS84)",
         "standard_name": "latitude",
-        "units": "degrees_north"
+        "units": "degrees_north",
     }
-    
+
     ds["LATITUDE"].attrs.update(standard_lat_attrs)
     log_debug("Standardized LATITUDE coordinate attributes")
-    
+
     return ds
 
 
 def standardize_depth_coordinate(ds: xr.Dataset) -> xr.Dataset:
     """Standardize DEPTH coordinate to comply with AMOCatlas specifications.
-    
+
     All datasets with a DEPTH coordinate should have standardized attributes:
     - data type: double
     - long_name: "Depth below surface of the water"
     - standard_name: "depth"
     - units: "meters"
-    
+
     Parameters
     ----------
     ds : xr.Dataset
         Dataset to standardize DEPTH coordinate for.
-        
+
     Returns
     -------
     xr.Dataset
         Dataset with standardized DEPTH coordinate attributes.
+
     """
     if "DEPTH" not in ds.coords and "DEPTH" not in ds.dims:
         return ds
-    
+
     # Ensure DEPTH is a coordinate
     if "DEPTH" in ds.dims and "DEPTH" not in ds.coords:
         log_debug("DEPTH dimension found without coordinate - creating coordinate")
@@ -719,46 +783,100 @@ def standardize_depth_coordinate(ds: xr.Dataset) -> xr.Dataset:
             ds = ds.set_coords("DEPTH")
         else:
             ds = ds.assign_coords(DEPTH=range(ds.sizes["DEPTH"]))
-    
+
     # Convert to double precision if not already
     if ds["DEPTH"].dtype != "float64":
         log_debug(f"Converting DEPTH coordinate from {ds['DEPTH'].dtype} to float64")
         ds["DEPTH"] = ds["DEPTH"].astype("float64")
-    
+
     # Set standard DEPTH coordinate attributes
     standard_depth_attrs = {
         "long_name": "Depth below surface of the water",
         "standard_name": "depth",
-        "units": "meters"
+        "units": "meters",
     }
-    
+
     ds["DEPTH"].attrs.update(standard_depth_attrs)
     log_debug("Standardized DEPTH coordinate attributes")
-    
+
+    return ds
+
+
+def standardize_sigma0_coordinate(ds: xr.Dataset) -> xr.Dataset:
+    """Standardize SIGMA0 coordinate to comply with AMOCatlas specifications.
+
+    All datasets with a SIGMA0 coordinate should have standardized attributes:
+    - data type: double
+    - long_name: "Potential density anomaly to 1000 kg/m3, surface reference"
+    - standard_name: "sea_water_sigma_theta"
+    - units: "kg m-3"
+
+    Parameters
+    ----------
+    ds : xr.Dataset
+        Dataset to standardize SIGMA0 coordinate for.
+
+    Returns
+    -------
+    xr.Dataset
+        Dataset with standardized SIGMA0 coordinate attributes.
+
+    """
+    if "SIGMA0" not in ds.coords and "SIGMA0" not in ds.dims:
+        return ds
+
+    # Ensure SIGMA0 is a coordinate
+    if "SIGMA0" in ds.dims and "SIGMA0" not in ds.coords:
+        log_debug("SIGMA0 dimension found without coordinate - creating coordinate")
+        if "SIGMA0" in ds.data_vars:
+            ds = ds.set_coords("SIGMA0")
+        else:
+            ds = ds.assign_coords(SIGMA0=range(ds.sizes["SIGMA0"]))
+
+    # Convert to double precision if not already
+    if ds["SIGMA0"].dtype != "float64":
+        log_debug(f"Converting SIGMA0 coordinate from {ds['SIGMA0'].dtype} to float64")
+        ds["SIGMA0"] = ds["SIGMA0"].astype("float64")
+
+    # Set standard SIGMA0 coordinate attributes
+    standard_sigma0_attrs = {
+        "long_name": "Potential density anomaly to 1000 kg/m3, surface reference",
+        "standard_name": "sea_water_sigma_theta",
+        "units": "kg m-3",
+    }
+
+    ds["SIGMA0"].attrs.update(standard_sigma0_attrs)
+    log_debug("Standardized SIGMA0 coordinate attributes")
+
     return ds
 
 
 def standardize_units(ds: xr.Dataset) -> xr.Dataset:
     """Standardize variable units throughout the dataset.
-    
+
     Uses the comprehensive unit mapping from utilities module.
-    
+
     Parameters
     ----------
     ds : xr.Dataset
         Dataset to standardize units for.
-        
+
     Returns
     -------
     xr.Dataset
         Dataset with standardized variable units.
+
     """
     from .utilities import standardize_dataset_units
+
     return standardize_dataset_units(ds, log_changes=True)
 
 
 def standardise_samba(ds: xr.Dataset, file_name: str) -> xr.Dataset:
     """Standardise SAMBA array dataset to consistent format.
+
+    .. deprecated::
+        This function is deprecated. Use :func:`standardise_data` instead.
 
     Parameters
     ----------
@@ -773,11 +891,20 @@ def standardise_samba(ds: xr.Dataset, file_name: str) -> xr.Dataset:
         Standardised dataset with consistent metadata and formatting.
 
     """
-    return standardise_array(ds, file_name)
+    warnings.warn(
+        "standardise_samba() is deprecated and will be removed in a future version. "
+        "Use standardise_data() instead.",
+        DeprecationWarning,
+        stacklevel=2,
+    )
+    return standardise_data(ds, file_name)
 
 
 def standardise_rapid(ds: xr.Dataset, file_name: str) -> xr.Dataset:
     """Standardise RAPID array dataset to consistent format.
+
+    .. deprecated::
+        This function is deprecated. Use :func:`standardise_data` instead.
 
     Parameters
     ----------
@@ -792,7 +919,13 @@ def standardise_rapid(ds: xr.Dataset, file_name: str) -> xr.Dataset:
         Standardised dataset with consistent metadata and formatting.
 
     """
-    return standardise_array(ds, file_name)
+    warnings.warn(
+        "standardise_rapid() is deprecated and will be removed in a future version. "
+        "Use standardise_data() instead.",
+        DeprecationWarning,
+        stacklevel=2,
+    )
+    return standardise_data(ds, file_name)
 
 
 def standardise_move(ds: xr.Dataset, file_name: str) -> xr.Dataset:
@@ -811,41 +944,90 @@ def standardise_move(ds: xr.Dataset, file_name: str) -> xr.Dataset:
         Standardised dataset with consistent metadata and formatting.
 
     """
+    warnings.warn(
+        "standardise_move() is deprecated and will be removed in a future version. "
+        "Use standardise_data() instead.",
+        DeprecationWarning,
+        stacklevel=2,
+    )
     return standardise_array(ds, file_name)
 
 
 def standardise_osnap(ds: xr.Dataset, file_name: str) -> xr.Dataset:
     """Standardise OSNAP array dataset to consistent format."""
+    warnings.warn(
+        "standardise_osnap() is deprecated and will be removed in a future version. "
+        "Use standardise_data() instead.",
+        DeprecationWarning,
+        stacklevel=2,
+    )
     return standardise_array(ds, file_name)
 
 
 def standardise_fw2015(ds: xr.Dataset, file_name: str) -> xr.Dataset:
     """Standardise FW2015 array dataset to consistent format."""
+    warnings.warn(
+        "standardise_move() is deprecated and will be removed in a future version. "
+        "Use standardise_data() instead.",
+        DeprecationWarning,
+        stacklevel=2,
+    )
+
     return standardise_array(ds, file_name)
 
 
 def standardise_mocha(ds: xr.Dataset, file_name: str) -> xr.Dataset:
     """Standardise MOCHA array dataset to consistent format."""
+    warnings.warn(
+        "standardise_mocha() is deprecated and will be removed in a future version. "
+        "Use standardise_data() instead.",
+        DeprecationWarning,
+        stacklevel=2,
+    )
     return standardise_array(ds, file_name)
 
 
 def standardise_41n(ds: xr.Dataset, file_name: str) -> xr.Dataset:
     """Standardise 41N array dataset to consistent format."""
+    warnings.warn(
+        "standardise_41n() is deprecated and will be removed in a future version. "
+        "Use standardise_data() instead.",
+        DeprecationWarning,
+        stacklevel=2,
+    )
     return standardise_array(ds, file_name)
 
 
 def standardise_dso(ds: xr.Dataset, file_name: str) -> xr.Dataset:
     """Standardise DSO array dataset to consistent format."""
+    warnings.warn(
+        "standardise_dso() is deprecated and will be removed in a future version. "
+        "Use standardise_data() instead.",
+        DeprecationWarning,
+        stacklevel=2,
+    )
     return standardise_array(ds, file_name)
 
 
 def standardise_calafat2025(ds: xr.Dataset, file_name: str) -> xr.Dataset:
     """Standardise CALAFAT2025 array dataset to consistent format."""
+    warnings.warn(
+        "standardise_calafat2025() is deprecated and will be removed in a future version. "
+        "Use standardise_data() instead.",
+        DeprecationWarning,
+        stacklevel=2,
+    )
     return standardise_array(ds, file_name)
 
 
 def standardise_zheng2024(ds: xr.Dataset, file_name: str) -> xr.Dataset:
     """Standardise ZHENG2024 array dataset to consistent format."""
+    warnings.warn(
+        "standardise_zheng2024() is deprecated and will be removed in a future version. "
+        "Use standardise_data() instead.",
+        DeprecationWarning,
+        stacklevel=2,
+    )
     return standardise_array(ds, file_name)
 
 
@@ -865,35 +1047,40 @@ def standardise_47n(ds: xr.Dataset, file_name: str) -> xr.Dataset:
         Standardised dataset with consistent metadata and formatting for the 47N array.
 
     """
+    warnings.warn(
+        "standardise_47n() is deprecated and will be removed in a future version. "
+        "Use standardise_data() instead.",
+        DeprecationWarning,
+        stacklevel=2,
+    )
     return standardise_array(ds, file_name)
 
 
 def standardise_fbc(ds: xr.Dataset, file_name: str) -> xr.Dataset:
-    """Standardise FBC array dataset to consistent format.
-
-    Parameters
-    ----------
-    ds : xr.Dataset
-        Raw FBC dataset to standardise.
-    file_name : str
-        Original filename for metadata.
-
-    Returns
-    -------
-    xr.Dataset
-        Standardised dataset with consistent metadata and formatting.
-
-    """
+    """Standardise FBC array dataset to consistent format."""
+    warnings.warn(
+        "standardise_fbc() is deprecated and will be removed in a future version. "
+        "Use standardise_data() instead.",
+        DeprecationWarning,
+        stacklevel=2,
+    )
     return standardise_array(ds, file_name)
 
 
 def standardise_arcticgateway(ds: xr.Dataset, file_name: str) -> xr.Dataset:
     """Standardise Arctic Gateway array dataset to consistent format."""
+    warnings.warn(
+        "standardise_arcticgateway() is deprecated and will be removed in a future version. "
+        "Use standardise_data() instead.",
+        DeprecationWarning,
+        stacklevel=2,
+    )
+
     return standardise_array(ds, file_name)
 
 
-def standardise_array(ds: xr.Dataset, file_name: str) -> xr.Dataset:
-    """Standardise a mooring array dataset using YAML-based metadata.
+def standardise_data(ds: xr.Dataset, file_name: str) -> xr.Dataset:
+    """Standardise a dataset using YAML-based metadata.
 
     Parameters
     ----------
@@ -933,27 +1120,35 @@ def standardise_array(ds: xr.Dataset, file_name: str) -> xr.Dataset:
 
     # Rename variables and track what was actually renamed
     # Prefer dataset's variable_mapping (which may have sanitized names) over YAML
-    rename_dict = ds.attrs.get("variable_mapping", file_meta.get("variable_mapping", {}))
+    rename_dict = ds.attrs.get(
+        "variable_mapping", file_meta.get("variable_mapping", {})
+    )
     applied_mapping = {}
-    
+
     if rename_dict:
         # Only rename variables that actually exist and need renaming
-        valid_renames = {old: new for old, new in rename_dict.items() 
-                        if old in ds.variables and old != new}
-        
+        valid_renames = {
+            old: new
+            for old, new in rename_dict.items()
+            if old in ds.variables and old != new
+        }
+
         if valid_renames:
             ds = ds.rename(valid_renames)
             applied_mapping.update(valid_renames)
             log_debug("Applied variable renaming: %s", valid_renames)
-        
-        # For variables that couldn't be renamed (case mismatch, etc.), 
+
+        # For variables that couldn't be renamed (case mismatch, etc.),
         # try to find them with case-insensitive matching and track pass-through
-        failed_renames = {old: new for old, new in rename_dict.items() 
-                         if old not in ds.variables and old != new}
-        
+        failed_renames = {
+            old: new
+            for old, new in rename_dict.items()
+            if old not in ds.variables and old != new
+        }
+
         if failed_renames:
             log_debug("Failed to find exact matches for renaming: %s", failed_renames)
-            
+
             # Try case-insensitive matching for pass-through tracking
             ds_vars_lower = {var.lower(): var for var in ds.variables}
             for orig_name, std_name in failed_renames.items():
@@ -962,19 +1157,28 @@ def standardise_array(ds: xr.Dataset, file_name: str) -> xr.Dataset:
                     actual_var = ds_vars_lower[orig_lower]
                     # Track as pass-through: actual_name -> actual_name (no rename occurred)
                     applied_mapping[actual_var] = actual_var
-                    log_debug("Pass-through (case mismatch): %s (expected %s -> %s)", 
-                             actual_var, orig_name, std_name)
-        
+                    log_debug(
+                        "Pass-through (case mismatch): %s (expected %s -> %s)",
+                        actual_var,
+                        orig_name,
+                        std_name,
+                    )
+
         # Track coordinates that were successfully renamed
-        coord_renames = {old: new for old, new in rename_dict.items() 
-                        if old in ds.coords and old != new}
+        coord_renames = {
+            old: new
+            for old, new in rename_dict.items()
+            if old in ds.coords and old != new
+        }
         if coord_renames:
             applied_mapping.update(coord_renames)
-    
+
     # Always track applied mapping (even if empty) for consistent reporting
     if applied_mapping:
         ds.attrs["applied_variable_mapping"] = applied_mapping
-        log_debug("Total applied mapping (renames + pass-throughs): %s", applied_mapping)
+        log_debug(
+            "Total applied mapping (renames + pass-throughs): %s", applied_mapping
+        )
     else:
         log_debug("No variable_mapping found or applied for %s", file_name)
 
@@ -1039,17 +1243,45 @@ def standardise_array(ds: xr.Dataset, file_name: str) -> xr.Dataset:
     ds = standardize_longitude_coordinate(ds)
     ds = standardize_latitude_coordinate(ds)
     ds = standardize_depth_coordinate(ds)
-    
+
     # 7) Standardize units
     ds = standardize_units(ds)
 
     # 8) Reorder metadata according
     ds.attrs = cleaned
     ds.attrs = reorder_metadata(ds.attrs)
-    
+
     # 9) Apply unit standardization again after metadata processing
     # This ensures units are not overwritten by YAML metadata operations
     ds = standardize_units(ds)
-    
+
     #    ds = utilities.safe_update_attrs(ds, cleaned, overwrite=False)
     return ds
+
+
+def standardise_array(ds: xr.Dataset, file_name: str) -> xr.Dataset:
+    """Standardise a mooring array dataset using YAML-based metadata.
+
+    .. deprecated::
+        This function is deprecated. Use :func:`standardise_data` instead.
+
+    Parameters
+    ----------
+    ds : xr.Dataset
+        Raw dataset loaded from a reader with amocatlas_datasource metadata.
+    file_name : str
+        Filename (e.g., 'moc_transports.nc') expected to match ds.attrs["source_file"].
+
+    Returns
+    -------
+    xr.Dataset
+        Standardised dataset with renamed variables and enriched metadata.
+
+    """
+    warnings.warn(
+        "standardise_array() is deprecated and will be removed in a future version. "
+        "Use standardise_data() instead.",
+        DeprecationWarning,
+        stacklevel=2,
+    )
+    return standardise_data(ds, file_name)

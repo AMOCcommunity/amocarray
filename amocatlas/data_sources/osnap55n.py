@@ -197,37 +197,32 @@ def read_osnap(
 
         # Attach metadata with optional tracking
 
-
         if track_added_attrs:
 
-
             ds, attr_changes = ReaderUtils.attach_metadata_with_tracking(
-
-
-                ds, file, file_path, global_metadata, yaml_file_metadata, 
-
-
-                OSNAP_FILE_METADATA, DATASOURCE_ID, track_added_attrs=True
-
-
+                ds,
+                file,
+                file_path,
+                global_metadata,
+                yaml_file_metadata,
+                OSNAP_FILE_METADATA,
+                DATASOURCE_ID,
+                track_added_attrs=True,
             )
-
 
             added_attrs_per_dataset.append(attr_changes)
 
-
         else:
 
-
             ds = ReaderUtils.attach_metadata_with_tracking(
-
-
-                ds, file, file_path, global_metadata, yaml_file_metadata,
-
-
-                OSNAP_FILE_METADATA, DATASOURCE_ID, track_added_attrs=False
-
-
+                ds,
+                file,
+                file_path,
+                global_metadata,
+                yaml_file_metadata,
+                OSNAP_FILE_METADATA,
+                DATASOURCE_ID,
+                track_added_attrs=False,
             )
 
         datasets.append(ds)

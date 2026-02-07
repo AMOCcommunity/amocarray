@@ -96,7 +96,6 @@ def read_mocha(
     """
     log.info("Starting to read MOCHA dataset")
 
-
     # Load YAML metadata with fallback
     global_metadata, yaml_file_metadata = ReaderUtils.load_array_metadata_with_fallback(
         DATASOURCE_ID, MOCHA_METADATA
@@ -168,7 +167,7 @@ def read_mocha(
 
                 # Use ReaderUtils for consistent metadata attachment
                 file_metadata = MOCHA_FILE_METADATA.get(nc_file, {})
-                
+
                 if track_added_attrs:
                     # Use tracking version to collect attribute changes
                     ds, attr_changes = ReaderUtils.attach_metadata_with_tracking(
@@ -179,7 +178,7 @@ def read_mocha(
                         {},  # yaml metadata (MOCHA doesn't have separate YAML files)
                         file_metadata,
                         DATASOURCE_ID,
-                        track_added_attrs=True
+                        track_added_attrs=True,
                     )
                     added_attrs_per_dataset.append(attr_changes)
                 else:
@@ -202,7 +201,7 @@ def read_mocha(
         raise FileNotFoundError(f"No valid NetCDF files found in {file_list}")
 
     log.info("Successfully loaded %d MOCHA dataset(s)", len(datasets))
-    
+
     if track_added_attrs:
         return datasets, added_attrs_per_dataset
     else:

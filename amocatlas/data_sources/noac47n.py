@@ -59,7 +59,8 @@ def read_47n(
     transport_only: bool = True,
     data_dir: Union[str, Path, None] = None,
     redownload: bool = False,
-    track_added_attrs: bool = False,) -> list[xr.Dataset]:
+    track_added_attrs: bool = False,
+) -> list[xr.Dataset]:
     """Load the 47N transport datasets from a URL or local file path into xarray Datasets.
 
     Parameters
@@ -171,7 +172,7 @@ def read_47n(
                     {},  # yaml metadata (NOAC47N doesn't have separate YAML files)
                     file_metadata,
                     DATASOURCE_ID,
-                    track_added_attrs=True
+                    track_added_attrs=True,
                 )
                 added_attrs_per_dataset.append(attr_changes)
             else:

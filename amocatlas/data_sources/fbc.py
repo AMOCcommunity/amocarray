@@ -61,7 +61,8 @@ def read_fbc(
     transport_only: bool = True,
     data_dir: Union[str, Path, None] = None,
     redownload: bool = False,
-    track_added_attrs: bool = False,) -> list[xr.Dataset]:
+    track_added_attrs: bool = False,
+) -> list[xr.Dataset]:
     """Load the FBC (Faroe Banks Channel) transport datasets from a URL or local file path into xarray Datasets.
 
     Parameters
@@ -195,11 +196,14 @@ def read_fbc(
             if track_added_attrs:
 
                 ds, attr_changes = ReaderUtils.attach_metadata_with_tracking(
-
-                    ds, file, file_path, global_metadata, yaml_file_metadata, 
-
-                    FBC_FILE_METADATA, DATASOURCE_ID, track_added_attrs=True
-
+                    ds,
+                    file,
+                    file_path,
+                    global_metadata,
+                    yaml_file_metadata,
+                    FBC_FILE_METADATA,
+                    DATASOURCE_ID,
+                    track_added_attrs=True,
                 )
 
                 added_attrs_per_dataset.append(attr_changes)
@@ -207,11 +211,14 @@ def read_fbc(
             else:
 
                 ds = ReaderUtils.attach_metadata_with_tracking(
-
-                    ds, file, file_path, global_metadata, yaml_file_metadata,
-
-                    FBC_FILE_METADATA, DATASOURCE_ID, track_added_attrs=False
-
+                    ds,
+                    file,
+                    file_path,
+                    global_metadata,
+                    yaml_file_metadata,
+                    FBC_FILE_METADATA,
+                    DATASOURCE_ID,
+                    track_added_attrs=False,
                 )
 
         datasets.append(ds)
@@ -221,7 +228,7 @@ def read_fbc(
         raise FileNotFoundError(f"No valid data files found in {file_list}")
 
     log_info("Successfully loaded %d FBC dataset(s)", len(datasets))
-    
+
     if track_added_attrs:
         return datasets, added_attrs_per_dataset
     else:

@@ -67,8 +67,13 @@ class ReaderUtils:
             log_info("Opening dataset: %s", file_path)
             # Suppress SerializationWarning for problematic time coordinates
             import warnings
+
             with warnings.catch_warnings():
-                warnings.filterwarnings("ignore", message="Unable to decode time axis into full numpy.datetime64", category=UserWarning)
+                warnings.filterwarnings(
+                    "ignore",
+                    message="Unable to decode time axis into full numpy.datetime64",
+                    category=UserWarning,
+                )
                 return xr.open_dataset(file_path, **kwargs)
         except (OSError, IOError, ValueError, KeyError) as e:
             log_error("Failed to open NetCDF file: %s: %s", file_path, e)
@@ -127,15 +132,17 @@ class ReaderUtils:
             **global_metadata,
             **file_metadata,
         }
-        
+
         # Override with original file metadata (file takes precedence)
         metadata.update(ds.attrs)
-        
+
         # Add AMOCatlas-specific metadata (these are always added)
-        metadata.update({
-            "source_file": file_name,
-            "source_path": str(file_path),
-        })
+        metadata.update(
+            {
+                "source_file": file_name,
+                "source_path": str(file_path),
+            }
+        )
 
         # Add datasource identification if provided
         if datasource_id:
@@ -144,18 +151,18 @@ class ReaderUtils:
         # Replace dataset attributes entirely
         ds.attrs.clear()
         ds.attrs.update(metadata)
-        
+
         if track_added_attrs:
             # Find which attributes were added and modified
             new_attrs = set(ds.attrs.keys())
             added_attrs = list(new_attrs - original_keys)
-            
+
             # Find modified attributes (existing keys with different values)
             modified_attrs = []
             for key in original_keys:
                 if key in ds.attrs and ds.attrs[key] != original_attrs[key]:
                     modified_attrs.append(key)
-            
+
             return ds, {"added": added_attrs, "modified": modified_attrs}
         else:
             return ds
@@ -291,24 +298,27 @@ class ReaderUtils:
             raise FileNotFoundError(f"No valid NetCDF files found in {file_list}")
 
         log_info("Successfully loaded %d dataset(s)", len(datasets))
-    
+
     @staticmethod
-    def load_array_metadata_with_fallback(datasource_id: str, fallback_metadata: dict) -> tuple[dict, dict]:
+    def load_array_metadata_with_fallback(
+        datasource_id: str, fallback_metadata: dict
+    ) -> tuple[dict, dict]:
         """Load YAML metadata with fallback to hardcoded metadata.
-        
+
         Parameters
         ----------
         datasource_id : str
             Datasource identifier (e.g., 'rapid26n', 'move16n').
         fallback_metadata : dict
             Hardcoded metadata to use if YAML loading fails.
-        
+
         Returns
         -------
         tuple[dict, dict]
             (global_metadata, yaml_file_metadata)
             global_metadata: Combined metadata for dataset attributes
             yaml_file_metadata: File-specific metadata from YAML
+
         """
         try:
             yaml_metadata = utilities.load_array_metadata(datasource_id)
@@ -324,22 +334,22 @@ class ReaderUtils:
             log.warning(f"Could not load YAML metadata for {datasource_id}: {e}")
             global_metadata = fallback_metadata
             yaml_file_metadata = {}
-        
+
         return global_metadata, yaml_file_metadata
-    
+
     @staticmethod
     def attach_metadata_with_tracking(
         dataset: xr.Dataset,
-        file: str, 
+        file: str,
         file_path: Path,
         global_metadata: dict,
         yaml_file_metadata: dict,
         fallback_file_metadata: dict,
         datasource_id: str,
-        track_added_attrs: bool = False
+        track_added_attrs: bool = False,
     ) -> Union[xr.Dataset, tuple[xr.Dataset, dict]]:
         """Attach metadata to dataset with optional attribute tracking.
-        
+
         Parameters
         ----------
         dataset : xr.Dataset
@@ -358,19 +368,20 @@ class ReaderUtils:
             Datasource identifier.
         track_added_attrs : bool, optional
             Whether to track which attributes were added.
-        
+
         Returns
         -------
         xr.Dataset or tuple[xr.Dataset, dict]
             If track_added_attrs=False: Dataset with metadata attached.
             If track_added_attrs=True: (Dataset, attribute_changes_dict).
+
         """
         # Get file-specific metadata from YAML or fallback to hardcoded
         if file in yaml_file_metadata:
             file_metadata = yaml_file_metadata[file]
         else:
             file_metadata = fallback_file_metadata.get(file, {})
-        
+
         if track_added_attrs:
             dataset, attr_changes = ReaderUtils.attach_standard_metadata(
                 dataset,

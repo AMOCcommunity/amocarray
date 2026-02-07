@@ -60,7 +60,8 @@ def read_fw2015(
     transport_only: bool = True,
     data_dir: Union[str, Path, None] = None,
     redownload: bool = False,
-    track_added_attrs: bool = False,) -> list[xr.Dataset]:
+    track_added_attrs: bool = False,
+) -> list[xr.Dataset]:
     """Load the FW2015 transport datasets from a URL or local file path into xarray Datasets.
 
     Parameters
@@ -91,7 +92,6 @@ def read_fw2015(
 
     """
     log_info("Starting to read FW2015 dataset")
-
 
     # Load YAML metadata with fallback
     global_metadata, yaml_file_metadata = ReaderUtils.load_array_metadata_with_fallback(
@@ -154,8 +154,8 @@ def read_fw2015(
                 "h1umo": recon.h1umo,  # Original name, will be renamed to SSHA in standardization
                 "gs": recon.gs,
                 "umoproxy": recon.umoproxy,
-                "moc": mocgrid.moc,      # Grid variables use original names too
-                "ek_grid": mocgrid.ek,   # Use lowercase with underscore for consistency
+                "moc": mocgrid.moc,  # Grid variables use original names too
+                "ek_grid": mocgrid.ek,  # Use lowercase with underscore for consistency
                 "gs_grid": mocgrid.gs,
                 "lnadw": mocgrid.lnadw,
                 "umo": mocgrid.umo,
@@ -193,11 +193,14 @@ def read_fw2015(
         if track_added_attrs:
 
             ds, attr_changes = ReaderUtils.attach_metadata_with_tracking(
-
-                ds, file, file_path, global_metadata, yaml_file_metadata, 
-
-                FW2015_FILE_METADATA, DATASOURCE_ID, track_added_attrs=True
-
+                ds,
+                file,
+                file_path,
+                global_metadata,
+                yaml_file_metadata,
+                FW2015_FILE_METADATA,
+                DATASOURCE_ID,
+                track_added_attrs=True,
             )
 
             added_attrs_per_dataset.append(attr_changes)
@@ -205,11 +208,14 @@ def read_fw2015(
         else:
 
             ds = ReaderUtils.attach_metadata_with_tracking(
-
-                ds, file, file_path, global_metadata, yaml_file_metadata,
-
-                FW2015_FILE_METADATA, DATASOURCE_ID, track_added_attrs=False
-
+                ds,
+                file,
+                file_path,
+                global_metadata,
+                yaml_file_metadata,
+                FW2015_FILE_METADATA,
+                DATASOURCE_ID,
+                track_added_attrs=False,
             )
 
         datasets.append(ds)
@@ -219,7 +225,7 @@ def read_fw2015(
         raise FileNotFoundError(f"No valid data files found in {file_list}")
 
     log.info("Successfully loaded %d FW2015 dataset(s)", len(datasets))
-    
+
     if track_added_attrs:
         return datasets, added_attrs_per_dataset
     else:

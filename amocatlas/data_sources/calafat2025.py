@@ -61,7 +61,8 @@ def read_calafat2025(
     transport_only: bool = True,
     data_dir: Union[str, Path, None] = None,
     redownload: bool = False,
-    track_added_attrs: bool = False,) -> list[xr.Dataset]:
+    track_added_attrs: bool = False,
+) -> list[xr.Dataset]:
     """Load the CALAFAT2025 transport dataset from a URL or local file path into xarray Datasets.
 
     Parameters
@@ -93,7 +94,6 @@ def read_calafat2025(
 
     """
     log.info("Starting to read CALAFAT2025 dataset")
-
 
     # Load YAML metadata with fallback
     global_metadata, yaml_file_metadata = ReaderUtils.load_array_metadata_with_fallback(
@@ -164,53 +164,57 @@ def read_calafat2025(
 
                 # Use ReaderUtils for consistent dataset loading
                 ds = ReaderUtils.safe_load_dataset(nc_path)
-                
+
                 # Fix Calafat time coordinate: convert decimal years to standard format
-                if 'time' in ds.coords:
+                if "time" in ds.coords:
                     import pandas as pd
                     import numpy as np
-                    
+
                     # Convert from 'time' to 'TIME' and from decimal years to seconds since 1970
-                    decimal_years = ds['time'].values
+                    decimal_years = ds["time"].values
                     log_info("Converting Calafat decimal years to standard TIME format")
-                    
+
                     # Convert decimal years to datetime
                     datetime_values = []
                     for year in decimal_years:
                         # Split into year and fraction
                         year_int = int(year)
                         year_frac = year - year_int
-                        
+
                         # Calculate days into the year
                         year_start = pd.Timestamp(f"{year_int}-01-01")
                         next_year = pd.Timestamp(f"{year_int + 1}-01-01")
                         days_in_year = (next_year - year_start).days
                         days_into_year = year_frac * days_in_year
-                        
+
                         # Create the datetime
                         result_time = year_start + pd.Timedelta(days=days_into_year)
                         datetime_values.append(result_time)
-                    
+
                     # Convert to seconds since 1970-01-01
-                    epoch = pd.Timestamp('1970-01-01')
-                    seconds_since_1970 = np.array([(dt - epoch).total_seconds() for dt in datetime_values])
-                    
-                    # Replace 'time' coordinate with 'TIME' 
-                    ds = ds.rename({'time': 'TIME'})
+                    epoch = pd.Timestamp("1970-01-01")
+                    seconds_since_1970 = np.array(
+                        [(dt - epoch).total_seconds() for dt in datetime_values]
+                    )
+
+                    # Replace 'time' coordinate with 'TIME'
+                    ds = ds.rename({"time": "TIME"})
                     ds = ds.assign_coords(TIME=seconds_since_1970)
-                    
+
                     # Add proper TIME coordinate attributes
-                    ds['TIME'].attrs.update({
-                        "long_name": "Time elapsed since 1970-01-01T00:00:00Z",
-                        "standard_name": "time",
-                        "calendar": "gregorian", 
-                        "units": "seconds since 1970-01-01T00:00:00Z",
-                        "vocabulary": "http://vocab.nerc.ac.uk/collection/OG1/current/TIME/"
-                    })
+                    ds["TIME"].attrs.update(
+                        {
+                            "long_name": "Time elapsed since 1970-01-01T00:00:00Z",
+                            "standard_name": "time",
+                            "calendar": "gregorian",
+                            "units": "seconds since 1970-01-01T00:00:00Z",
+                            "vocabulary": "http://vocab.nerc.ac.uk/collection/OG1/current/TIME/",
+                        }
+                    )
 
                 # Use ReaderUtils for consistent metadata attachment
                 file_metadata = CALAFAT2025_FILE_METADATA.get(nc_file, {})
-                
+
                 if track_added_attrs:
                     # Use tracking version to collect attribute changes
                     ds, attr_changes = ReaderUtils.attach_metadata_with_tracking(
@@ -221,7 +225,7 @@ def read_calafat2025(
                         {},  # yaml metadata (CALAFAT2025 doesn't have separate YAML files)
                         file_metadata,
                         DATASOURCE_ID,
-                        track_added_attrs=True
+                        track_added_attrs=True,
                     )
                     added_attrs_per_dataset.append(attr_changes)
                 else:

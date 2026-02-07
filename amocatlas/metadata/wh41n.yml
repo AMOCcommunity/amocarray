@@ -24,23 +24,71 @@ files:
       "Meridional Overturning Volume Transport (Sverdrups)": MOC
       "Meridional Overturning Heat Transport (PetaWatts)": MHT
     variables:
-      EKMAN:
+      TRANS_EKMAN:
         long_name: "Ekman transport"
         description: "Ekman Volume Transport"
-        units: Sv
+        units: Sverdrup
         standard_name: ocean_volume_transport_across_line
-      V_GEOS:
+      TRANS_GEO:
         long_name: "Northward Geostrophic Transport"
         description: "Northward Geostrophic Transport"
-        units: Sv
+        units: Sverdrup
         standard_name: ocean_volume_transport_across_line
-      MOT:
+      MOC:
         long_name: "Meridional Overturning Transport"
         description: "Meridional Overturning Volume Transport"
-        units: Sv
+        units: Sverdrup
         standard_name: ocean_meridional_overturning_transport
-      MOHT:
+      MHT:
         long_name: "Meridional Heat Transport"
         description: "Meridional Overturning Heat Transport"
+        units: PW
+        standard_name: northward_ocean_heat_transport
+
+  trans_ARGO_ERA5.nc:
+    source_url: https://zenodo.org/records/14681441
+    data_product: "Transport components from ARGO and ERA5"
+    variable_mapping:
+      Vek: VEL_EKMAN
+      trans: TRANS_GEO
+      moc: MOC
+    variables:
+      VEL_EKMAN:
+        long_name: "Ekman transport"
+        description: "Ekman transport from ERA5 reanalysis"
+        units: Sverdrup
+        standard_name: ocean_volume_transport_across_line
+      TRANS_GEO:
+        long_name: "Geostrophic transport"
+        description: "Observed geostrophic transport from ARGO"
+        units: Sverdrup
+        standard_name: ocean_volume_transport_across_line
+      MOC:
+        long_name: "Meridional Overturning Circulation"
+        description: "Overturning circulation transport"
+        units: Sverdrup
+        standard_name: ocean_meridional_overturning_transport
+
+  Q_ARGO_obs_dens_2000depth_ERA5.nc:
+    source_url: https://zenodo.org/records/14681441
+    data_product: "Heat transport based on various assumptions about temperature below 2000m"
+    variable_mapping:
+      Qnet: MHT_NET
+      Qek: MHT_EKMAN
+      Q: MHT
+    variables:
+      MHT_NET:
+        long_name: "Net heat transport"
+        description: "Net meridional heat transport"
+        units: PW
+        standard_name: northward_ocean_heat_transport
+      MHT_EKMAN:
+        long_name: "Ekman heat transport"
+        description: "Ekman meridional heat transport"
+        units: PW
+        standard_name: northward_ocean_heat_transport
+      MHT:
+        long_name: "Observed heat transport"
+        description: "Observed meridional heat transport"
         units: PW
         standard_name: northward_ocean_heat_transport

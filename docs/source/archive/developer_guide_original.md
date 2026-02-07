@@ -421,5 +421,3 @@ As `amocatlas` expands, logs will play an increasing role in transparency and re
 
 *This developer guide was prepared based on interactions with callumGPT and with ChatGPT to help structure and clarify.*
 
----
-

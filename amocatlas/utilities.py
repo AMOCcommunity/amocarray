@@ -312,44 +312,45 @@ def _validate_dims(ds: xr.Dataset) -> None:
 
 def sanitize_variable_name(name: str) -> str:
     """Sanitize variable names to create valid Python identifiers.
-    
-    Replaces illegal Python identifier characters (spaces, parentheses, periods, 
+
+    Replaces illegal Python identifier characters (spaces, parentheses, periods,
     hyphens, etc.) with underscores and collapses repeated underscores into single ones.
-    
+
     Parameters
     ----------
     name : str
         The original variable name that may contain illegal characters
-        
+
     Returns
     -------
     str
         A sanitized variable name that is a valid Python identifier
-        
+
     Examples
     --------
     >>> sanitize_variable_name("Total MOC anomaly (relative to record-length average of 14.7 Sv)")
     'Total_MOC_anomaly_relative_to_record_length_average_of_14_7_Sv'
     >>> sanitize_variable_name("Upper-cell volume transport anomaly")
     'Upper_cell_volume_transport_anomaly'
+
     """
     # Replace any character that is not alphanumeric or underscore with underscore
-    sanitized = re.sub(r'[^a-zA-Z0-9_]', '_', name)
-    
-    # Collapse multiple consecutive underscores into single underscore  
-    sanitized = re.sub(r'_{2,}', '_', sanitized)
-    
+    sanitized = re.sub(r"[^a-zA-Z0-9_]", "_", name)
+
+    # Collapse multiple consecutive underscores into single underscore
+    sanitized = re.sub(r"_{2,}", "_", sanitized)
+
     # Remove leading/trailing underscores
-    sanitized = sanitized.strip('_')
-    
+    sanitized = sanitized.strip("_")
+
     # Ensure it doesn't start with a number (prepend 'var_' if needed)
     if sanitized and sanitized[0].isdigit():
-        sanitized = f'var_{sanitized}'
-        
+        sanitized = f"var_{sanitized}"
+
     # Handle edge case of empty string
     if not sanitized:
-        sanitized = 'unnamed_variable'
-        
+        sanitized = "unnamed_variable"
+
     return sanitized
 
 
@@ -560,69 +561,68 @@ def find_data_start(file_path: str) -> int:
 # Unit Standardization System
 # =============================================================================
 
+
 def get_standard_unit_mappings() -> Dict[str, str]:
     """Get the comprehensive mapping of unit variations to standard units.
-    
+
     Returns
     -------
     Dict[str, str]
         Dictionary mapping various unit forms to their standard equivalents.
-        
+
     Notes
     -----
     This centralizes all unit standardization rules for consistency across
     the AMOCatlas package. Add new unit mappings here as needed.
-    
+
     Examples
     --------
     >>> mappings = get_standard_unit_mappings()
     >>> print(mappings["Sv"])  # "Sverdrup"
     >>> print(mappings["deg C"])  # "degrees_celsius"
+
     """
     return {
         # Transport units
         "Sv": "Sverdrup",
-        "sv": "Sverdrup", 
-        "sieverts": "Sverdrup",  # Common confusion
-        
-        # Temperature units  
-        "deg C": "degrees_celsius",
-        "degC": "degrees_celsius",
-        "°C": "degrees_celsius",
-        "celsius": "degrees_celsius",
-        "C": "degrees_celsius",
-        "deg_C": "degrees_celsius",
-        "degree_C": "degrees_celsius",
-        "degree_celsius": "degrees_celsius",
-        
+        "sv": "Sverdrup",
+        "Sverdrups": "Sverdrup",
+        "1e6 m3 s-1": "Sverdrup",
+        "1e6 m^3/s": "Sverdrup",
+        # Temperature units
+        "deg C": "degrees_Celsius",
+        "degC": "degrees_Celsius",
+        "°C": "degrees_Celsius",
+        "celsius": "degrees_Celsius",
+        "C": "degrees_Celsius",
+        "deg_C": "degrees_Celsius",
+        "degree_C": "degrees_Celsius",
+        "degree_celsius": "degrees_Celsius",
         # Salinity units
-        "psu": "1",  # Practical Salinity Units are dimensionless
-        "PSU": "1",
-        "pss": "1",  # Practical Salinity Scale
-        "PSS": "1",
+        #        "psu": "psu",  # Practical Salinity Units are dimensionless
+        "PSU": "psu",
+        "pss": "psu",  # Practical Salinity Scale
+        "PSS": "psu",
         "g/kg": "g kg-1",  # Convert to CF-compliant form
         "g kg^-1": "g kg-1",
-        
         # Pressure units
         "decibar": "dbar",
-        "db": "dbar", 
+        "db": "dbar",
         "mbar": "millibar",
         "mb": "millibar",
         "hPa": "hectopascal",
-        
         # Distance/Length units
-        "m": "meter",
-        "meters": "meter",
-        "metres": "meter",
-        "km": "kilometer", 
-        "kilometers": "kilometer",
-        "kilometres": "kilometer",
-        
+        "m": "meters",
+        "meters": "meters",
+        "metres": "meters",
+        "km": "kilometers",
+        "kilometers": "kilometers",
+        "kilometres": "kilometers",
         # Time units
         "sec": "second",
         "seconds": "second",
         "s": "second",
-        "min": "minute", 
+        "min": "minute",
         "minutes": "minute",
         "hr": "hour",
         "hours": "hour",
@@ -630,63 +630,54 @@ def get_standard_unit_mappings() -> Dict[str, str]:
         "day": "day",
         "days": "day",
         "d": "day",
-        
         # Speed/Velocity units
         "m/s": "m s-1",
         "m s^-1": "m s-1",
-        "cm/s": "cm s-1", 
+        "cm/s": "cm s-1",
         "cm s^-1": "cm s-1",
         "mm/s": "mm s-1",
         "mm s^-1": "mm s-1",
-        
         # Angular units
         "deg": "degree",
         "degrees": "degree",
         "°": "degree",
         "rad": "radian",
         "radians": "radian",
-        
         # Geographic units
         "deg N": "degrees_north",
-        "deg_N": "degrees_north", 
+        "deg_N": "degrees_north",
         "degree_N": "degrees_north",
         "degree_north": "degrees_north",
         "degN": "degrees_north",
         "°N": "degrees_north",
-        
         "deg E": "degrees_east",
         "deg_E": "degrees_east",
-        "degree_E": "degrees_east", 
+        "degree_E": "degrees_east",
         "degree_east": "degrees_east",
         "degE": "degrees_east",
         "°E": "degrees_east",
-        
-        "deg W": "degrees_west",  
+        "deg W": "degrees_west",
         "deg_W": "degrees_west",
         "degree_W": "degrees_west",
-        "degree_west": "degrees_west", 
+        "degree_west": "degrees_west",
         "degW": "degrees_west",
         "°W": "degrees_west",
-        
         "deg S": "degrees_south",
         "deg_S": "degrees_south",
         "degree_S": "degrees_south",
         "degree_south": "degrees_south",
-        "degS": "degrees_south", 
+        "degS": "degrees_south",
         "°S": "degrees_south",
-        
         # Density units
         "kg/m3": "kg m-3",
         "kg m^-3": "kg m-3",
         "g/cm3": "g cm-3",
         "g cm^-3": "g cm-3",
-        
         # Frequency units
         "Hz": "hertz",
         "hz": "hertz",
         "1/s": "s-1",
         "s^-1": "s-1",
-        
         # Dimensionless units
         "unitless": "1",
         "dimensionless": "1",
@@ -697,10 +688,11 @@ def get_standard_unit_mappings() -> Dict[str, str]:
     }
 
 
-def standardize_dataset_units(ds: xr.Dataset, mapping: Optional[Dict[str, str]] = None, 
-                            log_changes: bool = True) -> xr.Dataset:
+def standardize_dataset_units(
+    ds: xr.Dataset, mapping: Optional[Dict[str, str]] = None, log_changes: bool = True
+) -> xr.Dataset:
     """Standardize units throughout a dataset using comprehensive mapping rules.
-    
+
     Parameters
     ----------
     ds : xr.Dataset
@@ -709,105 +701,117 @@ def standardize_dataset_units(ds: xr.Dataset, mapping: Optional[Dict[str, str]] 
         Custom unit mapping. If None, uses get_standard_unit_mappings().
     log_changes : bool, optional
         Whether to log unit changes. Default is True.
-        
+
     Returns
     -------
     xr.Dataset
         Dataset with standardized units.
-        
+
     Notes
     -----
     This function applies unit standardization to all variables and coordinates
-    in the dataset. It's designed to be the central unit standardization 
+    in the dataset. It's designed to be the central unit standardization
     function for AMOCatlas, replacing the simpler standardize_units function.
-    
+
     Examples
     --------
     >>> ds_std = standardize_dataset_units(ds)
     >>> # Check if Sv was converted to Sverdrup
     >>> print(ds_std['transport'].attrs['units'])  # "Sverdrup"
+
     """
     from .logger import log_info, log_debug
-    
+
     if mapping is None:
         mapping = get_standard_unit_mappings()
-    
+
     units_changed = 0
-    
+
     # Process data variables
     for var_name in ds.data_vars:
         current_units = ds[var_name].attrs.get("units", "")
         if log_changes:
             log_debug(f"Variable {var_name}: current units = '{current_units}'")
-        
+
         if current_units in mapping:
             new_units = mapping[current_units]
             ds[var_name].attrs["units"] = new_units
             if log_changes:
-                log_info(f"Standardized units for variable {var_name}: '{current_units}' → '{new_units}'")
+                log_info(
+                    f"Standardized units for variable {var_name}: '{current_units}' → '{new_units}'"
+                )
             units_changed += 1
         elif current_units == "":
             if log_changes:
                 log_debug(f"Variable {var_name}: no units attribute found")
         else:
             if log_changes:
-                log_debug(f"Variable {var_name}: units '{current_units}' - no standardization needed")
-    
+                log_debug(
+                    f"Variable {var_name}: units '{current_units}' - no standardization needed"
+                )
+
     # Process coordinate variables
     for coord_name in ds.coords:
         current_units = ds[coord_name].attrs.get("units", "")
         if log_changes:
             log_debug(f"Coordinate {coord_name}: current units = '{current_units}'")
-        
+
         if current_units in mapping:
             new_units = mapping[current_units]
             ds[coord_name].attrs["units"] = new_units
             if log_changes:
-                log_info(f"Standardized units for coordinate {coord_name}: '{current_units}' → '{new_units}'")
+                log_info(
+                    f"Standardized units for coordinate {coord_name}: '{current_units}' → '{new_units}'"
+                )
             units_changed += 1
         elif current_units == "":
             if log_changes:
                 log_debug(f"Coordinate {coord_name}: no units attribute found")
         else:
             if log_changes:
-                log_debug(f"Coordinate {coord_name}: units '{current_units}' - no standardization needed")
-    
+                log_debug(
+                    f"Coordinate {coord_name}: units '{current_units}' - no standardization needed"
+                )
+
     if log_changes:
-        log_info(f"Unit standardization complete: {units_changed} variables/coordinates updated")
-    
+        log_info(
+            f"Unit standardization complete: {units_changed} variables/coordinates updated"
+        )
+
     return ds
 
 
 def apply_unit_standardization_after_metadata(ds: xr.Dataset) -> xr.Dataset:
     """Apply unit standardization with high priority to override YAML metadata.
-    
+
     This function is designed to be called after metadata enrichment to ensure
     that standardized units take precedence over any units specified in YAML
     metadata files.
-    
+
     Parameters
     ----------
     ds : xr.Dataset
         Dataset that may have had units overwritten by metadata processing.
-        
+
     Returns
     -------
     xr.Dataset
         Dataset with units re-standardized.
-        
+
     Notes
     -----
     This addresses the issue where YAML metadata files contain "Sv" units
     that override the standardized "Sverdrup" units. This function should
     be called as the final step in standardization.
-    
+
     Examples
     --------
     >>> # In standardization pipeline
     >>> ds = apply_metadata_from_yaml(ds)  # This might set units: Sv
     >>> ds = apply_unit_standardization_after_metadata(ds)  # This fixes it
+
     """
     from .logger import log_info
-    
+
     log_info("Applying final unit standardization to override any metadata conflicts")
     return standardize_dataset_units(ds, log_changes=True)

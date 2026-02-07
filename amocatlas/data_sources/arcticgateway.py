@@ -81,7 +81,8 @@ def read_arcticgateway(
     transport_only: bool = True,
     data_dir: Union[str, Path, None] = None,
     redownload: bool = False,
-    track_added_attrs: bool = False,) -> list[xr.Dataset]:
+    track_added_attrs: bool = False,
+) -> list[xr.Dataset]:
     """Load the ARCTIC Gateway transport dataset from a URL or local file path into xarray Datasets.
 
     Parameters
@@ -113,7 +114,6 @@ def read_arcticgateway(
 
     """
     log.info("Starting to read ARCTIC Gateway dataset")
-
 
     # Load YAML metadata with fallback
     global_metadata, yaml_file_metadata = ReaderUtils.load_array_metadata_with_fallback(

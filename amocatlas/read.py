@@ -55,21 +55,21 @@ from .data_sources import (
 # Import standardization functions
 from . import standardise
 
-# Mapping from datasource_id to standardization functions
-STANDARDIZATION_MAP = {
-    "rapid26n": standardise.standardise_rapid,
-    "move16n": standardise.standardise_move,
-    "osnap55n": standardise.standardise_osnap,
-    "samba34s": standardise.standardise_samba,
-    "arcticgateway": standardise.standardise_arcticgateway,
-    "fw2015": standardise.standardise_fw2015,
-    "mocha26n": standardise.standardise_mocha,
-    "wh41n": standardise.standardise_41n,
-    "dso": standardise.standardise_dso,
-    "noac47n": standardise.standardise_47n,
-    "fbc": standardise.standardise_fbc,
-    "calafat2025": standardise.standardise_calafat2025,
-    "zheng2024": standardise.standardise_zheng2024,
+# Supported datasource IDs for standardization
+SUPPORTED_STANDARDIZATION = {
+    "rapid26n",
+    "move16n",
+    "osnap55n",
+    "samba34s",
+    "arcticgateway",
+    "fw2015",
+    "mocha26n",
+    "wh41n",
+    "dso",
+    "noac47n",
+    "fbc",
+    "calafat2025",
+    "zheng2024",
 }
 
 
@@ -159,7 +159,7 @@ def _create_array_function(
 
         # Load raw datasets
         reader_result = reader_func(**kwargs)
-        
+
         # Handle the case where track_added_attrs=True returns a tuple
         if track_added_attrs:
             datasets, added_attrs_per_dataset = reader_result
@@ -176,7 +176,7 @@ def _create_array_function(
                     # Get datasource_id from dataset metadata
                     datasource_id = ds.attrs.get("amocatlas_datasource")
 
-                    if datasource_id and datasource_id in STANDARDIZATION_MAP:
+                    if datasource_id and datasource_id in SUPPORTED_STANDARDIZATION:
                         # Get file name for standardization (needed by standardize functions)
                         if isinstance(file_list, list) and i < len(file_list):
                             file_name = file_list[i]
@@ -188,8 +188,7 @@ def _create_array_function(
                                 "source_file", f"{array_name.lower()}_data.nc"
                             )
 
-                        standardize_func = STANDARDIZATION_MAP[datasource_id]
-                        standardized_ds = standardize_func(ds, file_name)
+                        standardized_ds = standardise.standardise_data(ds, file_name)
                         standardized_datasets.append(standardized_ds)
                     else:
                         # No standardization available, keep raw data
@@ -209,15 +208,19 @@ def _create_array_function(
 
         # Return datasets and optionally added_attrs
         result = _return_single_or_list(datasets, all_files)
-        
+
         if track_added_attrs:
-            # Return tuple of (datasets, added_attrs) 
+            # Return tuple of (datasets, added_attrs)
             if all_files:
                 # If returning list of datasets, return list of metadata changes dicts
                 return result, added_attrs_per_dataset
             else:
                 # If returning single dataset, return single metadata changes dict
-                return result, added_attrs_per_dataset[0] if added_attrs_per_dataset else {"added": [], "modified": []}
+                return result, (
+                    added_attrs_per_dataset[0]
+                    if added_attrs_per_dataset
+                    else {"added": [], "modified": []}
+                )
         else:
             return result
 

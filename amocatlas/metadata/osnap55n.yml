@@ -363,3 +363,58 @@ files:
         description: "Practical salinity along OSNAP"
         units: psu
         standard_name: sea_water_practical_salinity
+
+  OSNAP_Gridded_TSV_201408_202207_2025.nc:
+    data_product: "Gridded velocity, temperature, and salinity (2014-2022)"
+    url: https://repository.gatech.edu/bitstreams/af6a47f7-f705-49b4-a64f-5cd086b9b9fb/download
+    size: "55.98 MB"
+    variable_mapping: 
+      SAL: PSAL
+      VELO: VCUR
+    variables:
+      TIME:
+        long_name: "Start date of each monthly period"
+        description: "Time in days since 1950-01-01"
+        units: days since 1950-01-01
+        standard_name: time
+      DEPTH:
+        long_name: "Depth"
+        description: "Depth below sea surface"
+        units: meters
+        standard_name: depth
+        positive: down
+      LONGITUDE:
+        long_name: "Longitude"
+        description: "Longitude coordinate"
+        units: degrees_east
+        standard_name: longitude
+      LATITUDE:
+        long_name: "Latitude"
+        description: "Latitude coordinate"
+        units: degrees_north
+        standard_name: latitude
+      VELO:
+        long_name: "Velocity"
+        description: "Cross-sectional velocity along OSNAP"
+        units: m s-1
+        standard_name: sea_water_velocity
+      VCUR:
+        long_name: "Velocity current"
+        description: "Standardized cross-sectional velocity along OSNAP"
+        units: m s-1
+        standard_name: sea_water_velocity
+      TEMP:
+        long_name: "Temperature"
+        description: "In-situ temperature along OSNAP"
+        units: degrees_celsius
+        standard_name: sea_water_temperature
+      SAL:
+        long_name: "Salinity"
+        description: "Practical salinity along OSNAP"
+        units: 1
+        standard_name: sea_water_practical_salinity
+      PSAL:
+        long_name: "Practical Salinity"
+        description: "Standardized practical salinity along OSNAP"
+        units: 1
+        standard_name: sea_water_practical_salinity

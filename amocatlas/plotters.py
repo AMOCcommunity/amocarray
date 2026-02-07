@@ -450,7 +450,9 @@ def plot_amoc_timeseries(
 
 def plot_monthly_anomalies(**kwargs) -> tuple[plt.Figure, list[plt.Axes]]:
     """Plot the monthly anomalies for various datasets.
+
     Pass keyword arguments in the form: `label_name_data`, `label_name_label`.
+
     For example:
         osnap_data = standardOSNAP[0]["MOC_all"], osnap_label = "OSNAP"
         ...
