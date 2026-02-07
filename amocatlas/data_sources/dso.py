@@ -147,9 +147,9 @@ def read_dso(
             if depth_val > 1000000:  # Clearly corrupted value
                 log_info("Marking corrupted DEPTH value %.2e as NaN", depth_val)
                 # Set depth to NaN to indicate missing/corrupted data
-                depth_copy = ds["DEPTH"].copy()
-                depth_copy.values[0] = np.nan
-                ds["DEPTH"] = depth_copy
+                # Create new DataArray with NaN value to avoid read-only array issues
+                new_depth_values = np.full_like(ds["DEPTH"].values, np.nan)
+                ds["DEPTH"] = ds["DEPTH"].copy(data=new_depth_values)
 
                 # Update DEPTH attributes to reflect missing data
                 ds["DEPTH"].attrs.update(
