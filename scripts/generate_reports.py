@@ -8,6 +8,7 @@ including variable mapping, metadata analysis, and processing change tracking.
 import argparse
 import pathlib
 import sys
+from datetime import datetime, timezone
 
 # Add the project root to the path so we can import amocatlas
 sys.path.insert(0, str(pathlib.Path(__file__).parent.parent))
@@ -35,6 +36,16 @@ def generate_array_report(array_name: str, output_dir: pathlib.Path) -> pathlib.
     print(f"Generating report for {array_name.upper()} array...")
 
     # Get the read function for this array
+    if not hasattr(read, array_name.lower()):
+        available_arrays = [
+            attr
+            for attr in dir(read)
+            if not attr.startswith("_") and hasattr(getattr(read, attr), "__call__")
+        ]
+        raise ValueError(
+            f"Unsupported array '{array_name}'. Available arrays: {', '.join(available_arrays)}"
+        )
+
     read_func = getattr(read, array_name.lower())
 
     try:
@@ -55,7 +66,7 @@ def generate_array_report(array_name: str, output_dir: pathlib.Path) -> pathlib.
                 f"{array_name.upper()} Dataset Report",
                 "=" * (len(array_name) + 15),
                 "",
-                "Generated: 2026-02-06",
+                f"*Generated: {datetime.now(timezone.utc).strftime('%Y-%m-%d')}*",
                 "",
                 f"This report covers all available {array_name.upper()} datasets with comprehensive analysis.",
                 "",

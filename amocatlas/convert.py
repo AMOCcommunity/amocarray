@@ -6,7 +6,7 @@ following OceanSITES conventions and AC1 specifications.
 
 import xarray as xr
 import numpy as np
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Dict, List, Tuple
 
 from amocatlas import logger
@@ -460,7 +460,7 @@ def _create_ac1_global_attributes(
         attrs["doi"] = ds.attrs["doi"]
 
     # Processing metadata
-    attrs["date_created"] = datetime.utcnow().strftime("%Y%m%dT%H%M%S")
+    attrs["date_created"] = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S")
     attrs["processing_level"] = (
         "Data verified against model or other contextual information"
     )

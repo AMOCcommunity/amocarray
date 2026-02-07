@@ -165,7 +165,7 @@ def _create_array_function(
             datasets, added_attrs_per_dataset = reader_result
         else:
             datasets = reader_result
-            added_attrs_per_dataset = None
+            _added_attrs_per_dataset = None
 
         # Apply standardization by default (unless raw=True)
         if not raw:

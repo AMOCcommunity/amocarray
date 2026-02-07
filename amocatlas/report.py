@@ -92,12 +92,13 @@ class ReportUtils:
                         return f"{minutes}min"
                 else:
                     return "<1H"
-            except:
+            except (ValueError, TypeError, ZeroDivisionError):
+                # Handle calculation errors when determining frequency
                 return "<1H"
+        elif 11 <= hours <= 13:
+            return "12H"
         elif hours < 12:
             return f"{hours:.1f}H"
-        elif 10 <= hours <= 14:
-            return "12H"
         elif 20 <= hours <= 28:
             return "daily"
         elif 28 <= hours <= 35:
@@ -229,7 +230,6 @@ class ReportUtils:
                     if 190000 <= max_val <= 300000 and abs(numeric_diff) < 10000:
                         # Convert YYYYMM to actual dates and calculate difference
                         try:
-                            from datetime import datetime
 
                             # Convert YYYYMM to datetime
                             min_year = int(time_min) // 100
@@ -277,7 +277,6 @@ class ReportUtils:
                 try:
                     numeric_val = float(date_obj)
                     if numeric_val > 1e9:  # Likely seconds since 1970
-                        import pandas as pd
 
                         return pd.to_datetime(numeric_val, unit="s").strftime(
                             "%Y-%m-%d"
@@ -402,6 +401,7 @@ class ReportUtils:
                             f"WARNING: Sampling frequency of {freq_hours}H seems unusually high - possible time parsing issue"
                         )
                 except ValueError:
+                    # Skip frequency check if conversion to float fails
                     pass
 
             if warnings:
@@ -518,7 +518,7 @@ class ReportUtils:
         """
         # For standardized reports, use ONLY dataset attributes - no YAML metadata
         # Get the applied variable mapping from the standardized dataset
-        variable_mapping = dataset.attrs.get("applied_variable_mapping", {})
+        _variable_mapping = dataset.attrs.get("applied_variable_mapping", {})
 
         mapping_data = []
 
@@ -851,7 +851,8 @@ class ReportUtils:
                 import matplotlib.pyplot as plt
 
                 plt.close(fig)
-            except:
+            except ImportError:
+                # matplotlib not available - can't close figure
                 pass
 
             # Return relative path for Sphinx (from reports directory)
@@ -890,7 +891,6 @@ class ReportUtils:
 
         """
         from amocatlas import read
-        import pathlib
 
         print(f"Loading {array_name.upper()} datasets for report generation...")
 
@@ -960,7 +960,7 @@ class ReportUtils:
                     f"{array_name.upper()} Dataset Report",
                     "=" * (len(array_name) + 15),
                     "",
-                    f'Generated: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}',
+                    f'*Generated: {datetime.now().strftime("%Y-%m-%d")}*',
                     "",
                     f"This report covers all available {array_name.upper()} datasets.",
                     "",
@@ -1052,7 +1052,7 @@ class ReportUtils:
 
         # Write to file if requested
         if output_file:
-            output_path = pathlib.Path(output_file)
+            output_path = Path(output_file)
             output_path.parent.mkdir(parents=True, exist_ok=True)
             output_path.write_text(rst_content)
             print(f"Report written to: {output_path}")
@@ -1670,7 +1670,7 @@ def _generate_rst_report(
             title,
             "=" * len(title),
             "",
-            f"Generated: {report_data.analysis_time.strftime('%Y-%m-%d %H:%M:%S')}",
+            f"*Generated: {report_data.analysis_time.strftime('%Y-%m-%d')}*",
             "",
         ]
     )
@@ -2125,13 +2125,11 @@ def all(
     >>> reports = report.all(['rapid', 'osnap'])  # Only specific arrays
 
     """
-    import pathlib
-
     if arrays is None:
         # List of all available arrays (matching the ReaderUtils datasource mapping)
         arrays = ["rapid", "osnap", "move", "samba", "mocha", "fw2015", "wh41n", "dso"]
 
-    output_path = pathlib.Path(output_dir)
+    output_path = Path(output_dir)
     output_path.mkdir(parents=True, exist_ok=True)
 
     reports = {}

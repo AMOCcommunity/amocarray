@@ -1,7 +1,7 @@
 OSNAP Dataset Report
 ====================
 
-Generated: 2026-02-07 15:48:37
+*Generated: 2026-02-07*
 
 This report covers all available OSNAP datasets.
 
@@ -244,19 +244,19 @@ The following metadata provides comprehensive information about this dataset:
 - **Contributing Institutions Role**: 
 - **Contributing Institutions Role Vocabulary**: 
 - **Conventions\***: CF-1.8, ACDD-1.3, OceanSITES-1.5
-- **Featuretype\***: timeSeries
-- **Featuretype Vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
+- **featureType\***: timeSeries
+- **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: OSNAP_MOC_MHT_MFT_TimeSeries_201408_202207_2025.nc
 - **Source Path\***: ~/AMOCatlas/data/OSNAP_MOC_MHT_MFT_TimeSeries_201408_202207_2025.nc
 - **Date Created**: 2025-05-21T15:09:24Z
-- **Date Modified**: 2026-02-07T14:48:37Z
+- **Date Modified**: 2026-02-07T21:43:21Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
+- **Processing Datasource\***: osnap55n
 - **Variable Mapping\***: [Complex metadata structure - 10 items]
 - **Original Variable Metadata\***: [Complex metadata structure - 19 items]
 - **Applied Variable Mapping**: [Complex metadata structure - 10 items]
 - **Data Assembly Center**: Georgia Institute of Technology
-- **Processing Datasource\***: osnap55n
 
 ----
 
@@ -399,19 +399,19 @@ The following metadata provides comprehensive information about this dataset:
 - **Contributing Institutions Role**: 
 - **Contributing Institutions Role Vocabulary**: 
 - **Conventions\***: CF-1.8, ACDD-1.3, OceanSITES-1.5
-- **Featuretype\***: timeSeries
-- **Featuretype Vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
+- **featureType\***: timeSeries
+- **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: OSNAP_Streamfunction_201408_202207_2025.nc
 - **Source Path\***: ~/AMOCatlas/data/OSNAP_Streamfunction_201408_202207_2025.nc
 - **Date Created**: 2025-05-21T15:16:52Z
-- **Date Modified**: 2026-02-07T14:48:37Z
+- **Date Modified**: 2026-02-07T21:43:21Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
+- **Processing Datasource\***: osnap55n
 - **Variable Mapping\***: {'LEVEL': 'SIGMA0', 'T_ALL': 'STREAMFUNCTION_SIGMA0', 'T_WEST': 'STREAMFUNCTION_SIGMA0_WEST', 'T_EAST': 'STREAMFUNCTION_SIGMA0_EAST'}
 - **Original Variable Metadata\***: [Complex metadata structure - 5 items]
 - **Applied Variable Mapping**: {'LEVEL': 'SIGMA0', 'T_ALL': 'STREAMFUNCTION_SIGMA0', 'T_WEST': 'STREAMFUNCTION_SIGMA0_WEST', 'T_EAST': 'STREAMFUNCTION_SIGMA0_EAST'}
 - **Data Assembly Center**: Georgia Institute of Technology
-- **Processing Datasource\***: osnap55n
 
 ----
 
@@ -558,18 +558,18 @@ The following metadata provides comprehensive information about this dataset:
 - **Contributing Institutions Role**: 
 - **Contributing Institutions Role Vocabulary**: 
 - **Conventions\***: CF-1.8, ACDD-1.3, OceanSITES-1.5
-- **Featuretype\***: timeSeries
-- **Featuretype Vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
+- **featureType\***: timeSeries
+- **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: OSNAP_Gridded_TSV_201408_202207_2025.nc
 - **Source Path\***: ~/AMOCatlas/data/OSNAP_Gridded_TSV_201408_202207_2025.nc
 - **Date Created**: 2025-05-21T15:11:05Z
-- **Date Modified**: 2026-02-07T14:48:37Z
+- **Date Modified**: 2026-02-07T21:43:21Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
+- **Processing Datasource\***: osnap55n
 - **Variable Mapping\***: {'SAL': 'PSAL', 'VELO': 'VCUR'}
 - **Original Variable Metadata\***: [Complex metadata structure - 7 items]
 - **Applied Variable Mapping**: {'SAL': 'PSAL', 'VELO': 'VCUR'}
 - **Url\***: https://repository.gatech.edu/bitstreams/af6a47f7-f705-49b4-a64f-5cd086b9b9fb/download
 - **Size\***: 55.98 MB
 - **Data Assembly Center**: Georgia Institute of Technology
-- **Processing Datasource\***: osnap55n

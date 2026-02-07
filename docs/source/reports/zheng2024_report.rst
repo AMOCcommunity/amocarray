@@ -1,7 +1,7 @@
 ZHENG2024 Dataset Report
 ========================
 
-Generated: 2026-02-07 15:48:45
+*Generated: 2026-02-07*
 
 ----
 
@@ -119,15 +119,15 @@ The following metadata provides comprehensive information about this dataset:
 - **Contributor Email**: , , , , 
 - **Contributor Id\***: , , , , 
 - **Conventions\***: CF-1.8, ACDD-1.3, OceanSITES-1.5
-- **Featuretype\***: timeSeries
-- **Featuretype Vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
+- **featureType\***: timeSeries
+- **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: atl_mft_2000_extend_gpcp_oaflux.nc
 - **Source Path\***: ~/AMOCatlas/data/atl_mft_2000_extend_gpcp_oaflux.nc
-- **Date Modified**: 2026-02-07T14:48:45Z
+- **Date Modified**: 2026-02-07T21:43:28Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
+- **Processing Datasource\***: zheng2024
 - **Variable Mapping\***: {'time': 'TIME', 'lat': 'LATITUDE', 'mft': 'MFT'}
 - **Original Variable Metadata\***: [Complex metadata structure - 3 items]
 - **Applied Variable Mapping**: {'time': 'TIME', 'lat': 'LATITUDE', 'mft': 'MFT', 'TIME': 'TIME', 'MFT': 'MFT'}
 - **Comment\***: Salinity observations used in this study are from the Institute of Atmospheric Physics (IAP). Argo floats, CTD salinity sensors, bottles, mooring, sourced from the World Ocean Database (WOD). Precipitation and evaporation observations are derived from the Global Precipitation Climatology Project (GPCP).
-- **Processing Datasource\***: zheng2024

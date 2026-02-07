@@ -1,7 +1,7 @@
 MOVE Dataset Report
 ===================
 
-Generated: 2026-02-07 15:48:36
+*Generated: 2026-02-07*
 
 This report covers all available MOVE datasets.
 
@@ -137,7 +137,7 @@ along with key statistics for each variable.
      - 2.3%
    * - **location_geometry**
      - No description available
-     - PSU
+     - unknown
      - ()
      - 0.00
      - 0.00
@@ -195,18 +195,18 @@ The following metadata provides comprehensive information about this dataset:
 - **Contributing Institutions Role**: 
 - **Contributing Institutions Role Vocabulary**: 
 - **Conventions**: CF-1.7, ACDD-1.3, OceanSITES-1.5
-- **Featuretype**: timeSeries
-- **Featuretype Vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
+- **featureType**: timeSeries
+- **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: OS_MOVE_20000206-20221014_DPR_VOLUMETRANSPORT.nc
 - **Source Path\***: ~/AMOCatlas/data/OS_MOVE_20000206-20221014_DPR_VOLUMETRANSPORT.nc
 - **Date Created**: 2019-01-30T18:13:16Z
-- **Date Modified**: 2026-02-07T14:48:36Z
+- **Date Modified**: 2026-02-07T21:43:20Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
+- **Processing Datasource\***: move16n
 - **Variable Mapping\***: [Complex metadata structure - 7 items]
 - **Original Variable Metadata\***: [Complex metadata structure - 7 items]
 - **Applied Variable Mapping**: [Complex metadata structure - 7 items]
-- **Processing Datasource\***: move16n
 
 ----
 
@@ -347,7 +347,7 @@ along with key statistics for each variable.
      - 1.2%
    * - **platform_name**
      - Official OceanSITES platform names
-     - PSU
+     - unknown
      - (5, 2)
      - N/A
      - N/A
@@ -392,15 +392,16 @@ The following metadata provides comprehensive information about this dataset:
 - **Contributing Institutions Role**: 
 - **Contributing Institutions Role Vocabulary**: 
 - **Conventions**: CF-1.7, ACDD-1.3, OceanSITES-1.5
-- **Featuretype**: timeSeries
-- **Featuretype Vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
+- **featureType**: timeSeries
+- **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Data Type**: OceanSITES time-series data
 - **Source File\***: OS_MOVE_20000101-20221021_GRD_CURRENTS-AT-SITES-MOVE3-MOVE4.nc
 - **Source Path\***: ~/AMOCatlas/data/OS_MOVE_20000101-20221021_GRD_CURRENTS-AT-SITES-MOVE3-MOVE4.nc
 - **Date Created**: 2019-01-30T18:13:16Z
-- **Date Modified**: 2026-02-07T14:48:36Z
+- **Date Modified**: 2026-02-07T21:43:20Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
+- **Processing Datasource\***: move16n
 - **Format Version**: 1.5
 - **Variable Mapping\***: {'VELOCITY_U': 'UCUR', 'VELOCITY_V': 'VCUR', 'instrument_depth_time_varying': 'DEPTH', 'latitude_time_varying': 'LATITUDE_VARYING', 'longitude_time_varying': 'LONGITUDE_VARYING'}
 - **Original Variable Metadata\***: [Complex metadata structure - 5 items]
@@ -410,7 +411,6 @@ The following metadata provides comprehensive information about this dataset:
 - **Area**: Tropical Atlantic Ocean
 - **Geospatial Vertical Positive**: down
 - **Geospatial Vertical Units**: dbar
-- **Processing Datasource\***: move16n
 
 ----
 
@@ -551,7 +551,7 @@ along with key statistics for each variable.
      - 0.6%
    * - **platform_name**
      - Official OceanSITES platform name
-     - PSU
+     - unknown
      - (5, 2)
      - N/A
      - N/A
@@ -596,15 +596,16 @@ The following metadata provides comprehensive information about this dataset:
 - **Contributing Institutions Role**: 
 - **Contributing Institutions Role Vocabulary**: 
 - **Conventions**: CF-1.7, ACDD-1.3, OceanSITES-1.5
-- **Featuretype**: timeSeries
-- **Featuretype Vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
+- **featureType**: timeSeries
+- **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Data Type**: OceanSITES time-series data
 - **Source File\***: OS_MOVE_20000101-20221018_GRD_TEMPERATURE-SALINITY-AT-SITES-MOVE1-MOVE3.nc
 - **Source Path\***: ~/AMOCatlas/data/OS_MOVE_20000101-20221018_GRD_TEMPERATURE-SALINITY-AT-SITES-MOVE1-MOVE3.nc
 - **Date Created**: 2019-01-30T18:13:16Z
-- **Date Modified**: 2026-02-07T14:48:36Z
+- **Date Modified**: 2026-02-07T21:43:20Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
+- **Processing Datasource\***: move16n
 - **Format Version**: 1.5
 - **Variable Mapping\***: {'TEMPERATURE': 'TEMP', 'SALINITY': 'PSAL', 'instrument_depth_time_varying': 'DEPTH', 'latitude_time_varying': 'LATITUDE_VARYING', 'longitude_time_varying': 'LONGITUDE_VARYING'}
 - **Original Variable Metadata\***: [Complex metadata structure - 5 items]
@@ -614,4 +615,3 @@ The following metadata provides comprehensive information about this dataset:
 - **Area**: Tropical Atlantic Ocean
 - **Geospatial Vertical Positive**: down
 - **Geospatial Vertical Units**: dbar
-- **Processing Datasource\***: move16n

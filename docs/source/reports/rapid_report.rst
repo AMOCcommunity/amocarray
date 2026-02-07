@@ -1,7 +1,7 @@
 RAPID Dataset Report
 ====================
 
-Generated: 2026-02-07 15:48:22
+*Generated: 2026-02-07*
 
 This report covers all available RAPID datasets.
 
@@ -179,19 +179,19 @@ The following metadata provides comprehensive information about this dataset:
 - **Contributing Institutions Role**: 
 - **Contributing Institutions Role Vocabulary**: 
 - **Conventions\***: CF-1.8, ACDD-1.3, OceanSITES-1.5
-- **Featuretype\***: timeSeries
-- **Featuretype Vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
+- **featureType\***: timeSeries
+- **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: moc_transports.nc
 - **Source Path\***: ~/AMOCatlas/data/moc_transports.nc
 - **Date Created**: 17-Sep-2024
-- **Date Modified**: 2026-02-07T14:48:22Z
+- **Date Modified**: 2026-02-07T21:43:06Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
+- **Processing Datasource\***: rapid26n
 - **Variable Mapping\***: [Complex metadata structure - 10 items]
 - **Original Variable Metadata\***: [Complex metadata structure - 9 items]
 - **Applied Variable Mapping**: [Complex metadata structure - 11 items]
 - **Version**: 2024.1a
-- **Processing Datasource\***: rapid26n
 
 ----
 
@@ -318,19 +318,19 @@ The following metadata provides comprehensive information about this dataset:
 - **Contributing Institutions Role**: 
 - **Contributing Institutions Role Vocabulary**: 
 - **Conventions\***: CF-1.8, ACDD-1.3, OceanSITES-1.5
-- **Featuretype\***: timeSeries
-- **Featuretype Vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
+- **featureType\***: timeSeries
+- **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: moc_vertical.nc
 - **Source Path\***: ~/AMOCatlas/data/moc_vertical.nc
 - **Date Created**: 17-Sep-2024
-- **Date Modified**: 2026-02-07T14:48:22Z
+- **Date Modified**: 2026-02-07T21:43:06Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
+- **Processing Datasource\***: rapid26n
 - **Variable Mapping\***: {'time': 'TIME', 'depth': 'DEPTH', 'stream_function_mar': 'STREAMFUNCTION_Z'}
 - **Original Variable Metadata\***: {'stream_function_mar': {'long_name': 'Streamfunction', 'description': 'Streamfunction across the Atlantic at 26.5°N', 'units': 'Sv', 'standard_name': 'ocean_meridional_overturning_streamfunction'}}
 - **Applied Variable Mapping**: {'time': 'TIME', 'depth': 'DEPTH', 'stream_function_mar': 'STREAMFUNCTION_Z', 'TIME': 'TIME', 'DEPTH': 'DEPTH'}
 - **Version**: 2024.1a
-- **Processing Datasource\***: rapid26n
 
 ----
 
@@ -576,20 +576,20 @@ The following metadata provides comprehensive information about this dataset:
 - **Contributing Institutions Role**: 
 - **Contributing Institutions Role Vocabulary**: 
 - **Conventions\***: CF-1.8, ACDD-1.3, OceanSITES-1.5
-- **Featuretype\***: timeSeries
-- **Featuretype Vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
+- **featureType\***: timeSeries
+- **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: ts_gridded.nc
 - **Source Path\***: ~/AMOCatlas/data/ts_gridded.nc
 - **Date Created**: 17-Sep-2024
-- **Date Modified**: 2026-02-07T14:48:22Z
+- **Date Modified**: 2026-02-07T21:43:06Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
+- **Processing Datasource\***: rapid26n
 - **Variable Mapping\***: [Complex metadata structure - 22 items]
 - **Original Variable Metadata\***: [Complex metadata structure - 10 items]
 - **Applied Variable Mapping**: [Complex metadata structure - 22 items]
 - **Version**: 2024.1a
 - **Convert To Coord\***: pressure
-- **Processing Datasource\***: rapid26n
 
 ----
 
@@ -764,14 +764,15 @@ The following metadata provides comprehensive information about this dataset:
 - **Contributing Institutions Role**: 
 - **Contributing Institutions Role Vocabulary**: 
 - **Conventions\***: CF-1.8, ACDD-1.3, OceanSITES-1.5
-- **Featuretype\***: timeSeries
-- **Featuretype Vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
+- **featureType\***: timeSeries
+- **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: 2d_gridded.nc
 - **Source Path\***: ~/AMOCatlas/data/2d_gridded.nc
 - **Date Created**: 17-Sep-2024
-- **Date Modified**: 2026-02-07T14:48:22Z
+- **Date Modified**: 2026-02-07T21:43:06Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
+- **Processing Datasource\***: rapid26n
 - **Variable Mapping\***: {'time': 'TIME', 'depth': 'DEPTH', 'longitude': 'LONGITUDE', 'pressure': 'PRESSURE', 'area': 'AREA', 'V_insitu': 'VCUR_INSITU', 'V_ekman': 'VCUR_EKMAN', 'V_net': 'VCUR_NET'}
 - **Original Variable Metadata\***: [Complex metadata structure - 7 items]
 - **Applied Variable Mapping**: [Complex metadata structure - 13 items]
@@ -780,7 +781,6 @@ The following metadata provides comprehensive information about this dataset:
 - **Dataset Creation Date**: 26-Jan-2026 14:06:26
 - **File Creation Date**: 2026-01-26
 - **Note On Velocity**: Velocity is separated into 3 components: V_insitu = Velocity derived from in-situ measurements and geostrophic balance, V_ekman = Ekman velocity derived from ERA5 reanalysis. The total transport from V_insitu and V_ekman is required to have zero net meridional transport. V_net is a spatially uniform velocity representing the net meridional transport derived from salt and mass conservation (McDonagh et al 2015) and is excluded from the calculation of the streamfunction. Note that the sizes of grid cells are not all equal, and velocity should be multiplied by area to obtain the transport in each cell. Longitude is the centre of the cells, except for values 2 and 3 which are the locations of moorings WB1 and WB2 and correspond with the eastern edge of the cells
-- **Processing Datasource\***: rapid26n
 
 ----
 
@@ -976,14 +976,15 @@ The following metadata provides comprehensive information about this dataset:
 - **Contributing Institutions Role**: 
 - **Contributing Institutions Role Vocabulary**: 
 - **Conventions\***: CF-1.8, ACDD-1.3, OceanSITES-1.5
-- **Featuretype\***: timeSeries
-- **Featuretype Vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
+- **featureType\***: timeSeries
+- **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: meridional_transports.nc
 - **Source Path\***: ~/AMOCatlas/data/meridional_transports.nc
 - **Date Created**: 17-Sep-2024
-- **Date Modified**: 2026-02-07T14:48:22Z
+- **Date Modified**: 2026-02-07T21:43:06Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
+- **Processing Datasource\***: rapid26n
 - **Variable Mapping\***: [Complex metadata structure - 13 items]
 - **Original Variable Metadata\***: [Complex metadata structure - 9 items]
 - **Applied Variable Mapping**: [Complex metadata structure - 18 items]
@@ -991,4 +992,3 @@ The following metadata provides comprehensive information about this dataset:
 - **Dataset Version**: v2024-1a
 - **Dataset Creation Date**: 26-Jan-2026 14:06:26
 - **File Creation Date**: 2026-01-26
-- **Processing Datasource\***: rapid26n

@@ -795,16 +795,16 @@ def plot_moc_timeseries_pygmt(
     return fig
 
 
-def plot_osnap_components_pygmt(df: pd.DataFrame) -> "pygmt.Figure":
+def plot_osnap_components_pygmt(data) -> "pygmt.Figure":
     """Plot OSNAP MOC components with shaded error bands using PyGMT.
 
     Parameters
     ----------
-    df : pandas.DataFrame
+    data : pandas.DataFrame or dict
         Must contain:
         - time_num (decimal years)
-        - MOC_ALL, MOC_EAST, MOC_WEST
-        - MOC_EAST_ERR, MOC_WEST_ERR
+        - MOC_SIGMA0, MOC_EAST_SIGMA0, MOC_WEST_SIGMA0 (or legacy MOC_ALL, MOC_EAST, MOC_WEST)
+        - MOC_EAST_SIGMA0_ERR, MOC_WEST_SIGMA0_ERR (or legacy MOC_EAST_ERR, MOC_WEST_ERR)
 
     Returns
     -------
@@ -817,7 +817,29 @@ def plot_osnap_components_pygmt(df: pd.DataFrame) -> "pygmt.Figure":
         If PyGMT is not installed.
 
     """
+    import pandas as pd
+
     _check_pygmt()
+
+    # Convert to DataFrame if needed
+    if isinstance(data, dict):
+        df = pd.DataFrame(data)
+    else:
+        df = data.copy()
+
+    # Translate OSNAP variable names to internal names for plotting
+    var_mapping = {
+        "MOC_SIGMA0": "MOC_ALL",
+        "MOC_EAST_SIGMA0": "MOC_EAST",
+        "MOC_WEST_SIGMA0": "MOC_WEST",
+        "MOC_EAST_SIGMA0_ERR": "MOC_EAST_ERR",
+        "MOC_WEST_SIGMA0_ERR": "MOC_WEST_ERR",
+    }
+
+    # Rename columns if needed
+    for actual_name, internal_name in var_mapping.items():
+        if actual_name in df.columns and internal_name not in df.columns:
+            df[internal_name] = df[actual_name]
 
     fig = pygmt.Figure()
 

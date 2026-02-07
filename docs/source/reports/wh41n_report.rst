@@ -1,7 +1,7 @@
 WH41N Dataset Report
 ====================
 
-Generated: 2026-02-07 15:48:45
+*Generated: 2026-02-07*
 
 This report covers all available WH41N datasets.
 
@@ -24,7 +24,7 @@ Dataset Overview
 
 **Citation:**
 
-    Willis, J. K., and Hobbs, W. R., Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations. Dataset access [YYYY-MM-DD] at 10.5281/zenodo.8170366.
+    Willis, J. K., and Hobbs, W. R., Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations. Dataset accessed at 10.5281/zenodo.8170366.
 
 Dataset Visualization
 ^^^^^^^^^^^^^^^^^^^^^
@@ -135,19 +135,18 @@ The following metadata provides comprehensive information about this dataset:
 - **Contributor Role**: 
 - **Contributor Email**: 
 - **Contributor Id**: https://doi.org/10.5281/zenodo.8170365
-- **Conventions**: CF-1.8, ACDD-1.3, OceanSITES-1.5
-- **Featuretype\***: timeSeries
-- **Featuretype Vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
+- **Conventions\***: CF-1.8, ACDD-1.3, OceanSITES-1.5
+- **featureType\***: timeSeries
+- **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: hobbs_willis_amoc41N_tseries.txt
 - **Source Path\***: ~/AMOCatlas/data/hobbs_willis_amoc41N_tseries.txt
-- **Date Modified**: 2026-02-07T14:48:45Z
+- **Date Modified**: 2026-02-07T21:43:29Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
+- **Processing Datasource\***: wh41n
 - **Variable Mapping\***: [Complex metadata structure - 4 items]
 - **Original Variable Metadata\***: [Complex metadata structure - 4 items]
 - **Applied Variable Mapping**: [Complex metadata structure - 4 items]
-- **Convections**: CF-1.8, ACDD-1.3
-- **Processing Datasource\***: wh41n
 
 ----
 
@@ -168,7 +167,7 @@ Dataset Overview
 
 **Citation:**
 
-    Willis, J. K., and Hobbs, W. R., Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations. Dataset access [YYYY-MM-DD] at 10.5281/zenodo.8170366.
+    Willis, J. K., and Hobbs, W. R., Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations. Dataset accessed at 10.5281/zenodo.8170366.
 
 Dataset Visualization
 ^^^^^^^^^^^^^^^^^^^^^
@@ -294,22 +293,21 @@ The following metadata provides comprehensive information about this dataset:
 - **Contributor Role**: 
 - **Contributor Email**: 
 - **Contributor Id**: https://doi.org/10.5281/zenodo.8170365
-- **Conventions**: CF-1.8, ACDD-1.3, OceanSITES-1.5
-- **Featuretype\***: timeSeries
-- **Featuretype Vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
+- **Conventions\***: CF-1.8, ACDD-1.3, OceanSITES-1.5
+- **featureType\***: timeSeries
+- **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: trans_ARGO_ERA5.nc
 - **Source Path\***: ~/AMOCatlas/data/trans_ARGO_ERA5.nc
 - **Date Created**: Thu 16 Jan 2025 16:09:16 AEDT
-- **Date Modified**: 2026-02-07T14:48:45Z
+- **Date Modified**: 2026-02-07T21:43:29Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
+- **Processing Datasource\***: wh41n
 - **Variable Mapping\***: {'Vek': 'VEL_EKMAN', 'trans': 'TRANS_GEO', 'moc': 'MOC', 'depth': 'DEPTH', 'lat': 'LATITUDE', 'lon': 'LONGITUDE'}
 - **Original Variable Metadata\***: [Complex metadata structure - 3 items]
 - **Applied Variable Mapping**: {'Vek': 'VEL_EKMAN', 'trans': 'TRANS_GEO', 'moc': 'MOC', 'depth': 'DEPTH', 'lat': 'LATITUDE', 'lon': 'LONGITUDE', 'MOC': 'MOC', 'DEPTH': 'DEPTH'}
-- **Convections**: CF-1.8, ACDD-1.3
 - **Reference Temp**: kelvin
 - **Wind Stress**: ERA5
-- **Processing Datasource\***: wh41n
 
 ----
 
@@ -330,7 +328,7 @@ Dataset Overview
 
 **Citation:**
 
-    Willis, J. K., and Hobbs, W. R., Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations. Dataset access [YYYY-MM-DD] at 10.5281/zenodo.8170366.
+    Willis, J. K., and Hobbs, W. R., Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations. Dataset accessed at 10.5281/zenodo.8170366.
 
 Dataset Visualization
 ^^^^^^^^^^^^^^^^^^^^^
@@ -463,19 +461,18 @@ The following metadata provides comprehensive information about this dataset:
 - **Contributor Role**: 
 - **Contributor Email**: 
 - **Contributor Id**: https://doi.org/10.5281/zenodo.8170365
-- **Conventions**: CF-1.8, ACDD-1.3, OceanSITES-1.5
-- **Featuretype\***: timeSeries
-- **Featuretype Vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
+- **Conventions\***: CF-1.8, ACDD-1.3, OceanSITES-1.5
+- **featureType\***: timeSeries
+- **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: Q_ARGO_obs_dens_2000depth_ERA5.nc
 - **Source Path\***: ~/AMOCatlas/data/Q_ARGO_obs_dens_2000depth_ERA5.nc
 - **Date Created**: Thu 16 Jan 2025 16:09:16 AEDT
-- **Date Modified**: 2026-02-07T14:48:45Z
+- **Date Modified**: 2026-02-07T21:43:29Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
+- **Processing Datasource\***: wh41n
 - **Variable Mapping\***: {'Qnet': 'MHT_NET', 'Qek': 'MHT_EKMAN', 'Q': 'MHT', 'depth': 'DEPTH', 'lat': 'LATITUDE', 'lon': 'LONGITUDE', 'time': 'TIME'}
 - **Original Variable Metadata\***: [Complex metadata structure - 3 items]
 - **Applied Variable Mapping**: {'Qnet': 'MHT_NET', 'Qek': 'MHT_EKMAN', 'Q': 'MHT', 'depth': 'DEPTH', 'lat': 'LATITUDE', 'lon': 'LONGITUDE', 'DEPTH': 'DEPTH', 'TIME': 'TIME'}
-- **Convections**: CF-1.8, ACDD-1.3
 - **Reference Temp**: kelvin
 - **Wind Stress**: ERA5
-- **Processing Datasource\***: wh41n

@@ -137,8 +137,10 @@ def read_dso(
             depth_val = float(ds.DEPTH.values[0])
             if depth_val > 1000000:  # Clearly corrupted value
                 log_info("Fixing corrupted DEPTH value %.2e -> 630.0 meters", depth_val)
-                ds["DEPTH"] = ds["DEPTH"].copy()  # Make mutable copy
-                ds["DEPTH"].values[0] = 630.0  # Denmark Strait sill depth
+                # Make mutable copy and update DEPTH value
+                depth_copy = ds["DEPTH"].copy()
+                depth_copy.values[0] = 630.0  # Denmark Strait sill depth
+                ds["DEPTH"] = depth_copy
                 # Update or ensure proper DEPTH attributes
                 ds["DEPTH"].attrs.update(
                     {

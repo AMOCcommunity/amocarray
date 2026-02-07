@@ -1,7 +1,7 @@
 CALAFAT2025 Dataset Report
 ==========================
 
-Generated: 2026-02-07 15:48:45
+*Generated: 2026-02-07*
 
 ----
 
@@ -130,16 +130,16 @@ The following metadata provides comprehensive information about this dataset:
 - **Contributing Institutions Role**: 
 - **Contributing Institutions Role Vocabulary**: 
 - **Conventions**: CF-1.8, ACDD-1.3, OceanSITES-1.5
-- **Featuretype**: timeSeries
-- **Featuretype Vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
+- **featureType**: timeSeries
+- **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: Bayesian_estimates_Atlantic_MHT.nc
 - **Source Path\***: ~/AMOCatlas/data/Bayesian_estimates_Atlantic_MHT.nc
-- **Date Modified**: 2026-02-07T14:48:45Z
+- **Date Modified**: 2026-02-07T21:43:28Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
+- **Processing Datasource\***: calafat2025
 - **Applied Variable Mapping**: {'mht': 'MHT', 'htc': 'HTC', 'TIME': 'TIME', 'LATITUDE': 'LATITUDE', 'MHT': 'MHT', 'HTC': 'HTC'}
 - **Creation Data**: 31-Jul-2025 15:14:49
 - **Contact**: francisco.mcalafat@uib.eu
 - **Comment On Temporal Resolution**: Estimates of heat transport are quarterly values (i.e., 3-month means: Jan-Feb-Mar, Apr-May-Jun, ...)
-- **Processing Datasource\***: calafat2025
 - **Convections**: CF-1.8, ACDD-1.3

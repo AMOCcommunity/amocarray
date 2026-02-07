@@ -130,7 +130,6 @@ def get_dynamic_version() -> str:
             git_version = result.stdout.strip()
 
             # Strip everything after vX.X.X pattern (remove commit info and dirty flag)
-            import re
 
             version_match = re.match(r"(v?\d+\.\d+\.\d+)", git_version)
             if version_match:
@@ -143,6 +142,7 @@ def get_dynamic_version() -> str:
             log_debug(f"Using git version: {git_version}")
             return git_version
     except (subprocess.SubprocessError, FileNotFoundError, OSError):
+        # Git not available or repository not found
         pass
 
     # Method 2: Try installed package version

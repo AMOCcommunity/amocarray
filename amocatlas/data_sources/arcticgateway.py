@@ -116,8 +116,8 @@ def read_arcticgateway(
     log.info("Starting to read ARCTIC Gateway dataset")
 
     # Load YAML metadata with fallback
-    global_metadata, yaml_file_metadata = ReaderUtils.load_array_metadata_with_fallback(
-        DATASOURCE_ID, ARCTIC_METADATA
+    _global_metadata, _yaml_file_metadata = (
+        ReaderUtils.load_array_metadata_with_fallback(DATASOURCE_ID, ARCTIC_METADATA)
     )
 
     if file_list is None:

@@ -85,6 +85,9 @@ files:
       Q_fc: MHT_FC
       Q_gyre: MHT_GYRE
       Q_mo: MHT_MO
+      Q_ot: MHT_OT
+      Q_int: MHT_INT
+      Q_wedge: MHT_WEDGE
       trans_ek: TRANS_EKMAN
       trans_fc: TRANS_FC
       z: DEPTH

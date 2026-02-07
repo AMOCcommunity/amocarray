@@ -78,12 +78,15 @@ def read_move(
         If True, force redownload of the data.
     track_added_attrs : bool, optional
         If True, track which attributes were added by AMOCatlas processing.
-        (Not yet implemented - parameter ignored for compatibility)
+        Returns tuple (datasets, added_attrs_per_dataset) when enabled.
 
     Returns
     -------
-    list of xr.Dataset
-        List of loaded xarray datasets with basic inline and file-specific metadata.
+    list of xr.Dataset or tuple
+        If track_added_attrs=False: List of loaded xarray datasets.
+        If track_added_attrs=True: Tuple of (datasets, added_attrs_per_dataset)
+        where added_attrs_per_dataset is a list of dictionaries containing
+        'added' and 'modified' attribute tracking information.
 
     Raises
     ------

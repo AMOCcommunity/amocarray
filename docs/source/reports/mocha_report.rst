@@ -1,7 +1,7 @@
 MOCHA Dataset Report
 ====================
 
-Generated: 2026-02-07 15:48:39
+*Generated: 2026-02-07*
 
 ----
 
@@ -118,12 +118,33 @@ along with key statistics for each variable.
      - -0.03
      - 0.23
      - 0.0%
+   * - *Q_int* → **MHT_INT**
+     - No description available
+     - PW
+     - (12202,)
+     - -2.97
+     - -0.81
+     - 0.0%
    * - *Q_mo* → **MHT_MO**
      - No description available
      - PW
      - (12202,)
      - -2.52
      - -0.92
+     - 0.0%
+   * - *Q_ot* → **MHT_OT**
+     - No description available
+     - PW
+     - (12202,)
+     - -0.63
+     - 2.47
+     - 0.0%
+   * - *Q_wedge* → **MHT_WEDGE**
+     - No description available
+     - PW
+     - (12202,)
+     - -0.41
+     - 0.72
      - 0.0%
    * - *maxmoc* → **MOC**
      - time-varying maximum value of MOC streamfunction 
@@ -138,27 +159,6 @@ along with key statistics for each variable.
      - (12202,)
      - -0.03
      - 0.13
-     - 0.0%
-   * - **Q_int**
-     - No description available
-     - PW
-     - (12202,)
-     - -2.97
-     - -0.81
-     - 0.0%
-   * - **Q_ot**
-     - No description available
-     - PW
-     - (12202,)
-     - -0.63
-     - 2.47
-     - 0.0%
-   * - **Q_wedge**
-     - No description available
-     - PW
-     - (12202,)
-     - -0.41
-     - 0.72
      - 0.0%
    * - *T_basin* → **TEMP_BASIN**
      - **Temperature**: time-varying basinwide mean potential temperature profile 
@@ -259,15 +259,15 @@ The following metadata provides comprehensive information about this dataset:
 - **Contributing Institutions Role**: 
 - **Contributing Institutions Role Vocabulary**: 
 - **Conventions**: CF-1.8, ACDD-1.3, OceanSITES-1.5
-- **Featuretype**: timeSeries
-- **Featuretype Vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
+- **featureType**: timeSeries
+- **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: mocha_mht_data_ERA5_v2020.nc
 - **Source Path\***: ~/AMOCatlas/data/mocha_mht_data_ERA5_v2020.nc
 - **Date Created**: 2023-01-01T00:00:00Z
-- **Date Modified**: 2026-02-07T14:48:39Z
+- **Date Modified**: 2026-02-07T21:43:22Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
-- **Applied Variable Mapping**: [Complex metadata structure - 19 items]
+- **Processing Datasource\***: mocha26n
+- **Applied Variable Mapping**: [Complex metadata structure - 22 items]
 - **Methodology Reference**: W.E. Johns, S. Elipot, D.A. Smeed, B. Moat, B. King, D.L. Volkov, R.H. Smith, “Towards Two Decades of Atlantic Ocean Mass and Heat Transports at 26.5ºN”, accepted for publication in Royal Society Philosophical Transactions A, 2023.
 - **Methodology Doi**: doi: 10.1098/rsta.2022.0188
-- **Processing Datasource\***: mocha26n

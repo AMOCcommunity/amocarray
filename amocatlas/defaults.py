@@ -107,7 +107,6 @@ GLOBAL_ATTR_ORDER = [
     "rtqc_method_doi",
     # Links
     "data_url",
-    "weblink",
     # Other
     "uuid",
     "update_interval",  # OceanSITES-1.5: use VOID if not regular

@@ -603,7 +603,6 @@ def get_standard_unit_mappings() -> Dict[str, str]:
         "PSU": "PSU",
         "pss": "PSU",  # Practical Salinity Scale
         "PSS": "PSU",
-        "1": "PSU",  # Fix missing units that default to "1"
         "g/kg": "g kg-1",  # Convert to CF-compliant form
         "g kg^-1": "g kg-1",
         # Pressure units
@@ -679,13 +678,15 @@ def get_standard_unit_mappings() -> Dict[str, str]:
         "hz": "hertz",
         "1/s": "s-1",
         "s^-1": "s-1",
-        # Dimensionless units
+        # Dimensionless units (explicitly unitless)
         "unitless": "1",
         "dimensionless": "1",
-        "none": "1",
-        "": "1",  # Empty string
-        "-": "1",  # Dash
-        "n/a": "1",
+        # No units specified (placeholders)
+        "": "",  # Empty string (placeholder for unspecified units)
+        "n/a": "",
+        "N/A": "",
+        "none": "",
+        "-": "",
     }
 
 
@@ -774,9 +775,29 @@ def standardize_dataset_units(
                     f"Coordinate {coord_name}: units '{current_units}' - no standardization needed"
                 )
 
+    # Final cleanup: Remove empty units attributes (unspecified units)
+    empty_units_removed = 0
+
+    # Remove empty units from data variables
+    for var_name in ds.data_vars:
+        if ds[var_name].attrs.get("units") == "":
+            del ds[var_name].attrs["units"]
+            empty_units_removed += 1
+            if log_changes:
+                log_debug(f"Removed empty units attribute from variable {var_name}")
+
+    # Remove empty units from coordinates
+    for coord_name in ds.coords:
+        if ds[coord_name].attrs.get("units") == "":
+            del ds[coord_name].attrs["units"]
+            empty_units_removed += 1
+            if log_changes:
+                log_debug(f"Removed empty units attribute from coordinate {coord_name}")
+
     if log_changes:
         log_info(
-            f"Unit standardization complete: {units_changed} variables/coordinates updated"
+            f"Unit standardization complete: {units_changed} variables/coordinates updated, "
+            f"{empty_units_removed} empty units attributes removed"
         )
 
     return ds
@@ -843,7 +864,6 @@ def mask_invalid_values(ds: xr.Dataset) -> xr.Dataset:
 
     """
     from .logger import log_info, log_debug
-    import numpy as np
 
     variables_masked = 0
     total_values_masked = 0
@@ -857,17 +877,17 @@ def mask_invalid_values(ds: xr.Dataset) -> xr.Dataset:
         valid_max = var.attrs.get("valid_max")
 
         if valid_min is not None or valid_max is not None:
-            # Create mask for invalid values
-            invalid_mask = np.zeros(var.shape, dtype=bool)
+            # Use xarray operations to preserve lazy evaluation
+            invalid_mask = xr.zeros_like(var, dtype=bool)
 
             if valid_min is not None:
-                invalid_mask |= var.values < valid_min
+                invalid_mask = invalid_mask | (var < valid_min)
 
             if valid_max is not None:
-                invalid_mask |= var.values > valid_max
+                invalid_mask = invalid_mask | (var > valid_max)
 
-            # Count invalid values
-            invalid_count = invalid_mask.sum()
+            # Count invalid values (this will materialize the mask but not the full data)
+            invalid_count = invalid_mask.sum().values
 
             if invalid_count > 0:
                 log_info(
@@ -875,18 +895,17 @@ def mask_invalid_values(ds: xr.Dataset) -> xr.Dataset:
                     f"(valid range: {valid_min} to {valid_max})"
                 )
                 log_debug(
-                    f"  Original min/max: {np.nanmin(var.values):.2e} / {np.nanmax(var.values):.2e}"
+                    f"  Original min/max: {var.min().values:.2e} / {var.max().values:.2e}"
                 )
 
-                # Apply mask by setting invalid values to NaN
-                masked_values = var.values.copy()
-                masked_values[invalid_mask] = np.nan
+                # Apply mask using xarray where operation to preserve lazy evaluation
+                masked_var = var.where(~invalid_mask)
 
                 # Update the variable data
-                ds[var_name] = (var.dims, masked_values, var.attrs)
+                ds[var_name] = masked_var
 
                 log_debug(
-                    f"  Masked min/max: {np.nanmin(masked_values):.2e} / {np.nanmax(masked_values):.2e}"
+                    f"  Masked min/max: {masked_var.min().values:.2e} / {masked_var.max().values:.2e}"
                 )
 
                 variables_masked += 1

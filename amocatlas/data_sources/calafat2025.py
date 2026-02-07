@@ -96,8 +96,10 @@ def read_calafat2025(
     log.info("Starting to read CALAFAT2025 dataset")
 
     # Load YAML metadata with fallback
-    global_metadata, yaml_file_metadata = ReaderUtils.load_array_metadata_with_fallback(
-        DATASOURCE_ID, CALAFAT2025_METADATA
+    _global_metadata, _yaml_file_metadata = (
+        ReaderUtils.load_array_metadata_with_fallback(
+            DATASOURCE_ID, CALAFAT2025_METADATA
+        )
     )
 
     if file_list is None:

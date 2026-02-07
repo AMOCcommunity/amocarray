@@ -97,7 +97,7 @@ class ReaderUtils:
         file_metadata: Dict[str, Any],
         datasource_id: str = None,
         track_added_attrs: bool = False,
-    ) -> Union[xr.Dataset, tuple[xr.Dataset, List[str]]]:
+    ) -> Union[xr.Dataset, tuple[xr.Dataset, Dict[str, List[str]]]]:
         """Attach standard metadata to a dataset with datasource identification.
 
         Parameters

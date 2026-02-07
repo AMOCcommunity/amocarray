@@ -56,7 +56,7 @@ Generate reports for all supported arrays::
 
 Generate report for a specific dataset::
 
-    python generate_report --data_source rapid26n
+    python generate_report --data_source rapid
 
 Generate reports with custom output directory::
 

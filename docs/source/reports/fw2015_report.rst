@@ -1,7 +1,7 @@
 FW2015 Dataset Report
 =====================
 
-Generated: 2026-02-07 15:48:38
+*Generated: 2026-02-07*
 
 ----
 
@@ -11,7 +11,7 @@ MOCproxy_for_figshare_v1.mat
 Dataset Overview
 ^^^^^^^^^^^^^^^^
 
-- **Project**: Unknown
+- **Project**: RAPID
 - **Description**: Estimating the Atlantic overturning at 26°N using satellite altimetry and cable measurements
 - **Source File**: MOCproxy_for_figshare_v1.mat
 - **Data Product**: a proxy for the meridional overturning circulation at 26N, using sea level anomaly and cable measurements
@@ -168,6 +168,7 @@ The following metadata provides comprehensive information about this dataset:
 
 - **Summary**: Estimating the Atlantic overturning at 26°N using satellite altimetry and cable measurements
 - **Description\***: Estimating the Atlantic overturning at 26°N using satellite altimetry and cable measurements
+- **Project\***: RAPID
 - **License\***: CC-BY-4.0
 - **Weblink\***: https://figshare.com/articles/dataset/MOCproxy_for_figshare_v1_0_mat/1463479?file=3369779
 - **Data Product\***: a proxy for the meridional overturning circulation at 26N, using sea level anomaly and cable measurements
@@ -178,13 +179,14 @@ The following metadata provides comprehensive information about this dataset:
 - **Contributor Email**: 
 - **Contributor Id**: https://figshare.com/articles/dataset/MOCproxy_for_figshare_v1_0_mat/1463479?file=3369779
 - **Conventions\***: CF-1.8, ACDD-1.3, OceanSITES-1.5
-- **Featuretype\***: timeSeries
-- **Featuretype Vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
+- **featureType\***: timeSeries
+- **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: MOCproxy_for_figshare_v1.mat
 - **Source Path\***: ~/AMOCatlas/data/MOCproxy_for_figshare_v1.mat
-- **Date Modified**: 2026-02-07T14:48:38Z
+- **Date Modified**: 2026-02-07T21:43:22Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
+- **Processing Datasource\***: fw2015
 - **Variable Mapping\***: [Complex metadata structure - 12 items]
 - **Original Variable Metadata\***: [Complex metadata structure - 11 items]
 - **Applied Variable Mapping**: [Complex metadata structure - 14 items]
@@ -192,4 +194,3 @@ The following metadata provides comprehensive information about this dataset:
 - **Url**: http://eleanorfrajka.com/moc-from-space/
 - **Paper**: http://dx.doi.org/10.1002/2015GL063220
 - **Version**: v1.0
-- **Processing Datasource\***: fw2015

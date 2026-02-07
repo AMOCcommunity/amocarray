@@ -1,7 +1,7 @@
 NOAC47N Dataset Report
 ======================
 
-Generated: 2026-02-07 15:48:49
+*Generated: 2026-02-07*
 
 ----
 
@@ -118,14 +118,14 @@ The following metadata provides comprehensive information about this dataset:
 - **Contributor Email**: , , , , , , , , , , , 
 - **Contributor Id\***: , , , , , , , , , , , 
 - **Conventions**: CF-1.8, ACDD-1.3, OceanSITES-1.5
-- **Featuretype\***: timeSeries
-- **Featuretype Vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
+- **featureType\***: timeSeries
+- **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: NOAC_AMOC.tab
 - **Source Path\***: ~/AMOCatlas/data/NOAC_AMOC.tab
-- **Date Modified**: 2026-02-07T14:48:49Z
+- **Date Modified**: 2026-02-07T21:43:32Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
+- **Processing Datasource\***: noac47n
 - **Variable Mapping\***: {'Trans vol [Sv]': 'MOC', 'Trans vol [Sv].1': 'MOC_LPF'}
 - **Original Variable Metadata\***: [Complex metadata structure - 2 items]
 - **Applied Variable Mapping**: {'Trans vol [Sv]': 'MOC', 'Trans vol [Sv].1': 'MOC_LPF'}
-- **Processing Datasource\***: noac47n

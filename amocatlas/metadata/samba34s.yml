@@ -54,42 +54,42 @@ files:
       "Western bottom pressure contribution to the MOC anomaly": WESTERN_BOT_PRESSURE
       "Eastern bottom pressure contribution to the MOC anomaly": EASTERN_BOT_PRESSURE
     original_variable_metadata:
-      MOC:
+      "Total_MOC_anomaly__relative_to_record_length_average_of_14_7_Sv":
         long_name: "MOC_z"
         description: "MOC Total Anomaly (relative to record-length average of 14.7 Sv)"
         units: Sv
         standard_name: ocean_meridional_overturning_transport
-      RELATIVE_MOC:
+      "Relative__density_gradient__contribution_to_the_MOC_anomaly":
         long_name: "Geos. Trans. Anom."
         description: "Relative (density gradient) contribution to the MOC anomaly"
         units: Sv
         standard_name: ocean_meridional_overturning_transport
-      BAROTROPIC_MOC:
+      "Reference__bottom_pressure_gradient__contribution_to_the_MOC_anomaly":
         long_name: "Barotropic Trans. anom."
         description: "Reference (bottom pressure gradient) contribution to the MOC anomaly"
         units: Sv
         standard_name: ocean_meridional_overturning_transport
-      EKMAN:
+      "Ekman__wind__contribution_to_the_MOC_anomaly":
         long_name: "Ekman"
         description: "Ekman (wind) contribution to the MOC anomaly"
         units: Sv
         standard_name: ocean_volume_transport_across_line
-      WESTERN_DENSITY:
+      "Western_density_contribution_to_the_MOC_anomaly":
         long_name: "\rho West Transport"
         description: "Western density contribution to the MOC anomaly"
         units: Sv
         standard_name: ocean_meridional_overturning_transport
-      EASTERN_DENSITY:
+      "Eastern_density_contribution_to_the_MOC_anomaly":
         long_name: "\rho East Transport"
         description: "Eastern density contribution to the MOC anomaly"
         units: Sv
         standard_name: ocean_meridional_overturning_transport
-      WESTERN_BOT_PRESSURE:
+      "Western_bottom_pressure_contribution_to_the_MOC_anomaly":
         long_name: "BP West Transport"
         description: "Western bottom pressure contribution to the MOC anomaly"
         units: Sv
         standard_name: ocean_meridional_overturning_transport
-      EASTERN_BOT_PRESSURE:
+      "Eastern_bottom_pressure_contribution_to_the_MOC_anomaly":
         long_name: "BP East Transport"
         description: "Eastern bottom pressure contribution to the MOC anomaly"
         units: Sv

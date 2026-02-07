@@ -40,7 +40,7 @@ jobs:
 
       - name: Test with pytest
         run: |
-          pytest
+          pytest -m "not slow"
 
       # Optional future: use Micromamba after publishing to Conda-forge
       # - name: Setup Micromamba Python ${{ matrix.python-version }}
