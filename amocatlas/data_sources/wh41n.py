@@ -24,7 +24,7 @@ log = logger.log  # Use the global logger
 DATASOURCE_ID = "wh41n"
 
 # Default list of 41N data files
-A41N_DEFAULT_FILES = [
+WH41N_DEFAULT_FILES = [
     "hobbs_willis_amoc41N_tseries.txt",
     "trans_ARGO_ERA5.nc",
     "Q_ARGO_obs_dens_2000depth_ERA5.nc",
@@ -54,7 +54,7 @@ A41N_FILE_METADATA = {
 }
 
 
-@apply_defaults(A41N_DEFAULT_SOURCE, A41N_DEFAULT_FILES)
+@apply_defaults(A41N_DEFAULT_SOURCE, WH41N_DEFAULT_FILES)
 def read_41n(
     ##    source: str,
     source: Union[str, Path, None],
@@ -99,7 +99,7 @@ def read_41n(
 
     # Ensure file_list has a default
     if file_list is None:
-        file_list = A41N_DEFAULT_FILES
+        file_list = WH41N_DEFAULT_FILES
     if transport_only:
         file_list = A41N_TRANSPORT_FILES
     if isinstance(file_list, str):

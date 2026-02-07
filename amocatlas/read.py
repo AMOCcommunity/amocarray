@@ -52,6 +52,21 @@ from .data_sources import (
     read_arcticgateway,
 )
 
+# Import file constants for list_files() functionality
+from .data_sources.rapid26n import RAPID_DEFAULT_FILES
+from .data_sources.move16n import MOVE_DEFAULT_FILES
+from .data_sources.osnap55n import OSNAP_DEFAULT_FILES
+from .data_sources.samba34s import SAMBA_DEFAULT_FILES
+from .data_sources.fw2015 import FW2015_DEFAULT_FILES
+from .data_sources.mocha26n import MOCHA_DEFAULT_FILES
+from .data_sources.wh41n import WH41N_DEFAULT_FILES
+from .data_sources.dso import DSO_DEFAULT_FILES
+from .data_sources.calafat2025 import CALAFAT2025_DEFAULT_FILES
+from .data_sources.zheng2024 import ZHENG2024_DEFAULT_FILES
+from .data_sources.noac47n import NOAC47N_DEFAULT_FILES
+from .data_sources.fbc import FBC_DEFAULT_FILES
+from .data_sources.arcticgateway import ARCTIC_DEFAULT_FILES
+
 # Import standardization functions
 from . import standardise
 
@@ -74,21 +89,26 @@ SUPPORTED_STANDARDIZATION = {
 
 
 def _return_single_or_list(
-    datasets: List[xr.Dataset], all_files: bool
+    datasets: List[xr.Dataset],
+    all_files: bool,
+    file_list: Union[str, List[str], None] = None,
 ) -> Union[xr.Dataset, List[xr.Dataset]]:
-    """Helper function to return single dataset or list based on all_files parameter.
+    """Helper function to return single dataset or list based on user's request.
 
     Parameters
     ----------
     datasets : list of xr.Dataset
         List of loaded datasets.
     all_files : bool
-        If True, return the list. If False, return single dataset.
+        If True, return the list.
+    file_list : str, list of str, or None
+        The file list provided by user (to determine intent).
 
     Returns
     -------
     xr.Dataset or list of xr.Dataset
-        Single dataset if all_files=False, list if all_files=True.
+        - Single dataset if user requested single file
+        - List of datasets if user requested multiple files or all_files=True
 
     Raises
     ------
@@ -99,11 +119,89 @@ def _return_single_or_list(
     if not datasets:
         raise ValueError("No datasets were loaded")
 
-    return datasets if all_files else datasets[0]
+    # Return list if explicitly requested via all_files=True
+    if all_files:
+        return datasets
+
+    # Return list if user provided multiple files in file_list
+    if file_list is not None:
+        file_list_normalized = file_list if isinstance(file_list, list) else [file_list]
+        if len(file_list_normalized) > 1:
+            return datasets
+
+    # Otherwise return single dataset (default behavior)
+    return datasets[0]
+
+
+def _validate_file_selection_params(
+    transport_only: bool,
+    all_files: bool,
+    file_list: Union[str, List[str], None],
+    available_files: List[str],
+    transport_files: List[str] = None,
+) -> tuple[bool, Union[str, List[str], None]]:
+    """Validate and resolve file selection parameters.
+
+    Parameters
+    ----------
+    transport_only : bool
+        Whether to use only transport files
+    all_files : bool
+        Whether to use all available files
+    file_list : str, list of str, or None
+        Custom list of files to use
+    available_files : list of str
+        All available files for this array
+    transport_files : list of str, optional
+        Transport-only files for this array
+
+    Returns
+    -------
+    tuple[bool, Union[str, List[str], None]]
+        (effective_transport_only, effective_file_list)
+
+    Raises
+    ------
+    ValueError
+        If conflicting parameters are provided
+
+    """
+    # Count explicitly provided parameters (excluding defaults)
+    # Note: We need to distinguish between default transport_only=True and explicitly set transport_only=True
+    # For now, we'll be permissive and let file_list override transport_only default
+    provided_params = []
+    if all_files:
+        provided_params.append("all_files=True")
+    if file_list is not None:
+        provided_params.append("file_list")
+
+    # Check for conflicting combinations
+    if len(provided_params) > 1:
+        if "all_files=True" in provided_params and "file_list" in provided_params:
+            # Check if file_list matches all available files (order doesn't matter)
+            file_list_normalized = (
+                file_list if isinstance(file_list, list) else [file_list]
+            )
+            if set(file_list_normalized) != set(available_files):
+                raise ValueError(
+                    f"all_files=True conflicts with file_list. "
+                    f"Expected all files {available_files}, got {file_list_normalized}"
+                )
+
+    # Resolve effective parameters
+    if all_files:
+        return False, None  # Use all files, transport_only=False
+    elif file_list is not None:
+        return False, file_list  # Use custom file list, transport_only=False
+    else:
+        return transport_only, None  # Use defaults
 
 
 def _create_array_function(
-    reader_func, array_name: str, supports_version: bool = False
+    reader_func,
+    array_name: str,
+    supports_version: bool = False,
+    available_files: List[str] = None,
 ):
     """Create a uniform API function for an array reader with optional standardization.
 
@@ -140,13 +238,22 @@ def _create_array_function(
         version: str = None,
         track_added_attrs: bool = False,
     ) -> Union[xr.Dataset, List[xr.Dataset]]:
-        # Build kwargs for the underlying reader
-        # If all_files=True, automatically disable transport_only to get all files
-        effective_transport_only = transport_only and not all_files
+        # TODO: Get transport files for validation - this needs to be implemented properly
+        transport_files = None  # We'll need to map this based on reader_func
+
+        # Validate and resolve file selection parameters
+        effective_transport_only, effective_file_list = _validate_file_selection_params(
+            transport_only=transport_only,
+            all_files=all_files,
+            file_list=file_list,
+            available_files=available_files
+            or [],  # Available files passed from factory
+            transport_files=transport_files,
+        )
 
         kwargs = {
             "source": source,
-            "file_list": file_list,
+            "file_list": effective_file_list,
             "transport_only": effective_transport_only,
             "data_dir": data_dir,
             "redownload": redownload,
@@ -219,7 +326,7 @@ def _create_array_function(
                 )
 
         # Return datasets (metadata changes are now embedded in dataset attributes)
-        return _return_single_or_list(datasets, all_files)
+        return _return_single_or_list(datasets, all_files, file_list)
 
     # Add proper docstring
     array_function.__doc__ = f"""Load {array_name} array data.
@@ -269,23 +376,58 @@ def _create_array_function(
     - Additional quality control and formatting
     """
 
+    # Add list_files() method to the function
+    def list_files():
+        """Return list of available files for this array.
+
+        Returns
+        -------
+        list of str
+            List of available file names that can be specified in file_list parameter.
+
+        """
+        return available_files.copy() if available_files else []
+
+    array_function.list_files = list_files
     return array_function
 
 
 # Create all array functions using the factory pattern with automatic standardization
-rapid = _create_array_function(read_rapid, "RAPID 26°N")
-move = _create_array_function(read_move, "MOVE 16°N")
-osnap = _create_array_function(read_osnap, "OSNAP", supports_version=True)
-samba = _create_array_function(read_samba, "SAMBA 34.5°S")
-arcticgateway = _create_array_function(read_arcticgateway, "Arctic Gateway")
-fw2015 = _create_array_function(read_fw2015, "Frajka-Williams 2015")
-mocha = _create_array_function(read_mocha, "MOCHA")
-wh41n = _create_array_function(read_41n, "41°N")
-dso = _create_array_function(read_dso, "Denmark Strait Overflow")
-noac47n = _create_array_function(read_47n, "47°N")
-fbc = _create_array_function(read_fbc, "Faroe Bank Channel")
-calafat2025 = _create_array_function(read_calafat2025, "Calafat et al. 2025")
-zheng2024 = _create_array_function(read_zheng2024, "Zheng et al. 2024")
+rapid = _create_array_function(
+    read_rapid, "RAPID 26°N", available_files=RAPID_DEFAULT_FILES
+)
+move = _create_array_function(
+    read_move, "MOVE 16°N", available_files=MOVE_DEFAULT_FILES
+)
+osnap = _create_array_function(
+    read_osnap, "OSNAP", supports_version=True, available_files=OSNAP_DEFAULT_FILES
+)
+samba = _create_array_function(
+    read_samba, "SAMBA 34.5°S", available_files=SAMBA_DEFAULT_FILES
+)
+arcticgateway = _create_array_function(
+    read_arcticgateway, "Arctic Gateway", available_files=ARCTIC_DEFAULT_FILES
+)
+fw2015 = _create_array_function(
+    read_fw2015, "Frajka-Williams 2015", available_files=FW2015_DEFAULT_FILES
+)
+mocha = _create_array_function(read_mocha, "MOCHA", available_files=MOCHA_DEFAULT_FILES)
+wh41n = _create_array_function(read_41n, "41°N", available_files=WH41N_DEFAULT_FILES)
+dso = _create_array_function(
+    read_dso, "Denmark Strait Overflow", available_files=DSO_DEFAULT_FILES
+)
+noac47n = _create_array_function(
+    read_47n, "47°N", available_files=NOAC47N_DEFAULT_FILES
+)
+fbc = _create_array_function(
+    read_fbc, "Faroe Bank Channel", available_files=FBC_DEFAULT_FILES
+)
+calafat2025 = _create_array_function(
+    read_calafat2025, "Calafat et al. 2025", available_files=CALAFAT2025_DEFAULT_FILES
+)
+zheng2024 = _create_array_function(
+    read_zheng2024, "Zheng et al. 2024", available_files=ZHENG2024_DEFAULT_FILES
+)
 
 
 # Define __all__ to control what's exported

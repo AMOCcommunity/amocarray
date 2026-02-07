@@ -29,10 +29,10 @@ log = logger.log  # Use the global logger
 DATASOURCE_ID = "noac47n"
 
 # Default list of 47N data files
-A47N_DEFAULT_FILES = [
+NOAC47N_DEFAULT_FILES = [
     "NOAC_AMOC.tab",
 ]
-A47N_TRANSPORT_FILES = ["NOAC_AMOC.tab"]
+NOAC47N_TRANSPORT_FILES = ["NOAC_AMOC.tab"]
 A47N_DEFAULT_SOURCE = "https://doi.pangaea.de/10.1594/PANGAEA.959558"
 A47N_METADATA = {
     "project": "Basin-wide AMOC volume transport from the NOAC array at 47°N in the subpolar North Atlantic (1993-2018) ",
@@ -51,7 +51,7 @@ A47N_FILE_METADATA = {
 }
 
 
-@apply_defaults(A47N_DEFAULT_SOURCE, A47N_DEFAULT_FILES)
+@apply_defaults(A47N_DEFAULT_SOURCE, NOAC47N_DEFAULT_FILES)
 def read_47n(
     ##    source: str,
     source: Union[str, Path, None],
@@ -99,9 +99,9 @@ def read_47n(
 
     # Ensure file_list has a default
     if file_list is None:
-        file_list = A47N_DEFAULT_FILES
+        file_list = NOAC47N_DEFAULT_FILES
     if transport_only:
-        file_list = A47N_TRANSPORT_FILES
+        file_list = NOAC47N_TRANSPORT_FILES
     if isinstance(file_list, str):
         file_list = [file_list]
     # Determine the local storage path
