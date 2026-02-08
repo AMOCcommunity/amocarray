@@ -1,7 +1,7 @@
 MOVE Dataset Report
 ===================
 
-*Generated: 2026-02-07*
+*Generated: 2026-02-08*
 
 This report covers all available MOVE datasets.
 
@@ -19,6 +19,7 @@ Dataset Overview
 - **DOI**: http://dx.doi.org/10.1016/j.dsr.2005.12.007 http://dx.doi.org/10.1029/2011GL049801
 - **Source File**: OS_MOVE_20000206-20221014_DPR_VOLUMETRANSPORT.nc
 - **Data Product**: MOVE transport time series (2000-2022)
+- **Date Created**: 2025-04-23T01:35:26Z
 - **Time Coverage**: 2000-02-06 to 2022-10-14
 - **Record Length**: 4,144 observations (22.7 years)
 - **Sampling Frequency**: 48.0H
@@ -26,6 +27,10 @@ Dataset Overview
 **Citation:**
 
     Send, U., Lankhorst, M., Kanzow, T.: Observation of decadal change in the Atlantic Meridional Overturning Circulation using 10 years of continuous transport data. Geophysical Research Letters, Vol. 38, L24606, 2011. doi: http://doi.org/10.1029/2011GL049801.
+
+**Acknowledgement:**
+
+    The MOVE project is made possible with funding from the NOAA Climate Program Office under award NA15OAR4320071 and carried out by principal investigators Uwe Send and Matthias Lankhorst. Initial funding came from the German Bundesministerium fuer Bildung und Forschung. MOVE data are made freely available through the international OceanSITES program.
 
 Dataset Visualization
 ^^^^^^^^^^^^^^^^^^^^^
@@ -171,11 +176,11 @@ Metadata (edits applied noted)
 The following metadata provides comprehensive information about this dataset:
 
 - **Title**: Ocean Volume Transport across the MOVE Line at 16 N
-- **Summary**: MOVE transport estimates dataset from UCSD mooring project
+- **Summary**: The Meridional Overturning Variability Experiment (MOVE) has been making mooring observations in the tropical Atlantic since 2000. Here, the derived ocean volume transports across the array are given. These represent the deep flow across the line spanned by the MOVE mooring array, approximately at 16 N from Guadeloupe island in the west to Researcher Ridge (part of the Mid-Atlantic Ridge) in the east and covering the vertical range defined by pressures of 1200-4950 dbar. The strength of this flow is thought to represent the Atlantic Meridional Overturning Circulation (AMOC). Results here are computed from gridded temperature, salinity, and velocity observations that are available separately through the OceanSITES data system. Earlier versions of the data have been discussed by Kanzow et al. (Deep-Sea Research I, 2006) as well as Send et al. (Geophys. Res. Letters, 2011), both linked in the 'references'.
 - **Description\***: MOVE transport estimates dataset from UCSD mooring project
 - **Program\***: MOVE
 - **Project**: Meridional Overturning Variability Experiment (MOVE)
-- **Source**: Derived using the following files: OceanSITES file OS_MOVE_MULTISITE_GRIDDED_TS.nc, created 2019-01-30T18:11:12Z OceanSITES file OS_MOVE_MULTISITE_GRIDDED_V.nc, created 2019-01-17T00:40:57Z
+- **Source**: Derived using the following files: OceanSITES file OS_MOVE_20000101-20221018_GRD_TEMPERATURE-SALINITY-AT-SITES-MOVE1-MOVE3.nc, created 20230112T194648Z OceanSITES file OS_MOVE_20000101-20221021_GRD_CURRENTS-AT-SITES-MOVE3-MOVE4.nc, created 20230112T233946Z
 - **License**: Data freely available. User assumes all risk for use of data. Please give due credit to the authors, project, and funding sources when using these data, e.g. by including the 'citation' text provided here.
 - **Acknowledgment**: The MOVE project is made possible with funding from the NOAA Climate Program Office under award NA15OAR4320071 and carried out by principal investigators Uwe Send and Matthias Lankhorst. Initial funding came from the German Bundesministerium fuer Bildung und Forschung. MOVE data are made freely available through the international OceanSITES program.
 - **Doi\***: http://dx.doi.org/10.1016/j.dsr.2005.12.007 http://dx.doi.org/10.1029/2011GL049801
@@ -186,27 +191,27 @@ The following metadata provides comprehensive information about this dataset:
 - **Data Product\***: MOVE transport time series (2000-2022)
 - **Time Coverage Start\***: 2000-02-06
 - **Time Coverage End\***: 2022-10-14
-- **Contributor Name**: Uwe Send, Matthias Lankhorst, Matthias Lankhorst
-- **Contributor Role**: Principal Investigator, Creator
-- **Contributor Email**: , , 
-- **Contributor Id**: _, http://orcid.org/0000-0002-4166-4044, http://orcid.org/0000-0002-4166-4044
+- **Contributor Name**: Matthias Lankhorst, Uwe Send
+- **Contributor Role**: creator, Principal Investigator
+- **Contributor Email**: , 
+- **Contributor Id**: https://orcid.org/0000-0002-4166-4044, https://orcid.org/0000-0002-7682-5688
 - **Contributing Institutions**: Scripps Institution of Oceanography
 - **Contributing Institutions Vocabulary**: https://edmo.seadatanet.org/report/1390
 - **Contributing Institutions Role**: 
-- **Contributing Institutions Role Vocabulary**: 
 - **Conventions**: CF-1.7, ACDD-1.3, OceanSITES-1.5
 - **featureType**: timeSeries
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: OS_MOVE_20000206-20221014_DPR_VOLUMETRANSPORT.nc
 - **Source Path\***: ~/AMOCatlas/data/OS_MOVE_20000206-20221014_DPR_VOLUMETRANSPORT.nc
-- **Date Created**: 2019-01-30T18:13:16Z
-- **Date Modified**: 2026-02-07T22:15:35Z
+- **Date Created**: 2025-04-23T01:35:26Z
+- **Date Modified**: 2026-02-08T13:38:51Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: move16n
 - **Variable Mapping\***: [Complex metadata structure - 7 items]
 - **Original Variable Metadata\***: [Complex metadata structure - 7 items]
 - **Applied Variable Mapping**: [Complex metadata structure - 7 items]
+- **Comment**: The primary scientific data here have variable names in CAPITAL LETTERS; ancillary data are given in lower-case.
 
 ----
 
@@ -222,6 +227,7 @@ Dataset Overview
 - **DOI**: http://dx.doi.org/10.1016/j.dsr.2005.12.007 http://dx.doi.org/10.1029/2011GL049801
 - **Source File**: OS_MOVE_20000101-20221021_GRD_CURRENTS-AT-SITES-MOVE3-MOVE4.nc
 - **Data Product**: MOVE gridded currents at sites MOVE3-MOVE4
+- **Date Created**: 2019-01-30T18:13:16Z
 - **Time Coverage**: 2000-01-01 to 2022-10-21
 - **Record Length**: 8,330 observations (22.8 years)
 - **Sampling Frequency**: daily
@@ -229,6 +235,10 @@ Dataset Overview
 **Citation:**
 
     Send, U., Lankhorst, M., Kanzow, T.: Observation of decadal change in the Atlantic Meridional Overturning Circulation using 10 years of continuous transport data. Geophysical Research Letters, Vol. 38, L24606, 2011. doi: http://doi.org/10.1029/2011GL049801.
+
+**Acknowledgement:**
+
+    The MOVE project is made possible with funding from the NOAA Climate Program Office under award NA15OAR4320071 and carried out by principal investigators Uwe Send and Matthias Lankhorst. Initial funding came from the German Bundesministerium fuer Bildung und Forschung. MOVE data are made freely available through the international OceanSITES program.
 
 Dataset Visualization
 ^^^^^^^^^^^^^^^^^^^^^
@@ -360,11 +370,11 @@ Metadata (edits applied noted)
 The following metadata provides comprehensive information about this dataset:
 
 - **Title**: Gridded Velocity Data from the MOVE Moorings
-- **Summary**: MOVE transport estimates dataset from UCSD mooring project
+- **Summary**: The Meridional Overturning Variability Experiment (MOVE) has been making mooring observations in the tropical Atlantic since 2000. Here, the direct velocity observations from a subset of these moorings are presented on an easy-to-use grid in space and time. The underlying data at the original resolution in time, deployment-by-deployment, are available in separate files with more detailed and deployment-specific metadata.
 - **Description\***: MOVE transport estimates dataset from UCSD mooring project
 - **Program\***: MOVE
 - **Project**: Meridional Overturning Variability Experiment (MOVE)
-- **Source**: Derived using the following files: OceanSITES file OS_MOVE_MULTISITE_GRIDDED_TS.nc, created 2019-01-30T18:11:12Z OceanSITES file OS_MOVE_MULTISITE_GRIDDED_V.nc, created 2019-01-17T00:40:57Z
+- **Source**: Uses OceanSITES file: id=OS_MOVE4_01_D_CURRENTMETER date_update=2011-11-29T01:12:35Z Uses OceanSITES file: id=OS_MOVE3_01_D_CURRENTMETERPART01 date_update=2011-11-29T01:12:35Z Uses OceanSITES file: id=OS_MOVE3_01_D_CURRENTMETERPART02 date_update=2011-11-29T01:12:35Z Uses OceanSITES file: id=OS_MOVE4_02_D_CURRENTMETER date_update=2011-11-29T01:12:35Z Uses OceanSITES file: id=OS_MOVE3_02_D_CURRENTMETERPART01 date_update=2011-11-29T01:12:35Z Uses OceanSITES file: id=OS_MOVE3_02_D_CURRENTMETERPART02 date_update=2011-11-29T01:12:35Z Uses OceanSITES file: id=OS_MOVE4_03_D_CURRENTMETER date_update=2011-11-29T01:12:35Z Uses OceanSITES file: id=OS_MOVE3_03_D_CURRENTMETERPART01 date_update=2011-11-29T01:12:35Z Uses OceanSITES file: id=OS_MOVE3_03_D_CURRENTMETERPART02 date_update=2011-11-29T01:12:35Z Uses OceanSITES file: id=OS_MOVE3_04_D_CURRENTMETER date_update=2011-11-29T01:12:35Z Uses OceanSITES file: id=OS_MOVE4_04_D_CURRENTMETERPART01 date_update=2011-11-29T01:12:35Z Uses OceanSITES file: id=OS_MOVE4_04_D_CURRENTMETERPART02 date_update=2011-11-29T01:12:35Z Uses OceanSITES file: id=OS_MOVE4_05_D_CURRENTMETER date_update=2011-11-29T01:12:35Z Uses OceanSITES file: id=OS_MOVE3_05_D_CURRENTMETER date_update=2011-11-29T01:12:35Z Uses OceanSITES file: id=OS_MOVE4_06_D_CURRENTMETER date_update=2011-11-29T01:12:35Z Uses OceanSITES file: id=OS_MOVE3_06_D_CURRENTMETER date_update=2011-11-29T01:12:35Z Uses OceanSITES file: id=OS_MOVE4_07_D_CURRENTMETER date_update=2011-11-29T01:12:35Z Uses OceanSITES file: id=OS_MOVE3_07_D_CURRENTMETER date_update=2011-11-29T01:12:35Z Uses OceanSITES file: id=OS_MOVE4_08_D_CURRENTMETER date_update=2011-11-18T21:29:04Z Uses OceanSITES file: id=OS_MOVE3_08_D_CURRENTMETER date_update=2011-11-18T19:51:53Z Uses OceanSITES file: id=OS_MOVE4_09_D_CURRENTMETER date_update=2011-11-18T19:28:46Z Uses OceanSITES file: id=OS_MOVE3_09_D_CURRENTMETER date_update=2011-11-18T19:16:20Z Uses OceanSITES file: id=OS_MOVE4_10_D_CURRENTMETER date_update=2013-05-03T17:38:24Z Uses OceanSITES file: id=OS_MOVE3_10_D_CURRENTMETER date_update=2013-05-03T17:35:33Z Uses OceanSITES file: id=OS_MOVE4_11_D_CURRENTMETER date_created=2016-03-11T18:39:32Z Uses OceanSITES file: id=OS_MOVE3_11_D_CURRENTMETER date_created=2016-03-11T18:29:29Z Uses OceanSITES file: id=OS_MOVE4_12_R_CURRENTMETER date_created=2018-06-20T01:58:35Z Uses OceanSITES file: id=OS_MOVE3_12_D_CURRENTMETER date_created=2018-06-20T01:22:09Z Uses OceanSITES file: id=OS_MOVE4_13_D_CURRENTMETER date_created=2021-01-26T22:12:45Z Uses OceanSITES file: id=OS_MOVE3_13_D_CURRENTMETER date_created=2021-01-26T21:57:22Z Uses OceanSITES file: id=OS_MOVE4_14_D_CURRENTMETER date_created=2023-01-12T23:23:40Z Uses OceanSITES file: id=OS_MOVE3_14_D_CURRENTMETER date_created=2023-01-12T20:16:58Z
 - **Id**: OS_MOVE_20000101-20221021_GRD_CURRENTS-AT-SITES-MOVE3-MOVE4
 - **Naming Authority**: OceanSITES
 - **License**: Data freely available. User assumes all risk for use of data. Please give due credit to the authors, project, and funding sources when using these data, e.g. by including the 'citation' text provided here.
@@ -383,22 +393,21 @@ The following metadata provides comprehensive information about this dataset:
 - **Geospatial Lon Max**: -60.494327545166016
 - **Geospatial Vertical Min**: 1250.0
 - **Geospatial Vertical Max**: 4950.0
-- **Contributor Name**: Uwe Send, Matthias Lankhorst, Matthias Lankhorst
-- **Contributor Role**: Principal Investigator, Creator
-- **Contributor Email**: , , 
-- **Contributor Id**: _, http://orcid.org/0000-0002-4166-4044, http://orcid.org/0000-0002-4166-4044
+- **Contributor Name**: Matthias Lankhorst, Uwe Send
+- **Contributor Role**: creator, Principal Investigator
+- **Contributor Email**: , 
+- **Contributor Id**: https://orcid.org/0000-0002-4166-4044, https://orcid.org/0000-0002-7682-5688
 - **Contributing Institutions**: Scripps Institution of Oceanography
 - **Contributing Institutions Vocabulary**: https://edmo.seadatanet.org/report/1390
 - **Contributing Institutions Role**: 
-- **Contributing Institutions Role Vocabulary**: 
 - **Conventions**: CF-1.7, ACDD-1.3, OceanSITES-1.5
-- **featureType**: timeSeries
+- **featureType**: timeSeriesProfile
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Data Type**: OceanSITES time-series data
 - **Source File\***: OS_MOVE_20000101-20221021_GRD_CURRENTS-AT-SITES-MOVE3-MOVE4.nc
 - **Source Path\***: ~/AMOCatlas/data/OS_MOVE_20000101-20221021_GRD_CURRENTS-AT-SITES-MOVE3-MOVE4.nc
 - **Date Created**: 2019-01-30T18:13:16Z
-- **Date Modified**: 2026-02-07T22:15:35Z
+- **Date Modified**: 2026-02-08T13:38:51Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: move16n
@@ -407,6 +416,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Original Variable Metadata\***: [Complex metadata structure - 5 items]
 - **Applied Variable Mapping**: {'VELOCITY_U': 'UCUR', 'VELOCITY_V': 'VCUR', 'instrument_depth_time_varying': 'DEPTH', 'latitude_time_varying': 'LATITUDE_VARYING', 'longitude_time_varying': 'LONGITUDE_VARYING'}
 - **Update Interval**: void
+- **Comment**: The primary scientific data here have variable names in CAPITAL LETTERS; ancillary data are given in lower-case.
 - **Qc Indicator**: excellent
 - **Area**: Tropical Atlantic Ocean
 - **Geospatial Vertical Positive**: down
@@ -426,6 +436,7 @@ Dataset Overview
 - **DOI**: http://dx.doi.org/10.1016/j.dsr.2005.12.007 http://dx.doi.org/10.1029/2011GL049801
 - **Source File**: OS_MOVE_20000101-20221018_GRD_TEMPERATURE-SALINITY-AT-SITES-MOVE1-MOVE3.nc
 - **Data Product**: MOVE gridded temperature and salinity at sites MOVE1-MOVE3
+- **Date Created**: 2019-01-30T18:13:16Z
 - **Time Coverage**: 2000-01-01 to 2022-10-18
 - **Record Length**: 4,164 observations (22.8 years)
 - **Sampling Frequency**: 48.0H
@@ -433,6 +444,10 @@ Dataset Overview
 **Citation:**
 
     Send, U., Lankhorst, M., Kanzow, T.: Observation of decadal change in the Atlantic Meridional Overturning Circulation using 10 years of continuous transport data. Geophysical Research Letters, Vol. 38, L24606, 2011. doi: http://doi.org/10.1029/2011GL049801.
+
+**Acknowledgement:**
+
+    The MOVE project is made possible with funding from the NOAA Climate Program Office under award NA15OAR4320071 and carried out by principal investigators Uwe Send and Matthias Lankhorst. Initial funding came from the German Bundesministerium fuer Bildung und Forschung. MOVE data are made freely available through the international OceanSITES program.
 
 Dataset Visualization
 ^^^^^^^^^^^^^^^^^^^^^
@@ -564,11 +579,11 @@ Metadata (edits applied noted)
 The following metadata provides comprehensive information about this dataset:
 
 - **Title**: Gridded Temperature and Salinity Data from the MOVE Moorings
-- **Summary**: MOVE transport estimates dataset from UCSD mooring project
+- **Summary**: The Meridional Overturning Variability Experiment (MOVE) has been making mooring observations in the tropical Atlantic since 2000. Here, the temperature and salinity observations from the western and eastern mooring sites are presented on an easy-to-use grid in space and time. The underlying data at the original resolution in time, deployment-by-deployment, are available in separate files with more detailed and deployment-specific metadata.
 - **Description\***: MOVE transport estimates dataset from UCSD mooring project
 - **Program\***: MOVE
 - **Project**: Meridional Overturning Variability Experiment (MOVE)
-- **Source**: Derived using the following files: OceanSITES file OS_MOVE_MULTISITE_GRIDDED_TS.nc, created 2019-01-30T18:11:12Z OceanSITES file OS_MOVE_MULTISITE_GRIDDED_V.nc, created 2019-01-17T00:40:57Z
+- **Source**: Uses OceanSITES file: id=OS_MOVE1_01_D_MICROCAT-PART01 date_created=2022-03-29T21:58:02Z Uses OceanSITES file: id=OS_MOVE1_01_D_MICROCAT-PART02 date_created=2022-03-29T21:58:26Z Uses OceanSITES file: id=OS_MOVE1_01_D_MICROCAT-PART03 date_created=2022-03-29T21:58:49Z Uses OceanSITES file: id=OS_MOVE1_01_D_MICROCAT-PART04 date_created=2022-03-29T22:00:48Z Uses OceanSITES file: id=OS_MOVE1_01_D_MICROCAT-PART05 date_created=2022-03-29T22:01:25Z Uses OceanSITES file: id=OS_MOVE1_01_D_MICROCAT-PART06 date_created=2022-03-29T22:01:50Z Uses OceanSITES file: id=OS_MOVE1_01_D_MICROCAT-PART07 date_created=2022-03-29T22:04:00Z Uses OceanSITES file: id=OS_MOVE1_01_D_MICROCAT-PART08 date_created=2022-03-29T22:04:29Z Uses OceanSITES file: id=OS_MOVE1_01_D_MICROCAT-PART09 date_created=2022-03-29T22:04:57Z Uses OceanSITES file: id=OS_MOVE1_01_D_MICROCAT-PART10 date_created=2022-03-29T22:05:43Z Uses OceanSITES file: id=OS_MOVE1_02_D_MICROCAT date_created=2022-03-24T21:57:34Z Uses OceanSITES file: id=OS_MOVE1_03_D_MICROCAT-PART01 date_created=2022-03-24T03:30:34Z Uses OceanSITES file: id=OS_MOVE1_03_D_MICROCAT-PART02 date_created=2022-03-24T03:30:48Z Uses OceanSITES file: id=OS_MOVE1_03_D_MICROCAT-PART03 date_created=2022-03-24T03:31:03Z Uses OceanSITES file: id=OS_MOVE1_03_D_MICROCAT-PART04 date_created=2022-03-24T03:31:17Z Uses OceanSITES file: id=OS_MOVE1_03_D_MICROCAT-PART05 date_created=2022-03-24T03:31:31Z Uses OceanSITES file: id=OS_MOVE1_03_D_MICROCAT-PART06 date_created=2022-03-24T03:31:45Z Uses OceanSITES file: id=OS_MOVE1_03_D_MICROCAT-PART07 date_created=2022-03-24T03:32:00Z Uses OceanSITES file: id=OS_MOVE1_03_D_MICROCAT-PART08 date_created=2022-03-24T03:32:13Z Uses OceanSITES file: id=OS_MOVE1_03_D_MICROCAT-PART09 date_created=2022-03-24T03:32:27Z Uses OceanSITES file: id=OS_MOVE1_03_D_MICROCAT-PART10 date_created=2022-03-24T03:32:42Z Uses OceanSITES file: id=OS_MOVE1_03_D_MICROCAT-PART11 date_created=2022-03-24T03:32:56Z Uses OceanSITES file: id=OS_MOVE1_03_D_MICROCAT-PART12 date_created=2022-03-24T03:33:11Z Uses OceanSITES file: id=OS_MOVE1_03_D_MICROCAT-PART13 date_created=2022-03-24T03:33:26Z Uses OceanSITES file: id=OS_MOVE1_03_D_MICROCAT-PART14 date_created=2022-03-24T03:33:40Z Uses OceanSITES file: id=OS_MOVE1_03_D_MICROCAT-PART15 date_created=2022-03-24T03:33:55Z Uses OceanSITES file: id=OS_MOVE1_03_D_MICROCAT-PART16 date_created=2022-03-24T03:34:10Z Uses OceanSITES file: id=OS_MOVE1_03_D_MICROCAT-PART17 date_created=2022-03-24T03:34:24Z Uses OceanSITES file: id=OS_MOVE1_03_D_MICROCAT-PART18 date_created=2022-03-24T03:34:41Z Uses OceanSITES file: id=OS_MOVE1_03_D_MICROCAT-PART19 date_created=2022-03-24T03:34:57Z Uses OceanSITES file: id=OS_MOVE1_03_D_MICROCAT-PART20 date_created=2022-03-24T03:35:13Z Uses OceanSITES file: id=OS_MOVE1_03_D_MICROCAT-PART21 date_created=2022-03-24T03:35:30Z Uses OceanSITES file: id=OS_MOVE1_03_D_MICROCAT-PART22 date_created=2022-03-24T03:35:51Z Uses OceanSITES file: id=OS_MOVE1_04_D_MICROCAT date_created=2022-03-21T23:43:30Z Uses OceanSITES file: id=OS_MOVE1_05_D_MICROCAT date_created=2022-04-15T19:19:32Z Uses OceanSITES file: id=OS_MOVE1_06_D_MICROCAT date_created=2022-04-15T19:35:03Z Uses OceanSITES file: id=OS_MOVE1_07_D_MICROCAT date_created=2022-02-22T20:40:16Z Uses OceanSITES file: id=OS_MOVE1_08_MICROCAT date_created=2022-02-17T01:35:17Z Uses OceanSITES file: id=OS_MOVE1_09_D_MICROCAT date_created=2022-02-14T23:23:01Z Uses OceanSITES file: id=OS_MOVE1_10_D_MICROCAT date_created=2022-02-11T17:56:47Z Uses OceanSITES file: id=OS_MOVE1_11_D_MICROCAT date_created=2022-02-11T19:00:48Z Uses OceanSITES file: id=OS_MOVE1_12_D_MICROCAT date_created=2022-01-31T23:06:51Z Uses OceanSITES file: id=OS_MOVE1_13_D_MICROCAT date_created=2022-01-31T22:28:43Z Uses OceanSITES file: id=OS_MOVE1_14_D_MICROCAT date_created=2023-01-12T00:17:54Z Uses OceanSITES file: id=OS_MOVE3_01_D_MICROCAT-PART01 date_created=2022-03-30T20:11:00Z Uses OceanSITES file: id=OS_MOVE3_01_D_MICROCAT-PART02 date_created=2022-03-30T20:11:27Z Uses OceanSITES file: id=OS_MOVE3_01_D_MICROCAT-PART03 date_created=2022-03-30T20:12:10Z Uses OceanSITES file: id=OS_MOVE3_01_D_MICROCAT-PART04 date_created=2022-03-30T20:13:00Z Uses OceanSITES file: id=OS_MOVE3_01_D_MICROCAT-PART05 date_created=2022-03-30T20:13:32Z Uses OceanSITES file: id=OS_MOVE3_01_D_MICROCAT-PART06 date_created=2022-03-30T20:14:14Z Uses OceanSITES file: id=OS_MOVE3_01_D_MICROCAT-PART07 date_created=2022-03-30T20:14:49Z Uses OceanSITES file: id=OS_MOVE3_01_D_MICROCAT-PART08 date_created=2022-03-30T20:15:31Z Uses OceanSITES file: id=OS_MOVE3_01_D_MICROCAT-PART09 date_created=2022-03-30T20:16:04Z Uses OceanSITES file: id=OS_MOVE3_01_D_MICROCAT-PART10 date_created=2022-03-30T20:16:37Z Uses OceanSITES file: id=OS_MOVE3_01_D_MICROCAT-PART11 date_created=2022-03-30T20:17:04Z Uses OceanSITES file: id=OS_MOVE3_01_D_MICROCAT-PART12 date_created=2022-03-30T20:17:30Z Uses OceanSITES file: id=OS_MOVE3_01_D_MICROCAT-PART13 date_created=2022-03-30T20:17:59Z Uses OceanSITES file: id=OS_MOVE3_01_D_MICROCAT-PART14 date_created=2022-03-30T20:18:23Z Uses OceanSITES file: id=OS_MOVE3_01_D_MICROCAT-PART15 date_created=2022-03-30T20:19:01Z Uses OceanSITES file: id=OS_MOVE3_02_D_MICROCAT date_created=2022-03-28T23:17:35Z Uses OceanSITES file: id=OS_MOVE3_03_D_MICROCAT-PART01 date_created=2022-03-22T22:15:56Z Uses OceanSITES file: id=OS_MOVE3_03_D_MICROCAT-PART02 date_created=2022-03-22T22:16:31Z Uses OceanSITES file: id=OS_MOVE3_03_D_MICROCAT-PART03 date_created=2022-03-22T22:17:17Z Uses OceanSITES file: id=OS_MOVE3_03_D_MICROCAT-PART04 date_created=2022-03-22T22:17:37Z Uses OceanSITES file: id=OS_MOVE3_03_D_MICROCAT-PART05 date_created=2022-03-22T22:17:59Z Uses OceanSITES file: id=OS_MOVE3_03_D_MICROCAT-PART06 date_created=2022-03-22T22:18:34Z Uses OceanSITES file: id=OS_MOVE3_03_D_MICROCAT-PART07 date_created=2022-03-22T22:18:58Z Uses OceanSITES file: id=OS_MOVE3_03_D_MICROCAT-PART08 date_created=2022-03-22T22:19:24Z Uses OceanSITES file: id=OS_MOVE3_03_D_MICROCAT-PART09 date_created=2022-03-22T22:19:55Z Uses OceanSITES file: id=OS_MOVE3_03_D_MICROCAT-PART10 date_created=2022-03-22T22:20:45Z Uses OceanSITES file: id=OS_MOVE3_03_D_MICROCAT-PART11 date_created=2022-03-22T22:21:48Z Uses OceanSITES file: id=OS_MOVE3_03_D_MICROCAT-PART12 date_created=2022-03-22T22:22:41Z Uses OceanSITES file: id=OS_MOVE3_03_D_MICROCAT-PART13 date_created=2022-03-22T22:23:39Z Uses OceanSITES file: id=OS_MOVE3_03_D_MICROCAT-PART14 date_created=2022-03-22T22:24:34Z Uses OceanSITES file: id=OS_MOVE3_03_D_MICROCAT-PART15 date_created=2022-03-22T22:25:17Z Uses OceanSITES file: id=OS_MOVE3_03_D_MICROCAT-PART16 date_created=2022-03-22T22:26:09Z Uses OceanSITES file: id=OS_MOVE3_03_D_MICROCAT-PART17 date_created=2022-03-22T22:26:57Z Uses OceanSITES file: id=OS_MOVE3_03_D_MICROCAT-PART18 date_created=2022-03-22T22:28:10Z Uses OceanSITES file: id=OS_MOVE3_03_D_MICROCAT-PART19 date_created=2022-03-22T22:29:03Z Uses OceanSITES file: id=OS_MOVE3_03_D_MICROCAT-PART20 date_created=2022-03-22T22:29:51Z Uses OceanSITES file: id=OS_MOVE3_03_D_MICROCAT-PART21 date_created=2022-03-22T22:30:56Z Uses OceanSITES file: id=OS_MOVE3_03_D_MICROCAT-PART22 date_created=2022-03-22T22:32:06Z Uses OceanSITES file: id=OS_MOVE3_04_D_MICROCAT date_created=2022-03-22T17:49:57Z Uses OceanSITES file: id=OS_MOVE3_05_D_MICROCAT-PART01 date_created=2022-04-15T19:50:20Z Uses OceanSITES file: id=OS_MOVE3_05_D_MICROCAT-PART02 date_created=2022-04-15T19:52:19Z Uses OceanSITES file: id=OS_MOVE3_06_D_MICROCAT date_created=2022-04-15T20:09:17Z Uses OceanSITES file: id=OS_MOVE3_07_D_MICROCAT date_created=2022-02-23T01:18:40Z Uses OceanSITES file: id=OS_MOVE3_08_D_MICROCAT date_created=2022-02-17T19:44:16Z Uses OceanSITES file: id=OS_MOVE3_09_D_MICROCAT date_created=2022-02-15T00:53:00Z Uses OceanSITES file: id=OS_MOVE3_10_D_MICROCAT date_created=2022-02-12T00:37:36Z Uses OceanSITES file: id=OS_MOVE3_11_D_MICROCAT date_created=2022-02-11T21:06:53Z Uses OceanSITES file: id=OS_MOVE3_12_D_MICROCAT date_created=2022-02-11T21:44:24Z Uses OceanSITES file: id=OS_MOVE3_13_D_MICROCAT date_created=2022-02-11T23:15:48Z Uses OceanSITES file: id=OS_MOVE3_14_D_MICROCAT date_created=2023-01-12T19:28:17Z
 - **Id**: OS_MOVE_20000101-20221018_GRD_TEMPERATURE-SALINITY-AT-SITES-MOVE1-MOVE3
 - **Naming Authority**: OceanSITES
 - **License**: Data freely available. User assumes all risk for use of data. Please give due credit to the authors, project, and funding sources when using these data, e.g. by including the 'citation' text provided here.
@@ -587,22 +602,21 @@ The following metadata provides comprehensive information about this dataset:
 - **Geospatial Lon Max**: -51.5
 - **Geospatial Vertical Min**: 50.0
 - **Geospatial Vertical Max**: 4950.0
-- **Contributor Name**: Uwe Send, Matthias Lankhorst, Matthias Lankhorst
-- **Contributor Role**: Principal Investigator, Creator
-- **Contributor Email**: , , 
-- **Contributor Id**: _, http://orcid.org/0000-0002-4166-4044, http://orcid.org/0000-0002-4166-4044
+- **Contributor Name**: Matthias Lankhorst, Uwe Send
+- **Contributor Role**: creator, Principal Investigator
+- **Contributor Email**: , 
+- **Contributor Id**: https://orcid.org/0000-0002-4166-4044, https://orcid.org/0000-0002-7682-5688
 - **Contributing Institutions**: Scripps Institution of Oceanography
 - **Contributing Institutions Vocabulary**: https://edmo.seadatanet.org/report/1390
 - **Contributing Institutions Role**: 
-- **Contributing Institutions Role Vocabulary**: 
 - **Conventions**: CF-1.7, ACDD-1.3, OceanSITES-1.5
-- **featureType**: timeSeries
+- **featureType**: timeSeriesProfile
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Data Type**: OceanSITES time-series data
 - **Source File\***: OS_MOVE_20000101-20221018_GRD_TEMPERATURE-SALINITY-AT-SITES-MOVE1-MOVE3.nc
 - **Source Path\***: ~/AMOCatlas/data/OS_MOVE_20000101-20221018_GRD_TEMPERATURE-SALINITY-AT-SITES-MOVE1-MOVE3.nc
 - **Date Created**: 2019-01-30T18:13:16Z
-- **Date Modified**: 2026-02-07T22:15:35Z
+- **Date Modified**: 2026-02-08T13:38:51Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: move16n
@@ -611,6 +625,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Original Variable Metadata\***: [Complex metadata structure - 5 items]
 - **Applied Variable Mapping**: {'TEMPERATURE': 'TEMP', 'SALINITY': 'PSAL', 'instrument_depth_time_varying': 'DEPTH', 'latitude_time_varying': 'LATITUDE_VARYING', 'longitude_time_varying': 'LONGITUDE_VARYING'}
 - **Update Interval**: void
+- **Comment**: The primary scientific data here have variable names in CAPITAL LETTERS; ancillary data are given in lower-case.
 - **Qc Indicator**: excellent
 - **Area**: Tropical Atlantic Ocean
 - **Geospatial Vertical Positive**: down

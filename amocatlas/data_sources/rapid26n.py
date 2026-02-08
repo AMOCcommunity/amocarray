@@ -185,24 +185,27 @@ def read_rapid(
                     ds[orig_var_name].attrs.update(var_attrs)
 
         if track_added_attrs:
-            ds, attr_changes = ReaderUtils.attach_standard_metadata(
+            ds, attr_changes = ReaderUtils.attach_metadata_with_tracking(
                 ds,
                 file,
                 file_path,
                 global_metadata,
+                yaml_file_metadata,
                 file_metadata,
-                datasource_id=DATASOURCE_ID,
+                DATASOURCE_ID,
                 track_added_attrs=True,
             )
             added_attrs_per_dataset.append(attr_changes)
         else:
-            ds = ReaderUtils.attach_standard_metadata(
+            ds = ReaderUtils.attach_metadata_with_tracking(
                 ds,
                 file,
                 file_path,
                 global_metadata,
+                yaml_file_metadata,
                 file_metadata,
-                datasource_id=DATASOURCE_ID,
+                DATASOURCE_ID,
+                track_added_attrs=False,
             )
 
         datasets.append(ds)

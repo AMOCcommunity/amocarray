@@ -1,7 +1,7 @@
 FBC Dataset Report
 ==================
 
-*Generated: 2026-02-07*
+*Generated: 2026-02-08*
 
 ----
 
@@ -22,6 +22,10 @@ Dataset Overview
 **Citation:**
 
     Hansen, B., Húsgarð Larsen, K. M., Hátún, H., and Østerhus, S.: A stable Faroe Bank Channel overflow 1995–2015, Ocean Sci., 12, 1205–1220, https://doi.org/10.5194/os-12-1205-2016, 2016.
+
+**Acknowledgement:**
+
+    Funding for the in situ Faroe Bank Channel measurements is from the Environmental Research Programme of the Nordic Council of Ministers (NMR) 1993–1998, from national Nordic research councils, from the Danish DANCEA programme, and from the European Framework Programs, lately under grant agreement no. GA212643 (THOR) and under grant agreement no. 308299 (NACLIM).
 
 Dataset Visualization
 ^^^^^^^^^^^^^^^^^^^^^
@@ -106,16 +110,16 @@ The following metadata provides comprehensive information about this dataset:
 - **Data Product\***: Daily averaged kinematic FBC-overflow flux (transport) in Sv
 - **Time Coverage Start\***: 1995-11-13
 - **Time Coverage End\***: 2023-05-19
-- **Contributor Name**: 
-- **Contributor Role**: 
-- **Contributor Email**: 
-- **Contributor Id**: https://envofar.fo/var/ftp/Timeseries/FBC_overflow_transport.txt
+- **Contributing Institutions\***: Faroe Marine Research Institute (FAMRI)
+- **Contributing Institutions Vocabulary**: https://edmo.seadatanet.org/report/3084
+- **Contributing Institutions Role**: 
 - **Conventions**: CF-1.8, ACDD-1.3, OceanSITES-1.5
 - **featureType\***: timeSeries
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: FBC_overflow_transport.txt
 - **Source Path\***: ~/AMOCatlas/data/FBC_overflow_transport.txt
-- **Date Modified**: 2026-02-07T22:15:43Z
+- **Source Url\***: https://envofar.fo/var/ftp/Timeseries/FBC_overflow_transport.txt
+- **Date Modified**: 2026-02-08T13:38:59Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: fbc

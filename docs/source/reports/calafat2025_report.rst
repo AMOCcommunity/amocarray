@@ -1,7 +1,7 @@
 CALAFAT2025 Dataset Report
 ==========================
 
-*Generated: 2026-02-07*
+*Generated: 2026-02-08*
 
 ----
 
@@ -22,6 +22,10 @@ Dataset Overview
 **Citation:**
 
     Calafat, F. M., Vallivattathillam, P., & Frajka-Williams, E. (2025). Estimates of Atlantic meridional heat transport from spatiotemporal fusion of Argo, altimetry and gravimetry data [Data set]. Zenodo. https://doi.org/10.5281/zenodo.16640426
+
+**Acknowledgement:**
+
+    This work has been carried out within the framework of the EPOC project funded by the European Union's Horizon Europe programme (grant agreement No 101059547), under call HORIZON-CL6-2021-CLIMATE01. Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union. Neither the European Union nor the granting authority can be held responsible for them.
 
 Dataset Statistics
 ^^^^^^^^^^^^^^^^^^
@@ -113,31 +117,33 @@ The following metadata provides comprehensive information about this dataset:
 - **Program**: Calafat2025
 - **Project**: Estimates of Atlantic meridional heat transport from spatiotemporal fusion of Argo, altimetry and gravimetry data
 - **License**: None
-- **Acknowledgment**: This work has been carried out within the framework of the EPOC project funded by the European Union's Horizon Europe programme (grant agreement No 101059547), under call HORIZON-CL6-2021-CLIMATE01.
+- **Acknowledgment**: This work has been carried out within the framework of the EPOC project funded by the European Union's Horizon Europe programme (grant agreement No 101059547), under call HORIZON-CL6-2021-CLIMATE01. Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union. Neither the European Union nor the granting authority can be held responsible for them.
 - **Weblink**: https://zenodo.org/records/16640426
 - **Platform**: Argo floats, altimetry, gravimetry data
 - **Platform Vocabulary**: https://vocab.nerc.ac.uk/collection/L06/
-- **Data Product**: MHT estimates at 12 latitudes across the Atlantic based on spatiotemporal Bayesian hierarchical model
+- **Data Product\***: MHT estimates at 12 latitudes across the Atlantic based on spatiotemporal Bayesian hierarchical model
 - **Time Coverage Start**: 2004-02-14
 - **Time Coverage End**: 2020-08-14
 - **Contributor Name**: Francisco Calafat, Parvathi Vallivattathillam, Eleanor Frajka-Williams
 - **Contributor Role**: Owner, Data Scientist, PI
 - **Contributor Role Vocabulary**: http://vocab.nerc.ac.uk/search_nvs/W08/
 - **Contributor Email**: , , 
-- **Contributor Id**: , , 
-- **Contributing Institutions**: National Oceanography Centre, UK / University of the Balearic Islands, Spain
-- **Contributing Institutions Vocabulary**: 
-- **Contributing Institutions Role**: 
-- **Contributing Institutions Role Vocabulary**: 
+- **Contributor Id**: https://orcid.org/0000-0002-7474-135X, https://orcid.org/0000-0003-1670-964X, https://orcid.org/0000-0001-8773-7838
+- **Contributing Institutions**: National Oceanography Centre (Liverpool), University of the Balearic Islands, University of Hamburg (IfM)
+- **Contributing Institutions Vocabulary**: , 
+- **Contributing Institutions Role**: , 
 - **Conventions**: CF-1.8, ACDD-1.3, OceanSITES-1.5
 - **featureType**: timeSeries
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: Bayesian_estimates_Atlantic_MHT.nc
 - **Source Path\***: ~/AMOCatlas/data/Bayesian_estimates_Atlantic_MHT.nc
-- **Date Modified**: 2026-02-07T22:15:43Z
+- **Source Url\***: https://zenodo.org/records/16640426
+- **Date Modified**: 2026-02-08T13:39:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: calafat2025
+- **Variable Mapping\***: {'time': 'TIME', 'latitude': 'LATITUDE', 'mht': 'MHT', 'htc': 'HTC'}
+- **Original Variable Metadata\***: [Complex metadata structure - 4 items]
 - **Applied Variable Mapping**: {'mht': 'MHT', 'htc': 'HTC', 'TIME': 'TIME', 'LATITUDE': 'LATITUDE', 'MHT': 'MHT', 'HTC': 'HTC'}
 - **Creation Data**: 31-Jul-2025 15:14:49
 - **Contact**: francisco.mcalafat@uib.eu

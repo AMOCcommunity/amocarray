@@ -12,6 +12,13 @@ Key functions:
 
 Data source: Pan-Arctic Gateway transports since 2004
 Project: Norwegian Polar Institute Arctic gateway transport monitoring
+
+Notes:
+- The original NetCDF metadata incorrectly uses creator_name and publisher_name
+  for institutional names ("Norwegian Polar Institute (NPI)") instead of
+  individual researcher names. This causes institutions to appear in contributor
+  fields. This should be corrected in the source dataset metadata.
+
 """
 
 from pathlib import Path
@@ -116,8 +123,8 @@ def read_arcticgateway(
     log.info("Starting to read ARCTIC Gateway dataset")
 
     # Load YAML metadata with fallback
-    _global_metadata, _yaml_file_metadata = (
-        ReaderUtils.load_array_metadata_with_fallback(DATASOURCE_ID, ARCTIC_METADATA)
+    global_metadata, yaml_file_metadata = ReaderUtils.load_array_metadata_with_fallback(
+        DATASOURCE_ID, ARCTIC_METADATA
     )
 
     if file_list is None:
@@ -186,25 +193,28 @@ def read_arcticgateway(
                 file_metadata = ARCTIC_FILE_METADATA.get(nc_file, {})
                 if track_added_attrs:
                     # Attach metadata with tracking
-                    ds, attr_changes = ReaderUtils.attach_standard_metadata(
+                    ds, attr_changes = ReaderUtils.attach_metadata_with_tracking(
                         ds,
                         nc_file,
                         nc_path,
                         ARCTIC_METADATA,
+                        yaml_file_metadata,
                         file_metadata,
-                        datasource_id=DATASOURCE_ID,
+                        DATASOURCE_ID,
                         track_added_attrs=True,
                     )
                     added_attrs_per_dataset.append(attr_changes)
                 else:
                     # Standard metadata attachment without tracking
-                    ds = ReaderUtils.attach_standard_metadata(
+                    ds = ReaderUtils.attach_metadata_with_tracking(
                         ds,
                         nc_file,
                         nc_path,
                         ARCTIC_METADATA,
+                        yaml_file_metadata,
                         file_metadata,
-                        datasource_id=DATASOURCE_ID,
+                        DATASOURCE_ID,
+                        track_added_attrs=False,
                     )
 
                 datasets.append(ds)

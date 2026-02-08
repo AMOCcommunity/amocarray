@@ -186,6 +186,10 @@ cython_debug/
 .idea/
 notebooks/demo-eleanor.ipynb
 notebooks/demo-convert.ipynb
+
+# Contributors database (for internal use only)
+contributors_database.txt
+contributors_database.yml
 data/meridional_transports.nc
 data/Bayesian_estimates_Atlantic_MHT.nc
 data/Bayesian_estimates_Atlantic_MHT.zip
@@ -203,3 +207,4 @@ data/ts_gridded.nc
 .claude/
 data/OS_MOVE_20000101-20221018_GRD_TEMPERATURE-SALINITY-AT-SITES-MOVE1-MOVE3.nc
 data/OS_MOVE_20000101-20221021_GRD_CURRENTS-AT-SITES-MOVE3-MOVE4.nc
+contributors_database_edited.yml

@@ -1,7 +1,7 @@
 FW2015 Dataset Report
 =====================
 
-*Generated: 2026-02-07*
+*Generated: 2026-02-08*
 
 ----
 
@@ -174,16 +174,20 @@ The following metadata provides comprehensive information about this dataset:
 - **Data Product\***: a proxy for the meridional overturning circulation at 26N, using sea level anomaly and cable measurements
 - **Time Coverage Start\***: 1993-01-15
 - **Time Coverage End\***: 2014-12-15
-- **Contributor Name**: 
-- **Contributor Role**: 
+- **Contributor Name\***: Eleanor Frajka-Williams
+- **Contributor Role\***: creator
 - **Contributor Email**: 
-- **Contributor Id**: https://figshare.com/articles/dataset/MOCproxy_for_figshare_v1_0_mat/1463479?file=3369779
+- **Contributor Id**: https://orcid.org/0000-0001-8773-7838
+- **Contributing Institutions\***: University of Southampton
+- **Contributing Institutions Vocabulary**: 
+- **Contributing Institutions Role**: 
 - **Conventions\***: CF-1.8, ACDD-1.3, OceanSITES-1.5
 - **featureType\***: timeSeries
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: MOCproxy_for_figshare_v1.mat
 - **Source Path\***: ~/AMOCatlas/data/MOCproxy_for_figshare_v1.mat
-- **Date Modified**: 2026-02-07T22:15:37Z
+- **Source Url\***: https://figshare.com/articles/dataset/MOCproxy_for_figshare_v1_0_mat/1463479?file=3369779
+- **Date Modified**: 2026-02-08T13:38:53Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: fw2015

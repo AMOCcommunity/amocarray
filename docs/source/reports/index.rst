@@ -1,9 +1,7 @@
-Dataset Reports
+Data Sources
 ===============
 
-AMOCatlas provides comprehensive automated reports for all supported datasets.
-These reports include variable mappings, statistical summaries, and temporal coverage
-analysis.
+AMOCatlas provides automated reports for all supported datasets so that you can quickly see the data available, their structure and metadata.  The reports also show variable renaming (for consistency between arrays and other sources), metadata fields edited or added, and a sample figure for a quick look.
 
 .. toctree::
    :maxdepth: 1

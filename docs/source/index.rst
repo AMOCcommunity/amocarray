@@ -3,10 +3,12 @@
    contain the root `toctree` directive.
 
 
-Welcome to amocatlas's documentation!
+Welcome to AMOCatlas's documentation!
 ======================================
 
-`amocatlas` is a repository to access and work with array data from Atlantic meridional overturning circulation mooring arrays.
+`amocatlas` is a repository to access and work with array data from Atlantic meridional overturning circulation (AMOC) mooring arrays and related estimates from array and non-array sources (Argo, altimetry, etc).  It provides tools to download, load, and standardise data from multiple sources while preserving and enhancing metadata.  The package is designed to make it easier for scientists to access and work with AMOC data, and to promote consistency and reproducibility in analyses.  Please note that citations for data sources should be made to the original data providers as per their specified distribution statements. 
+
+Note that this is still version < 1.0.0, and so breaking changes should be anticipated.  
 
 For recommendations or bug reports, please visit https://github.com/AMOCcommunity/amocatlas/issues/new
 
@@ -16,7 +18,6 @@ For recommendations or bug reports, please visit https://github.com/AMOCcommunit
    :caption: Getting started
 
    about
-   installation.md
 
 
 .. toctree::
@@ -24,9 +25,13 @@ For recommendations or bug reports, please visit https://github.com/AMOCcommunit
    :caption: Demo notebooks
 
    demo-output.ipynb
-   amoc_paperfigs-output.ipynb
 
 
+.. toctree::
+   :maxdepth: 2
+   :caption: Dataset Reports
+
+   reports/index
 
 .. toctree::
    :maxdepth: 2
@@ -39,19 +44,21 @@ For recommendations or bug reports, please visit https://github.com/AMOCcommunit
 
 .. toctree::
    :maxdepth: 2
-   :caption: Dataset Reports
+   :caption: Reference
 
-   reports/index
-
-.. toctree::
-   :maxdepth: 2
-   :caption: Help and reference
-
-   GitHub Repo <http://github.com/AMOCcommunity/amocatlas>
-   amocatlas
    reference/AC1_vocabularies
    reference/AC1_units
    reference/AC1_variables
+   amoc_paperfigs-output.ipynb
+
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Repo and API
+
+   GitHub Repo <http://github.com/AMOCcommunity/amocatlas>
+   amocatlas
+
 
 .. toctree::
    :maxdepth: 3

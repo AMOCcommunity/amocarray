@@ -136,9 +136,26 @@ METADATA_KEY_MAPPINGS = {
 
 # Institution name corrections for known inconsistencies
 INSTITUTION_CORRECTIONS = {
-    "National Oceanography Centre,UK": "National Oceanography Centre (Southampton) (UK)",
-    "National Oceanography Centre, UK": "National Oceanography Centre (Southampton) (UK)",
+    "National Oceanography Centre,UK": "National Oceanography Centre (Southampton)",
+    "National Oceanography Centre, UK": "National Oceanography Centre (Southampton)",
     # Add more exact string fixes here as needed
+    "Multiple contributing institutions (US, UK, Germany, Netherlands, Canada, France, China)": "Multiple contribution institutions",
+    "Georgia Institute of Technology, USA": "Georgia Institute of Technology",
+    "National Oceanography Centre at Southampton, UK": "National Oceanography Centre (Southampton)",
+    "Woods Hole Oceanographic Institution, USA": "Woods Hole Oceanographic Institution",
+    "Scottish Association for Marine Science, UK": "Scottish Association for Marine Science",
+    "Royal Netherlands Institute for Sea Research and Utrecht University, Netherlands": "Royal Netherlands Institute for Sea Research",
+    "Memorial University, Canada": "Memorial University of Newfoundland",
+    "Fisheries and Oceans Canada Northwest Atlantic Fisheries Centre and Institute of Ocean Sciences, Canada": "Fisheries and Oceans Canada, Northwest Atlantic Fisheries Centre, Institute of Ocean Sciences",
+    "Scripps Institution of Oceanography, UCSD, USA": "Scripps Institution of Oceanography",
+    "University of Miami, USA": "Rosenstiel School of Marine and Atmospheric Science , University of Miami",
+    "GEOMAR Helmholtz Centre for Ocean Research Kiel, Germany": "Helmholtz Centre for Ocean Research Kiel (GEOMAR)",
+    "Xiamen University, China": "Xiamen University, State Key Laboratory of Marine Environmental Science",
+    "University of South Florida, USA": "University of South Florida",
+    "Bedford Institute of Oceanography, Canada": "Bedford Institute of Oceanography",
+    "Hafrannsóknastofnun / Marine and Freshwater Research Institute (Reykjavik, Iceland)": "Marine and Freshwater Research Institute",
+    "University of Hamburg, Institute of Oceanography": "University of Hamburg (IfM)",
+    "University of Hamburg": "University of Hamburg (IfM)",
 }
 
 # Platform vocabulary normalization

@@ -103,7 +103,6 @@ Metadata (edits applied noted)
 
 The following metadata provides comprehensive information about this dataset:
 
-- **Summary**: 
 - **Program\***: NOAC 47N array
 - **Project\***: Meridional Connectivity of a 25-Year Observational AMOC Record at 47°N
 - **License\***: None
@@ -112,17 +111,21 @@ The following metadata provides comprehensive information about this dataset:
 - **Data Product\***: Basin-wide AMOC volume transport from the NOAC array at 47°N in the subpolar North Atlantic (1993-2018)
 - **Time Coverage Start\***: 1993-01-01
 - **Time Coverage End\***: 2018-01-01
-- **Contributor Name\***: Wett, Simon, Rhein, Monika, Kieke, Dagmar, Mertens, Christian, Moritz, Martin, Nowitzki, Hannah
-- **Contributor Role\***: 
+- **Contributor Name\***: Simon Wett, Monika Rhein, Dagmar Kieke, Christian Mertens, Martin Moritz, Hannah Nowitzki
+- **Contributor Role\***: , , , , , 
 - **Contributor Role Vocabulary\***: http://vocab.nerc.ac.uk/search_nvs/W08/
-- **Contributor Email**: , , , , , , , , , , , 
-- **Contributor Id\***: , , , , , , , , , , , 
+- **Contributor Email**: , , , , , 
+- **Contributor Id\***: https://orcid.org/0000-0003-3876-2206, https://orcid.org/0000-0003-1496-2828, https://orcid.org/0000-0002-2414-0695, https://orcid.org/0000-0002-7602-4194, https://orcid.org/0000-0002-9878-5648, https://orcid.org/0000-0001-5936-0527
+- **Contributing Institutions**: 
+- **Contributing Institutions Vocabulary**: 
+- **Contributing Institutions Role**: 
 - **Conventions**: CF-1.8, ACDD-1.3, OceanSITES-1.5
 - **featureType\***: timeSeries
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: NOAC_AMOC.tab
 - **Source Path\***: ~/AMOCatlas/data/NOAC_AMOC.tab
-- **Date Modified**: 2026-02-08T00:00:53Z
+- **Source Url\***: https://doi.pangaea.de/10.1594/PANGAEA.959558
+- **Date Modified**: 2026-02-08T13:45:16Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: noac47n

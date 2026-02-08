@@ -1,7 +1,7 @@
 RAPID Dataset Report
 ====================
 
-*Generated: 2026-02-07*
+*Generated: 2026-02-08*
 
 This report covers all available RAPID datasets.
 
@@ -19,13 +19,23 @@ Dataset Overview
 - **DOI**: https://doi.org/10.5285/223b34a32dc5c945e0637086abc0f274
 - **Source File**: moc_transports.nc
 - **Data Product**: RAPID layer transport time series
+- **Date Created**: 23-Sep-2025
 - **Time Coverage**: 2004-04-02 to 2024-03-27
 - **Record Length**: 14,599 observations (20.0 years)
 - **Sampling Frequency**: 12H
 
+**Distribution Statement:**
+
+    Data from RAPID MOC monitoring project are made freely available to the public. Continued funding of this project depends on us being able to justify the usefulness of the data to the Natural Environment Research Council. The project scientists would appreciate it if you would use the data DOI (see "citation") and add the following acknowledgment (see "acknowledgment") to any publications that use this data.
+
+
 **Citation:**
 
     Moat B.I.; Smeed D.A.; Rayner D.; Johns W.E.; Smith, R.; Volkov, D.; Elipot S.; Petit T.; Kajtar J.; Baringer M. O.; and Collins, J. (2026). Atlantic meridional overturning circulation observed by the RAPID-MOCHA-WBTS (RAPID-Meridional Overturning Circulation and Heatflux Array-Western Boundary Time Series) array at 26N from 2004 to 2024 (v2024.1a), British Oceanographic Data Centre - Natural Environment Research Council, UK. doi: http://doi.org/10.5285/48d0bf43-0598-ceb2-e063-7086abc062f1
+
+**Acknowledgement:**
+
+    Data from the RAPID MOC monitoring project are funded by the Natural Environment Research Council, the National Science Foundation (NSF) with support from NOAA. They are freely available from www.rapid.ac.uk/.
 
 Dataset Visualization
 ^^^^^^^^^^^^^^^^^^^^^
@@ -162,36 +172,36 @@ The following metadata provides comprehensive information about this dataset:
 - **Program\***: RAPID
 - **Project\***: RAPID-AMOC 26°N array
 - **License\***: CC-BY-4.0
-- **Acknowledgment**: Data from the RAPID AMOC observing project is funded by the Natural Environment Research Council, U.S. National Science Foundation (NSF) with support from NOAA. They are freely available from https://rapid.ac.uk/
+- **Acknowledgment\***: Data from the RAPID MOC monitoring project are funded by the Natural Environment Research Council, the National Science Foundation (NSF) with support from NOAA. They are freely available from www.rapid.ac.uk/.
 - **Doi\***: https://doi.org/10.5285/223b34a32dc5c945e0637086abc0f274
 - **Weblink\***: https://rapid.ac.uk/rapidmoc
+- **Distribution Statement\***: Data from RAPID MOC monitoring project are made freely available to the public. Continued funding of this project depends on us being able to justify the usefulness of the data to the Natural Environment Research Council. The project scientists would appreciate it if you would use the data DOI (see "citation") and add the following acknowledgment (see "acknowledgment") to any publications that use this data.
 - **Platform**: mooring
 - **Platform Vocabulary**: https://vocab.nerc.ac.uk/collection/L06/
 - **Data Product\***: RAPID layer transport time series
 - **Time Coverage Start\***: 2004-04-02
 - **Time Coverage End\***: 2024-03-27
-- **Contributor Name**: Ben Moat
-- **Contributor Role**: creator
-- **Contributor Email**: ben.moat@noc.ac.uk
-- **Contributor Id**: 
-- **Contributing Institutions**: National Oceanography Centre (Southampton) (UK)
+- **Contributor Name**: Ben I. Moat, Ben I. Moat
+- **Contributor Role**: creator, PI
+- **Contributor Email**: ben.moat@noc.ac.uk, 
+- **Contributor Id**: https://orcid.org/0000-0001-8676-7779, https://orcid.org/0000-0001-8676-7779
+- **Contributing Institutions**: National Oceanography Centre (Southampton)
 - **Contributing Institutions Vocabulary**: https://edmo.seadatanet.org/report/17
 - **Contributing Institutions Role**: 
-- **Contributing Institutions Role Vocabulary**: 
 - **Conventions\***: CF-1.8, ACDD-1.3, OceanSITES-1.5
 - **featureType\***: timeSeries
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: moc_transports.nc
 - **Source Path\***: ~/AMOCatlas/data/moc_transports.nc
-- **Date Created**: 17-Sep-2024
-- **Date Modified**: 2026-02-07T22:15:20Z
+- **Date Created**: 23-Sep-2025
+- **Date Modified**: 2026-02-08T13:38:36Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: rapid26n
 - **Variable Mapping\***: [Complex metadata structure - 10 items]
 - **Original Variable Metadata\***: [Complex metadata structure - 9 items]
 - **Applied Variable Mapping**: [Complex metadata structure - 11 items]
-- **Version**: 2024.1a
+- **Version**: v2024.1
 
 ----
 
@@ -207,13 +217,23 @@ Dataset Overview
 - **DOI**: https://doi.org/10.5285/223b34a32dc5c945e0637086abc0f274
 - **Source File**: moc_vertical.nc
 - **Data Product**: RAPID vertical streamfunction time series
+- **Date Created**: 22-Jan-2026
 - **Time Coverage**: 2004-04-02 to 2024-03-27
 - **Record Length**: 14,599 observations (20.0 years)
 - **Sampling Frequency**: 12H
 
+**Distribution Statement:**
+
+    Data from RAPID MOC monitoring project are made freely available to the public. Continued funding of this project depends on us being able to justify the usefulness of the data to the Natural Environment Research Council. The project scientists would appreciate it if you would use the data DOI (see "citation") and add the following acknowledgment (see "acknowledgment") to any publications that use this data.
+
+
 **Citation:**
 
     Moat B.I.; Smeed D.A.; Rayner D.; Johns W.E.; Smith, R.; Volkov, D.; Elipot S.; Petit T.; Kajtar J.; Baringer M. O.; and Collins, J. (2026). Atlantic meridional overturning circulation observed by the RAPID-MOCHA-WBTS (RAPID-Meridional Overturning Circulation and Heatflux Array-Western Boundary Time Series) array at 26N from 2004 to 2024 (v2024.1a), British Oceanographic Data Centre - Natural Environment Research Council, UK. doi: http://doi.org/10.5285/48d0bf43-0598-ceb2-e063-7086abc062f1
+
+**Acknowledgement:**
+
+    Data from the RAPID MOC monitoring project are funded by the Natural Environment Research Council, the National Science Foundation (NSF) with support from NOAA. They are freely available from www.rapid.ac.uk/.
 
 Dataset Visualization
 ^^^^^^^^^^^^^^^^^^^^^
@@ -301,36 +321,36 @@ The following metadata provides comprehensive information about this dataset:
 - **Program\***: RAPID
 - **Project\***: RAPID-AMOC 26°N array
 - **License\***: CC-BY-4.0
-- **Acknowledgment**: Data from the RAPID AMOC observing project is funded by the Natural Environment Research Council, U.S. National Science Foundation (NSF) with support from NOAA. They are freely available from https://rapid.ac.uk/
+- **Acknowledgment\***: Data from the RAPID MOC monitoring project are funded by the Natural Environment Research Council, the National Science Foundation (NSF) with support from NOAA. They are freely available from www.rapid.ac.uk/.
 - **Doi\***: https://doi.org/10.5285/223b34a32dc5c945e0637086abc0f274
 - **Weblink\***: https://rapid.ac.uk/rapidmoc
+- **Distribution Statement\***: Data from RAPID MOC monitoring project are made freely available to the public. Continued funding of this project depends on us being able to justify the usefulness of the data to the Natural Environment Research Council. The project scientists would appreciate it if you would use the data DOI (see "citation") and add the following acknowledgment (see "acknowledgment") to any publications that use this data.
 - **Platform**: mooring
 - **Platform Vocabulary**: https://vocab.nerc.ac.uk/collection/L06/
 - **Data Product\***: RAPID vertical streamfunction time series
 - **Time Coverage Start\***: 2004-04-02
 - **Time Coverage End\***: 2024-03-27
-- **Contributor Name**: Ben Moat
-- **Contributor Role**: creator
-- **Contributor Email**: ben.moat@noc.ac.uk
-- **Contributor Id**: 
-- **Contributing Institutions**: National Oceanography Centre (Southampton) (UK)
+- **Contributor Name**: Ben I. Moat, Ben I. Moat
+- **Contributor Role**: creator, PI
+- **Contributor Email**: ben.moat@noc.ac.uk, 
+- **Contributor Id**: https://orcid.org/0000-0001-8676-7779, https://orcid.org/0000-0001-8676-7779
+- **Contributing Institutions**: National Oceanography Centre (Southampton)
 - **Contributing Institutions Vocabulary**: https://edmo.seadatanet.org/report/17
 - **Contributing Institutions Role**: 
-- **Contributing Institutions Role Vocabulary**: 
 - **Conventions\***: CF-1.8, ACDD-1.3, OceanSITES-1.5
-- **featureType\***: timeSeries
+- **featureType\***: timeSeriesProfile
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: moc_vertical.nc
 - **Source Path\***: ~/AMOCatlas/data/moc_vertical.nc
-- **Date Created**: 17-Sep-2024
-- **Date Modified**: 2026-02-07T22:15:20Z
+- **Date Created**: 22-Jan-2026
+- **Date Modified**: 2026-02-08T13:38:36Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: rapid26n
 - **Variable Mapping\***: {'time': 'TIME', 'depth': 'DEPTH', 'stream_function_mar': 'STREAMFUNCTION_Z'}
 - **Original Variable Metadata\***: {'stream_function_mar': {'long_name': 'Streamfunction', 'description': 'Streamfunction across the Atlantic at 26.5°N', 'units': 'Sv', 'standard_name': 'ocean_meridional_overturning_streamfunction'}}
 - **Applied Variable Mapping**: {'time': 'TIME', 'depth': 'DEPTH', 'stream_function_mar': 'STREAMFUNCTION_Z', 'TIME': 'TIME', 'DEPTH': 'DEPTH'}
-- **Version**: 2024.1a
+- **Version**: v2024.1a
 
 ----
 
@@ -346,13 +366,23 @@ Dataset Overview
 - **DOI**: https://doi.org/10.5285/223b34a32dc5c945e0637086abc0f274
 - **Source File**: ts_gridded.nc
 - **Data Product**: RAPID gridded temperature and salinity
+- **Date Created**: 22-Jan-2026
 - **Time Coverage**: 2004-04-02 to 2024-03-27
 - **Record Length**: 14,599 observations (20.0 years)
 - **Sampling Frequency**: 12H
 
+**Distribution Statement:**
+
+    Data from RAPID MOC monitoring project are made freely available to the public. Continued funding of this project depends on us being able to justify the usefulness of the data to the Natural Environment Research Council. The project scientists would appreciate it if you would use the data DOI (see "citation") and add the following acknowledgment (see "acknowledgment") to any publications that use this data.
+
+
 **Citation:**
 
     Moat B.I.; Smeed D.A.; Rayner D.; Johns W.E.; Smith, R.; Volkov, D.; Elipot S.; Petit T.; Kajtar J.; Baringer M. O.; and Collins, J. (2026). Atlantic meridional overturning circulation observed by the RAPID-MOCHA-WBTS (RAPID-Meridional Overturning Circulation and Heatflux Array-Western Boundary Time Series) array at 26N from 2004 to 2024 (v2024.1a), British Oceanographic Data Centre - Natural Environment Research Council, UK. doi: http://doi.org/10.5285/48d0bf43-0598-ceb2-e063-7086abc062f1
+
+**Acknowledgement:**
+
+    Data from the RAPID MOC monitoring project are funded by the Natural Environment Research Council, the National Science Foundation (NSF) with support from NOAA. They are freely available from www.rapid.ac.uk/.
 
 Dataset Visualization
 ^^^^^^^^^^^^^^^^^^^^^
@@ -559,36 +589,36 @@ The following metadata provides comprehensive information about this dataset:
 - **Program\***: RAPID
 - **Project\***: RAPID-AMOC 26°N array
 - **License\***: CC-BY-4.0
-- **Acknowledgment**: Data from the RAPID AMOC observing project is funded by the Natural Environment Research Council, U.S. National Science Foundation (NSF) with support from NOAA. They are freely available from https://rapid.ac.uk/
+- **Acknowledgment\***: Data from the RAPID MOC monitoring project are funded by the Natural Environment Research Council, the National Science Foundation (NSF) with support from NOAA. They are freely available from www.rapid.ac.uk/.
 - **Doi\***: https://doi.org/10.5285/223b34a32dc5c945e0637086abc0f274
 - **Weblink\***: https://rapid.ac.uk/rapidmoc
+- **Distribution Statement\***: Data from RAPID MOC monitoring project are made freely available to the public. Continued funding of this project depends on us being able to justify the usefulness of the data to the Natural Environment Research Council. The project scientists would appreciate it if you would use the data DOI (see "citation") and add the following acknowledgment (see "acknowledgment") to any publications that use this data.
 - **Platform**: mooring
 - **Platform Vocabulary**: https://vocab.nerc.ac.uk/collection/L06/
 - **Data Product\***: RAPID gridded temperature and salinity
 - **Time Coverage Start\***: 2004-04-02
 - **Time Coverage End\***: 2024-03-27
-- **Contributor Name**: Ben Moat
-- **Contributor Role**: creator
-- **Contributor Email**: ben.moat@noc.ac.uk
-- **Contributor Id**: 
-- **Contributing Institutions**: National Oceanography Centre (Southampton) (UK)
+- **Contributor Name**: Ben I. Moat, Ben I. Moat
+- **Contributor Role**: creator, PI
+- **Contributor Email**: ben.moat@noc.ac.uk, 
+- **Contributor Id**: https://orcid.org/0000-0001-8676-7779, https://orcid.org/0000-0001-8676-7779
+- **Contributing Institutions**: National Oceanography Centre (Southampton)
 - **Contributing Institutions Vocabulary**: https://edmo.seadatanet.org/report/17
 - **Contributing Institutions Role**: 
-- **Contributing Institutions Role Vocabulary**: 
 - **Conventions\***: CF-1.8, ACDD-1.3, OceanSITES-1.5
-- **featureType\***: timeSeries
+- **featureType\***: timeSeriesProfile
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: ts_gridded.nc
 - **Source Path\***: ~/AMOCatlas/data/ts_gridded.nc
-- **Date Created**: 17-Sep-2024
-- **Date Modified**: 2026-02-07T22:15:20Z
+- **Date Created**: 22-Jan-2026
+- **Date Modified**: 2026-02-08T13:38:36Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: rapid26n
 - **Variable Mapping\***: [Complex metadata structure - 22 items]
 - **Original Variable Metadata\***: [Complex metadata structure - 10 items]
 - **Applied Variable Mapping**: [Complex metadata structure - 22 items]
-- **Version**: 2024.1a
+- **Version**: v2024.1a
 - **Convert To Coord\***: pressure
 
 ----
@@ -605,13 +635,23 @@ Dataset Overview
 - **DOI**: https://doi.org/10.5285/223b34a32dc5c945e0637086abc0f274
 - **Source File**: 2d_gridded.nc
 - **Data Product**: RAPID 2D gridded data
+- **Date Created**: 17-Sep-2024
 - **Time Coverage**: 2004-04-06 to 2024-03-22
 - **Record Length**: 730 observations (20.0 years)
 - **Sampling Frequency**: 240.0H
 
+**Distribution Statement:**
+
+    Data from RAPID MOC monitoring project are made freely available to the public. Continued funding of this project depends on us being able to justify the usefulness of the data to the Natural Environment Research Council. The project scientists would appreciate it if you would use the data DOI (see "citation") and add the following acknowledgment (see "acknowledgment") to any publications that use this data.
+
+
 **Citation:**
 
     Moat B.I.; Smeed D.A.; Rayner D.; Johns W.E.; Smith, R.; Volkov, D.; Elipot S.; Petit T.; Kajtar J.; Baringer M. O.; and Collins, J. (2026). Atlantic meridional overturning circulation observed by the RAPID-MOCHA-WBTS (RAPID-Meridional Overturning Circulation and Heatflux Array-Western Boundary Time Series) array at 26N from 2004 to 2024 (v2024.1a), British Oceanographic Data Centre - Natural Environment Research Council, UK. doi: http://doi.org/10.5285/48d0bf43-0598-ceb2-e063-7086abc062f1
+
+**Acknowledgement:**
+
+    Data from the RAPID MOC monitoring project are funded by the Natural Environment Research Council, the National Science Foundation (NSF) with support from NOAA. They are freely available from www.rapid.ac.uk/.
 
 Dataset Visualization
 ^^^^^^^^^^^^^^^^^^^^^
@@ -747,29 +787,29 @@ The following metadata provides comprehensive information about this dataset:
 - **Program\***: RAPID
 - **Project\***: RAPID-AMOC 26°N array
 - **License\***: CC-BY-4.0
-- **Acknowledgment**: The RAPID AMOC observing project is funded by the UK Natural Environment Research Council and the US National Science Foundation (NSF) with support from NOAA, and the data are freely available from www.rapid.ac.uk/
+- **Acknowledgment\***: Data from the RAPID MOC monitoring project are funded by the Natural Environment Research Council, the National Science Foundation (NSF) with support from NOAA. They are freely available from www.rapid.ac.uk/.
 - **Doi\***: https://doi.org/10.5285/223b34a32dc5c945e0637086abc0f274
 - **Weblink\***: https://rapid.ac.uk/rapidmoc
+- **Distribution Statement\***: Data from RAPID MOC monitoring project are made freely available to the public. Continued funding of this project depends on us being able to justify the usefulness of the data to the Natural Environment Research Council. The project scientists would appreciate it if you would use the data DOI (see "citation") and add the following acknowledgment (see "acknowledgment") to any publications that use this data.
 - **Platform**: mooring
 - **Platform Vocabulary**: https://vocab.nerc.ac.uk/collection/L06/
 - **Data Product\***: RAPID 2D gridded data
 - **Time Coverage Start**: 2004-04-06
 - **Time Coverage End**: 2024-03-22
-- **Contributor Name**: Ben Moat
+- **Contributor Name**: Ben I. Moat
 - **Contributor Role**: creator
 - **Contributor Email**: ben.moat@noc.ac.uk
-- **Contributor Id**: 
-- **Contributing Institutions**: National Oceanography Centre (Southampton) (UK)
+- **Contributor Id**: https://orcid.org/0000-0001-8676-7779
+- **Contributing Institutions**: National Oceanography Centre (Southampton)
 - **Contributing Institutions Vocabulary**: https://edmo.seadatanet.org/report/17
 - **Contributing Institutions Role**: 
-- **Contributing Institutions Role Vocabulary**: 
 - **Conventions\***: CF-1.8, ACDD-1.3, OceanSITES-1.5
-- **featureType\***: timeSeries
+- **featureType\***: timeSeriesProfile
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: 2d_gridded.nc
 - **Source Path\***: ~/AMOCatlas/data/2d_gridded.nc
 - **Date Created**: 17-Sep-2024
-- **Date Modified**: 2026-02-07T22:15:20Z
+- **Date Modified**: 2026-02-08T13:38:36Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: rapid26n
@@ -796,13 +836,23 @@ Dataset Overview
 - **DOI**: https://doi.org/10.5285/223b34a32dc5c945e0637086abc0f274
 - **Source File**: meridional_transports.nc
 - **Data Product**: RAPID meridional transport data
+- **Date Created**: 17-Sep-2024
 - **Time Coverage**: 2004-04-06 to 2024-03-22
 - **Record Length**: 730 observations (20.0 years)
 - **Sampling Frequency**: 240.0H
 
+**Distribution Statement:**
+
+    Data from RAPID MOC monitoring project are made freely available to the public. Continued funding of this project depends on us being able to justify the usefulness of the data to the Natural Environment Research Council. The project scientists would appreciate it if you would use the data DOI (see "citation") and add the following acknowledgment (see "acknowledgment") to any publications that use this data.
+
+
 **Citation:**
 
     Moat B.I.; Smeed D.A.; Rayner D.; Johns W.E.; Smith, R.; Volkov, D.; Elipot S.; Petit T.; Kajtar J.; Baringer M. O.; and Collins, J. (2026). Atlantic meridional overturning circulation observed by the RAPID-MOCHA-WBTS (RAPID-Meridional Overturning Circulation and Heatflux Array-Western Boundary Time Series) array at 26N from 2004 to 2024 (v2024.1a), British Oceanographic Data Centre - Natural Environment Research Council, UK. doi: http://doi.org/10.5285/48d0bf43-0598-ceb2-e063-7086abc062f1
+
+**Acknowledgement:**
+
+    Data from the RAPID MOC monitoring project are funded by the Natural Environment Research Council, the National Science Foundation (NSF) with support from NOAA. They are freely available from www.rapid.ac.uk/.
 
 Dataset Visualization
 ^^^^^^^^^^^^^^^^^^^^^
@@ -959,29 +1009,29 @@ The following metadata provides comprehensive information about this dataset:
 - **Program\***: RAPID
 - **Project\***: RAPID-AMOC 26°N array
 - **License\***: CC-BY-4.0
-- **Acknowledgment**: The RAPID AMOC observing project is funded by the UK Natural Environment Research Council and the US National Science Foundation (NSF) with support from NOAA, and the data are freely available from www.rapid.ac.uk/
+- **Acknowledgment\***: Data from the RAPID MOC monitoring project are funded by the Natural Environment Research Council, the National Science Foundation (NSF) with support from NOAA. They are freely available from www.rapid.ac.uk/.
 - **Doi\***: https://doi.org/10.5285/223b34a32dc5c945e0637086abc0f274
 - **Weblink\***: https://rapid.ac.uk/rapidmoc
+- **Distribution Statement\***: Data from RAPID MOC monitoring project are made freely available to the public. Continued funding of this project depends on us being able to justify the usefulness of the data to the Natural Environment Research Council. The project scientists would appreciate it if you would use the data DOI (see "citation") and add the following acknowledgment (see "acknowledgment") to any publications that use this data.
 - **Platform**: mooring
 - **Platform Vocabulary**: https://vocab.nerc.ac.uk/collection/L06/
 - **Data Product\***: RAPID meridional transport data
 - **Time Coverage Start**: 2004-04-06
 - **Time Coverage End**: 2024-03-22
-- **Contributor Name**: Ben Moat
+- **Contributor Name**: Ben I. Moat
 - **Contributor Role**: creator
 - **Contributor Email**: ben.moat@noc.ac.uk
-- **Contributor Id**: 
-- **Contributing Institutions**: National Oceanography Centre (Southampton) (UK)
+- **Contributor Id**: https://orcid.org/0000-0001-8676-7779
+- **Contributing Institutions**: National Oceanography Centre (Southampton)
 - **Contributing Institutions Vocabulary**: https://edmo.seadatanet.org/report/17
 - **Contributing Institutions Role**: 
-- **Contributing Institutions Role Vocabulary**: 
 - **Conventions\***: CF-1.8, ACDD-1.3, OceanSITES-1.5
-- **featureType\***: timeSeries
+- **featureType\***: timeSeriesProfile
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: meridional_transports.nc
 - **Source Path\***: ~/AMOCatlas/data/meridional_transports.nc
 - **Date Created**: 17-Sep-2024
-- **Date Modified**: 2026-02-07T22:15:20Z
+- **Date Modified**: 2026-02-08T13:38:36Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: rapid26n

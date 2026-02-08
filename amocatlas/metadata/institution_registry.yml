@@ -1,0 +1,307 @@
+# AMOCatlas Institution Registry  
+# This file provides EDMO code mappings for standardizing institution information
+# during dataset processing. Use this to handle name variations and ensure consistent
+# institution identification across datasets.
+
+institutions:
+  "17":  # National Oceanography Centre
+    standard_name: "National Oceanography Centre (Southampton)"
+    name_variants:
+      - "National Oceanography Centre"
+      - "National Oceanography Centre (Southampton)"
+      - "National Oceanography Centre at Southampton"
+      - "National Oceanography Centre Southampton"
+      - "NOC Southampton"
+      - "NOCS"
+      - "National Oceanography Centre (Southampton) (UK)"
+    country: "UK"
+    id_url: "https://edmo.seadatanet.org/report/17"
+    website: "https://noc.ac.uk"
+    
+  "2424":  # National Oceanography Centre Liverpool
+    standard_name: "National Oceanography Centre (Liverpool)"
+    name_variants:
+      - "National Oceanography Centre (Liverpool)"
+      - "National Oceanography Centre Liverpool"
+      - "NOC Liverpool"
+      - "NOCL"
+    country: "UK"
+    id_url: "https://edmo.seadatanet.org/report/2424"
+    website: "https://noc.ac.uk"
+    
+  "1157":  # University of Bremen
+    standard_name: "University of Bremen"
+    name_variants:
+      - "University of Bremen"
+      - "Universität Bremen"
+      - "Bremen University"
+      - "Institut für Umweltphysik Universität Bremen"
+    country: "Germany"
+    id_url: "https://edmo.seadatanet.org/report/1157"
+    website: "https://www.uni-bremen.de"
+
+  "1390":  # Scripps Institution of Oceanography
+    standard_name: "Scripps Institution of Oceanography"
+    name_variants:
+      - "Scripps Institution of Oceanography"
+      - "SIO"
+      - "Scripps"
+      - "UCSD"
+      - "University of California San Diego"
+    country: "USA"
+    id_url: "https://edmo.seadatanet.org/report/1390"
+    website: "https://scripps.ucsd.edu"
+
+  "3844":  # Woods Hole Oceanographic Institution
+    standard_name: "Woods Hole Oceanographic Institution"
+    name_variants:
+      - "Woods Hole Oceanographic Institution"
+      - "WHOI"
+      - "Woods Hole"
+    country: "USA"
+    id_url: "https://edmo.seadatanet.org/report/3844"
+    website: "https://www.whoi.edu"
+
+
+  "1382":  # Rosenstiel School of Marine and Atmospheric Science, University of Miami
+    standard_name: "Rosenstiel School of Marine and Atmospheric Science (University of Miami)"
+    name_variants:
+      - "Rosenstiel School of Marine and Atmospheric Science, University of Miami"
+      - "Rosenstiel School of Marine and Atmospheric Science , University of Miami"
+      - "University of Miami"
+      - "RSMAS"
+    country: "USA"
+    id_url: "https://edmo.seadatanet.org/report/1382"
+    website: "https://www.rsmas.miami.edu"
+
+  "3084": # Faroe Marine Research Institute
+    standard_name: "Faroe Marine Research Institute (FAMRI)"
+    name_variants:
+      - "Faroe Marine Research Institute"
+      - "FAMRI"
+      - "Faroese Marine Research Institute"
+    id_url: "https://edmo.seadatanet.org/report/3084"
+    website: http://www.hav.fo
+
+  "1760":  # Norwegian Polar Institute
+    standard_name: "Norwegian Polar Institute (NPI)"
+    name_variants:
+      - "Norwegian Polar Institute"
+      - "Norwegian Polar Institute (NPI)"
+      - "NPI"
+      - "Norsk Polarinstitutt"
+    country: "Norway"
+    id_url: "https://edmo.seadatanet.org/report/1760"
+    website: "https://www.npolar.no"
+
+  "1368":  # Alfred Wegener Institute
+    standard_name: "Alfred Wegener Institute (AWI)"
+    name_variants:
+      - "Alfred Wegener Institute"
+      - "Alfred Wegener Institute (Bremerhaven Germany)"
+      - "AWI"
+      - "Alfred-Wegener-Institut"
+    country: "Germany"
+    id_url: "https://edmo.seadatanet.org/report/1368"
+    website: "https://www.awi.de"
+
+  "2947":  # GEOMAR Helmholtz Centre for Ocean Research Kiel
+    standard_name: "Helmholtz Centre for Ocean Research Kiel (GEOMAR)"
+    name_variants:
+      - "GEOMAR Helmholtz Centre for Ocean Research Kiel"
+      - "GEOMAR"
+      - "Helmholtz Centre for Ocean Research Kiel"
+      - "Helmholtz Centre for Ocean Research Kiel (GEOMAR)"
+    country: "Germany"
+    id_url: "https://edmo.seadatanet.org/report/2947"
+    website: "https://www.geomar.de"
+
+  "1351":  # Institute for Marine Research (Bergen)
+    standard_name: "Institute for Marine Research (Bergen)"
+    name_variants:
+      - "Institute for Marine Research"
+      - "Institute for Marine Research (Bergen Norway)"
+      - "IMR"
+      - "Havforskningsinstituttet"
+    country: "Norway"
+    id_url: "https://edmo.seadatanet.org/report/1351"
+    website: "https://www.hi.no"
+
+  "1554":  # Applied Physics Laboratory, University of Washington
+    standard_name: "Applied Physics Laboratory (University of Washington)"
+    name_variants:
+      - "Applied Physics Laboratory Univ. of Washington"
+      - "Applied Physics Laboratory University of Washington"
+      - "APL-UW"
+      - "University of Washington Applied Physics Laboratory"
+    country: "USA"
+    id_url: "https://edmo.seadatanet.org/report/1554"
+    website: "https://www.apl.uw.edu"
+
+  "3075":  # Georgia Institute of Technology
+    standard_name: "Georgia Institute of Technology"
+    name_variants:
+      - "Georgia Institute of Technology"
+      - "Georgia Tech"
+      - "GA Tech"
+      - "GT"
+    country: "USA"
+    id_url: "https://edmo.seadatanet.org/report/3075"
+    website: "https://www.gatech.edu"
+
+  "3838":  # University of South Florida
+    standard_name: "University of South Florida"
+    name_variants:
+      - "University of South Florida"
+      - "University of South Florida USA"
+      - "USF"
+    country: "USA"
+    id_url: "https://edmo.seadatanet.org/report/3838"
+    website: "https://www.usf.edu"
+
+  "2649":  # Memorial University of Newfoundland, Ocean Sciences Centre
+    standard_name: "Memorial University of Newfoundland (Ocean Sciences Centre)"
+    name_variants:
+      - "Memorial University of Newfoundland Ocean Sciences Centre"
+      - "Memorial University Ocean Sciences Centre"
+      - "MUN Ocean Sciences Centre"
+      - "Memorial University"
+      - "Ocean Sciences Centre"
+    country: "Canada"
+    id_url: "https://edmo.seadatanet.org/report/2649"
+    website: "https://www.mun.ca/osc"
+
+  "1811":  # Bedford Institute of Oceanography
+    standard_name: "Bedford Institute of Oceanography"
+    name_variants:
+      - "Bedford Institute of Oceanography"
+      - "BIO"
+    country: "Canada"
+    id_url: "https://edmo.seadatanet.org/report/1811"
+    website: "https://www.bio.gc.ca"
+
+  "1979":  # Fisheries and Oceans Canada, Marine Environmental Data Section
+    standard_name: "Fisheries and Oceans Canada (Marine Environmental Data Section)"
+    name_variants:
+      - "Fisheries and Oceans Canada Marine Environmental Data Section"
+      - "Fisheries and Oceans Canada Marine Environmental Data Section"
+      - "DFO Marine Environmental Data Section"
+    country: "Canada"
+    id_url: "https://edmo.seadatanet.org/report/1979"
+    website: "https://www.dfo-mpo.gc.ca"
+
+  "4155":  # Institute of Ocean Sciences
+    standard_name: "Institute of Ocean Sciences (DFO)"
+    name_variants:
+      - "Institute of Ocean Sciences"
+      - "IOS"
+      - "Fisheries and Oceans Canada Institute of Ocean Sciences"
+    country: "Canada"
+    id_url: "https://edmo.seadatanet.org/report/4155"
+    website: "https://www.pac.dfo-mpo.gc.ca/science/facilities-installations/ios-sio/index-eng.html"
+
+  "4157":  # Northwest Atlantic Fisheries Centre
+    standard_name: "Northwest Atlantic Fisheries Centre"
+    name_variants:
+      - "Northwest Atlantic Fisheries Centre"
+      - "NAFC"
+      - "Fisheries and Oceans Canada Northwest Atlantic Fisheries Centre"
+    country: "Canada"
+    id_url: "https://edmo.seadatanet.org/report/4157"
+    website: "https://www.dfo-mpo.gc.ca"
+
+  "5370":  # Fisheries and Oceans Canada
+    standard_name: "Fisheries and Oceans Canada"
+    name_variants:
+      - "Fisheries and Oceans Canada"
+      - "DFO"
+      - "Pêches et Océans Canada"
+      - "Fisheries and Oceans Canada Northwest Atlantic Fisheries Centre and Institute of Ocean Sciences"
+    country: "Canada"
+    id_url: "https://edmo.seadatanet.org/report/5370"
+    website: "https://www.dfo-mpo.gc.ca"
+
+  "630":  # Royal Netherlands Institute for Sea Research
+    standard_name: "Royal Netherlands Institute for Sea Research (NIOZ)"
+    name_variants:
+      - "Royal Netherlands Institute for Sea Research"
+      - "Royal Netherlands Institute for Sea Research and Utrecht University"
+      - "NIOZ"
+      - "Nederlands Instituut voor Onderzoek der Zee"
+    country: "Netherlands"
+    id_url: "https://edmo.seadatanet.org/report/630"
+    website: "https://www.nioz.nl"
+
+  "44":  # Scottish Association for Marine Science
+    standard_name: "Scottish Association for Marine Science (SAMS)"
+    name_variants:
+      - "Scottish Association for Marine Science"
+      - "SAMS"
+    country: "UK"
+    id_url: "https://edmo.seadatanet.org/report/44"
+    website: "https://www.sams.ac.uk"
+
+  "1627":  # Utrecht University
+    standard_name: "Utrecht University"
+    name_variants:
+      - "Utrecht University"
+      - "Universiteit Utrecht"
+      - "UU"
+    country: "Netherlands"
+    id_url: "https://edmo.seadatanet.org/report/1627"
+    website: "https://www.uu.nl"
+
+  "2401":  # Xiamen University, State Key Laboratory of Marine Environmental Science
+    standard_name: "Xiamen University - State Key Laboratory of Marine Environmental Science"
+    name_variants:
+      - "Xiamen University State Key Laboratory of Marine Environmental Science"
+      - "Xiamen University China"
+      - "Xiamen University"
+      - "XMU"
+    country: "China"
+    id_url: "https://edmo.seadatanet.org/report/2401"
+    website: "https://www.xmu.edu.cn"
+
+  "4766":  # Marine and Freshwater Research Institute
+    standard_name: "Marine and Freshwater Research Institute (MFRI)"
+    name_variants:
+      - "Marine and Freshwater Research Institute"
+      - "MFRI"
+      - "Hafrannsóknastofnun"
+    country: "Iceland"
+    id_url: "https://edmo.seadatanet.org/report/4766"
+    website: "https://www.hafogvatn.is"
+
+  "1156":  # University of Hamburg, Institute of Oceanography
+    standard_name: "University of Hamburg (IfM)"
+    name_variants:
+      - "University of Hamburg, Institute of Oceanography"
+      - "University of Hamburg Institute of Oceanography"
+      - "University of Hamburg Institute of Oceanography (IfM)"
+      - "IfM Hamburg"
+      - "Institut für Meereskunde Hamburg"
+    country: "Germany"
+    id_url: "https://edmo.seadatanet.org/report/1156"
+    website: "https://www.ifm.uni-hamburg.de"
+
+  "1586":  # Balearic Islands University, Department of Physics
+    standard_name: "Balearic Islands University (Department of Physics)"
+    name_variants:
+      - "Balearic Islands University, Department of Physics"
+      - "Balearic Islands University Department of Physics"
+      - "Balearic Islands University (Physics)"
+      - "UIB Physics"
+      - "University of the Balearic Islands"
+      - "Universitat de les Illes Balears"
+    country: "Spain"
+    id_url: "https://edmo.seadatanet.org/report/1586"
+    website: "https://www.uib.eu"
+
+
+
+# Example usage:
+# 1. During standardization, extract raw institution name: "NOC Southampton"
+# 2. Search all name_variants across EDMO codes to find match
+# 3. Use EDMO code key to populate:
+#    - institution_id: "1910"  
+#    - contributing_institutions: "National Oceanography Centre" (standardized)
