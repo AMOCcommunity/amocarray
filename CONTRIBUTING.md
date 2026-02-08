@@ -147,7 +147,7 @@ When working with notebooks in this repository:
   - The outputs show publication-quality figures that can't be regenerated automatically
   - This notebook is copied (not executed) during documentation builds
 
-All other notebooks (`demo.ipynb`, `demo-convert.ipynb`, etc.) should have their outputs cleared before committing.
+All other notebooks (`demo.ipynb`, etc.) should have their outputs cleared before committing.
 
 ### Improving The Documentation
 

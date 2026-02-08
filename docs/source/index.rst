@@ -24,7 +24,6 @@ For recommendations or bug reports, please visit https://github.com/AMOCcommunit
    :caption: Demo notebooks
 
    demo-output.ipynb
-   demo-convert-output.ipynb
    amoc_paperfigs-output.ipynb
 
 

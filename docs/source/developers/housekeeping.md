@@ -37,7 +37,7 @@ pytest  # Verify everything works
 Before merging any PR:
 - ✅ `pytest` passes locally
 - ✅ `pre-commit run --all-files` passes  
-- ✅ Run demo notebooks: `demo.ipynb` and `demo-convert.ipynb` (check for errors)
+- ✅ Run demo notebooks: `demo.ipynb` (check for errors)
 - ✅ Clear all notebook outputs before committing
   - **Exception**: `amoc_paperfigs.ipynb` should keep outputs (requires PyGMT/GMT not available in CI)
 - ✅ GitHub Actions CI is green
