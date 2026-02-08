@@ -1,9 +1,187 @@
-ARCTICGATEWAY Dataset Report
-============================
+ARCTICGATEWAY Datasets
+======================
 
-*Generated: 2026-02-08*
+*Generated: |today|*
 
 This report covers all available ARCTICGATEWAY datasets.
+
+----
+
+Adjusted_fulldepth/DavisStrait_adjusted_v_fulldepth.nc
+------------------------------------------------------
+
+
+Dataset Overview
+^^^^^^^^^^^^^^^^
+
+- **Project**: Explaining and predicting the ocean conveyor belt, The Fram Strait Arctic Outflow Observatory
+- **Description**: Input data and adjusted data derived with an inverse model of ocean velocity, temperature and salinity obtained from ocean moorings and hydrography from the four main Arctic Gateways Fram Strait, Barents Sea Opening, Bering Strait and Davis Strait
+- **DOI**: https://doi.org/10.21334/npolar.2025.80b69907
+- **Source File**: Adjusted_fulldepth/DavisStrait_adjusted_v_fulldepth.nc
+- **Data Product**: Pan-Arctic Gateway transports since 2004 - Davis Strait
+- **Date Created**: 2025-10-31T23:55:53Z
+- **Time Coverage**: 2004-10-15 to 2022-05-15
+- **Record Length**: 212 observations (17.6 years)
+- **Sampling Frequency**: monthly
+
+**Citation:**
+
+    Fredriksen, H., de Steur, L., von Appen, W., Ingvaldsen, R., McPherson, R., Lee, C., Lenetsky, J., & Woodgate, R. (2025). Pan-Arctic Gateway transports since 2004 [Dataset]. Norwegian Polar Institute. https://doi.org/10.21334/NPOLAR.2025.80B69907
+
+**Acknowledgement:**
+
+    This work is funded by the European Union as part of the EPOC project (Explaining and Predicting the Ocean Conveyor; grant number: 101059547). Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union. Neither the European Union nor the granting authority can be held responsible for them.
+
+Dataset Statistics
+^^^^^^^^^^^^^^^^^^
+
+- **Total Variables**: 3
+- **Total Coordinates**: 4
+- **Dataset Size**: 159.52 MB
+
+Coordinate Information
+^^^^^^^^^^^^^^^^^^^^^^
+
+The following table shows information about the dataset coordinates in the standardised version, including coordinate name remapping from the original, if any:
+
+.. list-table::
+   :widths: 14 14 14 14 14 14 14
+   :header-rows: 1
+
+   * - Coordinate
+     - Description
+     - Units
+     - Size
+     - Min Value
+     - Max Value
+     - Missing %
+   * - *depth* → **DEPTH**
+     - **Depth**:  Depth below surface of the water
+     - m
+     - (263,)
+     - 0.00
+     - 1048.00
+     - 0.0%
+   * - *lat* → **LATITUDE**
+     - **Latitude**: Latitude north (WGS84)
+     - degree_north
+     - (125,)
+     - 66.67
+     - 67.32
+     - 0.0%
+   * - *lon* → **LONGITUDE**
+     - **Longitude**: Longitude east (WGS84)
+     - degree_east
+     - (125,)
+     - -61.26
+     - -53.87
+     - 0.0%
+   * - *time* → **TIME**
+     - Time
+     - datetime64[ns]
+     - (212,)
+     - 2004-10-15
+     - 2022-05-15
+     - 0.0%
+
+
+Variable Information
+^^^^^^^^^^^^^^^^^^^^
+
+The following table shows the mapping from original variable names to standardized names,
+along with key statistics for each variable.
+
+.. list-table::
+   :widths: 14 14 14 14 14 14 14
+   :header-rows: 1
+
+   * - Variable
+     - Description
+     - Units
+     - Size
+     - Min Value
+     - Max Value
+     - Missing %
+   * - **CT**
+     - **Cons. Temperature**: Conservative Temperature (TEOS-10)
+     - degree_C
+     - (212, 263, 125)
+     - -1.75
+     - 6.74
+     - 0.4%
+   * - **SA**
+     - **Abs. Salinity**: Absolute Salinity (TEOS-10)
+     - g kg-1
+     - (212, 263, 125)
+     - 30.12
+     - 35.25
+     - 0.4%
+   * - *v* → **VCUR**
+     - **V Velocity**: Northward Velocity component
+     - m s-1
+     - (212, 263, 125)
+     - -0.44
+     - 0.19
+     - 0.4%
+
+
+Metadata (edits applied noted)
+^^^^^^^^^^^^^^^^^
+
+The following metadata provides comprehensive information about this dataset:
+
+- **Title**: Pan-Arctic Gateway transports since 2004
+- **Summary**: Input data and adjusted data derived with an inverse model of ocean velocity, temperature and salinity obtained from ocean moorings and hydrography from the four main Arctic Gateways Fram Strait, Barents Sea Opening, Bering Strait and Davis Strait
+- **Description**: Input data and adjusted data derived with an inverse model of ocean velocity, temperature and salinity obtained from ocean moorings and hydrography from the four main Arctic Gateways Fram Strait, Barents Sea Opening, Bering Strait and Davis Strait
+- **Program**: Pan-Arctic Gateway transports since 2004
+- **Project**: Explaining and predicting the ocean conveyor belt, The Fram Strait Arctic Outflow Observatory
+- **Source**: Mooring and CTD data
+- **License**: CC-BY-4.0
+- **Acknowledgment**: This work is funded by the European Union as part of the EPOC project (Explaining and Predicting the Ocean Conveyor; grant number: 101059547). Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union. Neither the European Union nor the granting authority can be held responsible for them.
+- **Doi**: https://doi.org/10.21334/npolar.2025.80b69907
+- **Weblink**: https://doi.org/10.21334/NPOLAR.2025.80B69907
+- **Data Product\***: Pan-Arctic Gateway transports since 2004 - Davis Strait
+- **Time Coverage Start**: 2004-10-15
+- **Time Coverage End**: 2022-05-15
+- **Creator Name**: H. Fredriksen
+- **Creator Email**:  
+- **Creator Url**:  
+- **Creator Institution**: Norwegian Polar Institute (NPI)
+- **Contributor Name**: Norwegian Polar Institute (NPI), Norwegian Polar Institute (NPI), Hege-Beate Fredriksen, Laura de Steur, Wilken-Jon von Appen, Randi Ingvaldsen, Rebecca McPherson, Craig Lee, Jed Lenetsky, Rebecca Woodgate
+- **Contributor Role**: originator, publisher, creator, PI, , , , , , 
+- **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
+- **Contributor Email**: post@npolar.no, post@npolar.no, , , , , , , , 
+- **Contributor Id**: www.npolar.no, www.npolar.no, https://orcid.org/0000-0002-3598-4076, https://orcid.org/0000-0002-6043-7920, https://orcid.org/0000-0002-7200-0099, https://orcid.org/0000-0002-8261-334X, https://orcid.org/0000-0002-4449-6701, https://orcid.org/0000-0002-3479-801X, https://orcid.org/0000-0003-1074-2764, https://psc.apl.uw.edu/people/investigators/rebecca-woodgate/
+- **Contributing Institutions**: Norwegian Polar Institute (NPI), Alfred Wegener Institute (AWI), Institute for Marine Research (Bergen), Applied Physics Laboratory (University of Washington)
+- **Contributing Institutions Vocabulary**: https://edmo.seadatanet.org/report/1760, https://edmo.seadatanet.org/report/1368, https://edmo.seadatanet.org/report/1351, https://edmo.seadatanet.org/report/1554
+- **Contributing Institutions Role**: , , , 
+- **Publisher Name**: H. Fredriksen
+- **Publisher Email**:  
+- **Publisher Type**: institution
+- **Conventions**: , OceanSITES-1.5
+- **featureType**: timeSeriesProfile
+- **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
+- **Source File\***: Adjusted_fulldepth/DavisStrait_adjusted_v_fulldepth.nc
+- **Source Path\***: ~/AMOCatlas/data/Adjusted_fulldepth/DavisStrait_adjusted_v_fulldepth.nc
+- **Source Url\***: https://doi.org/10.21334/NPOLAR.2025.80B69907
+- **Date Created**: 2025-10-31T23:55:53Z
+- **Date Modified**: 2026-02-08T20:00:21Z
+- **Processing Software**: http://github.com/AMOCcommunity/amocatlas
+- **Processing Version**: v0.2.0
+- **Processing Datasource\***: arcticgateway
+- **Product Version**: v0
+- **Variable Mapping\***: {'time': 'TIME', 'depth': 'DEPTH', 'lon': 'LONGITUDE', 'lat': 'LATITUDE', 'v': 'VCUR'}
+- **Original Variable Metadata\***: [Complex metadata structure - 7 items]
+- **Applied Variable Mapping**: {'time': 'TIME', 'depth': 'DEPTH', 'lon': 'LONGITUDE', 'lat': 'LATITUDE', 'v': 'VCUR', 'TIME': 'TIME', 'DEPTH': 'DEPTH'}
+- **Gateway**: DavisStrait
+- **Adjustments**: v is adjusted by a constant monthly value obtained from the inverse model, for all grid cells in a segment
+- **Depth Limit**: None
+- **Segments Format**: Python dictionary converted to a string. The slices can be applied in xarray coordinate selection
+- **Segments**: {'WDS': {'long_name': 'Western Davis Strait', 'lon_slice': slice(None, -57.6, None)}, 'EDS': {'long_name': 'Eastern Davis Strait', 'lon_slice': slice(-57.6, None, None)}}
+- **Project Website**: https://epoc-eu.org
+- **Data Set Language**: eng
+- **Data Assembly Center**: NO/NPI
+- **Creator Type**:  
 
 ----
 
@@ -57,21 +235,21 @@ The following table shows information about the dataset coordinates in the stand
      - Missing %
    * - *depth* → **DEPTH**
      - **Depth**:  Depth below surface of the water
-     - meters
+     - m
      - (122,)
      - 0.00
      - 484.00
      - 0.0%
    * - *lat* → **LATITUDE**
      - **Latitude**: Latitude north (WGS84)
-     - degrees_north
+     - degree_north
      - (306,)
      - 69.48
      - 77.70
      - 0.0%
    * - *lon* → **LONGITUDE**
      - **Longitude**: Longitude east (WGS84)
-     - degrees_east
+     - degree_east
      - (306,)
      - 18.35
      - 20.31
@@ -104,7 +282,7 @@ along with key statistics for each variable.
      - Missing %
    * - **CT**
      - **Cons. Temperature**: Conservative Temperature (TEOS-10)
-     - degrees_Celsius
+     - degree_C
      - (212, 122, 306)
      - -2.40
      - 12.68
@@ -148,8 +326,8 @@ The following metadata provides comprehensive information about this dataset:
 - **Creator Url**:  
 - **Creator Institution**: Norwegian Polar Institute (NPI)
 - **Contributor Name**: Norwegian Polar Institute (NPI), Norwegian Polar Institute (NPI), Hege-Beate Fredriksen, Laura de Steur, Wilken-Jon von Appen, Randi Ingvaldsen, Rebecca McPherson, Craig Lee, Jed Lenetsky, Rebecca Woodgate
-- **Contributor Role**: creator, publisher, creator, PI, , , , , , 
-- **Contributor Role Vocabulary**: http://vocab.nerc.ac.uk/search_nvs/W08/
+- **Contributor Role**: originator, publisher, creator, PI, , , , , , 
+- **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
 - **Contributor Email**: post@npolar.no, post@npolar.no, , , , , , , , 
 - **Contributor Id**: www.npolar.no, www.npolar.no, https://orcid.org/0000-0002-3598-4076, https://orcid.org/0000-0002-6043-7920, https://orcid.org/0000-0002-7200-0099, https://orcid.org/0000-0002-8261-334X, https://orcid.org/0000-0002-4449-6701, https://orcid.org/0000-0002-3479-801X, https://orcid.org/0000-0003-1074-2764, https://psc.apl.uw.edu/people/investigators/rebecca-woodgate/
 - **Contributing Institutions**: Norwegian Polar Institute (NPI), Alfred Wegener Institute (AWI), Institute for Marine Research (Bergen), Applied Physics Laboratory (University of Washington)
@@ -165,7 +343,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source Path\***: ~/AMOCatlas/data/Adjusted_fulldepth/BarentsSeaOpening_adjusted_v_fulldepth.nc
 - **Source Url\***: https://doi.org/10.21334/NPOLAR.2025.80B69907
 - **Date Created**: 2025-10-31T23:55:53Z
-- **Date Modified**: 2026-02-08T13:38:55Z
+- **Date Modified**: 2026-02-08T20:00:21Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: arcticgateway
@@ -235,21 +413,21 @@ The following table shows information about the dataset coordinates in the stand
      - Missing %
    * - *depth* → **DEPTH**
      - **Depth**:  Depth below surface of the water
-     - meters
+     - m
      - (16,)
      - 0.00
      - 60.00
      - 0.0%
    * - *lat* → **LATITUDE**
      - **Latitude**: Latitude north (WGS84)
-     - degrees_north
+     - degree_north
      - (33,)
      - 65.69
      - 66.01
      - 0.0%
    * - *lon* → **LONGITUDE**
      - **Longitude**: Longitude east (WGS84)
-     - degrees_east
+     - degree_east
      - (33,)
      - -169.67
      - -168.11
@@ -282,7 +460,7 @@ along with key statistics for each variable.
      - Missing %
    * - **CT**
      - No description available
-     - degrees_Celsius
+     - degree_C
      - (212, 16, 33)
      - -1.83
      - 5.44
@@ -326,8 +504,8 @@ The following metadata provides comprehensive information about this dataset:
 - **Creator Url**:  
 - **Creator Institution**: Norwegian Polar Institute (NPI)
 - **Contributor Name**: Norwegian Polar Institute (NPI), Norwegian Polar Institute (NPI), Hege-Beate Fredriksen, Laura de Steur, Wilken-Jon von Appen, Randi Ingvaldsen, Rebecca McPherson, Craig Lee, Jed Lenetsky, Rebecca Woodgate
-- **Contributor Role**: creator, publisher, creator, PI, , , , , , 
-- **Contributor Role Vocabulary**: http://vocab.nerc.ac.uk/search_nvs/W08/
+- **Contributor Role**: originator, publisher, creator, PI, , , , , , 
+- **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
 - **Contributor Email**: post@npolar.no, post@npolar.no, , , , , , , , 
 - **Contributor Id**: www.npolar.no, www.npolar.no, https://orcid.org/0000-0002-3598-4076, https://orcid.org/0000-0002-6043-7920, https://orcid.org/0000-0002-7200-0099, https://orcid.org/0000-0002-8261-334X, https://orcid.org/0000-0002-4449-6701, https://orcid.org/0000-0002-3479-801X, https://orcid.org/0000-0003-1074-2764, https://psc.apl.uw.edu/people/investigators/rebecca-woodgate/
 - **Contributing Institutions**: Norwegian Polar Institute (NPI), Alfred Wegener Institute (AWI), Institute for Marine Research (Bergen), Applied Physics Laboratory (University of Washington)
@@ -343,7 +521,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source Path\***: ~/AMOCatlas/data/Adjusted_fulldepth/BeringStrait_adjusted_v_fulldepth.nc
 - **Source Url\***: https://doi.org/10.21334/NPOLAR.2025.80B69907
 - **Date Created**: 2025-10-31T23:55:53Z
-- **Date Modified**: 2026-02-08T13:38:56Z
+- **Date Modified**: 2026-02-08T20:00:21Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: arcticgateway
@@ -413,21 +591,21 @@ The following table shows information about the dataset coordinates in the stand
      - Missing %
    * - *depth* → **DEPTH**
      - **Depth**:  Depth below surface of the water
-     - meters
+     - m
      - (665,)
      - 0.00
      - 2656.00
      - 0.0%
    * - *lat* → **LATITUDE**
      - **Latitude**: Latitude north (WGS84)
-     - degrees_north
+     - degree_north
      - ()
      - 78.83
      - 78.83
      - 0.0%
    * - *lon* → **LONGITUDE**
      - **Longitude**: Longitude east (WGS84)
-     - degrees_east
+     - degree_east
      - (234,)
      - -20.55
      - 11.87
@@ -460,7 +638,7 @@ along with key statistics for each variable.
      - Missing %
    * - **CT**
      - **Cons. Temperature**: Conservative Temperature (TEOS-10)
-     - degrees_Celsius
+     - degree_C
      - (212, 665, 234)
      - -2.74
      - 7.34
@@ -504,8 +682,8 @@ The following metadata provides comprehensive information about this dataset:
 - **Creator Url**:  
 - **Creator Institution**: Norwegian Polar Institute (NPI)
 - **Contributor Name**: Norwegian Polar Institute (NPI), Norwegian Polar Institute (NPI), Hege-Beate Fredriksen, Laura de Steur, Wilken-Jon von Appen, Randi Ingvaldsen, Rebecca McPherson, Craig Lee, Jed Lenetsky, Rebecca Woodgate
-- **Contributor Role**: creator, publisher, creator, PI, , , , , , 
-- **Contributor Role Vocabulary**: http://vocab.nerc.ac.uk/search_nvs/W08/
+- **Contributor Role**: originator, publisher, creator, PI, , , , , , 
+- **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
 - **Contributor Email**: post@npolar.no, post@npolar.no, , , , , , , , 
 - **Contributor Id**: www.npolar.no, www.npolar.no, https://orcid.org/0000-0002-3598-4076, https://orcid.org/0000-0002-6043-7920, https://orcid.org/0000-0002-7200-0099, https://orcid.org/0000-0002-8261-334X, https://orcid.org/0000-0002-4449-6701, https://orcid.org/0000-0002-3479-801X, https://orcid.org/0000-0003-1074-2764, https://psc.apl.uw.edu/people/investigators/rebecca-woodgate/
 - **Contributing Institutions**: Norwegian Polar Institute (NPI), Alfred Wegener Institute (AWI), Institute for Marine Research (Bergen), Applied Physics Laboratory (University of Washington)
@@ -521,7 +699,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source Path\***: ~/AMOCatlas/data/Adjusted_fulldepth/FramStrait_adjusted_v_fulldepth.nc
 - **Source Url\***: https://doi.org/10.21334/NPOLAR.2025.80B69907
 - **Date Created**: 2025-10-31T23:55:53Z
-- **Date Modified**: 2026-02-08T13:38:56Z
+- **Date Modified**: 2026-02-08T20:00:21Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: arcticgateway
@@ -534,184 +712,6 @@ The following metadata provides comprehensive information about this dataset:
 - **Depth Limit**: None
 - **Segments Format**: Python dictionary converted to a string. The slices can be applied in xarray coordinate selection
 - **Segments**: {'EGS': {'long_name': 'East Greenland Shelf', 'lon_slice': slice(None, -10.6, None)}, 'EGC': {'long_name': 'East Greenland Current', 'lon_slice': slice(-10.6, -0.6, None)}, 'CFS': {'long_name': 'Central Fram Strait', 'lon_slice': slice(-0.6, 5.1, None)}, 'WSC': {'long_name': 'West Spitsbergen Current', 'lon_slice': slice(5.1, 8.805, None)}, 'WSS': {'long_name': 'West Spitsbergen Shelf', 'lon_slice': slice(8.805, None, None)}}
-- **Project Website**: https://epoc-eu.org
-- **Data Set Language**: eng
-- **Data Assembly Center**: NO/NPI
-- **Creator Type**:  
-
-----
-
-Adjusted_fulldepth/DavisStrait_adjusted_v_fulldepth.nc
-------------------------------------------------------
-
-
-Dataset Overview
-^^^^^^^^^^^^^^^^
-
-- **Project**: Explaining and predicting the ocean conveyor belt, The Fram Strait Arctic Outflow Observatory
-- **Description**: Input data and adjusted data derived with an inverse model of ocean velocity, temperature and salinity obtained from ocean moorings and hydrography from the four main Arctic Gateways Fram Strait, Barents Sea Opening, Bering Strait and Davis Strait
-- **DOI**: https://doi.org/10.21334/npolar.2025.80b69907
-- **Source File**: Adjusted_fulldepth/DavisStrait_adjusted_v_fulldepth.nc
-- **Data Product**: Pan-Arctic Gateway transports since 2004 - Davis Strait
-- **Date Created**: 2025-10-31T23:55:53Z
-- **Time Coverage**: 2004-10-15 to 2022-05-15
-- **Record Length**: 212 observations (17.6 years)
-- **Sampling Frequency**: monthly
-
-**Citation:**
-
-    Fredriksen, H., de Steur, L., von Appen, W., Ingvaldsen, R., McPherson, R., Lee, C., Lenetsky, J., & Woodgate, R. (2025). Pan-Arctic Gateway transports since 2004 [Dataset]. Norwegian Polar Institute. https://doi.org/10.21334/NPOLAR.2025.80B69907
-
-**Acknowledgement:**
-
-    This work is funded by the European Union as part of the EPOC project (Explaining and Predicting the Ocean Conveyor; grant number: 101059547). Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union. Neither the European Union nor the granting authority can be held responsible for them.
-
-Dataset Statistics
-^^^^^^^^^^^^^^^^^^
-
-- **Total Variables**: 3
-- **Total Coordinates**: 4
-- **Dataset Size**: 159.52 MB
-
-Coordinate Information
-^^^^^^^^^^^^^^^^^^^^^^
-
-The following table shows information about the dataset coordinates in the standardised version, including coordinate name remapping from the original, if any:
-
-.. list-table::
-   :widths: 14 14 14 14 14 14 14
-   :header-rows: 1
-
-   * - Coordinate
-     - Description
-     - Units
-     - Size
-     - Min Value
-     - Max Value
-     - Missing %
-   * - *depth* → **DEPTH**
-     - **Depth**:  Depth below surface of the water
-     - meters
-     - (263,)
-     - 0.00
-     - 1048.00
-     - 0.0%
-   * - *lat* → **LATITUDE**
-     - **Latitude**: Latitude north (WGS84)
-     - degrees_north
-     - (125,)
-     - 66.67
-     - 67.32
-     - 0.0%
-   * - *lon* → **LONGITUDE**
-     - **Longitude**: Longitude east (WGS84)
-     - degrees_east
-     - (125,)
-     - -61.26
-     - -53.87
-     - 0.0%
-   * - *time* → **TIME**
-     - Time
-     - datetime64[ns]
-     - (212,)
-     - 2004-10-15
-     - 2022-05-15
-     - 0.0%
-
-
-Variable Information
-^^^^^^^^^^^^^^^^^^^^
-
-The following table shows the mapping from original variable names to standardized names,
-along with key statistics for each variable.
-
-.. list-table::
-   :widths: 14 14 14 14 14 14 14
-   :header-rows: 1
-
-   * - Variable
-     - Description
-     - Units
-     - Size
-     - Min Value
-     - Max Value
-     - Missing %
-   * - **CT**
-     - **Cons. Temperature**: Conservative Temperature (TEOS-10)
-     - degrees_Celsius
-     - (212, 263, 125)
-     - -1.75
-     - 6.74
-     - 0.4%
-   * - **SA**
-     - **Abs. Salinity**: Absolute Salinity (TEOS-10)
-     - g kg-1
-     - (212, 263, 125)
-     - 30.12
-     - 35.25
-     - 0.4%
-   * - *v* → **VCUR**
-     - **V Velocity**: Northward Velocity component
-     - m s-1
-     - (212, 263, 125)
-     - -0.44
-     - 0.19
-     - 0.4%
-
-
-Metadata (edits applied noted)
-^^^^^^^^^^^^^^^^^
-
-The following metadata provides comprehensive information about this dataset:
-
-- **Title**: Pan-Arctic Gateway transports since 2004
-- **Summary**: Input data and adjusted data derived with an inverse model of ocean velocity, temperature and salinity obtained from ocean moorings and hydrography from the four main Arctic Gateways Fram Strait, Barents Sea Opening, Bering Strait and Davis Strait
-- **Description**: Input data and adjusted data derived with an inverse model of ocean velocity, temperature and salinity obtained from ocean moorings and hydrography from the four main Arctic Gateways Fram Strait, Barents Sea Opening, Bering Strait and Davis Strait
-- **Program**: Pan-Arctic Gateway transports since 2004
-- **Project**: Explaining and predicting the ocean conveyor belt, The Fram Strait Arctic Outflow Observatory
-- **Source**: Mooring and CTD data
-- **License**: CC-BY-4.0
-- **Acknowledgment**: This work is funded by the European Union as part of the EPOC project (Explaining and Predicting the Ocean Conveyor; grant number: 101059547). Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union. Neither the European Union nor the granting authority can be held responsible for them.
-- **Doi**: https://doi.org/10.21334/npolar.2025.80b69907
-- **Weblink**: https://doi.org/10.21334/NPOLAR.2025.80B69907
-- **Data Product\***: Pan-Arctic Gateway transports since 2004 - Davis Strait
-- **Time Coverage Start**: 2004-10-15
-- **Time Coverage End**: 2022-05-15
-- **Creator Name**: H. Fredriksen
-- **Creator Email**:  
-- **Creator Url**:  
-- **Creator Institution**: Norwegian Polar Institute (NPI)
-- **Contributor Name**: Norwegian Polar Institute (NPI), Norwegian Polar Institute (NPI), Hege-Beate Fredriksen, Laura de Steur, Wilken-Jon von Appen, Randi Ingvaldsen, Rebecca McPherson, Craig Lee, Jed Lenetsky, Rebecca Woodgate
-- **Contributor Role**: creator, publisher, creator, PI, , , , , , 
-- **Contributor Role Vocabulary**: http://vocab.nerc.ac.uk/search_nvs/W08/
-- **Contributor Email**: post@npolar.no, post@npolar.no, , , , , , , , 
-- **Contributor Id**: www.npolar.no, www.npolar.no, https://orcid.org/0000-0002-3598-4076, https://orcid.org/0000-0002-6043-7920, https://orcid.org/0000-0002-7200-0099, https://orcid.org/0000-0002-8261-334X, https://orcid.org/0000-0002-4449-6701, https://orcid.org/0000-0002-3479-801X, https://orcid.org/0000-0003-1074-2764, https://psc.apl.uw.edu/people/investigators/rebecca-woodgate/
-- **Contributing Institutions**: Norwegian Polar Institute (NPI), Alfred Wegener Institute (AWI), Institute for Marine Research (Bergen), Applied Physics Laboratory (University of Washington)
-- **Contributing Institutions Vocabulary**: https://edmo.seadatanet.org/report/1760, https://edmo.seadatanet.org/report/1368, https://edmo.seadatanet.org/report/1351, https://edmo.seadatanet.org/report/1554
-- **Contributing Institutions Role**: , , , 
-- **Publisher Name**: H. Fredriksen
-- **Publisher Email**:  
-- **Publisher Type**: institution
-- **Conventions**: , OceanSITES-1.5
-- **featureType**: timeSeriesProfile
-- **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
-- **Source File\***: Adjusted_fulldepth/DavisStrait_adjusted_v_fulldepth.nc
-- **Source Path\***: ~/AMOCatlas/data/Adjusted_fulldepth/DavisStrait_adjusted_v_fulldepth.nc
-- **Source Url\***: https://doi.org/10.21334/NPOLAR.2025.80B69907
-- **Date Created**: 2025-10-31T23:55:53Z
-- **Date Modified**: 2026-02-08T13:38:56Z
-- **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.2.0
-- **Processing Datasource\***: arcticgateway
-- **Product Version**: v0
-- **Variable Mapping\***: {'time': 'TIME', 'depth': 'DEPTH', 'lon': 'LONGITUDE', 'lat': 'LATITUDE', 'v': 'VCUR'}
-- **Original Variable Metadata\***: [Complex metadata structure - 7 items]
-- **Applied Variable Mapping**: {'time': 'TIME', 'depth': 'DEPTH', 'lon': 'LONGITUDE', 'lat': 'LATITUDE', 'v': 'VCUR', 'TIME': 'TIME', 'DEPTH': 'DEPTH'}
-- **Gateway**: DavisStrait
-- **Adjustments**: v is adjusted by a constant monthly value obtained from the inverse model, for all grid cells in a segment
-- **Depth Limit**: None
-- **Segments Format**: Python dictionary converted to a string. The slices can be applied in xarray coordinate selection
-- **Segments**: {'WDS': {'long_name': 'Western Davis Strait', 'lon_slice': slice(None, -57.6, None)}, 'EDS': {'long_name': 'Eastern Davis Strait', 'lon_slice': slice(-57.6, None, None)}}
 - **Project Website**: https://epoc-eu.org
 - **Data Set Language**: eng
 - **Data Assembly Center**: NO/NPI

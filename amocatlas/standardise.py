@@ -442,6 +442,10 @@ def _consolidate_contributors(cleaned: dict) -> dict:
 
             # Update cleaned dictionary with processed results
             cleaned.update(processed)
+            
+            # Add NERC G04 vocabulary URL if we have contributor roles
+            if "contributor_role" in cleaned and cleaned["contributor_role"]:
+                cleaned["contributor_role_vocabulary"] = "https://vocab.nerc.ac.uk/collection/G04/current/"
 
             log_debug("Processed contributor metadata: %s", processed)
 
@@ -452,6 +456,10 @@ def _consolidate_contributors(cleaned: dict) -> dict:
             cleaned["contributor_role"] = roles_str
             cleaned["contributor_email"] = emails_str
             cleaned["contributor_id"] = ids_str
+            
+            # Add vocabulary URL in fallback case too
+            if roles_str:
+                cleaned["contributor_role_vocabulary"] = "https://vocab.nerc.ac.uk/collection/G04/current/"
 
     # Step B: consolidate institution keys using new modular approach
     # Collect all institution-related fields from various sources
@@ -731,7 +739,7 @@ def standardize_longitude_coordinate(ds: xr.Dataset) -> xr.Dataset:
         "long_name": "Longitude",
         "description": "Longitude east (WGS84)",
         "standard_name": "longitude",
-        "units": "degrees_east",
+        "units": "degree_east",  # TODO: This is clunky. We need a better way to update the list of preferred units so we don't have to do it in 5 different places.
     }
 
     ds["LONGITUDE"].attrs.update(standard_lon_attrs)
@@ -783,7 +791,7 @@ def standardize_latitude_coordinate(ds: xr.Dataset) -> xr.Dataset:
         "long_name": "Latitude",
         "description": "Latitude north (WGS84)",
         "standard_name": "latitude",
-        "units": "degrees_north",
+        "units": "degree_north",  # TODO: This is clunky. We need a better way to update the list of preferred units so we don't have to do it in 5 different places.
     }
 
     ds["LATITUDE"].attrs.update(standard_lat_attrs)
@@ -833,7 +841,7 @@ def standardize_depth_coordinate(ds: xr.Dataset) -> xr.Dataset:
         "long_name": "Depth",
         "description": " Depth below surface of the water",
         "standard_name": "depth",
-        "units": "meters",
+        "units": "m",  # TODO: This is clunky. We need a better way to update the list of preferred units so we don't have to do it in 5 different places.
     }
 
     ds["DEPTH"].attrs.update(standard_depth_attrs)

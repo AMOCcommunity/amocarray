@@ -31,30 +31,41 @@ For recommendations or bug reports, please visit https://github.com/AMOCcommunit
    :maxdepth: 2
    :caption: Dataset Reports
 
-   reports/index
+   reports/rapid_report
+   reports/osnap_report
+   reports/move_report
+   reports/samba_report
+   reports/fw2015_report
+   reports/mocha_report
+   reports/wh41n_report
+   reports/noac47n_report
+   reports/arcticgateway_report
+   reports/dso_report
+   reports/fbc_report
+   reports/calafat2025_report
+   reports/zheng2024_report
 
 .. toctree::
    :maxdepth: 2
-   :caption: Data format
+   :caption: AC-0.1 Format 
 
-   data_formats/format_overview
-   data_formats/format_orig
-   data_formats/format_conversion
-   data_formats/format_AC1
+   reference/AC1_format
+   reference/AC1_variables
+   reference/AC1_units
+   reference/variables
+
 
 .. toctree::
    :maxdepth: 2
    :caption: Reference
 
-   reference/AC1_vocabularies
-   reference/AC1_units
-   reference/AC1_variables
+   reference/format_AC1
    amoc_paperfigs-output.ipynb
 
 
 .. toctree::
    :maxdepth: 2
-   :caption: Repo and API
+   :caption: Repository and API
 
    GitHub Repo <http://github.com/AMOCcommunity/amocatlas>
    amocatlas

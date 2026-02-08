@@ -105,43 +105,43 @@ files:
         long_name: "Temperature"
         description: >
           time-varying basinwide mean potential temperature profile
-        units: degrees C
+        units: degree_C
         standard_name: sea_water_potential_temperature
       T_basin_mean:
         long_name: "Mean Temperature"
         description: >
           time-mean basinwide mean potential temperature profile
-        units: degrees C
+        units: degree_C
         standard_name: sea_water_potential_temperature
       T_fc_fwt:
         long_name: "FC Temperature"
         description: >
           time-varying Florida Current flow-weighted potential temperature
-        units: degrees C
+        units: degree_C
         standard_name: sea_water_potential_temperature
       V_basin:
         long_name: "Transport per unit depth"
         description: >
           time-varying basinwide mean transport profile
-        units: Sv/m
+        units: Sverdrup/m
         standard_name: northward_sea_water_velocity
       V_basin_mean:
         long_name: "Mean Transport per unit depth"
         description: >
           time-mean basinwide mean transport profile
-        units: Sv/m
+        units: Sverdrup/m
         standard_name: northward_sea_water_velocity
       V_fc:
         long_name: "FC Transport per unit depth"
         description: >
           time-varying Florida Current transport profile
-        units: Sv/m
+        units: Sverdrup/m
         standard_name: northward_sea_water_velocity
       V_fc_mean:
         long_name: "Mean FC Transport per unit depth"
         description: >
           time-mean Florida Current transport profile
-        units: Sv/m
+        units: Sverdrup/m
         standard_name: northward_sea_water_velocity
       trans_ek:
         long_name: "Ekman"
@@ -153,25 +153,25 @@ files:
         long_name: "FC"
         description: >
           time-varying Florida Current transport (from the cable)
-        units: Sv
+        units: Sverdrup
         standard_name: ocean_volume_transport_across_line
       maxmoc:
         long_name: "MOC"
         description: >
           time-varying maximum value of MOC streamfunction
-        units: Sv
+        units: Sverdrup
         standard_name: ocean_meridional_overturning_transport
       moc:
-        long_name: "Streamfunction"
+        long_name: "MOC_Z"
         description: >
           time-varying MOC streamfunction vs. depth
-        units: Sv
+        units: Sverdrup
         standard_name: ocean_meridional_overturning_streamfunction
       z:
         long_name: "Depth"
         description: >
           the depth array that corresponds to the profile variables
-        units: meters
+        units: m
         standard_name: "Depth"
       time:
         long_name: "Time"

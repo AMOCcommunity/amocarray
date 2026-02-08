@@ -25,5 +25,5 @@ files:
       DSO_tr:
         long_name: "DS Overflow"
         description: "Denmark Strait Overflow volume transport"
-        units: Sv
+        units: Sverdrup
         standard_name: ocean_volume_transport_across_line

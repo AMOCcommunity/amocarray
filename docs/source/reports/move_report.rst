@@ -1,7 +1,7 @@
-MOVE Dataset Report
-===================
+MOVE Datasets
+=============
 
-*Generated: 2026-02-08*
+*Generated: |today|*
 
 This report covers all available MOVE datasets.
 
@@ -67,14 +67,14 @@ The following table shows information about the dataset coordinates in the stand
      - Missing %
    * - *location_center_latitude* → **LATITUDE**
      - **Latitude**: Latitude north (WGS84)
-     - degrees_north
+     - degree_north
      - ()
      - 16.04
      - 16.04
      - 0.0%
    * - *location_center_longitude* → **LONGITUDE**
      - **Longitude**: Longitude east (WGS84)
-     - degrees_east
+     - degree_east
      - ()
      - -57.56
      - -57.56
@@ -192,7 +192,8 @@ The following metadata provides comprehensive information about this dataset:
 - **Time Coverage Start\***: 2000-02-06
 - **Time Coverage End\***: 2022-10-14
 - **Contributor Name**: Matthias Lankhorst, Uwe Send
-- **Contributor Role**: creator, Principal Investigator
+- **Contributor Role**: originator, Principal Investigator
+- **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
 - **Contributor Email**: , 
 - **Contributor Id**: https://orcid.org/0000-0002-4166-4044, https://orcid.org/0000-0002-7682-5688
 - **Contributing Institutions**: Scripps Institution of Oceanography
@@ -204,7 +205,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source File\***: OS_MOVE_20000206-20221014_DPR_VOLUMETRANSPORT.nc
 - **Source Path\***: ~/AMOCatlas/data/OS_MOVE_20000206-20221014_DPR_VOLUMETRANSPORT.nc
 - **Date Created**: 2025-04-23T01:35:26Z
-- **Date Modified**: 2026-02-08T13:38:51Z
+- **Date Modified**: 2026-02-08T20:00:16Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: move16n
@@ -275,14 +276,14 @@ The following table shows information about the dataset coordinates in the stand
      - Missing %
    * - **LATITUDE**
      - **Latitude**: Latitude north (WGS84)
-     - degrees_north
+     - degree_north
      - (2,)
      - 16.33
      - 16.34
      - 0.0%
    * - **LONGITUDE**
      - **Longitude**: Longitude east (WGS84)
-     - degrees_east
+     - degree_east
      - (2,)
      - -60.61
      - -60.51
@@ -322,21 +323,21 @@ along with key statistics for each variable.
      - Missing %
    * - *instrument_depth_time_varying* → **DEPTH**
      - **Depth**: Depth of velocity measurements at MOVE sites MOVE3-MOVE4
-     - meters
+     - m
      - (2, 8330, 8)
      - 160.17
      - 4970.03
      - 1.2%
    * - *latitude_time_varying* → **LATITUDE_VARYING**
      - **Latitude**: Latitude of site, including differences between deployments
-     - degrees_north
+     - degree_north
      - (2, 8330)
      - 16.33
      - 16.36
      - 1.1%
    * - *longitude_time_varying* → **LONGITUDE_VARYING**
      - **Longitude**: Longitude of site, including differences between deployments
-     - degrees_east
+     - degree_east
      - (2, 8330)
      - -60.61
      - -60.49
@@ -394,7 +395,8 @@ The following metadata provides comprehensive information about this dataset:
 - **Geospatial Vertical Min**: 1250.0
 - **Geospatial Vertical Max**: 4950.0
 - **Contributor Name**: Matthias Lankhorst, Uwe Send
-- **Contributor Role**: creator, Principal Investigator
+- **Contributor Role**: originator, Principal Investigator
+- **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
 - **Contributor Email**: , 
 - **Contributor Id**: https://orcid.org/0000-0002-4166-4044, https://orcid.org/0000-0002-7682-5688
 - **Contributing Institutions**: Scripps Institution of Oceanography
@@ -407,7 +409,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source File\***: OS_MOVE_20000101-20221021_GRD_CURRENTS-AT-SITES-MOVE3-MOVE4.nc
 - **Source Path\***: ~/AMOCatlas/data/OS_MOVE_20000101-20221021_GRD_CURRENTS-AT-SITES-MOVE3-MOVE4.nc
 - **Date Created**: 2019-01-30T18:13:16Z
-- **Date Modified**: 2026-02-08T13:38:51Z
+- **Date Modified**: 2026-02-08T20:00:16Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: move16n
@@ -484,14 +486,14 @@ The following table shows information about the dataset coordinates in the stand
      - Missing %
    * - **LATITUDE**
      - **Latitude**: Latitude north (WGS84)
-     - degrees_north
+     - degree_north
      - (2,)
      - 15.45
      - 16.34
      - 0.0%
    * - **LONGITUDE**
      - **Longitude**: Longitude east (WGS84)
-     - degrees_east
+     - degree_east
      - (2,)
      - -60.51
      - -51.51
@@ -531,35 +533,35 @@ along with key statistics for each variable.
      - Missing %
    * - *instrument_depth_time_varying* → **DEPTH**
      - **Depth**: Depth of temperature and salinity measurements at MOVE sites MOVE1-MOVE3
-     - meters
+     - m
      - (2, 4164, 22)
      - 4.97
      - 5312.91
      - 0.6%
    * - *latitude_time_varying* → **LATITUDE_VARYING**
      - **Latitude**: Latitude of site, including differences between deployments
-     - degrees_north
+     - degree_north
      - (2, 4164)
      - 15.32
      - 16.34
      - 0.6%
    * - *longitude_time_varying* → **LONGITUDE_VARYING**
      - **Longitude**: Longitude of site, including differences between deployments
-     - degrees_east
+     - degree_east
      - (2, 4164)
      - -60.52
      - -51.50
      - 0.6%
    * - *SALINITY* → **PSAL**
      - **Salinity**: Salinity at MOVE sites MOVE1-MOVE3
-     - PSU
+     - 1
      - (2, 4164, 99)
      - 33.88
      - 37.48
      - 0.6%
    * - *TEMPERATURE* → **TEMP**
      - **Temperature (ITS-90)**: Temperature at MOVE sites MOVE1-MOVE3 (ITS-90)
-     - degrees_Celsius
+     - degree_C
      - (2, 4164, 99)
      - 1.84
      - 29.26
@@ -603,7 +605,8 @@ The following metadata provides comprehensive information about this dataset:
 - **Geospatial Vertical Min**: 50.0
 - **Geospatial Vertical Max**: 4950.0
 - **Contributor Name**: Matthias Lankhorst, Uwe Send
-- **Contributor Role**: creator, Principal Investigator
+- **Contributor Role**: originator, Principal Investigator
+- **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
 - **Contributor Email**: , 
 - **Contributor Id**: https://orcid.org/0000-0002-4166-4044, https://orcid.org/0000-0002-7682-5688
 - **Contributing Institutions**: Scripps Institution of Oceanography
@@ -616,7 +619,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source File\***: OS_MOVE_20000101-20221018_GRD_TEMPERATURE-SALINITY-AT-SITES-MOVE1-MOVE3.nc
 - **Source Path\***: ~/AMOCatlas/data/OS_MOVE_20000101-20221018_GRD_TEMPERATURE-SALINITY-AT-SITES-MOVE1-MOVE3.nc
 - **Date Created**: 2019-01-30T18:13:16Z
-- **Date Modified**: 2026-02-08T13:38:51Z
+- **Date Modified**: 2026-02-08T20:00:16Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: move16n

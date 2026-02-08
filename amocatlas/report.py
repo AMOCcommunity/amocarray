@@ -1119,10 +1119,10 @@ class ReportUtils:
             lines = []
             lines.extend(
                 [
-                    f"{array_name.upper()} Dataset Report",
-                    "=" * (len(array_name) + 15),
+                    f"{array_name.upper()} Datasets",
+                    "=" * (len(array_name) + 9),
                     "",
-                    f'*Generated: {datetime.now().strftime("%Y-%m-%d")}*',
+                    f'*Generated: |today|*',
                     "",
                     f"This report covers all available {array_name.upper()} datasets.",
                     "",
@@ -1815,13 +1815,13 @@ def _generate_rst_report(
     lines = []
 
     # Title
-    title = f"{dataset_name.upper()} Dataset Report"
+    title = f"{dataset_name.upper()} Datasets"
     lines.extend(
         [
             title,
             "=" * len(title),
             "",
-            f"*Generated: {report_data.analysis_time.strftime('%Y-%m-%d')}*",
+            f"*Generated: |today|*",
             "",
         ]
     )

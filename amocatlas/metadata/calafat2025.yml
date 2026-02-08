@@ -38,7 +38,7 @@ files:
       latitude:
         long_name: "Latitude of zonal sections"
         description: "Latitude of zonal sections across which heat transport is computed"
-        units: "degrees_north"
+        units: degree_north
         standard_name: latitude
       mht:
         long_name: "MHT"

@@ -1,7 +1,7 @@
-RAPID Dataset Report
-====================
+RAPID Datasets
+==============
 
-*Generated: 2026-02-08*
+*Generated: |today|*
 
 This report covers all available RAPID datasets.
 
@@ -182,7 +182,8 @@ The following metadata provides comprehensive information about this dataset:
 - **Time Coverage Start\***: 2004-04-02
 - **Time Coverage End\***: 2024-03-27
 - **Contributor Name**: Ben I. Moat, Ben I. Moat
-- **Contributor Role**: creator, PI
+- **Contributor Role**: originator, principalInvestigator
+- **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
 - **Contributor Email**: ben.moat@noc.ac.uk, 
 - **Contributor Id**: https://orcid.org/0000-0001-8676-7779, https://orcid.org/0000-0001-8676-7779
 - **Contributing Institutions**: National Oceanography Centre (Southampton)
@@ -194,7 +195,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source File\***: moc_transports.nc
 - **Source Path\***: ~/AMOCatlas/data/moc_transports.nc
 - **Date Created**: 23-Sep-2025
-- **Date Modified**: 2026-02-08T13:38:36Z
+- **Date Modified**: 2026-02-08T20:00:02Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: rapid26n
@@ -270,7 +271,7 @@ The following table shows information about the dataset coordinates in the stand
      - Missing %
    * - *depth* → **DEPTH**
      - **Depth**:  Depth below surface of the water
-     - meters
+     - m
      - (307,)
      - 0.00
      - 5995.07
@@ -331,7 +332,8 @@ The following metadata provides comprehensive information about this dataset:
 - **Time Coverage Start\***: 2004-04-02
 - **Time Coverage End\***: 2024-03-27
 - **Contributor Name**: Ben I. Moat, Ben I. Moat
-- **Contributor Role**: creator, PI
+- **Contributor Role**: originator, principalInvestigator
+- **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
 - **Contributor Email**: ben.moat@noc.ac.uk, 
 - **Contributor Id**: https://orcid.org/0000-0001-8676-7779, https://orcid.org/0000-0001-8676-7779
 - **Contributing Institutions**: National Oceanography Centre (Southampton)
@@ -343,12 +345,12 @@ The following metadata provides comprehensive information about this dataset:
 - **Source File\***: moc_vertical.nc
 - **Source Path\***: ~/AMOCatlas/data/moc_vertical.nc
 - **Date Created**: 22-Jan-2026
-- **Date Modified**: 2026-02-08T13:38:36Z
+- **Date Modified**: 2026-02-08T20:00:02Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: rapid26n
 - **Variable Mapping\***: {'time': 'TIME', 'depth': 'DEPTH', 'stream_function_mar': 'STREAMFUNCTION_Z'}
-- **Original Variable Metadata\***: {'stream_function_mar': {'long_name': 'Streamfunction', 'description': 'Streamfunction across the Atlantic at 26.5°N', 'units': 'Sv', 'standard_name': 'ocean_meridional_overturning_streamfunction'}}
+- **Original Variable Metadata\***: [Complex metadata structure - 1 items]
 - **Applied Variable Mapping**: {'time': 'TIME', 'depth': 'DEPTH', 'stream_function_mar': 'STREAMFUNCTION_Z', 'TIME': 'TIME', 'DEPTH': 'DEPTH'}
 - **Version**: v2024.1a
 
@@ -452,7 +454,7 @@ along with key statistics for each variable.
      - Missing %
    * - *SG_east* → **PSAL_EAST**
      - Salinity east 26.99N/16.23W
-     - PSU
+     - 1
      - (242, 14599)
      - 34.89
      - 36.96
@@ -466,7 +468,7 @@ along with key statistics for each variable.
      - 0.0%
    * - *SG_mareast* → **PSAL_MAREAST**
      - Salinity MAR east 24.52N/41.21W
-     - PSU
+     - 1
      - (242, 14599)
      - 34.88
      - 34.98
@@ -480,7 +482,7 @@ along with key statistics for each variable.
      - 0.0%
    * - *SG_marwest* → **PSAL_MARWEST**
      - Salinity MAR west 24.52N/50.57W
-     - PSU
+     - 1
      - (242, 14599)
      - 34.86
      - 37.78
@@ -494,14 +496,14 @@ along with key statistics for each variable.
      - 0.0%
    * - *SG_wb3* → **PSAL_WB3**
      - Salinity WB3 26.50N/76.50W
-     - PSU
+     - 1
      - (242, 14599)
      - 34.87
      - 37.06
      - 1.2%
    * - *SG_west* → **PSAL_WEST**
      - Salinity 26.52N/76.74W
-     - PSU
+     - 1
      - (242, 14599)
      - 34.87
      - 37.11
@@ -515,7 +517,7 @@ along with key statistics for each variable.
      - 0.0%
    * - *TG_east* → **TEMP_EAST**
      - Temperature east 26.99N/16.23W
-     - degrees_Celsius
+     - degree_  C
      - (242, 14599)
      - 2.36
      - 23.74
@@ -529,7 +531,7 @@ along with key statistics for each variable.
      - 0.0%
    * - *TG_mareast* → **TEMP_MAREAST**
      - Temperature MAR east 24.52N/41.21W
-     - degrees_Celsius
+     - degree_C
      - (242, 14599)
      - 2.36
      - 3.29
@@ -543,7 +545,7 @@ along with key statistics for each variable.
      - 0.0%
    * - *TG_marwest* → **TEMP_MARWEST**
      - Temperature MAR west 24.52N/50.57W
-     - degrees_Celsius
+     - degree_C
      - (242, 14599)
      - 2.12
      - 28.80
@@ -557,14 +559,14 @@ along with key statistics for each variable.
      - 0.0%
    * - *TG_wb3* → **TEMP_WB3**
      - Temperature WB3 26.50N/76.50W
-     - degrees_Celsius
+     - degree_C
      - (242, 14599)
      - 2.15
      - 28.77
      - 1.2%
    * - *TG_west* → **TEMP_WEST**
      - Temperature 26.52N/76.74W
-     - degrees_Celsius
+     - degree_C
      - (242, 14599)
      - 2.16
      - 29.23
@@ -599,7 +601,8 @@ The following metadata provides comprehensive information about this dataset:
 - **Time Coverage Start\***: 2004-04-02
 - **Time Coverage End\***: 2024-03-27
 - **Contributor Name**: Ben I. Moat, Ben I. Moat
-- **Contributor Role**: creator, PI
+- **Contributor Role**: originator, principalInvestigator
+- **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
 - **Contributor Email**: ben.moat@noc.ac.uk, 
 - **Contributor Id**: https://orcid.org/0000-0001-8676-7779, https://orcid.org/0000-0001-8676-7779
 - **Contributing Institutions**: National Oceanography Centre (Southampton)
@@ -611,7 +614,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source File\***: ts_gridded.nc
 - **Source Path\***: ~/AMOCatlas/data/ts_gridded.nc
 - **Date Created**: 22-Jan-2026
-- **Date Modified**: 2026-02-08T13:38:36Z
+- **Date Modified**: 2026-02-08T20:00:02Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: rapid26n
@@ -688,14 +691,14 @@ The following table shows information about the dataset coordinates in the stand
      - Missing %
    * - *depth* → **DEPTH**
      - **Depth**:  Depth below surface of the water
-     - meters
+     - m
      - (307,)
      - 0.00
      - 5995.06
      - 0.0%
    * - *longitude* → **LONGITUDE**
      - **Longitude**: Longitude east (WGS84)
-     - degrees_east
+     - degree_east
      - (254,)
      - -79.50
      - -14.12
@@ -728,14 +731,14 @@ along with key statistics for each variable.
      - Missing %
    * - *area* → **AREA**
      - **Grid cell area**: Area of each grid cell
-     - m^2
+     - m2
      - (254, 307)
      - 0.00
      - 1710169.15
      - 0.0%
    * - **CT**
      - **Conservative temperature**: Conservative temperature following TEOS-10 standard
-     - degrees_Celsius
+     - degree_C
      - (730, 254, 307)
      - 1.49
      - 31.43
@@ -797,7 +800,8 @@ The following metadata provides comprehensive information about this dataset:
 - **Time Coverage Start**: 2004-04-06
 - **Time Coverage End**: 2024-03-22
 - **Contributor Name**: Ben I. Moat
-- **Contributor Role**: creator
+- **Contributor Role**: originator
+- **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
 - **Contributor Email**: ben.moat@noc.ac.uk
 - **Contributor Id**: https://orcid.org/0000-0001-8676-7779
 - **Contributing Institutions**: National Oceanography Centre (Southampton)
@@ -809,7 +813,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source File\***: 2d_gridded.nc
 - **Source Path\***: ~/AMOCatlas/data/2d_gridded.nc
 - **Date Created**: 17-Sep-2024
-- **Date Modified**: 2026-02-08T13:38:36Z
+- **Date Modified**: 2026-02-08T20:00:02Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: rapid26n
@@ -889,7 +893,7 @@ The following table shows information about the dataset coordinates in the stand
      - Missing %
    * - *depth* → **DEPTH**
      - **Depth**:  Depth below surface of the water
-     - meters
+     - m
      - (307,)
      - 0.00
      - 5995.06
@@ -948,6 +952,13 @@ along with key statistics for each variable.
      - -0.13
      - 2.10
      - 0.0%
+   * - *amoc_depth* → **MOC**
+     - **MOC_z**: Atlantic meridional overturning circulation strength in depth coordinates
+     - Sverdrup
+     - (730,)
+     - -0.45
+     - 27.68
+     - 0.0%
    * - *amoc_sigma0* → **MOC_SIGMA0**
      - **MOC_sigma0**: Atlantic meridional overturning circulation strength in potential density (sigma0) coordinates
      - Sverdrup
@@ -961,13 +972,6 @@ along with key statistics for each variable.
      - (730,)
      - 7.09
      - 29.23
-     - 0.0%
-   * - *amoc_depth* → **MOC_Z**
-     - **MOC_z**: Atlantic meridional overturning circulation strength in depth coordinates
-     - Sverdrup
-     - (730,)
-     - -0.45
-     - 27.68
      - 0.0%
    * - *pressure* → **PRESSURE**
      - **Pressure**: Sea water pressure at depth
@@ -1019,7 +1023,8 @@ The following metadata provides comprehensive information about this dataset:
 - **Time Coverage Start**: 2004-04-06
 - **Time Coverage End**: 2024-03-22
 - **Contributor Name**: Ben I. Moat
-- **Contributor Role**: creator
+- **Contributor Role**: originator
+- **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
 - **Contributor Email**: ben.moat@noc.ac.uk
 - **Contributor Id**: https://orcid.org/0000-0001-8676-7779
 - **Contributing Institutions**: National Oceanography Centre (Southampton)
@@ -1031,7 +1036,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source File\***: meridional_transports.nc
 - **Source Path\***: ~/AMOCatlas/data/meridional_transports.nc
 - **Date Created**: 17-Sep-2024
-- **Date Modified**: 2026-02-08T13:38:36Z
+- **Date Modified**: 2026-02-08T20:00:02Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: rapid26n

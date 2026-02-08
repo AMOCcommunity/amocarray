@@ -51,93 +51,93 @@ files:
       MOC_ALL:
         long_name: "MOC_sigma0"
         description: "Maximum overturning streamfunction across full OSNAP array"
-        units: Sv
-        standard_name: Transport_anomaly
+        units: Sverdrup
+        standard_name: ocean_meridional_overturning_streamfunction
       MOC_ALL_ERR:
         long_name: "MOC uncertainty"
         description: "Uncertainty in MOC_ALL"
-        units: Sv
-        standard_name: Transport_anomaly
+        units: Sverdrup
+        standard_name: ocean_meridional_overturning_streamfunction
       MOC_WEST:
         long_name: "MOC_sigma0,west"
         description: "Overturning streamfunction at OSNAP West"
-        units: Sv
-        standard_name: Transport_anomaly
+        units: Sverdrup
+        standard_name: ocean_meridional_overturning_streamfunction
       MOC_WEST_ERR:
         long_name: "MOCwest uncertainty"
         description: "Uncertainty in MOC_WEST"
-        units: Sv
-        standard_name: Transport_anomaly
+        units: Sverdrup
+        standard_name: ocean_meridional_overturning_streamfunction
       MOC_EAST:
         long_name: "MOCeast(sigma0)"
         description: "Overturning streamfunction at OSNAP East"
-        units: Sv
-        standard_name: Transport_anomaly
+        units: Sverdrup
+        standard_name: ocean_meridional_overturning_streamfunction
       MOC_EAST_ERR:
         long_name: "MOC east uncertainty"
         description: "Uncertainty in MOC_EAST"
-        units: Sv
-        standard_name: Transport_anomaly
+        units: Sverdrup
+        standard_name: ocean_meridional_overturning_streamfunction
       MHT_ALL:
         long_name: "MHT"
         description: "Meridional heat transport across full OSNAP array"
         units: PW
-        standard_name: Heat_transport
+        standard_name: northward_ocean_heat_transport
       MHT_ALL_ERR:
         long_name: "Heat transport uncertainty"
         description: "Uncertainty in MHT_ALL"
         units: PW
-        standard_name: Heat_transport
+        standard_name: northward_ocean_heat_transport
       MHT_EAST:
         long_name: "Heat transport east"
         description: "Meridional heat transport at OSNAP East"
         units: PW
-        standard_name: Heat_transport
+        standard_name: northward_ocean_heat_transport
       MHT_EAST_ERR:
         long_name: "Heat transport east uncertainty"
         description: "Uncertainty in MHT_EAST"
         units: PW
-        standard_name: Heat_transport
+        standard_name: northward_ocean_heat_transport
       MHT_WEST:
         long_name: "Heat transport west"
         description: "Meridional heat transport at OSNAP West"
         units: PW
-        standard_name: Heat_transport
+        standard_name: northward_ocean_heat_transport
       MHT_WEST_ERR:
         long_name: "Heat transport west uncertainty"
         description: "Uncertainty in MHT_WEST"
         units: PW
-        standard_name: Heat_transport
+        standard_name: northward_ocean_heat_transport
       MFT_ALL:
         long_name: "Freshwater transport"
         description: "Meridional freshwater transport across full OSNAP array"
-        units: Sv
-        standard_name: Freshwater_transport
+        units: Sverdrup
+        standard_name: northward_ocean_freshwater_transport
       MFT_ALL_ERR:
         long_name: "Freshwater transport uncertainty"
         description: "Uncertainty in MFT_ALL"
-        units: Sv
-        standard_name: Freshwater_transport
+        units: Sverdrup
+        standard_name: northward_ocean_freshwater_transport
       MFT_EAST:
         long_name: "Freshwater transport east"
         description: "Meridional freshwater transport at OSNAP East"
-        units: Sv
-        standard_name: Freshwater_transport
+        units: Sverdrup
+        standard_name: northward_ocean_freshwater_transport
       MFT_EAST_ERR:
         long_name: "Freshwater transport east uncertainty"
         description: "Uncertainty in MFT_EAST"
-        units: Sv
-        standard_name: Freshwater_transport
+        units: Sverdrup
+        standard_name: northward_ocean_freshwater_transport
       MFT_WEST:
         long_name: "Freshwater transport west"
         description: "Meridional freshwater transport at OSNAP West"
-        units: Sv
-        standard_name: Freshwater_transport
+        units: Sverdrup
+        standard_name: northward_ocean_freshwater_transport
       MFT_WEST_ERR:
         long_name: "Freshwater transport west uncertainty"
         description: "Uncertainty in MFT_WEST"
-        units: Sv
-        standard_name: Freshwater_transport
+        units: Sverdrup
+        standard_name: northward_ocean_freshwater_transport
 
   OSNAP_MOC_MHT_MFT_TimeSeries_201408_202207_2025.nc:
     featureType: timeSeries
@@ -164,93 +164,93 @@ files:
       MOC_ALL:
         long_name: "MOC_sigma0"
         description: "Maximum overturning streamfunction across full OSNAP array"
-        units: Sv
-        standard_name: Transport_anomaly
+        units: Sverdrup
+        standard_name: ocean_meridional_overturning_streamfunction
       MOC_ALL_ERR:
         long_name: "MOC_sigma0 uncertainty"
         description: "Uncertainty in MOC_ALL"
-        units: Sv
-        standard_name: Transport_anomaly
+        units: Sverdrup
+        standard_name: ocean_meridional_overturning_streamfunction
       MOC_WEST:
         long_name: "Western MOC_sigma0"
         description: "Maximum overturning streamfunction across OSNAP West"
-        units: Sv
-        standard_name: Transport_anomaly
+        units: Sverdrup
+        standard_name: ocean_meridional_overturning_streamfunction
       MOC_WEST_ERR:
         long_name: "Western MOC_sigma0 uncertainty"
         description: "Uncertainty in MOC_WEST"
-        units: Sv
-        standard_name: Transport_anomaly
+        units: Sverdrup
+        standard_name: ocean_meridional_overturning_streamfunction
       MOC_EAST:
         long_name: "Eastern MOC_sigma0"
         description: "Maximum overturning streamfunction across OSNAP East"
-        units: Sv
-        standard_name: Transport_anomaly
+        units: Sverdrup
+        standard_name: ocean_meridional_overturning_streamfunction
       MOC_SIGMA0_EAST_ERR:
         long_name: "Eastern MOC_sigma0 uncertainty"
         description: "Uncertainty in MOC_SIGMA0_EAST"
-        units: Sv
-        standard_name: Transport_anomaly
+        units: Sverdrup
+        standard_name: ocean_meridional_overturning_streamfunction
       MHT:
         long_name: "MHT"
         description: "Meridional heat transport across full OSNAP array"
         units: PW
-        standard_name: Heat_transport
+        standard_name: northward_ocean_heat_transport
       MHT_ERR:
         long_name: "MHT uncertainty"
         description: "Uncertainty in MHT"
         units: PW
-        standard_name: Heat_transport
+        standard_name: northward_ocean_heat_transport
       MHT_WEST:
         long_name: "MHT west"
         description: "Meridional heat transport across OSNAP West"
         units: PW
-        standard_name: Heat_transport
+        standard_name: northward_ocean_heat_transport
       MHT_WEST_ERR:
         long_name: "MHT west uncertainty"
         description: "Uncertainty in MHT_WEST"
         units: PW
-        standard_name: Heat_transport
+        standard_name: northward_ocean_heat_transport
       MHT_EAST:
         long_name: "MHT east"
         description: "Meridional heat transport across OSNAP East"
         units: PW
-        standard_name: Heat_transport
+        standard_name: northward_ocean_heat_transport
       MHT_EAST_ERR:
         long_name: "MHT east uncertainty"
         description: "Uncertainty in MHT_EAST"
         units: PW
-        standard_name: Heat_transport
+        standard_name: northward_ocean_heat_transport
       MFT:
         long_name: "Freshwater trans."
         description: "Meridional freshwater transport across full OSNAP array"
-        units: Sv
-        standard_name: Freshwater_transport
+        units: Sverdrup
+        standard_name: northward_ocean_freshwater_transport
       MFT_ERR:
         long_name: "Freshwater trans. error"
         description: "Uncertainty in MFT"
-        units: Sv
-        standard_name: Freshwater_transport
+        units: Sverdrup
+        standard_name: northward_ocean_freshwater_transport
       MFT_WEST:
         long_name: "Freshwater trans. west"
         description: "Meridional freshwater transport across OSNAP West"
-        units: Sv
-        standard_name: Freshwater_transport
+        units: Sverdrup
+        standard_name: northward_ocean_freshwater_transport
       MFT_WEST_ERR:
         long_name: "Freshwater trans. west error"
         description: "Uncertainty in MFT_WEST"
-        units: Sv
-        standard_name: Freshwater_transport
+        units: Sverdrup
+        standard_name: northward_ocean_freshwater_transport
       MFT_EAST:
         long_name: "Freshwater trans. east"
         description: "Meridional freshwater transport across OSNAP East"
-        units: Sv
-        standard_name: Freshwater_transport
+        units: Sverdrup
+        standard_name: northward_ocean_freshwater_transport
       MFT_EAST_ERR:
         long_name: "Freshwater trans. east error"
         description: "Uncertainty in MFT_EAST"
-        units: Sv
-        standard_name: Freshwater_transport
+        units: Sverdrup
+        standard_name: northward_ocean_freshwater_transport
 
   OSNAP_Streamfunction_201408_202006_2023.nc:
     citation: >
@@ -276,17 +276,17 @@ files:
       T_ALL:
         long_name: "Streamfunction"
         description: "Streamfunction in σθ coordinates across full OSNAP"
-        units: Sv
+        units: Sverdrup
         standard_name: ocean_meridional_overturning_streamfunction
       T_WEST:
         long_name: "Streamfunction west"
         description: "Streamfunction in σθ at OSNAP West"
-        units: Sv
+        units: Sverdrup
         standard_name: ocean_meridional_overturning_streamfunction
       T_EAST:
         long_name: "Streamfunction east"
         description: "Streamfunction in σθ at OSNAP East"
-        units: Sv
+        units: Sverdrup
         standard_name: ocean_meridional_overturning_streamfunction
 
   OSNAP_Streamfunction_201408_202207_2025.nc:
@@ -313,20 +313,20 @@ files:
       T_ALL:
         long_name: "Streamfunction"
         description: "Streamfunction in σθ coordinates across full OSNAP"
-        units: Sv
+        units: Sverdrup
         standard_name: ocean_meridional_overturning_streamfunction
       T_WEST:
         long_name: "Streamfunction west"
         description: "Streamfunction in σθ at OSNAP West"
-        units: Sv
+        units: Sverdrup
         standard_name: ocean_meridional_overturning_streamfunction
       T_EAST:
         long_name: "Streamfunction east"
         description: "Streamfunction in σθ at OSNAP East"
-        units: Sv
+        units: Sverdrup
         standard_name: ocean_meridional_overturning_streamfunction
 
-  OSNAP_Gridded_TSV_201408_202006_2023.nc:
+  OSNAP_Gridded_TSverdrup_201408_202006_2023.nc:
     featureType: timeSeriesProfile
     citation: >
       Fu, Y., Lozier, M.S., Biló, T.C. et al. Seasonality of the Meridional Overturning Circulation in the subpolar North Atlantic. Commun Earth Environ 4, 181 (2023). https://doi.org/10.1038/s43247-023-00848-9
@@ -343,17 +343,17 @@ files:
       DEPTH:
         long_name: "Depth"
         description: "Depth in meters"
-        units: meters
+        units: m
         standard_name: depth
       LONGITUDE:
         long_name: "Longitude"
         description: "Longitude in degrees"
-        units: degrees_east
+        units: degree_east
         standard_name: longitude
       LATITUDE:
         long_name: "Latitude"
         description: "Latitude in degrees"
-        units: degrees_north
+        units: degree_north
         standard_name: latitude
       VELO:
         long_name: "Velocity"
@@ -363,15 +363,15 @@ files:
       TEMP:
         long_name: "Temperature"
         description: "In-situ temperature along OSNAP"
-        units: degrees_celsius
+        units: degree_C
         standard_name: sea_water_temperature
       SAL:
         long_name: "Salinity"
         description: "Practical salinity along OSNAP"
-        units: PSU
+        units: 1
         standard_name: sea_water_practical_salinity
 
-  OSNAP_Gridded_TSV_201408_202207_2025.nc:
+  OSNAP_Gridded_TSverdrup_201408_202207_2025.nc:
     featureType: timeSeriesProfile
     citation: >
       Fu, Y., Lozier, M. S., Bower, A., Burmeister, K., Carrilho Biló, T., Cyr, F., et al. (2025). Characterizing the interannual variability of North Atlantic subpolar overturning. Geophysical Research Letters, 52, e2025GL114672. https://doi.org/10.1029/2025GL114672
@@ -390,18 +390,18 @@ files:
       DEPTH:
         long_name: "Depth"
         description: "Depth below sea surface"
-        units: meters
+        units: m
         standard_name: depth
         positive: down
       LONGITUDE:
         long_name: "Longitude"
         description: "Longitude coordinate"
-        units: degrees_east
+        units: degree_east
         standard_name: longitude
       LATITUDE:
         long_name: "Latitude"
         description: "Latitude coordinate"
-        units: degrees_north
+        units: degree_north
         standard_name: latitude
       VELO:
         long_name: "Velocity"
@@ -411,10 +411,10 @@ files:
       TEMP:
         long_name: "Temperature"
         description: "In-situ temperature along OSNAP"
-        units: degrees_celsius
+        units: degree_C
         standard_name: sea_water_temperature
       SAL:
         long_name: "Salinity"
         description: "Practical salinity along OSNAP"
-        units: PSU
+        units: 1
         standard_name: sea_water_practical_salinity

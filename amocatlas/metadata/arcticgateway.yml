@@ -47,22 +47,22 @@ files:
       depth:
         long_name: "Depth"
         description: "Depth, interpolated to 4 m resolution"
-        units: "meters"
+        units: m
         standard_name: "depth"
       lon:
         long_name: "Longitude"
         description: "Longitude of zonal sections across which freshwater transport is computed."
-        units: "degrees"
+        units: degree_east
         standard_name: "longitude"
       lat:
         long_name: "Latitude"
         description: "Latitude of zonal sections across which freshwater transport is computed."
-        units: "degrees"
+        units: degree_north
         standard_name: "latitude"
       CT:
         long_name: "Cons. Temperature"
         description: "Conservative Temperature (TEOS-10)"
-        units: "degrees Celsius"
+        units: degree_C
         standard_name: "sea_water_conservative_temperature"
       SA:
         long_name: "Abs. Salinity"
@@ -92,22 +92,22 @@ files:
       DEPTH:
         long_name: "Depth"
         description: "Depth, interpolated to 4 m resolution"
-        units: "meters"
+        units: m
         standard_name: "depth"
       LONGITUDE:
         long_name: "Longitude"
         description: "Longitude of zonal sections across which freshwater transport is computed."
-        units: "degrees"
+        units: degree_east
         standard_name: "longitude"
       LATITUDE:
         long_name: "Latitude"
         description: "Latitude of zonal sections across which freshwater transport is computed."
-        units: "degrees"
+        units: degree_north 
         standard_name: "latitude"
       conservative_temperature:
         long_name: "Cons. Temperature"
         description: "Conservative Temperature (TEOS-10)"
-        units: "degrees Celsius"
+        units: degree_C
         standard_name: sea_water_conservative_temperature
       absolute_salinity:
         long_name: "Abs. Salinity"
@@ -137,22 +137,22 @@ files:
       DEPTH:
         long_name: "Depth"
         description: "Depth, interpolated to 4 m resolution"
-        units: "meters"
+        units: m
         standard_name: "depth"
       LONGITUDE:
         long_name: "Longitude"
         description: "Longitude of zonal sections across which freshwater transport is computed."
-        units: "degrees"
+        units: degree_east
         standard_name: "longitude"
       LATITUDE:
         long_name: "Latitude"
         description: "Latitude of zonal sections across which freshwater transport is computed."
-        units: "degrees"
+        units: degree_north
         standard_name: "latitude"
       CT:
         long_name: "Cons. Temperature"
         description: "Conservative Temperature (TEOS-10)"
-        units: "degrees Celsius"
+        units: degree_C
         standard_name: sea_water_conservative_temperature
       SA:
         long_name: "Abs. Salinity"
@@ -182,22 +182,22 @@ files:
       DEPTH:
         long_name: "Depth"
         description: "Depth, interpolated to 4 m resolution"
-        units: "meters"
+        units: m
         standard_name: "depth"
       LONGITUDE:
         long_name: "Longitude"
         description: "Longitude of zonal sections across which freshwater transport is computed."
-        units: "degrees"
+        units: degree_east
         standard_name: "longitude"
       LATITUDE:
         long_name: "Latitude"
         description: "Latitude of zonal sections across which freshwater transport is computed."
-        units: "degrees"
+        units: degree_north
         standard_name: "latitude"
       CT:
         long_name: "Cons. Temperature"
         description: "Conservative Temperature (TEOS-10)"
-        units: "degrees Celsius"
+        units: degree_C
         standard_name: sea_water_conservative_temperature
       SA:
         long_name: "Abs. Salinity"

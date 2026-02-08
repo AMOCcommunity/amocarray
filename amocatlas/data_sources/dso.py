@@ -156,7 +156,7 @@ def read_dso(
                     {
                         "long_name": "Depth below surface of the water",
                         "standard_name": "depth",
-                        "units": "meters",
+                        "units": "m",  # TODO: This is clunky. We need a better way to update the list of preferred units so we don't have to do it in 5 different places.
                         "QC_indicator": "bad data",
                         "comment": "Original depth value was corrupted (9.97e+36), set to NaN",
                     }

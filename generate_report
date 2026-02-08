@@ -18,12 +18,10 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 
 from amocatlas.report import ReportUtils
+from amocatlas.defaults import ARRAY_NAMES
 
-# Available data sources (based on data_sources/__init__.py)
-AVAILABLE_SOURCES = [
-    "rapid", "move", "osnap", "samba", "fw2015", "mocha", "arcticgateway", 
-    "dso", "fbc", "calafat2025", "zheng2024", "wh41n", "noac47n"
-]
+# Available data sources (centralized in defaults.py)
+AVAILABLE_SOURCES = ARRAY_NAMES
 
 ALL_SOURCES = AVAILABLE_SOURCES + ["all"]
 

@@ -206,7 +206,7 @@ def read_calafat2025(
                     ds["LAT_BOUNDS"].attrs.update(
                         {
                             "long_name": "Latitude cell boundaries",
-                            "units": "degrees_north",
+                            "units": "degree_north",  # TODO: This is clunky. We need a better way to update the list of preferred units so we don't have to do it in 5 different places.
                             "standard_name": "latitude_bounds",
                         }
                     )

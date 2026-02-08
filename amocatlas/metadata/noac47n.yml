@@ -21,16 +21,18 @@ files:
     source_url: "https://doi.pangaea.de/10.1594/PANGAEA.959558"
     data_product: "Basin-wide AMOC volume transport from the NOAC array at 47°N in the subpolar North Atlantic (1993-2018)"
     variable_mapping:
-      "Trans vol [Sv]": MOC
-      "Trans vol [Sv].1": MOC_LPF
+      "Trans vol [Sv]": MOC_SIGMA0
+      "Trans vol [Sv].1": MOC_SIGMA0_LPF
     original_variable_metadata:
       "Trans vol [Sv]":
         long_name: "MOC_sigma0"
         description: "AMOC volume transport at 47N"
-        units: "Sv"
-        standard_name: "ocean_meridional_overturning_transport"
+        units: Sverdrup
+        reference_pressure: 0
+        standard_name: ocean_meridional_overturning_transport
       "Trans vol [Sv].1":
         long_name: "MOC_sigma0 (filtered)"
         description: "AMOC volume transport at 47N, low-pass filtered"
-        units: "Sv"
-        standard_name: "ocean_meridional_overturning_transport"
+        units: Sverdrup
+        reference_pressure: 0
+        standard_name: ocean_meridional_overturning_transport

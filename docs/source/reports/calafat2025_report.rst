@@ -1,7 +1,7 @@
-CALAFAT2025 Dataset Report
-==========================
+CALAFAT2025 Datasets
+====================
 
-*Generated: 2026-02-08*
+*Generated: |today|*
 
 ----
 
@@ -52,14 +52,14 @@ The following table shows information about the dataset coordinates in the stand
      - Missing %
    * - **LATITUDE**
      - **Latitude**: Latitude north (WGS84)
-     - degrees_north
+     - degree_north
      - (12,)
      - -35.00
      - 65.00
      - 0.0%
    * - **LAT_BOUNDS**
      - Latitude cell boundaries
-     - degrees_north
+     - degree_north
      - (12, 2)
      - -40.00
      - 67.50
@@ -126,7 +126,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Time Coverage End**: 2020-08-14
 - **Contributor Name**: Francisco Calafat, Parvathi Vallivattathillam, Eleanor Frajka-Williams
 - **Contributor Role**: Owner, Data Scientist, PI
-- **Contributor Role Vocabulary**: http://vocab.nerc.ac.uk/search_nvs/W08/
+- **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
 - **Contributor Email**: , , 
 - **Contributor Id**: https://orcid.org/0000-0002-7474-135X, https://orcid.org/0000-0003-1670-964X, https://orcid.org/0000-0001-8773-7838
 - **Contributing Institutions**: National Oceanography Centre (Liverpool), University of the Balearic Islands, University of Hamburg (IfM)
@@ -138,7 +138,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source File\***: Bayesian_estimates_Atlantic_MHT.nc
 - **Source Path\***: ~/AMOCatlas/data/Bayesian_estimates_Atlantic_MHT.nc
 - **Source Url\***: https://zenodo.org/records/16640426
-- **Date Modified**: 2026-02-08T13:39:00Z
+- **Date Modified**: 2026-02-08T20:00:25Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: calafat2025

@@ -1,4 +1,4 @@
-About AMOCatlas
+About 
 ===============
 
 **What is this?**
