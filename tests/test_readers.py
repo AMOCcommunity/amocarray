@@ -307,6 +307,8 @@ def test_load_dataset(array_name, expected_var):
         assert (
             "source_file" in ds.attrs
         ), f"{array_name} dataset should include 'source_file' metadata"
+        # Check for project metadata (case-insensitive)
+        project_keys = [k for k in ds.attrs.keys() if k.lower() == "project"]
         assert (
-            "project" in ds.attrs
-        ), f"{array_name} dataset should include 'project' metadata"
+            len(project_keys) > 0
+        ), f"{array_name} dataset should include 'project' metadata (case-insensitive)"

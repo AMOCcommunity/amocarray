@@ -1,7 +1,7 @@
 OSNAP Dataset Report
 ====================
 
-*Generated: 2026-02-07*
+*Generated: 2026-02-08*
 
 This report covers all available OSNAP datasets.
 
@@ -19,13 +19,23 @@ Dataset Overview
 - **DOI**: https://doi.org/10.35090/gatech/70342
 - **Source File**: OSNAP_MOC_MHT_MFT_TimeSeries_201408_202207_2025.nc
 - **Data Product**: Time series of MOC, MHT, and MFT (2014-2022)
+- **Date Created**: 2025-05-21T15:09:24Z
 - **Time Coverage**: 2014-08-01 to 2022-07-01
 - **Record Length**: 96 observations (7.9 years)
 - **Sampling Frequency**: monthly
 
+**Distribution Statement:**
+
+    Any person making use of OSNAP observational data and/or numerical results must communicate with the responsible investigators at the start of the analysis and anticipate that the data collectors will be co-authors of published results. In cases where investigators choose not to be co-authors on publications that rely on their data, the parties responsible for collecting the data and the sponsoring funding agencies should be acknowledged, including reference to any relevant publications by the originating authors describing the data sets and a reference to the data set itself using its DOI. OSNAP data are intended for scholarly use by the academic and scientific community, with the express understanding that any such use will properly acknowledge the originating investigator.
+
+
 **Citation:**
 
     Fu, Y., Lozier, M. S., Bower, A., Burmeister, K., Carrilho Biló, T., Cyr, F., et al. (2025). Characterizing the interannual variability of North Atlantic subpolar overturning. Geophysical Research Letters, 52, e2025GL114672. https://doi.org/10.1029/2025GL114672
+
+**Acknowledgement:**
+
+    OSNAP data were collected and made freely available by the OSNAP (Overturning in the Subpolar North Atlantic Program) project and all the national programs that contribute to it (www.o-snap.org).
 
 Dataset Visualization
 ^^^^^^^^^^^^^^^^^^^^^
@@ -235,21 +245,20 @@ The following metadata provides comprehensive information about this dataset:
 - **Data Product\***: Time series of MOC, MHT, and MFT (2014-2022)
 - **Time Coverage Start**: 2014-08-01
 - **Time Coverage End**: 2022-07-01
-- **Contributor Name**: OSNAP investigators, Yao Fu, M. Susan Lozier, Amy Bower, Kristin Burmeister, Tiago Carrilho Biló, Frederic Cyr, Stuart A. Cunningham, Brad deYoung, Ahmad Fehmi Dilmahamod, M. Femke de Jong, Nora Fried, N. Penny Holliday, Neil Fraser, William E. Johns, Feili Li, Johannes Karstensen, Robert S. Pickart, Fiammetta Straneo, Igor Yashayaev
-- **Contributor Role**: data design, collection and/or processing
-- **Contributor Email**: , yaofu@usf.edu, susan.lozier@gatech.edu, , , , , , , , , , , , , , , , , 
-- **Contributor Id**: , , , , , , , , , , , , , , , , , , , 
-- **Contributing Institutions**: Multiple contributing institutions (US, UK, Germany, Netherlands, Canada, France, China), Georgia Institute of Technology, USA, National Oceanography Centre at Southampton, UK, Woods Hole Oceanographic Institution, USA, Scottish Association for Marine Science, UK, Royal Netherlands Institute for Sea Research and Utrecht University, Netherlands, Memorial University, Canada, Fisheries and Oceans Canada Northwest Atlantic Fisheries Centre and Institute of Ocean Sciences, Canada, Scripps Institution of Oceanography, UCSD, USA, University of Miami, USA, GEOMAR Helmholtz Centre for Ocean Research Kiel, Germany, Bedford Institute of Oceanography, Canada, Xiamen University, China, University of South Florida, USA
-- **Contributing Institutions Vocabulary**: , , , , , , , , , , , , , 
-- **Contributing Institutions Role**: 
-- **Contributing Institutions Role Vocabulary**: 
+- **Contributor Name**: OSNAP investigators, M. Susan Lozier, Yao Fu, Yao Fu, M. Susan Lozier, Amy Bower, Kristin Burmeister, Tiago Carrilho Biló, Frederic Cyr, Stuart A. Cunningham, Brad deYoung, Ahmad Fehmi Dilmahamod, M. Femke de Jong, Nora Fried, N. Penny Holliday, Neil Fraser, William E. Johns, Feili Li, Johannes Karstensen, Robert Pickart, Fiammetta Straneo, Igor Yashayaev
+- **Contributor Role**: creator, publisher, , data design, collection and/or processing, , , , , , , , , , , , , , , , , 
+- **Contributor Email**: , susan.lozier@gatech.edu, yaofu@usf.edu, , , , , , , , , , , , , , , , , , , 
+- **Contributor Id**: , , https://orcid.org/0000-0003-2227-3694, https://orcid.org/0000-0003-2227-3694, , https://orcid.org/0000-0003-0902-4984, https://orcid.org/0000-0003-3881-0298, https://orcid.org/0000-0002-4007-5862, https://orcid.org/0000-0002-1581-7502, https://orcid.org/0000-0001-9439-5442, https://scholar.google.com/citations?user=c6SCfzAAAAAJ&hl=en, https://orcid.org/0000-0003-1110-940X, https://orcid.org/0000-0001-5683-0570, https://orcid.org/0000-0001-5457-1026, https://orcid.org/0000-0002-9733-8002, https://orcid.org/0000-0002-2171-9060, https://orcid.org/0000-0002-1093-7871, https://orcid.org/0000-0002-3073-9813, https://orcid.org/0000-0001-5044-7079, https://orcid.org/0000-0002-7826-911X, https://orcid.org/0000-0002-1735-2366, https://orcid.org/0000-0002-6976-7803
+- **Contributing Institutions**: Multiple contribution institutions, Georgia Institute of Technology, National Oceanography Centre (Southampton), Woods Hole Oceanographic Institution, Scottish Association for Marine Science (SAMS), Royal Netherlands Institute for Sea Research (NIOZ), Memorial University of Newfoundland, Fisheries and Oceans Canada, Northwest Atlantic Fisheries Centre, Institute of Ocean Sciences (DFO), Scripps Institution of Oceanography, Rosenstiel School of Marine and Atmospheric Science, Rosenstiel School of Marine and Atmospheric Science (University of Miami), Helmholtz Centre for Ocean Research Kiel (GEOMAR), Bedford Institute of Oceanography, Xiamen University - State Key Laboratory of Marine Environmental Science, State Key Laboratory of Marine Environmental Science, University of South Florida
+- **Contributing Institutions Vocabulary**: , https://edmo.seadatanet.org/report/3075, https://edmo.seadatanet.org/report/17, https://edmo.seadatanet.org/report/3844, https://edmo.seadatanet.org/report/44, https://edmo.seadatanet.org/report/630, , https://edmo.seadatanet.org/report/5370, https://edmo.seadatanet.org/report/4157, https://edmo.seadatanet.org/report/4155, https://edmo.seadatanet.org/report/1390, , https://edmo.seadatanet.org/report/1382, https://edmo.seadatanet.org/report/2947, https://edmo.seadatanet.org/report/1811, https://edmo.seadatanet.org/report/2401, , https://edmo.seadatanet.org/report/3838
+- **Contributing Institutions Role**: , , , , , , , , , , , , , , , , , 
 - **Conventions\***: CF-1.8, ACDD-1.3, OceanSITES-1.5
 - **featureType\***: timeSeries
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: OSNAP_MOC_MHT_MFT_TimeSeries_201408_202207_2025.nc
 - **Source Path\***: ~/AMOCatlas/data/OSNAP_MOC_MHT_MFT_TimeSeries_201408_202207_2025.nc
 - **Date Created**: 2025-05-21T15:09:24Z
-- **Date Modified**: 2026-02-07T22:15:36Z
+- **Date Modified**: 2026-02-08T13:38:52Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: osnap55n
@@ -272,13 +281,23 @@ Dataset Overview
 - **DOI**: https://doi.org/10.35090/gatech/70342
 - **Source File**: OSNAP_Streamfunction_201408_202207_2025.nc
 - **Data Product**: Meridional overturning streamfunction (2014-2022)
+- **Date Created**: 2025-05-21T15:16:52Z
 - **Time Coverage**: 2014-08-01 to 2022-07-01
 - **Record Length**: 96 observations (7.9 years)
 - **Sampling Frequency**: monthly
 
+**Distribution Statement:**
+
+    Any person making use of OSNAP observational data and/or numerical results must communicate with the responsible investigators at the start of the analysis and anticipate that the data collectors will be co-authors of published results. In cases where investigators choose not to be co-authors on publications that rely on their data, the parties responsible for collecting the data and the sponsoring funding agencies should be acknowledged, including reference to any relevant publications by the originating authors describing the data sets and a reference to the data set itself using its DOI. OSNAP data are intended for scholarly use by the academic and scientific community, with the express understanding that any such use will properly acknowledge the originating investigator.
+
+
 **Citation:**
 
     Fu, Y., Lozier, M. S., Bower, A., Burmeister, K., Carrilho Biló, T., Cyr, F., et al. (2025). Characterizing the interannual variability of North Atlantic subpolar overturning. Geophysical Research Letters, 52, e2025GL114672. https://doi.org/10.1029/2025GL114672
+
+**Acknowledgement:**
+
+    OSNAP data were collected and made freely available by the OSNAP (Overturning in the Subpolar North Atlantic Program) project and all the national programs that contribute to it (www.o-snap.org).
 
 Dataset Visualization
 ^^^^^^^^^^^^^^^^^^^^^
@@ -390,21 +409,20 @@ The following metadata provides comprehensive information about this dataset:
 - **Data Product\***: Meridional overturning streamfunction (2014-2022)
 - **Time Coverage Start**: 2014-08-01
 - **Time Coverage End**: 2022-07-01
-- **Contributor Name**: OSNAP investigators, Yao Fu, M. Susan Lozier, Amy Bower, Kristin Burmeister, Tiago Carrilho Biló, Frederic Cyr, Stuart A. Cunningham, Brad deYoung, Ahmad Fehmi Dilmahamod, M. Femke de Jong, Nora Fried, N. Penny Holliday, Neil Fraser, William E. Johns, Feili Li, Johannes Karstensen, Robert S. Pickart, Fiammetta Straneo, Igor Yashayaev
-- **Contributor Role**: data design, collection and/or processing
-- **Contributor Email**: , yaofu@usf.edu, susan.lozier@gatech.edu, , , , , , , , , , , , , , , , , 
-- **Contributor Id**: , , , , , , , , , , , , , , , , , , , 
-- **Contributing Institutions**: Multiple contributing institutions (US, UK, Germany, Netherlands, Canada, France, China), Georgia Institute of Technology, USA, National Oceanography Centre at Southampton, UK, Woods Hole Oceanographic Institution, USA, Scottish Association for Marine Science, UK, Royal Netherlands Institute for Sea Research and Utrecht University, Netherlands, Memorial University, Canada, Fisheries and Oceans Canada Northwest Atlantic Fisheries Centre and Institute of Ocean Sciences, Canada, Scripps Institution of Oceanography, UCSD, USA, University of Miami, USA, GEOMAR Helmholtz Centre for Ocean Research Kiel, Germany, Bedford Institute of Oceanography, Canada, Xiamen University, China, University of South Florida, USA
-- **Contributing Institutions Vocabulary**: , , , , , , , , , , , , , 
-- **Contributing Institutions Role**: 
-- **Contributing Institutions Role Vocabulary**: 
+- **Contributor Name**: OSNAP investigators, M. Susan Lozier, Yao Fu, Yao Fu, M. Susan Lozier, Amy Bower, Kristin Burmeister, Tiago Carrilho Biló, Frederic Cyr, Stuart A. Cunningham, Brad deYoung, Ahmad Fehmi Dilmahamod, M. Femke de Jong, Nora Fried, N. Penny Holliday, Neil Fraser, William E. Johns, Feili Li, Johannes Karstensen, Robert Pickart, Fiammetta Straneo, Igor Yashayaev
+- **Contributor Role**: creator, publisher, , data design, collection and/or processing, , , , , , , , , , , , , , , , , 
+- **Contributor Email**: , susan.lozier@gatech.edu, yaofu@usf.edu, , , , , , , , , , , , , , , , , , , 
+- **Contributor Id**: , , https://orcid.org/0000-0003-2227-3694, https://orcid.org/0000-0003-2227-3694, , https://orcid.org/0000-0003-0902-4984, https://orcid.org/0000-0003-3881-0298, https://orcid.org/0000-0002-4007-5862, https://orcid.org/0000-0002-1581-7502, https://orcid.org/0000-0001-9439-5442, https://scholar.google.com/citations?user=c6SCfzAAAAAJ&hl=en, https://orcid.org/0000-0003-1110-940X, https://orcid.org/0000-0001-5683-0570, https://orcid.org/0000-0001-5457-1026, https://orcid.org/0000-0002-9733-8002, https://orcid.org/0000-0002-2171-9060, https://orcid.org/0000-0002-1093-7871, https://orcid.org/0000-0002-3073-9813, https://orcid.org/0000-0001-5044-7079, https://orcid.org/0000-0002-7826-911X, https://orcid.org/0000-0002-1735-2366, https://orcid.org/0000-0002-6976-7803
+- **Contributing Institutions**: Multiple contribution institutions, Georgia Institute of Technology, National Oceanography Centre (Southampton), Woods Hole Oceanographic Institution, Scottish Association for Marine Science (SAMS), Royal Netherlands Institute for Sea Research (NIOZ), Memorial University of Newfoundland, Fisheries and Oceans Canada, Northwest Atlantic Fisheries Centre, Institute of Ocean Sciences (DFO), Scripps Institution of Oceanography, Rosenstiel School of Marine and Atmospheric Science, Rosenstiel School of Marine and Atmospheric Science (University of Miami), Helmholtz Centre for Ocean Research Kiel (GEOMAR), Bedford Institute of Oceanography, Xiamen University - State Key Laboratory of Marine Environmental Science, State Key Laboratory of Marine Environmental Science, University of South Florida
+- **Contributing Institutions Vocabulary**: , https://edmo.seadatanet.org/report/3075, https://edmo.seadatanet.org/report/17, https://edmo.seadatanet.org/report/3844, https://edmo.seadatanet.org/report/44, https://edmo.seadatanet.org/report/630, , https://edmo.seadatanet.org/report/5370, https://edmo.seadatanet.org/report/4157, https://edmo.seadatanet.org/report/4155, https://edmo.seadatanet.org/report/1390, , https://edmo.seadatanet.org/report/1382, https://edmo.seadatanet.org/report/2947, https://edmo.seadatanet.org/report/1811, https://edmo.seadatanet.org/report/2401, , https://edmo.seadatanet.org/report/3838
+- **Contributing Institutions Role**: , , , , , , , , , , , , , , , , , 
 - **Conventions\***: CF-1.8, ACDD-1.3, OceanSITES-1.5
-- **featureType\***: timeSeries
+- **featureType\***: timeSeriesProfile
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: OSNAP_Streamfunction_201408_202207_2025.nc
 - **Source Path\***: ~/AMOCatlas/data/OSNAP_Streamfunction_201408_202207_2025.nc
 - **Date Created**: 2025-05-21T15:16:52Z
-- **Date Modified**: 2026-02-07T22:15:36Z
+- **Date Modified**: 2026-02-08T13:38:52Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: osnap55n
@@ -427,13 +445,23 @@ Dataset Overview
 - **DOI**: https://doi.org/10.35090/gatech/70342
 - **Source File**: OSNAP_Gridded_TSV_201408_202207_2025.nc
 - **Data Product**: Gridded velocity, temperature, and salinity (2014-2022)
+- **Date Created**: 2025-05-21T15:11:05Z
 - **Time Coverage**: 2014-08-01 to 2022-07-01
 - **Record Length**: 96 observations (7.9 years)
 - **Sampling Frequency**: monthly
 
+**Distribution Statement:**
+
+    Any person making use of OSNAP observational data and/or numerical results must communicate with the responsible investigators at the start of the analysis and anticipate that the data collectors will be co-authors of published results. In cases where investigators choose not to be co-authors on publications that rely on their data, the parties responsible for collecting the data and the sponsoring funding agencies should be acknowledged, including reference to any relevant publications by the originating authors describing the data sets and a reference to the data set itself using its DOI. OSNAP data are intended for scholarly use by the academic and scientific community, with the express understanding that any such use will properly acknowledge the originating investigator.
+
+
 **Citation:**
 
     Fu, Y., Lozier, M. S., Bower, A., Burmeister, K., Carrilho Biló, T., Cyr, F., et al. (2025). Characterizing the interannual variability of North Atlantic subpolar overturning. Geophysical Research Letters, 52, e2025GL114672. https://doi.org/10.1029/2025GL114672
+
+**Acknowledgement:**
+
+    OSNAP data were collected and made freely available by the OSNAP (Overturning in the Subpolar North Atlantic Program) project and all the national programs that contribute to it (www.o-snap.org).
 
 Dataset Statistics
 ^^^^^^^^^^^^^^^^^^
@@ -549,21 +577,20 @@ The following metadata provides comprehensive information about this dataset:
 - **Data Product\***: Gridded velocity, temperature, and salinity (2014-2022)
 - **Time Coverage Start**: 2014-08-01
 - **Time Coverage End**: 2022-07-01
-- **Contributor Name**: OSNAP investigators, Yao Fu, M. Susan Lozier, Amy Bower, Kristin Burmeister, Tiago Carrilho Biló, Frederic Cyr, Stuart A. Cunningham, Brad deYoung, Ahmad Fehmi Dilmahamod, M. Femke de Jong, Nora Fried, N. Penny Holliday, Neil Fraser, William E. Johns, Feili Li, Johannes Karstensen, Robert S. Pickart, Fiammetta Straneo, Igor Yashayaev
-- **Contributor Role**: data design, collection and/or processing
-- **Contributor Email**: , yaofu@usf.edu, susan.lozier@gatech.edu, , , , , , , , , , , , , , , , , 
-- **Contributor Id**: , , , , , , , , , , , , , , , , , , , 
-- **Contributing Institutions**: Multiple contributing institutions (US, UK, Germany, Netherlands, Canada, France, China), Georgia Institute of Technology, USA, National Oceanography Centre at Southampton, UK, Woods Hole Oceanographic Institution, USA, Scottish Association for Marine Science, UK, Royal Netherlands Institute for Sea Research and Utrecht University, Netherlands, Memorial University, Canada, Fisheries and Oceans Canada Northwest Atlantic Fisheries Centre and Institute of Ocean Sciences, Canada, Scripps Institution of Oceanography, UCSD, USA, University of Miami, USA, GEOMAR Helmholtz Centre for Ocean Research Kiel, Germany, Bedford Institute of Oceanography, Canada, Xiamen University, China, University of South Florida, USA
-- **Contributing Institutions Vocabulary**: , , , , , , , , , , , , , 
-- **Contributing Institutions Role**: 
-- **Contributing Institutions Role Vocabulary**: 
+- **Contributor Name**: OSNAP investigators, M. Susan Lozier, Yao Fu, Yao Fu, M. Susan Lozier, Amy Bower, Kristin Burmeister, Tiago Carrilho Biló, Frederic Cyr, Stuart A. Cunningham, Brad deYoung, Ahmad Fehmi Dilmahamod, M. Femke de Jong, Nora Fried, N. Penny Holliday, Neil Fraser, William E. Johns, Feili Li, Johannes Karstensen, Robert Pickart, Fiammetta Straneo, Igor Yashayaev
+- **Contributor Role**: creator, publisher, , data design, collection and/or processing, , , , , , , , , , , , , , , , , 
+- **Contributor Email**: , susan.lozier@gatech.edu, yaofu@usf.edu, , , , , , , , , , , , , , , , , , , 
+- **Contributor Id**: , , https://orcid.org/0000-0003-2227-3694, https://orcid.org/0000-0003-2227-3694, , https://orcid.org/0000-0003-0902-4984, https://orcid.org/0000-0003-3881-0298, https://orcid.org/0000-0002-4007-5862, https://orcid.org/0000-0002-1581-7502, https://orcid.org/0000-0001-9439-5442, https://scholar.google.com/citations?user=c6SCfzAAAAAJ&hl=en, https://orcid.org/0000-0003-1110-940X, https://orcid.org/0000-0001-5683-0570, https://orcid.org/0000-0001-5457-1026, https://orcid.org/0000-0002-9733-8002, https://orcid.org/0000-0002-2171-9060, https://orcid.org/0000-0002-1093-7871, https://orcid.org/0000-0002-3073-9813, https://orcid.org/0000-0001-5044-7079, https://orcid.org/0000-0002-7826-911X, https://orcid.org/0000-0002-1735-2366, https://orcid.org/0000-0002-6976-7803
+- **Contributing Institutions**: Multiple contribution institutions, Georgia Institute of Technology, National Oceanography Centre (Southampton), Woods Hole Oceanographic Institution, Scottish Association for Marine Science (SAMS), Royal Netherlands Institute for Sea Research (NIOZ), Memorial University of Newfoundland, Fisheries and Oceans Canada, Northwest Atlantic Fisheries Centre, Institute of Ocean Sciences (DFO), Scripps Institution of Oceanography, Rosenstiel School of Marine and Atmospheric Science, Rosenstiel School of Marine and Atmospheric Science (University of Miami), Helmholtz Centre for Ocean Research Kiel (GEOMAR), Bedford Institute of Oceanography, Xiamen University - State Key Laboratory of Marine Environmental Science, State Key Laboratory of Marine Environmental Science, University of South Florida
+- **Contributing Institutions Vocabulary**: , https://edmo.seadatanet.org/report/3075, https://edmo.seadatanet.org/report/17, https://edmo.seadatanet.org/report/3844, https://edmo.seadatanet.org/report/44, https://edmo.seadatanet.org/report/630, , https://edmo.seadatanet.org/report/5370, https://edmo.seadatanet.org/report/4157, https://edmo.seadatanet.org/report/4155, https://edmo.seadatanet.org/report/1390, , https://edmo.seadatanet.org/report/1382, https://edmo.seadatanet.org/report/2947, https://edmo.seadatanet.org/report/1811, https://edmo.seadatanet.org/report/2401, , https://edmo.seadatanet.org/report/3838
+- **Contributing Institutions Role**: , , , , , , , , , , , , , , , , , 
 - **Conventions\***: CF-1.8, ACDD-1.3, OceanSITES-1.5
-- **featureType\***: timeSeries
+- **featureType\***: timeSeriesProfile
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: OSNAP_Gridded_TSV_201408_202207_2025.nc
 - **Source Path\***: ~/AMOCatlas/data/OSNAP_Gridded_TSV_201408_202207_2025.nc
 - **Date Created**: 2025-05-21T15:11:05Z
-- **Date Modified**: 2026-02-07T22:15:36Z
+- **Date Modified**: 2026-02-08T13:38:52Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: osnap55n

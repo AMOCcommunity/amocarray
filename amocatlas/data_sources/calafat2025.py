@@ -96,10 +96,8 @@ def read_calafat2025(
     log.info("Starting to read CALAFAT2025 dataset")
 
     # Load YAML metadata with fallback
-    _global_metadata, _yaml_file_metadata = (
-        ReaderUtils.load_array_metadata_with_fallback(
-            DATASOURCE_ID, CALAFAT2025_METADATA
-        )
+    global_metadata, yaml_file_metadata = ReaderUtils.load_array_metadata_with_fallback(
+        DATASOURCE_ID, CALAFAT2025_METADATA
     )
 
     if file_list is None:
@@ -270,7 +268,7 @@ def read_calafat2025(
                         nc_file,
                         nc_path,
                         CALAFAT2025_METADATA,
-                        {},  # yaml metadata (CALAFAT2025 doesn't have separate YAML files)
+                        yaml_file_metadata,
                         file_metadata,
                         DATASOURCE_ID,
                         track_added_attrs=True,
@@ -278,13 +276,15 @@ def read_calafat2025(
                     added_attrs_per_dataset.append(attr_changes)
                 else:
                     # Standard metadata attachment without tracking
-                    ds = ReaderUtils.attach_standard_metadata(
+                    ds = ReaderUtils.attach_metadata_with_tracking(
                         ds,
                         nc_file,
                         nc_path,
                         CALAFAT2025_METADATA,
+                        yaml_file_metadata,
                         file_metadata,
-                        datasource_id=DATASOURCE_ID,
+                        DATASOURCE_ID,
+                        track_added_attrs=False,
                     )
 
                 datasets.append(ds)

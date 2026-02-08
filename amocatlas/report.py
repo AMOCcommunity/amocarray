@@ -37,6 +37,153 @@ class ReportUtils:
     """Shared utilities for AMOCatlas report generation."""
 
     @staticmethod
+    def extract_contributors_and_institutions(
+        datasets: List[xr.Dataset], array_name: str
+    ) -> Dict[str, List[str]]:
+        """Extract contributor names and institutions from dataset metadata.
+
+        Parameters
+        ----------
+        datasets : List[xr.Dataset]
+            List of loaded datasets with metadata
+        array_name : str
+            Name of the array (for tracking sources)
+
+        Returns
+        -------
+        Dict[str, List[str]]
+            Dictionary with 'contributors' and 'institutions' keys containing lists of names
+
+        """
+        contributors = set()
+        institutions = set()
+
+        for ds in datasets:
+            # Extract contributor names
+            if "contributor_name" in ds.attrs:
+                contributor_name = ds.attrs["contributor_name"]
+                if contributor_name and contributor_name.strip():
+                    # Split by comma and clean up
+                    names = [name.strip() for name in contributor_name.split(",")]
+                    for name in names:
+                        if name and name != "None" and name != "":
+                            contributors.add(name)
+
+            # Extract contributing institutions
+            for attr_key in [
+                "contributing_institutions",
+                "contributing_institution",
+                "institution",
+            ]:
+                if attr_key in ds.attrs:
+                    institution = ds.attrs[attr_key]
+                    if institution and institution.strip():
+                        # Split by comma and clean up
+                        inst_list = [inst.strip() for inst in institution.split(",")]
+                        for inst in inst_list:
+                            if inst and inst != "None" and inst != "":
+                                institutions.add(inst)
+
+        return {
+            "contributors": sorted(list(contributors)),
+            "institutions": sorted(list(institutions)),
+            "array_source": array_name,
+        }
+
+    @staticmethod
+    def update_contributors_database(
+        contributors_data: Dict[str, List[str]], db_file: Path = None
+    ) -> Path:
+        """Update the global contributors database file.
+
+        Parameters
+        ----------
+        contributors_data : Dict[str, List[str]]
+            Dictionary with contributor and institution data from extract_contributors_and_institutions
+        db_file : Path, optional
+            Path to the database file. Defaults to 'contributors_database.yml' in project root.
+
+        Returns
+        -------
+        Path
+            Path to the updated database file
+
+        """
+        import yaml
+        from pathlib import Path
+
+        if db_file is None:
+            # Store in project root as YAML
+            db_file = Path.cwd() / "contributors_database.yml"
+
+        # Load existing database or create new one
+        database = {}
+        if db_file.exists():
+            try:
+                with open(db_file, "r", encoding="utf-8") as f:
+                    database = yaml.safe_load(f) or {}
+            except (yaml.YAMLError, UnicodeDecodeError):
+                log_info(f"Creating new contributors database at {db_file}")
+                database = {}
+
+        # Initialize database structure if needed
+        if "arrays" not in database:
+            database["arrays"] = {}
+        if "all_contributors" not in database:
+            database["all_contributors"] = []
+        if "all_institutions" not in database:
+            database["all_institutions"] = []
+
+        # Convert lists back to sets for processing
+        all_contributors = set(database.get("all_contributors", []))
+        all_institutions = set(database.get("all_institutions", []))
+
+        # Update with new data
+        array_name = contributors_data["array_source"]
+        database["arrays"][array_name] = {
+            "contributors": contributors_data["contributors"],
+            "institutions": contributors_data["institutions"],
+            "last_updated": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        }
+
+        # Update global sets
+        all_contributors.update(contributors_data["contributors"])
+        all_institutions.update(contributors_data["institutions"])
+
+        # Convert back to sorted lists
+        database["all_contributors"] = sorted(list(all_contributors))
+        database["all_institutions"] = sorted(list(all_institutions))
+
+        # Write updated database with human-friendly YAML format
+        with open(db_file, "w", encoding="utf-8") as f:
+            # Write header comment
+            f.write("# AMOCatlas Contributors Database\n")
+            f.write("# Generated automatically during report generation\n")
+            f.write(
+                "# This file tracks all contributors and institutions across datasets\n"
+            )
+            f.write(
+                "# Use this for ORCID lookup and institutional identifier research\n\n"
+            )
+
+            # Write the data
+            yaml.dump(
+                database,
+                f,
+                default_flow_style=False,
+                allow_unicode=True,
+                sort_keys=False,
+                width=100,
+            )
+
+        log_info(
+            f"Updated contributors database: {len(database['all_contributors'])} contributors, "
+            f"{len(database['all_institutions'])} institutions"
+        )
+
+        return db_file
+
+    @staticmethod
     def handle_yyyymm_time_format(time_data) -> pd.Series:
         """Handle YYYYMM time format (e.g., 200201 = February 2002)."""
         try:
@@ -944,6 +1091,19 @@ class ReportUtils:
 
         print(f"Loaded {len(datasets)} {array_name.upper()} datasets")
 
+        # Extract and store contributors and institutions
+        try:
+            contributors_data = ReportUtils.extract_contributors_and_institutions(
+                datasets, array_name
+            )
+            db_path = ReportUtils.update_contributors_database(contributors_data)
+            print(
+                f"  Updated contributors database: {len(contributors_data['contributors'])} contributors, "
+                f"{len(contributors_data['institutions'])} institutions"
+            )
+        except Exception as e:
+            log_info(f"Warning: Failed to extract contributors for {array_name}: {e}")
+
         if len(datasets) == 1:
             # Single dataset - use standard report generation
             dataset = datasets[0]
@@ -1707,7 +1867,14 @@ def _generate_rst_report(
 
     # Store citation and acknowledgement for later display
     citation_for_later = get_field("citation")
-    acknowledgement_for_later = get_field("acknowledgement")
+    # Check both spellings of acknowledgment/acknowledgement
+    acknowledgement_for_later = None
+    if get_field("acknowledgement", None) is not None:
+        acknowledgement_for_later = get_field("acknowledgement")
+    elif get_field("acknowledgment", None) is not None:
+        acknowledgement_for_later = get_field("acknowledgment")
+    else:
+        acknowledgement_for_later = "Unknown"
 
     if metadata:
         lines.extend(
@@ -1744,6 +1911,15 @@ def _generate_rst_report(
         if attrs.get("data_product"):
             lines.append(f"- **Data Product**: {attrs['data_product']}")
 
+        # Add date created if available
+        date_created = (
+            get_field("date_created")
+            or get_field("creation_date")
+            or get_field("created")
+        )
+        if date_created and date_created != "Unknown":
+            lines.append(f"- **Date Created**: {date_created}")
+
     # Temporal Coverage
     if temporal.get("has_time") and temporal.get("valid_times"):
         lines.extend(
@@ -1755,6 +1931,17 @@ def _generate_rst_report(
 
         if "estimated_frequency" in temporal:
             lines.append(f"- **Sampling Frequency**: {temporal['estimated_frequency']}")
+
+    # Add distribution statement if available (after overview, before citation)
+    distribution_statement = (
+        get_field("distribution_statement")
+        or get_field("distribution")
+        or get_field("access_constraints")
+    )
+    if distribution_statement and distribution_statement != "Unknown":
+        lines.extend(
+            ["", "**Distribution Statement:**", "", f"    {distribution_statement}", ""]
+        )
 
     # Add citation and acknowledgement if available (from standardized dataset attributes)
     citation_to_display = citation_for_later

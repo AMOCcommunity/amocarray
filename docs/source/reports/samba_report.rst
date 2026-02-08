@@ -1,7 +1,7 @@
 SAMBA Dataset Report
 ====================
 
-*Generated: 2026-02-07*
+*Generated: 2026-02-08*
 
 This report covers all available SAMBA datasets.
 
@@ -25,6 +25,10 @@ Dataset Overview
 **Citation:**
 
     M. Kersalé et al., Highly variable upper and abyssal overturning cells in the South Atlantic. Sci. Adv. 6, eaba7573 (2020). DOI: 10.1126/sciadv.aba7573
+
+**Acknowledgement:**
+
+    SAMBA data were collected and made freely available by the SAMOC international project and contributing national programs.
 
 Dataset Visualization
 ^^^^^^^^^^^^^^^^^^^^^
@@ -118,16 +122,16 @@ The following metadata provides comprehensive information about this dataset:
 - **Data Product\***: Daily volume transport anomaly estimates for the upper and abyssal cells of the MOC
 - **Time Coverage Start\***: 2013-09-12
 - **Time Coverage End\***: 2017-07-16
-- **Contributor Name**: 
-- **Contributor Role**: 
-- **Contributor Email**: 
-- **Contributor Id**: ftp://ftp.aoml.noaa.gov/phod/pub/SAM/2020_Kersale_etal_ScienceAdvances/
+- **Contributing Institutions**: 
+- **Contributing Institutions Vocabulary**: 
+- **Contributing Institutions Role**: 
 - **Conventions\***: CF-1.8, ACDD-1.3, OceanSITES-1.5
 - **featureType\***: timeSeries
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: Upper_Abyssal_Transport_Anomalies.txt
 - **Source Path\***: ~/AMOCatlas/data/Upper_Abyssal_Transport_Anomalies.txt
-- **Date Modified**: 2026-02-07T22:15:37Z
+- **Source Url\***: ftp://ftp.aoml.noaa.gov/phod/pub/SAM/2020_Kersale_etal_ScienceAdvances/
+- **Date Modified**: 2026-02-08T13:38:52Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: samba34s
@@ -157,6 +161,10 @@ Dataset Overview
 **Citation:**
 
     Meinen, C. S., Speich, S., Piola, A. R., Ansorge, I., Campos, E., Kersalé, M., et al. (2018). Meridional overturning circulation transport variability at 34.5°S during 2009–2017: Baroclinic and barotropic flows and the dueling influence of the boundaries. Geophysical Research Letters, 45, 4180–4188. https://doi.org/10.1029/2018GL077408
+
+**Acknowledgement:**
+
+    SAMBA data were collected and made freely available by the SAMOC international project and contributing national programs.
 
 Dataset Visualization
 ^^^^^^^^^^^^^^^^^^^^^
@@ -292,16 +300,16 @@ The following metadata provides comprehensive information about this dataset:
 - **Data Product\***: Daily travel time values, calibrated to a nominal pressure of 1000 dbar, and bottom pressures from the two PIES/CPIES moorings
 - **Time Coverage Start\***: 2009-03-19
 - **Time Coverage End\***: 2017-04-29
-- **Contributor Name**: 
-- **Contributor Role**: 
-- **Contributor Email**: 
-- **Contributor Id**: https://www.aoml.noaa.gov/phod/SAMOC_international/documents/
+- **Contributing Institutions**: 
+- **Contributing Institutions Vocabulary**: 
+- **Contributing Institutions Role**: 
 - **Conventions\***: CF-1.8, ACDD-1.3, OceanSITES-1.5
 - **featureType\***: timeSeries
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: MOC_TotalAnomaly_and_constituents.asc
 - **Source Path\***: ~/AMOCatlas/data/MOC_TotalAnomaly_and_constituents.asc
-- **Date Modified**: 2026-02-07T22:15:37Z
+- **Source Url\***: https://www.aoml.noaa.gov/phod/SAMOC_international/documents/
+- **Date Modified**: 2026-02-08T13:38:53Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: samba34s

@@ -1,0 +1,404 @@
+# AMOCatlas Contributor Registry
+# This file provides ORCID mappings for standardizing contributor information
+# during dataset processing. Use this to handle name variations and ensure consistent
+# contributor identification across datasets.
+contributors:
+  "0000-0002-7200-0099":
+    standard_name: "Wilken-Jon von Appen"
+    name_variants:
+      - "W. von Appen"
+      - "Wilken-Jon von Appen"
+    id_url: "https://orcid.org/0000-0002-7200-0099"
+
+  "0000-0002-4007-5862":
+    standard_name: "Tiago Carrilho Biló"
+    name_variants:
+      - "Tiago Carrilho Biló"
+      - "Tiago Carrilho Bilo"
+      - "T. Carrilho Biló"
+      - "T. C. Biló"
+      - "Tiago Bilo"
+    id_url: "https://orcid.org/0000-0002-4007-5862"
+
+  "0000-0003-0902-4984":
+    standard_name: "Amy Bower"
+    name_variants:
+      - "Amy Bower"
+      - "A. Bower"
+    id_url: "https://orcid.org/0000-0003-0902-4984"
+
+  "0000-0003-3881-0298":
+    standard_name: "Kristin Burmeister"
+    name_variants:
+      - "Kristin Burmeister"
+      - "K. Burmeister"
+    id_url: "https://orcid.org/0000-0003-3881-0298"
+
+  "0000-0002-7474-135X":
+    standard_name: "Francisco Calafat"
+    name_variants:
+      - "Francisco Calafat"
+      - "Francisco Mir Calafat"
+      - "F. Calafat"
+    id_url: "https://orcid.org/0000-0002-7474-135X"
+
+  "0000-0002-9854-0392":
+    standard_name: "Lijing Cheng"
+    name_variants:
+      - "Lijing Cheng"
+      - "L. Cheng"
+    id_url: "https://orcid.org/0000-0002-9854-0392"
+
+  "0000-0001-9439-5442":
+    standard_name: "Stuart A. Cunningham"
+    name_variants:
+      - "Stuart A. Cunningham"
+      - "Stuart Cunningham"
+      - "S. A. Cunningham"
+      - "S. Cunningham"
+    id_url: "https://orcid.org/0000-0001-9439-5442"
+
+  "0000-0002-1581-7502":
+    standard_name: "Frederic Cyr"
+    name_variants:
+      - "Frederic Cyr"
+      - "F. Cyr"
+      - "Frédéric Cyr"
+    id_url: "https://orcid.org/0000-0002-1581-7502"
+
+  "brad-deyoung-id":
+    standard_name: "Brad deYoung"
+    name_variants:
+      - "Brad deYoung"
+      - "Brad de Young"
+      - "B. deYoung"
+      - "B. de Young"
+    id_url: "https://scholar.google.com/citations?user=c6SCfzAAAAAJ&hl=en"
+
+  "0000-0003-1110-940X":
+    standard_name: "Ahmad Fehmi Dilmahamod"
+    name_variants:
+      - "Ahmad Fehmi Dilmahamod"
+      - "A. F. Dilmahamod"
+      - "A. Dilmahamod"
+    id_url: "https://orcid.org/0000-0003-1110-940X"
+
+  "0000-0001-6051-5426":
+    standard_name: "Shane Elipot"
+    name_variants:
+      - "Shane Elipot"
+      - "S. Elipot"
+    id_url: "https://orcid.org/0000-0001-6051-5426"
+
+  "0000-0001-8773-7838":
+    standard_name: "Eleanor Frajka-Williams"
+    name_variants:
+      - "Eleanor Frajka-Williams"
+      - "E. Frajka-Williams"
+      - "Eleanor Frajka Williams"
+      - "E Frajka-Williams"
+    id_url: "https://orcid.org/0000-0001-8773-7838"
+
+  "0000-0002-2171-9060":
+    standard_name: "Neil Fraser"
+    name_variants:
+      - "Neil Fraser"
+      - "N. Fraser"
+    id_url: "https://orcid.org/0000-0002-2171-9060"
+
+  "0000-0002-3598-4076":
+    standard_name: "Hege-Beate Fredriksen"
+    name_variants:
+      - "H. Fredriksen"
+      - "Hege-Beate Fredriksen"
+    id_url: "https://orcid.org/0000-0002-3598-4076"
+
+  "0000-0001-5457-1026":
+    standard_name: "Nora Fried"
+    name_variants:
+      - "Nora Fried"
+      - "N. Fried"
+    id_url: "https://orcid.org/0000-0001-5457-1026"
+
+  "0000-0003-2227-3694":
+    standard_name: "Yao Fu"
+    name_variants:
+      - "Yao Fu"
+      - "Y. Fu"
+    id_url: "https://orcid.org/0000-0003-2227-3694"
+
+  "0000-0001-8697-0013":
+    standard_name: "Bogi Hansen"
+    name_variants:
+      - "Bogi Hansen"
+      - "B. Hansen"
+    id_url: "https://orcid.org/0000-0001-8697-0013"
+
+  "0000-0002-2061-0899":
+    standard_name: "Will Hobbs"
+    name_variants:
+      - "Will Hobbs"
+      - "W. Hobbs"
+    id_url: "https://orcid.org/0000-0002-2061-0899"
+
+  "0000-0002-9733-8002":
+    standard_name: "N. Penny Holliday"
+    name_variants:
+      - "N. Penny Holliday"
+      - "Penny Holliday"
+      - "N. P. Holliday"
+    id_url: "https://orcid.org/0000-0002-9733-8002"
+
+  "0000-0002-8261-334X":
+    standard_name: "Randi Ingvaldsen"
+    name_variants:
+      - "R. Ingvaldsen"
+      - "Ingvaldsen"
+      - "Randi Ingvaldsen"
+    id_url: "https://orcid.org/0000-0002-8261-334X"
+
+  "0000-0002-1093-7871":
+    standard_name: "William E. Johns"
+    name_variants:
+      - "William E. Johns"
+      - "William Johns"
+      - "W. E. Johns"
+      - "W. Johns"
+      - "Bill Johns"
+    id_url: "https://orcid.org/0000-0002-1093-7871"
+
+  "0000-0001-5683-0570":
+    standard_name: "M. Femke de Jong"
+    name_variants:
+      - "M. Femke de Jong"
+      - "Marieke Femke de Jong"
+      - "Femke de Jong"
+      - "M. F. de Jong"
+    id_url: "https://orcid.org/0000-0001-5683-0570"
+
+  "0000-0001-5044-7079":
+    standard_name: "Johannes Karstensen"
+    name_variants:
+      - "Johannes Karstensen"
+      - "J. Karstensen"
+    id_url: "https://orcid.org/0000-0001-5044-7079"
+
+  "0000-0002-2414-0695":
+    standard_name: "Dagmar Kieke"
+    name_variants:
+      - "Dagmar Kieke"
+      - "D. Kieke"
+    id_url: "https://orcid.org/0000-0002-2414-0695"
+
+  "0000-0003-1338-3234":
+    standard_name: "Brian King"
+    name_variants:
+      - "B. King"
+      - "Brian A. King"
+      - "Brian King"
+    id_url: "https://orcid.org/0000-0003-1338-3234"
+
+  "0000-0002-9777-674X":
+    standard_name: "Armin Koehl"
+    name_variants:
+      - "Armin Koehl"
+      - "A. Koehl"
+    id_url: "https://orcid.org/0000-0002-9777-674X"
+
+  "0000-0002-4166-4044":
+    standard_name: "Matthias Lankhorst"
+    name_variants:
+      - "Matthias Lankhorst"
+      - "M. Lankhorst"
+    id_url: "https://orcid.org/0000-0002-4166-4044"
+
+  "0000-0002-3479-801X":
+    standard_name: "Craig Lee"
+    name_variants:
+      - "C. Lee"
+      - "Craig Lee"
+    id_url: "https://orcid.org/0000-0002-3479-801X"
+
+  "0000-0003-1074-2764":
+    standard_name: "Jed Lenetsky"
+    name_variants:
+      - "J. Lenetsky"
+      - "Jed Lenetsky"
+    id_url: "https://orcid.org/0000-0003-1074-2764"
+
+  "0000-0002-3073-9813":
+    standard_name: "Feili Li"
+    name_variants:
+      - "Feili Li"
+      - "F. Li"
+    id_url: "https://orcid.org/0000-0002-3073-9813"
+
+  "0000-0002-4449-6701":
+    standard_name: "Rebecca McPherson"
+    name_variants:
+      - "R. McPherson"
+      - "Rebecca McPherson"
+    id_url: "https://orcid.org/0000-0002-4449-6701"
+
+  "0000-0002-7602-4194":
+    standard_name: "Christian Mertens"
+    name_variants:
+      - "Christian Mertens"
+      - "C. Mertens"
+    id_url: "https://orcid.org/0000-0002-7602-4194"
+
+  "0000-0001-8676-7779":
+    standard_name: "Ben I. Moat"
+    name_variants:
+      - "Ben Moat"
+      - "B. Moat"
+      - "B. I. Moat"
+      - "Benjamin Moat"
+      - "Benjamin I. Moat"
+    id_url: "https://orcid.org/0000-0001-8676-7779"
+
+  "0000-0002-9878-5648":
+    standard_name: "Martin Moritz"
+    name_variants:
+      - "Martin Moritz"
+      - "M. Moritz"
+    id_url: "https://orcid.org/0000-0002-9878-5648"
+
+  "0000-0001-5936-0527":
+    standard_name: "Hannah Nowitzki"
+    name_variants:
+      - "Hannah Nowitzki"
+      - "H. Nowitzki"
+    id_url: "https://orcid.org/0000-0001-5936-0527"
+
+  "0000-0001-7694-2625":
+    standard_name: "Yuying Pan"
+    name_variants:
+      - "Yuying Pan"
+      - "Y. Pan"
+    id_url: "https://orcid.org/0000-0001-7694-2625"
+
+  "0000-0002-7826-911X":
+    standard_name: "Robert Pickart"
+    name_variants:
+      - "Robert S. Pickart"
+      - "Robert Pickart"
+      - "R. S. Pickart"
+      - "R. Pickart"
+    id_url: "https://orcid.org/0000-0002-7826-911X"
+
+  "0000-0003-1496-2828":
+    standard_name: "Monika Rhein"
+    name_variants:
+      - "Monika Rhein"
+      - "M. Rhein"
+    id_url: "https://orcid.org/0000-0003-1496-2828"
+
+  "0000-0002-7682-5688":
+    standard_name: "Uwe Send"
+    name_variants:
+      - "Uwe Send"
+      - "U. Send"
+    id_url: "https://orcid.org/0000-0002-7682-5688"
+
+  "0000-0003-1740-1778":
+    standard_name: "David A. Smeed"
+    name_variants:
+      - "D. A. Smeed"
+      - "David A. Smeed"
+      - "David Smeed"
+      - "D. Smeed"
+    id_url: "https://orcid.org/0000-0003-1740-1778"
+
+  "0000-0001-9824-6989":
+    standard_name: "Ryan H. Smith"
+    name_variants:
+      - "R. H. Smith"
+      - "Ryan H. Smith"
+    id_url: "https://orcid.org/0000-0001-9824-6989"
+
+  "0000-0002-6043-7920":
+    standard_name: "Laura de Steur"
+    name_variants:
+      - "L. de Steur"
+      - "Laura de Steur"
+    id_url: "https://orcid.org/0000-0002-6043-7920"
+
+  "0000-0002-1735-2366":
+    standard_name: "Fiammetta Straneo"
+    name_variants:
+      - "Fiammetta Straneo"
+      - "Fiamma Straneo"
+      - "F. Straneo"
+    id_url: "https://orcid.org/0000-0002-1735-2366"
+
+  "0000-0003-1670-964X":
+    standard_name: "Parvathi Vallivattathillam"
+    name_variants:
+      - "Parvathi Vallivattathillam"
+      - "P. Vallivattathillam"
+    id_url: "https://orcid.org/0000-0003-1670-964X"
+
+  "0000-0002-9290-0502":
+    standard_name: "Denis Volkov"
+    name_variants:
+      - "D. L. Volkov"
+      - "Denis Volkov"
+      - "Denis L. Volkov"
+      - "D. Volkov"
+    id_url: "https://orcid.org/0000-0002-9290-0502"
+
+  "0000-0003-3876-2206":
+    standard_name: "Simon Wett"
+    name_variants:
+      - "Simon Wett"
+      - "S. Wett"
+      - "S Wett"
+    id_url: "https://orcid.org/0000-0003-3876-2206"
+
+  "0000-0002-4515-8771":
+    standard_name: "Josh K. Willis"
+    name_variants:
+      - "Josh Willis"
+      - "Josh K. Willis"
+      - "Joshua K. Willis"
+      - "Joshua Willis"
+      - "J. K. Willis"
+      - "J. Willis"
+    id_url: "https://orcid.org/0000-0002-4515-8771"
+
+  "rebecca-woodgate-id":
+    standard_name: "Rebecca Woodgate"
+    name_variants:
+      - "R. Woodgate"
+      - "Rebecca Woodgate"
+      - "& Woodgate"
+    id_url: "https://psc.apl.uw.edu/people/investigators/rebecca-woodgate/"
+
+  "0000-0002-6976-7803":
+    standard_name: "Igor Yashayaev"
+    name_variants:
+      - "Igor Yashayaev"
+      - "I. Yashayaev"
+    id_url: "https://orcid.org/0000-0002-6976-7803"
+
+  "0009-0004-5333-7595":
+    standard_name: "Huayi Zheng"
+    name_variants:
+      - "Huayi Zheng"
+      - "H. Zheng"
+    id_url: "https://orcid.org/0009-0004-5333-7595"
+
+  "0000-0002-9330-4294":
+    standard_name: "Chenyu Zhu"
+    name_variants:
+      - "Chenyu Zhu"
+      - "C. Zhu"
+    id_url: "https://orcid.org/0000-0002-9330-4294"
+
+# Example usage:
+# 1. During standardization, extract raw contributor name: "B. Moat"
+# 2. Search all name_variants across ORCIDs to find match
+# 3. Use ORCID key to populate:
+#    - contributor_id: "0000-0002-3644-8181"
+#    - contributor_name: "Ben I. Moat" (standardized)

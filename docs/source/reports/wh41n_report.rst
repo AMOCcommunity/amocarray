@@ -1,7 +1,7 @@
 WH41N Dataset Report
 ====================
 
-*Generated: 2026-02-07*
+*Generated: 2026-02-08*
 
 This report covers all available WH41N datasets.
 
@@ -131,16 +131,20 @@ The following metadata provides comprehensive information about this dataset:
 - **Data Product\***: Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations
 - **Time Coverage Start\***: 2002-02-15
 - **Time Coverage End\***: 2024-12-16
-- **Contributor Name**: 
-- **Contributor Role**: 
-- **Contributor Email**: 
-- **Contributor Id**: https://doi.org/10.5281/zenodo.8170365
+- **Contributor Name\***: Will Hobbs, Josh K. Willis
+- **Contributor Role\***: creator, PI
+- **Contributor Email**: , 
+- **Contributor Id**: https://orcid.org/0000-0002-2061-0899, https://orcid.org/0000-0002-4515-8771
+- **Contributing Institutions\***: NASA JPL
+- **Contributing Institutions Vocabulary**: 
+- **Contributing Institutions Role**: 
 - **Conventions\***: CF-1.8, ACDD-1.3, OceanSITES-1.5
 - **featureType\***: timeSeries
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: hobbs_willis_amoc41N_tseries.txt
 - **Source Path\***: ~/AMOCatlas/data/hobbs_willis_amoc41N_tseries.txt
-- **Date Modified**: 2026-02-07T22:15:44Z
+- **Source Url\***: https://doi.org/10.5281/zenodo.8170365
+- **Date Modified**: 2026-02-08T13:39:01Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: wh41n
@@ -161,6 +165,7 @@ Dataset Overview
 - **Description**: 41N transport estimates dataset
 - **Source File**: trans_ARGO_ERA5.nc
 - **Data Product**: Transport components from ARGO and ERA5
+- **Date Created**: Thu 16 Jan 2025 16:09:16 AEDT
 - **Time Coverage**: 2002-01-15 to 2024-12-15
 - **Record Length**: 276 observations (22.9 years)
 - **Sampling Frequency**: monthly
@@ -289,17 +294,19 @@ The following metadata provides comprehensive information about this dataset:
 - **Data Product\***: Transport components from ARGO and ERA5
 - **Time Coverage Start\***: 2002-01-15
 - **Time Coverage End\***: 2024-12-15
-- **Contributor Name**: 
-- **Contributor Role**: 
-- **Contributor Email**: 
-- **Contributor Id**: https://doi.org/10.5281/zenodo.8170365
+- **Contributor Name\***: Will Hobbs, Josh K. Willis
+- **Contributor Role\***: creator, PI
+- **Contributor Email**: , 
+- **Contributor Id**: https://orcid.org/0000-0002-2061-0899, https://orcid.org/0000-0002-4515-8771
+- **Contributing Institutions\***: NASA JPL
+- **Contributing Institutions Vocabulary**: 
+- **Contributing Institutions Role**: 
 - **Conventions\***: CF-1.8, ACDD-1.3, OceanSITES-1.5
-- **featureType\***: timeSeries
-- **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: trans_ARGO_ERA5.nc
 - **Source Path\***: ~/AMOCatlas/data/trans_ARGO_ERA5.nc
+- **Source Url\***: https://doi.org/10.5281/zenodo.8170365
 - **Date Created**: Thu 16 Jan 2025 16:09:16 AEDT
-- **Date Modified**: 2026-02-07T22:15:44Z
+- **Date Modified**: 2026-02-08T13:39:01Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: wh41n
@@ -322,6 +329,7 @@ Dataset Overview
 - **Description**: 41N transport estimates dataset
 - **Source File**: Q_ARGO_obs_dens_2000depth_ERA5.nc
 - **Data Product**: Heat transport based on various assumptions about temperature below 2000m
+- **Date Created**: Thu 16 Jan 2025 16:09:16 AEDT
 - **Time Coverage**: 2002-01-15 to 2024-12-15
 - **Record Length**: 276 observations (22.9 years)
 - **Sampling Frequency**: monthly
@@ -457,17 +465,19 @@ The following metadata provides comprehensive information about this dataset:
 - **Data Product\***: Heat transport based on various assumptions about temperature below 2000m
 - **Time Coverage Start\***: 2002-01-15
 - **Time Coverage End\***: 2024-12-15
-- **Contributor Name**: 
-- **Contributor Role**: 
-- **Contributor Email**: 
-- **Contributor Id**: https://doi.org/10.5281/zenodo.8170365
+- **Contributor Name\***: Will Hobbs, Josh K. Willis
+- **Contributor Role\***: creator, PI
+- **Contributor Email**: , 
+- **Contributor Id**: https://orcid.org/0000-0002-2061-0899, https://orcid.org/0000-0002-4515-8771
+- **Contributing Institutions\***: NASA JPL
+- **Contributing Institutions Vocabulary**: 
+- **Contributing Institutions Role**: 
 - **Conventions\***: CF-1.8, ACDD-1.3, OceanSITES-1.5
-- **featureType\***: timeSeries
-- **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: Q_ARGO_obs_dens_2000depth_ERA5.nc
 - **Source Path\***: ~/AMOCatlas/data/Q_ARGO_obs_dens_2000depth_ERA5.nc
+- **Source Url\***: https://doi.org/10.5281/zenodo.8170365
 - **Date Created**: Thu 16 Jan 2025 16:09:16 AEDT
-- **Date Modified**: 2026-02-07T22:15:44Z
+- **Date Modified**: 2026-02-08T13:39:01Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: wh41n

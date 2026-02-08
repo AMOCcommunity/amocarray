@@ -1,7 +1,7 @@
 ZHENG2024 Dataset Report
 ========================
 
-*Generated: 2026-02-07*
+*Generated: 2026-02-08*
 
 ----
 
@@ -114,16 +114,20 @@ The following metadata provides comprehensive information about this dataset:
 - **Time Coverage Start\***: 2004-04-30
 - **Time Coverage End\***: 2020-12-31
 - **Contributor Name\***: Huayi Zheng, Lijing Cheng, Feili Li, Yuying Pan, Chenyu Zhu
-- **Contributor Role\***: 
+- **Contributor Role\***: , , , , 
 - **Contributor Role Vocabulary\***: http://vocab.nerc.ac.uk/search_nvs/W08/
 - **Contributor Email**: , , , , 
-- **Contributor Id\***: , , , , 
+- **Contributor Id\***: https://orcid.org/0009-0004-5333-7595, https://orcid.org/0000-0002-9854-0392, https://orcid.org/0000-0002-3073-9813, https://orcid.org/0000-0001-7694-2625, https://orcid.org/0000-0002-9330-4294
+- **Contributing Institutions**: 
+- **Contributing Institutions Vocabulary**: 
+- **Contributing Institutions Role**: 
 - **Conventions\***: CF-1.8, ACDD-1.3, OceanSITES-1.5
 - **featureType\***: timeSeries
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: atl_mft_2000_extend_gpcp_oaflux.nc
 - **Source Path\***: ~/AMOCatlas/data/atl_mft_2000_extend_gpcp_oaflux.nc
-- **Date Modified**: 2026-02-07T22:15:43Z
+- **Source Url\***: https://zenodo.org/records/12790901
+- **Date Modified**: 2026-02-08T13:39:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: zheng2024

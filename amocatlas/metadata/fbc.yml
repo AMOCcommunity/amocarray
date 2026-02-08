@@ -12,6 +12,7 @@ metadata:
   featureType: timeSeries
   time_coverage_start: '1995-11-13'
   time_coverage_end: '2023-05-19'
+  contributing_institutions: "Faroe Marine Research Institute (FAMRI)"
 
 files:
   FBC_overflow_transport.txt:

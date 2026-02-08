@@ -13,6 +13,7 @@ metadata:
   platform_type: Mooring array
   citation: >
     Jochumsen, K., Moritz, M., Nunes, N., Quadfasel, D., Larsen, K. M. H., Hansen, B., Valdimarsson, H., and Jonsson, S.: Revised transport estimates of the Denmark Strait overflow, Journal of Geophysical Research: Oceans, 122, doi: http://doi.org/10.1002/2017JC012803, 2017.
+  contributing_institutions: "University of Hamburg, Hafrannsóknastofnun / Marine and Freshwater Research Institute (Reykjavik, Iceland)"
 
 files:
   DSO_transport_hourly_1996_2021.nc:

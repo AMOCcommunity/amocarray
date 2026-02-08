@@ -1,7 +1,7 @@
 MOCHA Dataset Report
 ====================
 
-*Generated: 2026-02-07*
+*Generated: 2026-02-08*
 
 ----
 
@@ -16,6 +16,7 @@ Dataset Overview
 - **DOI**: https://doi.org/10.17604/3nfq-va20
 - **Source File**: mocha_mht_data_ERA5_v2020.nc
 - **Data Product**: MOCHA heat transport at 26.5°N
+- **Date Created**: 2023-08-26T00:14:33Z
 - **Time Coverage**: 2004-04-02 to 2020-12-14
 - **Record Length**: 12,202 observations (16.7 years)
 - **Sampling Frequency**: 12H
@@ -23,6 +24,10 @@ Dataset Overview
 **Citation:**
 
     Johns, W. E., Elipot, S., Smeed, D. A., Moat, B., King, B., Volkov, D. L., Smith, R. H. 2023. Towards two decades of Atlantic Ocean mass and heat transport at 26.5° N. Phil. Trans. R. Soc. A 381: 20220188. https://doi.org/10.1098/rsta.2022.0188
+
+**Acknowledgement:**
+
+    Funding source: the US National Science Foundation.
 
 Dataset Visualization
 ^^^^^^^^^^^^^^^^^^^^^
@@ -247,27 +252,31 @@ The following metadata provides comprehensive information about this dataset:
 - **Weblink**: https://mocha.earth.miami.edu/mocha/index.html, https://rapid.ac.uk/rapidmoc/
 - **Platform**: mooring
 - **Platform Vocabulary**: https://vocab.nerc.ac.uk/collection/L06/
-- **Data Product**: MOCHA heat transport at 26.5°N
+- **Data Product\***: MOCHA heat transport at 26.5°N
 - **Time Coverage Start**: 2004-04-02
 - **Time Coverage End**: 2020-12-14
-- **Contributor Name**: William Johns, William E. Johns, Shane Elipot, D. A. Smeed, B. Moat, B. King, D. L. Volkov, R. H. Smith
-- **Contributor Role**: PI, , , , , , , 
-- **Contributor Email**: , , , , , , , 
-- **Contributor Id**: http://www.rsmas.miami.edu/people/faculty-index/?p=william-johns, , , , , , , 
-- **Contributing Institutions**: University of Miami
-- **Contributing Institutions Vocabulary**: 
+- **Contributor Name**: William E. Johns, William E. Johns, William E. Johns, Shane Elipot, David A. Smeed, Ben I. Moat, Brian King, Denis Volkov, Ryan H. Smith
+- **Contributor Role**: creator, PI, , , , , , , 
+- **Contributor Email**: , , bjohns@earth.miami.edu, , ben.moat@noc.ac.uk, , , , 
+- **Contributor Id**: https://orcid.org/0000-0002-1093-7871, https://orcid.org/0000-0002-1093-7871, https://orcid.org/0000-0002-1093-7871, https://orcid.org/0000-0001-6051-5426, https://orcid.org/0000-0003-1740-1778, https://orcid.org/0000-0001-8676-7779, https://orcid.org/0000-0003-1338-3234, https://orcid.org/0000-0002-9290-0502, https://orcid.org/0000-0001-9824-6989
+- **Contributing Institutions**: Rosenstiel School of Marine and Atmospheric Science (University of Miami)
+- **Contributing Institutions Vocabulary**: https://edmo.seadatanet.org/report/1382
 - **Contributing Institutions Role**: 
-- **Contributing Institutions Role Vocabulary**: 
 - **Conventions**: CF-1.8, ACDD-1.3, OceanSITES-1.5
-- **featureType**: timeSeries
+- **featureType**: timeSeriesProfile
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: mocha_mht_data_ERA5_v2020.nc
 - **Source Path\***: ~/AMOCatlas/data/mocha_mht_data_ERA5_v2020.nc
-- **Date Created**: 2023-01-01T00:00:00Z
-- **Date Modified**: 2026-02-07T22:15:37Z
+- **Date Created**: 2023-08-26T00:14:33Z
+- **Date Modified**: 2026-02-08T13:38:53Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: mocha26n
+- **Variable Mapping\***: [Complex metadata structure - 20 items]
+- **Original Variable Metadata\***: [Complex metadata structure - 27 items]
 - **Applied Variable Mapping**: [Complex metadata structure - 22 items]
+- **Convert To Coord\***: z
+- **Variables To Remove\***: day, hour, julian_day, month, year
+- **Principal Investigator Url**: http://www.rsmas.miami.edu/people/faculty-index/?p=william-johns
 - **Methodology Reference**: W.E. Johns, S. Elipot, D.A. Smeed, B. Moat, B. King, D.L. Volkov, R.H. Smith, “Towards Two Decades of Atlantic Ocean Mass and Heat Transports at 26.5ºN”, accepted for publication in Royal Society Philosophical Transactions A, 2023.
 - **Methodology Doi**: doi: 10.1098/rsta.2022.0188

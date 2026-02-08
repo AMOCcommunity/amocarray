@@ -15,7 +15,7 @@ from collections import OrderedDict
 import re
 import warnings
 from datetime import datetime, timezone
-from amocatlas import logger, utilities, defaults
+from amocatlas import logger, utilities, defaults, contributors
 from amocatlas.logger import log_debug
 
 log = logger.log  # Use the global logger
@@ -23,7 +23,7 @@ log = logger.log  # Use the global logger
 # Extracted from OG1.0 spec “## Global attributes” (cf. turn1view0) :contentReference[oaicite:0]{index=0}
 _GLOBAL_ATTR_ORDER = defaults.GLOBAL_ATTR_ORDER
 
-_INSTITUTION_CORRECTIONS = defaults.INSTITUTION_CORRECTIONS
+# Institution corrections are now handled in contributors.py
 
 
 def reorder_metadata(attrs: dict) -> dict:
@@ -162,6 +162,78 @@ def get_dynamic_version() -> str:
     return __version__
 
 
+def resolve_metadata_conflict(
+    key: str,
+    existing_value: str,
+    new_value: str,
+    existing_source: str = "unknown",
+    new_source: str = "unknown",
+) -> str:
+    """Resolve metadata conflicts using consistent logic with detailed warnings.
+
+    Resolution rules:
+    1. If values are identical, return without warning
+    2. If one is empty/whitespace and other isn't, use non-empty
+    3. Otherwise, use longer value and warn about the conflict
+
+    Parameters
+    ----------
+    key : str
+        Metadata key name
+    existing_value : str
+        Current value
+    new_value : str
+        New value attempting to override
+    existing_source : str
+        Description of where existing value came from
+    new_source : str
+        Description of where new value came from
+
+    Returns
+    -------
+    str
+        The resolved value to use
+
+    """
+    # Convert to strings for comparison
+    existing_str = str(existing_value).strip()
+    new_str = str(new_value).strip()
+
+    # If identical, no conflict
+    if existing_str == new_str:
+        log_debug(f"'{key}': identical values, no conflict")
+        return existing_value
+
+    # If one is empty, use the non-empty one
+    if not existing_str and new_str:
+        log_debug(f"'{key}': using non-empty value from {new_source}")
+        return new_value
+    elif existing_str and not new_str:
+        log_debug(f"'{key}': keeping existing non-empty value from {existing_source}")
+        return existing_value
+
+    # Both are non-empty but different - use longer value with warning
+    existing_len = len(existing_str)
+    new_len = len(new_str)
+
+    if new_len > existing_len:
+        log_debug(
+            f"METADATA CONFLICT for '{key}':\n"
+            f"  Option 1 ({existing_source}): {existing_str[:100]}{'...' if existing_len > 100 else ''} ({existing_len} chars)\n"
+            f"  Option 2 ({new_source}): {new_str[:100]}{'...' if new_len > 100 else ''} ({new_len} chars)\n"
+            f"  → Using Option 2 (longer value)"
+        )
+        return new_value
+    else:
+        log_debug(
+            f"METADATA CONFLICT for '{key}':\n"
+            f"  Option 1 ({existing_source}): {existing_str[:100]}{'...' if existing_len > 100 else ''} ({existing_len} chars)\n"
+            f"  Option 2 ({new_source}): {new_str[:100]}{'...' if new_len > 100 else ''} ({new_len} chars)\n"
+            f"  → Using Option 1 (longer/equal value)"
+        )
+        return existing_value
+
+
 def clean_metadata(attrs: dict, preferred_keys: dict = None) -> dict:
     """Clean up a metadata dictionary.
 
@@ -183,17 +255,11 @@ def clean_metadata(attrs: dict, preferred_keys: dict = None) -> dict:
     for key, value in merged_attrs.items():
         # key is already canonical if it was an alias
         if key in cleaned:
-            if cleaned[key] == value:
-                log_debug(f"Skipping identical '{key}'")
-                continue
-            if len(str(value)) > len(str(cleaned[key])):
-                log_debug(
-                    f"Replacing '{key}' value with longer one ("
-                    f"{len(str(cleaned[key]))}→{len(str(value))} chars)"
-                )
-                cleaned[key] = value
-            else:
-                log_debug(f"Keeping existing '{key}', ignoring shorter from merge")
+            # Use centralized conflict resolution
+            resolved_value = resolve_metadata_conflict(
+                key, cleaned[key], value, "merged metadata", "alias consolidation"
+            )
+            cleaned[key] = resolved_value
         else:
             cleaned[key] = value
 
@@ -205,6 +271,9 @@ def clean_metadata(attrs: dict, preferred_keys: dict = None) -> dict:
 def _consolidate_contributors(cleaned: dict) -> dict:
     """Consolidate creators, PIs, publishers, and contributors into unified fields.
 
+    Uses the new modular contributor functions from contributors.py for enhanced
+    ORCID lookup and name standardization.
+
     These include:
     - contributor_name, contributor_role, contributor_email, contributor_id aligned one-to-one
     - contributing_institutions, with placeholders for vocabularies/roles
@@ -213,271 +282,245 @@ def _consolidate_contributors(cleaned: dict) -> dict:
 
     role_map = defaults.CONTRIBUTOR_ROLE_MAP
 
-    # Step A: extract email & URL buckets
-    email_buckets = {}
-    url_buckets = {}
-    bucket_order = []
+    # Step A: Extract and consolidate contributor fields using new modular approach
+    # Collect all contributor-related fields from various sources
+    raw_names = []
+    raw_roles = []
+    raw_emails = []
+    raw_ids = []
+
+    # Process each contributor category into dictionaries, then combine
+    all_contributors = {}
+    current_index = 1
+
+    # Phase 1: Process role-specific fields first (creator, PI, publisher)
+    role_priority_fields = ["creator_name", "principal_investigator", "publisher_name"]
+
+    for key in role_priority_fields:
+        if key in cleaned:
+            name_raw = cleaned.pop(key, "")
+            email_raw = cleaned.pop(key.replace("_name", "_email"), "")
+            url_raw = cleaned.pop(key.replace("_name", "_url"), "")
+            role_value = role_map.get(key, "")
+
+            # Process this category using modular functions
+            category_dict = contributors.parse_contributors(
+                name_raw, url_raw, email_raw, role_value
+            )
+
+            # Add to combined dict with sequential indices
+            for contributor in category_dict.values():
+                if contributor["name"]:  # Only add non-empty names
+                    all_contributors[str(current_index)] = contributor
+                    current_index += 1
+
+    # Phase 2: Process any remaining role-mapped fields (except contributor_name)
+    for key in list(cleaned.keys()):
+        if key in role_map and key != "contributor_name":
+            raw = cleaned.pop(key)
+            role_value = role_map[key]
+
+            # Process as single-role category
+            category_dict = contributors.parse_contributors(raw, "", "", role_value)
+
+            # Add to combined dict with sequential indices
+            for contributor in category_dict.values():
+                if contributor["name"]:
+                    all_contributors[str(current_index)] = contributor
+                    current_index += 1
+
+    # Phase 3: Process contributor_name and related fields LAST
+    explicit_contributor_role = cleaned.pop("contributor_role", "")
+
+    if "contributor_name" in cleaned:
+        name_raw = cleaned.pop("contributor_name", "")
+        email_raw = cleaned.pop("contributor_email", "")
+        id_raw = cleaned.pop("contributor_id", "")
+
+        # Use explicit role if available, otherwise use mapped empty role
+        role_value = (
+            explicit_contributor_role
+            if explicit_contributor_role.strip()
+            else role_map["contributor_name"]
+        )
+
+        # Process this category using modular functions
+        category_dict = contributors.parse_contributors(
+            name_raw, id_raw, email_raw, role_value
+        )
+
+        # Add to combined dict with sequential indices
+        for contributor in category_dict.values():
+            if contributor["name"]:
+                all_contributors[str(current_index)] = contributor
+                current_index += 1
+
+    # Extract any remaining URLs/emails that weren't processed
+    remaining_emails = []
+    remaining_ids = []
+
     for key in list(cleaned.keys()):
         if key.endswith("_email"):
             raw = cleaned.pop(key)
-            parts = [
-                v.strip() for v in str(raw).replace(";", ",").split(",") if v.strip()
-            ]
-            email_buckets[key] = parts
-            bucket_order.append(("email", key))
-        elif key.endswith("_url"):
-            raw = cleaned.pop(key)
-            parts = [
-                v.strip() for v in str(raw).replace(";", ",").split(",") if v.strip()
-            ]
-            url_buckets[key] = parts
-            bucket_order.append(("url", key))
-    log_debug("Email buckets: %s", email_buckets)
-    log_debug("URL buckets: %s", url_buckets)
+            if raw and str(raw).strip():
+                parts = [
+                    v.strip()
+                    for v in str(raw).replace(";", ",").split(",")
+                    if v.strip()
+                ]
+                remaining_emails.extend(parts)
 
-    # Step B: extract names, roles, sources
-    names, roles, sources = [], [], []
     for key in list(cleaned.keys()):
-        if key in role_map:
+        if key in ("contributor_url", "creator_url", "publisher_url"):
             raw = cleaned.pop(key)
-            parts = [
-                v.strip() for v in str(raw).replace(";", ",").split(",") if v.strip()
-            ]
-            for p in parts:
-                names.append(p)
-                roles.append(role_map[key])
-                sources.append(key)
-    log_debug("Names: %s; Roles: %s; Sources: %s", names, roles, sources)
+            if raw and str(raw).strip():
+                parts = [
+                    v.strip()
+                    for v in str(raw).replace(";", ",").split(",")
+                    if v.strip()
+                ]
+                remaining_ids.extend(parts)
 
-    # Step B2: deduplicate names and consolidate emails for the same person
-    if names and email_buckets:
-        # Collect all available emails from any email bucket
-        all_emails = []
-        for email_list in email_buckets.values():
-            all_emails.extend(email_list)
+    # Convert back to the arrays format for the existing modular processing
+    if all_contributors:
+        raw_names = [c["name"] for c in all_contributors.values()]
+        raw_roles = [c["role"] for c in all_contributors.values()]
+        raw_emails = [c["email"] for c in all_contributors.values()]
+        raw_ids = [c["id"] for c in all_contributors.values()]
 
-        # Check if we have emails that might belong to specific people
-        if all_emails and any(email.strip() for email in all_emails):
-            # Look for duplicate names that might need deduplication
-            name_counts = {}
-            for name in names:
-                name_counts[name] = name_counts.get(name, 0) + 1
+        # Add any remaining emails/IDs that didn't get associated
+        while len(raw_emails) < len(raw_names):
+            raw_emails.append("")
+        while len(raw_ids) < len(raw_names):
+            raw_ids.append("")
 
-            duplicates_found = any(count > 1 for count in name_counts.values())
-            log_debug(
-                "Name counts: %s, Duplicates found: %s", name_counts, duplicates_found
-            )
+        # Note: remaining_emails and remaining_ids are deliberately not extended here
+        # to avoid misalignment. All emails/IDs should be properly associated during
+        # the three-phase processing above.
+    else:
+        raw_names = []
+        raw_roles = []
+        raw_emails = remaining_emails
+        raw_ids = remaining_ids
 
-            if duplicates_found:
-                # We have duplicated names - try to consolidate with emails
-                # Since emails could be in any field (publisher_email, contributor_email, etc.)
-                # we'll try to match emails to the last occurrence of duplicated names
+    # Pad lists to same length for processing
+    max_contributors = max(
+        len(raw_names), len(raw_roles), len(raw_emails), len(raw_ids)
+    )
 
-                # Create mapping: find emails for people with duplicate names
-                name_to_emails = {}
+    # Only proceed if we have any contributor information
+    if max_contributors > 0:
+        # Pad shorter lists with empty strings
+        while len(raw_names) < max_contributors:
+            raw_names.append("")
+        while len(raw_roles) < max_contributors:
+            raw_roles.append("")
+        while len(raw_emails) < max_contributors:
+            raw_emails.append("")
+        while len(raw_ids) < max_contributors:
+            raw_ids.append("")
 
-                # Strategy: if "M. Susan Lozier" appears twice and we have
-                # "susan.lozier@gatech.edu" in emails, assign it to M. Susan Lozier
-                for name in names:
-                    if name_counts[name] > 1:  # This name is duplicated
-                        # Look for matching email in all_emails
-                        name_parts = name.lower().split()
-                        if len(name_parts) >= 2:
-                            # Extract meaningful name components, skipping initials
-                            meaningful_parts = []
-                            for part in name_parts:
-                                # Skip single letters or initials like "m."
-                                if len(part) > 2 or (
-                                    len(part) == 2 and not part.endswith(".")
-                                ):
-                                    meaningful_parts.append(part)
+        # Convert to comma-separated strings for processing
+        names_str = ", ".join(raw_names)
+        roles_str = ", ".join(raw_roles)
+        emails_str = ", ".join(raw_emails)
+        ids_str = ", ".join(raw_ids)
 
-                            if len(meaningful_parts) >= 2:
-                                # Use first meaningful name and last name
-                                first_meaningful = meaningful_parts[0]
-                                last = meaningful_parts[-1]
-
-                                for email in all_emails:
-                                    if email.strip():
-                                        email_lower = email.strip().lower()
-                                        # Check if email contains meaningful name parts
-                                        if (
-                                            first_meaningful in email_lower
-                                            and last in email_lower
-                                        ):
-                                            if name not in name_to_emails:
-                                                name_to_emails[name] = []
-                                            name_to_emails[name].append(email.strip())
-                            elif len(meaningful_parts) == 1:
-                                # Handle case with only one meaningful part (like single surnames)
-                                single_part = meaningful_parts[0]
-                                for email in all_emails:
-                                    if email.strip():
-                                        email_lower = email.strip().lower()
-                                        if single_part in email_lower:
-                                            if name not in name_to_emails:
-                                                name_to_emails[name] = []
-                                            name_to_emails[name].append(email.strip())
-
-                log_debug("Name to emails mapping: %s", name_to_emails)
-
-                # Deduplicate names while preserving order of first occurrence
-                dedupe_names, dedupe_roles, dedupe_sources = [], [], []
-                seen_names = set()
-                for name, role, source in zip(names, roles, sources):
-                    if name not in seen_names:
-                        dedupe_names.append(name)
-                        dedupe_roles.append(role)
-                        dedupe_sources.append(source)
-                        seen_names.add(name)
-
-                # Create consolidated email list aligned with deduplicated names
-                consolidated_emails = []
-                for name in dedupe_names:
-                    emails_for_name = name_to_emails.get(name, [])
-                    consolidated_emails.append(
-                        emails_for_name[0] if emails_for_name else ""
-                    )
-
-                # Update email buckets with consolidated emails
-                # Use contributor_email as the primary target
-                email_buckets["contributor_email"] = consolidated_emails
-                names, roles, sources = dedupe_names, dedupe_roles, dedupe_sources
-                log_debug(
-                    "After deduplication - Names: %s; Emails: %s",
-                    names,
-                    consolidated_emails,
-                )
-
-    # Step C: build contributor fields
-    if names:
-        # C1: names + roles
-        cleaned["contributor_name"] = ", ".join(names)
-        cleaned["contributor_role"] = cleaned.get("contributor_role", ", ".join(roles))
         log_debug(
-            "Set contributor_name=%r, contributor_role=%r",
-            cleaned["contributor_name"],
-            cleaned["contributor_role"],
+            "Raw contributor data - Names: %r, Roles: %r, Emails: %r, IDs: %r",
+            names_str,
+            roles_str,
+            emails_str,
+            ids_str,
         )
 
-        # C2: align emails one‑to‑one
-        # If we have already aligned emails from deduplication, use those
-        if "contributor_email" in email_buckets and len(
-            email_buckets["contributor_email"]
-        ) == len(names):
-            # Use the already correctly aligned emails from deduplication
-            aligned_emails = email_buckets["contributor_email"]
-            log_debug("Using deduplicated emails: %s", aligned_emails)
-        else:
-            # Fall back to original alignment logic
-            aligned_emails = []
-            email_copy = {k: v.copy() for k, v in email_buckets.items()}
-            for src in sources:
-                base = src[:-5] if src.endswith("_name") else src
-                ek = f"{base}_email"
-                aligned_emails.append(
-                    email_copy.get(ek, []).pop(0) if email_copy.get(ek) else ""
-                )
-        cleaned["contributor_email"] = ", ".join(aligned_emails)
-        log_debug("Aligned contributor_email=%r", cleaned["contributor_email"])
+        # Use the new modular contributor processing
+        try:
+            processed = contributors.process_contributor_metadata(
+                names_str, ids_str, emails_str, roles_str
+            )
 
-        # C3: align URLs → contributor_id
-        aligned_ids = []
-        url_copy = {k: v.copy() for k, v in url_buckets.items()}
-        for src in sources:
-            base = src[:-5] if src.endswith("_name") else src
-            uk = f"{base}_url"
-            aligned_ids.append(url_copy.get(uk, []).pop(0) if url_copy.get(uk) else "")
-        cleaned["contributor_id"] = ", ".join(aligned_ids)
-        log_debug("Aligned contributor_id=%r", cleaned["contributor_id"])
+            # Update cleaned dictionary with processed results
+            cleaned.update(processed)
 
-    elif bucket_order:
-        # Email-only (or URL-only) fallback
-        # Build flat lists preserving email/url order
-        flat_emails, flat_ids, placeholder_roles = [], [], []
-        for typ, bk in bucket_order:
-            role = role_map.get(bk.rsplit("_", 1)[0], "")
-            if typ == "email":
-                for e in email_buckets.get(bk, []):
-                    flat_emails.append(e)
-                    placeholder_roles.append(role)
-            else:  # typ == "url"
-                for u in url_buckets.get(bk, []):
-                    flat_ids.append(u)
-                    # ensure a role slot for each URL too
-                    placeholder_roles.append(role)
+            log_debug("Processed contributor metadata: %s", processed)
 
-        cleaned["contributor_name"] = ", ".join([""] * len(placeholder_roles))
-        cleaned["contributor_role"] = ", ".join(placeholder_roles)
-        cleaned["contributor_email"] = ", ".join(flat_emails)
-        cleaned["contributor_id"] = ", ".join(flat_ids)
-        log_debug("Placeholder contributor_email=%r", cleaned["contributor_email"])
-        log_debug("Placeholder contributor_id=%r", cleaned["contributor_id"])
+        except Exception as e:
+            log_debug(f"Error in contributor processing: {e}, using fallback")
+            # Fallback to basic concatenation if modular processing fails
+            cleaned["contributor_name"] = names_str
+            cleaned["contributor_role"] = roles_str
+            cleaned["contributor_email"] = emails_str
+            cleaned["contributor_id"] = ids_str
 
-    # Step D: consolidate institution keys
-    inst_vocab_map = defaults.INSTITUTION_VOCABULARY_MAP
-    # Build normalized lookup (keys are already whitespace‑cleaned and casefolded)
-    inst_vocab_norm = {
-        re.sub(r"\s+", " ", key.casefold().strip()): url
-        for key, url in inst_vocab_map.items()
-    }
-    for raw_key, url in inst_vocab_map.items():
-        k2 = re.sub(r"\s+", " ", raw_key.replace("\u00a0", " ")).strip().lower()
-        k2 = " ".join(raw_key.strip().casefold().split())
-        inst_vocab_norm[k2] = url
+    # Step B: consolidate institution keys using new modular approach
+    # Collect all institution-related fields from various sources
+    raw_institutions = []
+    raw_vocabularies = []
+    raw_roles = []
 
-        insts = []
-        inst_vocabs = []
-        for attr_key in list(cleaned.keys()):
-            if attr_key.lower() in (
-                "institution",
-                "publisher_institution",
-                "contributor_institution",
-            ):
-                raw_inst = cleaned.pop(attr_key)
+    # Extract institution names from various fields
+    for attr_key in list(cleaned.keys()):
+        if attr_key.lower() in (
+            "institution",
+            "publisher_institution",
+            "contributor_institution",
+            "contributing_institutions",
+        ):
+            raw_inst = cleaned.pop(attr_key)
+            if raw_inst and str(raw_inst).strip():
+                raw_institutions.append(str(raw_inst).strip())
 
-                # apply any known corrections
-                fixed = _INSTITUTION_CORRECTIONS.get(raw_inst, raw_inst)
+    # Extract vocabulary URLs from vocabulary fields
+    for attr_key in list(cleaned.keys()):
+        if attr_key.lower() in (
+            "contributing_institutions_vocabulary",
+            "institution_vocabulary",
+            "publisher_institution_vocabulary",
+        ):
+            raw_vocab = cleaned.pop(attr_key)
+            if raw_vocab and str(raw_vocab).strip():
+                raw_vocabularies.append(str(raw_vocab).strip())
 
-                # split on semicolons only (commas inside names are preserved)
-                if ";" in fixed:
-                    parts = [p.strip() for p in fixed.split(";") if p.strip()]
-                else:
-                    parts = [fixed.strip()]
+    # Extract roles from role fields
+    for attr_key in list(cleaned.keys()):
+        if attr_key.lower() in (
+            "contributing_institutions_role",
+            "institution_role",
+            "publisher_institution_role",
+        ):
+            raw_role = cleaned.pop(attr_key)
+            if raw_role and str(raw_role).strip():
+                raw_roles.append(str(raw_role).strip())
 
-                for inst in parts:
-                    # normalize for lookup
-                    lookup = re.sub(r"\s+", " ", inst.casefold().strip())
+    # Convert to comma-separated strings for modular processing
+    institutions_str = ", ".join(raw_institutions) if raw_institutions else ""
+    vocabularies_str = ", ".join(raw_vocabularies) if raw_vocabularies else ""
+    roles_str = ", ".join(raw_roles) if raw_roles else ""
 
-                    # try exact match
-                    url = inst_vocab_norm.get(lookup, "")
+    log_debug(
+        "Raw institution data - Institutions: %r, Vocabularies: %r, Roles: %r",
+        institutions_str,
+        vocabularies_str,
+        roles_str,
+    )
 
-                    # fallback: substring match
-                    if not url:
-                        for k_norm, v in inst_vocab_norm.items():
-                            if lookup == k_norm or lookup in k_norm:
-                                url = v
-                                break
+    # Use the new modular institution processing (includes corrections and registry lookup)
+    try:
+        processed = contributors.process_institution_metadata(
+            institutions_str, vocabularies_str, roles_str
+        )
+        # Update cleaned dictionary with processed results
+        cleaned.update(processed)
+        log_debug("Processed institution metadata: %s", processed)
 
-                    insts.append(inst)
-                    inst_vocabs.append(url)
-                    log_debug("Matched institution %r → %r → %r", inst, lookup, url)
+    except Exception as e:
+        log_debug(f"Error in institution processing: {e}, using fallback")
+        # Fallback to basic values if modular processing fails
+        cleaned["contributing_institutions"] = institutions_str
+        cleaned["contributing_institutions_vocabulary"] = vocabularies_str
+        cleaned["contributing_institutions_role"] = roles_str
 
-        if insts:
-            # dedupe institutions, preserving order
-            unique_insts = list(dict.fromkeys(insts))
-            # align vocab list to those unique insts
-            seen = set()
-            unique_vocabs = []
-            for inst, url in zip(insts, inst_vocabs):
-                if inst not in seen:
-                    seen.add(inst)
-                    unique_vocabs.append(url)
-
-            cleaned["contributing_institutions"] = ", ".join(unique_insts)
-            cleaned["contributing_institutions_vocabulary"] = ", ".join(unique_vocabs)
-            cleaned.setdefault("contributing_institutions_role", "")
-            cleaned.setdefault("contributing_institutions_role_vocabulary", "")
     log_debug("Finished _consolidate_contributors: %s", cleaned)
     return cleaned
 
@@ -1272,34 +1315,61 @@ def standardise_data(ds: xr.Dataset, file_name: str) -> xr.Dataset:
             ds.attrs.pop(attr_key, None)
             log_debug("Removed blank attribute '%s' from dataset", attr_key)
 
-    # 3) Merge existing attrs + new global attrs + file-specific
+    # 3) Merge existing attrs + new global attrs + file-specific with conflict tracking
     combined = {}
-    combined.update(ds.attrs)  # original reader attrs
-    combined.update(meta.get("metadata", {}))  # array‑level
-    combined.update(
-        {
-            "summary": meta["metadata"].get("description", ""),
-            "weblink": meta["metadata"].get("weblink", ""),
-        }
-    )
-    combined.update(
-        {
-            k: file_meta[k]
-            for k in ("acknowledgment", "data_product", "citation")
-            if k in file_meta
-        }
-    )
+
+    # Start with original file metadata (highest priority base)
+    for key, value in ds.attrs.items():
+        combined[key] = value
+
+    # Add array-level YAML metadata with conflict resolution
+    array_metadata = meta.get("metadata", {})
+    for key, value in array_metadata.items():
+        if key in combined:
+            resolved_value = resolve_metadata_conflict(
+                key, combined[key], value, "original file", "array-level YAML"
+            )
+            combined[key] = resolved_value
+        else:
+            combined[key] = value
+
+    # Add special mappings
+    special_mappings = {
+        "summary": meta["metadata"].get("description", ""),
+        "weblink": meta["metadata"].get("weblink", ""),
+    }
+    for key, value in special_mappings.items():
+        if value and key in combined:
+            resolved_value = resolve_metadata_conflict(
+                key, combined[key], value, "existing", "array-level YAML mapping"
+            )
+            combined[key] = resolved_value
+        elif value:
+            combined[key] = value
+
+    # Add file-specific metadata with conflict resolution
+    file_specific_fields = ("acknowledgment", "data_product", "citation")
+    for key in file_specific_fields:
+        if key in file_meta:
+            if key in combined:
+                resolved_value = resolve_metadata_conflict(
+                    key, combined[key], file_meta[key], "existing", "file-specific YAML"
+                )
+                combined[key] = resolved_value
+            else:
+                combined[key] = file_meta[key]
 
     # 4) Clean up collisions & override ds.attrs wholesale
     cleaned = clean_metadata(combined)
 
     # 4.5) Process overwrite directives from YAML metadata AFTER cleaning
-    # This ensures overrides are not reverted by merge conflict resolution
+    # This ensures overrides are applied after field renaming and can properly override renamed fields
     all_yaml_metadata = {}
     all_yaml_metadata.update(meta.get("metadata", {}))  # array-level
     all_yaml_metadata.update(file_meta)  # file-level
 
     overwrite_applied = {}
+    overwrite_keys_to_remove = []
     for key, value in all_yaml_metadata.items():
         if key.endswith("_overwrite"):
             # Extract the base key name (remove _overwrite suffix)
@@ -1308,9 +1378,15 @@ def standardise_data(ds: xr.Dataset, file_name: str) -> xr.Dataset:
             # Force overwrite the attribute even if it already exists
             cleaned[base_key] = value
             overwrite_applied[base_key] = value
+            overwrite_keys_to_remove.append(key)  # Mark for cleanup
             log_debug(
                 f"Applied overwrite: '{base_key}' = '{str(value)[:50]}{'...' if len(str(value)) > 50 else ''}'"
             )
+
+    # Remove _overwrite fields from cleaned metadata to prevent them from appearing in final dataset
+    for key in overwrite_keys_to_remove:
+        cleaned.pop(key, None)
+        log_debug(f"Removed processing directive: '{key}'")
 
     if overwrite_applied:
         log_debug(
