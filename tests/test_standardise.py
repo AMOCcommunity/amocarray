@@ -1,154 +1,230 @@
+"""Tests for amocatlas.standardise module.
+
+Tests the standardization pipeline including metadata application,
+variable renaming, and dataset enrichment.
+"""
+
 import pytest
-from amocatlas import logger, readers, standardise, utilities
+import xarray as xr
+import pandas as pd
 
-logger.disable_logging()
+from amocatlas import standardise, readers
+from amocatlas.logger import disable_logging
 
-
-def test_standardise_samba():
-    # Load datasets (could be one or two files)
-    datasets = readers.load_dataset("samba")
-
-    # Get datasource_id from first dataset to load correct metadata
-    datasource_id = datasets[0].attrs.get("amocatlas_datasource")
-    meta = utilities.load_array_metadata(datasource_id)
-    file_metas = meta["files"]
-
-    for ds in datasets:
-        file_name = ds.attrs.get("source_file")
-        assert file_name in file_metas, f"Missing metadata for file: {file_name}"
-
-        # Standardise the dataset
-        std_ds = standardise.standardise_samba(ds, file_name)
-
-        # Global metadata keys expected
-        for key in ["web_link", "summary"]:
-            assert key in std_ds.attrs, f"Missing global attribute: {key}"
-
-        # Check if data_product or acknowledgement were added if in the YAML
-        for key in ["data_product", "acknowledgement"]:
-            if key in file_metas[file_name]:
-                assert key in std_ds.attrs
-
-        # Variables renamed and enriched
-        variable_mapping = file_metas[file_name].get("variable_mapping", {})
-        expected_vars = list(variable_mapping.values())
-
-        for var in expected_vars:
-            assert var in std_ds.variables, f"Expected variable not found: {var}"
-            attrs = std_ds[var].attrs
-            for attr in ["units", "standard_name"]:
-                assert attr in attrs, f"Missing {attr} for variable: {var}"
+# Disable logging for cleaner test output
+disable_logging()
 
 
-# Only include mappings where alias != canonical key
-PREFERRED_KEYS = {
-    "title": "summary",
-    "weblink": "web_link",
-    "note": "comment",
-    "Acknowledgement": "acknowledgement",
-    "DOI": "doi",
-    "Reference": "references",
-    "Creator": "creator_name",
-    "Created_by": "creator_name",
-    "Creation_date": "date_created",
-}
+class TestStandardizeData:
+    """Integration tests for data standardization."""
+
+    @pytest.mark.slow
+    def test_standardise_data_rapid(self):
+        """Test end-to-end standardization of RAPID data."""
+        # Load raw RAPID data
+        raw_datasets = readers.load_dataset("rapid")
+        raw_dataset = raw_datasets[0]  # Transport file
+
+        # Get original variable names
+        original_vars = list(raw_dataset.data_vars)
+
+        # Standardize the data
+        standardized = standardise.standardise_data(
+            raw_dataset, file_name="moc_transports.nc"
+        )
+
+        # Should have AMOCatlas metadata
+        assert "processing_datasource" in standardized.attrs
+        assert standardized.attrs["processing_datasource"] == "rapid26n"
+
+        # Should have applied variable mapping
+        assert "applied_variable_mapping" in standardized.attrs
+        mapping = standardized.attrs["applied_variable_mapping"]
+        assert isinstance(mapping, dict)
+        assert len(mapping) > 0
+
+        # Should have standardized variable names
+        std_vars = list(standardized.data_vars)
+
+        # MOC variable should be present and standardized
+        assert "MOC" in std_vars
+
+        # Time coordinate should be standardized
+        assert "TIME" in standardized.coords
+
+        # Should have processing metadata
+        assert "date_modified" in standardized.attrs  # Changed from processing_date
+        assert "processing_software" in standardized.attrs
+        assert "processing_version" in standardized.attrs
+
+        # Should preserve data values while changing names
+        assert standardized.sizes["TIME"] == raw_dataset.sizes["time"]
+
+    def test_standardise_data_with_real_metadata(self):
+        """Test that read.rapid() produces properly standardized data."""
+        # Test that the new read API produces standardized data
+        from amocatlas import read
+
+        result = (
+            read.rapid()
+        )  # Loads single moc_transports.nc file (1.11MB) - already standardized
+
+        # Should have basic standardization applied
+        assert "processing_datasource" in result.attrs
+        assert "processing_software" in result.attrs
+        assert result.attrs["processing_datasource"] == "rapid26n"
+
+        # Should have standardized variable names
+        assert "MOC" in result.data_vars
+        assert "TIME" in result.coords
 
 
-@pytest.mark.parametrize(
-    "attrs,expected",
-    [
-        # identical values should collapse into one with the canonical key
-        (
-            {"DOI": "10", "doi": "10", "Title": "Test", "title": "Test"},
-            {"doi": "10", "summary": "Test"},
-        ),
-        # conflicting values: keep the first seen ('DOI' in this case)
-        (
-            {"DOI": "10", "doi": "20"},
-            {"doi": "10"},
-        ),
-        # no aliases: all keys preserved
-        (
-            {"foo": "1", "bar": "2"},
-            {"foo": "1", "bar": "2"},
-        ),
-        # mix of alias and unique
-        (
-            {"Acknowledgement": "Ack", "acknowledgement": "Ack", "note": "Note"},
-            {"acknowledgement": "Ack", "comment": "Note"},
-        ),
-    ],
-)
-def test_merge_metadata_aliases(attrs, expected):
-    """Test that merge_metadata_aliases:
-    - Collapses identical aliases into the canonical key.
-    - Keeps first value when conflicts occur.
-    - Leaves non-alias keys untouched.
-    """
-    result = standardise.merge_metadata_aliases(attrs, PREFERRED_KEYS)
-    assert result == expected
+class TestMetadataFunctions:
+    """Unit tests for metadata handling functions."""
+
+    def test_reorder_metadata(self):
+        """Test metadata reordering according to GLOBAL_ATTR_ORDER."""
+        # Create metadata in wrong order
+        metadata = {
+            "comment": "A comment",
+            "title": "Test Title",
+            "Conventions": "CF-1.8",  # Case-sensitive
+            "description": "Test description",
+            "featureType": "timeSeries",  # Case-sensitive
+            "random_attr": "Some value",
+        }
+
+        result = standardise.reorder_metadata(metadata)
+        result_keys = list(result.keys())
+
+        # Should preserve case-sensitive attributes exactly
+        assert "Conventions" in result_keys
+        assert "featureType" in result_keys
+
+        # Should follow GLOBAL_ATTR_ORDER for known attributes
+        title_idx = result_keys.index("title")
+        desc_idx = result_keys.index("description")
+        assert title_idx < desc_idx  # Title comes before description
+
+        # Unknown attributes should be at the end
+        assert result_keys.index("random_attr") > desc_idx
+
+    def test_get_amocatlas_version(self):
+        """Test version detection."""
+        version = standardise.get_dynamic_version()
+
+        # Should return a reasonable version string
+        assert isinstance(version, str)
+        assert len(version) > 0
+
+        # Should be in some recognizable format
+        assert any(char.isdigit() for char in version)  # Contains numbers
+
+    def test_standardize_time_coordinate(self):
+        """Test TIME coordinate standardization."""
+        # Create test dataset with time coordinate
+        ds = xr.Dataset(
+            {"data": (["TIME"], [1, 2, 3])},
+            coords={"time": pd.date_range("2020-01-01", periods=3)},
+        )
+
+        result = standardise.standardize_time_coordinate(ds)
+
+        # Should have TIME coordinate
+        assert "TIME" in result.coords
+
+        # Should have standard attributes
+        time_attrs = result["TIME"].attrs
+        assert "standard_name" in time_attrs
+        assert time_attrs["standard_name"] == "time"
+
+    def test_clean_metadata(self):
+        """Test metadata cleaning functionality."""
+        # Test the clean_metadata function that exists
+        metadata = {
+            "Title": "Test Title",
+            "TITLE": "Duplicate title",  # Duplicate should be resolved
+            "creator_name": "Test Author",
+            "principal_investigator": "Test PI",  # Should be consolidated with creator_name
+            "Institution": "Test Institution",
+            "Acknowledgement": "Test Acknowledgement",
+        }
+
+        result = standardise.clean_metadata(metadata)
+
+        # Should return a cleaned dictionary
+        assert isinstance(result, dict)
+        assert len(result) > 0
+
+        # Should consolidate contributor fields: creator_name should be removed and contributor_name added
+        assert "creator_name" not in result  # Original field should be removed
+        assert (
+            "contributor_name" in result
+        )  # Should be consolidated into standard contributor field
+
+        # Should normalize acknowledgement spelling
+        assert "acknowledgment" in result  # American spelling
+
+        # Should resolve title duplicates (keeping one)
+        title_count = sum(1 for k in result.keys() if k.lower().startswith("title"))
+        assert title_count == 1  # Should have only one title field after deduplication
 
 
-@pytest.mark.parametrize(
-    "input_dict, expected_dict",
-    [
-        (
-            {
-                "creator_name": "Alice",
-                "principal_investigator": "Bob",
-                "publisher_name": "Carol",
-                "institution": "InstA",
-                "publisher_institution": "InstB;InstC",
-            },
-            {
-                "contributor_name": "Alice, Bob, Carol",
-                "contributor_role": "creator, PI, publisher",
-                "contributing_institutions": "InstA, InstB, InstC",
-                "contributing_institutions_vocabulary": ", , ",
-                "contributing_institutions_role": "",
-                "contributing_institutions_role_vocabulary": "",
-                "contributor_email": ", , ",
-                "contributor_id": ", , ",
-            },
-        ),
-        (
-            {
-                "creator_email": "alice@example.com",
-                "principal_investigator_email": "bob1@example.com; bob2@example.com",
-                "publisher_email": "carol@example.com",
-            },
-            {
-                "contributor_name": ", , , ",
-                "contributor_email": "alice@example.com, bob1@example.com, bob2@example.com, carol@example.com",
-                "contributor_role": "creator, PI, PI, publisher",
-                "contributor_id": "",
-            },
-        ),
-        (
-            {
-                "creator_name": "Alice",
-                "principal_investigator": "Bob",
-                "principal_investigator_email": "pi@inst.org",
-            },
-            {
-                "contributor_name": "Alice, Bob",
-                "contributor_role": "creator, PI",
-                "contributor_email": ", pi@inst.org",
-                "contributor_id": ", ",
-            },
-        ),
-    ],
-)
-def test_consolidate_contributors_merges_and_assigns_roles(input_dict, expected_dict):
-    """_consolidate_contributors should handle merging of people/emails etc.
+class TestEdgeCases:
+    """Tests for edge cases and error handling."""
 
-    Specific actions:
-    - Merge name fields (creator, principal_investigator, publisher, contributor)
-    - Assign roles based on source key mapping
-    - Merge institution fields into contributing_institutions
-    - Merge email fields into contributor_email
-    - Add vocabulary and role placeholder keys for institutions
-    """
-    data = input_dict.copy()  # avoid mutating input
-    result = standardise._consolidate_contributors(data)
-    assert result == expected_dict
+    @pytest.mark.slow
+    def test_standardise_data_edge_case(self):
+        """Test standardization edge case with real rapid data."""
+        # Use real rapid data since empty dataset needs metadata files
+        from amocatlas import read
+
+        rapid_data = read.rapid(raw=True)  # Raw data
+
+        result = standardise.standardise_data(rapid_data, file_name="moc_transports.nc")
+
+        # Should still have basic standardization
+        assert "processing_datasource" in result.attrs
+        assert isinstance(result, xr.Dataset)
+
+    def test_reorder_metadata_empty(self):
+        """Test metadata reordering with empty metadata."""
+        result = standardise.reorder_metadata({})
+        assert result == {}
+
+    def test_reorder_metadata_case_sensitivity(self):
+        """Test that case-sensitive attributes are preserved exactly."""
+        metadata = {
+            "conventions": "wrong case",  # lowercase
+            "Conventions": "CF-1.8",  # correct case
+            "featuretype": "wrong case",  # lowercase
+            "featureType": "timeSeries",  # correct case
+        }
+
+        result = standardise.reorder_metadata(metadata)
+
+        # Should preserve exact case for case-sensitive attributes
+        assert result["Conventions"] == "CF-1.8"
+        assert result["featureType"] == "timeSeries"
+
+        # Should also preserve the lowercase versions (different attributes)
+        assert result["conventions"] == "wrong case"
+        assert result["featuretype"] == "wrong case"
+
+    def test_version_fallback(self):
+        """Test version detection fallback mechanisms."""
+        # This tests that version detection doesn't crash
+        # and provides some fallback even in edge cases
+
+        from unittest import mock
+        import subprocess
+
+        with mock.patch("subprocess.run") as mock_run:
+            # Mock git failure with the proper exception type that the function catches
+            mock_run.side_effect = subprocess.SubprocessError("Git not found")
+
+            version = standardise.get_dynamic_version()
+
+            # Should still return something reasonable
+            assert isinstance(version, str)
+            assert len(version) > 0

@@ -185,6 +185,7 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 .idea/
 notebooks/demo-eleanor.ipynb
+notebooks/demo-convert.ipynb
 data/meridional_transports.nc
 data/Bayesian_estimates_Atlantic_MHT.nc
 data/Bayesian_estimates_Atlantic_MHT.zip
@@ -200,3 +201,5 @@ data/ts_gridded.nc
 
 # Claude Code
 .claude/
+data/OS_MOVE_20000101-20221018_GRD_TEMPERATURE-SALINITY-AT-SITES-MOVE1-MOVE3.nc
+data/OS_MOVE_20000101-20221021_GRD_CURRENTS-AT-SITES-MOVE3-MOVE4.nc

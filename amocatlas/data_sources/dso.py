@@ -9,6 +9,8 @@ Meridional Overturning Circulation.
 from pathlib import Path
 from typing import Union
 
+import numpy as np
+import pandas as pd
 import xarray as xr
 
 # Import the modules used
@@ -56,6 +58,7 @@ def read_dso(
     transport_only: bool = True,
     data_dir: Union[str, Path, None] = None,
     redownload: bool = False,
+    track_added_attrs: bool = False,
 ) -> list[xr.Dataset]:
     """Load the Denmark Strait Overflow (DSO) datasets from a URL or local file path into xarray Datasets.
 
@@ -78,6 +81,13 @@ def read_dso(
     -------                                                         list of xr.Dataset
         List of loaded xarray datasets with basic inline and file-specific metadata.
 
+    Notes
+    -----
+    The original DSO_transport_hourly_1996_2021.nc file contains a corrupted DEPTH
+    coordinate value (9.97e+36). This function automatically detects and corrects
+    this by setting the DEPTH to NaN and documenting the correction in the dataset's
+    history attribute.
+
     Raises
     ------
     ValueError
@@ -85,7 +95,14 @@ def read_dso(
     FileNotFoundError                                                   If the file cannot be downloaded or does not exist locally.
 
     """
-    log.info("Starting to read DSO dataset")  # Ensure file_list has a default
+    log.info("Starting to read DSO dataset")
+
+    # Load YAML metadata with fallback
+    global_metadata, yaml_file_metadata = ReaderUtils.load_array_metadata_with_fallback(
+        DATASOURCE_ID, DSO_METADATA
+    )
+
+    # Ensure file_list has a default
     if file_list is None:
         file_list = DSO_DEFAULT_FILES
     if transport_only:
@@ -101,6 +118,7 @@ def read_dso(
 
     datasets = []
 
+    added_attrs_per_dataset = [] if track_added_attrs else None
     for file in file_list:
         if not file.lower().endswith(".nc"):
             log_warning("Skipping non-NetCDF file: %s", file)
@@ -121,16 +139,68 @@ def read_dso(
         # Use ReaderUtils for consistent dataset loading
         ds = ReaderUtils.safe_load_dataset(file_path)
 
-        # Use ReaderUtils for consistent metadata attachment
-        file_metadata = DSO_FILE_METADATA.get(file, {})
-        ds = ReaderUtils.attach_standard_metadata(
-            ds,
-            file,
-            file_path,
-            DSO_METADATA,
-            file_metadata,
-            datasource_id=DATASOURCE_ID,
-        )
+        # Fix corrupted DEPTH value in DSO dataset
+        # The original data contains a corrupted depth value (~9.97e36)
+        # Mark as missing rather than inserting estimated value
+        if "DEPTH" in ds.coords:
+            depth_val = float(ds.DEPTH.values[0])
+            if depth_val > 1000000:  # Clearly corrupted value
+                log_info("Marking corrupted DEPTH value %.2e as NaN", depth_val)
+                # Set depth to NaN to indicate missing/corrupted data
+                # Create new DataArray with NaN value to avoid read-only array issues
+                new_depth_values = np.full_like(ds["DEPTH"].values, np.nan)
+                ds["DEPTH"] = ds["DEPTH"].copy(data=new_depth_values)
+
+                # Update DEPTH attributes to reflect missing data
+                ds["DEPTH"].attrs.update(
+                    {
+                        "long_name": "Depth below surface of the water",
+                        "standard_name": "depth",
+                        "units": "meters",
+                        "QC_indicator": "bad data",
+                        "comment": "Original depth value was corrupted (9.97e+36), set to NaN",
+                    }
+                )
+
+                # Document the fix in the history attribute
+                current_time = pd.Timestamp.now(tz="UTC").strftime("%Y-%m-%dT%H:%M:%SZ")
+                existing_history = ds.attrs.get("history", "")
+                corruption_note = f"{current_time} AMOCatlas: Corrupted DEPTH value in DSO_transport_hourly_1996_2021.nc marked as NaN (was 9.97e+36)"
+
+                if existing_history:
+                    ds.attrs["history"] = f"{existing_history}; {corruption_note}"
+                else:
+                    ds.attrs["history"] = corruption_note
+
+        # Attach metadata with optional tracking
+
+        if track_added_attrs:
+
+            ds, attr_changes = ReaderUtils.attach_metadata_with_tracking(
+                ds,
+                file,
+                file_path,
+                global_metadata,
+                yaml_file_metadata,
+                DSO_FILE_METADATA,
+                DATASOURCE_ID,
+                track_added_attrs=True,
+            )
+
+            added_attrs_per_dataset.append(attr_changes)
+
+        else:
+
+            ds = ReaderUtils.attach_metadata_with_tracking(
+                ds,
+                file,
+                file_path,
+                global_metadata,
+                yaml_file_metadata,
+                DSO_FILE_METADATA,
+                DATASOURCE_ID,
+                track_added_attrs=False,
+            )
 
         datasets.append(ds)
 
@@ -138,4 +208,8 @@ def read_dso(
         log_error("No valid DSO NetCDF files found in %s", file_list)
         raise FileNotFoundError(f"No valid DSO NetCDF files found in {file_list}")
     log_info("Successfully loaded %d DSO dataset(s)", len(datasets))
-    return datasets
+
+    if track_added_attrs:
+        return datasets, added_attrs_per_dataset
+    else:
+        return datasets

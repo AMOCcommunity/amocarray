@@ -28,16 +28,28 @@ metadata:
 
 files:
   OSNAP_MOC_MHT_MFT_TimeSeries_201408_202006_2023.nc:
+    citation: >
+      Fu, Y., Lozier, M.S., Biló, T.C. et al. Seasonality of the Meridional Overturning Circulation in the subpolar North Atlantic. Commun Earth Environ 4, 181 (2023). https://doi.org/10.1038/s43247-023-00848-9
     data_product: "Time series of MOC, MHT, and MFT"
-    variable_mapping: {}
-    variables:
+    variable_mapping: 
+      MOC_ALL: MOC_SIGMA0
+      MOC_WEST: MOC_WEST_SIGMA0
+      MOC_EAST: MOC_EAST_SIGMA0
+      MHT_ALL: MHT
+      MFT_ALL: MFT
+      MOC_ALL_ERR: MOC_SIGMA0_ERR
+      MOC_WEST_ERR: MOC_WEST_SIGMA0_ERR
+      MOC_EAST_ERR: MOC_EAST_SIGMA0_ERR
+      MHT_ALL_ERR: MHT_ERR
+      MFT_ALL_ERR: MFT_ERR
+    original_variable_metadata:
       TIME:
-        long_name: "Start date of each monthly period"
-        description: "Time in days since 1950-01-01"
+        long_name: "Time (start of each monthly period)"
+        description: "Start date of each monthly period"
         units: days since 1950-01-01
         standard_name: time
       MOC_ALL:
-        long_name: "Total MOC"
+        long_name: "MOC_sigma0"
         description: "Maximum overturning streamfunction across full OSNAP array"
         units: Sv
         standard_name: Transport_anomaly
@@ -47,17 +59,17 @@ files:
         units: Sv
         standard_name: Transport_anomaly
       MOC_WEST:
-        long_name: "MOC west"
+        long_name: "MOC_sigma0,west"
         description: "Overturning streamfunction at OSNAP West"
         units: Sv
         standard_name: Transport_anomaly
       MOC_WEST_ERR:
-        long_name: "MOC west uncertainty"
+        long_name: "MOCwest uncertainty"
         description: "Uncertainty in MOC_WEST"
         units: Sv
         standard_name: Transport_anomaly
       MOC_EAST:
-        long_name: "MOC east"
+        long_name: "MOCeast(sigma0)"
         description: "Overturning streamfunction at OSNAP East"
         units: Sv
         standard_name: Transport_anomaly
@@ -67,7 +79,7 @@ files:
         units: Sv
         standard_name: Transport_anomaly
       MHT_ALL:
-        long_name: "Heat transport"
+        long_name: "MHT"
         description: "Meridional heat transport across full OSNAP array"
         units: PW
         standard_name: Heat_transport
@@ -127,40 +139,198 @@ files:
         units: Sv
         standard_name: Freshwater_transport
 
-  OSNAP_Streamfunction_201408_202006_2023.nc:
-    data_product: "Meridional overturning streamfunction"
-    variable_mapping: {}
-    variables:
+  OSNAP_MOC_MHT_MFT_TimeSeries_201408_202207_2025.nc:
+    citation: >
+      Fu, Y., Lozier, M. S., Bower, A., Burmeister, K., Carrilho Biló, T., Cyr, F., et al. (2025). Characterizing the interannual variability of North Atlantic subpolar overturning. Geophysical Research Letters, 52, e2025GL114672. https://doi.org/10.1029/2025GL114672
+    data_product: "Time series of MOC, MHT, and MFT (2014-2022)"
+    variable_mapping:
+      MOC_ALL: MOC_SIGMA0
+      MOC_WEST: MOC_WEST_SIGMA0
+      MOC_EAST: MOC_EAST_SIGMA0
+      MHT_ALL: MHT
+      MFT_ALL: MFT
+      MOC_ALL_ERR: MOC_SIGMA0_ERR
+      MOC_WEST_ERR: MOC_WEST_SIGMA0_ERR
+      MOC_EAST_ERR: MOC_EAST_SIGMA0_ERR
+      MHT_ALL_ERR: MHT_ERR
+      MFT_ALL_ERR: MFT_ERR
+    original_variable_metadata:
       TIME:
         long_name: "Start date of each monthly period"
         description: "Time in days since 1950-01-01"
         units: days since 1950-01-01
         standard_name: time
+      MOC_ALL:
+        long_name: "MOC_sigma0"
+        description: "Maximum overturning streamfunction across full OSNAP array"
+        units: Sv
+        standard_name: Transport_anomaly
+      MOC_ALL_ERR:
+        long_name: "MOC_sigma0 uncertainty"
+        description: "Uncertainty in MOC_ALL"
+        units: Sv
+        standard_name: Transport_anomaly
+      MOC_WEST:
+        long_name: "Western MOC_sigma0"
+        description: "Maximum overturning streamfunction across OSNAP West"
+        units: Sv
+        standard_name: Transport_anomaly
+      MOC_WEST_ERR:
+        long_name: "Western MOC_sigma0 uncertainty"
+        description: "Uncertainty in MOC_WEST"
+        units: Sv
+        standard_name: Transport_anomaly
+      MOC_EAST:
+        long_name: "Eastern MOC_sigma0"
+        description: "Maximum overturning streamfunction across OSNAP East"
+        units: Sv
+        standard_name: Transport_anomaly
+      MOC_SIGMA0_EAST_ERR:
+        long_name: "Eastern MOC_sigma0 uncertainty"
+        description: "Uncertainty in MOC_SIGMA0_EAST"
+        units: Sv
+        standard_name: Transport_anomaly
+      MHT:
+        long_name: "MHT"
+        description: "Meridional heat transport across full OSNAP array"
+        units: PW
+        standard_name: Heat_transport
+      MHT_ERR:
+        long_name: "MHT uncertainty"
+        description: "Uncertainty in MHT"
+        units: PW
+        standard_name: Heat_transport
+      MHT_WEST:
+        long_name: "MHT west"
+        description: "Meridional heat transport across OSNAP West"
+        units: PW
+        standard_name: Heat_transport
+      MHT_WEST_ERR:
+        long_name: "MHT west uncertainty"
+        description: "Uncertainty in MHT_WEST"
+        units: PW
+        standard_name: Heat_transport
+      MHT_EAST:
+        long_name: "MHT east"
+        description: "Meridional heat transport across OSNAP East"
+        units: PW
+        standard_name: Heat_transport
+      MHT_EAST_ERR:
+        long_name: "MHT east uncertainty"
+        description: "Uncertainty in MHT_EAST"
+        units: PW
+        standard_name: Heat_transport
+      MFT:
+        long_name: "Freshwater trans."
+        description: "Meridional freshwater transport across full OSNAP array"
+        units: Sv
+        standard_name: Freshwater_transport
+      MFT_ERR:
+        long_name: "Freshwater trans. error"
+        description: "Uncertainty in MFT"
+        units: Sv
+        standard_name: Freshwater_transport
+      MFT_WEST:
+        long_name: "Freshwater trans. west"
+        description: "Meridional freshwater transport across OSNAP West"
+        units: Sv
+        standard_name: Freshwater_transport
+      MFT_WEST_ERR:
+        long_name: "Freshwater trans. west error"
+        description: "Uncertainty in MFT_WEST"
+        units: Sv
+        standard_name: Freshwater_transport
+      MFT_EAST:
+        long_name: "Freshwater trans. east"
+        description: "Meridional freshwater transport across OSNAP East"
+        units: Sv
+        standard_name: Freshwater_transport
+      MFT_EAST_ERR:
+        long_name: "Freshwater trans. east error"
+        description: "Uncertainty in MFT_EAST"
+        units: Sv
+        standard_name: Freshwater_transport
+
+  OSNAP_Streamfunction_201408_202006_2023.nc:
+    citation: >
+      Fu, Y., Lozier, M.S., Biló, T.C. et al. Seasonality of the Meridional Overturning Circulation in the subpolar North Atlantic. Commun Earth Environ 4, 181 (2023). https://doi.org/10.1038/s43247-023-00848-9
+    data_product: "Meridional overturning streamfunction"
+    variable_mapping: 
+      LEVEL: SIGMA0
+      T_ALL: STREAMFUNCTION_SIGMA0
+      T_WEST: STREAMFUNCTION_SIGMA0_WEST
+      T_EAST: STREAMFUNCTION_SIGMA0_EAST
+    original_variable_metadata:
+      TIME:
+        description: "Start date of each monthly period"
+        long_name: "Time in days since 1950-01-01"
+        units: days since 1950-01-01
+        standard_name: time
       LEVEL:
         long_name: "Sigma-theta levels"
-        description: "Potential density surfaces (σθ)"
+        description: "Potential density anomaly referenced to surface (sigma-theta), density anomaly to 1000 kg/m3"
         units: kg m-3
-        standard_name: potential_density
+        standard_name: sea_water_sigma_theta
       T_ALL:
-        long_name: "Streamfunction total"
+        long_name: "Streamfunction"
         description: "Streamfunction in σθ coordinates across full OSNAP"
         units: Sv
-        standard_name: Transport
+        standard_name: ocean_meridional_overturning_streamfunction
       T_WEST:
         long_name: "Streamfunction west"
         description: "Streamfunction in σθ at OSNAP West"
         units: Sv
-        standard_name: Transport
+        standard_name: ocean_meridional_overturning_streamfunction
       T_EAST:
         long_name: "Streamfunction east"
         description: "Streamfunction in σθ at OSNAP East"
         units: Sv
-        standard_name: Transport
+        standard_name: ocean_meridional_overturning_streamfunction
+
+  OSNAP_Streamfunction_201408_202207_2025.nc:
+    citation: >
+      Fu, Y., Lozier, M. S., Bower, A., Burmeister, K., Carrilho Biló, T., Cyr, F., et al. (2025). Characterizing the interannual variability of North Atlantic subpolar overturning. Geophysical Research Letters, 52, e2025GL114672. https://doi.org/10.1029/2025GL114672
+    data_product: "Meridional overturning streamfunction (2014-2022)"
+    variable_mapping: 
+      LEVEL: SIGMA0
+      T_ALL: STREAMFUNCTION_SIGMA0
+      T_WEST: STREAMFUNCTION_SIGMA0_WEST
+      T_EAST: STREAMFUNCTION_SIGMA0_EAST
+    original_variable_metadata:
+      TIME:
+        description: "Start date of each monthly period"
+        long_name: "Time in days since 1950-01-01"
+        units: days since 1950-01-01
+        standard_name: time
+      LEVEL:
+        long_name: "sigma0"
+        description: "Potential density anomaly referenced to surface (sigma-theta), density anomaly to 1000 kg/m3"
+        units: kg m-3
+        standard_name: sea_water_sigma_theta
+      T_ALL:
+        long_name: "Streamfunction"
+        description: "Streamfunction in σθ coordinates across full OSNAP"
+        units: Sv
+        standard_name: ocean_meridional_overturning_streamfunction
+      T_WEST:
+        long_name: "Streamfunction west"
+        description: "Streamfunction in σθ at OSNAP West"
+        units: Sv
+        standard_name: ocean_meridional_overturning_streamfunction
+      T_EAST:
+        long_name: "Streamfunction east"
+        description: "Streamfunction in σθ at OSNAP East"
+        units: Sv
+        standard_name: ocean_meridional_overturning_streamfunction
 
   OSNAP_Gridded_TSV_201408_202006_2023.nc:
+    citation: >
+      Fu, Y., Lozier, M.S., Biló, T.C. et al. Seasonality of the Meridional Overturning Circulation in the subpolar North Atlantic. Commun Earth Environ 4, 181 (2023). https://doi.org/10.1038/s43247-023-00848-9
     data_product: "Gridded velocity, temperature, and salinity"
-    variable_mapping: {}
-    variables:
+    variable_mapping: 
+      SAL: PSAL
+      VELO: VCUR
+    original_variable_metadata:
       TIME:
         long_name: "Start date of each monthly period"
         description: "Time in days since 1950-01-01"
@@ -169,7 +339,7 @@ files:
       DEPTH:
         long_name: "Depth"
         description: "Depth in meters"
-        units: m
+        units: meters
         standard_name: depth
       LONGITUDE:
         long_name: "Longitude"
@@ -189,10 +359,57 @@ files:
       TEMP:
         long_name: "Temperature"
         description: "In-situ temperature along OSNAP"
-        units: degC
+        units: degrees_celsius
         standard_name: sea_water_temperature
       SAL:
         long_name: "Salinity"
         description: "Practical salinity along OSNAP"
-        units: psu
+        units: PSU
+        standard_name: sea_water_practical_salinity
+
+  OSNAP_Gridded_TSV_201408_202207_2025.nc:
+    citation: >
+      Fu, Y., Lozier, M. S., Bower, A., Burmeister, K., Carrilho Biló, T., Cyr, F., et al. (2025). Characterizing the interannual variability of North Atlantic subpolar overturning. Geophysical Research Letters, 52, e2025GL114672. https://doi.org/10.1029/2025GL114672
+    data_product: "Gridded velocity, temperature, and salinity (2014-2022)"
+    url: https://repository.gatech.edu/bitstreams/af6a47f7-f705-49b4-a64f-5cd086b9b9fb/download
+    size: "55.98 MB"
+    variable_mapping: 
+      SAL: PSAL
+      VELO: VCUR
+    original_variable_metadata:
+      TIME:
+        long_name: "Time"
+        description: "Start date of each monthly period"
+        units: days since 1950-01-01
+        standard_name: time
+      DEPTH:
+        long_name: "Depth"
+        description: "Depth below sea surface"
+        units: meters
+        standard_name: depth
+        positive: down
+      LONGITUDE:
+        long_name: "Longitude"
+        description: "Longitude coordinate"
+        units: degrees_east
+        standard_name: longitude
+      LATITUDE:
+        long_name: "Latitude"
+        description: "Latitude coordinate"
+        units: degrees_north
+        standard_name: latitude
+      VELO:
+        long_name: "Velocity"
+        description: "Cross-sectional velocity along OSNAP"
+        units: m s-1
+        standard_name: sea_water_velocity
+      TEMP:
+        long_name: "Temperature"
+        description: "In-situ temperature along OSNAP"
+        units: degrees_celsius
+        standard_name: sea_water_temperature
+      SAL:
+        long_name: "Salinity"
+        description: "Practical salinity along OSNAP"
+        units: PSU
         standard_name: sea_water_practical_salinity

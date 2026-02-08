@@ -72,7 +72,8 @@ def read_rapid(
     transport_only: bool = True,
     data_dir: Union[str, Path, None] = None,
     redownload: bool = False,
-) -> list[xr.Dataset]:
+    track_added_attrs: bool = False,
+) -> Union[list[xr.Dataset], tuple[list[xr.Dataset], list[list[str]]]]:
     """Load the RAPID transport dataset from a URL or local file path into an xarray.Dataset.
 
     Parameters
@@ -89,11 +90,15 @@ def read_rapid(
         Optional local data directory.
     redownload : bool, optional
         If True, force redownload of the data.
+    track_added_attrs : bool, optional
+        If True, return tuple of (datasets, list_of_metadata_changes_per_dataset).
+        If False, return only datasets. Default is False.
 
     Returns
     -------
-    xr.Dataset
-        The loaded xarray dataset with basic inline metadata.
+    list[xr.Dataset] or tuple[list[xr.Dataset], list[dict]]
+        If track_added_attrs=False: List of loaded datasets with metadata.
+        If track_added_attrs=True: Tuple of (datasets, list of metadata changes per dataset).
 
     Raises
     ------
@@ -105,17 +110,26 @@ def read_rapid(
     """
     log_info("Starting to read RAPID dataset")
 
+    # Load YAML metadata with fallback
+    global_metadata, yaml_file_metadata = ReaderUtils.load_array_metadata_with_fallback(
+        DATASOURCE_ID, RAPID_METADATA
+    )
+
     # Use ReaderUtils for common operations
     file_list = ReaderUtils.prepare_file_list(
         file_list, RAPID_DEFAULT_FILES, RAPID_TRANSPORT_FILES, transport_only
     )
     local_data_dir = ReaderUtils.setup_data_directory(data_dir)
 
-    # Print information about files being loaded
+    # Print information about files being loaded - use YAML metadata if available
     netcdf_files = ReaderUtils.filter_netcdf_files(file_list)
-    ReaderUtils.print_loading_info(netcdf_files, DATASOURCE_ID, RAPID_FILE_METADATA)
+    display_file_metadata = (
+        yaml_file_metadata if yaml_file_metadata else RAPID_FILE_METADATA
+    )
+    ReaderUtils.print_loading_info(netcdf_files, DATASOURCE_ID, display_file_metadata)
 
     datasets = []
+    added_attrs_per_dataset = []
 
     for file in netcdf_files:
         # RAPID-specific URL construction
@@ -133,19 +147,70 @@ def read_rapid(
 
         # Use ReaderUtils for consistent dataset loading and metadata
         ds = ReaderUtils.safe_load_dataset(file_path)
-        file_metadata = RAPID_FILE_METADATA.get(file, {})
-        ds = ReaderUtils.attach_standard_metadata(
-            ds,
-            file,
-            file_path,
-            RAPID_METADATA,
-            file_metadata,
-            datasource_id=DATASOURCE_ID,
-        )
+
+        # Get file-specific metadata from YAML or fallback to hardcoded
+        if file in yaml_file_metadata:
+            file_metadata = yaml_file_metadata[file]
+        else:
+            file_metadata = RAPID_FILE_METADATA.get(file, {})
+
+        # Apply variable mapping and coordinate metadata from YAML
+        if file in yaml_file_metadata and yaml_file_metadata[file]:
+            yaml_file_data = yaml_file_metadata[file]
+
+            # Variable mapping will be handled in standardization stage (Option A approach)
+            # Store mapping for later use but don't apply renaming here
+            var_mapping = yaml_file_data.get("variable_mapping", {})
+
+            # Apply coordinate metadata from YAML
+            # Since we're not renaming in reader, use original coordinate names
+            coord_metadata = yaml_file_data.get("coordinates", {})
+            for coord_name, coord_attrs in coord_metadata.items():
+                if coord_name in ds.coords:
+                    ds[coord_name].attrs.update(coord_attrs)
+
+            # Apply variable metadata from YAML using original variable names
+            # (standardized names will get metadata applied during standardization)
+            var_metadata = yaml_file_data.get("variables", {})
+            for std_var_name, var_attrs in var_metadata.items():
+                # Find the original variable name that maps to this standardized name
+                orig_var_name = None
+                for orig, std in var_mapping.items():
+                    if std == std_var_name:
+                        orig_var_name = orig
+                        break
+
+                # Apply metadata to original variable name if it exists in dataset
+                if orig_var_name and orig_var_name in ds.data_vars:
+                    ds[orig_var_name].attrs.update(var_attrs)
+
+        if track_added_attrs:
+            ds, attr_changes = ReaderUtils.attach_standard_metadata(
+                ds,
+                file,
+                file_path,
+                global_metadata,
+                file_metadata,
+                datasource_id=DATASOURCE_ID,
+                track_added_attrs=True,
+            )
+            added_attrs_per_dataset.append(attr_changes)
+        else:
+            ds = ReaderUtils.attach_standard_metadata(
+                ds,
+                file,
+                file_path,
+                global_metadata,
+                file_metadata,
+                datasource_id=DATASOURCE_ID,
+            )
 
         datasets.append(ds)
 
     # Use ReaderUtils for validation
     ReaderUtils.validate_datasets_loaded(datasets, file_list)
 
-    return datasets
+    if track_added_attrs:
+        return datasets, added_attrs_per_dataset
+    else:
+        return datasets

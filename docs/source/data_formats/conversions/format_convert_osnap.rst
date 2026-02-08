@@ -1,6 +1,7 @@
 .. _convert-osnap:
+
 OSNAP conversion thoughts
-----------------------
+=========================
 
 At OSNAP, we have variables like MOC_ALL, MOC_EAST and MOC_WEST which are time series (``TIME``), but these could be represented as MOC (``N_PROF``, ``TIME``) where instead of the three different variables, N_PROF=3.  This would be somewhat more difficult to communicate to the user, since LATITUDE and LONGITUDE are not single points per N_PROF but instead may represent end points of a section.
 

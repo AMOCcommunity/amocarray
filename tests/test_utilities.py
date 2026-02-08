@@ -299,6 +299,149 @@ def test_apply_defaults_decorator() -> None:
     assert files == ["custom.nc"]
 
 
+class TestNewUtilityFunctions:
+    """Tests for recently added utility functions."""
+
+    def test_mask_invalid_values(self):
+        """Test mask_invalid_values function with lazy evaluation preservation."""
+        # Create test dataset with valid_min/valid_max attributes
+        ds = xr.Dataset(
+            {
+                "temperature": (
+                    ["time"],
+                    [10.0, 25.0, -999.0, 30.0, 999.0],  # -999 and 999 are invalid
+                    {"valid_min": 0.0, "valid_max": 50.0},
+                ),
+                "salinity": (
+                    ["time"],
+                    [35.0, -99.0, 36.0, 37.0, 100.0],  # -99 and 100 are invalid
+                    {"valid_min": 30.0, "valid_max": 40.0},
+                ),
+                "no_limits": (["time"], [1, 2, 3, 4, 5]),  # No valid_min/max
+            },
+            coords={"time": pd.date_range("2020-01-01", periods=5)},
+        )
+
+        result = utilities.mask_invalid_values(ds)
+
+        # Check that invalid values are masked as NaN
+        temp_masked = result["temperature"].values
+        assert pd.isna(temp_masked[2])  # -999 should be NaN
+        assert pd.isna(temp_masked[4])  # 999 should be NaN
+        assert temp_masked[0] == 10.0  # Valid value preserved
+        assert temp_masked[1] == 25.0  # Valid value preserved
+        assert temp_masked[3] == 30.0  # Valid value preserved
+
+        sal_masked = result["salinity"].values
+        assert pd.isna(sal_masked[1])  # -99 should be NaN
+        assert pd.isna(sal_masked[4])  # 100 should be NaN
+        assert sal_masked[0] == 35.0  # Valid value preserved
+
+        # Variable without limits should be unchanged
+        assert result["no_limits"].equals(ds["no_limits"])
+
+        # Attributes should be preserved
+        assert result["temperature"].attrs["valid_min"] == 0.0
+        assert result["temperature"].attrs["valid_max"] == 50.0
+
+    def test_mask_invalid_values_edge_cases(self):
+        """Test mask_invalid_values with edge cases."""
+        # Empty dataset
+        empty_ds = xr.Dataset()
+        result = utilities.mask_invalid_values(empty_ds)
+        assert len(result.data_vars) == 0
+
+        # Dataset with no valid_min/max attributes
+        ds_no_limits = xr.Dataset({"data": (["x"], [1, 2, 3])})
+        result = utilities.mask_invalid_values(ds_no_limits)
+        assert result["data"].equals(ds_no_limits["data"])
+
+        # Dataset with only valid_min or only valid_max
+        ds_min_only = xr.Dataset({"temp": (["x"], [-10, 0, 10], {"valid_min": 0.0})})
+        result = utilities.mask_invalid_values(ds_min_only)
+        assert pd.isna(result["temp"].values[0])  # -10 below valid_min
+        assert result["temp"].values[1] == 0.0  # At valid_min
+        assert result["temp"].values[2] == 10.0  # Above valid_min
+
+    def test_standardize_dataset_units(self):
+        """Test standardize_dataset_units function."""
+        # Create test dataset with various units to standardize
+        ds = xr.Dataset(
+            {
+                "temperature": (["time"], [20.0, 25.0], {"units": "degree_celsius"}),
+                "salinity": (["time"], [35.0, 36.0], {"units": "psu"}),
+                "transport": (["time"], [15.0, 20.0], {"units": "Sv"}),
+                "pressure": (["time"], [1000, 2000], {"units": "dbar"}),
+                "no_units": (["time"], [1, 2]),  # No units attribute
+            },
+            coords={"time": pd.date_range("2020-01-01", periods=2)},
+        )
+
+        result = utilities.standardize_dataset_units(ds, log_changes=False)
+
+        # Check that units are standardized according to the mapping
+        assert result["temperature"].attrs["units"] == "degrees_Celsius"
+        assert result["salinity"].attrs["units"] in ["psu", "PSU"]  # Accept either case
+        assert result["transport"].attrs["units"] == "Sverdrup"
+        assert result["pressure"].attrs["units"] == "dbar"  # Should remain dbar
+
+        # Variable without units should remain unchanged
+        assert "units" not in result["no_units"].attrs
+
+        # Data values should remain unchanged
+        assert result["temperature"].values.tolist() == [20.0, 25.0]
+        assert result["transport"].values.tolist() == [15.0, 20.0]
+
+    def test_standardize_dataset_units_custom_mapping(self):
+        """Test standardize_dataset_units with custom mapping."""
+        ds = xr.Dataset({"test_var": (["x"], [1, 2], {"units": "custom_unit"})})
+
+        custom_mapping = {"custom_unit": "standard_unit"}
+        result = utilities.standardize_dataset_units(
+            ds, mapping=custom_mapping, log_changes=False
+        )
+
+        assert result["test_var"].attrs["units"] == "standard_unit"
+
+    def test_standardize_dataset_units_logging(self):
+        """Test that unit standardization logging works."""
+        ds = xr.Dataset({"temp": (["x"], [20], {"units": "degree_celsius"})})
+
+        # This should not raise an error (testing logging functionality)
+        result = utilities.standardize_dataset_units(ds, log_changes=True)
+        assert result["temp"].attrs["units"] == "degrees_Celsius"
+
+    def test_standardize_dataset_units_preserves_other_attrs(self):
+        """Test that unit standardization preserves other variable attributes."""
+        ds = xr.Dataset(
+            {
+                "temperature": (
+                    ["time"],
+                    [20.0, 25.0],
+                    {
+                        "units": "degree_celsius",
+                        "long_name": "Temperature",
+                        "standard_name": "sea_water_temperature",
+                        "valid_min": -5.0,
+                        "valid_max": 40.0,
+                    },
+                )
+            },
+            coords={"time": pd.date_range("2020-01-01", periods=2)},
+        )
+
+        result = utilities.standardize_dataset_units(ds, log_changes=False)
+
+        # Units should be updated
+        assert result["temperature"].attrs["units"] == "degrees_Celsius"
+
+        # Other attributes should be preserved
+        assert result["temperature"].attrs["long_name"] == "Temperature"
+        assert result["temperature"].attrs["standard_name"] == "sea_water_temperature"
+        assert result["temperature"].attrs["valid_min"] == -5.0
+        assert result["temperature"].attrs["valid_max"] == 40.0
+
+
 def test_resolve_file_path_missing_file() -> None:
     """Test error handling when local file is missing."""
     with tempfile.TemporaryDirectory() as tmp_dir:

@@ -1,9 +1,10 @@
 metadata:
   description: "Estimating the Atlantic overturning at 26°N using satellite altimetry and cable measurements"
+  project: "RAPID"
   weblink: "https://figshare.com/articles/dataset/MOCproxy_for_figshare_v1_0_mat/1463479?file=3369779"
   comment: >
     Dataset accessed and processed via http://github.com/AMOCcommunity/amocatlas
-  acknowledgement: >
+  citation: >
     Frajka-Williams, E. (2015), Estimating the Atlantic overturning at 26°N using satellite altimetry and cable measurements. Geophys. Res. Lett., 42, 3458–3464. doi: 10.1002/2015GL063220.
   license: CC-BY 4.0
   featureType: timeSeries
@@ -12,65 +13,77 @@ metadata:
   time_coverage_end: '2014-12-15'
 
 files:
-  MOCproxy_for_figshare_v1.0.mat:
+  MOCproxy_for_figshare_v1.mat:
     source_url: "https://figshare.com/articles/dataset/MOCproxy_for_figshare_v1_0_mat/1463479?file=3369779"
     data_product: "a proxy for the meridional overturning circulation at 26N, using sea level anomaly and cable measurements"
-    acknowledgement: >
+    citation: >
       Frajka-Williams, E. (2015), Estimating the Atlantic overturning at 26°N using satellite altimetry and cable measurements. Geophys. Res. Lett., 42, 3458–3464. doi: 10.1002/2015GL063220.
     variable_mapping:
-      "time": time
-      "mocproxy": MOC_PROXY
-      "umoproxy": UMO_PROXY
-      "h1umo": SSHA
-      "gs": GS
-      "umo": UMO
-      "ek": EK
-      "moc": MOC
-      "lnadw": LNADW
-      "unadw": UNADW
-    variables:
-      MOC_PROXY:
-        long_name: "Overturning transport proxy"
+      "time": "TIME"
+      "mocproxy": "MOC_PROXY"
+      "umoproxy": "TRANS_UMO_PROXY"
+      "h1umo": "SSHA"
+      "gs": "TRANS_FC"
+      "umo": "TRANS_UMO"
+      "ek": "TRANS_EKMAN"
+      "moc": "MOC"
+      "unadw": "TRANS_1100_3000"
+      "lnadw": "TRANS_3000_5000"
+      "ek_grid": "TRANS_EKMAN__GRID"
+      "gs_grid": "TRANS_FC_GRID"
+    original_variable_metadata:
+      mocproxy:
+        long_name: "MOC_z proxy"
         description: "a proxy for the meridional overturning circulation at 26N, using sea level anomaly and cable measurements"
         units: Sv
-        standard_name: Transport
-      UMO_PROXY:
-        long_name: "Upper mid-ocean transport proxy"
+        standard_name: ocean_meridional_overturning_streamfunction
+      umoproxy:
+        long_name: "UMO proxy"
         description: "a proxy for the upper mid-ocean transport based on the linear regression between recon.h1umo and mocgrid.umo"
         units: Sv
-        standard_name: Transport
-      SSHA:
-        long_name: "Sea surface height anomaly near 28N, 70W"
+        standard_name: ocean_volume_transport_across_line
+      h1umo:
+        long_name: "SSHA near 28N, 70W"
         description: "sea level anomaly from a spatially-smoothed and temporally filtered version of the AVISO mapped absolute dynamic topography product and selected near 28N, 70W in the Atlantic, at the point with the highest anticorrelation between the upper mid-ocean transport measured by the RAPID-MOCHA project and sea level anomaly"
         units: cm
         standard_name: Sea_surface_height_anomaly
-      GS:
-        long_name: "Gulf Stream transport"
+      gs:
+        long_name: "Florida Current"
         description: "The strength of the Gulf Stream transport through the Florida Straits between Florida and Bahamas, as measured by a submarine telephone cable."
         units: Sv
-        standard_name: Transport
-      UMO:
-        long_name: "Upper mid-ocean transport"
+        standard_name: ocean_volume_transport_across_line
+      umo:
+        long_name: "Upper mid-ocean"
         description: "The strength of the upper mid-ocean transport between the Bahamas and Africa at 26N, in the top (roughly) 1100 m of the ocean."
         units: Sv
-        standard_name: Transport
-      EK:
-        long_name: "Ekman transport"
+        standard_name: ocean_volume_transport_across_line
+      ek:
+        long_name: "Ekman"
         description: "Surface meridional (north-south) Ekman transport as estimated from ERA-Interim reanalysis winds."
         units: Sv
-        standard_name: Transport
-      MOC:
-        long_name: "Overturning transport"
+        standard_name: ocean_volume_transport_across_line
+      moc:
+        long_name: "MOC_z"
         description: "The meridional overturning circulation at 26N or, the volume of water moving northward in the top (roughly) 1100 m of the ocean which is equal-and-opposite-to the volume of water moving southward below this depth."
         units: Sv
-        standard_name: Transport
-      LNADW:
-        long_name: "Lower North Atlantic Deep Water transport"
+        standard_name: ocean_meridional_overturning_transport
+      lnadw:
+        long_name: "Lower NADW"
         description: "The lower North Atlantic Deep water transport or mid-ocean transport between the Bahamas and Africa and between the depth layers of 3000 m and 5000 m."
         units: Sv
-        standard_name: Transport
-      UNADW:
-        long_name: "Upper North Atlantic Deep Water transport"
+        standard_name: ocean_volume_transport_across_line
+      unadw:
+        long_name: "Upper NADW"
         description: "The upper North Atlantic Deep water transport or mid-ocean transport between the Bahamas and Africa and between the depth layers of 1100 m and 3000 m."
         units: Sv
-        standard_name: Transport
+        standard_name: ocean_volume_transport_across_line
+      ek_grid:
+        long_name: "Ekman"
+        units: Sv
+        description: "Surface meridional (north-south) Ekman transport as estimated from ERA-Interim reanalysis winds."
+        standard_name: ocean_volume_transport_across_line
+      gs_grid:
+        long_name: "Florida Current"
+        description: "The strength of the Gulf Stream transport through the Florida Straits between Florida and Bahamas, as measured by a submarine telephone cable."
+        units: Sv
+        standard_name: ocean_volume_transport_across_line

@@ -81,6 +81,7 @@ def read_arcticgateway(
     transport_only: bool = True,
     data_dir: Union[str, Path, None] = None,
     redownload: bool = False,
+    track_added_attrs: bool = False,
 ) -> list[xr.Dataset]:
     """Load the ARCTIC Gateway transport dataset from a URL or local file path into xarray Datasets.
 
@@ -114,6 +115,11 @@ def read_arcticgateway(
     """
     log.info("Starting to read ARCTIC Gateway dataset")
 
+    # Load YAML metadata with fallback
+    _global_metadata, _yaml_file_metadata = (
+        ReaderUtils.load_array_metadata_with_fallback(DATASOURCE_ID, ARCTIC_METADATA)
+    )
+
     if file_list is None:
         file_list = ARCTIC_DEFAULT_FILES
     if transport_only:
@@ -128,6 +134,7 @@ def read_arcticgateway(
 
     datasets = []
 
+    added_attrs_per_dataset = [] if track_added_attrs else None
     for file in file_list:
         download_url = ARCTIC_FILE_URLS.get(file)
         if not download_url:
@@ -177,14 +184,28 @@ def read_arcticgateway(
 
                 # Use ReaderUtils for consistent metadata attachment
                 file_metadata = ARCTIC_FILE_METADATA.get(nc_file, {})
-                ds = ReaderUtils.attach_standard_metadata(
-                    ds,
-                    nc_file,
-                    nc_path,
-                    ARCTIC_METADATA,
-                    file_metadata,
-                    datasource_id=DATASOURCE_ID,
-                )
+                if track_added_attrs:
+                    # Attach metadata with tracking
+                    ds, attr_changes = ReaderUtils.attach_standard_metadata(
+                        ds,
+                        nc_file,
+                        nc_path,
+                        ARCTIC_METADATA,
+                        file_metadata,
+                        datasource_id=DATASOURCE_ID,
+                        track_added_attrs=True,
+                    )
+                    added_attrs_per_dataset.append(attr_changes)
+                else:
+                    # Standard metadata attachment without tracking
+                    ds = ReaderUtils.attach_standard_metadata(
+                        ds,
+                        nc_file,
+                        nc_path,
+                        ARCTIC_METADATA,
+                        file_metadata,
+                        datasource_id=DATASOURCE_ID,
+                    )
 
                 datasets.append(ds)
         else:
@@ -194,4 +215,9 @@ def read_arcticgateway(
 
     # Use ReaderUtils for validation
     ReaderUtils.validate_datasets_loaded(datasets, file_list)
-    return datasets
+    # Handle track_added_attrs parameter
+
+    if track_added_attrs:
+        return datasets, added_attrs_per_dataset
+    else:
+        return datasets

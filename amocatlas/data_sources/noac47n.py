@@ -29,10 +29,10 @@ log = logger.log  # Use the global logger
 DATASOURCE_ID = "noac47n"
 
 # Default list of 47N data files
-A47N_DEFAULT_FILES = [
+NOAC47N_DEFAULT_FILES = [
     "NOAC_AMOC.tab",
 ]
-A47N_TRANSPORT_FILES = ["NOAC_AMOC.tab"]
+NOAC47N_TRANSPORT_FILES = ["NOAC_AMOC.tab"]
 A47N_DEFAULT_SOURCE = "https://doi.pangaea.de/10.1594/PANGAEA.959558"
 A47N_METADATA = {
     "project": "Basin-wide AMOC volume transport from the NOAC array at 47°N in the subpolar North Atlantic (1993-2018) ",
@@ -51,7 +51,7 @@ A47N_FILE_METADATA = {
 }
 
 
-@apply_defaults(A47N_DEFAULT_SOURCE, A47N_DEFAULT_FILES)
+@apply_defaults(A47N_DEFAULT_SOURCE, NOAC47N_DEFAULT_FILES)
 def read_47n(
     ##    source: str,
     source: Union[str, Path, None],
@@ -59,6 +59,7 @@ def read_47n(
     transport_only: bool = True,
     data_dir: Union[str, Path, None] = None,
     redownload: bool = False,
+    track_added_attrs: bool = False,
 ) -> list[xr.Dataset]:
     """Load the 47N transport datasets from a URL or local file path into xarray Datasets.
 
@@ -89,11 +90,18 @@ def read_47n(
     If the file cannot be downloaded or does not exist locally.
 
     """
-    log.info("Starting to read 47N dataset")  # Ensure file_list has a default
+    log.info("Starting to read 47N dataset")
+
+    # Load YAML metadata with fallback
+    global_metadata, yaml_file_metadata = ReaderUtils.load_array_metadata_with_fallback(
+        DATASOURCE_ID, A47N_METADATA
+    )
+
+    # Ensure file_list has a default
     if file_list is None:
-        file_list = A47N_DEFAULT_FILES
+        file_list = NOAC47N_DEFAULT_FILES
     if transport_only:
-        file_list = A47N_TRANSPORT_FILES
+        file_list = NOAC47N_TRANSPORT_FILES
     if isinstance(file_list, str):
         file_list = [file_list]
     # Determine the local storage path
@@ -105,6 +113,7 @@ def read_47n(
 
     datasets = []
 
+    added_attrs_per_dataset = [] if track_added_attrs else None
     for file in file_list:
         if not (file.lower().endswith(".tab")):
             log_warning("Skipping unsupported file type : %s", file)
@@ -158,17 +167,33 @@ def read_47n(
                 )
             # Attach metadata
             # Use ReaderUtils for consistent metadata attachment
-
-            file_metadata = A47N_FILE_METADATA.get(file, {})
-
-            ds = ReaderUtils.attach_standard_metadata(
-                ds,
-                file,
-                file_path,
-                A47N_METADATA,
-                file_metadata,
-                datasource_id=DATASOURCE_ID,
+            file_metadata = yaml_file_metadata.get(
+                file, A47N_FILE_METADATA.get(file, {})
             )
+
+            if track_added_attrs:
+                # Use tracking version to collect attribute changes
+                ds, attr_changes = ReaderUtils.attach_metadata_with_tracking(
+                    ds,
+                    file,
+                    file_path,
+                    global_metadata,
+                    yaml_file_metadata,
+                    A47N_FILE_METADATA,
+                    DATASOURCE_ID,
+                    track_added_attrs=True,
+                )
+                added_attrs_per_dataset.append(attr_changes)
+            else:
+                # Standard metadata attachment without tracking
+                ds = ReaderUtils.attach_standard_metadata(
+                    ds,
+                    file,
+                    file_path,
+                    global_metadata,
+                    file_metadata,
+                    datasource_id=DATASOURCE_ID,
+                )
 
         datasets.append(ds)
 
@@ -177,4 +202,9 @@ def read_47n(
         raise FileNotFoundError(f"No valid data files found in {file_list}")
 
     log_info("Successfully loaded %d 47N dataset(s)", len(datasets))
-    return datasets
+    # Handle track_added_attrs parameter
+
+    if track_added_attrs:
+        return datasets, added_attrs_per_dataset
+    else:
+        return datasets

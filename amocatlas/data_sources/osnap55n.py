@@ -108,6 +108,7 @@ def read_osnap(
     data_dir: Union[str, Path, None] = None,
     redownload: bool = False,
     version: str = "2025",
+    track_added_attrs: bool = False,
 ) -> list[xr.Dataset]:
     """Load the OSNAP transport datasets from a URL or local file path into xarray Datasets.
 
@@ -144,6 +145,11 @@ def read_osnap(
     """
     log.info("Starting to read OSNAP dataset (version %s)", version)
 
+    # Load YAML metadata with fallback
+    global_metadata, yaml_file_metadata = ReaderUtils.load_array_metadata_with_fallback(
+        DATASOURCE_ID, OSNAP_METADATA
+    )
+
     # Select appropriate file lists based on version
     if version == "2025":
         default_files = OSNAP_2025_DEFAULT_FILES
@@ -169,6 +175,7 @@ def read_osnap(
 
     datasets = []
 
+    added_attrs_per_dataset = [] if track_added_attrs else None
     netcdf_files = ReaderUtils.filter_netcdf_files(file_list)
 
     for file in netcdf_files:
@@ -188,23 +195,45 @@ def read_osnap(
         # Use ReaderUtils for consistent dataset loading
         ds = ReaderUtils.safe_load_dataset(file_path)
 
-        # Use ReaderUtils for consistent metadata attachment
-        file_metadata = OSNAP_FILE_METADATA.get(file, {})
-        ds = ReaderUtils.attach_standard_metadata(
-            ds,
-            file,
-            file_path,
-            OSNAP_METADATA,
-            file_metadata,
-            datasource_id=DATASOURCE_ID,
-        )
+        # Attach metadata with optional tracking
+
+        if track_added_attrs:
+
+            ds, attr_changes = ReaderUtils.attach_metadata_with_tracking(
+                ds,
+                file,
+                file_path,
+                global_metadata,
+                yaml_file_metadata,
+                OSNAP_FILE_METADATA,
+                DATASOURCE_ID,
+                track_added_attrs=True,
+            )
+
+            added_attrs_per_dataset.append(attr_changes)
+
+        else:
+
+            ds = ReaderUtils.attach_metadata_with_tracking(
+                ds,
+                file,
+                file_path,
+                global_metadata,
+                yaml_file_metadata,
+                OSNAP_FILE_METADATA,
+                DATASOURCE_ID,
+                track_added_attrs=False,
+            )
 
         datasets.append(ds)
 
     # Use ReaderUtils for validation
     ReaderUtils.validate_datasets_loaded(datasets, file_list)
 
-    return datasets
+    if track_added_attrs:
+        return datasets, added_attrs_per_dataset
+    else:
+        return datasets
 
 
 def read_osnap_2025(

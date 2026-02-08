@@ -1,7 +1,7 @@
 # AMOCatlas
 
 
-[![PyPI version](https://badge.fury.io/py/AMOCatlas.svg)](https://badge.fury.io/py/AMOCatlas)
+[![PyPI version](https://img.shields.io/pypi/v/AMOCatlas.svg)](https://pypi.org/project/AMOCatlas/)
 [![Python](https://img.shields.io/pypi/pyversions/AMOCatlas.svg)](https://pypi.org/project/AMOCatlas/)
 [![License](https://img.shields.io/github/license/AMOCcommunity/amocatlas.svg)](LICENSE)
 
@@ -180,6 +180,27 @@ pytest --cov=amocatlas --cov-report term-missing tests/
 
 Try to ensure that all the lines of your contribution are covered in the tests.
 
+### Generating Dataset Reports
+AMOCatlas includes automated report generation for comprehensive dataset documentation:
+
+```bash
+# Generate reports for all supported arrays
+python generate_report
+
+# Generate report for a specific dataset
+python generate_report --data_source rapid26n
+
+# Generate reports with custom output directory
+python generate_report --output_dir custom_reports/
+```
+
+Reports are generated as structured RST files in `docs/source/reports/` with:
+- Dataset visualization plots
+- Variable mapping tables (original → standardized names)
+- Comprehensive metadata documentation
+- Temporal coverage analysis
+- Statistical summaries
+
 ### Code Quality
 ```bash
 black amocatlas/ tests/          # Format code
@@ -215,6 +236,12 @@ This project is supported by the Horizon Europe project **EPOC - Explaining and 
 - [ ] Add more comprehensive visualization function tests  
 - [ ] Expand plotting capabilities with additional array-specific visualizations
 - [ ] Performance optimization for large dataset handling
+- [ ] Create summary table of variable names, standard_names, long_names and units across all datasets
+- [ ] Create summary table of default units and formatting conventions used for standardization
+- [ ] Document deviations from OceanSITES-1.5 standard and rationale for changes
+- [ ] Enrich metadata with ORCID identifiers for contributors
+- [ ] Enrich metadata with https://edmo.seadatanet.org identifiers for contributing institutions
+- [ ] Create sample 3D plots for Arctic Gateway and Calafat2025 datasets
 
 ## Acknowledgements
 

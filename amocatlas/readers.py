@@ -19,6 +19,7 @@ Main functions:
 
 from pathlib import Path
 from typing import Callable, List, Union
+import warnings
 
 import pandas as pd
 import xarray as xr
@@ -94,6 +95,10 @@ def _get_reader(array_name: str) -> Callable[..., List[xr.Dataset]]:
 def load_sample_dataset(array_name: str = "rapid") -> xr.Dataset:
     """Load a sample dataset for quick testing.
 
+    .. deprecated::
+        This function is deprecated and will be removed in a future version.
+        Use the new intuitive API instead: :mod:`amocatlas.read` (e.g., ``amocatlas.read.rapid()``).
+
     Currently supports:
     - 'rapid' : loads the 'RAPID_26N_TRANSPORT.nc' file
 
@@ -113,6 +118,13 @@ def load_sample_dataset(array_name: str = "rapid") -> xr.Dataset:
         If the array_name is not recognised.
 
     """
+    warnings.warn(
+        "load_sample_dataset() is deprecated and will be removed in a future version. "
+        "Use the new intuitive API instead: amocatlas.read.rapid()",
+        DeprecationWarning,
+        stacklevel=2,
+    )
+
     if array_name.lower() == "rapid":
         sample_file = "moc_transports.nc"
         datasets = load_dataset(
@@ -141,6 +153,10 @@ def load_dataset(
     redownload: bool = False,
 ) -> list[xr.Dataset]:
     """Load raw datasets from a selected AMOC observing array.
+
+    .. deprecated::
+        This function is deprecated and will be removed in a future version.
+        Use the new intuitive API instead: :mod:`amocatlas.read` (e.g., ``amocatlas.read.rapid()``).
 
     Parameters
     ----------
@@ -183,6 +199,13 @@ def load_dataset(
             If an unknown array name is provided.
 
     """
+    warnings.warn(
+        "load_dataset() is deprecated and will be removed in a future version. "
+        f"Use the new intuitive API instead: amocatlas.read.{array_name.lower()}()",
+        DeprecationWarning,
+        stacklevel=2,
+    )
+
     if logger.LOGGING_ENABLED:
         logger.setup_logger(array_name=array_name)
 

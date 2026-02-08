@@ -60,6 +60,7 @@ def read_fw2015(
     transport_only: bool = True,
     data_dir: Union[str, Path, None] = None,
     redownload: bool = False,
+    track_added_attrs: bool = False,
 ) -> list[xr.Dataset]:
     """Load the FW2015 transport datasets from a URL or local file path into xarray Datasets.
 
@@ -92,6 +93,11 @@ def read_fw2015(
     """
     log_info("Starting to read FW2015 dataset")
 
+    # Load YAML metadata with fallback
+    global_metadata, yaml_file_metadata = ReaderUtils.load_array_metadata_with_fallback(
+        DATASOURCE_ID, FW2015_METADATA
+    )
+
     # ensure file_list has a default
     if file_list is None:
         file_list = FW2015_DEFAULT_FILES
@@ -109,6 +115,7 @@ def read_fw2015(
 
     datasets = []
 
+    added_attrs_per_dataset = [] if track_added_attrs else None
     for file in file_list:
         if not (file.lower().endswith(".txt") or file.lower().endswith(".mat")):
             log_warning("Skipping unsupported file type: %s", file)
@@ -139,18 +146,20 @@ def read_fw2015(
 
             time = recon.time  # time in decimal years
 
+            # Use original MATLAB field names (renaming will happen in standardization)
+            # Note: time is used as coordinate, not as a data variable
             variables = {
-                "MOC_PROXY": recon.mocproxy,
-                "EK": recon.ek,
-                "H1UMO": recon.h1umo,
-                "GS": recon.gs,
-                "UMO_PROXY": recon.umoproxy,
-                "MOC_GRID": mocgrid.moc,
-                "EK_GRID": mocgrid.ek,
-                "GS_GRID": mocgrid.gs,
-                "LNADW_GRID": mocgrid.lnadw,
-                "UMO_GRID": mocgrid.umo,
-                "UNADW_GRID": mocgrid.unadw,
+                "mocproxy": recon.mocproxy,
+                "ek": recon.ek,
+                "h1umo": recon.h1umo,  # Original name, will be renamed to SSHA in standardization
+                "gs": recon.gs,
+                "umoproxy": recon.umoproxy,
+                "moc": mocgrid.moc,  # Grid variables use original names too
+                "ek_grid": mocgrid.ek,  # Use lowercase with underscore for consistency
+                "gs_grid": mocgrid.gs,
+                "lnadw": mocgrid.lnadw,
+                "umo": mocgrid.umo,
+                "unadw": mocgrid.unadw,
             }
 
             # Convert decimal years to datetime
@@ -162,10 +171,10 @@ def read_fw2015(
             # Build dataset
             ds = xr.Dataset(
                 {
-                    name: ("TIME", np.asarray(values))
+                    name: ("time", np.asarray(values))
                     for name, values in variables.items()
                 },
-                coords={"TIME": time},
+                coords={"time": time},
             )
 
             # add global attributes
@@ -179,16 +188,35 @@ def read_fw2015(
             raise ValueError(f"Failed to parse .mat file: {file_path}: {e}") from e
 
         # attach metadata
-        # Use ReaderUtils for consistent metadata attachment
-        file_metadata = FW2015_FILE_METADATA.get(file, {})
-        ds = ReaderUtils.attach_standard_metadata(
-            ds,
-            file,
-            file_path,
-            FW2015_METADATA,
-            file_metadata,
-            datasource_id=DATASOURCE_ID,
-        )
+        # Attach metadata with optional tracking
+
+        if track_added_attrs:
+
+            ds, attr_changes = ReaderUtils.attach_metadata_with_tracking(
+                ds,
+                file,
+                file_path,
+                global_metadata,
+                yaml_file_metadata,
+                FW2015_FILE_METADATA,
+                DATASOURCE_ID,
+                track_added_attrs=True,
+            )
+
+            added_attrs_per_dataset.append(attr_changes)
+
+        else:
+
+            ds = ReaderUtils.attach_metadata_with_tracking(
+                ds,
+                file,
+                file_path,
+                global_metadata,
+                yaml_file_metadata,
+                FW2015_FILE_METADATA,
+                DATASOURCE_ID,
+                track_added_attrs=False,
+            )
 
         datasets.append(ds)
 
@@ -197,4 +225,8 @@ def read_fw2015(
         raise FileNotFoundError(f"No valid data files found in {file_list}")
 
     log.info("Successfully loaded %d FW2015 dataset(s)", len(datasets))
-    return datasets
+
+    if track_added_attrs:
+        return datasets, added_attrs_per_dataset
+    else:
+        return datasets

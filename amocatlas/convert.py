@@ -6,7 +6,7 @@ following OceanSITES conventions and AC1 specifications.
 
 import xarray as xr
 import numpy as np
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Dict, List, Tuple
 
 from amocatlas import logger
@@ -179,28 +179,34 @@ def _convert_component_transports(
     """Convert dataset to AC1 component transports format."""
     log.info(f"Converting to component transports format for {array_name}")
 
-    # Define RAPID transport variable mapping
+    # Define RAPID transport variable mapping for standardized variable names
     transport_mapping = {
-        "t_gs10": {
+        "TRANS_FC": {
             "name": "Florida Straits",
             "description": "Florida Straits transport",
         },
-        "t_ek10": {"name": "Ekman", "description": "Ekman transport"},
-        "t_umo10": {
+        "TRANS_EKMAN": {"name": "Ekman", "description": "Ekman transport"},
+        "TRANS_UMO": {
             "name": "Upper Mid-Ocean",
             "description": "Upper Mid-Ocean transport",
         },
-        "t_therm10": {
+        "TRANS_0_800": {
             "name": "Thermocline",
             "description": "Thermocline recirculation 0-800m",
         },
-        "t_aiw10": {
+        "TRANS_800_1100": {
             "name": "Intermediate Water",
             "description": "Intermediate water 800-1100m",
         },
-        "t_ud10": {"name": "Upper NADW", "description": "Upper NADW 1100-3000m"},
-        "t_ld10": {"name": "Lower NADW", "description": "Lower NADW 3000-5000m"},
-        "t_bw10": {"name": "AABW", "description": "AABW >5000m"},
+        "TRANS_1100_3000": {
+            "name": "Upper NADW",
+            "description": "Upper NADW 1100-3000m",
+        },
+        "TRANS_3000_5000": {
+            "name": "Lower NADW",
+            "description": "Lower NADW 3000-5000m",
+        },
+        "TRANS_below_5000": {"name": "AABW", "description": "AABW >5000m"},
     }
 
     # Get available transport variables
@@ -454,7 +460,7 @@ def _create_ac1_global_attributes(
         attrs["doi"] = ds.attrs["doi"]
 
     # Processing metadata
-    attrs["date_created"] = datetime.utcnow().strftime("%Y%m%dT%H%M%S")
+    attrs["date_created"] = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S")
     attrs["processing_level"] = (
         "Data verified against model or other contextual information"
     )

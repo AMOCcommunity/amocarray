@@ -2,45 +2,97 @@ metadata:
   program: "41N"
   description: "41N transport estimates dataset"
   project: "Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations"
-  weblink: https://zenodo.org/records/14681441
+  weblink: https://doi.org/10.5281/zenodo.8170365
   comment: Dataset accessed and processed via http://github.com/AMOCcommunity/amocatlas
-  acknowledgment: >
-    These data were collected and made freely available by the International Argo Program and the national programs that contribute to it.  (https://argo.ucsd.edu,  https://www.ocean-ops.org).  The Argo Program is part of the Global Ocean Observing System.
+  citation: >
+    Willis, J. K., and Hobbs, W. R., Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations. Dataset accessed at 10.5281/zenodo.8170366.
   license:
   featureType: timeSeries
-  Convections: CF-1.8, ACDD-1.3
+  Conventions: CF-1.8, ACDD-1.3
   time_coverage_start: '2002-02-15'
   time_coverage_end: '2024-12-16'
   platform_type: Argo floats
+  source_url: https://doi.org/10.5281/zenodo.8170365
 
 files:
   hobbs_willis_amoc41N_tseries.txt:
-    source_url: https://zenodo.org/records/14681441
     data_product: "Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations"
-    acknowledgement:
     variable_mapping:
-      "Ekman Volume Transport (Sverdrups)": EKMAN
-      "Northward Geostrophic Transport (Sverdrups)": V_GEOS
-      "Meridional Overturning Volume Transport (Sverdrups)": MOT
-      "Meridional Overturning Heat Transport (PetaWatts)": MOHT
-    variables:
-      EKMAN:
-        long_name: "Ekman transport"
+      "Ekman Volume Transport (Sverdrups)": TRANS_EKMAN
+      "Northward Geostrophic Transport (Sverdrups)": TRANS_GEO
+      "Meridional Overturning Volume Transport (Sverdrups)": MOC
+      "Meridional Overturning Heat Transport (PetaWatts)": MHT
+    original_variable_metadata:
+      "Ekman Volume Transport (Sverdrups)":
+        long_name: "Ekman"
         description: "Ekman Volume Transport"
-        units: Sv
-        standard_name: Transport
-      V_GEOS:
-        long_name: "Northward Geostrophic Transport"
+        units: Sverdrup
+        standard_name: ocean_volume_transport_across_line
+      "Northward Geostrophic Transport (Sverdrups)":
+        long_name: "Geostrophic Transport"
         description: "Northward Geostrophic Transport"
-        units: Sv
-        standard_name: Transport
-      MOT:
-        long_name: "Meridional Overturning Transport"
+        units: Sverdrup
+        standard_name: ocean_volume_transport_across_line
+      "Meridional Overturning Volume Transport (Sverdrups)":
+        long_name: "MOC_z"
         description: "Meridional Overturning Volume Transport"
-        units: Sv
-        standard_name: Transport
-      MOHT:
-        long_name: "Meridional Heat Transport"
+        units: Sverdrup
+        standard_name: ocean_meridional_overturning_transport
+      "Meridional Overturning Heat Transport (PetaWatts)":
+        long_name: "MHT"
         description: "Meridional Overturning Heat Transport"
         units: PW
-        standard_name: Heat_transport
+        standard_name: northward_ocean_heat_transport
+
+  trans_ARGO_ERA5.nc:
+    data_product: "Transport components from ARGO and ERA5"
+    variable_mapping:
+      Vek: VEL_EKMAN
+      trans: TRANS_GEO
+      moc: MOC
+      depth: DEPTH
+      lat: LATITUDE
+      lon: LONGITUDE
+    original_variable_metadata:
+      Vek:
+        long_name: "Ekman"
+        description: "Ekman transport from ERA5 reanalysis"
+        units: Sverdrup
+        standard_name: ocean_volume_transport_across_line
+      trans:
+        long_name: "Geostrophic transport"
+        description: "Observed geostrophic transport from ARGO"
+        units: Sverdrup
+        standard_name: ocean_volume_transport_across_line
+      moc:
+        long_name: "MOC_z"
+        description: "Overturning circulation transport"
+        units: Sverdrup
+        standard_name: ocean_meridional_overturning_transport
+
+  Q_ARGO_obs_dens_2000depth_ERA5.nc:
+    data_product: "Heat transport based on various assumptions about temperature below 2000m"
+    variable_mapping:
+      Qnet: MHT_NET
+      Qek: MHT_EKMAN
+      Q: MHT
+      depth: DEPTH
+      lat: LATITUDE
+      lon: LONGITUDE
+      time: TIME
+    original_variable_metadata:
+      Qnet:
+        long_name: "Net heat transport"
+        description: "Net meridional heat transport"
+        units: PW
+        standard_name: northward_ocean_heat_transport
+      Qek:
+        long_name: "MHT Ekman"
+        description: "Ekman meridional heat transport"
+        units: PW
+        standard_name: northward_ocean_heat_transport
+      Q:
+        long_name: "MHT"
+        description: "Observed meridional heat transport"
+        units: PW
+        standard_name: northward_ocean_heat_transport

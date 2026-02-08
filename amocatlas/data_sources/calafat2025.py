@@ -12,6 +12,7 @@ import zipfile
 import xarray as xr
 
 from amocatlas import logger, utilities
+from amocatlas.logger import log_info
 from amocatlas.utilities import apply_defaults
 from amocatlas.reader_utils import ReaderUtils
 
@@ -60,6 +61,7 @@ def read_calafat2025(
     transport_only: bool = True,
     data_dir: Union[str, Path, None] = None,
     redownload: bool = False,
+    track_added_attrs: bool = False,
 ) -> list[xr.Dataset]:
     """Load the CALAFAT2025 transport dataset from a URL or local file path into xarray Datasets.
 
@@ -93,6 +95,13 @@ def read_calafat2025(
     """
     log.info("Starting to read CALAFAT2025 dataset")
 
+    # Load YAML metadata with fallback
+    _global_metadata, _yaml_file_metadata = (
+        ReaderUtils.load_array_metadata_with_fallback(
+            DATASOURCE_ID, CALAFAT2025_METADATA
+        )
+    )
+
     if file_list is None:
         if transport_only:
             file_list = CALAFAT2025_TRANSPORT_FILES
@@ -110,6 +119,7 @@ def read_calafat2025(
 
     datasets = []
 
+    added_attrs_per_dataset = [] if track_added_attrs else None
     for file in file_list:
         download_url = CALAFAT2025_FILE_URLS.get(file)
         if not download_url:
@@ -157,16 +167,125 @@ def read_calafat2025(
                 # Use ReaderUtils for consistent dataset loading
                 ds = ReaderUtils.safe_load_dataset(nc_path)
 
+                # Fix latitude coordinate: promote LATITUDE variable to coordinate
+                if "latitude" in ds.variables and "lat" in ds.dims:
+                    # Rename to uppercase and make it a coordinate
+                    ds = ds.rename({"latitude": "LATITUDE"})
+                    ds = ds.set_coords("LATITUDE")
+
+                    # Create LAT_BOUNDS coordinate from LATITUDE values
+                    lat_values = ds["LATITUDE"].values
+                    log_info(
+                        f"Creating LAT_BOUNDS from {len(lat_values)} latitude values"
+                    )
+
+                    # Create bounds as tuples - each bound is the midpoint between adjacent latitudes
+                    bounds_list = []
+                    for i in range(len(lat_values)):
+                        if i == 0:
+                            # First bound: extrapolate from first two points
+                            lower = lat_values[0] - (lat_values[1] - lat_values[0]) / 2
+                            upper = (lat_values[0] + lat_values[1]) / 2
+                        elif i == len(lat_values) - 1:
+                            # Last bound: extrapolate from last two points
+                            lower = (lat_values[i - 1] + lat_values[i]) / 2
+                            upper = (
+                                lat_values[i] + (lat_values[i] - lat_values[i - 1]) / 2
+                            )
+                        else:
+                            # Middle bounds: midpoint with neighbors
+                            lower = (lat_values[i - 1] + lat_values[i]) / 2
+                            upper = (lat_values[i] + lat_values[i + 1]) / 2
+                        bounds_list.append((lower, upper))
+
+                    # Add LAT_BOUNDS as a coordinate
+                    import numpy as np
+
+                    bounds_array = np.array(bounds_list)
+                    ds = ds.assign_coords(LAT_BOUNDS=(["lat", "bound"], bounds_array))
+
+                    # Add attributes to LAT_BOUNDS
+                    ds["LAT_BOUNDS"].attrs.update(
+                        {
+                            "long_name": "Latitude cell boundaries",
+                            "units": "degrees_north",
+                            "standard_name": "latitude_bounds",
+                        }
+                    )
+
+                # Fix Calafat time coordinate: convert decimal years to standard format
+                if "time" in ds.coords:
+                    import pandas as pd
+                    import numpy as np
+
+                    # Convert from 'time' to 'TIME' and from decimal years to seconds since 1970
+                    decimal_years = ds["time"].values
+                    log_info("Converting Calafat decimal years to standard TIME format")
+
+                    # Convert decimal years to datetime
+                    datetime_values = []
+                    for year in decimal_years:
+                        # Split into year and fraction
+                        year_int = int(year)
+                        year_frac = year - year_int
+
+                        # Calculate days into the year
+                        year_start = pd.Timestamp(f"{year_int}-01-01")
+                        next_year = pd.Timestamp(f"{year_int + 1}-01-01")
+                        days_in_year = (next_year - year_start).days
+                        days_into_year = year_frac * days_in_year
+
+                        # Create the datetime
+                        result_time = year_start + pd.Timedelta(days=days_into_year)
+                        datetime_values.append(result_time)
+
+                    # Convert to seconds since 1970-01-01
+                    epoch = pd.Timestamp("1970-01-01")
+                    seconds_since_1970 = np.array(
+                        [(dt - epoch).total_seconds() for dt in datetime_values]
+                    )
+
+                    # Replace 'time' coordinate with 'TIME'
+                    ds = ds.rename({"time": "TIME"})
+                    ds = ds.assign_coords(TIME=seconds_since_1970)
+
+                    # Add proper TIME coordinate attributes
+                    ds["TIME"].attrs.update(
+                        {
+                            "long_name": "Time elapsed since 1970-01-01T00:00:00Z",
+                            "standard_name": "time",
+                            "calendar": "gregorian",
+                            "units": "seconds since 1970-01-01T00:00:00Z",
+                            "vocabulary": "http://vocab.nerc.ac.uk/collection/OG1/current/TIME/",
+                        }
+                    )
+
                 # Use ReaderUtils for consistent metadata attachment
                 file_metadata = CALAFAT2025_FILE_METADATA.get(nc_file, {})
-                ds = ReaderUtils.attach_standard_metadata(
-                    ds,
-                    nc_file,
-                    nc_path,
-                    CALAFAT2025_METADATA,
-                    file_metadata,
-                    datasource_id=DATASOURCE_ID,
-                )
+
+                if track_added_attrs:
+                    # Use tracking version to collect attribute changes
+                    ds, attr_changes = ReaderUtils.attach_metadata_with_tracking(
+                        ds,
+                        nc_file,
+                        nc_path,
+                        CALAFAT2025_METADATA,
+                        {},  # yaml metadata (CALAFAT2025 doesn't have separate YAML files)
+                        file_metadata,
+                        DATASOURCE_ID,
+                        track_added_attrs=True,
+                    )
+                    added_attrs_per_dataset.append(attr_changes)
+                else:
+                    # Standard metadata attachment without tracking
+                    ds = ReaderUtils.attach_standard_metadata(
+                        ds,
+                        nc_file,
+                        nc_path,
+                        CALAFAT2025_METADATA,
+                        file_metadata,
+                        datasource_id=DATASOURCE_ID,
+                    )
 
                 datasets.append(ds)
         else:
@@ -179,4 +298,9 @@ def read_calafat2025(
         raise FileNotFoundError(f"No valid NetCDF files found in {file_list}")
 
     log.info("Successfully loaded %d CALAFAT2025 dataset(s)", len(datasets))
-    return datasets
+    # Handle track_added_attrs parameter
+
+    if track_added_attrs:
+        return datasets, added_attrs_per_dataset
+    else:
+        return datasets

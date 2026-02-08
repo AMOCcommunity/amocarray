@@ -58,6 +58,7 @@ def read_move(
     transport_only: bool = True,
     data_dir: Union[str, Path, None] = None,
     redownload: bool = False,
+    track_added_attrs: bool = False,
 ) -> list[xr.Dataset]:
     """Load the MOVE transport dataset from a URL or local file path into xarray Datasets.
 
@@ -75,11 +76,17 @@ def read_move(
         Optional local data directory.
     redownload : bool, optional
         If True, force redownload of the data.
+    track_added_attrs : bool, optional
+        If True, track which attributes were added by AMOCatlas processing.
+        Returns tuple (datasets, added_attrs_per_dataset) when enabled.
 
     Returns
     -------
-    list of xr.Dataset
-        List of loaded xarray datasets with basic inline and file-specific metadata.
+    list of xr.Dataset or tuple
+        If track_added_attrs=False: List of loaded xarray datasets.
+        If track_added_attrs=True: Tuple of (datasets, added_attrs_per_dataset)
+        where added_attrs_per_dataset is a list of dictionaries containing
+        'added' and 'modified' attribute tracking information.
 
     Raises
     ------
@@ -90,6 +97,11 @@ def read_move(
 
     """
     log.info("Starting to read MOVE dataset")
+
+    # Load YAML metadata with fallback
+    global_metadata, yaml_file_metadata = ReaderUtils.load_array_metadata_with_fallback(
+        DATASOURCE_ID, MOVE_METADATA
+    )
 
     if transport_only:
         file_list = MOVE_TRANSPORT_FILES
@@ -102,6 +114,7 @@ def read_move(
     ReaderUtils.print_loading_info(file_list, DATASOURCE_ID, MOVE_FILE_METADATA)
 
     datasets = []
+    added_attrs_per_dataset = [] if track_added_attrs else None
 
     netcdf_files = ReaderUtils.filter_netcdf_files(file_list)
 
@@ -111,13 +124,17 @@ def read_move(
             f"{source.rstrip('/')}/{file}" if utilities.is_valid_url(source) else None
         )
 
-        file_path = utilities.resolve_file_path(
-            file_name=file,
-            source=source,
-            download_url=download_url,
-            local_data_dir=local_data_dir,
-            redownload=redownload,
-        )
+        try:
+            file_path = utilities.resolve_file_path(
+                file_name=file,
+                source=source,
+                download_url=download_url,
+                local_data_dir=local_data_dir,
+                redownload=redownload,
+            )
+        except FileNotFoundError as e:
+            log.warning(f"Skipping {file}: {e}")
+            continue
 
         # Use ReaderUtils with special decode_times=False for MOVE
         # Use ReaderUtils for consistent dataset loading
@@ -162,19 +179,38 @@ def read_move(
 
                 ds = ds.isel(TIME=valid_time_mask)
 
-        # Use ReaderUtils for consistent metadata attachment
-        file_metadata = MOVE_FILE_METADATA.get(file, {})
-        ds = ReaderUtils.attach_standard_metadata(
-            ds,
-            file,
-            file_path,
-            MOVE_METADATA,
-            file_metadata,
-            datasource_id=DATASOURCE_ID,
-        )
+        # Attach metadata with optional tracking
+        if track_added_attrs:
+            ds, attr_changes = ReaderUtils.attach_metadata_with_tracking(
+                ds,
+                file,
+                file_path,
+                global_metadata,
+                yaml_file_metadata,
+                MOVE_FILE_METADATA,
+                DATASOURCE_ID,
+                track_added_attrs=True,
+            )
+            added_attrs_per_dataset.append(attr_changes)
+        else:
+            ds = ReaderUtils.attach_metadata_with_tracking(
+                ds,
+                file,
+                file_path,
+                global_metadata,
+                yaml_file_metadata,
+                MOVE_FILE_METADATA,
+                DATASOURCE_ID,
+                track_added_attrs=False,
+            )
 
         datasets.append(ds)
 
     # Use ReaderUtils for validation
     ReaderUtils.validate_datasets_loaded(datasets, file_list)
-    return datasets
+
+    # Handle track_added_attrs parameter
+    if track_added_attrs:
+        return datasets, added_attrs_per_dataset
+    else:
+        return datasets

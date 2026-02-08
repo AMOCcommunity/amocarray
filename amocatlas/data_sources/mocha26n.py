@@ -62,6 +62,7 @@ def read_mocha(
     transport_only: bool = True,
     data_dir: Union[str, Path, None] = None,
     redownload: bool = False,
+    track_added_attrs: bool = False,
 ) -> list[xr.Dataset]:
     """Load the MOCHA transport dataset from a URL or local file path into xarray Datasets.
 
@@ -95,6 +96,11 @@ def read_mocha(
     """
     log.info("Starting to read MOCHA dataset")
 
+    # Load YAML metadata with fallback
+    _global_metadata, _yaml_file_metadata = (
+        ReaderUtils.load_array_metadata_with_fallback(DATASOURCE_ID, MOCHA_METADATA)
+    )
+
     if file_list is None:
         file_list = MOCHA_DEFAULT_FILES
     if transport_only:
@@ -111,6 +117,7 @@ def read_mocha(
 
     datasets = []
 
+    added_attrs_per_dataset = [] if track_added_attrs else None
     for file in file_list:
         download_url = MOCHA_FILE_URLS.get(file)
         if not download_url:
@@ -160,14 +167,30 @@ def read_mocha(
 
                 # Use ReaderUtils for consistent metadata attachment
                 file_metadata = MOCHA_FILE_METADATA.get(nc_file, {})
-                ds = ReaderUtils.attach_standard_metadata(
-                    ds,
-                    nc_file,
-                    nc_path,
-                    MOCHA_METADATA,
-                    file_metadata,
-                    datasource_id=DATASOURCE_ID,
-                )
+
+                if track_added_attrs:
+                    # Use tracking version to collect attribute changes
+                    ds, attr_changes = ReaderUtils.attach_metadata_with_tracking(
+                        ds,
+                        nc_file,
+                        nc_path,
+                        MOCHA_METADATA,
+                        {},  # yaml metadata (MOCHA doesn't have separate YAML files)
+                        file_metadata,
+                        DATASOURCE_ID,
+                        track_added_attrs=True,
+                    )
+                    added_attrs_per_dataset.append(attr_changes)
+                else:
+                    # Standard metadata attachment without tracking
+                    ds = ReaderUtils.attach_standard_metadata(
+                        ds,
+                        nc_file,
+                        nc_path,
+                        MOCHA_METADATA,
+                        file_metadata,
+                        datasource_id=DATASOURCE_ID,
+                    )
 
                 datasets.append(ds)
         else:
@@ -178,4 +201,8 @@ def read_mocha(
         raise FileNotFoundError(f"No valid NetCDF files found in {file_list}")
 
     log.info("Successfully loaded %d MOCHA dataset(s)", len(datasets))
-    return datasets
+
+    if track_added_attrs:
+        return datasets, added_attrs_per_dataset
+    else:
+        return datasets

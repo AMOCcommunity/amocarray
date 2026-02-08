@@ -310,6 +310,47 @@ def _validate_dims(ds: xr.Dataset) -> None:
         raise ValueError(f"Dimension name '{dim_name}' is not 'TIME' or 'time'.")
 
 
+def sanitize_variable_name(name: str) -> str:
+    """Sanitize variable names to create valid Python identifiers.
+
+    Replaces illegal Python identifier characters (spaces, parentheses, periods,
+    hyphens, etc.) with underscores and collapses repeated underscores into single ones.
+
+    Parameters
+    ----------
+    name : str
+        The original variable name that may contain illegal characters
+
+    Returns
+    -------
+    str
+        A sanitized variable name that is a valid Python identifier
+
+    Examples
+    --------
+    >>> sanitize_variable_name("Total MOC anomaly (relative to record-length average of 14.7 Sv)")
+    'Total_MOC_anomaly__relative_to_record_length_average_of_14_7_Sv'
+    >>> sanitize_variable_name("Upper-cell volume transport anomaly")
+    'Upper_cell_volume_transport_anomaly'
+
+    """
+    # Replace any character that is not alphanumeric or underscore with underscore
+    sanitized = re.sub(r"[^a-zA-Z0-9_]", "_", name)
+
+    # Remove leading/trailing underscores
+    sanitized = sanitized.strip("_")
+
+    # Ensure it doesn't start with a number (prepend 'var_' if needed)
+    if sanitized and sanitized[0].isdigit():
+        sanitized = f"var_{sanitized}"
+
+    # Handle edge case of empty string
+    if not sanitized:
+        sanitized = "unnamed_variable"
+
+    return sanitized
+
+
 def is_valid_url(url: str) -> bool:
     """Validate if a given string is a valid URL with supported schemes.
 
@@ -511,3 +552,373 @@ def find_data_start(file_path: str) -> int:
             if line and line[0].isdigit():
                 return i
     raise ValueError("No data lines found")
+
+
+# =============================================================================
+# Unit Standardization System
+# =============================================================================
+
+
+def get_standard_unit_mappings() -> Dict[str, str]:
+    """Get the comprehensive mapping of unit variations to standard units.
+
+    Returns
+    -------
+    Dict[str, str]
+        Dictionary mapping various unit forms to their standard equivalents.
+
+    Notes
+    -----
+    This centralizes all unit standardization rules for consistency across
+    the AMOCatlas package. Add new unit mappings here as needed.
+
+    Examples
+    --------
+    >>> mappings = get_standard_unit_mappings()
+    >>> print(mappings["Sv"])  # "Sverdrup"
+    >>> print(mappings["deg C"])  # "degrees_celsius"
+
+    """
+    return {
+        # Transport units
+        "Sv": "Sverdrup",
+        "sv": "Sverdrup",
+        "Sverdrups": "Sverdrup",
+        "1e6 m3 s-1": "Sverdrup",
+        "1e6 m^3/s": "Sverdrup",
+        # Temperature units
+        "deg C": "degrees_Celsius",
+        "degC": "degrees_Celsius",
+        "°C": "degrees_Celsius",
+        "celsius": "degrees_Celsius",
+        "degrees C": "degrees_Celsius",
+        "C": "degrees_Celsius",
+        "deg_C": "degrees_Celsius",
+        "degree_C": "degrees_Celsius",
+        "degree_celsius": "degrees_Celsius",
+        "degrees_celsius": "degrees_Celsius",
+        "degrees Celsius": "degrees_Celsius",
+        # Salinity units
+        "psu": "PSU",  # Practical Salinity Units are dimensionless
+        "PSU": "PSU",
+        "pss": "PSU",  # Practical Salinity Scale
+        "PSS": "PSU",
+        "g/kg": "g kg-1",  # Convert to CF-compliant form
+        "g kg^-1": "g kg-1",
+        # Pressure units
+        "decibar": "dbar",
+        "db": "dbar",
+        "mbar": "millibar",
+        "mb": "millibar",
+        "hPa": "hectopascal",
+        # Distance/Length units
+        "m": "meters",
+        "meters": "meters",
+        "metres": "meters",
+        "km": "kilometers",
+        "kilometers": "kilometers",
+        "kilometres": "kilometers",
+        # Time units
+        "sec": "second",
+        "seconds": "second",
+        "s": "second",
+        "min": "minute",
+        "minutes": "minute",
+        "hr": "hour",
+        "hours": "hour",
+        "h": "hour",
+        "day": "day",
+        "days": "day",
+        "d": "day",
+        # Speed/Velocity units
+        "m/s": "m s-1",
+        "m s^-1": "m s-1",
+        "cm/s": "cm s-1",
+        "cm s^-1": "cm s-1",
+        "mm/s": "mm s-1",
+        "mm s^-1": "mm s-1",
+        # Angular units
+        "deg": "degree",
+        "degrees": "degree",
+        "°": "degree",
+        "rad": "radian",
+        "radians": "radian",
+        # Geographic units
+        "deg N": "degrees_north",
+        "deg_N": "degrees_north",
+        "degree_N": "degrees_north",
+        "degree_north": "degrees_north",
+        "degN": "degrees_north",
+        "°N": "degrees_north",
+        "deg E": "degrees_east",
+        "deg_E": "degrees_east",
+        "degree_E": "degrees_east",
+        "degree_east": "degrees_east",
+        "degE": "degrees_east",
+        "°E": "degrees_east",
+        "deg W": "degrees_west",
+        "deg_W": "degrees_west",
+        "degree_W": "degrees_west",
+        "degree_west": "degrees_west",
+        "degW": "degrees_west",
+        "°W": "degrees_west",
+        "deg S": "degrees_south",
+        "deg_S": "degrees_south",
+        "degree_S": "degrees_south",
+        "degree_south": "degrees_south",
+        "degS": "degrees_south",
+        "°S": "degrees_south",
+        # Density units
+        "kg/m3": "kg m-3",
+        "kg m^-3": "kg m-3",
+        "g/cm3": "g cm-3",
+        "g cm^-3": "g cm-3",
+        # Frequency units
+        "Hz": "hertz",
+        "hz": "hertz",
+        "1/s": "s-1",
+        "s^-1": "s-1",
+        # Dimensionless units (explicitly unitless)
+        "unitless": "1",
+        "dimensionless": "1",
+        # No units specified (placeholders)
+        "": "",  # Empty string (placeholder for unspecified units)
+        "n/a": "",
+        "N/A": "",
+        "none": "",
+        "-": "",
+    }
+
+
+def standardize_dataset_units(
+    ds: xr.Dataset, mapping: Optional[Dict[str, str]] = None, log_changes: bool = True
+) -> xr.Dataset:
+    """Standardize units throughout a dataset using comprehensive mapping rules.
+
+    Parameters
+    ----------
+    ds : xr.Dataset
+        Dataset to standardize units for.
+    mapping : Dict[str, str], optional
+        Custom unit mapping. If None, uses get_standard_unit_mappings().
+    log_changes : bool, optional
+        Whether to log unit changes. Default is True.
+
+    Returns
+    -------
+    xr.Dataset
+        Dataset with standardized units.
+
+    Notes
+    -----
+    This function applies unit standardization to all variables and coordinates
+    in the dataset. It's designed to be the central unit standardization
+    function for AMOCatlas, replacing the simpler standardize_units function.
+
+    Examples
+    --------
+    >>> ds_std = standardize_dataset_units(ds)
+    >>> # Check if Sv was converted to Sverdrup
+    >>> print(ds_std['transport'].attrs['units'])  # "Sverdrup"
+
+    """
+    from .logger import log_info, log_debug
+
+    if mapping is None:
+        mapping = get_standard_unit_mappings()
+
+    units_changed = 0
+
+    # Process data variables
+    for var_name in ds.data_vars:
+        current_units = ds[var_name].attrs.get("units", "")
+        if log_changes:
+            log_debug(f"Variable {var_name}: current units = '{current_units}'")
+
+        if current_units in mapping:
+            new_units = mapping[current_units]
+            ds[var_name].attrs["units"] = new_units
+            if log_changes:
+                log_info(
+                    f"Standardized units for variable {var_name}: '{current_units}' → '{new_units}'"
+                )
+            units_changed += 1
+        elif current_units == "":
+            if log_changes:
+                log_debug(f"Variable {var_name}: no units attribute found")
+        else:
+            if log_changes:
+                log_debug(
+                    f"Variable {var_name}: units '{current_units}' - no standardization needed"
+                )
+
+    # Process coordinate variables
+    for coord_name in ds.coords:
+        current_units = ds[coord_name].attrs.get("units", "")
+        if log_changes:
+            log_debug(f"Coordinate {coord_name}: current units = '{current_units}'")
+
+        if current_units in mapping:
+            new_units = mapping[current_units]
+            ds[coord_name].attrs["units"] = new_units
+            if log_changes:
+                log_info(
+                    f"Standardized units for coordinate {coord_name}: '{current_units}' → '{new_units}'"
+                )
+            units_changed += 1
+        elif current_units == "":
+            if log_changes:
+                log_debug(f"Coordinate {coord_name}: no units attribute found")
+        else:
+            if log_changes:
+                log_debug(
+                    f"Coordinate {coord_name}: units '{current_units}' - no standardization needed"
+                )
+
+    # Final cleanup: Remove empty units attributes (unspecified units)
+    empty_units_removed = 0
+
+    # Remove empty units from data variables
+    for var_name in ds.data_vars:
+        if ds[var_name].attrs.get("units") == "":
+            del ds[var_name].attrs["units"]
+            empty_units_removed += 1
+            if log_changes:
+                log_debug(f"Removed empty units attribute from variable {var_name}")
+
+    # Remove empty units from coordinates
+    for coord_name in ds.coords:
+        if ds[coord_name].attrs.get("units") == "":
+            del ds[coord_name].attrs["units"]
+            empty_units_removed += 1
+            if log_changes:
+                log_debug(f"Removed empty units attribute from coordinate {coord_name}")
+
+    if log_changes:
+        log_info(
+            f"Unit standardization complete: {units_changed} variables/coordinates updated, "
+            f"{empty_units_removed} empty units attributes removed"
+        )
+
+    return ds
+
+
+def apply_unit_standardization_after_metadata(ds: xr.Dataset) -> xr.Dataset:
+    """Apply unit standardization with high priority to override YAML metadata.
+
+    This function is designed to be called after metadata enrichment to ensure
+    that standardized units take precedence over any units specified in YAML
+    metadata files.
+
+    Parameters
+    ----------
+    ds : xr.Dataset
+        Dataset that may have had units overwritten by metadata processing.
+
+    Returns
+    -------
+    xr.Dataset
+        Dataset with units re-standardized.
+
+    Notes
+    -----
+    This addresses the issue where YAML metadata files contain "Sv" units
+    that override the standardized "Sverdrup" units. This function should
+    be called as the final step in standardization.
+
+    Examples
+    --------
+    >>> # In standardization pipeline
+    >>> ds = apply_metadata_from_yaml(ds)  # This might set units: Sv
+    >>> ds = apply_unit_standardization_after_metadata(ds)  # This fixes it
+
+    """
+    from .logger import log_info
+
+    log_info("Applying final unit standardization to override any metadata conflicts")
+    return standardize_dataset_units(ds, log_changes=True)
+
+
+def mask_invalid_values(ds: xr.Dataset) -> xr.Dataset:
+    """Mask values outside valid_min/valid_max ranges as NaN.
+
+    Many netCDF files contain valid_min and valid_max attributes that define
+    the valid range for variables. Values outside this range should be treated
+    as missing data but are often not automatically masked by xarray.
+
+    Parameters
+    ----------
+    ds : xr.Dataset
+        Dataset to check for invalid values.
+
+    Returns
+    -------
+    xr.Dataset
+        Dataset with values outside valid ranges masked as NaN.
+
+    Examples
+    --------
+    >>> # Variable has valid_min=-100, valid_max=100 but contains 9.97e+36
+    >>> ds_clean = mask_invalid_values(ds)
+    >>> # Now extreme values are masked as NaN
+
+    """
+    from .logger import log_info, log_debug
+
+    variables_masked = 0
+    total_values_masked = 0
+
+    # Process all variables (data variables and coordinates)
+    for var_name in ds.variables:
+        var = ds[var_name]
+
+        # Check if variable has valid range attributes
+        valid_min = var.attrs.get("valid_min")
+        valid_max = var.attrs.get("valid_max")
+
+        if valid_min is not None or valid_max is not None:
+            # Use xarray operations to preserve lazy evaluation
+            invalid_mask = xr.zeros_like(var, dtype=bool)
+
+            if valid_min is not None:
+                invalid_mask = invalid_mask | (var < valid_min)
+
+            if valid_max is not None:
+                invalid_mask = invalid_mask | (var > valid_max)
+
+            # Count invalid values (this will materialize the mask but not the full data)
+            invalid_count = invalid_mask.sum().values
+
+            if invalid_count > 0:
+                log_info(
+                    f"Masking {invalid_count} invalid values in '{var_name}' "
+                    f"(valid range: {valid_min} to {valid_max})"
+                )
+                log_debug(
+                    f"  Original min/max: {var.min().values:.2e} / {var.max().values:.2e}"
+                )
+
+                # Apply mask using xarray where operation to preserve lazy evaluation
+                masked_var = var.where(~invalid_mask)
+
+                # Update the variable data
+                ds[var_name] = masked_var
+
+                log_debug(
+                    f"  Masked min/max: {masked_var.min().values:.2e} / {masked_var.max().values:.2e}"
+                )
+
+                variables_masked += 1
+                total_values_masked += invalid_count
+            else:
+                log_debug(
+                    f"Variable '{var_name}' has valid range but no invalid values"
+                )
+
+    if variables_masked > 0:
+        log_info(
+            f"Masked invalid values in {variables_masked} variables "
+            f"({total_values_masked} total values)"
+        )
+
+    return ds

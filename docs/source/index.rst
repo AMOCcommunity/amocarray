@@ -24,7 +24,6 @@ For recommendations or bug reports, please visit https://github.com/AMOCcommunit
    :caption: Demo notebooks
 
    demo-output.ipynb
-   demo-convert-output.ipynb
    amoc_paperfigs-output.ipynb
 
 
@@ -37,6 +36,12 @@ For recommendations or bug reports, please visit https://github.com/AMOCcommunit
    data_formats/format_orig
    data_formats/format_conversion
    data_formats/format_AC1
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Dataset Reports
+
+   reports/index
 
 .. toctree::
    :maxdepth: 2

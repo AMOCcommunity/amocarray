@@ -12,8 +12,8 @@ import pandas as pd
 import xarray as xr
 
 from amocatlas import logger, utilities
-from amocatlas.logger import log_error, log_info, log_warning
-from amocatlas.utilities import apply_defaults
+from amocatlas.logger import log_error, log_info, log_warning, log_debug
+from amocatlas.utilities import apply_defaults, sanitize_variable_name
 from amocatlas.reader_utils import ReaderUtils
 
 log = logger.log  # Use the global logger
@@ -66,6 +66,7 @@ def read_samba(
     transport_only: bool = True,
     data_dir: Union[str, Path, None] = None,
     redownload: bool = False,
+    track_added_attrs: bool = False,
 ) -> list[xr.Dataset]:
     """Load the SAMBA transport datasets from remote URL or local file path into xarray Datasets.
 
@@ -98,6 +99,11 @@ def read_samba(
     """
     log_info("Starting to read SAMBA dataset")
 
+    # Load YAML metadata with fallback
+    global_metadata, yaml_file_metadata = ReaderUtils.load_array_metadata_with_fallback(
+        DATASOURCE_ID, SAMBA_METADATA
+    )
+
     # Ensure file_list has a default
     if file_list is None:
         file_list = SAMBA_DEFAULT_FILES
@@ -112,6 +118,7 @@ def read_samba(
     ReaderUtils.print_loading_info(file_list, DATASOURCE_ID, SAMBA_FILE_METADATA)
 
     datasets = []
+    added_attrs_per_dataset = [] if track_added_attrs else None
 
     for file in file_list:
         if not (file.lower().endswith(".txt") or file.lower().endswith(".asc")):
@@ -135,7 +142,17 @@ def read_samba(
         try:
             column_names, _ = utilities.parse_ascii_header(file_path, comment_char="%")
             df = utilities.read_ascii_file(file_path, comment_char="%")
-            df.columns = column_names
+
+            # Sanitize column names to create valid Python identifiers
+            # This handles cases like "Total MOC anomaly (relative to record-length average of 14.7 Sv)"
+            sanitized_column_names = [
+                sanitize_variable_name(name) for name in column_names
+            ]
+            df.columns = sanitized_column_names
+
+            # Store original column names mapping for later use in variable mapping
+            # This enables tracking of original names -> sanitized names -> standardized names
+            original_to_sanitized = dict(zip(column_names, sanitized_column_names))
         except (
             OSError,
             IOError,
@@ -149,16 +166,31 @@ def read_samba(
                 f"Failed to parse ASCII file: {file_path}: {e}"
             ) from e
 
-        # Time handling
+        # Time handling - use sanitized column names
         try:
+            # Find the sanitized versions of time columns
+            time_cols_needed = ["Year", "Month", "Day", "Hour"]
             if "Upper_Abyssal" in file:
-                df["TIME"] = pd.to_datetime(
-                    df[["Year", "Month", "Day", "Hour", "Minute"]],
-                )
-                df = df.drop(columns=["Year", "Month", "Day", "Hour", "Minute"])
+                time_cols_needed.append("Minute")
+
+            # Map original time column names to their sanitized versions
+            sanitized_time_cols = []
+            for col in time_cols_needed:
+                if col in original_to_sanitized:
+                    sanitized_time_cols.append(original_to_sanitized[col])
+                elif col in df.columns:
+                    sanitized_time_cols.append(col)  # Fallback if already sanitized
+                else:
+                    raise KeyError(f"Required time column '{col}' not found in data")
+
+            if "Upper_Abyssal" in file:
+                df["TIME"] = pd.to_datetime(df[sanitized_time_cols])
             else:
-                df["TIME"] = pd.to_datetime(df[["Year", "Month", "Day", "Hour"]])
-                df = df.drop(columns=["Year", "Month", "Day", "Hour"])
+                df["TIME"] = pd.to_datetime(
+                    df[sanitized_time_cols[:4]]
+                )  # Year, Month, Day, Hour only
+
+            df = df.drop(columns=sanitized_time_cols)
         except (ValueError, KeyError, TypeError) as e:
             log_error("Failed to construct TIME column for %s: %s", file, e)
             raise ValueError(f"Failed to construct TIME column for {file}: {e}") from e
@@ -176,19 +208,62 @@ def read_samba(
                 f"Failed to convert DataFrame to xarray Dataset for {file}: {e}",
             ) from e
 
-        # Use ReaderUtils for consistent metadata attachment
-        file_metadata = SAMBA_FILE_METADATA.get(file, {})
-        ds = ReaderUtils.attach_standard_metadata(
-            ds,
-            file,
-            file_path,
-            SAMBA_METADATA,
-            file_metadata,
-            datasource_id=DATASOURCE_ID,
-        )
+        # Attach metadata with optional tracking
+        if track_added_attrs:
+            ds, attr_changes = ReaderUtils.attach_metadata_with_tracking(
+                ds,
+                file,
+                file_path,
+                global_metadata,
+                yaml_file_metadata,
+                SAMBA_FILE_METADATA,
+                DATASOURCE_ID,
+                track_added_attrs=True,
+            )
+            added_attrs_per_dataset.append(attr_changes)
+        else:
+            ds = ReaderUtils.attach_metadata_with_tracking(
+                ds,
+                file,
+                file_path,
+                global_metadata,
+                yaml_file_metadata,
+                SAMBA_FILE_METADATA,
+                DATASOURCE_ID,
+                track_added_attrs=False,
+            )
+
+        # Update variable_mapping to use sanitized names as keys
+        # This allows standardization to find the mapping from sanitized names to standard names
+        if "variable_mapping" in ds.attrs:
+            original_mapping = ds.attrs["variable_mapping"].copy()
+            updated_mapping = {}
+
+            for original_name, standard_name in original_mapping.items():
+                # Find the sanitized version of this original name
+                sanitized_name = original_to_sanitized.get(original_name)
+                if sanitized_name and sanitized_name in ds.data_vars:
+                    updated_mapping[sanitized_name] = standard_name
+                    log_debug(
+                        f"Updated variable mapping: {original_name} -> {sanitized_name} -> {standard_name}"
+                    )
+                else:
+                    # Keep original mapping in case sanitization didn't change it
+                    updated_mapping[original_name] = standard_name
+
+            ds.attrs["variable_mapping"] = updated_mapping
+
+            # Store the full mapping chain for reference (useful for reports)
+            ds.attrs["original_variable_mapping"] = original_mapping
+            ds.attrs["sanitization_mapping"] = original_to_sanitized
 
         datasets.append(ds)
 
     # Use ReaderUtils for validation
     ReaderUtils.validate_datasets_loaded(datasets, file_list)
-    return datasets
+
+    # Handle track_added_attrs parameter
+    if track_added_attrs:
+        return datasets, added_attrs_per_dataset
+    else:
+        return datasets

@@ -11,7 +11,7 @@ logger.disable_logging()
 @pytest.fixture
 def sample_rapid_data():
     """Fixture providing sample RAPID data for testing."""
-    # Load the same sample data used in demo-convert.ipynb
+    # Load sample RAPID data for testing
     ds_rapid = readers.load_sample_dataset()
     ds_standardised = standardise.standardise_rapid(
         ds_rapid, ds_rapid.attrs["source_file"]

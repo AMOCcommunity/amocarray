@@ -47,6 +47,7 @@ def read_zheng2024(
     transport_only: bool = True,
     data_dir: Union[str, Path, None] = None,
     redownload: bool = False,
+    track_added_attrs: bool = False,
 ) -> list[xr.Dataset]:
     """Load the ZHENG2024 transport datasets from a URL or local file path into xarray Datasets.
 
@@ -83,7 +84,14 @@ def read_zheng2024(
         If the file cannot be downloaded or does not exist locally.
 
     """
-    log.info("Starting to read ZHENG2024 dataset")  # Ensure file_list has a default
+    log.info("Starting to read ZHENG2024 dataset")
+
+    # Load YAML metadata with fallback
+    global_metadata, yaml_file_metadata = ReaderUtils.load_array_metadata_with_fallback(
+        DATASOURCE_ID, ZHENG2024_METADATA
+    )
+
+    # Ensure file_list has a default
     if file_list is None:
         file_list = ZHENG2024_DEFAULT_FILES
     if transport_only:
@@ -99,6 +107,7 @@ def read_zheng2024(
 
     datasets = []
 
+    added_attrs_per_dataset = [] if track_added_attrs else None
     for file in file_list:
         if not (file.lower().endswith(".nc")):
             log_warning("Skipping unsupported file type : %s", file)
@@ -123,18 +132,35 @@ def read_zheng2024(
 
             ds = ReaderUtils.safe_load_dataset(file_path)
             # Attach metadata
-            # Use ReaderUtils for consistent metadata attachment
+            # Attach metadata with optional tracking
 
-            file_metadata = ZHENG2024_FILE_METADATA.get(file, {})
+            if track_added_attrs:
 
-            ds = ReaderUtils.attach_standard_metadata(
-                ds,
-                file,
-                file_path,
-                ZHENG2024_METADATA,
-                file_metadata,
-                datasource_id=DATASOURCE_ID,
-            )
+                ds, attr_changes = ReaderUtils.attach_metadata_with_tracking(
+                    ds,
+                    file,
+                    file_path,
+                    global_metadata,
+                    yaml_file_metadata,
+                    ZHENG2024_FILE_METADATA,
+                    DATASOURCE_ID,
+                    track_added_attrs=True,
+                )
+
+                added_attrs_per_dataset.append(attr_changes)
+
+            else:
+
+                ds = ReaderUtils.attach_metadata_with_tracking(
+                    ds,
+                    file,
+                    file_path,
+                    global_metadata,
+                    yaml_file_metadata,
+                    ZHENG2024_FILE_METADATA,
+                    DATASOURCE_ID,
+                    track_added_attrs=False,
+                )
         else:
             raise ValueError(
                 f"Unsupported file type for {file}. Only .nc files are supported."
@@ -147,4 +173,8 @@ def read_zheng2024(
         raise FileNotFoundError(f"No valid data files found in {file_list}")
 
     log_info("Successfully loaded %d ZHENG2024 dataset(s)", len(datasets))
-    return datasets
+
+    if track_added_attrs:
+        return datasets, added_attrs_per_dataset
+    else:
+        return datasets
