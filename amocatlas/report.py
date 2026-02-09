@@ -184,9 +184,7 @@ class ReportUtils:
         return db_file
 
     @staticmethod
-    def handle_yyyymm_time_format(
-        time_data: Union[xr.DataArray, pd.Series, np.ndarray],
-    ) -> pd.Series:
+    def handle_yyyymm_time_format(time_data: Union[xr.DataArray, pd.Series, np.ndarray]) -> pd.Series:
         """Handle YYYYMM time format (e.g., 200201 = February 2002)."""
         try:
             time_values = time_data.values
@@ -204,9 +202,7 @@ class ReportUtils:
             return pd.to_datetime(time_data.values)
 
     @staticmethod
-    def estimate_frequency(
-        median_diff: Union[pd.Timedelta, np.timedelta64, float, int],
-    ) -> str:
+    def estimate_frequency(median_diff: Union[pd.Timedelta, np.timedelta64, float, int]) -> str:
         """Estimate sampling frequency from median time difference."""
         try:
             # Handle pandas Timedelta
@@ -357,10 +353,7 @@ class ReportUtils:
         return stats
 
     @staticmethod
-    def safe_time_diff_days(
-        time_max: Union[datetime, pd.Timestamp, np.datetime64, float, int],
-        time_min: Union[datetime, pd.Timestamp, np.datetime64, float, int],
-    ) -> float:
+    def safe_time_diff_days(time_max: Union[datetime, pd.Timestamp, np.datetime64, float, int], time_min: Union[datetime, pd.Timestamp, np.datetime64, float, int]) -> float:
         """Safely calculate time difference in days, handling different data types."""
         try:
             # Try standard datetime difference first
@@ -421,9 +414,7 @@ class ReportUtils:
             return 0
 
     @staticmethod
-    def safe_format_date(
-        date_obj: Union[datetime, pd.Timestamp, np.datetime64, float, int, str],
-    ) -> str:
+    def safe_format_date(date_obj: Union[datetime, pd.Timestamp, np.datetime64, float, int, str]) -> str:
         """Safely format date, handling different data types."""
         try:
             if hasattr(date_obj, "strftime"):
@@ -1011,8 +1002,9 @@ class ReportUtils:
                         if legend:
                             legend.set_visible(False)
 
-            # Save plot
-            fig.savefig(plot_path, dpi=150, bbox_inches="tight", facecolor="white")
+            # Save plot (suppress matplotlib metadata for deterministic output)
+            fig.savefig(plot_path, dpi=150, bbox_inches="tight", facecolor="white",
+                       metadata={'Software': None, 'Creation Time': None})
 
             # Import matplotlib.pyplot if not already imported
             try:
@@ -1025,15 +1017,8 @@ class ReportUtils:
 
             # Return relative path for Sphinx (from reports directory)
             plot_path_return = f"../_static/reports/{plot_filename}"
-        except (
-            ValueError,
-            KeyError,
-            TypeError,
-            AttributeError,
-            OSError,
-            IOError,
-            ImportError,
-        ) as e:
+
+        except Exception as e:
             print(f"  Warning: Failed to generate plot for {dataset_name}: {e}")
             log_debug(f"Plot generation failed for {dataset_name}: {e}")
             return None
@@ -1152,7 +1137,7 @@ class ReportUtils:
             contributors_data = ReportUtils.extract_contributors_and_institutions(
                 datasets, array_name
             )
-            ReportUtils.update_contributors_database(contributors_data)
+            _db_path = ReportUtils.update_contributors_database(contributors_data)
             print(
                 f"  Updated contributors database: {len(contributors_data['contributors'])} contributors, "
                 f"{len(contributors_data['institutions'])} institutions"
@@ -1222,7 +1207,7 @@ class ReportUtils:
                             # Found end of title, skip next few lines
                             content_start = j + 3
                             skip_title = False
-                            break
+                            # Continue looking for "Dataset Overview" instead of breaking
                         elif line.startswith("Dataset Overview") or line.startswith(
                             "Coordinate Information"
                         ):
@@ -1672,10 +1657,11 @@ class StandardizedDatasetReport(BaseDatasetReport):
                 figsize=(7, 2.5),  # Slightly wider figure
             )
 
-            # Turn off legend and save the plot
+            # Turn off legend and save the plot (suppress matplotlib metadata for deterministic output)
             ax = fig.get_axes()[0]
             ax.legend().set_visible(False)
-            fig.savefig(plot_path, dpi=150, bbox_inches="tight")
+            fig.savefig(plot_path, dpi=150, bbox_inches="tight",
+                       metadata={'Software': None, 'Creation Time': None})
             plt.close(fig)
 
             # Return relative path for Sphinx (from reports directory)
@@ -1696,12 +1682,11 @@ class StandardizedDatasetReport(BaseDatasetReport):
         else:
             return plot_path_return
 
-
 def analyze_standardized_dataset(
     dataset_name: str,
     transport_only: bool = True,
-    all_files: bool = False,  # noqa: ARG001
-    dataset_index: int = 0,  # noqa: ARG001
+    _all_files: bool = False,
+    _dataset_index: int = 0,
 ) -> Union[StandardizedDatasetReport, List[StandardizedDatasetReport]]:
     """Analyze a standardized dataset and return comprehensive report data with metadata tracking.
 

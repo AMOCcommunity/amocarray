@@ -86,15 +86,18 @@ def sort_contributors_by_last_name() -> None:
     # Extract header comments (everything before 'contributors:')
     lines = original_content.split("\n")
     header_lines = []
+    _contributors_started = False
 
     for line in lines:
         if line.strip().startswith("contributors:"):
+            _contributors_started = True
             break
         header_lines.append(line)
 
     # Find the example/footer comments (everything after the last contributor entry)
     footer_lines = []
     in_contributors = False
+    _current_orcid = None
 
     for line in lines:
         if line.strip().startswith("contributors:"):
@@ -106,6 +109,7 @@ def sort_contributors_by_last_name() -> None:
             if re.match(r'^\s*"[0-9-]+.*":\s*', line) or re.match(
                 r'^\s*"[a-z-]+-id":\s*', line
             ):
+                _current_orcid = line.strip()
                 continue
             # Check if we've hit the example/footer section
             elif line.strip().startswith("#") and "example usage" in line.lower():

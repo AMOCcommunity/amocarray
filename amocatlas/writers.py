@@ -60,7 +60,7 @@ def save_dataset(ds: xr.Dataset, output_file: str = "../test.nc") -> bool:
             new_attrs[k] = ""
         else:
             new_attrs[k] = v
-
+    
     # Replace all attributes with sanitized versions
     ds_copy.attrs.clear()
     ds_copy.attrs.update(new_attrs)
