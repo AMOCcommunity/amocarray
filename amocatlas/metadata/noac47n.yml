@@ -11,8 +11,8 @@ metadata:
   featureType: "timeSeries"
   time_coverage_start: '1993-01-01'
   time_coverage_end: '2018-01-01'
-  contributor_name: "Simon Wett, Monika Rhein, Dagmar Kieke, Christian Mertens, Martin Moritz; Hannah Nowitzki"
-  contributor_role: ""
+  contributor_name: "Simon Wett, Monika Rhein"
+  contributor_role: "originator, PI"
   contributor_id: https://orcid.org/0000-0003-3876-2206, https://orcid.org/0000-0003-1496-2828, https://orcid.org/0000-0002-2414-0695, https://orcid.org/0000-0002-7602-4194, https://orcid.org/0000-0002-9878-5648, https://orcid.org/0000-0001-5936-0527
   contributor_role_vocabulary: "http://vocab.nerc.ac.uk/search_nvs/W08/"
 
@@ -21,16 +21,18 @@ files:
     source_url: "https://doi.pangaea.de/10.1594/PANGAEA.959558"
     data_product: "Basin-wide AMOC volume transport from the NOAC array at 47°N in the subpolar North Atlantic (1993-2018)"
     variable_mapping:
-      "Trans vol [Sv]": MOC
-      "Trans vol [Sv].1": MOC_LPF
+      "Trans vol [Sv]": MOC_SIGMA0
+      "Trans vol [Sv].1": MOC_SIGMA0_LPF
     original_variable_metadata:
       "Trans vol [Sv]":
         long_name: "MOC_sigma0"
         description: "AMOC volume transport at 47N"
-        units: "Sv"
-        standard_name: "ocean_meridional_overturning_transport"
+        units: Sverdrup
+        reference_pressure: 0
+        standard_name: ocean_meridional_overturning_transport
       "Trans vol [Sv].1":
         long_name: "MOC_sigma0 (filtered)"
         description: "AMOC volume transport at 47N, low-pass filtered"
-        units: "Sv"
-        standard_name: "ocean_meridional_overturning_transport"
+        units: Sverdrup
+        reference_pressure: 0
+        standard_name: ocean_meridional_overturning_transport

@@ -18,6 +18,7 @@ from datetime import datetime, timezone
 from amocatlas import logger, utilities, defaults, contributors
 from amocatlas.logger import log_debug
 
+
 log = logger.log  # Use the global logger
 
 # Extracted from OG1.0 spec “## Global attributes” (cf. turn1view0) :contentReference[oaicite:0]{index=0}
@@ -268,6 +269,35 @@ def clean_metadata(attrs: dict, preferred_keys: dict = None) -> dict:
     return cleaned
 
 
+def _standardize_role_names(role_string: str, role_map: dict) -> str:
+    """Standardize individual role names in a comma-separated role string.
+
+    Args:
+        role_string: Comma-separated string of role names
+        role_map: Dictionary mapping role names to standard NERC G04 terms
+
+    Returns:
+        Standardized comma-separated role string
+
+    """
+    if not role_string or not role_string.strip():
+        return role_string
+
+    roles = [role.strip() for role in role_string.split(",")]
+    standardized_roles = []
+
+    for role in roles:
+        if not role:  # Skip empty roles
+            standardized_roles.append("")
+            continue
+
+        # Apply role mapping if available
+        standardized_role = role_map.get(role, role)
+        standardized_roles.append(standardized_role)
+
+    return ", ".join(standardized_roles)
+
+
 def _consolidate_contributors(cleaned: dict) -> dict:
     """Consolidate creators, PIs, publishers, and contributors into unified fields.
 
@@ -339,7 +369,7 @@ def _consolidate_contributors(cleaned: dict) -> dict:
 
         # Use explicit role if available, otherwise use mapped empty role
         role_value = (
-            explicit_contributor_role
+            _standardize_role_names(explicit_contributor_role, role_map)
             if explicit_contributor_role.strip()
             else role_map["contributor_name"]
         )
@@ -443,6 +473,12 @@ def _consolidate_contributors(cleaned: dict) -> dict:
             # Update cleaned dictionary with processed results
             cleaned.update(processed)
 
+            # Add NERC G04 vocabulary URL if we have contributor roles
+            if "contributor_role" in cleaned and cleaned["contributor_role"]:
+                cleaned["contributor_role_vocabulary"] = (
+                    "https://vocab.nerc.ac.uk/collection/G04/current/"
+                )
+
             log_debug("Processed contributor metadata: %s", processed)
 
         except Exception as e:
@@ -452,6 +488,12 @@ def _consolidate_contributors(cleaned: dict) -> dict:
             cleaned["contributor_role"] = roles_str
             cleaned["contributor_email"] = emails_str
             cleaned["contributor_id"] = ids_str
+
+            # Add vocabulary URL in fallback case too
+            if roles_str:
+                cleaned["contributor_role_vocabulary"] = (
+                    "https://vocab.nerc.ac.uk/collection/G04/current/"
+                )
 
     # Step B: consolidate institution keys using new modular approach
     # Collect all institution-related fields from various sources
@@ -695,7 +737,7 @@ def standardize_longitude_coordinate(ds: xr.Dataset) -> xr.Dataset:
     - data type: double
     - long_name: "longitude east (WGS84)"
     - standard_name: "longitude"
-    - units: "degrees_east"
+    - units: "degree_east"
 
     Parameters
     ----------
@@ -731,7 +773,7 @@ def standardize_longitude_coordinate(ds: xr.Dataset) -> xr.Dataset:
         "long_name": "Longitude",
         "description": "Longitude east (WGS84)",
         "standard_name": "longitude",
-        "units": "degrees_east",
+        "units": defaults.PREFERRED_UNITS["longitude"],
     }
 
     ds["LONGITUDE"].attrs.update(standard_lon_attrs)
@@ -747,7 +789,7 @@ def standardize_latitude_coordinate(ds: xr.Dataset) -> xr.Dataset:
     - data type: double
     - long_name: "Latitude north (WGS84)"
     - standard_name: "latitude"
-    - units: "degrees_north"
+    - units: "degree_north"
 
     Parameters
     ----------
@@ -783,7 +825,7 @@ def standardize_latitude_coordinate(ds: xr.Dataset) -> xr.Dataset:
         "long_name": "Latitude",
         "description": "Latitude north (WGS84)",
         "standard_name": "latitude",
-        "units": "degrees_north",
+        "units": defaults.PREFERRED_UNITS["latitude"],
     }
 
     ds["LATITUDE"].attrs.update(standard_lat_attrs)
@@ -833,7 +875,7 @@ def standardize_depth_coordinate(ds: xr.Dataset) -> xr.Dataset:
         "long_name": "Depth",
         "description": " Depth below surface of the water",
         "standard_name": "depth",
-        "units": "meters",
+        "units": defaults.PREFERRED_UNITS["length"],
     }
 
     ds["DEPTH"].attrs.update(standard_depth_attrs)
@@ -883,7 +925,7 @@ def standardize_sigma0_coordinate(ds: xr.Dataset) -> xr.Dataset:
         "long_name": "Sigma0",
         "description": "Potential density anomaly to 1000 kg/m3, surface reference",
         "standard_name": "sea_water_sigma_theta",
-        "units": "kg m-3",
+        "units": defaults.PREFERRED_UNITS["density"],
     }
 
     ds["SIGMA0"].attrs.update(standard_sigma0_attrs)
@@ -1359,11 +1401,14 @@ def standardise_data(ds: xr.Dataset, file_name: str) -> xr.Dataset:
             else:
                 combined[key] = file_meta[key]
 
-    # 4) Clean up collisions & override ds.attrs wholesale
-    cleaned = clean_metadata(combined)
+    # 4) Apply field renaming first, then overwrites, then contributor processing
+    # This ensures overwrites can target renamed fields while preventing institutional contamination
 
-    # 4.5) Process overwrite directives from YAML metadata AFTER cleaning
-    # This ensures overrides are applied after field renaming and can properly override renamed fields
+    # 4.1) First do field renaming (normalize whitespace and merge aliases)
+    combined = utilities.normalize_whitespace(combined)
+    merged_attrs = merge_metadata_aliases(combined, defaults.METADATA_KEY_MAPPINGS)
+
+    # 4.2) Then apply overwrite directives to renamed fields
     all_yaml_metadata = {}
     all_yaml_metadata.update(meta.get("metadata", {}))  # array-level
     all_yaml_metadata.update(file_meta)  # file-level
@@ -1376,22 +1421,25 @@ def standardise_data(ds: xr.Dataset, file_name: str) -> xr.Dataset:
             base_key = key[:-10]  # Remove "_overwrite" (10 characters)
 
             # Force overwrite the attribute even if it already exists
-            cleaned[base_key] = value
+            merged_attrs[base_key] = value
             overwrite_applied[base_key] = value
             overwrite_keys_to_remove.append(key)  # Mark for cleanup
             log_debug(
                 f"Applied overwrite: '{base_key}' = '{str(value)[:50]}{'...' if len(str(value)) > 50 else ''}'"
             )
 
-    # Remove _overwrite fields from cleaned metadata to prevent them from appearing in final dataset
-    for key in overwrite_keys_to_remove:
-        cleaned.pop(key, None)
-        log_debug(f"Removed processing directive: '{key}'")
-
     if overwrite_applied:
         log_debug(
             f"Applied {len(overwrite_applied)} metadata overrides: {list(overwrite_applied.keys())}"
         )
+
+    # 4.3) Now do contributor consolidation on the renamed and overwritten fields
+    cleaned = _consolidate_contributors(merged_attrs)
+
+    # Remove _overwrite fields from cleaned metadata to prevent them from appearing in final dataset
+    for key in overwrite_keys_to_remove:
+        cleaned.pop(key, None)
+        log_debug(f"Removed processing directive: '{key}'")
 
     # 5) Standardize date formats and add processing metadata
 

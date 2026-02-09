@@ -1,7 +1,7 @@
-ARCTICGATEWAY Dataset Report
-============================
+ARCTICGATEWAY Datasets
+======================
 
-*Generated: 2026-02-08*
+*Generated: |today|*
 
 This report covers all available ARCTICGATEWAY datasets.
 
@@ -57,21 +57,21 @@ The following table shows information about the dataset coordinates in the stand
      - Missing %
    * - *depth* → **DEPTH**
      - **Depth**:  Depth below surface of the water
-     - meters
+     - m
      - (122,)
      - 0.00
      - 484.00
      - 0.0%
    * - *lat* → **LATITUDE**
      - **Latitude**: Latitude north (WGS84)
-     - degrees_north
+     - degree_north
      - (306,)
      - 69.48
      - 77.70
      - 0.0%
    * - *lon* → **LONGITUDE**
      - **Longitude**: Longitude east (WGS84)
-     - degrees_east
+     - degree_east
      - (306,)
      - 18.35
      - 20.31
@@ -104,7 +104,7 @@ along with key statistics for each variable.
      - Missing %
    * - **CT**
      - **Cons. Temperature**: Conservative Temperature (TEOS-10)
-     - degrees_Celsius
+     - degree_C
      - (212, 122, 306)
      - -2.40
      - 12.68
@@ -143,20 +143,15 @@ The following metadata provides comprehensive information about this dataset:
 - **Data Product\***: Pan-Arctic Gateway transports since 2004 - Barents Sea Opening
 - **Time Coverage Start**: 2004-10-15
 - **Time Coverage End**: 2022-05-15
-- **Creator Name**: H. Fredriksen
-- **Creator Email**:  
-- **Creator Url**:  
 - **Creator Institution**: Norwegian Polar Institute (NPI)
-- **Contributor Name**: Norwegian Polar Institute (NPI), Norwegian Polar Institute (NPI), Hege-Beate Fredriksen, Laura de Steur, Wilken-Jon von Appen, Randi Ingvaldsen, Rebecca McPherson, Craig Lee, Jed Lenetsky, Rebecca Woodgate
-- **Contributor Role**: creator, publisher, creator, PI, , , , , , 
-- **Contributor Role Vocabulary**: http://vocab.nerc.ac.uk/search_nvs/W08/
-- **Contributor Email**: post@npolar.no, post@npolar.no, , , , , , , , 
-- **Contributor Id**: www.npolar.no, www.npolar.no, https://orcid.org/0000-0002-3598-4076, https://orcid.org/0000-0002-6043-7920, https://orcid.org/0000-0002-7200-0099, https://orcid.org/0000-0002-8261-334X, https://orcid.org/0000-0002-4449-6701, https://orcid.org/0000-0002-3479-801X, https://orcid.org/0000-0003-1074-2764, https://psc.apl.uw.edu/people/investigators/rebecca-woodgate/
-- **Contributing Institutions**: Norwegian Polar Institute (NPI), Alfred Wegener Institute (AWI), Institute for Marine Research (Bergen), Applied Physics Laboratory (University of Washington)
-- **Contributing Institutions Vocabulary**: https://edmo.seadatanet.org/report/1760, https://edmo.seadatanet.org/report/1368, https://edmo.seadatanet.org/report/1351, https://edmo.seadatanet.org/report/1554
-- **Contributing Institutions Role**: , , , 
-- **Publisher Name**: H. Fredriksen
-- **Publisher Email**:  
+- **Contributor Name**: Hege-Beate Fredriksen, Laura de Steur
+- **Contributor Role**: originator, principalInvestigator
+- **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
+- **Contributor Email**: , 
+- **Contributor Id**: https://orcid.org/0000-0002-3598-4076, https://orcid.org/0000-0002-6043-7920
+- **Contributing Institutions**: Norwegian Polar Institute (NPI), Norwegian Polar Institute (NPI), Alfred Wegener Institute (AWI), Institute for Marine Research (Bergen), Applied Physics Laboratory (University of Washington)
+- **Contributing Institutions Vocabulary**: https://edmo.seadatanet.org/report/1760, https://edmo.seadatanet.org/report/1760, https://edmo.seadatanet.org/report/1368, https://edmo.seadatanet.org/report/1351, https://edmo.seadatanet.org/report/1554
+- **Contributing Institutions Role**: publisher, , , , 
 - **Publisher Type**: institution
 - **Conventions**: , OceanSITES-1.5
 - **featureType**: timeSeriesProfile
@@ -165,7 +160,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source Path\***: ~/AMOCatlas/data/Adjusted_fulldepth/BarentsSeaOpening_adjusted_v_fulldepth.nc
 - **Source Url\***: https://doi.org/10.21334/NPOLAR.2025.80B69907
 - **Date Created**: 2025-10-31T23:55:53Z
-- **Date Modified**: 2026-02-08T13:38:55Z
+- **Date Modified**: 2026-02-09T06:07:34Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: arcticgateway
@@ -181,7 +176,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Project Website**: https://epoc-eu.org
 - **Data Set Language**: eng
 - **Data Assembly Center**: NO/NPI
-- **Creator Type**:  
+- **Creator Type**: 
 
 ----
 
@@ -235,21 +230,21 @@ The following table shows information about the dataset coordinates in the stand
      - Missing %
    * - *depth* → **DEPTH**
      - **Depth**:  Depth below surface of the water
-     - meters
+     - m
      - (16,)
      - 0.00
      - 60.00
      - 0.0%
    * - *lat* → **LATITUDE**
      - **Latitude**: Latitude north (WGS84)
-     - degrees_north
+     - degree_north
      - (33,)
      - 65.69
      - 66.01
      - 0.0%
    * - *lon* → **LONGITUDE**
      - **Longitude**: Longitude east (WGS84)
-     - degrees_east
+     - degree_east
      - (33,)
      - -169.67
      - -168.11
@@ -282,7 +277,7 @@ along with key statistics for each variable.
      - Missing %
    * - **CT**
      - No description available
-     - degrees_Celsius
+     - degree_C
      - (212, 16, 33)
      - -1.83
      - 5.44
@@ -321,20 +316,15 @@ The following metadata provides comprehensive information about this dataset:
 - **Data Product\***: Pan-Arctic Gateway transports since 2004 - Bering Strait
 - **Time Coverage Start**: 2004-10-15
 - **Time Coverage End**: 2022-05-15
-- **Creator Name**: H. Fredriksen
-- **Creator Email**:  
-- **Creator Url**:  
 - **Creator Institution**: Norwegian Polar Institute (NPI)
-- **Contributor Name**: Norwegian Polar Institute (NPI), Norwegian Polar Institute (NPI), Hege-Beate Fredriksen, Laura de Steur, Wilken-Jon von Appen, Randi Ingvaldsen, Rebecca McPherson, Craig Lee, Jed Lenetsky, Rebecca Woodgate
-- **Contributor Role**: creator, publisher, creator, PI, , , , , , 
-- **Contributor Role Vocabulary**: http://vocab.nerc.ac.uk/search_nvs/W08/
-- **Contributor Email**: post@npolar.no, post@npolar.no, , , , , , , , 
-- **Contributor Id**: www.npolar.no, www.npolar.no, https://orcid.org/0000-0002-3598-4076, https://orcid.org/0000-0002-6043-7920, https://orcid.org/0000-0002-7200-0099, https://orcid.org/0000-0002-8261-334X, https://orcid.org/0000-0002-4449-6701, https://orcid.org/0000-0002-3479-801X, https://orcid.org/0000-0003-1074-2764, https://psc.apl.uw.edu/people/investigators/rebecca-woodgate/
-- **Contributing Institutions**: Norwegian Polar Institute (NPI), Alfred Wegener Institute (AWI), Institute for Marine Research (Bergen), Applied Physics Laboratory (University of Washington)
-- **Contributing Institutions Vocabulary**: https://edmo.seadatanet.org/report/1760, https://edmo.seadatanet.org/report/1368, https://edmo.seadatanet.org/report/1351, https://edmo.seadatanet.org/report/1554
-- **Contributing Institutions Role**: , , , 
-- **Publisher Name**: H. Fredriksen
-- **Publisher Email**:  
+- **Contributor Name**: Hege-Beate Fredriksen, Laura de Steur
+- **Contributor Role**: originator, principalInvestigator
+- **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
+- **Contributor Email**: , 
+- **Contributor Id**: https://orcid.org/0000-0002-3598-4076, https://orcid.org/0000-0002-6043-7920
+- **Contributing Institutions**: Norwegian Polar Institute (NPI), Norwegian Polar Institute (NPI), Alfred Wegener Institute (AWI), Institute for Marine Research (Bergen), Applied Physics Laboratory (University of Washington)
+- **Contributing Institutions Vocabulary**: https://edmo.seadatanet.org/report/1760, https://edmo.seadatanet.org/report/1760, https://edmo.seadatanet.org/report/1368, https://edmo.seadatanet.org/report/1351, https://edmo.seadatanet.org/report/1554
+- **Contributing Institutions Role**: publisher, , , , 
 - **Publisher Type**: institution
 - **Conventions**: , OceanSITES-1.5
 - **featureType**: timeSeriesProfile
@@ -343,7 +333,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source Path\***: ~/AMOCatlas/data/Adjusted_fulldepth/BeringStrait_adjusted_v_fulldepth.nc
 - **Source Url\***: https://doi.org/10.21334/NPOLAR.2025.80B69907
 - **Date Created**: 2025-10-31T23:55:53Z
-- **Date Modified**: 2026-02-08T13:38:56Z
+- **Date Modified**: 2026-02-09T06:07:34Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: arcticgateway
@@ -359,7 +349,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Project Website**: https://epoc-eu.org
 - **Data Set Language**: eng
 - **Data Assembly Center**: NO/NPI
-- **Creator Type**:  
+- **Creator Type**: 
 
 ----
 
@@ -413,21 +403,21 @@ The following table shows information about the dataset coordinates in the stand
      - Missing %
    * - *depth* → **DEPTH**
      - **Depth**:  Depth below surface of the water
-     - meters
+     - m
      - (665,)
      - 0.00
      - 2656.00
      - 0.0%
    * - *lat* → **LATITUDE**
      - **Latitude**: Latitude north (WGS84)
-     - degrees_north
+     - degree_north
      - ()
      - 78.83
      - 78.83
      - 0.0%
    * - *lon* → **LONGITUDE**
      - **Longitude**: Longitude east (WGS84)
-     - degrees_east
+     - degree_east
      - (234,)
      - -20.55
      - 11.87
@@ -460,7 +450,7 @@ along with key statistics for each variable.
      - Missing %
    * - **CT**
      - **Cons. Temperature**: Conservative Temperature (TEOS-10)
-     - degrees_Celsius
+     - degree_C
      - (212, 665, 234)
      - -2.74
      - 7.34
@@ -499,20 +489,15 @@ The following metadata provides comprehensive information about this dataset:
 - **Data Product\***: Pan-Arctic Gateway transports since 2004 - Fram Strait
 - **Time Coverage Start**: 2004-10-15
 - **Time Coverage End**: 2022-05-15
-- **Creator Name**: H. Fredriksen
-- **Creator Email**:  
-- **Creator Url**:  
 - **Creator Institution**: Norwegian Polar Institute (NPI)
-- **Contributor Name**: Norwegian Polar Institute (NPI), Norwegian Polar Institute (NPI), Hege-Beate Fredriksen, Laura de Steur, Wilken-Jon von Appen, Randi Ingvaldsen, Rebecca McPherson, Craig Lee, Jed Lenetsky, Rebecca Woodgate
-- **Contributor Role**: creator, publisher, creator, PI, , , , , , 
-- **Contributor Role Vocabulary**: http://vocab.nerc.ac.uk/search_nvs/W08/
-- **Contributor Email**: post@npolar.no, post@npolar.no, , , , , , , , 
-- **Contributor Id**: www.npolar.no, www.npolar.no, https://orcid.org/0000-0002-3598-4076, https://orcid.org/0000-0002-6043-7920, https://orcid.org/0000-0002-7200-0099, https://orcid.org/0000-0002-8261-334X, https://orcid.org/0000-0002-4449-6701, https://orcid.org/0000-0002-3479-801X, https://orcid.org/0000-0003-1074-2764, https://psc.apl.uw.edu/people/investigators/rebecca-woodgate/
-- **Contributing Institutions**: Norwegian Polar Institute (NPI), Alfred Wegener Institute (AWI), Institute for Marine Research (Bergen), Applied Physics Laboratory (University of Washington)
-- **Contributing Institutions Vocabulary**: https://edmo.seadatanet.org/report/1760, https://edmo.seadatanet.org/report/1368, https://edmo.seadatanet.org/report/1351, https://edmo.seadatanet.org/report/1554
-- **Contributing Institutions Role**: , , , 
-- **Publisher Name**: H. Fredriksen
-- **Publisher Email**:  
+- **Contributor Name**: Hege-Beate Fredriksen, Laura de Steur
+- **Contributor Role**: originator, principalInvestigator
+- **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
+- **Contributor Email**: , 
+- **Contributor Id**: https://orcid.org/0000-0002-3598-4076, https://orcid.org/0000-0002-6043-7920
+- **Contributing Institutions**: Norwegian Polar Institute (NPI), Norwegian Polar Institute (NPI), Alfred Wegener Institute (AWI), Institute for Marine Research (Bergen), Applied Physics Laboratory (University of Washington)
+- **Contributing Institutions Vocabulary**: https://edmo.seadatanet.org/report/1760, https://edmo.seadatanet.org/report/1760, https://edmo.seadatanet.org/report/1368, https://edmo.seadatanet.org/report/1351, https://edmo.seadatanet.org/report/1554
+- **Contributing Institutions Role**: publisher, , , , 
 - **Publisher Type**: institution
 - **Conventions**: , OceanSITES-1.5
 - **featureType**: timeSeriesProfile
@@ -521,7 +506,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source Path\***: ~/AMOCatlas/data/Adjusted_fulldepth/FramStrait_adjusted_v_fulldepth.nc
 - **Source Url\***: https://doi.org/10.21334/NPOLAR.2025.80B69907
 - **Date Created**: 2025-10-31T23:55:53Z
-- **Date Modified**: 2026-02-08T13:38:56Z
+- **Date Modified**: 2026-02-09T06:07:34Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: arcticgateway
@@ -537,7 +522,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Project Website**: https://epoc-eu.org
 - **Data Set Language**: eng
 - **Data Assembly Center**: NO/NPI
-- **Creator Type**:  
+- **Creator Type**: 
 
 ----
 
@@ -591,21 +576,21 @@ The following table shows information about the dataset coordinates in the stand
      - Missing %
    * - *depth* → **DEPTH**
      - **Depth**:  Depth below surface of the water
-     - meters
+     - m
      - (263,)
      - 0.00
      - 1048.00
      - 0.0%
    * - *lat* → **LATITUDE**
      - **Latitude**: Latitude north (WGS84)
-     - degrees_north
+     - degree_north
      - (125,)
      - 66.67
      - 67.32
      - 0.0%
    * - *lon* → **LONGITUDE**
      - **Longitude**: Longitude east (WGS84)
-     - degrees_east
+     - degree_east
      - (125,)
      - -61.26
      - -53.87
@@ -638,7 +623,7 @@ along with key statistics for each variable.
      - Missing %
    * - **CT**
      - **Cons. Temperature**: Conservative Temperature (TEOS-10)
-     - degrees_Celsius
+     - degree_C
      - (212, 263, 125)
      - -1.75
      - 6.74
@@ -677,20 +662,15 @@ The following metadata provides comprehensive information about this dataset:
 - **Data Product\***: Pan-Arctic Gateway transports since 2004 - Davis Strait
 - **Time Coverage Start**: 2004-10-15
 - **Time Coverage End**: 2022-05-15
-- **Creator Name**: H. Fredriksen
-- **Creator Email**:  
-- **Creator Url**:  
 - **Creator Institution**: Norwegian Polar Institute (NPI)
-- **Contributor Name**: Norwegian Polar Institute (NPI), Norwegian Polar Institute (NPI), Hege-Beate Fredriksen, Laura de Steur, Wilken-Jon von Appen, Randi Ingvaldsen, Rebecca McPherson, Craig Lee, Jed Lenetsky, Rebecca Woodgate
-- **Contributor Role**: creator, publisher, creator, PI, , , , , , 
-- **Contributor Role Vocabulary**: http://vocab.nerc.ac.uk/search_nvs/W08/
-- **Contributor Email**: post@npolar.no, post@npolar.no, , , , , , , , 
-- **Contributor Id**: www.npolar.no, www.npolar.no, https://orcid.org/0000-0002-3598-4076, https://orcid.org/0000-0002-6043-7920, https://orcid.org/0000-0002-7200-0099, https://orcid.org/0000-0002-8261-334X, https://orcid.org/0000-0002-4449-6701, https://orcid.org/0000-0002-3479-801X, https://orcid.org/0000-0003-1074-2764, https://psc.apl.uw.edu/people/investigators/rebecca-woodgate/
-- **Contributing Institutions**: Norwegian Polar Institute (NPI), Alfred Wegener Institute (AWI), Institute for Marine Research (Bergen), Applied Physics Laboratory (University of Washington)
-- **Contributing Institutions Vocabulary**: https://edmo.seadatanet.org/report/1760, https://edmo.seadatanet.org/report/1368, https://edmo.seadatanet.org/report/1351, https://edmo.seadatanet.org/report/1554
-- **Contributing Institutions Role**: , , , 
-- **Publisher Name**: H. Fredriksen
-- **Publisher Email**:  
+- **Contributor Name**: Hege-Beate Fredriksen, Laura de Steur
+- **Contributor Role**: originator, principalInvestigator
+- **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
+- **Contributor Email**: , 
+- **Contributor Id**: https://orcid.org/0000-0002-3598-4076, https://orcid.org/0000-0002-6043-7920
+- **Contributing Institutions**: Norwegian Polar Institute (NPI), Norwegian Polar Institute (NPI), Alfred Wegener Institute (AWI), Institute for Marine Research (Bergen), Applied Physics Laboratory (University of Washington)
+- **Contributing Institutions Vocabulary**: https://edmo.seadatanet.org/report/1760, https://edmo.seadatanet.org/report/1760, https://edmo.seadatanet.org/report/1368, https://edmo.seadatanet.org/report/1351, https://edmo.seadatanet.org/report/1554
+- **Contributing Institutions Role**: publisher, , , , 
 - **Publisher Type**: institution
 - **Conventions**: , OceanSITES-1.5
 - **featureType**: timeSeriesProfile
@@ -699,7 +679,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source Path\***: ~/AMOCatlas/data/Adjusted_fulldepth/DavisStrait_adjusted_v_fulldepth.nc
 - **Source Url\***: https://doi.org/10.21334/NPOLAR.2025.80B69907
 - **Date Created**: 2025-10-31T23:55:53Z
-- **Date Modified**: 2026-02-08T13:38:56Z
+- **Date Modified**: 2026-02-09T06:07:34Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: arcticgateway
@@ -715,4 +695,4 @@ The following metadata provides comprehensive information about this dataset:
 - **Project Website**: https://epoc-eu.org
 - **Data Set Language**: eng
 - **Data Assembly Center**: NO/NPI
-- **Creator Type**:  
+- **Creator Type**: 

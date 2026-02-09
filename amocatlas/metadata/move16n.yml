@@ -91,22 +91,22 @@ files:
       SALINITY:
         long_name: "Salinity"
         description: "Salinity at MOVE sites MOVE1-MOVE3"
-        units: PSU
-        standard_name: sea_water_salinity
+        units: 1
+        standard_name: sea_water_practical_salinity
       instrument_depth_time_varying:
         long_name: "Depth"
         description: "Depth of temperature and salinity measurements at MOVE sites MOVE1-MOVE3"
-        units: meters
+        units: m
         standard_name: depth
       latitude_time_varying:
         long_name: "Latitude"
         description: "Latitude of site, including differences between deployments"
-        units: degrees_north
+        units: degree_north
         standard_name: latitude
       longitude_time_varying:
         long_name: "Longitude"
         description: "Longitude of site, including differences between deployments"
-        units: degrees_east
+        units: degree_east
         standard_name: longitude
 
   OS_MOVE_20000101-20221021_GRD_CURRENTS-AT-SITES-MOVE3-MOVE4.nc:
@@ -131,17 +131,17 @@ files:
       instrument_depth_time_varying:
         long_name: "Depth"
         description: "Depth of velocity measurements at MOVE sites MOVE3-MOVE4"
-        units: meters
+        units: m
         standard_name: depth
       latitude_time_varying:
         long_name: "Latitude"
         description: "Latitude of site, including differences between deployments"
-        units: degrees_north
+        units: degree_north
         standard_name: latitude
       longitude_time_varying:
         long_name: "Longitude"
         description: "Longitude of site, including differences between deployments"
-        units: degrees_east
+        units: degree_east
         standard_name: longitude  
 
 
@@ -155,7 +155,7 @@ files:
       MOVE:
         long_name: "MOC"
         description: "Total ocean volume transport across the MOVE line between Guadeloupe and Researcher Ridge in the depth layer defined by pressures 1200 to 4950 dbar"
-        units: Sv
+        units: Sverdrup
         standard_name: ocean_volume_transport_across_line
         valid_min: -100.0
         valid_max: 100.0
@@ -163,7 +163,7 @@ files:
       transport_component_internal:
         long_name: "Internal transport"
         description: "Internal component of ocean volume transport across the MOVE line"
-        units: Sv
+        units: Sverdrup
         standard_name: ocean_volume_transport_across_line
         valid_min: -100.0
         valid_max: 100.0
@@ -171,7 +171,7 @@ files:
       transport_component_internal_offset:
         long_name: "Transport offset"
         description: "Offset to be added to internal component of ocean volume transport across the MOVE line"
-        units: Sv
+        units: Sverdrup
         standard_name: ocean_volume_transport_across_line
         valid_min: -100.0
         valid_max: 100.0
@@ -179,7 +179,7 @@ files:
       transport_component_boundary:
         long_name: "Boundary transport"
         description: "Boundary component of ocean volume transport across the MOVE line"
-        units: Sv
+        units: Sverdrup
         standard_name: ocean_volume_transport_across_line
         valid_min: -100.0
         valid_max: 100.0

@@ -1,7 +1,7 @@
-DSO Dataset Report
-==================
+DSO Datasets
+============
 
-*Generated: 2026-02-08*
+*Generated: |today|*
 
 ----
 
@@ -64,21 +64,21 @@ The following table shows information about the dataset coordinates in the stand
      - Missing %
    * - **DEPTH**
      - **Depth**:  Depth below surface of the water
-     - meters
+     - m
      - (1,)
      - None
      - None
      - 0.0%
    * - **LATITUDE**
      - **Latitude**: Latitude north (WGS84)
-     - degrees_north
+     - degree_north
      - (1,)
      - 66.00
      - 66.00
      - 0.0%
    * - **LONGITUDE**
      - **Longitude**: Longitude east (WGS84)
-     - degrees_east
+     - degree_east
      - (1,)
      - -27.00
      - -27.00
@@ -151,7 +151,8 @@ The following metadata provides comprehensive information about this dataset:
 - **Geospatial Lon Min**: -27
 - **Geospatial Lon Max**: -27
 - **Contributor Name**: Armin Koehl, Armin Koehl
-- **Contributor Role**: PI, publisher
+- **Contributor Role**: principalInvestigator, publisher
+- **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
 - **Contributor Email**: , armin.koehl@uni-hamburg.de
 - **Contributor Id**: https://orcid.org/0000-0002-9777-674X, https://orcid.org/0000-0002-9777-674X
 - **Contributing Institutions\***: University of Hamburg (IfM), Marine and Freshwater Research Institute (MFRI)
@@ -166,14 +167,14 @@ The following metadata provides comprehensive information about this dataset:
 - **Source Path\***: ~/AMOCatlas/data/DSO_transport_hourly_1996_2021.nc
 - **Source Url\***: https://www.cen.uni-hamburg.de/en/icdc/data/ocean/denmark-strait-overflow.html
 - **Date Created**: 2021-12-06T19:37:07Z
-- **Date Modified**: 2026-02-08T13:38:59Z
-- **History**: 2021-12-06T19:37:07ZOceanSITES file with provisional transport data sent to DAC by Ursula Schauer; 2026-02-08T13:38:59Z AMOCatlas: Corrupted DEPTH value in DSO_transport_hourly_1996_2021.nc marked as NaN (was 9.97e+36)
+- **Date Modified**: 2026-02-09T05:59:05Z
+- **History**: 2021-12-06T19:37:07ZOceanSITES file with provisional transport data sent to DAC by Ursula Schauer; 2026-02-09T05:59:05Z AMOCatlas: Corrupted DEPTH value in DSO_transport_hourly_1996_2021.nc marked as NaN (was 9.97e+36)
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: dso
 - **Format Version**: 1.3
 - **Variable Mapping\***: {'DSO_tr': 'TRANS_DSO'}
-- **Original Variable Metadata\***: {'DSO_tr': {'long_name': 'DS Overflow', 'description': 'Denmark Strait Overflow volume transport', 'units': 'Sv', 'standard_name': 'ocean_volume_transport_across_line'}}
+- **Original Variable Metadata\***: {'DSO_tr': {'long_name': 'DS Overflow', 'description': 'Denmark Strait Overflow volume transport', 'units': 'Sverdrup', 'standard_name': 'ocean_volume_transport_across_line'}}
 - **Applied Variable Mapping**: {'DSO_tr': 'TRANS_DSO'}
 - **Keywords**: OCEANOGRAPHY: PHYSICAL >Currents, OCEANOGRAPHY: GENERAL >North Atlantic oceanography, OCEANOGRAPHY: GENERAL >Time series experiments
 - **Keywords Vocabulary**: AGU Index Terms

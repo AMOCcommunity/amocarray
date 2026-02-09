@@ -36,10 +36,10 @@ files:
       lat:
         long_name: "Latitude of zonal sections"
         description: "Latitude of zonal sections across which freshwater transport is computed. Values lie between 34.5°S and 66.5°N."
-        units: "degrees_north"
+        units: degree_north
         standard_name: "latitude"
       mft:
         long_name: "Freshwater"
         description: "An Observation-Based Estimate of Atlantic Meridional Freshwater Transport. AMFT given by RAPID array at 26.5°N was integrated southward and northward in combination with ocean freshwater content (calculated by salinity) and surface freshwater flux, with the residual of the freshwater budget equation being the AMFT."
-        units: "Sv"
+        units: Sverdrup
         standard_name: "northward_ocean_freshwater_transport"

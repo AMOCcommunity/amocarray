@@ -25,7 +25,7 @@ files:
       Flux:
         long_name: "FBC Overflow"
         description: "FBC Overflow transport time series"
-        units: Sv
+        units: Sverdrup
         standard_name: ocean_volume_transport_across_line
       Month:
         long_name: "Month"

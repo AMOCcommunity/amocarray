@@ -12,8 +12,6 @@ metadata:
   time_coverage_end: "2024-03-27"
   Creation_date: 17-Sep-2024
   platform_type: Mooring array
-  creator_name: Ben Moat
-  creator_email: ben.moat@noc.ac.uk
   institution: National Oceanography Centre, UK
   doi: https://doi.org/10.5285/223b34a32dc5c945e0637086abc0f274
   version: "2024.1a"
@@ -43,47 +41,47 @@ files:
       t_therm10:
         long_name: "Transport (0-800m)"
         description: "Thermocline recirculation 0-800m"
-        units: Sv
+        units: Sverdrup
         standard_name: ocean_volume_transport_across_line
       t_aiw10:
         long_name: "Transport (800-1100m)"
         description: "Intermediate water 800-1100m"
-        units: Sv
+        units: Sverdrup
         standard_name: ocean_volume_transport_across_line
       t_ud10:
         long_name: "Transport (1100-3000m)"
         description: "upper NADW 1100-3000m"
-        units: Sv
+        units: Sverdrup
         standard_name: ocean_volume_transport_across_line
       t_ld10:
         long_name: "Transport (3000-5000m)"
         description: "lower NADW 3000-5000m"
-        units: Sv
+        units: Sverdrup
         standard_name: ocean_volume_transport_across_line
       t_bw10:
         long_name: "Transport (AABW)"
         description: "AABW > 5000m"
-        units: Sv
+        units: Sverdrup
         standard_name: ocean_volume_transport_across_line
       t_gs10:
         long_name: "Florida Current"
         description: "Florida Current from cable measurements"
-        units: Sv
+        units: Sverdrup
         standard_name: ocean_volume_transport_across_line
       t_ek10:
         long_name: "Ekman"
         description: "Ekman transport from wind stress"
-        units: Sv
+        units: Sverdrup
         standard_name: ocean_volume_transport_across_line
       t_umo10:
         long_name: "Upper mid-ocean"
         description: "Upper Mid-Ocean transport"
-        units: Sv
+        units: Sverdrup
         standard_name: ocean_volume_transport_across_line
       moc_mar_hc10:
         long_name: "MOC_z"
         description: "MOC strength"
-        units: Sv
+        units: Sverdrup
         standard_name: ocean_meridional_overturning_transport
 
   ts_gridded.nc:
@@ -118,43 +116,43 @@ files:
     original_variable_metadata:
       TG_west:
         long_name: "Temperature 26.52N/76.74W"
-        units: degC
+        units: degree_C
         standard_name: sea_water_temperature
       SG_west:
         long_name: "Salinity 26.52N/76.74W"
-        units: psu
+        units: 1
         standard_name: sea_water_practical_salinity
       TG_wb3:
         long_name: "Temperature WB3 26.50N/76.50W"
-        units: degC
+        units: degree_C
         standard_name: sea_water_temperature
       SG_wb3:
         long_name: "Salinity WB3 26.50N/76.50W"
-        units: psu
+        units: 1
         standard_name: sea_water_practical_salinity
       TG_east:
         long_name: "Temperature east 26.99N/16.23W"
-        units: degC
+        units: degree_C
         standard_name: sea_water_temperature
       SG_east:
         long_name: "Salinity east 26.99N/16.23W"
-        units: psu
+        units: 1
         standard_name: sea_water_practical_salinity
       TG_marwest:
         long_name: "Temperature MAR west 24.52N/50.57W"
-        units: degC
+        units: degree_C
         standard_name: sea_water_temperature
       SG_marwest:
         long_name: "Salinity MAR west 24.52N/50.57W"
-        units: psu
+        units: 1
         standard_name: sea_water_practical_salinity
       TG_mareast:
         long_name: "Temperature MAR east 24.52N/41.21W"
-        units: degC
+        units: degree_C
         standard_name: sea_water_temperature
       SG_mareast:
         long_name: "Salinity MAR east 24.52N/41.21W"
-        units: psu
+        units: 1
         standard_name: sea_water_practical_salinity
 
   moc_vertical.nc:
@@ -170,7 +168,7 @@ files:
       stream_function_mar:
         long_name: "Streamfunction"
         description: "Streamfunction across the Atlantic at 26.5°N"
-        units: Sv
+        units: Sverdrup
         standard_name: ocean_meridional_overturning_streamfunction
 
   2d_gridded.nc:
@@ -195,32 +193,32 @@ files:
       area:
         long_name: "Grid cell area"
         description: "Area of each grid cell"
-        units: m^2
+        units: m2
         standard_name: cell_area
       CT:
         long_name: "Conservative temperature"
         description: "Conservative temperature following TEOS-10 standard"
-        units: degC
+        units: degree_C
         standard_name: sea_water_conservative_temperature
       SA:
         long_name: "Salinity"
         description: "Absolute salinity following TEOS-10 standard"
-        units: g/kg
+        units: g kg-1
         standard_name: sea_water_absolute_salinity
       V_insitu:
         long_name: "Meridional velocity"
         description: "In-situ meridional velocity component"
-        units: m/s
+        units: m s-1
         standard_name: northward_sea_water_velocity
       V_ekman:
         long_name: "Ekman velocity"
         description: "Ekman transport velocity component"
-        units: m/s
+        units: m s-1
         standard_name: northward_sea_water_velocity
       V_net:
         long_name: "Net velocity"
         description: "Net meridional velocity (in-situ + Ekman)"
-        units: m/s
+        units: m s-1
         standard_name: northward_sea_water_velocity
     coordinates:
       depth:
@@ -231,7 +229,7 @@ files:
       longitude:
         long_name: "Longitude"
         description: "Longitude coordinate"
-        units: degrees_east
+        units: degree_east
         standard_name: longitude
       time:
         long_name: "Time"
@@ -251,7 +249,7 @@ files:
       heat_trans: MHT
       frwa_trans: MFT
       pressure: PRESSURE
-      amoc_depth: MOC_Z
+      amoc_depth: MOC
       amoc_sigma0: MOC_SIGMA0
       amoc_sigma2: MOC_SIGMA2
       stream_depth: STREAMFUNCTION_Z
@@ -261,17 +259,19 @@ files:
       amoc_depth:
         long_name: "MOC_z"
         description: "Atlantic meridional overturning circulation strength in depth coordinates"
-        units: Sv
+        units: Sverdrup
         standard_name: ocean_meridional_overturning_transport
       amoc_sigma0:
         long_name: "MOC_sigma0"
         description: "Atlantic meridional overturning circulation strength in potential density (sigma0) coordinates"
-        units: Sv
+        units: Sverdrup
+        reference_pressure: 0
         standard_name: ocean_meridional_overturning_transport
       amoc_sigma2:
         long_name: "MOC_sigma2"
         description: "Atlantic meridional overturning circulation strength in potential density (sigma2) coordinates"
-        units: Sv
+        units: Sverdrup
+        reference_pressure: 2000
         standard_name: ocean_meridional_overturning_transport
       heat_trans:
         long_name: "Meridional heat transport"
@@ -281,7 +281,7 @@ files:
       frwa_trans:
         long_name: "Freshwater transport"
         description: "Meridional freshwater transport"
-        units: Sv
+        units: Sverdrup
         standard_name: northward_ocean_freshwater_transport
       pressure:
         long_name: "Pressure"
@@ -291,17 +291,19 @@ files:
       stream_depth:
         long_name: "Streamfunction"
         description: "Meridional overturning streamfunction in depth coordinates"
-        units: Sv
+        units: Sverdrup
         standard_name: ocean_meridional_overturning_streamfunction
       stream_sigma0:
         long_name: "Streamfunction"
         description: "Meridional overturning streamfunction in potential density (sigma0) coordinates"
-        units: Sv
+        units: Sverdrup
+        reference_pressure: 0
         standard_name: ocean_meridional_overturning_streamfunction
       stream_sigma2:
         long_name: "Streamfunction"
         description: "Meridional overturning streamfunction in potential density (sigma2) coordinates"
-        units: Sv
+        units: Sverdrup
+        reference_pressure: 2000
         standard_name: ocean_meridional_overturning_streamfunction
     coordinates:
       time:
@@ -317,10 +319,11 @@ files:
       sigma0:
         long_name: "sigma0"
         description: "Potential density anomaly referenced to surface (sigma-theta), density anomaly to 1000 kg/m3"
-        units: kg/m3
+        units: kg m-3
         standard_name: sea_water_sigma_theta
       sigma2:
         long_name: "sigma2"
         description: "Potential density anomaly referenced to 2000m (sigma-2), density anomaly to 1000 kg/m3"
-        units: kg/m3
-        standard_name: sea_water_sigma_2
+        units: kg m-3
+        reference_pressure: 2000
+        standard_name: sea_water_sigma_theta

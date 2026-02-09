@@ -1,14 +1,16 @@
-AMOCatlas Format AC1
-====================
+AMOCatlas AC-0.1 Manual
+==========================
 
-This document defines the AC1 (Atlantic Circulation) standard data format which is an OceanSITES variant with small deviations.  This format provides interoperability between moored estimates of overturning transport from the RAPID, OSNAP, MOVE and SAMBA arrays while ensuring compliance with international oceanographic data standards.  Note the deviations below (:ref:`deviations-from-oceansites`).
+This document defines the AC (AMOC Community) standard data format which is an OceanSITES variant with small deviations.  This format provides interoperability between moored estimates of overturning transport from the RAPID, OSNAP, MOVE and SAMBA arrays and other data products which product ocean transports while ensuring compliance with international oceanographic data standards.  Note the deviations below (:ref:`deviations-from-oceansites`).
 
-**Relationship to Other Format Documents:**
+**Related Documentation:**
 
-- :doc:`format_orig` - Documents native data formats from each array
-- :doc:`format_conversion` - Describes conversion strategies from native to standardized formats  
-- :doc:`format_AC1` - Current standardized output format implementation
-- **This document (format_AC1)** - AC1 format with full OceanSITES integration
+- :doc:`AC1_format` - AC-0.1 format specification (overview)
+- :doc:`AC1_variables` - Variable naming conventions and standards  
+- :doc:`AC1_units` - Unit definitions and conversions
+- :doc:`variables` - Auto-generated variable mapping tables
+
+This document provides the detailed implementation guide for AC-0.1, while the above documents provide quick references.
 
 .. contents:: Table of Contents
    :local:
@@ -17,52 +19,52 @@ This document defines the AC1 (Atlantic Circulation) standard data format which 
 1. Overview & Context
 ---------------------
 
-The AC1 format incorporates OceanSITES v1.4 compliance for enhanced discoverability and interoperability, while adding additional metadata (vocabularies) and standardised naming conventions.
+The AC-0.1 format incorporates OceanSITES-1.4 while specifying additional metadata (vocabularies) and standardised naming conventions.
 
-The AC1 format provides enhanced compliance with:
+The AC-0.1 format provides compliance with:
 
-- **Full Standards Compliance**: Complete implementation of CF Conventions 1.8, OceanSITES 1.4, and ACDD 1.3
-- **Enhanced Discoverability**: Rich metadata using controlled vocabularies for global data catalogs
+- **Standards Compliance**: Implements CF Conventions 1.8, OceanSITES-1.4, and ACDD 1.3
+- **Discoverability**: Rich metadata using controlled vocabularies 
 - **Workflow Integration**: Compatible with existing AMOCatlas workflows
-- **International Interoperability**: Compliance with OceanSITES and GDAC requirements
+- **International Interoperability**: Compliance with OceanSITES  
 - **Provenance Tracking**: Comprehensive attribution to original data providers
 - **Extensibility**: Supports future variables and array additions
 
 1.1 Relationship to Standards
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The AC1 format represents the standardization level in the AMOCatlas hierarchy:
+The AC-0.1 format represents the standardization level in the AMOCatlas hierarchy:
 
 .. code-block:: text
 
-   Native Formats → Internal standardised → AC1 Standard  
-   (format_orig)       (format_Atlas)       (format_AC1)    
+   Native Formats → Internal standardised → AC-0.1 Standard  
+   (original)          (atlas internal)     (format_AC-0.1)    
 
-**Compliance Framework**: OceanSITES AC1 datasets are designed to meet:
+**Compliance Framework**: AC-0.1 datasets are designed to meet:
 
-- CF Conventions 1.8 compliance (validation tools to be implemented)
-- OceanSITES 1.4 compatibility (with documented deviations as specified in :ref:`deviations-from-oceansites`)
+- CF Conventions 1.8 compliance (validation tools available)
+- OceanSITES-1.4 compatibility (with documented deviations as specified in :ref:`deviations-from-oceansites`)
 - AMOCatlas-specific validation rules (see :mod:`amocatlas.compliance_checker`)
 - ACDD-1.3 metadata structure
 
 **Standards Integration**: The format integrates multiple international standards:
 
 - **CF Conventions 1.8**: `Climate and Forecast metadata conventions <https://cfconventions.org/cf-conventions/cf-conventions.html>`_
-- **OceanSITES 1.4**: `Ocean observing time series data format <https://ocean-uhh.github.io/oceanarray/oceanSITES_manual.html>`_
+- **OceanSITES-1.4**: `Ocean observing time series data format <https://ocean-uhh.github.io/oceanarray/oceanSITES_manual.html>`_
 - **ACDD 1.3**: `Attribute Convention for Data Discovery <https://wiki.esipfed.org/Attribute_Convention_for_Data_Discovery_1-3>`_
 - **NERC Vocabularies**: :doc:`Controlled vocabularies for oceanographic parameters <AC1_vocabularies>`
 
 2. Key Design Decisions
 -----------------------
 
-The AC1 format incorporates several design decisions that enhance interoperability while maintaining scientific accuracy and usability.
+The AC-0.1 format incorporates several design decisions that enhance interoperability while maintaining scientific accuracy and usability.
 
 .. _deviations-from-oceansites:
 
 2.1 Deviations from OceanSITES Standard
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-AC1 implements OceanSITES 1.4 with the following deviations optimized for AMOC array data:
+AC-0.1 implements OceanSITES-1.4 with the following deviations optimized for AMOC array data:
 
 .. list-table:: Deviations from OceanSITES Standard
    :widths: 30 35 35
@@ -70,32 +72,29 @@ AC1 implements OceanSITES 1.4 with the following deviations optimized for AMOC a
 
    * - Feature
      - OceanSITES Standard
-     - AC1 Format
-   * - **Date Format**
-     - ``"YYYY-MM-DDThh:mm:ssZ"``
-     - Compact ISO 8601: ``"YYYYmmddTHHMMss"``
+     - AC-0.1 Format
    * - **Contributor Metadata**
      - ``creator_*``, ``principal_investigator_*``
      - ``contributor_*`` attributes (unified pattern)
    * - **Density Coordinates**
      - Depth/pressure coordinates only
-     - ``SIGMA0`` coordinate allowed (array-specific)
+     - ``SIGMA0``, ``SIGMA2`` coordinates allowed (array-specific)
    * - **Component Dimension**
      - Not specified
      - ``N_COMPONENT`` for transport decomposition
    * - **Coordinate Units**
      - ``degrees_north``, ``degrees_east``
-     - ``degree_north``, ``degree_east`` (UDUNITS-2)
+     - ``degree_north``, ``degree_east`` (UDUNITS-2, CF-1.8 compliant)
    * - **Transport Units**
      - ``Sv`` for transport
-     - ``sverdrup`` (avoids confusion with sievert)
+     - ``Sverdrup`` (avoids confusion with sievert)
 
 **Rationale for Deviations**:
 
 - **Contributor Pattern**: Unified ``contributor_*`` approach simplifies metadata management while providing equivalent functionality
 - **Sigma Coordinates**: Essential for density-based transport calculations in some arrays
-- **Component Dimension**: Enables systematic representation of transport decompositions across arrays
-- **Coordinate Units**: `UDUNITS-2 <https://docs.unidata.ucar.edu/udunits/current/#Database>`_ singular forms provide better tool compatibility than OceanSITES plural forms
+- **Component Dimension**: Enables systematic representation of transport decompositions across arrays (*not yet implemented*)
+- **Coordinate Units**: `UDUNITS-2 <https://docs.unidata.ucar.edu/udunits/current/#Database>`_ singular forms provide better tool compatibility than OceanSITES plural forms, also compliant with CF-1.8
 - **Sverdrup Unit**: Full spelling prevents confusion with ``Sv`` (sievert radiation unit)
 
 These deviations maintain CF compliance and ISO 8601 compatibility while optimizing for AMOC-specific scientific requirements.
@@ -108,20 +107,21 @@ These deviations maintain CF compliance and ISO 8601 compatibility while optimiz
 
 Files follow the OceanSITES naming pattern with AMOC-specific modifications:
 
-**Basic Pattern**: ``OS_[PLATFORM]_[DEPLOYMENT]_[MODE]_[PARAMS].nc``
+**Basic Pattern**: ``OS_[PLATFORM_CODE]_[DEPLOYMENT]_[MODE]_[PARAMS].nc``
 
 **Components**:
 
 - ``OS`` = OceanSITES prefix (maintains compatibility)
-- ``[PLATFORM]`` = Platform identifier (e.g., "RAPID", "OSNAP") 
+- ``[PLATFORM_CODE]`` = Platform identifier derived from ``processing_datasource`` (e.g., "RAPID26N", "OSNAP55N", "MOVE16N") 
 - ``[DEPLOYMENT]`` = Deployment code (e.g., "20040401-20230211" for date range)
 - ``[MODE]`` = Data mode: R (real-time), P (provisional), D (delayed-mode)
 - ``[PARAMS]`` = Parameter identifier (e.g., "transports_T12H", "sections_T1M")
 
 **Examples**:
 
-- ``OS_RAPID_20040401-20230211_D_transports_T12H.nc`` - Delayed-mode transport data
-- ``OS_OSNAP_20140801-20200601_D_sections_T1M.nc`` - Delayed-mode section data
+- ``OS_RAPID26N_20040401-20230211_D_transports_T12H.nc`` - Delayed-mode transport data
+- ``OS_OSNAP55N_20140801-20200601_D_sections_T1M.nc`` - Delayed-mode section data
+- ``OS_MOVE16N_20040201-20181201_D_transports_T12H.nc`` - Delayed-mode transport data
 
 **Reference**: See OceanSITES file naming in "4.1.1 Deployment Data files Naming Convention" of the OceanSITES manual (https://ocean-uhh.github.io/oceanarray/oceanSITES_manual.html#data-files).
 
@@ -148,8 +148,8 @@ Following OceanSITES 1.4, ACDD 1.3, and CF 1.8 requirements for comprehensive me
      - Description
      - Vocabulary
      - RS
-   * - ``site_code``
-     - "RAPID"
+   * - ``platform_code``
+     - "RAPID26N"
      - OceanSITES site identifier
      - OceanSITES Registry
      - **M**
@@ -174,12 +174,12 @@ Following OceanSITES 1.4, ACDD 1.3, and CF 1.8 requirements for comprehensive me
      - OceanSITES Themes
      - *S*
    * - ``naming_authority``
-     - "AMOCatlas"
+     - "io.github.amoccommunity"
      - Authority providing the dataset ID
      - Reverse DNS recommended
      - *S*
    * - ``id``
-     - "OS_RAPID_20040402-20240327_DPR_transports_T12H"
+     - "OS_RAPID26N_20040402-20240327_DPR_transports_T12H"
      - Unique dataset identifier (filename without .nc)
      - OceanSITES Pattern
      - **M**
@@ -224,7 +224,7 @@ Consolidates OceanSITES creator_* and principal_investigator_* fields into unifi
      - Vocabulary
      - RS
    * - ``contributor_name``
-     - "Dr. Jane Doe, Dr. John Smith"
+     - "Jane Doe, John Smith"
      - Names of dataset contributors (comma-separated)
      - Free text
      - **M**
@@ -239,17 +239,17 @@ Consolidates OceanSITES creator_* and principal_investigator_* fields into unifi
      - ORCID/ISNI URLs
      - *HD*
    * - ``contributor_role``
-     - "principalInvestigator, creator"
+     - "originator, principalInvestigator"
      - Roles (aligned with names)
-     - NERC W08
+     - NERC G04
      - **M**
    * - ``contributor_role_vocabulary``
-     - "https://vocab.nerc.ac.uk/collection/W08/current/"
+     - "https://vocab.nerc.ac.uk/collection/G04/current/"
      - Vocabulary for contributor roles
      - Standards reference
      - **M**
    * - ``contributing_institutions``
-     - "University of Hamburg, National Oceanography Centre"
+     - "University of Hamburg (IfM), National Oceanography Centre (Southampton)"
      - Institutional contributors
      - Free text
      - **M**
@@ -264,15 +264,14 @@ Consolidates OceanSITES creator_* and principal_investigator_* fields into unifi
      - NERC W08
      - **M**
    * - ``contributing_institutions_role_vocabulary``
-     - "https://vocab.nerc.ac.uk/collection/W08/current/"
+     - "https://vocab.nerc.ac.uk/collection/W08/current/" or "https://vocab.nerc.ac.uk/collection/G04/current/"
      - Vocabulary for institutional roles
      - Standards reference
      - **M**
 
 
-**Standard Contributor Roles:** ``Data scientist``, ``Manufacturer``, ``PI``, ``Technical Coordinator``, ``Operator``, ``Owner``
+**Standard Contributor Roles (NERC G04):** ``originator``, ``principalInvestigator``, ``author``, ``coAuthor``, ``contributor``, ``publisher``, ``custodian``, ``owner``, ``pointOfContact``
 
-Provenance and Data History
 
 
 .. list-table:: Provenance and Source Attribution
@@ -284,24 +283,24 @@ Provenance and Data History
      - Description
      - Format
      - RS
-   * - ``source_acknowledgement``
+   * - ``acknowledgment``
      - "RAPID data collected and made freely available by the RAPID program..."
-     - Attribution to original data providers (semicolon-separated)
+     - Attribution to original data providers (comma-separated)
      - Free text
      - **M**
-   * - ``source_doi``
-     - "https://doi.org/10.35090/gatech/70342; https://doi.org/10.1029/2018GL077408"
-     - DOIs of source datasets (semicolon-separated)
+   * - ``doi``
+     - "https://doi.org/10.35090/gatech/70342, https://doi.org/10.1029/2018GL077408"
+     - DOIs of source datasets (comma-separated)
      - DOI URLs
      - **M**
-   * - ``amocatlas_version``
-     - "0.3.0"
-     - Version of amocatlas used for processing
+   * - ``processing_version``
+     - "0.2.0"
+     - Version of processing software used
      - Semantic version
      - **M**
-   * - ``web_link``
-     - "https://www.rapid.ac.uk/; https://www.o-snap.org/"
-     - Links to project websites (semicolon-separated)
+   * - ``weblink``
+     - "https://www.rapid.ac.uk/, https://www.o-snap.org/"
+     - Links to project websites (comma-separated)
      - URLs
      - *S*
    * - ``start_date``
@@ -309,11 +308,7 @@ Provenance and Data History
      - Overall dataset start time
      - ISO 8601
      - **M**
-   * - ``generated_doi``
-     - "https://doi.org/10.xxxx/amocatlas-ac-proposed-2025"
-     - DOI assigned to converted dataset (if available)
-     - DOI URL
-     - *S*
+
 
 
 
@@ -341,7 +336,7 @@ Provenance and Data History
      - Decimal degrees
      - **M**
    * - ``geospatial_lat_units``
-     - "degrees_north"
+     - "degree_north"
      - Latitude units
      - UDUNITS-2
      - *S*
@@ -356,19 +351,19 @@ Provenance and Data History
      - Decimal degrees
      - **M**
    * - ``geospatial_lon_units``
-     - "degrees_east"
+     - "degree_east"
      - Longitude units
      - UDUNITS-2
      - *S*
    * - ``geospatial_vertical_min``
      - 0.0
      - Minimum depth/height
-     - Meters
+     - meters
      - **M**
    * - ``geospatial_vertical_max``
      - 5000.0
      - Maximum depth/height
-     - Meters
+     - meters
      - **M**
    * - ``geospatial_vertical_positive``
      - "down"
@@ -403,13 +398,13 @@ Provenance and Data History
    * - ``sea_area``
      - "North Atlantic Ocean"
      - Geographical coverage
-     - SeaVoX C19
+    - `SeaVoX C19 <https://vocab.nerc.ac.uk/collection/C19/current/>`_
      - *S*
 
 
-Time Format Rationale: The compact YYYYmmddTHHMMss format reduces attribute string length while maintaining human readability and ISO 8601 compatibility.
+Time Format Rationale: The compact YYYY-mm-ddTHH:MM:ssZ format reduces attribute string length while maintaining human readability and ISO 8601 compatibility.
 
-File dates: The file dates, date_created and date_modified, are our interpretation of the file dates as defined by ACDD. Date_created is the time stamp on the file, date_modified may be used to represent the ‘version date’ of the geophysical data in the file. The date_created may change when e.g. metadata is added or the file format is updated, and the optional date_modified MAY be earlier.
+File dates: The file dates, date_created and date_modified, are our interpretation of the file dates as defined by ACDD. Date_created is the time stamp on the original dataset, date_modified may be used when e.g. metadata is added or the file format is updated.
 
 Geospatial extents: (geospatial_lat_min, max, and lon_min, max) are preferred to be stored as strings for use in the GDAC software, however numeric fields are acceptable. This information is linked to the site information, and may not be specific to the platform deployment.
 
@@ -425,19 +420,9 @@ Geospatial extents: (geospatial_lat_min, max, and lon_min, max) are preferred to
      - Description
      - Format
      - RS
-   * - ``publisher_name``
-     - "AMOCatlas Development Team"
-     - Data publisher name
-     - Free text
-     - *S*
-   * - ``publisher_url``
-     - "https://github.com/AMOCcommunity/amocatlas"
-     - Publisher web address
-     - URL
-     - *S*
-   * - ``references``
+    * - ``references``
      - "http://www.oceansites.org, https://doi.org/10.1029/2018GL077408"
-     - Relevant publications and resources (semicolon-separated)
+     - Relevant publications and resources (comma-separated)
      - URLs/DOIs
      - *S*
    * - ``license``
@@ -450,7 +435,7 @@ Geospatial extents: (geospatial_lat_min, max, and lon_min, max) are preferred to
      - Recommended citation text
      - Free text
      - *S*
-   * - ``acknowledgement``
+   * - ``acknowledgment``
      - "Principal funding provided by Horizon Europe EPOC project..."
      - Funding and support acknowledgements
      - Free text
@@ -470,7 +455,7 @@ Geospatial extents: (geospatial_lat_min, max, and lon_min, max) are preferred to
      - Format
      - RS
    * - ``featureType``
-     - "timeSeries"
+     - "timeSeries" or "timeSeriesProfile"
      - CF discrete sampling geometry type
      - CF Standard
      - **M**
@@ -480,8 +465,8 @@ Geospatial extents: (geospatial_lat_min, max, and lon_min, max) are preferred to
      - OceanSITES Standard
      - **M**
    * - ``format_version``
-     - "1.4"
-     - OceanSITES format version
+     - "AC-0.1"
+     - AMOCatlas format version
      - Version string
      - **M**
    * - ``Conventions``
@@ -489,11 +474,6 @@ Geospatial extents: (geospatial_lat_min, max, and lon_min, max) are preferred to
      - Metadata conventions followed
      - Standards list
      - *S*
-   * - ``platform_code``
-     - "RAPID26N"
-     - Unique platform identifier
-     - Free text
-     - **M**
    * - ``QC_indicator``
      - "excellent"
      - Overall quality assessment
@@ -539,10 +519,10 @@ Following CF conventions, dimensions are ordered as T, Z, Y, X with component di
      - ``TIME``
      - Time coordinate (unlimited)
    * - **Vertical**
-     - ``DEPTH``, ``PRESSURE``
+     - ``DEPTH``, ``PRESSURE``, ``SIGMA0``, ``SIGMA2``
      - Vertical coordinates (optional)
    * - **Horizontal**
-     - ``LATITUDE``, ``LONGITUDE``
+     - ``LATITUDE``, ``LONGITUDE``, ``LATITUDE_BOUNDS``, ``LONGITUDE_BOUNDS``
      - Horizontal coordinates (optional)
 
 .. warning::
@@ -561,11 +541,11 @@ Following CF conventions, dimensions are ordered as T, Z, Y, X with component di
      - ``TIME``
      - **Data Type**: double (datetime64[ns])
        
-       **Required Attributes**:
+       **Attributes**:
 
        - long_name = "Time"
        - standard_name = "time"
-       - units = "seconds since 1970-01-01T00:00:00Z"
+       - units = "seconds since 1970-01-01T00:00:00Z" (datetime64[ns])
        - calendar = "gregorian"
        - axis = "T"
      - **M**
@@ -573,7 +553,7 @@ Following CF conventions, dimensions are ordered as T, Z, Y, X with component di
      - scalar or ``LATITUDE``
      - **Data Type**: float32
        
-       **Required Attributes**:
+       **Attributes**:
 
        - long_name = "Latitude"
        - standard_name = "latitude"
@@ -586,7 +566,7 @@ Following CF conventions, dimensions are ordered as T, Z, Y, X with component di
      - scalar or ``LONGITUDE``
      - **Data Type**: float32
        
-       **Required Attributes**:
+       **Attributes**:
 
        - long_name = "Longitude"
        - standard_name = "longitude"
@@ -599,7 +579,7 @@ Following CF conventions, dimensions are ordered as T, Z, Y, X with component di
      - ``DEPTH``
      - **Data Type**: float32
        
-       **Required Attributes**:
+       **Attributes**:
 
        - long_name = "Depth below sea surface"
        - standard_name = "depth"
@@ -612,9 +592,9 @@ Following CF conventions, dimensions are ordered as T, Z, Y, X with component di
      - ``PRESSURE``
      - **Data Type**: float32
        
-       **Required Attributes**:
+       **Attributes**:
 
-       - long_name = "Sea water pressure"
+       - long_name = "Pressure"
        - standard_name = "sea_water_pressure"
        - units = "dbar"
        - positive = "down"
@@ -625,14 +605,26 @@ Following CF conventions, dimensions are ordered as T, Z, Y, X with component di
      - ``SIGMA0``
      - **Data Type**: float32
        
-       **Required Attributes**:
+       **Attributes**:
 
-       - long_name = "Sea water sigma-theta"
+       - long_name = "sigma0"
        - standard_name = "sea_water_sigma_theta"
        - units = "kg m-3"
        - axis = "Z"
-       - positive = "down"
+       - reference_pressure = 0.0 
      - *S*
+   * - ``SIGMA2``
+     - ``SIGMA2``
+     - **Data Type**: float32
+      
+       **Attributes**:
+
+       - long_name = "sigma2"
+       - standard_name = "sea_water_sigma2"
+       - units = "kg m-3"
+       - axis = "Z"
+       - reference_pressure = 2000.0 
+    - *S*
 
 6. Data Variables & QC
 --------------------
@@ -649,38 +641,52 @@ Following CF conventions, dimensions are ordered as T, Z, Y, X with component di
    * - Variable Name
      - Variable Attributes
      - RS
-   * - ``MOC_TRANSPORT``
+   * - ``MOC``
        
        - **Data Type**: float32
        
        - **Dimensions**: ``TIME``
-     - - long_name = "Maximum meridional overturning circulation transport"
-       - standard_name = "ocean_volume_transport_across_line"
-       - units = "sverdrup"
-       - vocabulary = "http://vocab.nerc.ac.uk/collection/P07/current/W946809H/"
+     - - long_name = "MOC_z" 
+       - standard_name = "ocean_meridional_overturning_streamfunction"
+       - units = "Sverdrup"
+       - vocabulary = "https://vocab.nerc.ac.uk/collection/P07/current/CFSN0466/"
        - coordinates = "TIME, LONGITUDE, LATITUDE, DEPTH" (required if variable does not have 4 coordinates in its definition)
        - _FillValue = NaNf
        - valid_min = -50.0 (optional)
        - valid_max = 50.0 (optional)
      - *HD*
-   * - ``TRANSPORT``
+   * - ``MOC_SIGMA0`` or ``MOC_SIGMA2``
+       
+       - **Data Type**: float32
+       
+       - **Dimensions**: ``TIME``
+     - - long_name =  "MOC_sigma0" or "MOC_sigma2" (depending on vertical coordinate used)
+       - standard_name = "ocean_meridional_overturning_streamfunction"
+       - units = "Sverdrup"
+       - vocabulary = "https://vocab.nerc.ac.uk/collection/P07/current/CFSN0466/"
+       - coordinates = "TIME, LONGITUDE, LATITUDE, SIGMA0" or "SIGMA2" (required if variable does not have 4 coordinates in its definition)
+       - _FillValue = NaNf
+       - valid_min = -50.0 (optional)
+       - valid_max = 50.0 (optional)
+     - *HD*
+   * - ``TRANS_*``
        
        - **Data Type**: float32
 
        - **Dimensions**: ``N_COMPONENT``, ``TIME``
-     - - long_name = "Ocean volume transport components across line"
+     - - long_name = "Transport"
        - standard_name = "ocean_volume_transport_across_line"
-       - units = "sverdrup"
+       - units = "Sverdrup"
        - vocabulary = "http://vocab.nerc.ac.uk/collection/P07/current/W946809H/"
        - coordinates = "TIME, LONGITUDE, LATITUDE, DEPTH" (required if variable does not have 4 coordinates in its definition)
        - _FillValue = NaNf
      - *HD*
-   * - ``HEAT_TRANSPORT``
+   * - ``MHT``
        
        - **Data Type**: float32
 
        - **Dimensions**: ``TIME``
-     - - long_name = "Northward ocean heat transport"
+     - - long_name = "MHT"
        - standard_name = "northward_ocean_heat_transport"
        - units = "PW"
        - vocabulary = "http://vocab.nerc.ac.uk/collection/P07/current/CFSN0483/"
@@ -689,14 +695,42 @@ Following CF conventions, dimensions are ordered as T, Z, Y, X with component di
        - valid_min = -5.0 (optional)
        - valid_max = 5.0 (optional)
      - *S*
-   * - ``FRESHWATER_TRANSPORT``
+   * - ``MHT_GYRE``
+
+       - **Data Type**: float32
+
+       - **Dimensions**: ``TIME``
+     - - long_name = "MHT_gyre"
+       - standard_name = "northward_ocean_heat_transport_due_to_gyre"
+       - units = "PW"
+       - vocabulary = "https://vocab.nerc.ac.uk/collection/P07/current/CFSN0486/"
+       - coordinates = "TIME, LONGITUDE, LATITUDE, DEPTH" (required if variable does not have 4 coordinates in its definition)
+       - _FillValue = NaNf
+       - valid_min = -5.0 (optional)
+       - valid_max = 5.0 (optional)
+     - *S*
+   * - ``MHT_OT``
+
+       - **Data Type**: float32
+
+       - **Dimensions**: ``TIME``
+     - - long_name = "MHT_ot"
+       - standard_name = "northward_ocean_heat_transport_due_to_overturning"
+       - units = "PW"
+       - vocabulary = "https://vocab.nerc.ac.uk/collection/P07/current/CFSN0487/"
+       - coordinates = "TIME, LONGITUDE, LATITUDE, DEPTH" (required if variable does not have 4 coordinates in its definition)
+       - _FillValue = NaNf
+       - valid_min = -5.0 (optional)
+       - valid_max = 5.0 (optional)
+     - *S*
+   * - ``MFT``
 
        - **Data Type**: float32
 
        - **Dimensions**: ``TIME`` 
-     - - long_name = "Northward ocean freshwater transport"
+     - - long_name = "MFT"
        - standard_name = "northward_ocean_freshwater_transport"
-       - units = "sverdrup"
+       - units = "Sverdrup"
        - vocabulary = "http://vocab.nerc.ac.uk/collection/P07/current/CFSN0507/"
        - coordinates = "TIME, LONGITUDE, LATITUDE, DEPTH" (required if variable does not have 4 coordinates in its definition)
        - _FillValue = NaNf
@@ -721,7 +755,7 @@ Following CF conventions, dimensions are ordered as T, Z, Y, X with component di
      -
         - long_name = "Sea water temperature"
         - standard_name = "sea_water_temperature"
-        - units = "degree_Celsius"
+        - units = "degree_C"
         - vocabulary = "https://vocab.nerc.ac.uk/collection/P07/current/CFSN0335/"
         - valid_min = -2.0
         - valid_max = 40.0
@@ -742,6 +776,54 @@ Following CF conventions, dimensions are ordered as T, Z, Y, X with component di
         - _FillValue = NaNf
         - ancillary_variables = "SALINITY_QC"
         - coordinates = "TIME, DEPTH, LATITUDE, LONGITUDE"
+     - *HD*
+   * - ``POTEMP``
+     - data type: float32
+       
+       dimensions: (``TIME``, ``DEPTH``, ``LATITUDE``, ``LONGITUDE``)
+     - **Attributes**:
+       
+       - long_name = "theta"
+       - standard_name = "sea_water_potential_temperature"
+       - units = "degree_C"
+       - vocabulary = "https://vocab.nerc.ac.uk/collection/P07/current/CFSN0329/"
+       - valid_min = -2.0
+       - valid_max = 40.0
+       - _FillValue = NaNf
+       - ancillary_variables = "POTEMP_QC"
+       - coordinates = "TIME, DEPTH, LATITUDE, LONGITUDE"
+     - *HD*
+   * - ``CT``
+     - data type: float32
+       
+       dimensions: (``TIME``, ``DEPTH``, ``LATITUDE``, ``LONGITUDE``)
+     - **Attributes**:
+       
+       - long_name = "CT"
+       - standard_name = "sea_water_conservative_temperature"
+       - units = "degree_C"
+       - vocabulary = "https://vocab.nerc.ac.uk/collection/P07/current/IFEDAFIE/"
+       - valid_min = -2.0
+       - valid_max = 40.0
+       - _FillValue = NaNf
+       - ancillary_variables = "CT_QC"
+       - coordinates = "TIME, DEPTH, LATITUDE, LONGITUDE"
+     - *HD*
+   * - ``SA``
+     - data type: float32
+       
+       dimensions: (``TIME``, ``DEPTH``, ``LATITUDE``, ``LONGITUDE``)
+     - **Attributes**:
+       
+       - long_name = "SA"
+       - standard_name = "sea_water_absolute_salinity"
+       - units = "g kg-1"
+       - vocabulary = "https://vocab.nerc.ac.uk/collection/P07/current/JIBGDIEJ/"
+       - valid_min = 0.0
+       - valid_max = 50.0
+       - _FillValue = NaNf
+       - ancillary_variables = "SA_QC"
+       - coordinates = "TIME, DEPTH, LATITUDE, LONGITUDE"
      - *HD*
    * - ``UCUR``
         - data type: float32
@@ -821,7 +903,8 @@ For variables requiring quality control, implement OceanSITES QC conventions:
      - Same as parent variable
      - **Data Type**: byte
        
-       **Required Attributes**:
+       **Attributes**:
+       
        - long_name = "Quality flag for <parameter_name>"
        - flag_values = [0, 1, 2, 3, 4, 7, 8, 9]
        - flag_meanings = "unknown good_data probably_good_data potentially_correctable_bad_data bad_data nominal_value interpolated_value missing_value"
@@ -832,7 +915,8 @@ For variables requiring quality control, implement OceanSITES QC conventions:
      - Same as parent variable
      - **Data Type**: float32
        
-       **Required Attributes**:
+       **Attributes**:
+       
        - long_name = "Uncertainty estimate for <parameter_name>"
        - units = Same as parent variable
        - technique_title = "Description of uncertainty estimation method"
@@ -1037,7 +1121,7 @@ All units must follow the `UDUNITS-2 standard <https://docs.unidata.ucar.edu/udu
      - 
      - 
    * - Temperature
-     - ``degree_Celsius``
+     - ``degree_C``
      - Preferred over ``degC`` (full spelling)
    * - Salinity
      - ``1``
@@ -1174,167 +1258,75 @@ The values for the variables "<PARAM>_DM", the global attribute "data_mode", and
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. list-table:: OceanSITES Variable Names (subset)
-   :widths: 20 80
+   :widths: 20 50 20
    :header-rows: 1
 
    * - Parameter
      - CF Standard name or suggested Long name
+     - AC1 Variable Name
    * - CDIR
      - direction_of_sea_water_velocity
+     - CDIR
    * - CNDC
      - sea_water_electrical_conductivity
+     - CNDC
    * - CSPD
      - sea_water_speed
+     - CSPD
    * - DEPTH
      - depth
+     - DEPTH
    * - DOX2
      - moles_of_oxygen_per_unit_mass_in_sea_water was dissolved_oxygen
+     - DOX2
    * - DOXY
      - mass_concentration_of_oxygen_in_sea_water was dissolved_oxygen
+     - DOXY
    * - DOXY_TEMP
      - temperature_of_sensor_for_oxygen_in_sea_water
+     - DOXY_TEMP
    * - DYNHT
      - dynamic_height
+     - DYNHT
    * - FLU2
      - fluorescence
+     - FLU2
    * - HCSP
      - sea_water_speed
+     - HCSP
    * - HEAT
      - heat_content
+     - HEAT
    * - ISO17
      - isotherm_depth
+     - ISO17
    * - PCO2
      - surface_partial_pressure_of_carbon_dioxide_in_air
+     - PCO2
    * - PRES
      - sea_water_pressure
+     - PRESSURE
    * - PSAL
      - sea_water_practical_salinity
+     - PSAL
    * - TEMP
      - sea_water_temperature
+     - TEMP
    * - UCUR
      - eastward_sea_water_velocity
+     - UCUR
    * - VCUR
      - northward_sea_water_velocity
-
-10. Metadata Requirements and YAML Integration
----------------------------------------------
-
-10.1 Array-Specific Metadata Files
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Metadata are provided as enhanced YAML files for each array, defining variable mappings, unit conversions, attributes, and contributor information.
-
-**Enhanced YAML Structure (osnap_array.yml)**:
-
-.. code-block:: yaml
-
-   # Array identification
-   array:
-     name: "OSNAP"
-     site_code: "OSNAP"
-     platform_code: "OSNAP60N"
-     sea_area: "North Atlantic Ocean"
-     
-   # Spatial coverage
-   geospatial:
-     lat_min: 59.0
-     lat_max: 61.0
-     lon_min: -45.0
-     lon_max: -10.0
-     vertical_min: 0.0
-     vertical_max: 3000.0
-     
-   # Contributors
-   contributors:
-     - name: "Susan Lozier"
-       email: "susan.lozier@duke.edu"
-       orcid: "https://orcid.org/0000-0002-1234-5678"
-       role: "PI"
-       institution: "Duke University"
-       institution_ror: "https://ror.org/00py81415"
-       institution_role: "operator"
-       
-   # Variable definitions
-   variables:
-     temp:
-       name: TEMPERATURE
-       long_name: "Sea water temperature"
-       standard_name: "sea_water_temperature"
-       units: "degree_Celsius"
-       vocabulary: "https://vocab.nerc.ac.uk/collection/P07/current/CFSN0335/"
-       valid_min: -2.0
-       valid_max: 40.0
-       
-     sal:
-       name: SALINITY
-       long_name: "Sea water practical salinity"
-       standard_name: "sea_water_practical_salinity"
-       units: "1"
-       vocabulary: "http://vocab.nerc.ac.uk/collection/P07/current/IADIHDIJ/"
-       valid_min: 0.0
-       valid_max: 50.0
-       
-     moc_transport:
-       name: MOC_TRANSPORT
-       long_name: "Atlantic meridional overturning circulation transport"
-       standard_name: "ocean_volume_transport_across_line"
-       units: "sverdrup"
-       vocabulary: "http://vocab.nerc.ac.uk/collection/P07/current/W946809H/"
-       
-   # Provenance
-   provenance:
-     source_acknowledgement: "OSNAP data were collected and made freely available by the OSNAP project and all the national programs that contribute to it (www.o-snap.org)"
-     source_doi: "https://doi.org/10.35090/gatech/70342"
-     web_link: "https://www.o-snap.org/"
-     
-   # Processing
-   processing:
-     qc_indicator: "excellent"
-     processing_level: "Data verified against model or other contextual information"
-
+     - VCUR
 
 11. Future Development and Extensions
 ------------------------------------
-
-11.1 Planned Enhancements
-~~~~~~~~~~~~~~~~~~~~~~~~
 
 - **Multi-Array Integration**: Support for datasets combining multiple arrays
 - **Real-Time Data Streams**: Extensions for operational oceanography
 - **Machine-Readable Provenance**: Integration with Research Data Alliance metadata standards
 - **Cloud-Optimized Formats**: Zarr and COG variants for cloud computing
 
-11.2 Community Integration
-~~~~~~~~~~~~~~~~~~~~~~~~~
-
-AC1 format is designed for:
-
-- **OceanSITES GDAC Submission**: Full compliance for global data archive
-- **CMIP Integration**: Compatible with climate model evaluation workflows
-- **ARGO Coordination**: Harmonized with autonomous profiling float data standards
-- **Regional Programs**: Adaptable for other ocean observing arrays globally
-
-12. Summary and Recommendations
--------------------------------
-
-The AC1 format represents the next evolution of AMOCatlas data standardization, combining the proven AC1 implementation with comprehensive international standards compliance. Key benefits include:
-
-**For Data Providers**:
-- Simplified workflow for OceanSITES GDAC submission
-- Enhanced discoverability through rich metadata
-- Maintained compatibility with existing tools
-
-**For Data Users**:
-- Consistent interface across all AMOC arrays
-- Full metadata for proper data citation and attribution
-- Guaranteed interoperability with international tools and standards
-
-**For the Community**:
-- Foundation for global AMOC data integration
-- Template for other observing array programs
-- Future-ready architecture for emerging requirements
-
-We recommend adopting AC1 format for all new AMOCatlas releases while maintaining AC1 support for existing workflows. The enhanced metadata and standards compliance provide immediate value for data discovery and long-term preservation while ensuring continued scientific productivity.
 
 ---
 
