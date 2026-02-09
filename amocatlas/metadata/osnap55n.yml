@@ -326,7 +326,7 @@ files:
         units: Sverdrup
         standard_name: ocean_meridional_overturning_streamfunction
 
-  OSNAP_Gridded_TSverdrup_201408_202006_2023.nc:
+  OSNAP_Gridded_TSV_201408_202006_2023.nc:
     featureType: timeSeriesProfile
     citation: >
       Fu, Y., Lozier, M.S., Biló, T.C. et al. Seasonality of the Meridional Overturning Circulation in the subpolar North Atlantic. Commun Earth Environ 4, 181 (2023). https://doi.org/10.1038/s43247-023-00848-9
@@ -371,7 +371,7 @@ files:
         units: 1
         standard_name: sea_water_practical_salinity
 
-  OSNAP_Gridded_TSverdrup_201408_202207_2025.nc:
+  OSNAP_Gridded_TSV_201408_202207_2025.nc:
     featureType: timeSeriesProfile
     citation: >
       Fu, Y., Lozier, M. S., Bower, A., Burmeister, K., Carrilho Biló, T., Cyr, F., et al. (2025). Characterizing the interannual variability of North Atlantic subpolar overturning. Geophysical Research Letters, 52, e2025GL114672. https://doi.org/10.1029/2025GL114672

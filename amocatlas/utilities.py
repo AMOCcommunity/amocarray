@@ -562,6 +562,8 @@ def find_data_start(file_path: str) -> int:
 def get_standard_unit_mappings() -> Dict[str, str]:
     """Get the comprehensive mapping of unit variations to standard units.
 
+    Uses defaults.PREFERRED_UNITS as target values for standardization.
+
     Returns
     -------
     Dict[str, str]
@@ -571,114 +573,113 @@ def get_standard_unit_mappings() -> Dict[str, str]:
     -----
     This centralizes all unit standardization rules for consistency across
     the AMOCatlas package. Add new unit mappings here as needed.
+    Target values come from defaults.PREFERRED_UNITS to ensure consistency.
 
     Examples
     --------
     >>> mappings = get_standard_unit_mappings()
     >>> print(mappings["Sv"])  # "Sverdrup"
-    >>> print(mappings["deg C"])  # "degrees_celsius"
+    >>> print(mappings["deg C"])  # "degree_C"
 
     """
+    from . import defaults
+
     return {
-        # Transport units
-        "Sv": "Sverdrup",
-        "sv": "Sverdrup",
-        "Sverdrups": "Sverdrup",
-        "1e6 m3 s-1": "Sverdrup",
-        "1e6 m^3/s": "Sverdrup",
-        # Temperature units (CF convention: degree_C)
-        "deg C": "degree_C",
-        "degC": "degree_C",
-        "°C": "degree_C",
-        "celsius": "degree_C",
-        "degrees C": "degree_C",
-        "C": "degree_C",
-        "deg_C": "degree_C",
-        "degree_C": "degree_C",
-        "degree_celsius": "degree_C",
-        "degrees_celsius": "degree_C",
-        "degrees Celsius": "degree_C",
-        "degrees_Celsius": "degree_C",
-        # Salinity units
-        "psu": "1",  # Practical Salinity Units are dimensionless
-        "PSU": "1",
-        "pss": "1",  # Practical Salinity Scale
-        "PSS": "1",
-        "g/kg": "g kg-1",  # Convert to CF-compliant form
-        "g kg^-1": "g kg-1",
-        # Pressure units
-        "decibar": "dbar",
-        "db": "dbar",
+        # Transport units → defaults.PREFERRED_UNITS["transport"]
+        "Sv": defaults.PREFERRED_UNITS["transport"],
+        "sv": defaults.PREFERRED_UNITS["transport"],
+        "Sverdrups": defaults.PREFERRED_UNITS["transport"],
+        "1e6 m3 s-1": defaults.PREFERRED_UNITS["transport"],
+        "1e6 m^3/s": defaults.PREFERRED_UNITS["transport"],
+        # Temperature units → defaults.PREFERRED_UNITS["temp"]
+        "deg C": defaults.PREFERRED_UNITS["temp"],
+        "degC": defaults.PREFERRED_UNITS["temp"],
+        "°C": defaults.PREFERRED_UNITS["temp"],
+        "celsius": defaults.PREFERRED_UNITS["temp"],
+        "degrees C": defaults.PREFERRED_UNITS["temp"],
+        "C": defaults.PREFERRED_UNITS["temp"],
+        "deg_C": defaults.PREFERRED_UNITS["temp"],
+        "degree_C": defaults.PREFERRED_UNITS["temp"],
+        "degree_celsius": defaults.PREFERRED_UNITS["temp"],
+        "degrees_celsius": defaults.PREFERRED_UNITS["temp"],
+        "degrees Celsius": defaults.PREFERRED_UNITS["temp"],
+        "degrees_Celsius": defaults.PREFERRED_UNITS["temp"],
+        # Salinity units → defaults.PREFERRED_UNITS["psal"]
+        "psu": defaults.PREFERRED_UNITS["psal"],
+        "PSU": defaults.PREFERRED_UNITS["psal"],
+        "pss": defaults.PREFERRED_UNITS["psal"],
+        "PSS": defaults.PREFERRED_UNITS["psal"],
+        "g/kg": defaults.PREFERRED_UNITS["sa"],  # Convert to CF-compliant form
+        "g kg^-1": defaults.PREFERRED_UNITS["sa"],
+        # Pressure units → defaults.PREFERRED_UNITS["pressure"]
+        "decibar": defaults.PREFERRED_UNITS["pressure"],
+        "db": defaults.PREFERRED_UNITS["pressure"],
         # Distance/Length units
-        "m": "m",
-        "meters": "m",
-        "metres": "m",
-        "km": "km",
-        "kilometers": "km",
-        "kilometres": "km",
+        "m": defaults.PREFERRED_UNITS["length"],
+        "meters": defaults.PREFERRED_UNITS["length"],
+        "metres": defaults.PREFERRED_UNITS["length"],
+        "km": defaults.PREFERRED_UNITS["length_km"],
+        "kilometers": defaults.PREFERRED_UNITS["length_km"],
+        "kilometres": defaults.PREFERRED_UNITS["length_km"],
         # Time units
-        "sec": "s",
-        "seconds": "s",
-        "s": "s",
-        "min": "min",
-        "minutes": "min",
-        "hr": "hour",
-        "hours": "hour",
-        "h": "hour",
-        "day": "day",
-        "days": "day",
-        "d": "day",
-        # Speed/Velocity units
-        "m/s": "m s-1",
-        "m s^-1": "m s-1",
-        "cm/s": "cm s-1",
+        "sec": defaults.PREFERRED_UNITS["time_second"],
+        "seconds": defaults.PREFERRED_UNITS["time_second"],
+        "s": defaults.PREFERRED_UNITS["time_second"],
+        "min": defaults.PREFERRED_UNITS["time_minute"],
+        "minutes": defaults.PREFERRED_UNITS["time_minute"],
+        "hr": defaults.PREFERRED_UNITS["time_hour"],
+        "hours": defaults.PREFERRED_UNITS["time_hour"],
+        "h": defaults.PREFERRED_UNITS["time_hour"],
+        "day": defaults.PREFERRED_UNITS["time_day"],
+        "days": defaults.PREFERRED_UNITS["time_day"],
+        "d": defaults.PREFERRED_UNITS["time_day"],
+        # Speed/Velocity units → defaults.PREFERRED_UNITS["velocity"]
+        "m/s": defaults.PREFERRED_UNITS["velocity"],
+        "m s^-1": defaults.PREFERRED_UNITS["velocity"],
+        "cm/s": "cm s-1",  # Keep cm/s as-is for now
         "cm s^-1": "cm s-1",
-        "mm/s": "mm s-1",
-        "mm s^-1": "mm s-1",
         # Angular units
         "deg": "degree",
         "degrees": "degree",
         "°": "degree",
         "rad": "radian",
         "radians": "radian",
-        # Geographic units
-        "deg N": "degree_north",
-        "deg_N": "degree_north",
-        "degree_N": "degree_north",
-        "degree_north": "degree_north",
-        "degN": "degree_north",
-        "°N": "degree_north",
-        "deg E": "degree_east",
-        "deg_E": "degree_east",
-        "degree_E": "degree_east",
-        "degree_east": "degree_east",
-        "degE": "degree_east",
-        "°E": "degree_east",
-        "deg W": "degree_west",
-        "deg_W": "degree_west",
-        "degree_W": "degree_west",
-        "degree_west": "degree_west",
-        "degW": "degree_west",
-        "°W": "degree_west",
-        "deg S": "degree_south",
-        "deg_S": "degree_south",
-        "degree_S": "degree_south",
-        "degree_south": "degree_south",
-        "degS": "degree_south",
-        "°S": "degree_south",
-        # Density units
-        "kg/m3": "kg m-3",
-        "kg m^-3": "kg m-3",
-        "g/cm3": "g cm-3",
-        "g cm^-3": "g cm-3",
+        # Geographic units → defaults.PREFERRED_UNITS
+        "deg N": defaults.PREFERRED_UNITS["latitude"],
+        "deg_N": defaults.PREFERRED_UNITS["latitude"],
+        "degree_N": defaults.PREFERRED_UNITS["latitude"],
+        "degree_north": defaults.PREFERRED_UNITS["latitude"],
+        "degN": defaults.PREFERRED_UNITS["latitude"],
+        "°N": defaults.PREFERRED_UNITS["latitude"],
+        "deg E": defaults.PREFERRED_UNITS["longitude"],
+        "deg_E": defaults.PREFERRED_UNITS["longitude"],
+        "degree_E": defaults.PREFERRED_UNITS["longitude"],
+        "degree_east": defaults.PREFERRED_UNITS["longitude"],
+        "degE": defaults.PREFERRED_UNITS["longitude"],
+        "°E": defaults.PREFERRED_UNITS["longitude"],
+        "deg W": defaults.PREFERRED_UNITS["longitudeW"],
+        "deg_W": defaults.PREFERRED_UNITS["longitudeW"],
+        "degree_W": defaults.PREFERRED_UNITS["longitudeW"],
+        "degree_west": defaults.PREFERRED_UNITS["longitudeW"],
+        "degW": defaults.PREFERRED_UNITS["longitudeW"],
+        "°W": defaults.PREFERRED_UNITS["longitudeW"],
+        "deg S": defaults.PREFERRED_UNITS["latitudeS"],
+        "deg_S": defaults.PREFERRED_UNITS["latitudeS"],
+        "degree_S": defaults.PREFERRED_UNITS["latitudeS"],
+        "degree_south": defaults.PREFERRED_UNITS["latitudeS"],
+        "degS": defaults.PREFERRED_UNITS["latitudeS"],
+        "°S": defaults.PREFERRED_UNITS["latitudeS"],
+        # Density units → defaults.PREFERRED_UNITS["density"]
+        "kg/m3": defaults.PREFERRED_UNITS["density"],
+        "kg m^-3": defaults.PREFERRED_UNITS["density"],
         # Frequency units
         "Hz": "hertz",
         "hz": "hertz",
         "1/s": "s-1",
         "s^-1": "s-1",
-        # Dimensionless units (explicitly unitless)
-        "unitless": "1",
-        "dimensionless": "1",
+        # Dimensionless units → defaults.PREFERRED_UNITS["unitless"]
+        "unitless": defaults.PREFERRED_UNITS["unitless"],
+        "dimensionless": defaults.PREFERRED_UNITS["unitless"],
         # No units specified (placeholders)
         "": "",  # Empty string (placeholder for unspecified units)
         "n/a": "",

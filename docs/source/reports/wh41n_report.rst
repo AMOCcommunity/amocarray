@@ -132,7 +132,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Time Coverage Start\***: 2002-02-15
 - **Time Coverage End\***: 2024-12-16
 - **Contributor Name\***: Will Hobbs, Josh K. Willis
-- **Contributor Role\***: creator, PI
+- **Contributor Role\***: originator, principalInvestigator
 - **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
 - **Contributor Email**: , 
 - **Contributor Id**: https://orcid.org/0000-0002-2061-0899, https://orcid.org/0000-0002-4515-8771
@@ -145,7 +145,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source File\***: hobbs_willis_amoc41N_tseries.txt
 - **Source Path\***: ~/AMOCatlas/data/hobbs_willis_amoc41N_tseries.txt
 - **Source Url\***: https://doi.org/10.5281/zenodo.8170365
-- **Date Modified**: 2026-02-08T20:00:25Z
+- **Date Modified**: 2026-02-09T05:40:26Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: wh41n
@@ -296,7 +296,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Time Coverage Start\***: 2002-01-15
 - **Time Coverage End\***: 2024-12-15
 - **Contributor Name\***: Will Hobbs, Josh K. Willis
-- **Contributor Role\***: creator, PI
+- **Contributor Role\***: originator, principalInvestigator
 - **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
 - **Contributor Email**: , 
 - **Contributor Id**: https://orcid.org/0000-0002-2061-0899, https://orcid.org/0000-0002-4515-8771
@@ -308,7 +308,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source Path\***: ~/AMOCatlas/data/trans_ARGO_ERA5.nc
 - **Source Url\***: https://doi.org/10.5281/zenodo.8170365
 - **Date Created**: Thu 16 Jan 2025 16:09:16 AEDT
-- **Date Modified**: 2026-02-08T20:00:25Z
+- **Date Modified**: 2026-02-09T05:40:26Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: wh41n
@@ -468,7 +468,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Time Coverage Start\***: 2002-01-15
 - **Time Coverage End\***: 2024-12-15
 - **Contributor Name\***: Will Hobbs, Josh K. Willis
-- **Contributor Role\***: creator, PI
+- **Contributor Role\***: originator, principalInvestigator
 - **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
 - **Contributor Email**: , 
 - **Contributor Id**: https://orcid.org/0000-0002-2061-0899, https://orcid.org/0000-0002-4515-8771
@@ -480,7 +480,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source Path\***: ~/AMOCatlas/data/Q_ARGO_obs_dens_2000depth_ERA5.nc
 - **Source Url\***: https://doi.org/10.5281/zenodo.8170365
 - **Date Created**: Thu 16 Jan 2025 16:09:16 AEDT
-- **Date Modified**: 2026-02-08T20:00:26Z
+- **Date Modified**: 2026-02-09T05:40:26Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: wh41n

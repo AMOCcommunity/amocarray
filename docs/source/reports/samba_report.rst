@@ -131,7 +131,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source File\***: Upper_Abyssal_Transport_Anomalies.txt
 - **Source Path\***: ~/AMOCatlas/data/Upper_Abyssal_Transport_Anomalies.txt
 - **Source Url\***: ftp://ftp.aoml.noaa.gov/phod/pub/SAM/2020_Kersale_etal_ScienceAdvances/
-- **Date Modified**: 2026-02-08T20:00:18Z
+- **Date Modified**: 2026-02-09T05:40:18Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: samba34s
@@ -309,7 +309,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source File\***: MOC_TotalAnomaly_and_constituents.asc
 - **Source Path\***: ~/AMOCatlas/data/MOC_TotalAnomaly_and_constituents.asc
 - **Source Url\***: https://www.aoml.noaa.gov/phod/SAMOC_international/documents/
-- **Date Modified**: 2026-02-08T20:00:18Z
+- **Date Modified**: 2026-02-09T05:40:18Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: samba34s

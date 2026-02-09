@@ -81,7 +81,7 @@ def extract_variable_mappings(datasets):
                 "applied_mapping": applied_mapping,
                 "original_metadata": original_metadata,
                 "source_file": source_file,
-                "dataset_vars": {var: dataset[var] for var in dataset.data_vars},
+                #"dataset_vars": {var: dataset[var] for var in dataset.data_vars},
             }
 
     return all_mappings
@@ -121,11 +121,11 @@ def extract_unit_conversions(datasets):
         attrs = dataset.attrs
 
         # Look for unit standardization info in processing history
-        history = attrs.get("history", "")
-        processing_notes = attrs.get("processing_notes", "")
+        _history = attrs.get("history", "")
+        _processing_notes = attrs.get("processing_notes", "")
 
         # Extract any unit conversion information
-        # This would need to be enhanced based on how unit conversions are logged
+        # TODO This would need to be enhanced based on how unit conversions are logged
 
     return unit_conversions
 
@@ -136,7 +136,6 @@ def generate_variable_mapping_table(mappings):
 
     rst_content.extend(
         [
-            "======================================",
             "Variable Summary (auto-generated)",
             "======================================",
             "",
@@ -354,6 +353,7 @@ def generate_full_reference_documentation(datasets):
     # Header
     rst_content.extend(
         [
+            "======================================",
             "Appendix: Actual variables + mappings",
             "=====================================",
             "",
@@ -384,23 +384,6 @@ def main():
     output_file = Path(__file__).parent / "variables.rst"
     output_file.write_text(rst_content)
     print(f"Documentation written to {output_file}")
-
-    # Also create an index file for the reference section
-    index_content = """Reference Documentation
-======================
-
-This section contains automatically-generated reference documentation for AMOCatlas.
-
-.. toctree::
-   :maxdepth: 2
-
-   variables
-
-"""
-
-    index_file = Path(__file__).parent / "index.rst"
-    index_file.write_text(index_content)
-    print(f"Index file written to {index_file}")
 
 
 if __name__ == "__main__":

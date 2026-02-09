@@ -127,7 +127,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source File\***: atl_mft_2000_extend_gpcp_oaflux.nc
 - **Source Path\***: ~/AMOCatlas/data/atl_mft_2000_extend_gpcp_oaflux.nc
 - **Source Url\***: https://zenodo.org/records/12790901
-- **Date Modified**: 2026-02-08T20:00:25Z
+- **Date Modified**: 2026-02-09T05:40:25Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: zheng2024

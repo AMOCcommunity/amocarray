@@ -18,6 +18,7 @@ from datetime import datetime, timezone
 from amocatlas import logger, utilities, defaults, contributors
 from amocatlas.logger import log_debug
 
+
 log = logger.log  # Use the global logger
 
 # Extracted from OG1.0 spec “## Global attributes” (cf. turn1view0) :contentReference[oaicite:0]{index=0}
@@ -736,7 +737,7 @@ def standardize_longitude_coordinate(ds: xr.Dataset) -> xr.Dataset:
     - data type: double
     - long_name: "longitude east (WGS84)"
     - standard_name: "longitude"
-    - units: "degrees_east"
+    - units: "degree_east"
 
     Parameters
     ----------
@@ -772,7 +773,7 @@ def standardize_longitude_coordinate(ds: xr.Dataset) -> xr.Dataset:
         "long_name": "Longitude",
         "description": "Longitude east (WGS84)",
         "standard_name": "longitude",
-        "units": "degree_east",  # TODO: This is clunky. We need a better way to update the list of preferred units so we don't have to do it in 5 different places.
+        "units": defaults.PREFERRED_UNITS["longitude"], 
     }
 
     ds["LONGITUDE"].attrs.update(standard_lon_attrs)
@@ -788,7 +789,7 @@ def standardize_latitude_coordinate(ds: xr.Dataset) -> xr.Dataset:
     - data type: double
     - long_name: "Latitude north (WGS84)"
     - standard_name: "latitude"
-    - units: "degrees_north"
+    - units: "degree_north"
 
     Parameters
     ----------
@@ -824,7 +825,7 @@ def standardize_latitude_coordinate(ds: xr.Dataset) -> xr.Dataset:
         "long_name": "Latitude",
         "description": "Latitude north (WGS84)",
         "standard_name": "latitude",
-        "units": "degree_north",  # TODO: This is clunky. We need a better way to update the list of preferred units so we don't have to do it in 5 different places.
+        "units": defaults.PREFERRED_UNITS["latitude"],  
     }
 
     ds["LATITUDE"].attrs.update(standard_lat_attrs)
@@ -874,7 +875,7 @@ def standardize_depth_coordinate(ds: xr.Dataset) -> xr.Dataset:
         "long_name": "Depth",
         "description": " Depth below surface of the water",
         "standard_name": "depth",
-        "units": "m",  # TODO: This is clunky. We need a better way to update the list of preferred units so we don't have to do it in 5 different places.
+        "units": defaults.PREFERRED_UNITS["length"], 
     }
 
     ds["DEPTH"].attrs.update(standard_depth_attrs)
@@ -924,7 +925,7 @@ def standardize_sigma0_coordinate(ds: xr.Dataset) -> xr.Dataset:
         "long_name": "Sigma0",
         "description": "Potential density anomaly to 1000 kg/m3, surface reference",
         "standard_name": "sea_water_sigma_theta",
-        "units": "kg m-3",
+        "units": defaults.PREFERRED_UNITS["density"],
     }
 
     ds["SIGMA0"].attrs.update(standard_sigma0_attrs)

@@ -92,7 +92,7 @@ Mapping of Custom Conversions
      - 1
      - Geographic coordinates (CF-compliant)
    * - ``psu``, ``PSU``
-     - 1`
+     - 1
      - 1
      - Practical salinity unit (unitless)
    * - ``W``, ``TW``, ``MW``
@@ -101,11 +101,11 @@ Mapping of Custom Conversions
      - Heat transport scaling to petawatts
    * - ``meters``, ``m``
      - ``m``
-     - 100, 0.001
+     - 1 
      - 
-   * -  
+   * - ``kg/m3`` 
      - ``kg m-3``
-     - 0.001
+     - 1
      - Density conversions
    * - ``1e6 m3/s``
      - ``Sverdrup``

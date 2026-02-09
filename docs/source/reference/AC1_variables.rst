@@ -141,7 +141,7 @@ Transport
      - MFT_OT
      - Sverdrup
      - Overturning component of freshwater transport
-   * - northward_ocean_heat_tranpsport
+   * - northward_ocean_heat_transport
      - MHT
      - PW
      - Total northward heat transport

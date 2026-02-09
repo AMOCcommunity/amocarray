@@ -1,12 +1,12 @@
-=====================================
-Variable summary
+======================================
+Appendix: Actual variables + mappings
 =====================================
 
 .. note::
    This documentation is automatically generated from the standardized datasets
    to ensure accuracy and consistency. Last updated: |today|
 
-Variable Name Mappings by Dataset
+Variable Summary (auto-generated)
 ======================================
 
 This table shows how original variable names from each dataset are mapped to standardized names.
@@ -172,7 +172,7 @@ This table shows how original variable names from each dataset are mapped to sta
      - ``PRESSURE``
    * - **RAPID meridional_transports.nc**
      - ``amoc_depth``
-     - ``MOC_Z``
+     - ``MOC``
    * - **RAPID meridional_transports.nc**
      - ``amoc_sigma0``
      - ``MOC_SIGMA0``
@@ -282,8 +282,11 @@ This table shows how original variable names from each dataset are mapped to sta
      - ``T_EAST``
      - ``STREAMFUNCTION_SIGMA0_EAST``
    * - **OSNAP OSNAP_Gridded_TSV_201408_202207_2025.nc**
-     - ``*No mappings*``
-     - ``*No mappings*``
+     - ``SAL``
+     - ``PSAL``
+   * - **OSNAP OSNAP_Gridded_TSV_201408_202207_2025.nc**
+     - ``VELO``
+     - ``VCUR``
    * - **SAMBA Upper_Abyssal_Transport_Anomalies.txt**
      - ``Upper-cell-volume-transport-anomaly--relative-to-record-length-average-of-17-3-Sv``
      - ``UPPER_TRANSPORT``
@@ -410,19 +413,19 @@ This table shows how original variable names from each dataset are mapped to sta
    * - **MOCHA mocha_mht_data_ERA5_v2020.nc**
      - ``V_basin_mean``
      - ``TRANSPROF_BASIN_MEAN``
-   * - **ARCTICGATEWAY FramStrait_adjusted_v_fulldepth.nc**
+   * - **ARCTICGATEWAY DavisStrait_adjusted_v_fulldepth.nc**
      - ``time``
      - ``TIME``
-   * - **ARCTICGATEWAY FramStrait_adjusted_v_fulldepth.nc**
+   * - **ARCTICGATEWAY DavisStrait_adjusted_v_fulldepth.nc**
      - ``depth``
      - ``DEPTH``
-   * - **ARCTICGATEWAY FramStrait_adjusted_v_fulldepth.nc**
+   * - **ARCTICGATEWAY DavisStrait_adjusted_v_fulldepth.nc**
      - ``lon``
      - ``LONGITUDE``
-   * - **ARCTICGATEWAY FramStrait_adjusted_v_fulldepth.nc**
+   * - **ARCTICGATEWAY DavisStrait_adjusted_v_fulldepth.nc**
      - ``lat``
      - ``LATITUDE``
-   * - **ARCTICGATEWAY FramStrait_adjusted_v_fulldepth.nc**
+   * - **ARCTICGATEWAY DavisStrait_adjusted_v_fulldepth.nc**
      - ``v``
      - ``VCUR``
    * - **DSO DSO_transport_hourly_1996_2021.nc**
@@ -505,10 +508,10 @@ This table shows how original variable names from each dataset are mapped to sta
      - ``TIME``
    * - **NOAC47N NOAC_AMOC.tab**
      - ``Trans vol [Sv]``
-     - ``MOC``
+     - ``MOC_SIGMA0``
    * - **NOAC47N NOAC_AMOC.tab**
      - ``Trans vol [Sv].1``
-     - ``MOC_LPF``
+     - ``MOC_SIGMA0_LPF``
 
 
 Variable Name Mappings by Standardized Name
@@ -525,9 +528,6 @@ The same mappings sorted by standardized variable name for easy lookup.
    * - Standardized Name
      - Dataset & File
      - Original Name
-   * - ``*No mappings*``
-     - **OSNAP OSNAP_Gridded_TSV_201408_202207_2025.nc**
-     - ``*No mappings*``
    * - ``ABYSSAL_TRANSPORT``
      - **SAMBA Upper_Abyssal_Transport_Anomalies.txt**
      - ``Abyssal-cell-volume-transport-anomaly--relative-to-record-length-average-of-7-8-Sv``
@@ -538,7 +538,7 @@ The same mappings sorted by standardized variable name for easy lookup.
      - **SAMBA MOC_TotalAnomaly_and_constituents.asc**
      - ``Reference--bottom-pressure-gradient--contribution-to-the-MOC-anomaly``
    * - ``DEPTH``
-     - **ARCTICGATEWAY FramStrait_adjusted_v_fulldepth.nc**
+     - **ARCTICGATEWAY DavisStrait_adjusted_v_fulldepth.nc**
      - ``depth``
    * - ``DEPTH``
      - **MOCHA mocha_mht_data_ERA5_v2020.nc**
@@ -577,7 +577,7 @@ The same mappings sorted by standardized variable name for easy lookup.
      - **CALAFAT2025 Bayesian_estimates_Atlantic_MHT.nc**
      - ``htc``
    * - ``LATITUDE``
-     - **ARCTICGATEWAY FramStrait_adjusted_v_fulldepth.nc**
+     - **ARCTICGATEWAY DavisStrait_adjusted_v_fulldepth.nc**
      - ``lat``
    * - ``LATITUDE``
      - **CALAFAT2025 Bayesian_estimates_Atlantic_MHT.nc**
@@ -601,7 +601,7 @@ The same mappings sorted by standardized variable name for easy lookup.
      - **MOVE OS_MOVE_20000101-20221021_GRD_CURRENTS-AT-SITES-MOVE3-MOVE4.nc**
      - ``latitude_time_varying``
    * - ``LONGITUDE``
-     - **ARCTICGATEWAY FramStrait_adjusted_v_fulldepth.nc**
+     - **ARCTICGATEWAY DavisStrait_adjusted_v_fulldepth.nc**
      - ``lon``
    * - ``LONGITUDE``
      - **MOVE OS_MOVE_20000206-20221014_DPR_VOLUME-TRANSPORT.nc**
@@ -691,8 +691,8 @@ The same mappings sorted by standardized variable name for easy lookup.
      - **MOVE OS_MOVE_20000206-20221014_DPR_VOLUME-TRANSPORT.nc**
      - ``TRANSPORT_TOTAL``
    * - ``MOC``
-     - **NOAC47N NOAC_AMOC.tab**
-     - ``Trans vol [Sv]``
+     - **RAPID meridional_transports.nc**
+     - ``amoc_depth``
    * - ``MOC``
      - **RAPID moc_transports.nc**
      - ``moc_mar_hc10``
@@ -720,12 +720,12 @@ The same mappings sorted by standardized variable name for easy lookup.
    * - ``MOC_INTERNAL_OFFSET``
      - **MOVE OS_MOVE_20000206-20221014_DPR_VOLUME-TRANSPORT.nc**
      - ``transport_component_internal_offset``
-   * - ``MOC_LPF``
-     - **NOAC47N NOAC_AMOC.tab**
-     - ``Trans vol [Sv].1``
    * - ``MOC_PROXY``
      - **FW2015 MOCproxy_for_figshare_v1.mat**
      - ``mocproxy``
+   * - ``MOC_SIGMA0``
+     - **NOAC47N NOAC_AMOC.tab**
+     - ``Trans vol [Sv]``
    * - ``MOC_SIGMA0``
      - **OSNAP OSNAP_MOC_MHT_MFT_Time-Series_201408_202207_2025.nc**
      - ``MOC_ALL``
@@ -735,6 +735,9 @@ The same mappings sorted by standardized variable name for easy lookup.
    * - ``MOC_SIGMA0_ERR``
      - **OSNAP OSNAP_MOC_MHT_MFT_Time-Series_201408_202207_2025.nc**
      - ``MOC_ALL_ERR``
+   * - ``MOC_SIGMA0_LPF``
+     - **NOAC47N NOAC_AMOC.tab**
+     - ``Trans vol [Sv].1``
    * - ``MOC_SIGMA2``
      - **RAPID meridional_transports.nc**
      - ``amoc_sigma2``
@@ -744,9 +747,6 @@ The same mappings sorted by standardized variable name for easy lookup.
    * - ``MOC_WEST_SIGMA0_ERR``
      - **OSNAP OSNAP_MOC_MHT_MFT_Time-Series_201408_202207_2025.nc**
      - ``MOC_WEST_ERR``
-   * - ``MOC_Z``
-     - **RAPID meridional_transports.nc**
-     - ``amoc_depth``
    * - ``PRESSURE``
      - **MOVE OS_MOVE_20000206-20221014_DPR_VOLUME-TRANSPORT.nc**
      - ``location_center_vertical``
@@ -762,6 +762,9 @@ The same mappings sorted by standardized variable name for easy lookup.
    * - ``PSAL``
      - **MOVE OS_MOVE_20000101-20221018_GRD_TEMP-SALINITY-AT-SITES-MOVE1-MOVE3.nc**
      - ``SALINITY``
+   * - ``PSAL``
+     - **OSNAP OSNAP_Gridded_TSV_201408_202207_2025.nc**
+     - ``SAL``
    * - ``PSAL_EAST``
      - **RAPID ts_gridded.nc**
      - ``SG_east``
@@ -871,7 +874,7 @@ The same mappings sorted by standardized variable name for easy lookup.
      - **RAPID ts_gridded.nc**
      - ``TG_west_flag``
    * - ``TIME``
-     - **ARCTICGATEWAY FramStrait_adjusted_v_fulldepth.nc**
+     - **ARCTICGATEWAY DavisStrait_adjusted_v_fulldepth.nc**
      - ``time``
    * - ``TIME``
      - **CALAFAT2025 Bayesian_estimates_Atlantic_MHT.nc**
@@ -991,11 +994,14 @@ The same mappings sorted by standardized variable name for easy lookup.
      - **SAMBA Upper_Abyssal_Transport_Anomalies.txt**
      - ``Upper-cell-volume-transport-anomaly--relative-to-record-length-average-of-17-3-Sv``
    * - ``VCUR``
-     - **ARCTICGATEWAY FramStrait_adjusted_v_fulldepth.nc**
+     - **ARCTICGATEWAY DavisStrait_adjusted_v_fulldepth.nc**
      - ``v``
    * - ``VCUR``
      - **MOVE OS_MOVE_20000101-20221021_GRD_CURRENTS-AT-SITES-MOVE3-MOVE4.nc**
      - ``VELOCITY_V``
+   * - ``VCUR``
+     - **OSNAP OSNAP_Gridded_TSV_201408_202207_2025.nc**
+     - ``VELO``
    * - ``VCUR_EKMAN``
      - **RAPID 2d_gridded.nc**
      - ``V_ekman``
@@ -1222,7 +1228,7 @@ This table shows all standardized variable names used across datasets with their
      - Sverdrup
      - ocean_meridional_overturning_transport
      - `CF-1.8 <https://cfconventions.org/Data/cf-standard-names/current/>`_
-     - fw2015, mocha, move, noac47n, rapid, samba, wh41n
+     - fw2015, mocha, move, rapid, samba, wh41n
    * - ``MOC_BOUNDARY``
      - Boundary component of ocean volume transport across the MOVE line
      - Sverdrup
@@ -1253,12 +1259,6 @@ This table shows all standardized variable names used across datasets with their
      - ocean_volume_transport_across_line
      - `CF-1.8 <https://cfconventions.org/Data/cf-standard-names/current/>`_
      - move
-   * - ``MOC_LPF``
-     - AMOC volume transport at 47N, low-pass filtered
-     - Sverdrup
-     - ocean_meridional_overturning_transport
-     - `CF-1.8 <https://cfconventions.org/Data/cf-standard-names/current/>`_
-     - noac47n
    * - ``MOC_PROXY``
      - a proxy for the meridional overturning circulation at 26N, using sea level anomaly and cable measurements
      - Sverdrup
@@ -1270,13 +1270,19 @@ This table shows all standardized variable names used across datasets with their
      - Sverdrup
      - ocean_meridional_overturning_transport
      - `CF-1.8 <https://cfconventions.org/Data/cf-standard-names/current/>`_
-     - osnap, rapid
+     - noac47n, osnap, rapid
    * - ``MOC_SIGMA0_ERR``
      - Uncertainty in MOC_ALL
      - Sverdrup
      - ocean_meridional_overturning_streamfunction
      - `CF-1.8 <https://cfconventions.org/Data/cf-standard-names/current/>`_
      - osnap
+   * - ``MOC_SIGMA0_LPF``
+     - AMOC volume transport at 47N, low-pass filtered
+     - Sverdrup
+     - ocean_meridional_overturning_transport
+     - `CF-1.8 <https://cfconventions.org/Data/cf-standard-names/current/>`_
+     - noac47n
    * - ``MOC_SIGMA2``
      - Atlantic meridional overturning circulation strength in potential density (sigma2) coordinates
      - Sverdrup
@@ -1295,12 +1301,6 @@ This table shows all standardized variable names used across datasets with their
      - ocean_meridional_overturning_streamfunction
      - `CF-1.8 <https://cfconventions.org/Data/cf-standard-names/current/>`_
      - osnap
-   * - ``MOC_Z``
-     - Atlantic meridional overturning circulation strength in depth coordinates
-     - Sverdrup
-     - ocean_meridional_overturning_transport
-     - `CF-1.8 <https://cfconventions.org/Data/cf-standard-names/current/>`_
-     - rapid
    * - ``PRESSURE``
      - Sea water pressure at depth
      - dbar
@@ -1312,7 +1312,7 @@ This table shows all standardized variable names used across datasets with their
      - 1
      - sea_water_practical_salinity
      - `CF-1.8 <https://cfconventions.org/Data/cf-standard-names/current/>`_
-     - move
+     - move, osnap
    * - ``PSAL_EAST``
      - Salinity east 26.99N/16.23W
      - 1
@@ -1385,12 +1385,6 @@ This table shows all standardized variable names used across datasets with their
      - sea_water_absolute_salinity
      - `CF-1.8 <https://cfconventions.org/Data/cf-standard-names/current/>`_
      - arcticgateway, rapid
-   * - ``SAL``
-     - Practical Salinity
-     -  
-     - Salinity
-     - `CF-1.8 <https://cfconventions.org/Data/cf-standard-names/current/>`_
-     - osnap
    * - ``SSHA``
      - sea level anomaly from a spatially-smoothed and temporally filtered version of the AVISO mapped absolute dynamic topography product and selected near 28N, 70W in the Atlantic, at the point with the highest anticorrelation between the upper mid-ocean transport measured by the RAPID-MOCHA project and sea level anomaly
      - cm
@@ -1449,7 +1443,7 @@ This table shows all standardized variable names used across datasets with their
      - mocha
    * - ``TEMP_EAST``
      - Temperature east 26.99N/16.23W
-     - degree_  C
+     - degree_C
      - sea_water_temperature
      - `CF-1.8 <https://cfconventions.org/Data/cf-standard-names/current/>`_
      - rapid
@@ -1637,7 +1631,7 @@ This table shows all standardized variable names used across datasets with their
      - m s-1
      - northward_sea_water_velocity
      - `CF-1.8 <https://cfconventions.org/Data/cf-standard-names/current/>`_
-     - arcticgateway, move
+     - arcticgateway, move, osnap
    * - ``VCUR_EKMAN``
      - Ekman transport velocity component
      - m s-1
@@ -1656,12 +1650,6 @@ This table shows all standardized variable names used across datasets with their
      - northward_sea_water_velocity
      - `CF-1.8 <https://cfconventions.org/Data/cf-standard-names/current/>`_
      - rapid
-   * - ``VELO``
-     - cross-sectional velocity
-     - meter/second
-     - velocity normal to the OSNAP section
-     - `CF-1.8 <https://cfconventions.org/Data/cf-standard-names/current/>`_
-     - osnap
    * - ``VEL_EKMAN``
      - Ekman transport from ERA5 reanalysis
      - Sverdrup

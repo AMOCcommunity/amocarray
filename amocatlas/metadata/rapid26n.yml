@@ -134,7 +134,7 @@ files:
         standard_name: sea_water_practical_salinity
       TG_east:
         long_name: "Temperature east 26.99N/16.23W"
-        units: degree_  C
+        units: degree_C
         standard_name: sea_water_temperature
       SG_east:
         long_name: "Salinity east 26.99N/16.23W"
