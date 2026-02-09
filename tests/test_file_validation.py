@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Test validation logic for file selection parameters in read API."""
+# ruff: noqa: E712
 
 from amocatlas.read import _validate_file_selection_params
 

@@ -212,15 +212,15 @@ class TestReportUtils:
         # Test normal datetime difference
         start = datetime(2020, 1, 1)
         end = datetime(2020, 1, 31)
-        diff = ReportUtils._safe_time_diff_days(end, start)
+        diff = ReportUtils.safe_time_diff_days(end, start)
         assert diff == 30
 
         # Test YYYYMM format
-        diff_yyyymm = ReportUtils._safe_time_diff_days(202002, 202001)  # Jan to Feb
+        diff_yyyymm = ReportUtils.safe_time_diff_days(202002, 202001)  # Jan to Feb
         assert 25 < diff_yyyymm < 35  # Roughly a month
 
         # Test edge case with invalid data
-        diff_invalid = ReportUtils._safe_time_diff_days(None, None)
+        diff_invalid = ReportUtils.safe_time_diff_days(None, None)
         assert diff_invalid == 0
 
     def test_safe_format_date(self):
@@ -229,16 +229,16 @@ class TestReportUtils:
 
         # Test normal datetime
         date = datetime(2020, 5, 15, 12, 30)
-        result = ReportUtils._safe_format_date(date)
+        result = ReportUtils.safe_format_date(date)
         assert result == "2020-05-15"
 
         # Test unix timestamp
         timestamp = 1589544600  # May 15, 2020
-        result = ReportUtils._safe_format_date(timestamp)
+        result = ReportUtils.safe_format_date(timestamp)
         assert "2020-05-15" in result
 
         # Test year value
-        result = ReportUtils._safe_format_date(2020)
+        result = ReportUtils.safe_format_date(2020)
         assert "2020" in result
 
     def test_dataframe_to_rst_table(self):

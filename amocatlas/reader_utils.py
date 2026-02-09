@@ -80,13 +80,13 @@ class ReaderUtils:
             from .utilities import mask_invalid_values
 
             ds = mask_invalid_values(ds)
-
-            return ds
         except (OSError, IOError, ValueError, KeyError) as e:
             log_error("Failed to open NetCDF file: %s: %s", file_path, e)
             raise FileNotFoundError(
                 f"Failed to open NetCDF file: {file_path}: {e}"
             ) from e
+        else:
+            return ds
 
     @staticmethod
     def attach_standard_metadata(

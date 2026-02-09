@@ -142,7 +142,7 @@ def read_47n(
                 )
             except Exception as e:
                 log_error("Failed to parse ASCII file: %s: %s", file_path, e)
-                raise FileNotFoundError(f"Failed to parse ASCII file: {file_path}: {e}")
+                raise FileNotFoundError(f"Failed to parse ASCII file: {file_path}: {e}") from e
             # Time handling
             try:
                 df.rename(columns={"Date/Time": "TIME"}, inplace=True)
@@ -153,10 +153,6 @@ def read_47n(
                 ds = df.set_index("TIME").to_xarray()
 
             except Exception as e:
-                log_error("Failed to process time coordinate in %s: %s", file_path, e)
-                raise
-
-            except Exception as e:
                 log_error(
                     "Failed to convert DataFrame to xarray Dataset for %s: %s",
                     file,
@@ -164,7 +160,7 @@ def read_47n(
                 )
                 raise ValueError(
                     f"Failed to convert DataFrame to xarray Dataset for {file}: {e}",
-                )
+                ) from e
             # Attach metadata
             # Use ReaderUtils for consistent metadata attachment
             file_metadata = yaml_file_metadata.get(

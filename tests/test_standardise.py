@@ -26,7 +26,7 @@ class TestStandardizeData:
         raw_dataset = raw_datasets[0]  # Transport file
 
         # Get original variable names
-        original_vars = list(raw_dataset.data_vars)
+        _original_vars = list(raw_dataset.data_vars)
 
         # Standardize the data
         standardized = standardise.standardise_data(

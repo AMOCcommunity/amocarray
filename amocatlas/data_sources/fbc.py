@@ -67,7 +67,6 @@ def read_fbc(
 
     Parameters
     ----------
-    ----------
     source : str, optional
         Local path to the data directory (remote source is handled per-file).
 
@@ -82,7 +81,9 @@ def read_fbc(
         Optional local data directory.
 
     redownload : bool, optional
-    If True, force redownload of the data.
+        If True, force redownload of the data.
+    track_added_attrs : bool, optional
+        If True, track which attributes were added during metadata enrichment.
 
     Returns
     -------
@@ -91,12 +92,11 @@ def read_fbc(
 
     Raises
     ------
-    ------
     ValueError
         If no source is provided for a file and no default URL mapping is found.
 
     FileNotFoundError
-    If the file cannot be downloaded or does not exist locally.
+        If the file cannot be downloaded or does not exist locally.
 
     """
     log.info("Starting to read FBC dataset")
@@ -158,7 +158,7 @@ def read_fbc(
                 )
             except Exception as e:
                 log_error("Failed to parse ASCII file: %s: %s", file_path, e)
-                raise FileNotFoundError(f"Failed to parse ASCII file: {file_path}: {e}")
+                raise FileNotFoundError(f"Failed to parse ASCII file: {file_path}: {e}") from e
 
             # Time handling
             try:
@@ -188,7 +188,7 @@ def read_fbc(
                 )
                 raise ValueError(
                     f"Failed to convert DataFrame to xarray Dataset for {file}: {e}",
-                )
+                ) from e
 
             # Attach metadata
             # Attach metadata with optional tracking

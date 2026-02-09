@@ -6,10 +6,11 @@ import xarray as xr
 import numpy as np
 from pandas import DataFrame
 from pandas.io.formats.style import Styler
+from typing import Union, Dict
 
 
 def format_variable_name_for_plotting(name: str) -> str:
-    """Convert variable names with subscripts to matplotlib LaTeX format.
+    r"""Convert variable names with subscripts to matplotlib LaTeX format.
 
     This function translates variable naming patterns that include Greek letters
     and other subscripts into proper matplotlib LaTeX syntax for publication-quality plots.
@@ -700,7 +701,7 @@ except Exception:
     HAS_PYGMT = False
 
 
-def _check_pygmt():
+def _check_pygmt() -> None:
     """Check if PyGMT is available and raise informative error if not."""
     if not HAS_PYGMT:
         raise ImportError(
@@ -711,7 +712,7 @@ def _check_pygmt():
         )
 
 
-def _add_amocatlas_timestamp(fig):
+def _add_amocatlas_timestamp(fig: object) -> None:
     """Add standardized AMOCatlas timestamp to PyGMT figure.
 
     Parameters
@@ -795,7 +796,7 @@ def plot_moc_timeseries_pygmt(
     return fig
 
 
-def plot_osnap_components_pygmt(data) -> "pygmt.Figure":
+def plot_osnap_components_pygmt(data: Union[DataFrame, Dict]) -> "pygmt.Figure":
     """Plot OSNAP MOC components with shaded error bands using PyGMT.
 
     Parameters
@@ -1332,13 +1333,6 @@ def plot_all_moc_overlaid_pygmt(
     _add_amocatlas_timestamp(fig)
 
     return fig
-
-
-"""2D plotting function for AMOCatlas."""
-
-import matplotlib.pyplot as plt
-import pandas as pd
-import xarray as xr
 
 
 def plot_amoc_2d_data(

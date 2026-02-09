@@ -40,7 +40,7 @@ def generate_array_report(array_name: str, output_dir: pathlib.Path) -> pathlib.
         available_arrays = [
             attr
             for attr in dir(read)
-            if not attr.startswith("_") and hasattr(getattr(read, attr), "__call__")
+            if not attr.startswith("_") and callable(getattr(read, attr))
         ]
         raise ValueError(
             f"Unsupported array '{array_name}'. Available arrays: {', '.join(available_arrays)}"
@@ -154,15 +154,15 @@ def generate_array_report(array_name: str, output_dir: pathlib.Path) -> pathlib.
         output_file = output_dir / f"{array_name.lower()}_report.rst"
         output_file.write_text(rst_content)
 
-        print(f"Report written to: {output_file}")
-        return output_file
-
     except Exception as e:
         print(f"Failed to generate report for {array_name}: {e}")
         raise
+    else:
+        print(f"Report written to: {output_file}")
+        return output_file
 
 
-def main():
+def main() -> None:
     """Main script entry point."""
     parser = argparse.ArgumentParser(description="Generate AMOCatlas dataset reports")
     parser.add_argument(

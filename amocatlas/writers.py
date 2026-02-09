@@ -54,9 +54,16 @@ def save_dataset(ds: xr.Dataset, output_file: str = "../test.nc") -> bool:
     ds_copy = ds.copy()
 
     # Sanitize attributes: replace None with empty string to avoid NetCDF issues
+    new_attrs = {}
     for k, v in ds_copy.attrs.items():
         if v is None:
-            ds_copy.attrs[k] = ""
+            new_attrs[k] = ""
+        else:
+            new_attrs[k] = v
+    
+    # Replace all attributes with sanitized versions
+    ds_copy.attrs.clear()
+    ds_copy.attrs.update(new_attrs)
 
     # Handle datetime coordinate encoding conflicts
     # For datetime variables, remove manual units to let xarray handle encoding properly

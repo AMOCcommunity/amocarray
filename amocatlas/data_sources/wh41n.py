@@ -68,15 +68,19 @@ def read_41n(
 
     Parameters
     ----------
-    ----------                                                      source : str, optional
+    source : str, optional
         Local path to the data directory (remote source is handled per-file).
     file_list : str or list of str, optional
         Filename or list of filenames to process.
-        Defaults to 41N_DEFAULT_FILES.                            transport_only : bool, optional
+        Defaults to 41N_DEFAULT_FILES.
+    transport_only : bool, optional
         If True, restrict to transport files only.
     data_dir : str, Path or None, optional
         Optional local data directory.
-    redownload : bool, optional                                         If True, force redownload of the data.
+    redownload : bool, optional
+        If True, force redownload of the data.
+    track_added_attrs : bool, optional
+        If True, track which attributes were added during metadata enrichment.
 
     Returns
     -------
@@ -85,9 +89,10 @@ def read_41n(
 
     Raises
     ------
-    ------                                                          ValueError
+    ValueError
         If no source is provided for a file and no default URL mapping is found.
-    FileNotFoundError                                                   If the file cannot be downloaded or does not exist locally.
+    FileNotFoundError
+        If the file cannot be downloaded or does not exist locally.
 
     """
     log.info("Starting to read 41N dataset")

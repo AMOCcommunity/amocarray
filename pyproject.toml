@@ -91,10 +91,15 @@ ignore = [
   "PLR0913", # too many arguments
   "C901",    # complexity
   "TRY003",  # avoid specifying long messages outside exception class
+  "BLE001",  # do not catch blind exception
+  "D205",    # TODO: 1 blank line required between summary line and description - fix individually later
+  "D400",    # TODO: First line should end with a period - fix individually later
+  "D415",    # TODO: First line should end with a period, question mark, or exclamation point - fix individually later
 ]
 
 [tool.ruff.lint.per-file-ignores]
-"tests/*" = ["E402", "SLF001", "ANN", "D103", "D100"]  # Allow module level imports, private member access, missing type annotations, and missing docstrings in tests
+"tests/*" = ["E402", "SLF001", "ANN", "D103", "D100", "ARG001", "ARG002"]  # Allow module level imports, private member access, missing type annotations, missing docstrings, and unused function/method arguments in tests
+"amocatlas/logger.py" = ["ANN401"]  # Allow Any type for *args in logging functions (standard pattern)
 
 [tool.pytest.ini_options]
 markers = [

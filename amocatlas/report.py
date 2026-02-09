@@ -184,7 +184,7 @@ class ReportUtils:
         return db_file
 
     @staticmethod
-    def handle_yyyymm_time_format(time_data) -> pd.Series:
+    def handle_yyyymm_time_format(time_data: Union[xr.DataArray, pd.Series, np.ndarray]) -> pd.Series:
         """Handle YYYYMM time format (e.g., 200201 = February 2002)."""
         try:
             time_values = time_data.values
@@ -202,7 +202,7 @@ class ReportUtils:
             return pd.to_datetime(time_data.values)
 
     @staticmethod
-    def estimate_frequency(median_diff) -> str:
+    def estimate_frequency(median_diff: Union[pd.Timedelta, np.timedelta64, float, int]) -> str:
         """Estimate sampling frequency from median time difference."""
         try:
             # Handle pandas Timedelta
@@ -353,7 +353,7 @@ class ReportUtils:
         return stats
 
     @staticmethod
-    def _safe_time_diff_days(time_max, time_min):
+    def safe_time_diff_days(time_max: Union[datetime, pd.Timestamp, np.datetime64, float, int], time_min: Union[datetime, pd.Timestamp, np.datetime64, float, int]) -> float:
         """Safely calculate time difference in days, handling different data types."""
         try:
             # Try standard datetime difference first
@@ -414,7 +414,7 @@ class ReportUtils:
             return 0
 
     @staticmethod
-    def _safe_format_date(date_obj):
+    def safe_format_date(date_obj: Union[datetime, pd.Timestamp, np.datetime64, float, int, str]) -> str:
         """Safely format date, handling different data types."""
         try:
             if hasattr(date_obj, "strftime"):
@@ -514,8 +514,8 @@ class ReportUtils:
             "start_date": start_date,
             "end_date": end_date,
             "total_records": len(valid_times),
-            "time_span_days": ReportUtils._safe_time_diff_days(end_date, start_date),
-            "time_span_years": ReportUtils._safe_time_diff_days(end_date, start_date)
+            "time_span_days": ReportUtils.safe_time_diff_days(end_date, start_date),
+            "time_span_years": ReportUtils.safe_time_diff_days(end_date, start_date)
             / 365.25,
         }
 
@@ -641,7 +641,7 @@ class ReportUtils:
     def create_varcoord_table(
         dataset: xr.Dataset,
         statistics: Dict[str, Any],
-        metadata: Dict[str, Any],
+        _metadata: Dict[str, Any],
         table_type: str = "variables",
     ) -> pd.DataFrame:
         """Create unified variable or coordinate mapping table.
@@ -1003,12 +1003,13 @@ class ReportUtils:
                 pass
 
             # Return relative path for Sphinx (from reports directory)
-            return f"../_static/reports/{plot_filename}"
-
+            plot_path_return = f"../_static/reports/{plot_filename}"
         except Exception as e:
             print(f"  Warning: Failed to generate plot for {dataset_name}: {e}")
             log_debug(f"Plot generation failed for {dataset_name}: {e}")
             return None
+        else:
+            return plot_path_return
 
     @staticmethod
     def generate_array_report(
@@ -1096,7 +1097,7 @@ class ReportUtils:
             contributors_data = ReportUtils.extract_contributors_and_institutions(
                 datasets, array_name
             )
-            db_path = ReportUtils.update_contributors_database(contributors_data)
+            _db_path = ReportUtils.update_contributors_database(contributors_data)
             print(
                 f"  Updated contributors database: {len(contributors_data['contributors'])} contributors, "
                 f"{len(contributors_data['institutions'])} institutions"
@@ -1280,7 +1281,7 @@ class ReportUtils:
 class BaseDatasetReport:
     """Base class for dataset analysis results."""
 
-    def __init__(self, dataset_name: str, dataset: xr.Dataset):
+    def __init__(self, dataset_name: str, dataset: xr.Dataset) -> None:
         self.dataset_name = dataset_name
         self.dataset = dataset
         self.analysis_time = datetime.now()
@@ -1297,7 +1298,7 @@ class RawDatasetReport(BaseDatasetReport):
 
     def __init__(
         self, dataset_name: str, dataset: xr.Dataset, added_attrs: list[str] = None
-    ):
+    ) -> None:
         super().__init__(dataset_name, dataset)
         # Filter out AMOCatlas-added attributes to get truly raw metadata
         if added_attrs:
@@ -1319,7 +1320,7 @@ class StandardizedDatasetReport(BaseDatasetReport):
 
     def __init__(
         self, dataset_name: str, dataset: xr.Dataset, attr_changes: dict = None
-    ):
+    ) -> None:
         super().__init__(dataset_name, dataset)
         # Use all metadata (includes AMOCatlas standardization)
         self.metadata = dict(dataset.attrs)
@@ -1375,15 +1376,6 @@ class StandardizedDatasetReport(BaseDatasetReport):
                 # If mapping fails, return empty DataFrame
                 self._variable_mapping = pd.DataFrame()
         return self._variable_mapping
-
-    @property
-    def coordinate_info(self) -> pd.DataFrame:
-        """Get coordinate information table for raw data."""
-        if self._coordinate_info is None:
-            self._coordinate_info = ReportUtils.create_coordinate_info_table(
-                self.dataset
-            )
-        return self._coordinate_info
 
     @property
     def statistics(self) -> Dict[str, Any]:
@@ -1549,8 +1541,8 @@ class StandardizedDatasetReport(BaseDatasetReport):
             "start_date": start_date,
             "end_date": end_date,
             "total_records": len(valid_times),
-            "time_span_days": ReportUtils._safe_time_diff_days(end_date, start_date),
-            "time_span_years": ReportUtils._safe_time_diff_days(end_date, start_date)
+            "time_span_days": ReportUtils.safe_time_diff_days(end_date, start_date),
+            "time_span_years": ReportUtils.safe_time_diff_days(end_date, start_date)
             / 365.25,
         }
 
@@ -1626,18 +1618,20 @@ class StandardizedDatasetReport(BaseDatasetReport):
             plt.close(fig)
 
             # Return relative path for Sphinx (from reports directory)
-            return f"../_static/reports/{plot_filename}"
+            plot_path_return = f"../_static/reports/{plot_filename}"
 
         except Exception as e:
             log_debug(f"Failed to generate plot for {self.dataset_name}: {e}")
             return None
 
+        else:
+            return plot_path_return
 
 def analyze_standardized_dataset(
     dataset_name: str,
     transport_only: bool = True,
-    all_files: bool = False,
-    dataset_index: int = 0,
+    _all_files: bool = False,
+    _dataset_index: int = 0,
 ) -> Union[StandardizedDatasetReport, List[StandardizedDatasetReport]]:
     """Analyze a standardized dataset and return comprehensive report data with metadata tracking.
 
@@ -1849,7 +1843,7 @@ def _generate_rst_report(
     )
 
     # Use case-insensitive lookup for common fields (metadata is standardized dataset attributes)
-    def get_field(field_name, default="Unknown"):
+    def get_field(field_name: str, default: str = "Unknown") -> str:
         if not metadata:
             return default
         # Try exact match first
@@ -1924,7 +1918,7 @@ def _generate_rst_report(
     if temporal.get("has_time") and temporal.get("valid_times"):
         lines.extend(
             [
-                f"- **Time Coverage**: {ReportUtils._safe_format_date(temporal['start_date'])} to {ReportUtils._safe_format_date(temporal['end_date'])}",
+                f"- **Time Coverage**: {ReportUtils.safe_format_date(temporal['start_date'])} to {ReportUtils.safe_format_date(temporal['end_date'])}",
                 f"- **Record Length**: {temporal['total_records']:,} observations ({temporal['time_span_years']:.1f} years)",
             ]
         )
@@ -2112,9 +2106,9 @@ def _generate_rst_report(
                 and temporal.get("valid_times")
             ):
                 if key == "time_coverage_start":
-                    value = ReportUtils._safe_format_date(temporal["start_date"])
+                    value = ReportUtils.safe_format_date(temporal["start_date"])
                 elif key == "time_coverage_end":
-                    value = ReportUtils._safe_format_date(temporal["end_date"])
+                    value = ReportUtils.safe_format_date(temporal["end_date"])
 
             # Add annotation if this field was edited by AMOCatlas
             annotation = ""

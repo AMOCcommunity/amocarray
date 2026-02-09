@@ -160,10 +160,11 @@ def _load_contributor_registry() -> Optional[Dict]:
         log_debug(
             f"Loaded contributor registry with {len(data.get('contributors', {}))} contributors"
         )
-        return data
     except Exception as e:
         log_debug(f"Could not load contributor registry: {e}")
         return None
+    else:
+        return data
 
 
 def _find_contributor_by_name(name: str, registry: Dict) -> Optional[Tuple[str, Dict]]:
@@ -490,10 +491,11 @@ def _load_institution_registry() -> Optional[Dict]:
         log_debug(
             f"Loaded institution registry with {len(data.get('institutions', {}))} institutions"
         )
-        return data
     except Exception as e:
         log_debug(f"Could not load institution registry: {e}")
         return None
+    else:
+        return data
 
 
 def _find_institution_by_name(name: str, registry: Dict) -> Optional[Tuple[str, Dict]]:
