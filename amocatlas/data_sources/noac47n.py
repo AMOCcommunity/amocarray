@@ -144,7 +144,9 @@ def read_47n(
                 )
             except Exception as e:
                 log_error("Failed to parse ASCII file: %s: %s", file_path, e)
-                raise FileNotFoundError(f"Failed to parse ASCII file: {file_path}: {e}") from e
+                raise FileNotFoundError(
+                    f"Failed to parse ASCII file: {file_path}: {e}"
+                ) from e
             # Time handling
             try:
                 df.rename(columns={"Date/Time": "TIME"}, inplace=True)

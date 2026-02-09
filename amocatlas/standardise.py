@@ -149,6 +149,7 @@ def get_dynamic_version() -> str:
     # Method 2: Try installed package version
     try:
         import importlib.metadata
+
         installed_version = importlib.metadata.version("amocatlas")
     except (importlib.metadata.PackageNotFoundError, ImportError):
         pass

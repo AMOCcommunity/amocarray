@@ -184,7 +184,9 @@ class ReportUtils:
         return db_file
 
     @staticmethod
-    def handle_yyyymm_time_format(time_data: Union[xr.DataArray, pd.Series, np.ndarray]) -> pd.Series:
+    def handle_yyyymm_time_format(
+        time_data: Union[xr.DataArray, pd.Series, np.ndarray],
+    ) -> pd.Series:
         """Handle YYYYMM time format (e.g., 200201 = February 2002)."""
         try:
             time_values = time_data.values
@@ -202,7 +204,9 @@ class ReportUtils:
             return pd.to_datetime(time_data.values)
 
     @staticmethod
-    def estimate_frequency(median_diff: Union[pd.Timedelta, np.timedelta64, float, int]) -> str:
+    def estimate_frequency(
+        median_diff: Union[pd.Timedelta, np.timedelta64, float, int],
+    ) -> str:
         """Estimate sampling frequency from median time difference."""
         try:
             # Handle pandas Timedelta
@@ -353,7 +357,10 @@ class ReportUtils:
         return stats
 
     @staticmethod
-    def safe_time_diff_days(time_max: Union[datetime, pd.Timestamp, np.datetime64, float, int], time_min: Union[datetime, pd.Timestamp, np.datetime64, float, int]) -> float:
+    def safe_time_diff_days(
+        time_max: Union[datetime, pd.Timestamp, np.datetime64, float, int],
+        time_min: Union[datetime, pd.Timestamp, np.datetime64, float, int],
+    ) -> float:
         """Safely calculate time difference in days, handling different data types."""
         try:
             # Try standard datetime difference first
@@ -414,7 +421,9 @@ class ReportUtils:
             return 0
 
     @staticmethod
-    def safe_format_date(date_obj: Union[datetime, pd.Timestamp, np.datetime64, float, int, str]) -> str:
+    def safe_format_date(
+        date_obj: Union[datetime, pd.Timestamp, np.datetime64, float, int, str],
+    ) -> str:
         """Safely format date, handling different data types."""
         try:
             if hasattr(date_obj, "strftime"):
@@ -1137,7 +1146,7 @@ class ReportUtils:
             contributors_data = ReportUtils.extract_contributors_and_institutions(
                 datasets, array_name
             )
-            _db_path = ReportUtils.update_contributors_database(contributors_data)
+            ReportUtils.update_contributors_database(contributors_data)
             print(
                 f"  Updated contributors database: {len(contributors_data['contributors'])} contributors, "
                 f"{len(contributors_data['institutions'])} institutions"
@@ -1682,11 +1691,12 @@ class StandardizedDatasetReport(BaseDatasetReport):
         else:
             return plot_path_return
 
+
 def analyze_standardized_dataset(
     dataset_name: str,
     transport_only: bool = True,
-    _all_files: bool = False,
-    _dataset_index: int = 0,
+    all_files: bool = False,  # noqa: ARG001
+    dataset_index: int = 0,  # noqa: ARG001
 ) -> Union[StandardizedDatasetReport, List[StandardizedDatasetReport]]:
     """Analyze a standardized dataset and return comprehensive report data with metadata tracking.
 
