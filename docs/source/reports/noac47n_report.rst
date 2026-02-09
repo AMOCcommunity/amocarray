@@ -1,7 +1,7 @@
 NOAC47N Datasets
 ================
 
-*Generated: |today|*
+*Generated: |year_month|*
 
 ----
 

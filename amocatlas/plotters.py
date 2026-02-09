@@ -707,8 +707,9 @@ try:
     import pygmt
 
     HAS_PYGMT = True
-except (ImportError, ModuleNotFoundError, OSError):
-    # Catch import-related exceptions for optional PyGMT dependency
+except Exception:  # noqa: BLE001
+    # Catch all exceptions including ImportError, OSError, GMTCLibNotFoundError, etc.
+    # Using broad exception handling here because PyGMT can fail in various unpredictable ways
     HAS_PYGMT = False
 
 
