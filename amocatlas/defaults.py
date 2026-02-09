@@ -184,7 +184,7 @@ INSTITUTION_VOCABULARY_MAP = {
 # Reference: https://vocab.nerc.ac.uk/collection/G04/current/
 NERC_G04_ROLES = [
     "author",
-    "coAuthor", 
+    "coAuthor",
     "collaborator",
     "contributor",
     "custodian",
@@ -211,7 +211,7 @@ CONTRIBUTOR_ROLE_MAP = {
     "creator_name": "originator",
     "creator": "originator",
     "created_by": "originator",
-    # Map principal investigator fields 
+    # Map principal investigator fields
     "principal_investigator": "principalInvestigator",
     "PI": "principalInvestigator",
     # Map publisher fields
@@ -225,34 +225,48 @@ CONTRIBUTOR_ROLE_MAP = {
 # Available AMOC observing arrays and datasets
 # Used consistently across report generation, documentation, and other modules
 ARRAY_NAMES = [
-    'rapid',        # RAPID 26°N array
-    'move',         # MOVE 16°N array  
-    'osnap',        # OSNAP Subpolar North Atlantic
-    'samba',        # SAMBA 34.5°S array
-    'fw2015',       # Frajka-Williams 2015 altimetry estimates
-    'mocha',        # RAPID/MOCHA heat transport at 26.5°N
-    'arcticgateway', # Pan-Arctic Gateway transports
-    'dso',          # Denmark Strait Overflow
-    'fbc',          # Faroe Bank Channel overflow
-    'calafat2025',  # Bayesian Atlantic meridional heat transport
-    'zheng2024',    # Observation-based Atlantic meridional freshwater transport
-    'wh41n',        # Woods Hole 41°N array
-    'noac47n',      # NOAC 47°N array (North Atlantic Ocean Current)
+    "rapid",  # RAPID 26°N array
+    "move",  # MOVE 16°N array
+    "osnap",  # OSNAP Subpolar North Atlantic
+    "samba",  # SAMBA 34.5°S array
+    "fw2015",  # Frajka-Williams 2015 altimetry estimates
+    "mocha",  # RAPID/MOCHA heat transport at 26.5°N
+    "arcticgateway",  # Pan-Arctic Gateway transports
+    "dso",  # Denmark Strait Overflow
+    "fbc",  # Faroe Bank Channel overflow
+    "calafat2025",  # Bayesian Atlantic meridional heat transport
+    "zheng2024",  # Observation-based Atlantic meridional freshwater transport
+    "wh41n",  # Woods Hole 41°N array
+    "noac47n",  # NOAC 47°N array (North Atlantic Ocean Current)
 ]
 
 # Mapping from array names to their full descriptions
 ARRAY_DESCRIPTIONS = {
-    'rapid': 'RAPID 26°N array - Longest-running basin-wide monitoring since 2004',
-    'move': 'MOVE 16°N array - Tropical Atlantic monitoring west of Mid-Atlantic Ridge',
-    'osnap': 'OSNAP - Subpolar North Atlantic monitoring array',
-    'samba': 'SAMBA 34.5°S array - South Atlantic monitoring',
-    'fw2015': 'FW2015 - Altimetry-based transport estimates at 26°N',
-    'mocha': 'RAPID/MOCHA - Heat transport estimates from 26°N',
-    'arcticgateway': 'Arctic Gateway - Pan-Arctic gateway transports since 2004',
-    'dso': 'DSO - Denmark Strait overflow transport monitoring', 
-    'fbc': 'FBC - Faroe Bank Channel overflow transport monitoring',
-    'calafat2025': 'CALAFAT2025 - Bayesian estimates of Atlantic meridional heat transport',
-    'zheng2024': 'ZHENG2024 - Observation-based Atlantic meridional freshwater transport',
-    'wh41n': 'WH41N - Woods Hole 41°N array transport monitoring',
-    'noac47n': 'NOAC 47°N - North Atlantic Ocean Current monitoring at 47°N',
+    "rapid": "RAPID 26°N array - Longest-running basin-wide monitoring since 2004",
+    "move": "MOVE 16°N array - Tropical Atlantic monitoring west of Mid-Atlantic Ridge",
+    "osnap": "OSNAP - Subpolar North Atlantic monitoring array",
+    "samba": "SAMBA 34.5°S array - South Atlantic monitoring",
+    "fw2015": "FW2015 - Altimetry-based transport estimates at 26°N",
+    "mocha": "RAPID/MOCHA - Heat transport estimates from 26°N",
+    "arcticgateway": "Arctic Gateway - Pan-Arctic gateway transports since 2004",
+    "dso": "DSO - Denmark Strait overflow transport monitoring",
+    "fbc": "FBC - Faroe Bank Channel overflow transport monitoring",
+    "calafat2025": "CALAFAT2025 - Bayesian estimates of Atlantic meridional heat transport",
+    "zheng2024": "ZHENG2024 - Observation-based Atlantic meridional freshwater transport",
+    "wh41n": "WH41N - Woods Hole 41°N array transport monitoring",
+    "noac47n": "NOAC 47°N - North Atlantic Ocean Current monitoring at 47°N",
+}
+
+# Preferred units
+PREFERRED_UNITS = {
+    "temp": "degree_C",
+    "psal": "1",
+    "sa": "g kg-1",
+    "sigma": "kg m-3",
+    "pressure": "dbar",
+    "velocity": "m s-1",
+    "moc": "Sverdrup",
+    "mht": "PW",
+    "transport": "Sverdrup",
+    "transport_per_unit_depth": "Sverdrup m-1",
 }

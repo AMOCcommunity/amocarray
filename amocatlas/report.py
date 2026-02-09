@@ -1122,7 +1122,7 @@ class ReportUtils:
                     f"{array_name.upper()} Datasets",
                     "=" * (len(array_name) + 9),
                     "",
-                    f'*Generated: |today|*',
+                    "*Generated: |today|*",
                     "",
                     f"This report covers all available {array_name.upper()} datasets.",
                     "",
@@ -1821,7 +1821,7 @@ def _generate_rst_report(
             title,
             "=" * len(title),
             "",
-            f"*Generated: |today|*",
+            "*Generated: |today|*",
             "",
         ]
     )

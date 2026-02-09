@@ -19,15 +19,15 @@ metadata:
   contributor_id: >
     https://orcid.org/0000-0002-3598-4076, https://orcid.org/0000-0002-6043-7920, https://orcid.org/0000-0002-7200-0099, https://orcid.org/0000-0002-8261-334X, https://orcid.org/0000-0002-4449-6701, https://orcid.org/0000-0002-3479-801X, https://orcid.org/0000-0003-1074-2764, https://psc.apl.uw.edu/people/investigators/rebecca-woodgate/
   contributor_role_vocabulary: "http://vocab.nerc.ac.uk/search_nvs/W08/"
-  creator_name_overwrite: "H. Fredriksen"
+  creator_name_overwrite: " "
   creator_url_overwrite: " "
   creator_email_overwrite: " "
   creator_type_overwrite: " "
-  publisher_name_overwrite: "H. Fredriksen"
+  publisher_name_overwrite: " "
   publisher_email_overwrite: " "
-  institution: "Norwegian Polar Institute"
+  institution: " "
   contributing_institutions: "Norwegian Polar Institute, Alfred Wegener Institute, Institute for Marine Research, APL-UW"
-
+  contributing_institutions_role: "publisher, "
 files:
   Adjusted_fulldepth/BarentsSeaOpening_adjusted_v_fulldepth.nc:
     source_url: "https://doi.org/10.21334/NPOLAR.2025.80B69907"

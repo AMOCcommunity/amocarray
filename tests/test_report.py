@@ -28,7 +28,7 @@ class TestReportGeneration:
         rst_content = ReportUtils.generate_array_report("noac47n")
 
         # Verify basic structure
-        assert "Dataset Report" in rst_content
+        assert "Datasets" in rst_content
         assert "Generated:" in rst_content
         assert "Dataset Overview" in rst_content
         assert "Variable Information" in rst_content
@@ -42,7 +42,7 @@ class TestReportGeneration:
         rst_content = ReportUtils.generate_array_report("samba")
 
         # Verify basic structure
-        assert "SAMBA Dataset Report" in rst_content
+        assert "SAMBA Datasets" in rst_content
         assert "Generated:" in rst_content
         assert "Dataset Overview" in rst_content
 
@@ -99,7 +99,7 @@ class TestReportGeneration:
         rst_content = report.rapid(all_files=False)
 
         # Verify basic structure
-        assert "RAPID Dataset Report" in rst_content
+        assert "RAPID Datasets" in rst_content
         assert "Generated:" in rst_content
         assert "Dataset Overview" in rst_content
         assert "Variable Information" in rst_content
@@ -126,7 +126,7 @@ class TestReportGeneration:
         rst_content = ReportUtils.generate_array_report("osnap")
 
         # Should handle multiple datasets
-        assert "OSNAP Dataset Report" in rst_content
+        assert "OSNAP Datasets" in rst_content
         assert "Generated:" in rst_content
 
         # Should have section separators for multiple files
@@ -158,7 +158,7 @@ class TestReportGeneration:
         report_file = Path("docs/source/reports/noac47n_report.rst")
         if report_file.exists():
             content = report_file.read_text()
-            assert "Dataset Report" in content
+            assert "Datasets" in content
 
 
 class TestReportUtils:

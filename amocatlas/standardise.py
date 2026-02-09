@@ -268,6 +268,35 @@ def clean_metadata(attrs: dict, preferred_keys: dict = None) -> dict:
     return cleaned
 
 
+def _standardize_role_names(role_string: str, role_map: dict) -> str:
+    """Standardize individual role names in a comma-separated role string.
+
+    Args:
+        role_string: Comma-separated string of role names
+        role_map: Dictionary mapping role names to standard NERC G04 terms
+
+    Returns:
+        Standardized comma-separated role string
+
+    """
+    if not role_string or not role_string.strip():
+        return role_string
+
+    roles = [role.strip() for role in role_string.split(",")]
+    standardized_roles = []
+
+    for role in roles:
+        if not role:  # Skip empty roles
+            standardized_roles.append("")
+            continue
+
+        # Apply role mapping if available
+        standardized_role = role_map.get(role, role)
+        standardized_roles.append(standardized_role)
+
+    return ", ".join(standardized_roles)
+
+
 def _consolidate_contributors(cleaned: dict) -> dict:
     """Consolidate creators, PIs, publishers, and contributors into unified fields.
 
@@ -339,7 +368,7 @@ def _consolidate_contributors(cleaned: dict) -> dict:
 
         # Use explicit role if available, otherwise use mapped empty role
         role_value = (
-            explicit_contributor_role
+            _standardize_role_names(explicit_contributor_role, role_map)
             if explicit_contributor_role.strip()
             else role_map["contributor_name"]
         )
@@ -442,10 +471,12 @@ def _consolidate_contributors(cleaned: dict) -> dict:
 
             # Update cleaned dictionary with processed results
             cleaned.update(processed)
-            
+
             # Add NERC G04 vocabulary URL if we have contributor roles
             if "contributor_role" in cleaned and cleaned["contributor_role"]:
-                cleaned["contributor_role_vocabulary"] = "https://vocab.nerc.ac.uk/collection/G04/current/"
+                cleaned["contributor_role_vocabulary"] = (
+                    "https://vocab.nerc.ac.uk/collection/G04/current/"
+                )
 
             log_debug("Processed contributor metadata: %s", processed)
 
@@ -456,10 +487,12 @@ def _consolidate_contributors(cleaned: dict) -> dict:
             cleaned["contributor_role"] = roles_str
             cleaned["contributor_email"] = emails_str
             cleaned["contributor_id"] = ids_str
-            
+
             # Add vocabulary URL in fallback case too
             if roles_str:
-                cleaned["contributor_role_vocabulary"] = "https://vocab.nerc.ac.uk/collection/G04/current/"
+                cleaned["contributor_role_vocabulary"] = (
+                    "https://vocab.nerc.ac.uk/collection/G04/current/"
+                )
 
     # Step B: consolidate institution keys using new modular approach
     # Collect all institution-related fields from various sources

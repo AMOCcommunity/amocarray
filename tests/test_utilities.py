@@ -379,11 +379,15 @@ class TestNewUtilityFunctions:
 
         result = utilities.standardize_dataset_units(ds, log_changes=False)
 
-        # Check that units are standardized according to the mapping
-        assert result["temperature"].attrs["units"] == "degrees_Celsius"
-        assert result["salinity"].attrs["units"] in ["psu", "PSU"]  # Accept either case
-        assert result["transport"].attrs["units"] == "Sverdrup"
-        assert result["pressure"].attrs["units"] == "dbar"  # Should remain dbar
+        # Check that units are standardized according to defaults.PREFERRED_UNITS
+        from amocatlas import defaults
+
+        assert result["temperature"].attrs["units"] == defaults.PREFERRED_UNITS["temp"]
+        assert result["salinity"].attrs["units"] == defaults.PREFERRED_UNITS["psal"]
+        assert (
+            result["transport"].attrs["units"] == defaults.PREFERRED_UNITS["transport"]
+        )
+        assert result["pressure"].attrs["units"] == defaults.PREFERRED_UNITS["pressure"]
 
         # Variable without units should remain unchanged
         assert "units" not in result["no_units"].attrs
@@ -409,7 +413,9 @@ class TestNewUtilityFunctions:
 
         # This should not raise an error (testing logging functionality)
         result = utilities.standardize_dataset_units(ds, log_changes=True)
-        assert result["temp"].attrs["units"] == "degrees_Celsius"
+        from amocatlas import defaults
+
+        assert result["temp"].attrs["units"] == defaults.PREFERRED_UNITS["temp"]
 
     def test_standardize_dataset_units_preserves_other_attrs(self):
         """Test that unit standardization preserves other variable attributes."""
@@ -433,7 +439,9 @@ class TestNewUtilityFunctions:
         result = utilities.standardize_dataset_units(ds, log_changes=False)
 
         # Units should be updated
-        assert result["temperature"].attrs["units"] == "degrees_Celsius"
+        from amocatlas import defaults
+
+        assert result["temperature"].attrs["units"] == defaults.PREFERRED_UNITS["temp"]
 
         # Other attributes should be preserved
         assert result["temperature"].attrs["long_name"] == "Temperature"
