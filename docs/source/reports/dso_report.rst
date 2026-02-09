@@ -167,8 +167,8 @@ The following metadata provides comprehensive information about this dataset:
 - **Source Path\***: ~/AMOCatlas/data/DSO_transport_hourly_1996_2021.nc
 - **Source Url\***: https://www.cen.uni-hamburg.de/en/icdc/data/ocean/denmark-strait-overflow.html
 - **Date Created**: 2021-12-06T19:37:07Z
-- **Date Modified**: 2026-02-09T05:59:05Z
-- **History**: 2021-12-06T19:37:07ZOceanSITES file with provisional transport data sent to DAC by Ursula Schauer; 2026-02-09T05:59:05Z AMOCatlas: Corrupted DEPTH value in DSO_transport_hourly_1996_2021.nc marked as NaN (was 9.97e+36)
+- **Date Modified**: 2026-02-01T00:00:00Z
+- **History**: 2021-12-06T19:37:07ZOceanSITES file with provisional transport data sent to DAC by Ursula Schauer; 2026-02-09T09:35:25Z AMOCatlas: Corrupted DEPTH value in DSO_transport_hourly_1996_2021.nc marked as NaN (was 9.97e+36)
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: dso
@@ -179,7 +179,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Keywords**: OCEANOGRAPHY: PHYSICAL >Currents, OCEANOGRAPHY: GENERAL >North Atlantic oceanography, OCEANOGRAPHY: GENERAL >Time series experiments
 - **Keywords Vocabulary**: AGU Index Terms
 - **Update Interval**: void
-- **Comment**: The array instrument data that the transports are based on are available from Institute of Oceanography (Hamburg) and the Marine Research Institute (Reykjavik, Iceland)
+- **Comment**: The array instrument data that the transports are based on are available from Institute of Oceanography (Hamburg) and the Marine Research Institute (Reykjavik, Iceland) (Note: date_modified has been set to a canonical value for documentation generation to avoid git churn)
 - **Data Mode**: D
 - **Wmo Platfrom Code**: void
 - **Area**: North Atlantic Ocean

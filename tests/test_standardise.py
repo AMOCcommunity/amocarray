@@ -25,9 +25,6 @@ class TestStandardizeData:
         raw_datasets = readers.load_dataset("rapid")
         raw_dataset = raw_datasets[0]  # Transport file
 
-        # Get original variable names
-        _original_vars = list(raw_dataset.data_vars)
-
         # Standardize the data
         standardized = standardise.standardise_data(
             raw_dataset, file_name="moc_transports.nc"

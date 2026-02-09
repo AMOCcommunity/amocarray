@@ -313,7 +313,7 @@ def _create_array_function(
 
                 datasets = standardized_datasets
 
-            except Exception as e:
+            except (ValueError, KeyError, TypeError, AttributeError) as e:
                 # If standardization fails, log warning but continue with raw data
                 import warnings
 

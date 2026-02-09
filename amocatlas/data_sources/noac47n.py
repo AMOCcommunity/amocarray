@@ -70,12 +70,14 @@ def read_47n(
     file_list : str or list of str, optional
         Filename or list of filenames to process.
         Defaults to 47N_DEFAULT_FILES.
-        transport_only : bool, optional
+    transport_only : bool, optional
         If True, restrict to transport files only.
     data_dir : str, Path or None, optional
         Optional local data directory.
     redownload : bool, optional
-    If True, force redownload of the data.
+        If True, force redownload of the data.
+    track_added_attrs : bool, optional
+        If True, track which attributes were added during metadata enrichment.
 
     Returns
     -------
@@ -142,7 +144,9 @@ def read_47n(
                 )
             except Exception as e:
                 log_error("Failed to parse ASCII file: %s: %s", file_path, e)
-                raise FileNotFoundError(f"Failed to parse ASCII file: {file_path}: {e}") from e
+                raise FileNotFoundError(
+                    f"Failed to parse ASCII file: {file_path}: {e}"
+                ) from e
             # Time handling
             try:
                 df.rename(columns={"Date/Time": "TIME"}, inplace=True)

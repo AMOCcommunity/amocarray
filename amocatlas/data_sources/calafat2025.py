@@ -26,10 +26,10 @@ CALAFAT2025_DEFAULT_SOURCE = "https://zenodo.org/records/16640426/files/Bayesian
 CALAFAT2025_DEFAULT_FILES = ["Bayesian_estimates_Atlantic_MHT.zip"]
 CALAFAT2025_TRANSPORT_FILES = ["Bayesian_estimates_Atlantic_MHT.zip"]
 CALAFAT2025_ZIP_CONTENTS = {
-    "Bayesian_estimates_Atlantic_MHT.zip": {
+    "Bayesian_estimates_Atlantic_MHT.zip": [
         "Bayesian_estimates_Atlantic_MHT.nc",
         "README.txt",
-    }
+    ]
 }
 
 # Mapping of filenames to download URLs

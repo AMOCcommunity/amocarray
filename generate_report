@@ -75,7 +75,7 @@ Examples:
         
         # Generate the report content using the ReportUtils method
         try:
-            content = ReportUtils.generate_array_report(source)
+            content = ReportUtils.generate_array_report(source, canonical_dates=True)
             print(f"Generated report with {len(content)} characters")
         except Exception as e:
             import traceback

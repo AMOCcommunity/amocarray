@@ -269,7 +269,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source File\***: mocha_mht_data_ERA5_v2020.nc
 - **Source Path\***: ~/AMOCatlas/data/mocha_mht_data_ERA5_v2020.nc
 - **Date Created**: 2023-08-26T00:14:33Z
-- **Date Modified**: 2026-02-09T05:59:00Z
+- **Date Modified**: 2026-02-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: mocha26n
@@ -281,3 +281,4 @@ The following metadata provides comprehensive information about this dataset:
 - **Principal Investigator Url**: http://www.rsmas.miami.edu/people/faculty-index/?p=william-johns
 - **Methodology Reference**: W.E. Johns, S. Elipot, D.A. Smeed, B. Moat, B. King, D.L. Volkov, R.H. Smith, “Towards Two Decades of Atlantic Ocean Mass and Heat Transports at 26.5ºN”, accepted for publication in Royal Society Philosophical Transactions A, 2023.
 - **Methodology Doi**: doi: 10.1098/rsta.2022.0188
+- **Comment\***: (Note: date_modified has been set to a canonical value for documentation generation to avoid git churn)

@@ -127,11 +127,11 @@ The following metadata provides comprehensive information about this dataset:
 - **Source File\***: atl_mft_2000_extend_gpcp_oaflux.nc
 - **Source Path\***: ~/AMOCatlas/data/atl_mft_2000_extend_gpcp_oaflux.nc
 - **Source Url\***: https://zenodo.org/records/12790901
-- **Date Modified**: 2026-02-09T05:59:06Z
+- **Date Modified**: 2026-02-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: zheng2024
 - **Variable Mapping\***: {'time': 'TIME', 'lat': 'LATITUDE', 'mft': 'MFT'}
 - **Original Variable Metadata\***: [Complex metadata structure - 3 items]
 - **Applied Variable Mapping**: {'time': 'TIME', 'lat': 'LATITUDE', 'mft': 'MFT', 'TIME': 'TIME', 'MFT': 'MFT'}
-- **Comment\***: Salinity observations used in this study are from the Institute of Atmospheric Physics (IAP). Argo floats, CTD salinity sensors, bottles, mooring, sourced from the World Ocean Database (WOD). Precipitation and evaporation observations are derived from the Global Precipitation Climatology Project (GPCP).
+- **Comment\***: Salinity observations used in this study are from the Institute of Atmospheric Physics (IAP). Argo floats, CTD salinity sensors, bottles, mooring, sourced from the World Ocean Database (WOD). Precipitation and evaporation observations are derived from the Global Precipitation Climatology Project (GPCP). (Note: date_modified has been set to a canonical value for documentation generation to avoid git churn)

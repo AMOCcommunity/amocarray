@@ -149,6 +149,7 @@ def get_dynamic_version() -> str:
     # Method 2: Try installed package version
     try:
         import importlib.metadata
+
         installed_version = importlib.metadata.version("amocatlas")
     except (importlib.metadata.PackageNotFoundError, ImportError):
         pass
@@ -481,7 +482,7 @@ def _consolidate_contributors(cleaned: dict) -> dict:
 
             log_debug("Processed contributor metadata: %s", processed)
 
-        except Exception as e:
+        except (ValueError, KeyError, TypeError, AttributeError) as e:
             log_debug(f"Error in contributor processing: {e}, using fallback")
             # Fallback to basic concatenation if modular processing fails
             cleaned["contributor_name"] = names_str
@@ -556,7 +557,7 @@ def _consolidate_contributors(cleaned: dict) -> dict:
         cleaned.update(processed)
         log_debug("Processed institution metadata: %s", processed)
 
-    except Exception as e:
+    except (ValueError, KeyError, TypeError, AttributeError) as e:
         log_debug(f"Error in institution processing: {e}, using fallback")
         # Fallback to basic values if modular processing fails
         cleaned["contributing_institutions"] = institutions_str
@@ -694,7 +695,12 @@ def standardize_time_coordinate(ds: xr.Dataset) -> xr.Dataset:
                     )
 
                 ds["TIME"] = ("TIME", time_datetime.astype("datetime64[ns]"))
-            except Exception as e:
+            except (
+                ValueError,
+                TypeError,
+                OverflowError,
+                pd.errors.OutOfBoundsDatetime,
+            ) as e:
                 log_debug(f"Failed to convert numeric TIME to datetime64[ns]: {e}")
                 # Keep original values but warn
                 ds["TIME"] = time_coord

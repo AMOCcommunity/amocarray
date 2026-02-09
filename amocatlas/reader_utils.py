@@ -14,6 +14,7 @@ Key utilities:
 from pathlib import Path
 from typing import Dict, List, Union, Any
 import xarray as xr
+import yaml
 
 from amocatlas import logger, utilities
 from amocatlas.logger import log_info, log_warning, log_error
@@ -42,7 +43,7 @@ class ReaderUtils:
     """Shared utilities for AMOCatlas data readers."""
 
     @staticmethod
-    def safe_load_dataset(file_path: Path, **kwargs) -> xr.Dataset:
+    def safe_load_dataset(file_path: Path, **kwargs) -> xr.Dataset:  # noqa: ANN003
         """Load an xarray Dataset with consistent error handling.
 
         Parameters
@@ -337,7 +338,7 @@ class ReaderUtils:
             else:
                 global_metadata = fallback_metadata
                 yaml_file_metadata = {}
-        except Exception as e:
+        except (FileNotFoundError, OSError, yaml.YAMLError, KeyError, TypeError) as e:
             log.warning(f"Could not load YAML metadata for {datasource_id}: {e}")
             global_metadata = fallback_metadata
             yaml_file_metadata = {}

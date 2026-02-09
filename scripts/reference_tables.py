@@ -51,7 +51,7 @@ def load_all_datasets() -> Dict[str, List]:
                 # Store all datasets for this array
                 datasets[array_name] = all_datasets
 
-        except Exception as e:
+        except (AttributeError, ValueError, KeyError, OSError, IOError, TypeError) as e:
             print(f"Warning: Could not load {array_name}: {e}")
 
     return datasets
@@ -385,8 +385,13 @@ def main() -> None:
     print("Generating reference documentation...")
     rst_content = generate_full_reference_documentation(datasets)
 
-    # Write to file
-    output_file = Path(__file__).parent / "variables.rst"
+    # Write to the correct location in docs tree
+    docs_dir = Path(__file__).parent.parent / "docs" / "source" / "reference"
+    output_file = docs_dir / "variables.rst"
+
+    # Ensure docs directory exists
+    output_file.parent.mkdir(parents=True, exist_ok=True)
+
     output_file.write_text(rst_content)
     print(f"Documentation written to {output_file}")
 

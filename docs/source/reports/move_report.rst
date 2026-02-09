@@ -205,14 +205,14 @@ The following metadata provides comprehensive information about this dataset:
 - **Source File\***: OS_MOVE_20000206-20221014_DPR_VOLUMETRANSPORT.nc
 - **Source Path\***: ~/AMOCatlas/data/OS_MOVE_20000206-20221014_DPR_VOLUMETRANSPORT.nc
 - **Date Created**: 2025-04-23T01:35:26Z
-- **Date Modified**: 2026-02-09T05:58:57Z
+- **Date Modified**: 2026-02-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: move16n
 - **Variable Mapping\***: [Complex metadata structure - 7 items]
 - **Original Variable Metadata\***: [Complex metadata structure - 7 items]
 - **Applied Variable Mapping**: [Complex metadata structure - 7 items]
-- **Comment**: The primary scientific data here have variable names in CAPITAL LETTERS; ancillary data are given in lower-case.
+- **Comment**: The primary scientific data here have variable names in CAPITAL LETTERS; ancillary data are given in lower-case. (Note: date_modified has been set to a canonical value for documentation generation to avoid git churn)
 
 ----
 
@@ -409,7 +409,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source File\***: OS_MOVE_20000101-20221021_GRD_CURRENTS-AT-SITES-MOVE3-MOVE4.nc
 - **Source Path\***: ~/AMOCatlas/data/OS_MOVE_20000101-20221021_GRD_CURRENTS-AT-SITES-MOVE3-MOVE4.nc
 - **Date Created**: 2019-01-30T18:13:16Z
-- **Date Modified**: 2026-02-09T05:58:57Z
+- **Date Modified**: 2026-02-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: move16n
@@ -418,7 +418,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Original Variable Metadata\***: [Complex metadata structure - 5 items]
 - **Applied Variable Mapping**: {'VELOCITY_U': 'UCUR', 'VELOCITY_V': 'VCUR', 'instrument_depth_time_varying': 'DEPTH', 'latitude_time_varying': 'LATITUDE_VARYING', 'longitude_time_varying': 'LONGITUDE_VARYING'}
 - **Update Interval**: void
-- **Comment**: The primary scientific data here have variable names in CAPITAL LETTERS; ancillary data are given in lower-case.
+- **Comment**: The primary scientific data here have variable names in CAPITAL LETTERS; ancillary data are given in lower-case. (Note: date_modified has been set to a canonical value for documentation generation to avoid git churn)
 - **Qc Indicator**: excellent
 - **Area**: Tropical Atlantic Ocean
 - **Geospatial Vertical Positive**: down
@@ -619,7 +619,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source File\***: OS_MOVE_20000101-20221018_GRD_TEMPERATURE-SALINITY-AT-SITES-MOVE1-MOVE3.nc
 - **Source Path\***: ~/AMOCatlas/data/OS_MOVE_20000101-20221018_GRD_TEMPERATURE-SALINITY-AT-SITES-MOVE1-MOVE3.nc
 - **Date Created**: 2019-01-30T18:13:16Z
-- **Date Modified**: 2026-02-09T05:58:57Z
+- **Date Modified**: 2026-02-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: move16n
@@ -628,7 +628,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Original Variable Metadata\***: [Complex metadata structure - 5 items]
 - **Applied Variable Mapping**: {'TEMPERATURE': 'TEMP', 'SALINITY': 'PSAL', 'instrument_depth_time_varying': 'DEPTH', 'latitude_time_varying': 'LATITUDE_VARYING', 'longitude_time_varying': 'LONGITUDE_VARYING'}
 - **Update Interval**: void
-- **Comment**: The primary scientific data here have variable names in CAPITAL LETTERS; ancillary data are given in lower-case.
+- **Comment**: The primary scientific data here have variable names in CAPITAL LETTERS; ancillary data are given in lower-case. (Note: date_modified has been set to a canonical value for documentation generation to avoid git churn)
 - **Qc Indicator**: excellent
 - **Area**: Tropical Atlantic Ocean
 - **Geospatial Vertical Positive**: down

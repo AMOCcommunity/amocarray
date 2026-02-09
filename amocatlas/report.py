@@ -143,7 +143,7 @@ class ReportUtils:
         database["arrays"][array_name] = {
             "contributors": contributors_data["contributors"],
             "institutions": contributors_data["institutions"],
-            "last_updated": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "last_updated": datetime.now().strftime("%Y-%m"),
         }
 
         # Update global sets
@@ -184,7 +184,9 @@ class ReportUtils:
         return db_file
 
     @staticmethod
-    def handle_yyyymm_time_format(time_data: Union[xr.DataArray, pd.Series, np.ndarray]) -> pd.Series:
+    def handle_yyyymm_time_format(
+        time_data: Union[xr.DataArray, pd.Series, np.ndarray],
+    ) -> pd.Series:
         """Handle YYYYMM time format (e.g., 200201 = February 2002)."""
         try:
             time_values = time_data.values
@@ -197,12 +199,14 @@ class ReportUtils:
                     month = 1  # Handle edge case
                 datetime_strings.append(f"{year}-{month:02d}-01")
             return pd.to_datetime(datetime_strings)
-        except Exception:
+        except (ValueError, TypeError, OverflowError, pd.errors.OutOfBoundsDatetime):
             # Fallback to regular conversion
             return pd.to_datetime(time_data.values)
 
     @staticmethod
-    def estimate_frequency(median_diff: Union[pd.Timedelta, np.timedelta64, float, int]) -> str:
+    def estimate_frequency(
+        median_diff: Union[pd.Timedelta, np.timedelta64, float, int],
+    ) -> str:
         """Estimate sampling frequency from median time difference."""
         try:
             # Handle pandas Timedelta
@@ -225,7 +229,7 @@ class ReportUtils:
                 else:
                     # Assume fractional days
                     hours = diff_value * 24
-        except Exception:
+        except (ValueError, TypeError, AttributeError, OverflowError):
             return "unknown"
 
         if hours < 1:
@@ -353,7 +357,10 @@ class ReportUtils:
         return stats
 
     @staticmethod
-    def safe_time_diff_days(time_max: Union[datetime, pd.Timestamp, np.datetime64, float, int], time_min: Union[datetime, pd.Timestamp, np.datetime64, float, int]) -> float:
+    def safe_time_diff_days(
+        time_max: Union[datetime, pd.Timestamp, np.datetime64, float, int],
+        time_min: Union[datetime, pd.Timestamp, np.datetime64, float, int],
+    ) -> float:
         """Safely calculate time difference in days, handling different data types."""
         try:
             # Try standard datetime difference first
@@ -409,12 +416,14 @@ class ReportUtils:
 
                 except (ValueError, TypeError):
                     return 0
-        except Exception:
+        except (AttributeError, ValueError, TypeError, OverflowError):
             # Fallback for any other cases
             return 0
 
     @staticmethod
-    def safe_format_date(date_obj: Union[datetime, pd.Timestamp, np.datetime64, float, int, str]) -> str:
+    def safe_format_date(
+        date_obj: Union[datetime, pd.Timestamp, np.datetime64, float, int, str],
+    ) -> str:
         """Safely format date, handling different data types."""
         try:
             if hasattr(date_obj, "strftime"):
@@ -433,7 +442,13 @@ class ReportUtils:
                         return f"{numeric_val:.1f}"
                 except (ValueError, TypeError):
                     return str(date_obj)
-        except Exception:
+        except (
+            AttributeError,
+            ValueError,
+            TypeError,
+            OverflowError,
+            pd.errors.OutOfBoundsDatetime,
+        ):
             return str(date_obj)
 
     @staticmethod
@@ -629,7 +644,13 @@ class ReportUtils:
                 else:
                     coord_info["Min Value"] = str(coord_var.values[0])
                     coord_info["Max Value"] = str(coord_var.values[-1])
-            except Exception:
+            except (
+                ValueError,
+                TypeError,
+                IndexError,
+                AttributeError,
+                pd.errors.OutOfBoundsDatetime,
+            ):
                 coord_info["Min Value"] = "N/A"
                 coord_info["Max Value"] = "N/A"
 
@@ -1004,7 +1025,15 @@ class ReportUtils:
 
             # Return relative path for Sphinx (from reports directory)
             plot_path_return = f"../_static/reports/{plot_filename}"
-        except Exception as e:
+        except (
+            ValueError,
+            KeyError,
+            TypeError,
+            AttributeError,
+            OSError,
+            IOError,
+            ImportError,
+        ) as e:
             print(f"  Warning: Failed to generate plot for {dataset_name}: {e}")
             log_debug(f"Plot generation failed for {dataset_name}: {e}")
             return None
@@ -1013,7 +1042,10 @@ class ReportUtils:
 
     @staticmethod
     def generate_array_report(
-        array_name: str, all_files: bool = True, output_file: str = None
+        array_name: str,
+        all_files: bool = True,
+        output_file: str = None,
+        canonical_dates: bool = False,
     ) -> str:
         """Generate comprehensive report for any array following the read.{array}() pattern.
 
@@ -1024,7 +1056,11 @@ class ReportUtils:
         all_files : bool, optional
             Whether to include all files in the report, by default True
         output_file : str, optional
-            Path to write the RST report. If None, returns RST content as string.
+            If specified, write the report to this file in addition to returning it
+        canonical_dates : bool, optional
+            If True, use canonical dates for documentation to avoid git churn.
+            Sets date_modified to first day of current month (e.g., 2026-02-01T00:00:00Z).
+            By default False (uses actual timestamps)
 
         Returns
         -------
@@ -1092,17 +1128,36 @@ class ReportUtils:
 
         print(f"Loaded {len(datasets)} {array_name.upper()} datasets")
 
+        # Apply canonical dates for documentation if requested
+        if canonical_dates:
+            print("  Applying canonical dates for documentation (avoiding git churn)")
+            # Use first day of current month for canonical date
+            from datetime import datetime
+
+            now = datetime.now()
+            canonical_date = f"{now.year}-{now.month:02d}-01T00:00:00Z"
+
+            for ds in datasets:
+                # Set canonical date_modified to avoid changing every time
+                ds.attrs["date_modified"] = canonical_date
+                # Add explanation comment
+                comment = ds.attrs.get("comment", "")
+                if comment:
+                    comment += " "
+                comment += "(Note: date_modified has been set to a canonical value for documentation generation to avoid git churn)"
+                ds.attrs["comment"] = comment
+
         # Extract and store contributors and institutions
         try:
             contributors_data = ReportUtils.extract_contributors_and_institutions(
                 datasets, array_name
             )
-            _db_path = ReportUtils.update_contributors_database(contributors_data)
+            ReportUtils.update_contributors_database(contributors_data)
             print(
                 f"  Updated contributors database: {len(contributors_data['contributors'])} contributors, "
                 f"{len(contributors_data['institutions'])} institutions"
             )
-        except Exception as e:
+        except (ValueError, KeyError, TypeError, AttributeError) as e:
             log_info(f"Warning: Failed to extract contributors for {array_name}: {e}")
 
         if len(datasets) == 1:
@@ -1194,7 +1249,13 @@ class ReportUtils:
                             ]
                         )
 
-                except Exception as e:
+                except (
+                    ValueError,
+                    KeyError,
+                    TypeError,
+                    AttributeError,
+                    IndexError,
+                ) as e:
                     print(f"Error processing {source_file}: {e}")
                     import traceback
 
@@ -1372,7 +1433,7 @@ class StandardizedDatasetReport(BaseDatasetReport):
         if self._variable_mapping is None:
             try:
                 self._variable_mapping = self._create_variable_mapping_table()
-            except Exception:
+            except (ValueError, KeyError, TypeError, AttributeError):
                 # If mapping fails, return empty DataFrame
                 self._variable_mapping = pd.DataFrame()
         return self._variable_mapping
@@ -1620,18 +1681,27 @@ class StandardizedDatasetReport(BaseDatasetReport):
             # Return relative path for Sphinx (from reports directory)
             plot_path_return = f"../_static/reports/{plot_filename}"
 
-        except Exception as e:
+        except (
+            ValueError,
+            KeyError,
+            TypeError,
+            AttributeError,
+            OSError,
+            IOError,
+            ImportError,
+        ) as e:
             log_debug(f"Failed to generate plot for {self.dataset_name}: {e}")
             return None
 
         else:
             return plot_path_return
 
+
 def analyze_standardized_dataset(
     dataset_name: str,
     transport_only: bool = True,
-    _all_files: bool = False,
-    _dataset_index: int = 0,
+    all_files: bool = False,  # noqa: ARG001
+    dataset_index: int = 0,  # noqa: ARG001
 ) -> Union[StandardizedDatasetReport, List[StandardizedDatasetReport]]:
     """Analyze a standardized dataset and return comprehensive report data with metadata tracking.
 
@@ -1641,6 +1711,8 @@ def analyze_standardized_dataset(
         Name of the dataset (e.g., "rapid", "move")
     transport_only : bool, optional
         Whether to load transport-only data, by default True
+    all_files : bool, optional
+        Whether to load all available files for the dataset, by default False
     dataset_index : int, optional
         Index of dataset to analyze when multiple files available, by default 0
 
@@ -2320,7 +2392,15 @@ def all(
             output_file.write_text(rst_content)
             print(f"Written: {output_file}")
 
-        except Exception as e:
+        except (
+            ValueError,
+            KeyError,
+            TypeError,
+            AttributeError,
+            OSError,
+            IOError,
+            PermissionError,
+        ) as e:
             print(f"Failed to generate report for {array_name}: {e}")
             reports[array_name] = f"Error: {e}"
 

@@ -171,7 +171,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Description\***: RAPID 26N transport estimates dataset
 - **Program\***: RAPID
 - **Project\***: RAPID-AMOC 26°N array
-- **License\***: CC-BY-4.0
+- **License\***: UK Open Government Licence v3.0 https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/
 - **Acknowledgment\***: Data from the RAPID MOC monitoring project are funded by the Natural Environment Research Council, the National Science Foundation (NSF) with support from NOAA. They are freely available from www.rapid.ac.uk/.
 - **Doi\***: https://doi.org/10.5285/223b34a32dc5c945e0637086abc0f274
 - **Weblink\***: https://rapid.ac.uk/rapidmoc
@@ -195,7 +195,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source File\***: moc_transports.nc
 - **Source Path\***: ~/AMOCatlas/data/moc_transports.nc
 - **Date Created**: 23-Sep-2025
-- **Date Modified**: 2026-02-09T05:58:42Z
+- **Date Modified**: 2026-02-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: rapid26n
@@ -203,6 +203,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Original Variable Metadata\***: [Complex metadata structure - 9 items]
 - **Applied Variable Mapping**: [Complex metadata structure - 11 items]
 - **Version**: v2024.1
+- **Comment\***: (Note: date_modified has been set to a canonical value for documentation generation to avoid git churn)
 
 ----
 
@@ -321,7 +322,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Description\***: RAPID 26N transport estimates dataset
 - **Program\***: RAPID
 - **Project\***: RAPID-AMOC 26°N array
-- **License\***: CC-BY-4.0
+- **License\***: UK Open Government Licence v3.0 https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/
 - **Acknowledgment\***: Data from the RAPID MOC monitoring project are funded by the Natural Environment Research Council, the National Science Foundation (NSF) with support from NOAA. They are freely available from www.rapid.ac.uk/.
 - **Doi\***: https://doi.org/10.5285/223b34a32dc5c945e0637086abc0f274
 - **Weblink\***: https://rapid.ac.uk/rapidmoc
@@ -345,7 +346,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source File\***: moc_vertical.nc
 - **Source Path\***: ~/AMOCatlas/data/moc_vertical.nc
 - **Date Created**: 22-Jan-2026
-- **Date Modified**: 2026-02-09T05:58:42Z
+- **Date Modified**: 2026-02-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: rapid26n
@@ -353,6 +354,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Original Variable Metadata\***: [Complex metadata structure - 1 items]
 - **Applied Variable Mapping**: {'time': 'TIME', 'depth': 'DEPTH', 'stream_function_mar': 'STREAMFUNCTION_Z', 'TIME': 'TIME', 'DEPTH': 'DEPTH'}
 - **Version**: v2024.1a
+- **Comment\***: (Note: date_modified has been set to a canonical value for documentation generation to avoid git churn)
 
 ----
 
@@ -590,7 +592,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Description\***: RAPID 26N transport estimates dataset
 - **Program\***: RAPID
 - **Project\***: RAPID-AMOC 26°N array
-- **License\***: CC-BY-4.0
+- **License\***: UK Open Government Licence v3.0 https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/
 - **Acknowledgment\***: Data from the RAPID MOC monitoring project are funded by the Natural Environment Research Council, the National Science Foundation (NSF) with support from NOAA. They are freely available from www.rapid.ac.uk/.
 - **Doi\***: https://doi.org/10.5285/223b34a32dc5c945e0637086abc0f274
 - **Weblink\***: https://rapid.ac.uk/rapidmoc
@@ -614,7 +616,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source File\***: ts_gridded.nc
 - **Source Path\***: ~/AMOCatlas/data/ts_gridded.nc
 - **Date Created**: 22-Jan-2026
-- **Date Modified**: 2026-02-09T05:58:42Z
+- **Date Modified**: 2026-02-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: rapid26n
@@ -623,6 +625,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Applied Variable Mapping**: [Complex metadata structure - 22 items]
 - **Version**: v2024.1a
 - **Convert To Coord\***: pressure
+- **Comment\***: (Note: date_modified has been set to a canonical value for documentation generation to avoid git churn)
 
 ----
 
@@ -789,7 +792,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Description\***: RAPID 26N transport estimates dataset
 - **Program\***: RAPID
 - **Project\***: RAPID-AMOC 26°N array
-- **License\***: CC-BY-4.0
+- **License\***: UK Open Government Licence v3.0 https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/
 - **Acknowledgment\***: Data from the RAPID MOC monitoring project are funded by the Natural Environment Research Council, the National Science Foundation (NSF) with support from NOAA. They are freely available from www.rapid.ac.uk/.
 - **Doi\***: https://doi.org/10.5285/223b34a32dc5c945e0637086abc0f274
 - **Weblink\***: https://rapid.ac.uk/rapidmoc
@@ -808,7 +811,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source File\***: 2d_gridded.nc
 - **Source Path\***: ~/AMOCatlas/data/2d_gridded.nc
 - **Date Created**: 17-Sep-2024
-- **Date Modified**: 2026-02-09T05:58:42Z
+- **Date Modified**: 2026-02-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: rapid26n
@@ -820,6 +823,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Dataset Creation Date**: 26-Jan-2026 14:06:26
 - **File Creation Date**: 2026-01-26
 - **Note On Velocity**: Velocity is separated into 3 components: V_insitu = Velocity derived from in-situ measurements and geostrophic balance, V_ekman = Ekman velocity derived from ERA5 reanalysis. The total transport from V_insitu and V_ekman is required to have zero net meridional transport. V_net is a spatially uniform velocity representing the net meridional transport derived from salt and mass conservation (McDonagh et al 2015) and is excluded from the calculation of the streamfunction. Note that the sizes of grid cells are not all equal, and velocity should be multiplied by area to obtain the transport in each cell. Longitude is the centre of the cells, except for values 2 and 3 which are the locations of moorings WB1 and WB2 and correspond with the eastern edge of the cells
+- **Comment\***: (Note: date_modified has been set to a canonical value for documentation generation to avoid git churn)
 
 ----
 
@@ -1007,7 +1011,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Description\***: RAPID 26N transport estimates dataset
 - **Program\***: RAPID
 - **Project\***: RAPID-AMOC 26°N array
-- **License\***: CC-BY-4.0
+- **License\***: UK Open Government Licence v3.0 https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/
 - **Acknowledgment\***: Data from the RAPID MOC monitoring project are funded by the Natural Environment Research Council, the National Science Foundation (NSF) with support from NOAA. They are freely available from www.rapid.ac.uk/.
 - **Doi\***: https://doi.org/10.5285/223b34a32dc5c945e0637086abc0f274
 - **Weblink\***: https://rapid.ac.uk/rapidmoc
@@ -1026,7 +1030,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source File\***: meridional_transports.nc
 - **Source Path\***: ~/AMOCatlas/data/meridional_transports.nc
 - **Date Created**: 17-Sep-2024
-- **Date Modified**: 2026-02-09T05:58:42Z
+- **Date Modified**: 2026-02-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: rapid26n
@@ -1037,3 +1041,4 @@ The following metadata provides comprehensive information about this dataset:
 - **Dataset Version**: v2024-1a
 - **Dataset Creation Date**: 26-Jan-2026 14:06:26
 - **File Creation Date**: 2026-01-26
+- **Comment\***: (Note: date_modified has been set to a canonical value for documentation generation to avoid git churn)

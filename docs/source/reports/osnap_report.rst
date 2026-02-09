@@ -259,7 +259,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source File\***: OSNAP_MOC_MHT_MFT_TimeSeries_201408_202207_2025.nc
 - **Source Path\***: ~/AMOCatlas/data/OSNAP_MOC_MHT_MFT_TimeSeries_201408_202207_2025.nc
 - **Date Created**: 2025-05-21T15:09:24Z
-- **Date Modified**: 2026-02-09T05:58:58Z
+- **Date Modified**: 2026-02-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: osnap55n
@@ -267,6 +267,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Original Variable Metadata\***: [Complex metadata structure - 19 items]
 - **Applied Variable Mapping**: [Complex metadata structure - 10 items]
 - **Data Assembly Center**: Georgia Institute of Technology
+- **Comment\***: (Note: date_modified has been set to a canonical value for documentation generation to avoid git churn)
 
 ----
 
@@ -424,7 +425,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source File\***: OSNAP_Streamfunction_201408_202207_2025.nc
 - **Source Path\***: ~/AMOCatlas/data/OSNAP_Streamfunction_201408_202207_2025.nc
 - **Date Created**: 2025-05-21T15:16:52Z
-- **Date Modified**: 2026-02-09T05:58:58Z
+- **Date Modified**: 2026-02-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: osnap55n
@@ -432,6 +433,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Original Variable Metadata\***: [Complex metadata structure - 5 items]
 - **Applied Variable Mapping**: {'LEVEL': 'SIGMA0', 'T_ALL': 'STREAMFUNCTION_SIGMA0', 'T_WEST': 'STREAMFUNCTION_SIGMA0_WEST', 'T_EAST': 'STREAMFUNCTION_SIGMA0_EAST'}
 - **Data Assembly Center**: Georgia Institute of Technology
+- **Comment\***: (Note: date_modified has been set to a canonical value for documentation generation to avoid git churn)
 
 ----
 
@@ -593,7 +595,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source File\***: OSNAP_Gridded_TSV_201408_202207_2025.nc
 - **Source Path\***: ~/AMOCatlas/data/OSNAP_Gridded_TSV_201408_202207_2025.nc
 - **Date Created**: 2025-05-21T15:11:05Z
-- **Date Modified**: 2026-02-09T05:58:58Z
+- **Date Modified**: 2026-02-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: osnap55n
@@ -603,3 +605,4 @@ The following metadata provides comprehensive information about this dataset:
 - **Url\***: https://repository.gatech.edu/bitstreams/af6a47f7-f705-49b4-a64f-5cd086b9b9fb/download
 - **Size\***: 55.98 MB
 - **Data Assembly Center**: Georgia Institute of Technology
+- **Comment\***: (Note: date_modified has been set to a canonical value for documentation generation to avoid git churn)

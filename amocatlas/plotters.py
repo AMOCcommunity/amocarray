@@ -511,6 +511,15 @@ def plot_amoc_timeseries(
         If True, monthly averages are computed and plotted.
     plot_raw : bool
         If True, raw data is plotted.
+    lat_idx : int, optional
+        Latitude index to select when dataset has a 'lat' dimension.
+        Required if dataset contains 'lat' dimension with posterior samples.
+    region_idx : int, optional
+        Region index to select when dataset has a 'number_regions' dimension.
+        Required if dataset contains 'number_regions' dimension with posterior samples.
+    posterior_stat : str, default "mean"
+        Statistic to use when collapsing posterior samples dimension.
+        Options are "mean" or "median".
 
     """
     if not isinstance(data, list):
@@ -632,7 +641,9 @@ def plot_amoc_timeseries(
     return fig, ax
 
 
-def plot_monthly_anomalies(**kwargs) -> tuple[plt.Figure, list[plt.Axes]]:
+def plot_monthly_anomalies(
+    **kwargs,  # noqa: ANN003
+) -> tuple[plt.Figure, list[plt.Axes]]:
     """Plot the monthly anomalies for various datasets.
 
     Pass keyword arguments in the form: `label_name_data`, `label_name_label`.
@@ -696,8 +707,8 @@ try:
     import pygmt
 
     HAS_PYGMT = True
-except Exception:
-    # Catch all exceptions including ImportError, OSError, GMTCLibNotFoundError, etc.
+except (ImportError, ModuleNotFoundError, OSError):
+    # Catch import-related exceptions for optional PyGMT dependency
     HAS_PYGMT = False
 
 

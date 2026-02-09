@@ -25,12 +25,12 @@ MOCHA_DEFAULT_SOURCE = "https://scholarship.miami.edu/view/fileRedirect?instCode
 MOCHA_DEFAULT_FILES = ["Johns_2023_mht_data_2020_ERA5.zip"]
 MOCHA_TRANSPORT_FILES = ["Johns_2023_mht_data_2020_ERA5.zip"]
 MOCHA_ZIP_CONTENTS = {
-    "Johns_2023_mht_data_2020_ERA5.zip": {
+    "Johns_2023_mht_data_2020_ERA5.zip": [
         "mocha_mht_data_ERA5_v2020.nc",
         "mocha_mht_data_ERA5_v2020.mat",
         "README_2020_ERA5.pdf",
         "README.txt",
-    }
+    ]
 }
 
 # Mapping of filenames to download URLs

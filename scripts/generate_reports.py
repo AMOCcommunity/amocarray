@@ -128,7 +128,7 @@ def generate_array_report(array_name: str, output_dir: pathlib.Path) -> pathlib.
                         ]
                     )
 
-            except Exception as e:
+            except (ValueError, KeyError, TypeError, AttributeError) as e:
                 print(f"    Error processing {source_file}: {e}")
                 # Add basic fallback info
                 lines.extend(
@@ -215,7 +215,7 @@ def main() -> None:
         try:
             output_file = generate_array_report(array_name, args.output_dir)
             generated_files.append(output_file)
-        except Exception as e:
+        except (ValueError, KeyError, TypeError, AttributeError, OSError, IOError) as e:
             print(f"Failed to generate report for {array_name}: {e}")
 
     print(f"\nGenerated {len(generated_files)} reports:")

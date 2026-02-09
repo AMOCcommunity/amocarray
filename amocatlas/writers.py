@@ -93,7 +93,6 @@ def save_dataset(ds: xr.Dataset, output_file: str = "../test.nc") -> bool:
 
     try:
         ds_copy.to_netcdf(output_file, format="NETCDF4_CLASSIC", encoding=encoding)
-        return True
     except TypeError as e:
         print(e.__class__.__name__, e)
 
@@ -115,7 +114,6 @@ def save_dataset(ds: xr.Dataset, output_file: str = "../test.nc") -> bool:
                     variable.attrs[k] = str(v)
         try:
             ds_copy.to_netcdf(output_file, format="NETCDF4_CLASSIC", encoding=encoding)
-            return True
         except (OSError, IOError, ValueError, RuntimeError) as e:
             print("Failed to save dataset:", e)
             datetime_vars = [
@@ -129,6 +127,10 @@ def save_dataset(ds: xr.Dataset, output_file: str = "../test.nc") -> bool:
             ]
             print("Attributes with dtype float64:", float_attrs)
             return False
+        else:
+            return True
+    else:
+        return True
 
 
 def save_AC1_dataset(ds: xr.Dataset, data_dir: Union[str, Path]) -> Path:

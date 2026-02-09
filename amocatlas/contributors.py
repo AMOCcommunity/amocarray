@@ -160,7 +160,7 @@ def _load_contributor_registry() -> Optional[Dict]:
         log_debug(
             f"Loaded contributor registry with {len(data.get('contributors', {}))} contributors"
         )
-    except Exception as e:
+    except (FileNotFoundError, OSError, yaml.YAMLError) as e:
         log_debug(f"Could not load contributor registry: {e}")
         return None
     else:
@@ -491,7 +491,7 @@ def _load_institution_registry() -> Optional[Dict]:
         log_debug(
             f"Loaded institution registry with {len(data.get('institutions', {}))} institutions"
         )
-    except Exception as e:
+    except (FileNotFoundError, OSError, yaml.YAMLError) as e:
         log_debug(f"Could not load institution registry: {e}")
         return None
     else:
