@@ -259,7 +259,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source File\***: OSNAP_MOC_MHT_MFT_TimeSeries_201408_202207_2025.nc
 - **Source Path\***: ~/AMOCatlas/data/OSNAP_MOC_MHT_MFT_TimeSeries_201408_202207_2025.nc
 - **Date Created**: 2025-05-21T15:09:24Z
-- **Date Modified**: 2026-02-09T05:40:17Z
+- **Date Modified**: 2026-02-09T05:58:58Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: osnap55n
@@ -424,7 +424,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source File\***: OSNAP_Streamfunction_201408_202207_2025.nc
 - **Source Path\***: ~/AMOCatlas/data/OSNAP_Streamfunction_201408_202207_2025.nc
 - **Date Created**: 2025-05-21T15:16:52Z
-- **Date Modified**: 2026-02-09T05:40:17Z
+- **Date Modified**: 2026-02-09T05:58:58Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: osnap55n
@@ -459,7 +459,7 @@ Dataset Overview
 
 **Citation:**
 
-    OSNAP data were collected and made freely available by the OSNAP (Overturning in the Subpolar North Atlantic Program) project and all the national programs that contribute to it (www.o-snap.org)
+    Fu, Y., Lozier, M. S., Bower, A., Burmeister, K., Carrilho Biló, T., Cyr, F., et al. (2025). Characterizing the interannual variability of North Atlantic subpolar overturning. Geophysical Research Letters, 52, e2025GL114672. https://doi.org/10.1029/2025GL114672
 
 **Acknowledgement:**
 
@@ -510,7 +510,7 @@ The following table shows information about the dataset coordinates in the stand
      - -6.12
      - 0.0%
    * - **TIME**
-     - Time
+     - **Time**: Start date of each monthly period
      - datetime64[ns]
      - (96,)
      - 2014-08-01
@@ -535,23 +535,23 @@ along with key statistics for each variable.
      - Min Value
      - Max Value
      - Missing %
-   * - **SAL**
-     - Practical Salinity
-     -  
+   * - *SAL* → **PSAL**
+     - **Salinity**: Practical salinity along OSNAP
+     - 1
      - (96, 199, 256)
      - 31.13
      - 35.59
      - 13.0%
    * - **TEMP**
-     - In-situ temperature
-     - Degree C
+     - **Temperature**: In-situ temperature along OSNAP
+     - degree_C
      - (96, 199, 256)
      - -4.23
      - 14.73
      - 13.0%
-   * - **VELO**
-     - cross-sectional velocity
-     - meter/second
+   * - *VELO* → **VCUR**
+     - **Velocity**: Cross-sectional velocity along OSNAP
+     - m s-1
      - (96, 199, 256)
      - -0.82
      - 0.77
@@ -588,13 +588,18 @@ The following metadata provides comprehensive information about this dataset:
 - **Contributing Institutions Vocabulary**: , https://edmo.seadatanet.org/report/3075, https://edmo.seadatanet.org/report/17, https://edmo.seadatanet.org/report/3844, https://edmo.seadatanet.org/report/44, https://edmo.seadatanet.org/report/630, , https://edmo.seadatanet.org/report/5370, https://edmo.seadatanet.org/report/4157, https://edmo.seadatanet.org/report/4155, https://edmo.seadatanet.org/report/1390, , https://edmo.seadatanet.org/report/1382, https://edmo.seadatanet.org/report/2947, https://edmo.seadatanet.org/report/1811, https://edmo.seadatanet.org/report/2401, , https://edmo.seadatanet.org/report/3838
 - **Contributing Institutions Role**: , , , , , , , , , , , , , , , , , 
 - **Conventions\***: CF-1.8, ACDD-1.3, OceanSITES-1.5
+- **featureType\***: timeSeriesProfile
+- **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: OSNAP_Gridded_TSV_201408_202207_2025.nc
 - **Source Path\***: ~/AMOCatlas/data/OSNAP_Gridded_TSV_201408_202207_2025.nc
 - **Date Created**: 2025-05-21T15:11:05Z
-- **Date Modified**: 2026-02-09T05:40:17Z
-- **Processing Software\***: http://github.com/AMOCcommunity/amocatlas
+- **Date Modified**: 2026-02-09T05:58:58Z
+- **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: osnap55n
-- **Dataset Version\***: 2025
-- **File Size\***: 55.98 MB
+- **Variable Mapping\***: {'SAL': 'PSAL', 'VELO': 'VCUR'}
+- **Original Variable Metadata\***: [Complex metadata structure - 7 items]
+- **Applied Variable Mapping**: {'SAL': 'PSAL', 'VELO': 'VCUR'}
+- **Url\***: https://repository.gatech.edu/bitstreams/af6a47f7-f705-49b4-a64f-5cd086b9b9fb/download
+- **Size\***: 55.98 MB
 - **Data Assembly Center**: Georgia Institute of Technology

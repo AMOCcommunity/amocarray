@@ -145,7 +145,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source File\***: hobbs_willis_amoc41N_tseries.txt
 - **Source Path\***: ~/AMOCatlas/data/hobbs_willis_amoc41N_tseries.txt
 - **Source Url\***: https://doi.org/10.5281/zenodo.8170365
-- **Date Modified**: 2026-02-09T05:40:26Z
+- **Date Modified**: 2026-02-09T05:59:07Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: wh41n
@@ -308,7 +308,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source Path\***: ~/AMOCatlas/data/trans_ARGO_ERA5.nc
 - **Source Url\***: https://doi.org/10.5281/zenodo.8170365
 - **Date Created**: Thu 16 Jan 2025 16:09:16 AEDT
-- **Date Modified**: 2026-02-09T05:40:26Z
+- **Date Modified**: 2026-02-09T05:59:07Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: wh41n
@@ -480,7 +480,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source Path\***: ~/AMOCatlas/data/Q_ARGO_obs_dens_2000depth_ERA5.nc
 - **Source Url\***: https://doi.org/10.5281/zenodo.8170365
 - **Date Created**: Thu 16 Jan 2025 16:09:16 AEDT
-- **Date Modified**: 2026-02-09T05:40:26Z
+- **Date Modified**: 2026-02-09T05:59:07Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: wh41n

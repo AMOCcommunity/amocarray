@@ -81,7 +81,7 @@ def extract_variable_mappings(datasets):
                 "applied_mapping": applied_mapping,
                 "original_metadata": original_metadata,
                 "source_file": source_file,
-                #"dataset_vars": {var: dataset[var] for var in dataset.data_vars},
+                # "dataset_vars": {var: dataset[var] for var in dataset.data_vars},
             }
 
     return all_mappings

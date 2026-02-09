@@ -184,7 +184,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Contributor Name**: Ben I. Moat, Ben I. Moat
 - **Contributor Role**: originator, principalInvestigator
 - **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
-- **Contributor Email**: ben.moat@noc.ac.uk, 
+- **Contributor Email**: , 
 - **Contributor Id**: https://orcid.org/0000-0001-8676-7779, https://orcid.org/0000-0001-8676-7779
 - **Contributing Institutions**: National Oceanography Centre (Southampton)
 - **Contributing Institutions Vocabulary**: https://edmo.seadatanet.org/report/17
@@ -195,7 +195,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source File\***: moc_transports.nc
 - **Source Path\***: ~/AMOCatlas/data/moc_transports.nc
 - **Date Created**: 23-Sep-2025
-- **Date Modified**: 2026-02-09T05:40:02Z
+- **Date Modified**: 2026-02-09T05:58:42Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: rapid26n
@@ -334,7 +334,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Contributor Name**: Ben I. Moat, Ben I. Moat
 - **Contributor Role**: originator, principalInvestigator
 - **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
-- **Contributor Email**: ben.moat@noc.ac.uk, 
+- **Contributor Email**: , 
 - **Contributor Id**: https://orcid.org/0000-0001-8676-7779, https://orcid.org/0000-0001-8676-7779
 - **Contributing Institutions**: National Oceanography Centre (Southampton)
 - **Contributing Institutions Vocabulary**: https://edmo.seadatanet.org/report/17
@@ -345,7 +345,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source File\***: moc_vertical.nc
 - **Source Path\***: ~/AMOCatlas/data/moc_vertical.nc
 - **Date Created**: 22-Jan-2026
-- **Date Modified**: 2026-02-09T05:40:02Z
+- **Date Modified**: 2026-02-09T05:58:42Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: rapid26n
@@ -517,7 +517,7 @@ along with key statistics for each variable.
      - 0.0%
    * - *TG_east* → **TEMP_EAST**
      - Temperature east 26.99N/16.23W
-     - degree_  C
+     - degree_C
      - (242, 14599)
      - 2.36
      - 23.74
@@ -603,7 +603,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Contributor Name**: Ben I. Moat, Ben I. Moat
 - **Contributor Role**: originator, principalInvestigator
 - **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
-- **Contributor Email**: ben.moat@noc.ac.uk, 
+- **Contributor Email**: , 
 - **Contributor Id**: https://orcid.org/0000-0001-8676-7779, https://orcid.org/0000-0001-8676-7779
 - **Contributing Institutions**: National Oceanography Centre (Southampton)
 - **Contributing Institutions Vocabulary**: https://edmo.seadatanet.org/report/17
@@ -614,7 +614,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source File\***: ts_gridded.nc
 - **Source Path\***: ~/AMOCatlas/data/ts_gridded.nc
 - **Date Created**: 22-Jan-2026
-- **Date Modified**: 2026-02-09T05:40:02Z
+- **Date Modified**: 2026-02-09T05:58:42Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: rapid26n
@@ -799,11 +799,6 @@ The following metadata provides comprehensive information about this dataset:
 - **Data Product\***: RAPID 2D gridded data
 - **Time Coverage Start**: 2004-04-06
 - **Time Coverage End**: 2024-03-22
-- **Contributor Name**: Ben I. Moat
-- **Contributor Role**: originator
-- **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
-- **Contributor Email**: ben.moat@noc.ac.uk
-- **Contributor Id**: https://orcid.org/0000-0001-8676-7779
 - **Contributing Institutions**: National Oceanography Centre (Southampton)
 - **Contributing Institutions Vocabulary**: https://edmo.seadatanet.org/report/17
 - **Contributing Institutions Role**: 
@@ -813,7 +808,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source File\***: 2d_gridded.nc
 - **Source Path\***: ~/AMOCatlas/data/2d_gridded.nc
 - **Date Created**: 17-Sep-2024
-- **Date Modified**: 2026-02-09T05:40:02Z
+- **Date Modified**: 2026-02-09T05:58:42Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: rapid26n
@@ -1022,11 +1017,6 @@ The following metadata provides comprehensive information about this dataset:
 - **Data Product\***: RAPID meridional transport data
 - **Time Coverage Start**: 2004-04-06
 - **Time Coverage End**: 2024-03-22
-- **Contributor Name**: Ben I. Moat
-- **Contributor Role**: originator
-- **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
-- **Contributor Email**: ben.moat@noc.ac.uk
-- **Contributor Id**: https://orcid.org/0000-0001-8676-7779
 - **Contributing Institutions**: National Oceanography Centre (Southampton)
 - **Contributing Institutions Vocabulary**: https://edmo.seadatanet.org/report/17
 - **Contributing Institutions Role**: 
@@ -1036,7 +1026,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source File\***: meridional_transports.nc
 - **Source Path\***: ~/AMOCatlas/data/meridional_transports.nc
 - **Date Created**: 17-Sep-2024
-- **Date Modified**: 2026-02-09T05:40:02Z
+- **Date Modified**: 2026-02-09T05:58:42Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: rapid26n

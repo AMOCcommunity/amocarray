@@ -188,7 +188,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source File\***: MOCproxy_for_figshare_v1.mat
 - **Source Path\***: ~/AMOCatlas/data/MOCproxy_for_figshare_v1.mat
 - **Source Url\***: https://figshare.com/articles/dataset/MOCproxy_for_figshare_v1_0_mat/1463479?file=3369779
-- **Date Modified**: 2026-02-09T05:40:18Z
+- **Date Modified**: 2026-02-09T05:58:59Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: fw2015

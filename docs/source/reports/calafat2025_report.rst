@@ -125,7 +125,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Time Coverage Start**: 2004-02-14
 - **Time Coverage End**: 2020-08-14
 - **Contributor Name**: Francisco Calafat, Parvathi Vallivattathillam, Eleanor Frajka-Williams
-- **Contributor Role**: Owner, Data Scientist, principalInvestigator
+- **Contributor Role**: originator, coAuthor, principalInvestigator
 - **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
 - **Contributor Email**: , , 
 - **Contributor Id**: https://orcid.org/0000-0002-7474-135X, https://orcid.org/0000-0003-1670-964X, https://orcid.org/0000-0001-8773-7838
@@ -138,7 +138,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source File\***: Bayesian_estimates_Atlantic_MHT.nc
 - **Source Path\***: ~/AMOCatlas/data/Bayesian_estimates_Atlantic_MHT.nc
 - **Source Url\***: https://zenodo.org/records/16640426
-- **Date Modified**: 2026-02-09T05:40:25Z
+- **Date Modified**: 2026-02-09T05:59:06Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: calafat2025

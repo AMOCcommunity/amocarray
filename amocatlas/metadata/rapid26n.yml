@@ -12,8 +12,6 @@ metadata:
   time_coverage_end: "2024-03-27"
   Creation_date: 17-Sep-2024
   platform_type: Mooring array
-  creator_name: Ben Moat
-  creator_email: ben.moat@noc.ac.uk
   institution: National Oceanography Centre, UK
   doi: https://doi.org/10.5285/223b34a32dc5c945e0637086abc0f274
   version: "2024.1a"

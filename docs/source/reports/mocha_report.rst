@@ -255,11 +255,11 @@ The following metadata provides comprehensive information about this dataset:
 - **Data Product\***: MOCHA heat transport at 26.5°N
 - **Time Coverage Start**: 2004-04-02
 - **Time Coverage End**: 2020-12-14
-- **Contributor Name**: William E. Johns, William E. Johns, William E. Johns, Shane Elipot, David A. Smeed, Ben I. Moat, Brian King, Denis Volkov, Ryan H. Smith
-- **Contributor Role**: originator, principalInvestigator, contributor, , , , , , 
+- **Contributor Name**: William E. Johns, William E. Johns
+- **Contributor Role**: originator, principalInvestigator
 - **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
-- **Contributor Email**: , , bjohns@earth.miami.edu, , ben.moat@noc.ac.uk, , , , 
-- **Contributor Id**: https://orcid.org/0000-0002-1093-7871, https://orcid.org/0000-0002-1093-7871, https://orcid.org/0000-0002-1093-7871, https://orcid.org/0000-0001-6051-5426, https://orcid.org/0000-0003-1740-1778, https://orcid.org/0000-0001-8676-7779, https://orcid.org/0000-0003-1338-3234, https://orcid.org/0000-0002-9290-0502, https://orcid.org/0000-0001-9824-6989
+- **Contributor Email**: , 
+- **Contributor Id**: https://orcid.org/0000-0002-1093-7871, https://orcid.org/0000-0002-1093-7871
 - **Contributing Institutions**: Rosenstiel School of Marine and Atmospheric Science (University of Miami)
 - **Contributing Institutions Vocabulary**: https://edmo.seadatanet.org/report/1382
 - **Contributing Institutions Role**: 
@@ -269,7 +269,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source File\***: mocha_mht_data_ERA5_v2020.nc
 - **Source Path\***: ~/AMOCatlas/data/mocha_mht_data_ERA5_v2020.nc
 - **Date Created**: 2023-08-26T00:14:33Z
-- **Date Modified**: 2026-02-09T05:40:19Z
+- **Date Modified**: 2026-02-09T05:59:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: mocha26n

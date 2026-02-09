@@ -15,7 +15,7 @@ metadata:
   time_coverage_end: '2020-08-15'
   platform_type: Argo floats, altimetry, gravimetry data
   contributor_name: "Francisco Calafat, Parvathi Vallivattathillam, Eleanor Frajka-Williams"
-  contributor_role: "Owner, Data Scientist, PI"
+  contributor_role: "originator, coAuthor, PI"
   contributor_id: "https://orcid.org/0000-0002-7474-135X, https://orcid.org/0000-0003-1670-964X, https://orcid.org/0000-0001-8773-7838"
   contributor_role_vocabulary: http://vocab.nerc.ac.uk/search_nvs/W08/
   contributing_institutions_overwrite: "National Oceanography Centre (Liverpool), University of the Balearic Islands, University of Hamburg (IfM)"  
