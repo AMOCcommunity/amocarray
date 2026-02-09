@@ -83,6 +83,8 @@ def read_samba(
         Optional local data directory.
     redownload : bool, optional
         If True, force redownload of the data.
+    track_added_attrs : bool, optional
+        If True, track which attributes were added during metadata enrichment.
 
     Returns
     -------
@@ -167,22 +169,26 @@ def read_samba(
             ) from e
 
         # Time handling - use sanitized column names
+        # Find the sanitized versions of time columns
+        time_cols_needed = ["Year", "Month", "Day", "Hour"]
+        if "Upper_Abyssal" in file:
+            time_cols_needed.append("Minute")
+
+        # Map original time column names to their sanitized versions
+        sanitized_time_cols = []
+        missing_cols = []
+        for col in time_cols_needed:
+            if col in original_to_sanitized:
+                sanitized_time_cols.append(original_to_sanitized[col])
+            elif col in df.columns:
+                sanitized_time_cols.append(col)  # Fallback if already sanitized
+            else:
+                missing_cols.append(col)
+
+        if missing_cols:
+            raise KeyError(f"Required time columns {missing_cols} not found in data")
+
         try:
-            # Find the sanitized versions of time columns
-            time_cols_needed = ["Year", "Month", "Day", "Hour"]
-            if "Upper_Abyssal" in file:
-                time_cols_needed.append("Minute")
-
-            # Map original time column names to their sanitized versions
-            sanitized_time_cols = []
-            for col in time_cols_needed:
-                if col in original_to_sanitized:
-                    sanitized_time_cols.append(original_to_sanitized[col])
-                elif col in df.columns:
-                    sanitized_time_cols.append(col)  # Fallback if already sanitized
-                else:
-                    raise KeyError(f"Required time column '{col}' not found in data")
-
             if "Upper_Abyssal" in file:
                 df["TIME"] = pd.to_datetime(df[sanitized_time_cols])
             else:

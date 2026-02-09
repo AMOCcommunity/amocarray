@@ -40,12 +40,12 @@ ARCTIC_DEFAULT_SOURCE = "https://next.api.npolar.no/dataset/80b69907-f303-457e-a
 ARCTIC_DEFAULT_FILES = ["Adjusted_fulldepth_v0.zip"]
 ARCTIC_TRANSPORT_FILES = ["Adjusted_fulldepth_v0.zip"]
 ARCTIC_ZIP_CONTENTS = {
-    "Adjusted_fulldepth_v0.zip": {
+    "Adjusted_fulldepth_v0.zip": [
         "Adjusted_fulldepth/BarentsSeaOpening_adjusted_v_fulldepth.nc",
         "Adjusted_fulldepth/BeringStrait_adjusted_v_fulldepth.nc",
         "Adjusted_fulldepth/DavisStrait_adjusted_v_fulldepth.nc",
         "Adjusted_fulldepth/FramStrait_adjusted_v_fulldepth.nc",
-    }
+    ]
 }
 
 # Mapping of filenames to download URLs
@@ -106,6 +106,8 @@ def read_arcticgateway(
         Optional local data directory.
     redownload : bool, optional
         If True, force redownload of the data.
+    track_added_attrs : bool, optional
+        If True, track which attributes were added during metadata enrichment.
 
     Returns
     -------

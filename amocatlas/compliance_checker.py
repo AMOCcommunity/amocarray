@@ -323,7 +323,7 @@ class AC1ComplianceChecker:
 
     def _validate_dimensions(
         self, ds: xr.Dataset, file_type: str, result: ValidationResult
-    ):
+    ) -> None:
         """Validate dimensions according to generic and file-specific requirements."""
         # Generic dimension checks
         self._validate_generic_dimensions(ds, result)
@@ -334,7 +334,9 @@ class AC1ComplianceChecker:
         # Check dimension ordering (T, Z, Y, X with components leftmost)
         self._validate_dimension_ordering(ds, result)
 
-    def _validate_generic_dimensions(self, ds: xr.Dataset, result: ValidationResult):
+    def _validate_generic_dimensions(
+        self, ds: xr.Dataset, result: ValidationResult
+    ) -> None:
         """Validate generic dimension requirements."""
         # TIME dimension is always required
         if "TIME" not in ds.sizes:
@@ -345,7 +347,7 @@ class AC1ComplianceChecker:
 
     def _validate_array_specific_dimensions(
         self, ds: xr.Dataset, file_type: str, result: ValidationResult
-    ):
+    ) -> None:
         """Validate array-specific dimension requirements."""
         if file_type not in self.array_specs["file_requirements"]:
             return
@@ -372,7 +374,9 @@ class AC1ComplianceChecker:
                         f"{dim_name} dimension should NOT be present in {file_type} files"
                     )
 
-    def _validate_dimension_ordering(self, ds: xr.Dataset, result: ValidationResult):
+    def _validate_dimension_ordering(
+        self, ds: xr.Dataset, result: ValidationResult
+    ) -> None:
         """Validate CF convention dimension ordering."""
         for var_name, var in ds.data_vars.items():
             dims = var.dims
@@ -418,7 +422,7 @@ class AC1ComplianceChecker:
 
     def _validate_variables(
         self, ds: xr.Dataset, file_type: str, result: ValidationResult
-    ):
+    ) -> None:
         """Validate variables and their attributes."""
         # Check coordinate variables (generic)
         self._validate_coordinates(ds, result)
@@ -432,7 +436,7 @@ class AC1ComplianceChecker:
 
     def _validate_array_specific_variables(
         self, ds: xr.Dataset, file_type: str, result: ValidationResult
-    ):
+    ) -> None:
         """Validate array-specific variable requirements."""
         if file_type not in self.array_specs["file_requirements"]:
             return
@@ -447,7 +451,7 @@ class AC1ComplianceChecker:
                         f"Required variable {var_name} missing for {file_type}"
                     )
 
-    def _validate_coordinates(self, ds: xr.Dataset, result: ValidationResult):
+    def _validate_coordinates(self, ds: xr.Dataset, result: ValidationResult) -> None:
         """Validate coordinate variables using generic specifications."""
         for coord_name, coord_spec in self.generic_specs["coordinate_specs"].items():
             if coord_name in ds.coords:
@@ -492,7 +496,7 @@ class AC1ComplianceChecker:
 
     def _validate_variable_attributes(
         self, var_name: str, var: xr.DataArray, result: ValidationResult
-    ):
+    ) -> None:
         """Validate individual variable attributes."""
         # Required attributes for all variables
         required_attrs = ["long_name", "units"]
@@ -582,7 +586,9 @@ class AC1ComplianceChecker:
                         f"Variable {var_name}: Unknown standard_name '{standard_name}' - cannot validate units '{units}'"
                     )
 
-    def _validate_global_attributes(self, ds: xr.Dataset, result: ValidationResult):
+    def _validate_global_attributes(
+        self, ds: xr.Dataset, result: ValidationResult
+    ) -> None:
         """Validate global attributes (generic and array-specific)."""
         # Generic global attribute checks
         self._validate_generic_global_attributes(ds, result)
@@ -595,7 +601,7 @@ class AC1ComplianceChecker:
 
     def _validate_generic_global_attributes(
         self, ds: xr.Dataset, result: ValidationResult
-    ):
+    ) -> None:
         """Validate generic global attributes required for all AC1 files."""
         # Check required attributes
         for attr in self.generic_specs["required_global_attrs"]:
@@ -611,7 +617,7 @@ class AC1ComplianceChecker:
 
     def _validate_array_specific_global_attributes(
         self, ds: xr.Dataset, result: ValidationResult
-    ):
+    ) -> None:
         """Validate array-specific global attributes."""
         # Check array-specific values
         if (
@@ -637,7 +643,7 @@ class AC1ComplianceChecker:
 
     def _validate_additional_global_attributes(
         self, ds: xr.Dataset, result: ValidationResult
-    ):
+    ) -> None:
         """Validate additional global attribute requirements."""
         # Check time format deviation
         for time_attr in ["time_coverage_start", "time_coverage_end"]:
@@ -733,7 +739,7 @@ class AC1ComplianceChecker:
 
     def _validate_data_values(
         self, ds: xr.Dataset, filepath: str, result: ValidationResult
-    ):
+    ) -> None:
         """Validate actual data values."""
         # Extract date range from filename
         filename = Path(filepath).name
@@ -833,7 +839,7 @@ def validate_ac1_file(filepath: str, array_specs: dict = None) -> ValidationResu
     return checker.validate_file(filepath)
 
 
-def print_validation_report(result: ValidationResult, filepath: str):
+def print_validation_report(result: ValidationResult, filepath: str) -> None:
     """Print a formatted validation report.
 
     Parameters
@@ -868,7 +874,7 @@ def print_validation_report(result: ValidationResult, filepath: str):
     print(f"\n{'='*60}")
 
 
-def create_array_specs_template():
+def create_array_specs_template() -> dict:
     """Create a template for array-specific specifications.
 
     Returns

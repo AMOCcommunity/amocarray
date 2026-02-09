@@ -188,7 +188,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source File\***: MOCproxy_for_figshare_v1.mat
 - **Source Path\***: ~/AMOCatlas/data/MOCproxy_for_figshare_v1.mat
 - **Source Url\***: https://figshare.com/articles/dataset/MOCproxy_for_figshare_v1_0_mat/1463479?file=3369779
-- **Date Modified**: 2026-02-09T05:58:59Z
+- **Date Modified**: 2026-02-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: fw2015
@@ -199,3 +199,4 @@ The following metadata provides comprehensive information about this dataset:
 - **Url**: http://eleanorfrajka.com/moc-from-space/
 - **Paper**: http://dx.doi.org/10.1002/2015GL063220
 - **Version**: v1.0
+- **Comment\***: (Note: date_modified has been set to a canonical value for documentation generation to avoid git churn)

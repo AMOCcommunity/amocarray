@@ -59,14 +59,14 @@ def apply_defaults(default_source: str, default_files: List[str]) -> Callable:
         def wrapper(
             source: Optional[str] = None,
             file_list: Optional[List[str]] = None,
-            *args,
-            **kwargs,
+            *args,  # noqa: ANN002
+            **kwargs,  # noqa: ANN003
         ) -> Callable:
             if source is None:
                 source = default_source
             if file_list is None:
                 file_list = default_files
-            return func(source=source, file_list=file_list, *args, **kwargs)
+            return func(source, file_list, *args, **kwargs)
 
         return wrapper
 

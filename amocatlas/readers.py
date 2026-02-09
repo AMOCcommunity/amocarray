@@ -160,43 +160,43 @@ def load_dataset(
 
     Parameters
     ----------
-        array_name : str
-            The name of the observing array to load. Options are:
-            - 'move' : MOVE 16N array
-            - 'rapid' : RAPID 26N array
-            - 'osnap' : OSNAP array (2014-2022, configurable version via main reader)
-            - 'osnap_2025' : OSNAP array (2014-2022, dedicated 2025 reader function)
-            - 'samba' : SAMBA 34S array
-            - 'fw2015' : FW2015 array
-            - '41n' : 41N array
-            - 'dso' : DSO array
-            - 'calafat2025' : CALAFAT2025 array
-            - 'zheng2024' : ZHENG2024 array
-            - '47n' : 47N array
-            - 'fbc' : Faroe Bank Channel overflow array
-            - 'arcticgateway' : ARCTIC Gateway array
-        source : str, optional
-            URL or local path to the data source.
-            If None, the reader-specific default source will be used.
-        file_list : str or list of str, optional
-            Filename or list of filenames to process.
-            If None, the reader-specific default files will be used.
-        transport_only : bool, optional
-            If True, restrict to transport files only.
-        data_dir : str, optional
-            Local directory for downloaded files.
-        redownload : bool, optional
-            If True, force redownload of the data.
+    array_name : str
+        The name of the observing array to load. Options are:
+        - 'move' : MOVE 16N array
+        - 'rapid' : RAPID 26N array
+        - 'osnap' : OSNAP array (2014-2022, configurable version via main reader)
+        - 'osnap_2025' : OSNAP array (2014-2022, dedicated 2025 reader function)
+        - 'samba' : SAMBA 34S array
+        - 'fw2015' : FW2015 array
+        - '41n' : 41N array
+        - 'dso' : DSO array
+        - 'calafat2025' : CALAFAT2025 array
+        - 'zheng2024' : ZHENG2024 array
+        - '47n' : 47N array
+        - 'fbc' : Faroe Bank Channel overflow array
+        - 'arcticgateway' : ARCTIC Gateway array
+    source : str, optional
+        URL or local path to the data source.
+        If None, the reader-specific default source will be used.
+    file_list : str or list of str, optional
+        Filename or list of filenames to process.
+        If None, the reader-specific default files will be used.
+    transport_only : bool, optional
+        If True, restrict to transport files only.
+    data_dir : str, optional
+        Local directory for downloaded files.
+    redownload : bool, optional
+        If True, force redownload of the data.
 
     Returns
     -------
-        list of xarray.Dataset
-            List of datasets loaded from the specified array.
+    list of xarray.Dataset
+        List of datasets loaded from the specified array.
 
     Raises
     ------
-        ValueError
-            If an unknown array name is provided.
+    ValueError
+        If an unknown array name is provided.
 
     """
     warnings.warn(
@@ -227,7 +227,7 @@ def load_dataset(
     return datasets
 
 
-def _summarise_datasets(datasets: list, array_name: str):
+def _summarise_datasets(datasets: list, array_name: str) -> None:
     """Print and log a summary of loaded datasets."""
     summary_lines = []
     summary_lines.append(f"Summary for array '{array_name}':")

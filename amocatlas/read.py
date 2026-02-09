@@ -31,7 +31,7 @@ Custom parameters:
 
 """
 
-from typing import Union, List
+from typing import Union, List, Callable
 import xarray as xr
 from pathlib import Path
 
@@ -138,7 +138,7 @@ def _validate_file_selection_params(
     all_files: bool,
     file_list: Union[str, List[str], None],
     available_files: List[str],
-    transport_files: List[str] = None,
+    transport_files: List[str] = None,  # noqa: ARG001
 ) -> tuple[bool, Union[str, List[str], None]]:
     """Validate and resolve file selection parameters.
 
@@ -198,11 +198,11 @@ def _validate_file_selection_params(
 
 
 def _create_array_function(
-    reader_func,
+    reader_func: Callable,
     array_name: str,
     supports_version: bool = False,
     available_files: List[str] = None,
-):
+) -> Callable:
     """Create a uniform API function for an array reader with optional standardization.
 
     This factory function eliminates repetition by generating the standard
@@ -217,6 +217,8 @@ def _create_array_function(
         Name of the array (for documentation)
     supports_version : bool, optional
         Whether this reader supports the version parameter
+    available_files : list of str, optional
+        List of available files for this array
     standardize_func : callable, optional
         Standardization function to apply (e.g., standardise.standardise_rapid)
 
@@ -311,7 +313,7 @@ def _create_array_function(
 
                 datasets = standardized_datasets
 
-            except Exception as e:
+            except (ValueError, KeyError, TypeError, AttributeError) as e:
                 # If standardization fails, log warning but continue with raw data
                 import warnings
 
@@ -330,11 +332,11 @@ def _create_array_function(
 
     # Add proper docstring
     array_function.__doc__ = f"""Load {array_name} array data.
-    
+
     By default, returns standardized, analysis-ready data with consistent variable names,
     metadata, and units following oceanographic conventions. Use raw=True to get data
     in original format from the source files.
-    
+
     Parameters
     ----------
     source : str, Path, or None, optional
@@ -346,7 +348,7 @@ def _create_array_function(
     all_files : bool, optional
         If True, return list of all datasets. If False, return single dataset. Default: False.
     raw : bool, optional
-        If True, return data in original format without standardization. 
+        If True, return data in original format without standardization.
         If False (default), apply standardization for analysis-ready data.
     data_dir : str, Path, or None, optional
         Local directory for data storage.
@@ -355,29 +357,27 @@ def _create_array_function(
     version : str, optional
         Dataset version{' (used for version selection)' if supports_version else ' (ignored for this array)'}. Default: None.
     track_added_attrs : bool, optional
-        **INTERNAL USE ONLY** - Track which attributes were added during metadata 
-        enrichment. When True, embeds a temporary '_amocatlas_metadata_changes' 
+        **INTERNAL USE ONLY** - Track which attributes were added during metadata
+        enrichment. When True, embeds a temporary '_amocatlas_metadata_changes'
         attribute in each returned dataset containing {{"added": [...], "modified": [...]}}.
-        This attribute should be extracted and removed by calling code (e.g., report 
+        This attribute should be extracted and removed by calling code (e.g., report
         generation). Not intended for end users. Default: False.
-        
     Returns
     -------
     xr.Dataset or list of xr.Dataset
         Standardized dataset (default) or raw dataset if raw=True.
         Single dataset by default, or list of datasets if all_files=True.
-        
     Notes
     -----
     Standardization includes:
     - Consistent variable names across arrays
-    - Proper CF-compliant metadata and attributes  
+    - Proper CF-compliant metadata and attributes
     - Standardized units following oceanographic conventions
     - Additional quality control and formatting
     """
 
     # Add list_files() method to the function
-    def list_files():
+    def list_files() -> List[str]:
         """Return list of available files for this array.
 
         Returns

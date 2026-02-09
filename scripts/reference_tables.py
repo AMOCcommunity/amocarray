@@ -15,9 +15,10 @@ import sys
 from pathlib import Path
 from collections import defaultdict
 import logging
+from typing import Dict, List, Any
 
 # Add amocatlas to path
-sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
 import amocatlas.read as read
 from amocatlas.defaults import ARRAY_NAMES
@@ -27,7 +28,7 @@ from amocatlas.defaults import ARRAY_NAMES
 logging.getLogger("amocatlas").setLevel(logging.WARNING)
 
 
-def load_all_datasets():
+def load_all_datasets() -> Dict[str, List]:
     """Load all available datasets using the read API with all_files=True."""
     datasets = {}
 
@@ -50,13 +51,13 @@ def load_all_datasets():
                 # Store all datasets for this array
                 datasets[array_name] = all_datasets
 
-        except Exception as e:
+        except (AttributeError, ValueError, KeyError, OSError, IOError, TypeError) as e:
             print(f"Warning: Could not load {array_name}: {e}")
 
     return datasets
 
 
-def extract_variable_mappings(datasets):
+def extract_variable_mappings(datasets: Dict[str, List]) -> Dict[str, Dict[str, Any]]:
     """Extract variable mapping information from datasets."""
     all_mappings = {}
 
@@ -87,7 +88,9 @@ def extract_variable_mappings(datasets):
     return all_mappings
 
 
-def extract_standardized_variables(datasets):
+def extract_standardized_variables(
+    datasets: Dict[str, List],
+) -> Dict[str, Dict[str, List]]:
     """Extract standardized variable information across all datasets."""
     standardized_vars = defaultdict(lambda: defaultdict(list))
 
@@ -113,11 +116,11 @@ def extract_standardized_variables(datasets):
     return standardized_vars
 
 
-def extract_unit_conversions(datasets):
+def extract_unit_conversions(datasets: Dict[str, List]) -> Dict[str, Any]:
     """Extract unit conversion information from datasets."""
     unit_conversions = {}
 
-    for array_name, dataset in datasets.items():
+    for _array_name, dataset in datasets.items():
         attrs = dataset.attrs
 
         # Look for unit standardization info in processing history
@@ -130,7 +133,7 @@ def extract_unit_conversions(datasets):
     return unit_conversions
 
 
-def generate_variable_mapping_table(mappings):
+def generate_variable_mapping_table(mappings: Dict[str, Dict[str, Any]]) -> List[str]:
     """Generate RST table showing variable mappings across datasets."""
     rst_content = []
 
@@ -147,7 +150,7 @@ def generate_variable_mapping_table(mappings):
     # Collect all mappings for both tables
     all_mappings = []
 
-    for file_key, info in mappings.items():
+    for _file_key, info in mappings.items():
         array_name = info["array_name"]
         source_file = info["source_file"]
         # Extract filename after last "/"
@@ -257,7 +260,9 @@ def generate_variable_mapping_table(mappings):
     return rst_content
 
 
-def generate_standardized_variables_table(standardized_vars):
+def generate_standardized_variables_table(
+    standardized_vars: Dict[str, Dict[str, List]],
+) -> List[str]:
     """Generate RST table showing standardized variable details."""
     rst_content = []
 
@@ -339,7 +344,7 @@ def generate_standardized_variables_table(standardized_vars):
     return rst_content
 
 
-def generate_full_reference_documentation(datasets):
+def generate_full_reference_documentation(datasets: Dict[str, List]) -> str:
     """Generate complete reference documentation."""
     print("Extracting variable mappings...")
     mappings = extract_variable_mappings(datasets)
@@ -371,7 +376,7 @@ def generate_full_reference_documentation(datasets):
     return "\n".join(rst_content)
 
 
-def main():
+def main() -> None:
     """Generate the variable reference documentation."""
     print("Loading all datasets...")
     datasets = load_all_datasets()
@@ -380,8 +385,13 @@ def main():
     print("Generating reference documentation...")
     rst_content = generate_full_reference_documentation(datasets)
 
-    # Write to file
-    output_file = Path(__file__).parent / "variables.rst"
+    # Write to the correct location in docs tree
+    docs_dir = Path(__file__).parent.parent / "docs" / "source" / "reference"
+    output_file = docs_dir / "variables.rst"
+
+    # Ensure docs directory exists
+    output_file.parent.mkdir(parents=True, exist_ok=True)
+
     output_file.write_text(rst_content)
     print(f"Documentation written to {output_file}")
 

@@ -77,6 +77,8 @@ def read_fw2015(
         Optional local data directory.
     redownload : bool, optional
         If True, force redownload of the data.
+    track_added_attrs : bool, optional
+        If True, track which attributes were added during metadata enrichment.
 
     Returns
     -------

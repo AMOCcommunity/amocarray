@@ -40,10 +40,11 @@ def load_contributor_registry(registry_file: Optional[Path] = None) -> Dict:
         log_debug(
             f"Loaded contributor registry with {len(registry.get('contributors', {}))} contributors"
         )
-        return registry
-    except Exception as e:
+    except (FileNotFoundError, OSError, yaml.YAMLError) as e:
         log_warning(f"Could not load contributor registry from {registry_file}: {e}")
         return {"contributors": {}}
+    else:
+        return registry
 
 
 def load_institution_registry(registry_file: Optional[Path] = None) -> Dict:
@@ -75,10 +76,11 @@ def load_institution_registry(registry_file: Optional[Path] = None) -> Dict:
         log_debug(
             f"Loaded institution registry with {len(registry.get('institutions', {}))} institutions"
         )
-        return registry
-    except Exception as e:
+    except (FileNotFoundError, OSError, yaml.YAMLError) as e:
         log_warning(f"Could not load institution registry from {registry_file}: {e}")
         return {"institutions": {}}
+    else:
+        return registry
 
 
 def find_contributor_orcid(

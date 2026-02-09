@@ -12,7 +12,7 @@ import re
 from collections import OrderedDict
 
 
-def extract_last_name(standard_name):
+def extract_last_name(standard_name: str) -> str:
     """Extract the last name from a standard name string.
 
     Simple approach: return the string after the last space.
@@ -38,7 +38,7 @@ def extract_last_name(standard_name):
     return parts[-1]
 
 
-def sort_contributors_by_last_name():
+def sort_contributors_by_last_name() -> None:
     """Sort contributors in the registry by last name."""
     # Path to the contributor registry
     registry_file = (
@@ -86,18 +86,15 @@ def sort_contributors_by_last_name():
     # Extract header comments (everything before 'contributors:')
     lines = original_content.split("\n")
     header_lines = []
-    contributors_started = False
 
     for line in lines:
         if line.strip().startswith("contributors:"):
-            contributors_started = True
             break
         header_lines.append(line)
 
     # Find the example/footer comments (everything after the last contributor entry)
     footer_lines = []
     in_contributors = False
-    current_orcid = None
 
     for line in lines:
         if line.strip().startswith("contributors:"):
@@ -109,7 +106,6 @@ def sort_contributors_by_last_name():
             if re.match(r'^\s*"[0-9-]+.*":\s*', line) or re.match(
                 r'^\s*"[a-z-]+-id":\s*', line
             ):
-                current_orcid = line.strip()
                 continue
             # Check if we've hit the example/footer section
             elif line.strip().startswith("#") and "example usage" in line.lower():

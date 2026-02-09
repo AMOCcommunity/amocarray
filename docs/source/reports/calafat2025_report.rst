@@ -129,16 +129,16 @@ The following metadata provides comprehensive information about this dataset:
 - **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
 - **Contributor Email**: , , 
 - **Contributor Id**: https://orcid.org/0000-0002-7474-135X, https://orcid.org/0000-0003-1670-964X, https://orcid.org/0000-0001-8773-7838
-- **Contributing Institutions**: National Oceanography Centre (Liverpool), University of the Balearic Islands, University of Hamburg (IfM)
-- **Contributing Institutions Vocabulary**: , 
-- **Contributing Institutions Role**: , 
+- **Contributing Institutions**: National Oceanography Centre (Southampton) / University of the Balearic Islands, Spain, National Oceanography Centre (Liverpool), Balearic Islands University (Department of Physics), University of Hamburg (IfM) (IfM)
+- **Contributing Institutions Vocabulary**: , , https://edmo.seadatanet.org/report/2424, https://edmo.seadatanet.org/report/1586, 
+- **Contributing Institutions Role**: , , , , 
 - **Conventions**: CF-1.8, ACDD-1.3, OceanSITES-1.5
 - **featureType**: timeSeries
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: Bayesian_estimates_Atlantic_MHT.nc
 - **Source Path\***: ~/AMOCatlas/data/Bayesian_estimates_Atlantic_MHT.nc
 - **Source Url\***: https://zenodo.org/records/16640426
-- **Date Modified**: 2026-02-09T05:59:06Z
+- **Date Modified**: 2026-02-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: calafat2025
@@ -149,3 +149,4 @@ The following metadata provides comprehensive information about this dataset:
 - **Contact**: francisco.mcalafat@uib.eu
 - **Comment On Temporal Resolution**: Estimates of heat transport are quarterly values (i.e., 3-month means: Jan-Feb-Mar, Apr-May-Jun, ...)
 - **Convections**: CF-1.8, ACDD-1.3
+- **Comment\***: (Note: date_modified has been set to a canonical value for documentation generation to avoid git churn)

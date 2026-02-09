@@ -6,10 +6,11 @@ import xarray as xr
 import numpy as np
 from pandas import DataFrame
 from pandas.io.formats.style import Styler
+from typing import Union, Dict
 
 
 def format_variable_name_for_plotting(name: str) -> str:
-    """Convert variable names with subscripts to matplotlib LaTeX format.
+    r"""Convert variable names with subscripts to matplotlib LaTeX format.
 
     This function translates variable naming patterns that include Greek letters
     and other subscripts into proper matplotlib LaTeX syntax for publication-quality plots.
@@ -510,6 +511,15 @@ def plot_amoc_timeseries(
         If True, monthly averages are computed and plotted.
     plot_raw : bool
         If True, raw data is plotted.
+    lat_idx : int, optional
+        Latitude index to select when dataset has a 'lat' dimension.
+        Required if dataset contains 'lat' dimension with posterior samples.
+    region_idx : int, optional
+        Region index to select when dataset has a 'number_regions' dimension.
+        Required if dataset contains 'number_regions' dimension with posterior samples.
+    posterior_stat : str, default "mean"
+        Statistic to use when collapsing posterior samples dimension.
+        Options are "mean" or "median".
 
     """
     if not isinstance(data, list):
@@ -631,7 +641,9 @@ def plot_amoc_timeseries(
     return fig, ax
 
 
-def plot_monthly_anomalies(**kwargs) -> tuple[plt.Figure, list[plt.Axes]]:
+def plot_monthly_anomalies(
+    **kwargs,  # noqa: ANN003
+) -> tuple[plt.Figure, list[plt.Axes]]:
     """Plot the monthly anomalies for various datasets.
 
     Pass keyword arguments in the form: `label_name_data`, `label_name_label`.
@@ -695,12 +707,13 @@ try:
     import pygmt
 
     HAS_PYGMT = True
-except Exception:
+except Exception:  # noqa: BLE001
     # Catch all exceptions including ImportError, OSError, GMTCLibNotFoundError, etc.
+    # Using broad exception handling here because PyGMT can fail in various unpredictable ways
     HAS_PYGMT = False
 
 
-def _check_pygmt():
+def _check_pygmt() -> None:
     """Check if PyGMT is available and raise informative error if not."""
     if not HAS_PYGMT:
         raise ImportError(
@@ -711,7 +724,7 @@ def _check_pygmt():
         )
 
 
-def _add_amocatlas_timestamp(fig):
+def _add_amocatlas_timestamp(fig: object) -> None:
     """Add standardized AMOCatlas timestamp to PyGMT figure.
 
     Parameters
@@ -795,7 +808,7 @@ def plot_moc_timeseries_pygmt(
     return fig
 
 
-def plot_osnap_components_pygmt(data) -> "pygmt.Figure":
+def plot_osnap_components_pygmt(data: Union[DataFrame, Dict]) -> "pygmt.Figure":
     """Plot OSNAP MOC components with shaded error bands using PyGMT.
 
     Parameters
@@ -1332,13 +1345,6 @@ def plot_all_moc_overlaid_pygmt(
     _add_amocatlas_timestamp(fig)
 
     return fig
-
-
-"""2D plotting function for AMOCatlas."""
-
-import matplotlib.pyplot as plt
-import pandas as pd
-import xarray as xr
 
 
 def plot_amoc_2d_data(

@@ -54,9 +54,16 @@ def save_dataset(ds: xr.Dataset, output_file: str = "../test.nc") -> bool:
     ds_copy = ds.copy()
 
     # Sanitize attributes: replace None with empty string to avoid NetCDF issues
+    new_attrs = {}
     for k, v in ds_copy.attrs.items():
         if v is None:
-            ds_copy.attrs[k] = ""
+            new_attrs[k] = ""
+        else:
+            new_attrs[k] = v
+
+    # Replace all attributes with sanitized versions
+    ds_copy.attrs.clear()
+    ds_copy.attrs.update(new_attrs)
 
     # Handle datetime coordinate encoding conflicts
     # For datetime variables, remove manual units to let xarray handle encoding properly
@@ -86,7 +93,6 @@ def save_dataset(ds: xr.Dataset, output_file: str = "../test.nc") -> bool:
 
     try:
         ds_copy.to_netcdf(output_file, format="NETCDF4_CLASSIC", encoding=encoding)
-        return True
     except TypeError as e:
         print(e.__class__.__name__, e)
 
@@ -108,7 +114,6 @@ def save_dataset(ds: xr.Dataset, output_file: str = "../test.nc") -> bool:
                     variable.attrs[k] = str(v)
         try:
             ds_copy.to_netcdf(output_file, format="NETCDF4_CLASSIC", encoding=encoding)
-            return True
         except (OSError, IOError, ValueError, RuntimeError) as e:
             print("Failed to save dataset:", e)
             datetime_vars = [
@@ -122,6 +127,10 @@ def save_dataset(ds: xr.Dataset, output_file: str = "../test.nc") -> bool:
             ]
             print("Attributes with dtype float64:", float_attrs)
             return False
+        else:
+            return True
+    else:
+        return True
 
 
 def save_AC1_dataset(ds: xr.Dataset, data_dir: Union[str, Path]) -> Path:

@@ -129,6 +129,8 @@ def read_osnap(
     version : str, optional
         Dataset version to use ("2025" for 2014-2022 data, "2020" for 2014-2020 data).
         Defaults to "2025" (latest version).
+    track_added_attrs : bool, optional
+        If True, track which attributes were added during metadata enrichment.
 
     Returns
     -------
