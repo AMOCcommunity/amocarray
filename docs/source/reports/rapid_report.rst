@@ -1,15 +1,12 @@
 RAPID Datasets
 ==============
 
-*Generated: |today|*
-
 This report covers all available RAPID datasets.
 
 ----
 
 moc_transports.nc
 -----------------
-
 
 Dataset Overview
 ^^^^^^^^^^^^^^^^
@@ -19,6 +16,7 @@ Dataset Overview
 - **DOI**: https://doi.org/10.5285/223b34a32dc5c945e0637086abc0f274
 - **Source File**: moc_transports.nc
 - **Data Product**: RAPID layer transport time series
+- **License**: UK Open Government Licence v3.0 https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/
 - **Date Created**: 23-Sep-2025
 - **Time Coverage**: 2004-04-02 to 2024-03-27
 - **Record Length**: 14,599 observations (20.0 years)
@@ -210,7 +208,6 @@ The following metadata provides comprehensive information about this dataset:
 moc_vertical.nc
 ---------------
 
-
 Dataset Overview
 ^^^^^^^^^^^^^^^^
 
@@ -219,6 +216,7 @@ Dataset Overview
 - **DOI**: https://doi.org/10.5285/223b34a32dc5c945e0637086abc0f274
 - **Source File**: moc_vertical.nc
 - **Data Product**: RAPID vertical streamfunction time series
+- **License**: UK Open Government Licence v3.0 https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/
 - **Date Created**: 22-Jan-2026
 - **Time Coverage**: 2004-04-02 to 2024-03-27
 - **Record Length**: 14,599 observations (20.0 years)
@@ -361,7 +359,6 @@ The following metadata provides comprehensive information about this dataset:
 ts_gridded.nc
 -------------
 
-
 Dataset Overview
 ^^^^^^^^^^^^^^^^
 
@@ -370,6 +367,7 @@ Dataset Overview
 - **DOI**: https://doi.org/10.5285/223b34a32dc5c945e0637086abc0f274
 - **Source File**: ts_gridded.nc
 - **Data Product**: RAPID gridded temperature and salinity
+- **License**: UK Open Government Licence v3.0 https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/
 - **Date Created**: 22-Jan-2026
 - **Time Coverage**: 2004-04-02 to 2024-03-27
 - **Record Length**: 14,599 observations (20.0 years)
@@ -632,7 +630,6 @@ The following metadata provides comprehensive information about this dataset:
 2d_gridded.nc
 -------------
 
-
 Dataset Overview
 ^^^^^^^^^^^^^^^^
 
@@ -641,6 +638,7 @@ Dataset Overview
 - **DOI**: https://doi.org/10.5285/223b34a32dc5c945e0637086abc0f274
 - **Source File**: 2d_gridded.nc
 - **Data Product**: RAPID 2D gridded data
+- **License**: UK Open Government Licence v3.0 https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/
 - **Date Created**: 17-Sep-2024
 - **Time Coverage**: 2004-04-06 to 2024-03-22
 - **Record Length**: 730 observations (20.0 years)
@@ -830,7 +828,6 @@ The following metadata provides comprehensive information about this dataset:
 meridional_transports.nc
 ------------------------
 
-
 Dataset Overview
 ^^^^^^^^^^^^^^^^
 
@@ -839,6 +836,7 @@ Dataset Overview
 - **DOI**: https://doi.org/10.5285/223b34a32dc5c945e0637086abc0f274
 - **Source File**: meridional_transports.nc
 - **Data Product**: RAPID meridional transport data
+- **License**: UK Open Government Licence v3.0 https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/
 - **Date Created**: 17-Sep-2024
 - **Time Coverage**: 2004-04-06 to 2024-03-22
 - **Record Length**: 730 observations (20.0 years)

@@ -1,15 +1,12 @@
 MOVE Datasets
 =============
 
-*Generated: |today|*
-
 This report covers all available MOVE datasets.
 
 ----
 
 OS_MOVE_20000206-20221014_DPR_VOLUMETRANSPORT.nc
 ------------------------------------------------
-
 
 Dataset Overview
 ^^^^^^^^^^^^^^^^
@@ -19,6 +16,7 @@ Dataset Overview
 - **DOI**: http://dx.doi.org/10.1016/j.dsr.2005.12.007 http://dx.doi.org/10.1029/2011GL049801
 - **Source File**: OS_MOVE_20000206-20221014_DPR_VOLUMETRANSPORT.nc
 - **Data Product**: MOVE transport time series (2000-2022)
+- **License**: Data freely available. User assumes all risk for use of data. Please give due credit to the authors, project, and funding sources when using these data, e.g. by including the 'citation' text provided here.
 - **Date Created**: 2025-04-23T01:35:26Z
 - **Time Coverage**: 2000-02-06 to 2022-10-14
 - **Record Length**: 4,144 observations (22.7 years)
@@ -219,7 +217,6 @@ The following metadata provides comprehensive information about this dataset:
 OS_MOVE_20000101-20221021_GRD_CURRENTS-AT-SITES-MOVE3-MOVE4.nc
 --------------------------------------------------------------
 
-
 Dataset Overview
 ^^^^^^^^^^^^^^^^
 
@@ -228,6 +225,7 @@ Dataset Overview
 - **DOI**: http://dx.doi.org/10.1016/j.dsr.2005.12.007 http://dx.doi.org/10.1029/2011GL049801
 - **Source File**: OS_MOVE_20000101-20221021_GRD_CURRENTS-AT-SITES-MOVE3-MOVE4.nc
 - **Data Product**: MOVE gridded currents at sites MOVE3-MOVE4
+- **License**: Data freely available. User assumes all risk for use of data. Please give due credit to the authors, project, and funding sources when using these data, e.g. by including the 'citation' text provided here.
 - **Date Created**: 2019-01-30T18:13:16Z
 - **Time Coverage**: 2000-01-01 to 2022-10-21
 - **Record Length**: 8,330 observations (22.8 years)
@@ -429,7 +427,6 @@ The following metadata provides comprehensive information about this dataset:
 OS_MOVE_20000101-20221018_GRD_TEMPERATURE-SALINITY-AT-SITES-MOVE1-MOVE3.nc
 --------------------------------------------------------------------------
 
-
 Dataset Overview
 ^^^^^^^^^^^^^^^^
 
@@ -438,6 +435,7 @@ Dataset Overview
 - **DOI**: http://dx.doi.org/10.1016/j.dsr.2005.12.007 http://dx.doi.org/10.1029/2011GL049801
 - **Source File**: OS_MOVE_20000101-20221018_GRD_TEMPERATURE-SALINITY-AT-SITES-MOVE1-MOVE3.nc
 - **Data Product**: MOVE gridded temperature and salinity at sites MOVE1-MOVE3
+- **License**: Data freely available. User assumes all risk for use of data. Please give due credit to the authors, project, and funding sources when using these data, e.g. by including the 'citation' text provided here.
 - **Date Created**: 2019-01-30T18:13:16Z
 - **Time Coverage**: 2000-01-01 to 2022-10-18
 - **Record Length**: 4,164 observations (22.8 years)

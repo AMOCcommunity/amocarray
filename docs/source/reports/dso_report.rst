@@ -1,8 +1,6 @@
 DSO Datasets
 ============
 
-*Generated: |today|*
-
 ----
 
 DSO_transport_hourly_1996_2021.nc
@@ -15,6 +13,7 @@ Dataset Overview
 - **Description**: Denmark Strait Overflow
 - **Source File**: DSO_transport_hourly_1996_2021.nc
 - **Data Product**: Overflow time-series through Denmark Strait
+- **License**: 
 - **Date Created**: 2021-12-06T19:37:07Z
 - **Time Coverage**: 1996-05-01 to 2021-08-07
 - **Record Length**: 221,514 observations (25.3 years)
@@ -168,7 +167,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source Url\***: https://www.cen.uni-hamburg.de/en/icdc/data/ocean/denmark-strait-overflow.html
 - **Date Created**: 2021-12-06T19:37:07Z
 - **Date Modified**: 2026-02-01T00:00:00Z
-- **History**: 2021-12-06T19:37:07ZOceanSITES file with provisional transport data sent to DAC by Ursula Schauer; 2026-02-09T09:35:25Z AMOCatlas: Corrupted DEPTH value in DSO_transport_hourly_1996_2021.nc marked as NaN (was 9.97e+36)
+- **History**: 2021-12-06T19:37:07ZOceanSITES file with provisional transport data sent to DAC by Ursula Schauer; 2026-02-10T09:27:28Z AMOCatlas: Corrupted DEPTH value in DSO_transport_hourly_1996_2021.nc marked as NaN (was 9.97e+36)
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
 - **Processing Datasource\***: dso

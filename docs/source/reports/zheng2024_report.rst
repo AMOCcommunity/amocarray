@@ -1,8 +1,6 @@
 ZHENG2024 Datasets
 ==================
 
-*Generated: |today|*
-
 ----
 
 atl_mft_2000_extend_gpcp_oaflux.nc
@@ -15,6 +13,7 @@ Dataset Overview
 - **Description**: An observation based estimate of the Atlantic meridional freshwater transport
 - **Source File**: atl_mft_2000_extend_gpcp_oaflux.nc
 - **Data Product**: An observation based estimate of the Atlantic meridional freshwater transport
+- **License**: 
 - **Time Coverage**: 2004-04-30 to 2020-12-31
 - **Record Length**: 201 observations (16.7 years)
 - **Sampling Frequency**: monthly
@@ -107,7 +106,6 @@ The following metadata provides comprehensive information about this dataset:
 - **Description\***: An observation based estimate of the Atlantic meridional freshwater transport
 - **Program\***: amft
 - **Project\***: An observation based estimate of the Atlantic meridional freshwater transport
-- **License\***: None
 - **References\***: Zheng, H., Cheng, L., Li, F., Pan, Y., & Zhu, C. (2024). An observation-based estimate of Atlantic meridional freshwater transport. Geophysical Research Letters, 51, e2024GL110021. https://doi.org/10.1029/2024GL110021
 - **Weblink\***: https://zenodo.org/records/12790901
 - **Data Product\***: An observation based estimate of the Atlantic meridional freshwater transport

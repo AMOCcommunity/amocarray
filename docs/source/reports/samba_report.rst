@@ -1,15 +1,12 @@
 SAMBA Datasets
 ==============
 
-*Generated: |today|*
-
 This report covers all available SAMBA datasets.
 
 ----
 
 Upper_Abyssal_Transport_Anomalies.txt
 -------------------------------------
-
 
 Dataset Overview
 ^^^^^^^^^^^^^^^^
@@ -18,6 +15,7 @@ Dataset Overview
 - **Description**: SAMBA 34S transport estimates dataset
 - **Source File**: Upper_Abyssal_Transport_Anomalies.txt
 - **Data Product**: Daily volume transport anomaly estimates for the upper and abyssal cells of the MOC
+- **License**: 
 - **Time Coverage**: 2013-09-12 to 2017-07-16
 - **Record Length**: 1,404 observations (3.8 years)
 - **Sampling Frequency**: daily
@@ -114,7 +112,6 @@ The following metadata provides comprehensive information about this dataset:
 - **Description\***: SAMBA 34S transport estimates dataset
 - **Program\***: SAMBA
 - **Project\***: South Atlantic MOC Basin-wide Array (SAMBA)
-- **License\***: CC-BY-4.0
 - **Acknowledgment**: SAMBA data were collected and made freely available by the SAMOC international project and contributing national programs.
 - **Weblink\***: https://www.aoml.noaa.gov/phod/samoc
 - **Platform**: mooring
@@ -147,7 +144,6 @@ The following metadata provides comprehensive information about this dataset:
 MOC_TotalAnomaly_and_constituents.asc
 -------------------------------------
 
-
 Dataset Overview
 ^^^^^^^^^^^^^^^^
 
@@ -155,9 +151,15 @@ Dataset Overview
 - **Description**: SAMBA 34S transport estimates dataset
 - **Source File**: MOC_TotalAnomaly_and_constituents.asc
 - **Data Product**: Daily travel time values, calibrated to a nominal pressure of 1000 dbar, and bottom pressures from the two PIES/CPIES moorings
+- **License**: 
 - **Time Coverage**: 2009-03-19 to 2017-04-29
 - **Record Length**: 2,964 observations (8.1 years)
 - **Sampling Frequency**: daily
+
+**Distribution Statement:**
+
+    MOC transport data from the South Atlantic MOC Basin-wide Array (SAMBA) is made freely available to the public at: https://www.aoml.noaa.gov/phod/SAMOC_international/ . If you use data from SAMBA, please make sure to cite the Meinen et al. (2018) publication as it contains the appropriate credit for all of the data producers in the Acknowledgements.
+
 
 **Citation:**
 
@@ -293,9 +295,9 @@ The following metadata provides comprehensive information about this dataset:
 - **Description\***: SAMBA 34S transport estimates dataset
 - **Program\***: SAMBA
 - **Project\***: South Atlantic MOC Basin-wide Array (SAMBA)
-- **License\***: CC-BY-4.0
 - **Acknowledgment**: SAMBA data were collected and made freely available by the SAMOC international project and contributing national programs.
 - **Weblink\***: https://www.aoml.noaa.gov/phod/samoc
+- **Distribution Statement\***: MOC transport data from the South Atlantic MOC Basin-wide Array (SAMBA) is made freely available to the public at: https://www.aoml.noaa.gov/phod/SAMOC_international/ . If you use data from SAMBA, please make sure to cite the Meinen et al. (2018) publication as it contains the appropriate credit for all of the data producers in the Acknowledgements.
 - **Platform**: mooring
 - **Platform Vocabulary**: https://vocab.nerc.ac.uk/collection/L06/
 - **Data Product\***: Daily travel time values, calibrated to a nominal pressure of 1000 dbar, and bottom pressures from the two PIES/CPIES moorings

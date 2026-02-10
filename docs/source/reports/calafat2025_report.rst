@@ -1,8 +1,6 @@
 CALAFAT2025 Datasets
 ====================
 
-*Generated: |today|*
-
 ----
 
 Bayesian_estimates_Atlantic_MHT.nc
@@ -15,6 +13,7 @@ Dataset Overview
 - **Description**: MHT estimates dataset
 - **Source File**: Bayesian_estimates_Atlantic_MHT.nc
 - **Data Product**: MHT estimates at 12 latitudes across the Atlantic based on spatiotemporal Bayesian hierarchical model
+- **License**: 
 - **Time Coverage**: 2004-02-14 to 2020-08-14
 - **Record Length**: 67 observations (16.5 years)
 - **Sampling Frequency**: 3-monthly

@@ -7,7 +7,7 @@ metadata:
   comment: "Dataset accessed and processed via http://github.com/AMOCcommunity/amocatlas"
   acknowledgement: >
     The mooring data from the Arctic Gateways are provided by the Norwegian Polar Institute (Tromsø, Norway), the Alfred Wegener Institute (Bremerhaven, Germany), the Institute for Marine Research (Bergen, Norway) and the Applied Physics Laboratory, Univ. of Washington (Seattle, USA).
-  license: CC BY 4.0
+  license:  
   citation: >
     Fredriksen, H., de Steur, L., von Appen, W., Ingvaldsen, R., McPherson, R., Lee, C., Lenetsky, J., & Woodgate, R. (2025). Pan-Arctic Gateway transports since 2004 [Dataset]. Norwegian Polar Institute. https://doi.org/10.21334/NPOLAR.2025.80B69907
   featureType: "timeSeriesProfile"

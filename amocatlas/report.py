@@ -1011,8 +1011,14 @@ class ReportUtils:
                         if legend:
                             legend.set_visible(False)
 
-            # Save plot
-            fig.savefig(plot_path, dpi=150, bbox_inches="tight", facecolor="white")
+            # Save plot (suppress matplotlib metadata for deterministic output)
+            fig.savefig(
+                plot_path,
+                dpi=150,
+                bbox_inches="tight",
+                facecolor="white",
+                metadata={"Software": None, "Creation Time": None},
+            )
 
             # Import matplotlib.pyplot if not already imported
             try:
@@ -1025,15 +1031,8 @@ class ReportUtils:
 
             # Return relative path for Sphinx (from reports directory)
             plot_path_return = f"../_static/reports/{plot_filename}"
-        except (
-            ValueError,
-            KeyError,
-            TypeError,
-            AttributeError,
-            OSError,
-            IOError,
-            ImportError,
-        ) as e:
+
+        except Exception as e:
             print(f"  Warning: Failed to generate plot for {dataset_name}: {e}")
             log_debug(f"Plot generation failed for {dataset_name}: {e}")
             return None
@@ -1178,8 +1177,6 @@ class ReportUtils:
                     f"{array_name.upper()} Datasets",
                     "=" * (len(array_name) + 9),
                     "",
-                    "*Generated: |year_month|*",
-                    "",
                     f"This report covers all available {array_name.upper()} datasets.",
                     "",
                 ]
@@ -1222,7 +1219,7 @@ class ReportUtils:
                             # Found end of title, skip next few lines
                             content_start = j + 3
                             skip_title = False
-                            break
+                            # Continue looking for "Dataset Overview" instead of breaking
                         elif line.startswith("Dataset Overview") or line.startswith(
                             "Coordinate Information"
                         ):
@@ -1672,10 +1669,15 @@ class StandardizedDatasetReport(BaseDatasetReport):
                 figsize=(7, 2.5),  # Slightly wider figure
             )
 
-            # Turn off legend and save the plot
+            # Turn off legend and save the plot (suppress matplotlib metadata for deterministic output)
             ax = fig.get_axes()[0]
             ax.legend().set_visible(False)
-            fig.savefig(plot_path, dpi=150, bbox_inches="tight")
+            fig.savefig(
+                plot_path,
+                dpi=150,
+                bbox_inches="tight",
+                metadata={"Software": None, "Creation Time": None},
+            )
             plt.close(fig)
 
             # Return relative path for Sphinx (from reports directory)
@@ -1887,8 +1889,6 @@ def _generate_rst_report(
             title,
             "=" * len(title),
             "",
-            "*Generated: |year_month|*",
-            "",
         ]
     )
 
@@ -1976,6 +1976,11 @@ def _generate_rst_report(
             lines.append(f"- **Source File**: {attrs['source_file']}")
         if attrs.get("data_product"):
             lines.append(f"- **Data Product**: {attrs['data_product']}")
+        license_value = attrs.get("license", "")
+        if license_value and license_value.lower() != "void":
+            lines.append(f"- **License**: {license_value}")
+        else:  # If empty, "void", or missing - always show empty license field
+            lines.append("- **License**: ")
 
         # Add date created if available
         date_created = (
