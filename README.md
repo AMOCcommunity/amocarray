@@ -254,7 +254,6 @@ The observing arrays and datasets accessed through AMOCatlas are supported by:
 
 - **SAMBA data**: SAMBA data were collected and made freely available by the SAMOC international project and contributing national programs
 
-- **MOCHA data**: Funding source: the US National Science Foundation.
 
 - **41°N data**: These data were collected and made freely available by the International Argo Program and the national programs that contribute to it. The Argo Program is part of the Global Ocean Observing System
 
