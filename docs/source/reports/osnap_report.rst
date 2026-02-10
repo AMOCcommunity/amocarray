@@ -16,6 +16,7 @@ Dataset Overview
 - **DOI**: https://doi.org/10.35090/gatech/70342
 - **Source File**: OSNAP_MOC_MHT_MFT_TimeSeries_201408_202207_2025.nc
 - **Data Product**: Time series of MOC, MHT, and MFT (2014-2022)
+- **License**: 
 - **Date Created**: 2025-05-21T15:09:24Z
 - **Time Coverage**: 2014-08-01 to 2022-07-01
 - **Record Length**: 96 observations (7.9 years)
@@ -279,6 +280,7 @@ Dataset Overview
 - **DOI**: https://doi.org/10.35090/gatech/70342
 - **Source File**: OSNAP_Streamfunction_201408_202207_2025.nc
 - **Data Product**: Meridional overturning streamfunction (2014-2022)
+- **License**: 
 - **Date Created**: 2025-05-21T15:16:52Z
 - **Time Coverage**: 2014-08-01 to 2022-07-01
 - **Record Length**: 96 observations (7.9 years)
@@ -444,6 +446,7 @@ Dataset Overview
 - **DOI**: https://doi.org/10.35090/gatech/70342
 - **Source File**: OSNAP_Gridded_TSV_201408_202207_2025.nc
 - **Data Product**: Gridded velocity, temperature, and salinity (2014-2022)
+- **License**: 
 - **Date Created**: 2025-05-21T15:11:05Z
 - **Time Coverage**: 2014-08-01 to 2022-07-01
 - **Record Length**: 96 observations (7.9 years)

@@ -13,6 +13,7 @@ Dataset Overview
 - **Description**: An observation based estimate of the Atlantic meridional freshwater transport
 - **Source File**: atl_mft_2000_extend_gpcp_oaflux.nc
 - **Data Product**: An observation based estimate of the Atlantic meridional freshwater transport
+- **License**: 
 - **Time Coverage**: 2004-04-30 to 2020-12-31
 - **Record Length**: 201 observations (16.7 years)
 - **Sampling Frequency**: monthly

@@ -14,6 +14,7 @@ Dataset Overview
 - **DOI**: https://doi.org/10.17604/3nfq-va20
 - **Source File**: mocha_mht_data_ERA5_v2020.nc
 - **Data Product**: MOCHA heat transport at 26.5°N
+- **License**: ODC-BY
 - **Date Created**: 2023-08-26T00:14:33Z
 - **Time Coverage**: 2004-04-02 to 2020-12-14
 - **Record Length**: 12,202 observations (16.7 years)

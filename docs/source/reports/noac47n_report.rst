@@ -13,6 +13,7 @@ Dataset Overview
 - **Description**: No description available
 - **Source File**: NOAC_AMOC.tab
 - **Data Product**: Basin-wide AMOC volume transport from the NOAC array at 47°N in the subpolar North Atlantic (1993-2018)
+- **License**: 
 - **Time Coverage**: 1993-01-01 to 2018-01-01
 - **Record Length**: 301 observations (25.0 years)
 - **Sampling Frequency**: monthly

@@ -13,6 +13,7 @@ Dataset Overview
 - **Description**: Estimating the Atlantic overturning at 26°N using satellite altimetry and cable measurements
 - **Source File**: MOCproxy_for_figshare_v1.mat
 - **Data Product**: a proxy for the meridional overturning circulation at 26N, using sea level anomaly and cable measurements
+- **License**: CC-BY-4.0
 - **Time Coverage**: 1993-01-15 to 2014-12-15
 - **Record Length**: 264 observations (21.9 years)
 - **Sampling Frequency**: monthly

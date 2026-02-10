@@ -631,7 +631,7 @@ class TestReportGenerationFallbacks:
             result = ReportUtils.estimate_frequency(nan_diff)
             assert isinstance(result, str)
         except (ValueError, TypeError):
-            # This is acceptable - function may not handle NaT
+            # This is acceptable - function may not handle NaT values gracefully
             pass
 
     def test_handle_yyyymm_time_format_edge_cases(self):
@@ -646,7 +646,7 @@ class TestReportGenerationFallbacks:
             # If it succeeds, should return DatetimeIndex
             assert isinstance(result, (pd.DatetimeIndex, type(None)))
         except (ValueError, TypeError):
-            # This is acceptable - function should handle invalid formats
+            # This is acceptable - function should handle invalid YYYYMM formats gracefully
             pass
 
         # Test with NaN values
@@ -655,6 +655,7 @@ class TestReportGenerationFallbacks:
             result = ReportUtils.handle_yyyymm_time_format(nan_data)
             assert isinstance(result, (pd.DatetimeIndex, type(None)))
         except (ValueError, TypeError):
+            # This is acceptable - function should handle NaN values gracefully in time data
             pass
 
     def test_extract_contributors_and_institutions_edge_cases(self):

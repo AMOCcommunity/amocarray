@@ -1976,6 +1976,11 @@ def _generate_rst_report(
             lines.append(f"- **Source File**: {attrs['source_file']}")
         if attrs.get("data_product"):
             lines.append(f"- **Data Product**: {attrs['data_product']}")
+        license_value = attrs.get("license", "")
+        if license_value and license_value.lower() != "void":
+            lines.append(f"- **License**: {license_value}")
+        else:  # If empty, "void", or missing - always show empty license field
+            lines.append("- **License**: ")
 
         # Add date created if available
         date_created = (
