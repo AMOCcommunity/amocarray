@@ -5,7 +5,7 @@
 [![Python](https://img.shields.io/pypi/pyversions/AMOCatlas.svg)](https://pypi.org/project/AMOCatlas/)
 [![License](https://img.shields.io/github/license/AMOCcommunity/amocatlas.svg)](LICENSE)
 
-**Clean, modular loading of AMOC observing array datasets, with optional structured logging and metadata enrichment.**
+**Standardized, modular loading of AMOC observing array datasets, with optional structured logging and metadata enrichment.**
 
 AMOCatlas provides a unified system to access and process data from major Atlantic Meridional Overturning Circulation (AMOC) observing arrays. The Atlantic Meridional Overturning Circulation is a critical component of Earth's climate system, transporting heat northward in the Atlantic Ocean. This project enables researchers to easily access, analyze, and visualize data from key monitoring stations.
 
@@ -105,7 +105,7 @@ Data will be cached in `~/.amocatlas_data/` unless you specify a custom location
 AMOCatlas provides **standardized, analysis-ready data by default** with the new `read` API:
 
 **Key Benefits:**
-- 🧹 **Clean Data**: Consistent variable names, metadata, and units
+- 🧹 **Standardized Data**: Consistent variable names, metadata, and units
 - 🚀 **Easy to Use**: Single function calls instead of complex workflows  
 - 🔄 **Flexible**: Get raw data when needed with `raw=True`
 - 📊 **Smart Defaults**: Automatically handles array-specific parameters
@@ -232,34 +232,39 @@ This project is supported by the Horizon Europe project **EPOC - Explaining and 
 
 ## Current Roadmap
 
-- [ ] Improve test coverage for data sources with <40% coverage
+- [x] Improve test coverage for data sources with <40% coverage
 - [ ] Add more comprehensive visualization function tests  
 - [ ] Expand plotting capabilities with additional array-specific visualizations
-- [ ] Performance optimization for large dataset handling
-- [ ] Create summary table of variable names, standard_names, long_names and units across all datasets
-- [ ] Create summary table of default units and formatting conventions used for standardization
-- [ ] Document deviations from OceanSITES-1.5 standard and rationale for changes
-- [ ] Enrich metadata with ORCID identifiers for contributors
-- [ ] Enrich metadata with https://edmo.seadatanet.org identifiers for contributing institutions
+- [x] Create summary table of variable names, standard_names, long_names and units across all datasets
+- [x] Create summary table of default units and formatting conventions used for standardization
+- [x] Document deviations from OceanSITES-1.5 standard and rationale for changes
+- [x] Enrich metadata with ORCID identifiers for contributors
+- [x] Enrich metadata with https://edmo.seadatanet.org identifiers for contributing institutions
 - [ ] Create sample 3D plots for Arctic Gateway and Calafat2025 datasets
 
 ## Acknowledgements
 
 The observing arrays and datasets accessed through AMOCatlas are supported by:
 
-- **RAPID data**: The RAPID-MOC monitoring project is funded by the Natural Environment Research Council (UK). Data is freely available from [www.rapid.ac.uk](https://www.rapid.ac.uk/)
+- **RAPID data**: Data from the RAPID MOC monitoring project are funded by the Natural Environment Research Council, the National Science Foundation (NSF) with support from NOAA. They are freely available from www.rapid.ac.uk/.
 
-- **MOVE data**: The MOVE project is funded by the NOAA Climate Program Office under award NA15OAR4320071. Initial funding came from the German Bundesministerium für Bildung und Forschung. Data collection is carried out by Uwe Send and Matthias Lankhorst at Scripps Institution of Oceanography
+- **MOVE data**: The MOVE project is made possible with funding from the NOAA Climate Program Office under award NA15OAR4320071 and carried out by principal investigators Uwe Send and Matthias Lankhorst. Initial funding came from the German Bundesministerium fuer Bildung und Forschung. MOVE data are made freely available through the international OceanSITES program.
 
-- **OSNAP data**: OSNAP data were collected and made freely available by the OSNAP (Overturning in the Subpolar North Atlantic Program) project and all the national programs that contribute to it ([www.o-snap.org](https://www.o-snap.org)). Multiple contributing institutions from US, UK, Germany, Netherlands, Canada, France, and China
+- **OSNAP data**: OSNAP data were collected and made freely available by the OSNAP (Overturning in the Subpolar North Atlantic Program) project and all the national programs that contribute to it (www.o-snap.org).
 
 - **SAMBA data**: SAMBA data were collected and made freely available by the SAMOC international project and contributing national programs
 
-- **MOCHA data**: Data from the RAPID-MOCHA program are funded by the U.S. National Science Foundation and U.K. Natural Environment Research Council
+- **MOCHA data**: Funding source: the US National Science Foundation.
 
 - **41°N data**: These data were collected and made freely available by the International Argo Program and the national programs that contribute to it. The Argo Program is part of the Global Ocean Observing System
 
 - **DSO data**: Generated by Institution of Oceanography Hamburg and Marine and Freshwater Research Institute (Reykjavik, Iceland). Supported through funding from NACLIM (EU-FP7, grant 308299), RACE II, RACE-Synthese (German BMBF), Nordic WOCE, VEINS, MOEN, ASOF-W, NAClim, THOR, AtlantOS, and Blue Action
+
+- **FBC data**: Funding for the in situ Faroe Bank Channel measurements is from the Environmental Research Programme of the Nordic Council of Ministers (NMR) 1993–1998, from national Nordic research councils, from the Danish DANCEA programme, and from the European Framework Programs, lately under grant agreement no. GA212643 (THOR) and under grant agreement no. 308299 (NACLIM).
+
+- **Arctic Gateway data**: This work is funded by the European Union as part of the EPOC project (Explaining and Predicting the Ocean Conveyor; grant number: 101059547). Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union. Neither the European Union nor the granting authority can be held responsible for them.
+
+- **CALAFAT2025 data**: This work has been carried out within the framework of the EPOC project funded by the European Union's Horizon Europe programme (grant agreement No 101059547), under call HORIZON-CL6-2021-CLIMATE01. Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union. Neither the European Union nor the granting authority can be held responsible for them.
 
 - **FW2015 data**: Based on Frajka-Williams, E. (2015), "Estimating the Atlantic overturning at 26°N using satellite altimetry and cable measurements"
 
