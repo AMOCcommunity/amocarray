@@ -31,7 +31,7 @@ Dataset Overview
 Dataset Visualization
 ^^^^^^^^^^^^^^^^^^^^^
 
-.. figure:: ../_static/reports/DSO_timeseries.png
+.. figure:: ../_static/reports/dso_timeseries.png
    :alt: AMOC time series plot
    :align: center
    :scale: 80%
@@ -167,9 +167,9 @@ The following metadata provides comprehensive information about this dataset:
 - **Source Url\***: https://www.cen.uni-hamburg.de/en/icdc/data/ocean/denmark-strait-overflow.html
 - **Date Created**: 2021-12-06T19:37:07Z
 - **Date Modified**: 2026-02-01T00:00:00Z
-- **History**: 2021-12-06T19:37:07ZOceanSITES file with provisional transport data sent to DAC by Ursula Schauer; 2026-02-10T09:27:28Z AMOCatlas: Corrupted DEPTH value in DSO_transport_hourly_1996_2021.nc marked as NaN (was 9.97e+36)
+- **History**: 2021-12-06T19:37:07ZOceanSITES file with provisional transport data sent to DAC by Ursula Schauer; 2026-02-10T13:51:55Z AMOCatlas: Corrupted DEPTH value in DSO_transport_hourly_1996_2021.nc marked as NaN (was 9.97e+36)
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.2.0
+- **Processing Version**: v0.3.0
 - **Processing Datasource\***: dso
 - **Format Version**: 1.3
 - **Variable Mapping\***: {'DSO_tr': 'TRANS_DSO'}

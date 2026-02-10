@@ -25,7 +25,7 @@ Dataset Overview
 Dataset Visualization
 ^^^^^^^^^^^^^^^^^^^^^
 
-.. figure:: ../_static/reports/FW2015_timeseries.png
+.. figure:: ../_static/reports/fw2015_timeseries.png
    :alt: AMOC time series plot
    :align: center
    :scale: 80%
@@ -189,7 +189,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source Url\***: https://figshare.com/articles/dataset/MOCproxy_for_figshare_v1_0_mat/1463479?file=3369779
 - **Date Modified**: 2026-02-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.2.0
+- **Processing Version**: v0.3.0
 - **Processing Datasource\***: fw2015
 - **Variable Mapping\***: [Complex metadata structure - 12 items]
 - **Original Variable Metadata\***: [Complex metadata structure - 11 items]

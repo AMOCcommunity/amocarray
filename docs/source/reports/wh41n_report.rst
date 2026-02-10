@@ -27,7 +27,7 @@ Dataset Overview
 Dataset Visualization
 ^^^^^^^^^^^^^^^^^^^^^
 
-.. figure:: ../_static/reports/hobbs_willis_amoc41N_tseries.txt_timeseries.png
+.. figure:: ../_static/reports/hobbs_willis_amoc41n_tseries.txt_timeseries.png
    :alt: AMOC time series plot
    :align: center
    :scale: 80%
@@ -145,7 +145,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source Url\***: https://doi.org/10.5281/zenodo.8170365
 - **Date Modified**: 2026-02-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.2.0
+- **Processing Version**: v0.3.0
 - **Processing Datasource\***: wh41n
 - **Variable Mapping\***: [Complex metadata structure - 4 items]
 - **Original Variable Metadata\***: [Complex metadata structure - 4 items]
@@ -177,7 +177,7 @@ Dataset Overview
 Dataset Visualization
 ^^^^^^^^^^^^^^^^^^^^^
 
-.. figure:: ../_static/reports/trans_ARGO_ERA5_2d_gridded.png
+.. figure:: ../_static/reports/trans_argo_era5_2d_gridded.png
    :alt: AMOC time series plot
    :align: center
    :scale: 80%
@@ -309,7 +309,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Date Created**: Thu 16 Jan 2025 16:09:16 AEDT
 - **Date Modified**: 2026-02-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.2.0
+- **Processing Version**: v0.3.0
 - **Processing Datasource\***: wh41n
 - **Variable Mapping\***: {'Vek': 'VEL_EKMAN', 'trans': 'TRANS_GEO', 'moc': 'MOC', 'depth': 'DEPTH', 'lat': 'LATITUDE', 'lon': 'LONGITUDE'}
 - **Original Variable Metadata\***: [Complex metadata structure - 3 items]
@@ -343,7 +343,7 @@ Dataset Overview
 Dataset Visualization
 ^^^^^^^^^^^^^^^^^^^^^
 
-.. figure:: ../_static/reports/Q_ARGO_obs_dens_2000depth_ERA5_2d_gridded.png
+.. figure:: ../_static/reports/q_argo_obs_dens_2000depth_era5_2d_gridded.png
    :alt: AMOC time series plot
    :align: center
    :scale: 80%
@@ -482,7 +482,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Date Created**: Thu 16 Jan 2025 16:09:16 AEDT
 - **Date Modified**: 2026-02-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.2.0
+- **Processing Version**: v0.3.0
 - **Processing Datasource\***: wh41n
 - **Variable Mapping\***: {'Qnet': 'MHT_NET', 'Qek': 'MHT_EKMAN', 'Q': 'MHT', 'depth': 'DEPTH', 'lat': 'LATITUDE', 'lon': 'LONGITUDE', 'time': 'TIME'}
 - **Original Variable Metadata\***: [Complex metadata structure - 3 items]
