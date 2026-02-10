@@ -1,8 +1,6 @@
 FW2015 Datasets
 ===============
 
-*Generated: |today|*
-
 ----
 
 MOCproxy_for_figshare_v1.mat

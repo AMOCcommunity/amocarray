@@ -1,15 +1,12 @@
 RAPID Datasets
 ==============
 
-*Generated: |today|*
-
 This report covers all available RAPID datasets.
 
 ----
 
 moc_transports.nc
 -----------------
-
 
 Dataset Overview
 ^^^^^^^^^^^^^^^^
@@ -210,7 +207,6 @@ The following metadata provides comprehensive information about this dataset:
 moc_vertical.nc
 ---------------
 
-
 Dataset Overview
 ^^^^^^^^^^^^^^^^
 
@@ -360,7 +356,6 @@ The following metadata provides comprehensive information about this dataset:
 
 ts_gridded.nc
 -------------
-
 
 Dataset Overview
 ^^^^^^^^^^^^^^^^
@@ -632,7 +627,6 @@ The following metadata provides comprehensive information about this dataset:
 2d_gridded.nc
 -------------
 
-
 Dataset Overview
 ^^^^^^^^^^^^^^^^
 
@@ -829,7 +823,6 @@ The following metadata provides comprehensive information about this dataset:
 
 meridional_transports.nc
 ------------------------
-
 
 Dataset Overview
 ^^^^^^^^^^^^^^^^

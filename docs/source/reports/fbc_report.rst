@@ -1,8 +1,6 @@
 FBC Datasets
 ============
 
-*Generated: |today|*
-
 ----
 
 FBC_overflow_transport.txt

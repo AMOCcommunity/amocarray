@@ -1,15 +1,12 @@
 MOVE Datasets
 =============
 
-*Generated: |today|*
-
 This report covers all available MOVE datasets.
 
 ----
 
 OS_MOVE_20000206-20221014_DPR_VOLUMETRANSPORT.nc
 ------------------------------------------------
-
 
 Dataset Overview
 ^^^^^^^^^^^^^^^^
@@ -219,7 +216,6 @@ The following metadata provides comprehensive information about this dataset:
 OS_MOVE_20000101-20221021_GRD_CURRENTS-AT-SITES-MOVE3-MOVE4.nc
 --------------------------------------------------------------
 
-
 Dataset Overview
 ^^^^^^^^^^^^^^^^
 
@@ -428,7 +424,6 @@ The following metadata provides comprehensive information about this dataset:
 
 OS_MOVE_20000101-20221018_GRD_TEMPERATURE-SALINITY-AT-SITES-MOVE1-MOVE3.nc
 --------------------------------------------------------------------------
-
 
 Dataset Overview
 ^^^^^^^^^^^^^^^^

@@ -139,6 +139,66 @@ def test_show_attributes_dataset(sample_dataset: xr.Dataset) -> None:
     assert len(result) > 0
 
 
+def test_format_variable_name_for_plotting():
+    """Test format_variable_name_for_plotting function."""
+    # Test basic subscript conversion
+    assert plotters.format_variable_name_for_plotting("MOC_z") == "MOC$_{z}$"
+    assert (
+        plotters.format_variable_name_for_plotting("MOC_sigma0") == "MOC$_{\\sigma_0}$"
+    )
+    assert (
+        plotters.format_variable_name_for_plotting("density_theta")
+        == "density$_{\\theta}$"
+    )
+    assert plotters.format_variable_name_for_plotting("temp_ref") == "temp$_{ref}$"
+
+    # Test variables without underscores remain unchanged
+    assert plotters.format_variable_name_for_plotting("MOC") == "MOC"
+    assert plotters.format_variable_name_for_plotting("temperature") == "temperature"
+
+    # Test empty string handling
+    assert plotters.format_variable_name_for_plotting("") == ""
+
+
+def test_format_units_for_plotting():
+    """Test format_units_for_plotting function."""
+    # Test standard unit conversions
+    assert plotters.format_units_for_plotting("Sverdrup") == "Sv"
+    assert plotters.format_units_for_plotting("sverdrup") == "Sv"
+    assert plotters.format_units_for_plotting("degrees_north") == "°N"
+    assert plotters.format_units_for_plotting("degrees_Celsius") == "°C"
+
+    # Test units that should remain unchanged
+    assert plotters.format_units_for_plotting("m/s") == "m/s"
+    assert plotters.format_units_for_plotting("unknown_unit") == "unknown_unit"
+
+    # Test empty string handling
+    assert plotters.format_units_for_plotting("") == ""
+
+
+def test_monthly_resample():
+    """Test monthly_resample function with simple data."""
+    # Create simple test data with datetime coordinates
+    time = pd.date_range("2020-01-01", periods=90, freq="D")  # Daily data
+    data = np.random.randn(90)
+    da = xr.DataArray(data, coords={"time": time}, dims=["time"])
+
+    # Test resampling to monthly
+    result = plotters.monthly_resample(da)
+    assert isinstance(result, xr.DataArray)
+    assert len(result) < len(da)  # Should be shorter after monthly resampling
+
+    # Test with data that's already monthly (should pass through)
+    monthly_time = pd.date_range("2020-01-01", periods=12, freq="ME")
+    monthly_data = np.random.randn(12)
+    monthly_da = xr.DataArray(
+        monthly_data, coords={"time": monthly_time}, dims=["time"]
+    )
+
+    result_monthly = plotters.monthly_resample(monthly_da)
+    assert len(result_monthly) == len(monthly_da)  # Should be same length
+
+
 def test_show_variables_by_dimension_with_matching_dim(
     sample_dataset: xr.Dataset,
 ) -> None:
@@ -158,20 +218,6 @@ def test_show_variables_by_dimension_no_match(simple_dataset: xr.Dataset) -> Non
         plotters.show_variables_by_dimension(
             simple_dataset, dimension_name="nonexistent"
         )
-
-
-def test_monthly_resample() -> None:
-    """Test monthly_resample function."""
-    # Create daily data
-    time = pd.date_range("2020-01-01", periods=100, freq="D")
-    data = np.random.randn(100)
-    da = xr.DataArray(data, coords={"time": time}, dims=["time"])
-
-    result = plotters.monthly_resample(da)
-
-    # Should be resampled to monthly
-    assert isinstance(result, xr.DataArray)
-    assert len(result) < len(da)  # Should be fewer points
 
 
 def test_plot_amoc_timeseries_basic(simple_dataset: xr.Dataset) -> None:

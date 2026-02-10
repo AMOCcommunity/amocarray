@@ -1,15 +1,12 @@
 SAMBA Datasets
 ==============
 
-*Generated: |today|*
-
 This report covers all available SAMBA datasets.
 
 ----
 
 Upper_Abyssal_Transport_Anomalies.txt
 -------------------------------------
-
 
 Dataset Overview
 ^^^^^^^^^^^^^^^^
@@ -114,7 +111,6 @@ The following metadata provides comprehensive information about this dataset:
 - **Description\***: SAMBA 34S transport estimates dataset
 - **Program\***: SAMBA
 - **Project\***: South Atlantic MOC Basin-wide Array (SAMBA)
-- **License\***: CC-BY-4.0
 - **Acknowledgment**: SAMBA data were collected and made freely available by the SAMOC international project and contributing national programs.
 - **Weblink\***: https://www.aoml.noaa.gov/phod/samoc
 - **Platform**: mooring
@@ -146,7 +142,6 @@ The following metadata provides comprehensive information about this dataset:
 
 MOC_TotalAnomaly_and_constituents.asc
 -------------------------------------
-
 
 Dataset Overview
 ^^^^^^^^^^^^^^^^
@@ -293,7 +288,6 @@ The following metadata provides comprehensive information about this dataset:
 - **Description\***: SAMBA 34S transport estimates dataset
 - **Program\***: SAMBA
 - **Project\***: South Atlantic MOC Basin-wide Array (SAMBA)
-- **License\***: CC-BY-4.0
 - **Acknowledgment**: SAMBA data were collected and made freely available by the SAMOC international project and contributing national programs.
 - **Weblink\***: https://www.aoml.noaa.gov/phod/samoc
 - **Platform**: mooring

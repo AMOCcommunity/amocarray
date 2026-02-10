@@ -1,15 +1,12 @@
 WH41N Datasets
 ==============
 
-*Generated: |today|*
-
 This report covers all available WH41N datasets.
 
 ----
 
 hobbs_willis_amoc41N_tseries.txt
 --------------------------------
-
 
 Dataset Overview
 ^^^^^^^^^^^^^^^^
@@ -158,7 +155,6 @@ The following metadata provides comprehensive information about this dataset:
 
 trans_ARGO_ERA5.nc
 ------------------
-
 
 Dataset Overview
 ^^^^^^^^^^^^^^^^
@@ -324,7 +320,6 @@ The following metadata provides comprehensive information about this dataset:
 
 Q_ARGO_obs_dens_2000depth_ERA5.nc
 ---------------------------------
-
 
 Dataset Overview
 ^^^^^^^^^^^^^^^^

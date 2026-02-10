@@ -59,10 +59,7 @@ templates_path = ["_templates"]
 exclude_patterns = ["_build"]
 nitpick_ignore = []
 
-# Custom RST substitutions for reducing git churn
-rst_prolog = f"""
-.. |year_month| replace:: {datetime.datetime.now().strftime('%Y-%m')}
-"""
+# Note: Custom RST substitutions are now defined per-file in report generation
 
 # Show orphan documents
 html_add_permalinks = "¶"

@@ -1012,8 +1012,13 @@ class ReportUtils:
                             legend.set_visible(False)
 
             # Save plot (suppress matplotlib metadata for deterministic output)
-            fig.savefig(plot_path, dpi=150, bbox_inches="tight", facecolor="white",
-                       metadata={'Software': None, 'Creation Time': None})
+            fig.savefig(
+                plot_path,
+                dpi=150,
+                bbox_inches="tight",
+                facecolor="white",
+                metadata={"Software": None, "Creation Time": None},
+            )
 
             # Import matplotlib.pyplot if not already imported
             try:
@@ -1171,8 +1176,6 @@ class ReportUtils:
                 [
                     f"{array_name.upper()} Datasets",
                     "=" * (len(array_name) + 9),
-                    "",
-                    "*Generated: |year_month|*",
                     "",
                     f"This report covers all available {array_name.upper()} datasets.",
                     "",
@@ -1669,8 +1672,12 @@ class StandardizedDatasetReport(BaseDatasetReport):
             # Turn off legend and save the plot (suppress matplotlib metadata for deterministic output)
             ax = fig.get_axes()[0]
             ax.legend().set_visible(False)
-            fig.savefig(plot_path, dpi=150, bbox_inches="tight",
-                       metadata={'Software': None, 'Creation Time': None})
+            fig.savefig(
+                plot_path,
+                dpi=150,
+                bbox_inches="tight",
+                metadata={"Software": None, "Creation Time": None},
+            )
             plt.close(fig)
 
             # Return relative path for Sphinx (from reports directory)
@@ -1881,8 +1888,6 @@ def _generate_rst_report(
         [
             title,
             "=" * len(title),
-            "",
-            "*Generated: |year_month|*",
             "",
         ]
     )

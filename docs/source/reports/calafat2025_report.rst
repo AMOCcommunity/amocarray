@@ -1,8 +1,6 @@
 CALAFAT2025 Datasets
 ====================
 
-*Generated: |today|*
-
 ----
 
 Bayesian_estimates_Atlantic_MHT.nc

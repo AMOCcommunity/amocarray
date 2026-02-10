@@ -1,8 +1,6 @@
 NOAC47N Datasets
 ================
 
-*Generated: |year_month|*
-
 ----
 
 NOAC_AMOC.tab

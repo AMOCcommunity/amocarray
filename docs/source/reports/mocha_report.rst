@@ -1,8 +1,6 @@
 MOCHA Datasets
 ==============
 
-*Generated: |today|*
-
 ----
 
 mocha_mht_data_ERA5_v2020.nc
@@ -96,56 +94,56 @@ along with key statistics for each variable.
      - Max Value
      - Missing %
    * - *Q_sum* → **MHT**
-     - No description available
+     - Net meridional heat transport 
      - PW
      - (12202,)
      - -0.64
      - 2.52
      - 0.0%
    * - *Q_ek* → **MHT_EKMAN**
-     - No description available
+     - Ekman heat transports 
      - PW
      - (12202,)
      - -1.16
      - 1.74
      - 0.0%
    * - *Q_fc* → **MHT_FC**
-     - No description available
+     - Florida Straits heat transports 
      - PW
      - (12202,)
      - 1.50
      - 3.29
      - 0.0%
    * - *Q_gyre* → **MHT_GYRE**
-     - No description available
+     - Basinwide gyre heat transports, as classically defined (e.g. see Johns et al., 2011) 
      - PW
      - (12202,)
      - -0.03
      - 0.23
      - 0.0%
    * - *Q_int* → **MHT_INT**
-     - No description available
+     - Heat transport for the rest of the interior to Africa (but only represents the contribution by the zonal mean v and T) 
      - PW
      - (12202,)
      - -2.97
      - -0.81
      - 0.0%
    * - *Q_mo* → **MHT_MO**
-     - No description available
+     - The sum of all the three interior components between the Bahamas and Africa (Q_int + Q_wedge + Q_eddy) 
      - PW
      - (12202,)
      - -2.52
      - -0.92
      - 0.0%
    * - *Q_ot* → **MHT_OT**
-     - No description available
+     - Basinwide overturning heat transports, as classically defined (e.g. see Johns et al., 2011) 
      - PW
      - (12202,)
      - -0.63
      - 2.47
      - 0.0%
    * - *Q_wedge* → **MHT_WEDGE**
-     - No description available
+     - Heat transport for the "western boundary wedge" off Abaco 
      - PW
      - (12202,)
      - -0.41
@@ -159,7 +157,7 @@ along with key statistics for each variable.
      - 32.90
      - 0.0%
    * - **Q_eddy**
-     - No description available
+     - **MHT_EDDY**: interior gyre component due to spatially correlated v'T' variability across the interior, derived from an objective analysis of interior ARGO T/S data merged with the mooring T/S data from moorings, and smoothly merged into the EN4 climatology along 26.5°N below 2000m 
      - PW
      - (12202,)
      - -0.03

@@ -1,15 +1,12 @@
 OSNAP Datasets
 ==============
 
-*Generated: |today|*
-
 This report covers all available OSNAP datasets.
 
 ----
 
 OSNAP_MOC_MHT_MFT_TimeSeries_201408_202207_2025.nc
 --------------------------------------------------
-
 
 Dataset Overview
 ^^^^^^^^^^^^^^^^
@@ -234,7 +231,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Description\***: OSNAP transport and hydrographic estimates dataset, 2014-2020
 - **Program\***: OSNAP
 - **Project**: Overturning in the Subpolar North Atlantic Program (OSNAP)
-- **License\***: CC-BY-4.0
+- **License\***: None
 - **Acknowledgment**: OSNAP data were collected and made freely available by the OSNAP (Overturning in the Subpolar North Atlantic Program) project and all the national programs that contribute to it (www.o-snap.org).
 - **Doi\***: https://doi.org/10.35090/gatech/70342
 - **References**: Lozier et al. (2019), Science, doi:10.1126/science.aau6592; Li et al. (2017), JTECH, doi:10.1175/JTECH-D-16-0247.1; Li et al. (2021), Nature Communications, doi:10.1038/s41467-021-23350-2; Fu et al. (2023), Communications Earth & Environment, doi:10.1038/s43247-023-00848-9
@@ -273,7 +270,6 @@ The following metadata provides comprehensive information about this dataset:
 
 OSNAP_Streamfunction_201408_202207_2025.nc
 ------------------------------------------
-
 
 Dataset Overview
 ^^^^^^^^^^^^^^^^
@@ -400,7 +396,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Description\***: OSNAP transport and hydrographic estimates dataset, 2014-2020
 - **Program\***: OSNAP
 - **Project**: Overturning in the Subpolar North Atlantic Program (OSNAP)
-- **License\***: CC-BY-4.0
+- **License\***: None
 - **Acknowledgment**: OSNAP data were collected and made freely available by the OSNAP (Overturning in the Subpolar North Atlantic Program) project and all the national programs that contribute to it (www.o-snap.org).
 - **Doi\***: https://doi.org/10.35090/gatech/70342
 - **References**: Lozier et al. (2019), Science, doi:10.1126/science.aau6592; Li et al. (2017), JTECH, doi:10.1175/JTECH-D-16-0247.1; Li et al. (2021), Nature Communications, doi:10.1038/s41467-021-23350-2; Fu et al. (2023), Communications Earth & Environment, doi:10.1038/s43247-023-00848-9
@@ -439,7 +435,6 @@ The following metadata provides comprehensive information about this dataset:
 
 OSNAP_Gridded_TSV_201408_202207_2025.nc
 ---------------------------------------
-
 
 Dataset Overview
 ^^^^^^^^^^^^^^^^
@@ -570,7 +565,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Description\***: OSNAP transport and hydrographic estimates dataset, 2014-2020
 - **Program\***: OSNAP
 - **Project**: Overturning in the Subpolar North Atlantic Program (OSNAP)
-- **License\***: CC-BY-4.0
+- **License\***: None
 - **Acknowledgment**: OSNAP data were collected and made freely available by the OSNAP (Overturning in the Subpolar North Atlantic Program) project and all the national programs that contribute to it (www.o-snap.org).
 - **Doi\***: https://doi.org/10.35090/gatech/70342
 - **References**: Lozier et al. (2019), Science, doi:10.1126/science.aau6592; Li et al. (2017), JTECH, doi:10.1175/JTECH-D-16-0247.1; Li et al. (2021), Nature Communications, doi:10.1038/s41467-021-23350-2; Fu et al. (2023), Communications Earth & Environment, doi:10.1038/s43247-023-00848-9
