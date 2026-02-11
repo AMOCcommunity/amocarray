@@ -13,7 +13,7 @@ Dataset Overview
 - **Description**: MHT estimates dataset
 - **Source File**: Bayesian_estimates_Atlantic_MHT.nc
 - **Data Product**: MHT estimates at 12 latitudes across the Atlantic based on spatiotemporal Bayesian hierarchical model
-- **License**: 
+- **License**: CC-BY-4.0
 - **Time Coverage**: 2004-02-14 to 2020-08-14
 - **Record Length**: 67 observations (16.5 years)
 - **Sampling Frequency**: 3-monthly
@@ -115,7 +115,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Description**: MHT estimates dataset
 - **Program**: Calafat2025
 - **Project**: Estimates of Atlantic meridional heat transport from spatiotemporal fusion of Argo, altimetry and gravimetry data
-- **License**: None
+- **License**: CC-BY-4.0
 - **Acknowledgment**: This work has been carried out within the framework of the EPOC project funded by the European Union's Horizon Europe programme (grant agreement No 101059547), under call HORIZON-CL6-2021-CLIMATE01. Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union. Neither the European Union nor the granting authority can be held responsible for them.
 - **Weblink**: https://zenodo.org/records/16640426
 - **Platform**: Argo floats, altimetry, gravimetry data
