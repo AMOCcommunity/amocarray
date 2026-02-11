@@ -139,7 +139,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source Url\***: https://zenodo.org/records/16640426
 - **Date Modified**: 2026-02-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.3.0
+- **Processing Version**: v0.2.0
 - **Processing Datasource\***: calafat2025
 - **Variable Mapping\***: {'time': 'TIME', 'latitude': 'LATITUDE', 'mht': 'MHT', 'htc': 'HTC'}
 - **Original Variable Metadata\***: [Complex metadata structure - 4 items]

@@ -160,7 +160,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Date Created**: 2025-10-31T23:55:53Z
 - **Date Modified**: 2026-02-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.3.0
+- **Processing Version**: v0.2.0
 - **Processing Datasource\***: arcticgateway
 - **Product Version**: v0
 - **Variable Mapping\***: {'time': 'TIME', 'depth': 'DEPTH', 'lon': 'LONGITUDE', 'lat': 'LATITUDE', 'v': 'VCUR'}
@@ -334,7 +334,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Date Created**: 2025-10-31T23:55:53Z
 - **Date Modified**: 2026-02-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.3.0
+- **Processing Version**: v0.2.0
 - **Processing Datasource\***: arcticgateway
 - **Product Version**: v0
 - **Variable Mapping\***: {'time': 'TIME', 'depth': 'DEPTH', 'lon': 'LONGITUDE', 'lat': 'LATITUDE', 'v': 'VCUR'}
@@ -508,7 +508,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Date Created**: 2025-10-31T23:55:53Z
 - **Date Modified**: 2026-02-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.3.0
+- **Processing Version**: v0.2.0
 - **Processing Datasource\***: arcticgateway
 - **Product Version**: v0
 - **Variable Mapping\***: {'time': 'TIME', 'depth': 'DEPTH', 'lon': 'LONGITUDE', 'lat': 'LATITUDE', 'v': 'VCUR'}
@@ -682,7 +682,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Date Created**: 2025-10-31T23:55:53Z
 - **Date Modified**: 2026-02-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.3.0
+- **Processing Version**: v0.2.0
 - **Processing Datasource\***: arcticgateway
 - **Product Version**: v0
 - **Variable Mapping\***: {'time': 'TIME', 'depth': 'DEPTH', 'lon': 'LONGITUDE', 'lat': 'LATITUDE', 'v': 'VCUR'}

@@ -137,25 +137,19 @@ def format_units_for_plotting(units: str) -> str:
     unit_mappings = {
         "Sverdrup": "Sv",
         "sverdrup": "Sv",
-        "degree_north": "°N",
         "degrees_north": "°N",
-        "degree_south": "°S",
         "degrees_south": "°S",
-        "degree_east": "°E",
         "degrees_east": "°E",
-        "degree_west": "°W",
         "degrees_west": "°W",
-        "degree_C": "°C",
-        "degree_celsius": "°C",
-        "degree_Celsius": "°C",
         "degrees_Celsius": "°C",
+        "degrees_celsius": "°C",
+        "degree_Celsius": "°C",
+        "degree_celsius": "°C",
         "degrees C": "°C",
         "deg C": "°C",
         "meters": "m",
         "meter": "m",
         "seconds": "s",
-        "m s-1": "m/s",
-        "Sverdrup/m": "Sv/m",
         "second": "s",
         "PetaWatts": "PW",
         "petawatts": "PW",
@@ -621,7 +615,7 @@ def plot_amoc_timeseries(
             units = da.attrs.get("units", "")
             if units:
                 formatted_units = _format_units_for_plots(units)
-                ylabel = f"{label_text} ({formatted_units})"
+                ylabel = f"{label_text} [{formatted_units}]"
             else:
                 ylabel = label_text
 
@@ -1491,7 +1485,7 @@ def plot_amoc_2d_data(
         units = da.attrs.get("units", "")
         if units:
             formatted_units = _format_units_for_plots(units)
-            colorbar_label = f"{label_text} ({formatted_units})"
+            colorbar_label = f"{label_text} [{formatted_units}]"
         else:
             colorbar_label = label_text
         im.colorbar.set_label(colorbar_label, fontsize=12)
@@ -1516,7 +1510,7 @@ def plot_amoc_2d_data(
             units = vertical_var.attrs.get("units", "")
             if units:
                 formatted_units = _format_units_for_plots(units)
-                ylabel += f" ({formatted_units})"
+                ylabel += f" [{formatted_units}]"
         except KeyError:
             # Coordinate doesn't exist in dataset, use dimension name as fallback
             ylabel = format_variable_name_for_plotting(vertical_coord.title())

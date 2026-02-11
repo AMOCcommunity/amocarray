@@ -5,7 +5,7 @@ metadata:
   comment: "Dataset accessed and processed via http://github.com/AMOCcommunity/amocatlas"
   references: >
     Wett, S., Rhein, M., Kieke, D., Mertens, C., & Moritz, M. (2023). Meridional connectivity of a 25-year observational AMOC record at 47°N. Geophysical Research Letters, 50, e2023GL103284. https://doi.org/10.1029/2023GL103284
-  license: CC-BY-4.0  # Based on feedback from Christian Mertens on 2026-02-10
+  license:
   citation: >
     Wett, Simon; Rhein, Monika; Kieke, Dagmar; Mertens, Christian; Moritz, Martin; Nowitzki, Hannah (2023): Basin-wide AMOC volume transport from the NOAC array at 47°N in the subpolar North Atlantic (1993-2018) [dataset]. PANGAEA, https://doi.org/10.1594/PANGAEA.959558
   featureType: "timeSeries"

@@ -284,7 +284,7 @@ def test_reader_url_constants(module_name, expected_url_constants):
         ("osnap", "MOC_ALL"),  # OSNAP should contain MOC
         ("fw2015", "mocproxy"),
         ("mocha", "Q_eddy"),
-        ("41n", "MOC (Sv)"),
+        ("41n", "Meridional Overturning Volume Transport (Sverdrups)"),
         ("dso", "DSO_tr"),
     ],
 )

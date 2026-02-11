@@ -31,7 +31,7 @@ Dataset Overview
 Dataset Visualization
 ^^^^^^^^^^^^^^^^^^^^^
 
-.. figure:: ../_static/reports/mocha_2d_gridded.png
+.. figure:: ../_static/reports/MOCHA_2d_gridded.png
    :alt: AMOC time series plot
    :align: center
    :scale: 80%
@@ -270,7 +270,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Date Created**: 2023-08-26T00:14:33Z
 - **Date Modified**: 2026-02-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.3.0
+- **Processing Version**: v0.2.0
 - **Processing Datasource\***: mocha26n
 - **Variable Mapping\***: [Complex metadata structure - 20 items]
 - **Original Variable Metadata\***: [Complex metadata structure - 27 items]

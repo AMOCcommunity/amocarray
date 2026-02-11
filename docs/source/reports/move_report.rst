@@ -33,7 +33,7 @@ Dataset Overview
 Dataset Visualization
 ^^^^^^^^^^^^^^^^^^^^^
 
-.. figure:: ../_static/reports/os_move_20000206-20221014_dpr_volumetransport_timeseries.png
+.. figure:: ../_static/reports/OS_MOVE_20000206-20221014_DPR_VOLUMETRANSPORT_timeseries.png
    :alt: AMOC time series plot
    :align: center
    :scale: 80%
@@ -205,7 +205,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Date Created**: 2025-04-23T01:35:26Z
 - **Date Modified**: 2026-02-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.3.0
+- **Processing Version**: v0.2.0
 - **Processing Datasource\***: move16n
 - **Variable Mapping\***: [Complex metadata structure - 7 items]
 - **Original Variable Metadata\***: [Complex metadata structure - 7 items]
@@ -242,7 +242,7 @@ Dataset Overview
 Dataset Visualization
 ^^^^^^^^^^^^^^^^^^^^^
 
-.. figure:: ../_static/reports/os_move_20000101-20221021_grd_currents-at-sites-move3-move4_2d_gridded.png
+.. figure:: ../_static/reports/OS_MOVE_20000101-20221021_GRD_CURRENTS-AT-SITES-MOVE3-MOVE4_2d_gridded.png
    :alt: AMOC time series plot
    :align: center
    :scale: 80%
@@ -409,7 +409,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Date Created**: 2019-01-30T18:13:16Z
 - **Date Modified**: 2026-02-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.3.0
+- **Processing Version**: v0.2.0
 - **Processing Datasource\***: move16n
 - **Format Version**: 1.5
 - **Variable Mapping\***: {'VELOCITY_U': 'UCUR', 'VELOCITY_V': 'VCUR', 'instrument_depth_time_varying': 'DEPTH', 'latitude_time_varying': 'LATITUDE_VARYING', 'longitude_time_varying': 'LONGITUDE_VARYING'}
@@ -452,7 +452,7 @@ Dataset Overview
 Dataset Visualization
 ^^^^^^^^^^^^^^^^^^^^^
 
-.. figure:: ../_static/reports/os_move_20000101-20221018_grd_temperature-salinity-at-sites-move1-move3_2d_gridded.png
+.. figure:: ../_static/reports/OS_MOVE_20000101-20221018_GRD_TEMPERATURE-SALINITY-AT-SITES-MOVE1-MOVE3_2d_gridded.png
    :alt: AMOC time series plot
    :align: center
    :scale: 80%
@@ -619,7 +619,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Date Created**: 2019-01-30T18:13:16Z
 - **Date Modified**: 2026-02-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.3.0
+- **Processing Version**: v0.2.0
 - **Processing Datasource\***: move16n
 - **Format Version**: 1.5
 - **Variable Mapping\***: {'TEMPERATURE': 'TEMP', 'SALINITY': 'PSAL', 'instrument_depth_time_varying': 'DEPTH', 'latitude_time_varying': 'LATITUDE_VARYING', 'longitude_time_varying': 'LONGITUDE_VARYING'}

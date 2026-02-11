@@ -38,7 +38,7 @@ Dataset Overview
 Dataset Visualization
 ^^^^^^^^^^^^^^^^^^^^^
 
-.. figure:: ../_static/reports/osnap_moc_mht_mft_timeseries_201408_202207_2025_timeseries.png
+.. figure:: ../_static/reports/OSNAP_MOC_MHT_MFT_TimeSeries_201408_202207_2025_timeseries.png
    :alt: AMOC time series plot
    :align: center
    :scale: 80%
@@ -259,7 +259,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Date Created**: 2025-05-21T15:09:24Z
 - **Date Modified**: 2026-02-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.3.0
+- **Processing Version**: v0.2.0
 - **Processing Datasource\***: osnap55n
 - **Variable Mapping\***: [Complex metadata structure - 10 items]
 - **Original Variable Metadata\***: [Complex metadata structure - 19 items]
@@ -302,7 +302,7 @@ Dataset Overview
 Dataset Visualization
 ^^^^^^^^^^^^^^^^^^^^^
 
-.. figure:: ../_static/reports/osnap_streamfunction_201408_202207_2025_2d_gridded.png
+.. figure:: ../_static/reports/OSNAP_Streamfunction_201408_202207_2025_2d_gridded.png
    :alt: AMOC time series plot
    :align: center
    :scale: 80%
@@ -425,7 +425,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Date Created**: 2025-05-21T15:16:52Z
 - **Date Modified**: 2026-02-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.3.0
+- **Processing Version**: v0.2.0
 - **Processing Datasource\***: osnap55n
 - **Variable Mapping\***: {'LEVEL': 'SIGMA0', 'T_ALL': 'STREAMFUNCTION_SIGMA0', 'T_WEST': 'STREAMFUNCTION_SIGMA0_WEST', 'T_EAST': 'STREAMFUNCTION_SIGMA0_EAST'}
 - **Original Variable Metadata\***: [Complex metadata structure - 5 items]
@@ -595,7 +595,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Date Created**: 2025-05-21T15:11:05Z
 - **Date Modified**: 2026-02-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.3.0
+- **Processing Version**: v0.2.0
 - **Processing Datasource\***: osnap55n
 - **Variable Mapping\***: {'SAL': 'PSAL', 'VELO': 'VCUR'}
 - **Original Variable Metadata\***: [Complex metadata structure - 7 items]
