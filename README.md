@@ -37,17 +37,17 @@ This is a work in progress, all contributions welcome!
 |-------------|----------|-------------|--------------|
 | **RAPID** | 26°N | MOC and overturning transports since 2004 | `read.rapid()` |
 | **MOCHA** | 26°N | Meridional Heat transport since 2004 | `read.mocha()` |
-| **MOVE** | 16°N | Meridional heat transport | `read.move()` |
-| **OSNAP** | Subpolar North Atlantic | Overturning circulation | `read.osnap()` |
-| **SAMBA** | 34.5°S | South Atlantic MOC | `read.samba()` |
-| **41°N Array** | 41°N | North Atlantic section | `read.wh41n()` |
-| **NOAC 47°N** | 47°N | North Atlantic Ocean Current monitoring | `read.noac47n()` |
-| **DSO** | Denmark Strait | Overflow monitoring | `read.dso()` |
+| **MOVE** | 16°N | Meridional overturning since 2001 | `read.move()` |
+| **OSNAP** | Subpolar North Atlantic | Meridional overturning since 2014 | `read.osnap()` |
+| **SAMBA** | 34.5°S | South Atlantic MOC *anomaly* | `read.samba()` |
+| **41°N Array** | 41°N | Meridional overturning from Argo + altimetry | `read.wh41n()` |
+| **NOAC 47°N** | 47°N | North Atlantic Ocean Current - MOC | `read.noac47n()` |
+| **DSO** | Denmark Strait | Overflow transport | `read.dso()` |
 | **FBC** | Faroe Bank Channel | Overflow transport monitoring | `read.fbc()` |
 | **Arctic Gateway** | Arctic Ocean | Pan-Arctic gateway transports | `read.arcticgateway()` |
-| **FW2015** | 26°N | Frajka-Williams 2015 satellite-cable dataset | `read.fw2015()` |
-| **CALAFAT2025** | Atlantic | Bayesian estimates of Atlantic meridional heat transport | `read.calafat2025()` |
-| **ZHENG2024** | Atlantic | Observation-based Atlantic meridional freshwater transport | `read.zheng2024()` |
+| **FW2015** | 26°N | Frajka-Williams 2015 satellite-cable dataset at 26°N | `read.fw2015()` |
+| **CALAFAT2025** | Atlantic | Bayesian estimates of Atlantic meridional heat transport spanning latitudes | `read.calafat2025()` |
+| **ZHENG2024** | Atlantic | Observation-based Atlantic meridional freshwater transport spanning latitudes | `read.zheng2024()` |
 
 ## Installation
 

@@ -8,7 +8,7 @@ metadata:
     This work has been carried out within the framework of the EPOC project funded by the European Union's Horizon Europe programme (grant agreement No 101059547), under call HORIZON-CL6-2021-CLIMATE01. Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union. Neither the European Union nor the granting authority can be held responsible for them.
   citation: >
     Calafat, F. M., Vallivattathillam, P., & Frajka-Williams, E. (2025). Estimates of Atlantic meridional heat transport from spatiotemporal fusion of Argo, altimetry and gravimetry data [Data set]. Zenodo. https://doi.org/10.5281/zenodo.16640426
-  license:
+  license: CC-BY-4.0 # From Zenodo
   featureType: timeSeries
   Convections: CF-1.8, ACDD-1.3
   time_coverage_start: '2004-02-15'
