@@ -35,8 +35,8 @@ This is a work in progress, all contributions welcome!
 
 | Data Source | Location | Description | Read Command |
 |-------------|----------|-------------|--------------|
-| **RAPID** | 26°N | Continuous monitoring since 2004 | `read.rapid()` |
-| **MOCHA** | 26°N | Heat transport since 2004 | `read.mocha()` |
+| **RAPID** | 26°N | MOC and overturning transports since 2004 | `read.rapid()` |
+| **MOCHA** | 26°N | Meridional Heat transport since 2004 | `read.mocha()` |
 | **MOVE** | 16°N | Meridional heat transport | `read.move()` |
 | **OSNAP** | Subpolar North Atlantic | Overturning circulation | `read.osnap()` |
 | **SAMBA** | 34.5°S | South Atlantic MOC | `read.samba()` |
@@ -246,7 +246,7 @@ This project is supported by the Horizon Europe project **EPOC - Explaining and 
 
 The observing arrays and datasets accessed through AMOCatlas are supported by:
 
-- **RAPID data**: Data from the RAPID MOC monitoring project are funded by the Natural Environment Research Council, the National Science Foundation (NSF) with support from NOAA. They are freely available from www.rapid.ac.uk/.
+- **RAPID data**: Data from the RAPID-MOCHA-WBTS observing project are funded by the Natural Environment Research Council, the National Science Foundation (NSF), with support from NOAA. They are freely available from www.rapid.ac.uk/.
 
 - **MOVE data**: The MOVE project is made possible with funding from the NOAA Climate Program Office under award NA15OAR4320071 and carried out by principal investigators Uwe Send and Matthias Lankhorst. Initial funding came from the German Bundesministerium fuer Bildung und Forschung. MOVE data are made freely available through the international OceanSITES program.
 
