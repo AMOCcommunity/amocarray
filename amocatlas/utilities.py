@@ -439,7 +439,7 @@ def download_file(
     if parsed_url.scheme in ("http", "https"):
         # HTTP(S) download with browser-like headers to bypass WAF protection
         headers = {
-            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
         }
         with requests.get(url, stream=True, headers=headers) as response:
             response.raise_for_status()

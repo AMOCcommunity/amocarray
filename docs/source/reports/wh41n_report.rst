@@ -15,7 +15,7 @@ Dataset Overview
 - **Description**: 41N transport estimates dataset
 - **Source File**: hobbs_willis_amoc41N_tseries.txt
 - **Data Product**: Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations
-- **License**: 
+- **License**: CC-BY-4.0
 - **Time Coverage**: 2002-02-15 to 2024-12-16
 - **Record Length**: 275 observations (22.8 years)
 - **Sampling Frequency**: monthly
@@ -27,7 +27,7 @@ Dataset Overview
 Dataset Visualization
 ^^^^^^^^^^^^^^^^^^^^^
 
-.. figure:: ../_static/reports/hobbs_willis_amoc41N_tseries.txt_timeseries.png
+.. figure:: ../_static/reports/hobbs_willis_amoc41n_tseries.txt_timeseries.png
    :alt: AMOC time series plot
    :align: center
    :scale: 80%
@@ -83,30 +83,30 @@ along with key statistics for each variable.
      - Min Value
      - Max Value
      - Missing %
-   * - *Meridional Overturning Heat Transport (PetaWatts)* → **MHT**
-     - Meridional Overturning Heat Transport
-     - PW
-     - (275,)
-     - -0.07
-     - 0.90
-     - 0.0%
-   * - *Meridional Overturning Volume Transport (Sverdrups)* → **MOC**
-     - **MOC_z**: Meridional Overturning Volume Transport
-     - Sverdrup
-     - (275,)
-     - 2.82
-     - 18.47
-     - 0.0%
-   * - *Ekman Volume Transport (Sverdrups)* → **TRANS_EKMAN**
-     - **Ekman**: Ekman Volume Transport
-     - Sverdrup
+   * - **Ekman Volume Transport (Sverdrups)**
+     - No description available
+     - unknown
      - (275,)
      - -8.79
      - 0.51
      - 0.0%
-   * - *Northward Geostrophic Transport (Sverdrups)* → **TRANS_GEO**
-     - **Geostrophic Transport**: Northward Geostrophic Transport
-     - Sverdrup
+   * - **Meridional Overturning Heat Transport (PetaWatts)**
+     - No description available
+     - unknown
+     - (275,)
+     - -0.07
+     - 0.90
+     - 0.0%
+   * - **Meridional Overturning Volume Transport (Sverdrups)**
+     - No description available
+     - unknown
+     - (275,)
+     - 2.82
+     - 18.47
+     - 0.0%
+   * - **Northward Geostrophic Transport (Sverdrups)**
+     - No description available
+     - unknown
      - (275,)
      - 6.75
      - 21.39
@@ -122,13 +122,11 @@ The following metadata provides comprehensive information about this dataset:
 - **Description\***: 41N transport estimates dataset
 - **Program\***: 41N
 - **Project\***: Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations
-- **License\***: None
-- **Weblink\***: https://doi.org/10.5281/zenodo.8170365
+- **License\***: CC-BY-4.0
+- **Weblink\***: https://zenodo.org/records/18238115
 - **Platform**: Argo floats
 - **Platform Vocabulary**: https://vocab.nerc.ac.uk/collection/L06/
 - **Data Product\***: Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations
-- **Time Coverage Start\***: 2002-02-15
-- **Time Coverage End\***: 2024-12-16
 - **Contributor Name\***: Will Hobbs, Josh K. Willis
 - **Contributor Role\***: originator, principalInvestigator
 - **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
@@ -142,14 +140,14 @@ The following metadata provides comprehensive information about this dataset:
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: hobbs_willis_amoc41N_tseries.txt
 - **Source Path\***: ~/AMOCatlas/data/hobbs_willis_amoc41N_tseries.txt
-- **Source Url\***: https://doi.org/10.5281/zenodo.8170365
+- **Source Url\***: https://zenodo.org/records/18238115
 - **Date Modified**: 2026-02-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.2.0
+- **Processing Version**: v0.3.0
 - **Processing Datasource\***: wh41n
-- **Variable Mapping\***: [Complex metadata structure - 4 items]
+- **Variable Mapping\***: {'Ekman (Sv)': 'TRANS_EKMAN', 'Geos (Sv)': 'TRANS_GEO', 'MOC (Sv)': 'MOC', 'MHT (PW)': 'MHT'}
 - **Original Variable Metadata\***: [Complex metadata structure - 4 items]
-- **Applied Variable Mapping**: [Complex metadata structure - 4 items]
+- **Version\***: v5
 - **Comment\***: (Note: date_modified has been set to a canonical value for documentation generation to avoid git churn)
 
 ----
@@ -164,10 +162,10 @@ Dataset Overview
 - **Description**: 41N transport estimates dataset
 - **Source File**: trans_ARGO_ERA5.nc
 - **Data Product**: Transport components from ARGO and ERA5
-- **License**: 
-- **Date Created**: Thu 16 Jan 2025 16:09:16 AEDT
-- **Time Coverage**: 2002-01-15 to 2024-12-15
-- **Record Length**: 276 observations (22.9 years)
+- **License**: CC-BY-4.0
+- **Date Created**: Mon 12 Jan 2026 14:06:47 AEDT
+- **Time Coverage**: 2002-01-15 to 2025-12-15
+- **Record Length**: 288 observations (23.9 years)
 - **Sampling Frequency**: monthly
 
 **Citation:**
@@ -177,7 +175,7 @@ Dataset Overview
 Dataset Visualization
 ^^^^^^^^^^^^^^^^^^^^^
 
-.. figure:: ../_static/reports/trans_ARGO_ERA5_2d_gridded.png
+.. figure:: ../_static/reports/trans_argo_era5_2d_gridded.png
    :alt: AMOC time series plot
    :align: center
    :scale: 80%
@@ -189,7 +187,7 @@ Dataset Statistics
 
 - **Total Variables**: 3
 - **Total Coordinates**: 4
-- **Dataset Size**: 270.89 MB
+- **Dataset Size**: 282.67 MB
 
 Coordinate Information
 ^^^^^^^^^^^^^^^^^^^^^^
@@ -231,9 +229,9 @@ The following table shows information about the dataset coordinates in the stand
    * - **TIME**
      - Time
      - datetime64[ns]
-     - (276,)
+     - (288,)
      - 2002-01-15
-     - 2024-12-15
+     - 2025-12-15
      - 0.0%
 
 
@@ -257,21 +255,21 @@ along with key statistics for each variable.
    * - *moc* → **MOC**
      - **MOC_z**: Overturning circulation transport
      - Sverdrup
-     - (276, 4)
-     - -2.95
-     - 20.00
+     - (288, 4)
+     - -4.78
+     - 20.74
      - 0.0%
    * - *trans* → **TRANS_GEO**
      - **Geostrophic transport**: Observed geostrophic transport from ARGO
      - Sverdrup
-     - (276, 4, 320, 201)
+     - (288, 4, 320, 201)
      - -0.18
-     - 0.18
+     - 0.19
      - 26.2%
    * - *Vek* → **VEL_EKMAN**
      - **Ekman**: Ekman transport from ERA5 reanalysis
      - Sverdrup
-     - (276, 4)
+     - (288, 4)
      - -8.99
      - 0.73
      - 0.0%
@@ -287,13 +285,11 @@ The following metadata provides comprehensive information about this dataset:
 - **Description\***: 41N transport estimates dataset
 - **Program\***: 41N
 - **Project\***: Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations
-- **License\***: None
-- **Weblink\***: https://doi.org/10.5281/zenodo.8170365
+- **License\***: CC-BY-4.0
+- **Weblink\***: https://zenodo.org/records/18238115
 - **Platform**: Argo floats
 - **Platform Vocabulary**: https://vocab.nerc.ac.uk/collection/L06/
 - **Data Product\***: Transport components from ARGO and ERA5
-- **Time Coverage Start\***: 2002-01-15
-- **Time Coverage End\***: 2024-12-15
 - **Contributor Name\***: Will Hobbs, Josh K. Willis
 - **Contributor Role\***: originator, principalInvestigator
 - **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
@@ -305,11 +301,11 @@ The following metadata provides comprehensive information about this dataset:
 - **Conventions\***: CF-1.8, ACDD-1.3, OceanSITES-1.5
 - **Source File\***: trans_ARGO_ERA5.nc
 - **Source Path\***: ~/AMOCatlas/data/trans_ARGO_ERA5.nc
-- **Source Url\***: https://doi.org/10.5281/zenodo.8170365
-- **Date Created**: Thu 16 Jan 2025 16:09:16 AEDT
+- **Source Url\***: https://zenodo.org/records/18238115
+- **Date Created**: Mon 12 Jan 2026 14:06:47 AEDT
 - **Date Modified**: 2026-02-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.2.0
+- **Processing Version**: v0.3.0
 - **Processing Datasource\***: wh41n
 - **Variable Mapping\***: {'Vek': 'VEL_EKMAN', 'trans': 'TRANS_GEO', 'moc': 'MOC', 'depth': 'DEPTH', 'lat': 'LATITUDE', 'lon': 'LONGITUDE'}
 - **Original Variable Metadata\***: [Complex metadata structure - 3 items]
@@ -330,10 +326,10 @@ Dataset Overview
 - **Description**: 41N transport estimates dataset
 - **Source File**: Q_ARGO_obs_dens_2000depth_ERA5.nc
 - **Data Product**: Heat transport based on various assumptions about temperature below 2000m
-- **License**: 
-- **Date Created**: Thu 16 Jan 2025 16:09:16 AEDT
-- **Time Coverage**: 2002-01-15 to 2024-12-15
-- **Record Length**: 276 observations (22.9 years)
+- **License**: CC-BY-4.0
+- **Date Created**: Mon 12 Jan 2026 14:06:47 AEDT
+- **Time Coverage**: 2002-01-15 to 2025-12-15
+- **Record Length**: 288 observations (23.9 years)
 - **Sampling Frequency**: monthly
 
 **Citation:**
@@ -343,7 +339,7 @@ Dataset Overview
 Dataset Visualization
 ^^^^^^^^^^^^^^^^^^^^^
 
-.. figure:: ../_static/reports/Q_ARGO_obs_dens_2000depth_ERA5_2d_gridded.png
+.. figure:: ../_static/reports/q_argo_obs_dens_2000depth_era5_2d_gridded.png
    :alt: AMOC time series plot
    :align: center
    :scale: 80%
@@ -355,7 +351,7 @@ Dataset Statistics
 
 - **Total Variables**: 3
 - **Total Coordinates**: 5
-- **Dataset Size**: 270.91 MB
+- **Dataset Size**: 282.68 MB
 
 Coordinate Information
 ^^^^^^^^^^^^^^^^^^^^^^
@@ -404,9 +400,9 @@ The following table shows information about the dataset coordinates in the stand
    * - **TIME**
      - Time
      - datetime64[ns]
-     - (276,)
+     - (288,)
      - 2002-01-15
-     - 2024-12-15
+     - 2025-12-15
      - 0.0%
 
 
@@ -430,23 +426,23 @@ along with key statistics for each variable.
    * - *Q* → **MHT**
      - Observed meridional heat transport
      - PW
-     - (276, 4, 320, 201)
-     - -0.21
-     - 0.21
+     - (288, 4, 320, 201)
+     - -0.22
+     - 0.24
      - 26.2%
    * - *Qek* → **MHT_EKMAN**
      - **MHT Ekman**: Ekman meridional heat transport
      - PW
-     - (276, 4)
-     - -10.56
+     - (288, 4)
+     - -10.55
      - 0.88
      - 0.0%
    * - *Qnet* → **MHT_NET**
      - **Net heat transport**: Net meridional heat transport
      - PW
-     - (276, 4, 4)
-     - -0.44
-     - 1.20
+     - (288, 4, 4)
+     - -0.54
+     - 1.21
      - 0.0%
 
 
@@ -460,13 +456,11 @@ The following metadata provides comprehensive information about this dataset:
 - **Description\***: 41N transport estimates dataset
 - **Program\***: 41N
 - **Project\***: Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations
-- **License\***: None
-- **Weblink\***: https://doi.org/10.5281/zenodo.8170365
+- **License\***: CC-BY-4.0
+- **Weblink\***: https://zenodo.org/records/18238115
 - **Platform**: Argo floats
 - **Platform Vocabulary**: https://vocab.nerc.ac.uk/collection/L06/
 - **Data Product\***: Heat transport based on various assumptions about temperature below 2000m
-- **Time Coverage Start\***: 2002-01-15
-- **Time Coverage End\***: 2024-12-15
 - **Contributor Name\***: Will Hobbs, Josh K. Willis
 - **Contributor Role\***: originator, principalInvestigator
 - **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
@@ -478,11 +472,11 @@ The following metadata provides comprehensive information about this dataset:
 - **Conventions\***: CF-1.8, ACDD-1.3, OceanSITES-1.5
 - **Source File\***: Q_ARGO_obs_dens_2000depth_ERA5.nc
 - **Source Path\***: ~/AMOCatlas/data/Q_ARGO_obs_dens_2000depth_ERA5.nc
-- **Source Url\***: https://doi.org/10.5281/zenodo.8170365
-- **Date Created**: Thu 16 Jan 2025 16:09:16 AEDT
+- **Source Url\***: https://zenodo.org/records/18238115
+- **Date Created**: Mon 12 Jan 2026 14:06:47 AEDT
 - **Date Modified**: 2026-02-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.2.0
+- **Processing Version**: v0.3.0
 - **Processing Datasource\***: wh41n
 - **Variable Mapping\***: {'Qnet': 'MHT_NET', 'Qek': 'MHT_EKMAN', 'Q': 'MHT', 'depth': 'DEPTH', 'lat': 'LATITUDE', 'lon': 'LONGITUDE', 'time': 'TIME'}
 - **Original Variable Metadata\***: [Complex metadata structure - 3 items]

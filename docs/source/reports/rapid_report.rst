@@ -195,7 +195,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Date Created**: 22-Jan-2026
 - **Date Modified**: 2026-02-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.2.0
+- **Processing Version**: v0.3.0
 - **Processing Datasource\***: rapid26n
 - **Variable Mapping\***: [Complex metadata structure - 10 items]
 - **Original Variable Metadata\***: [Complex metadata structure - 9 items]
@@ -346,7 +346,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Date Created**: 22-Jan-2026
 - **Date Modified**: 2026-02-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.2.0
+- **Processing Version**: v0.3.0
 - **Processing Datasource\***: rapid26n
 - **Variable Mapping\***: {'time': 'TIME', 'depth': 'DEPTH', 'stream_function_mar': 'STREAMFUNCTION_Z'}
 - **Original Variable Metadata\***: [Complex metadata structure - 1 items]
@@ -616,7 +616,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Date Created**: 22-Jan-2026
 - **Date Modified**: 2026-02-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.2.0
+- **Processing Version**: v0.3.0
 - **Processing Datasource\***: rapid26n
 - **Variable Mapping\***: [Complex metadata structure - 22 items]
 - **Original Variable Metadata\***: [Complex metadata structure - 10 items]
@@ -811,7 +811,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Date Created**: 17-Sep-2024
 - **Date Modified**: 2026-02-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.2.0
+- **Processing Version**: v0.3.0
 - **Processing Datasource\***: rapid26n
 - **Variable Mapping\***: {'time': 'TIME', 'depth': 'DEPTH', 'longitude': 'LONGITUDE', 'pressure': 'PRESSURE', 'area': 'AREA', 'V_insitu': 'VCUR_INSITU', 'V_ekman': 'VCUR_EKMAN', 'V_net': 'VCUR_NET'}
 - **Original Variable Metadata\***: [Complex metadata structure - 7 items]
@@ -1030,7 +1030,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Date Created**: 17-Sep-2024
 - **Date Modified**: 2026-02-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.2.0
+- **Processing Version**: v0.3.0
 - **Processing Datasource\***: rapid26n
 - **Variable Mapping\***: [Complex metadata structure - 13 items]
 - **Original Variable Metadata\***: [Complex metadata structure - 9 items]

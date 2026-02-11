@@ -31,7 +31,7 @@ Dataset Overview
 Dataset Visualization
 ^^^^^^^^^^^^^^^^^^^^^
 
-.. figure:: ../_static/reports/MOCHA_2d_gridded.png
+.. figure:: ../_static/reports/mocha_2d_gridded.png
    :alt: AMOC time series plot
    :align: center
    :scale: 80%
@@ -95,56 +95,56 @@ along with key statistics for each variable.
      - Max Value
      - Missing %
    * - *Q_sum* → **MHT**
-     - Net meridional heat transport 
+     - No description available
      - PW
      - (12202,)
      - -0.64
      - 2.52
      - 0.0%
    * - *Q_ek* → **MHT_EKMAN**
-     - Ekman heat transports 
+     - No description available
      - PW
      - (12202,)
      - -1.16
      - 1.74
      - 0.0%
    * - *Q_fc* → **MHT_FC**
-     - Florida Straits heat transports 
+     - No description available
      - PW
      - (12202,)
      - 1.50
      - 3.29
      - 0.0%
    * - *Q_gyre* → **MHT_GYRE**
-     - Basinwide gyre heat transports, as classically defined (e.g. see Johns et al., 2011) 
+     - No description available
      - PW
      - (12202,)
      - -0.03
      - 0.23
      - 0.0%
    * - *Q_int* → **MHT_INT**
-     - Heat transport for the rest of the interior to Africa (but only represents the contribution by the zonal mean v and T) 
+     - No description available
      - PW
      - (12202,)
      - -2.97
      - -0.81
      - 0.0%
    * - *Q_mo* → **MHT_MO**
-     - The sum of all the three interior components between the Bahamas and Africa (Q_int + Q_wedge + Q_eddy) 
+     - No description available
      - PW
      - (12202,)
      - -2.52
      - -0.92
      - 0.0%
    * - *Q_ot* → **MHT_OT**
-     - Basinwide overturning heat transports, as classically defined (e.g. see Johns et al., 2011) 
+     - No description available
      - PW
      - (12202,)
      - -0.63
      - 2.47
      - 0.0%
    * - *Q_wedge* → **MHT_WEDGE**
-     - Heat transport for the "western boundary wedge" off Abaco 
+     - No description available
      - PW
      - (12202,)
      - -0.41
@@ -158,7 +158,7 @@ along with key statistics for each variable.
      - 32.90
      - 0.0%
    * - **Q_eddy**
-     - **MHT_EDDY**: interior gyre component due to spatially correlated v'T' variability across the interior, derived from an objective analysis of interior ARGO T/S data merged with the mooring T/S data from moorings, and smoothly merged into the EN4 climatology along 26.5°N below 2000m 
+     - No description available
      - PW
      - (12202,)
      - -0.03
@@ -270,7 +270,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Date Created**: 2023-08-26T00:14:33Z
 - **Date Modified**: 2026-02-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.2.0
+- **Processing Version**: v0.3.0
 - **Processing Datasource\***: mocha26n
 - **Variable Mapping\***: [Complex metadata structure - 20 items]
 - **Original Variable Metadata\***: [Complex metadata structure - 27 items]
