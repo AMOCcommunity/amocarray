@@ -1,7 +1,7 @@
 metadata:
   description: "Estimating the Atlantic overturning at 26°N using satellite altimetry and cable measurements"
   project: "RAPID"
-  weblink: "https://figshare.com/articles/dataset/MOCproxy_for_figshare_v1_0_mat/1463479?file=3369779"
+  weblink: "https://zenodo.org/records/18606051"
   comment: >
     Dataset accessed and processed via http://github.com/AMOCcommunity/amocatlas
   citation: >
@@ -16,8 +16,8 @@ metadata:
   contributing_institutions: "University of Southampton"
 
 files:
-  MOCproxy_for_figshare_v1.mat:
-    source_url: "https://figshare.com/articles/dataset/MOCproxy_for_figshare_v1_0_mat/1463479?file=3369779"
+  MOCproxy_for_figshare_v1.0.mat:
+    source_url: "https://zenodo.org/records/18606051/files/MOCproxy_for_figshare_v1.0.mat"
     data_product: "a proxy for the meridional overturning circulation at 26N, using sea level anomaly and cable measurements"
     citation: >
       Frajka-Williams, E. (2015), Estimating the Atlantic overturning at 26°N using satellite altimetry and cable measurements. Geophys. Res. Lett., 42, 3458–3464. doi: 10.1002/2015GL063220.

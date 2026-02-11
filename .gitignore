@@ -208,3 +208,5 @@ data/ts_gridded.nc
 data/OS_MOVE_20000101-20221018_GRD_TEMPERATURE-SALINITY-AT-SITES-MOVE1-MOVE3.nc
 data/OS_MOVE_20000101-20221021_GRD_CURRENTS-AT-SITES-MOVE3-MOVE4.nc
 contributors_database_edited.yml
+data/Q_ARGO_*.nc
+data/trans_ARGO_*.nc

@@ -3,15 +3,15 @@ FW2015 Datasets
 
 ----
 
-MOCproxy_for_figshare_v1.mat
-----------------------------
+MOCproxy_for_figshare_v1.0.mat
+------------------------------
 
 Dataset Overview
 ^^^^^^^^^^^^^^^^
 
 - **Project**: RAPID
 - **Description**: Estimating the Atlantic overturning at 26°N using satellite altimetry and cable measurements
-- **Source File**: MOCproxy_for_figshare_v1.mat
+- **Source File**: MOCproxy_for_figshare_v1.0.mat
 - **Data Product**: a proxy for the meridional overturning circulation at 26N, using sea level anomaly and cable measurements
 - **License**: CC-BY-4.0
 - **Time Coverage**: 1993-01-15 to 2014-12-15
@@ -169,7 +169,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Description\***: Estimating the Atlantic overturning at 26°N using satellite altimetry and cable measurements
 - **Project\***: RAPID
 - **License\***: CC-BY-4.0
-- **Weblink\***: https://figshare.com/articles/dataset/MOCproxy_for_figshare_v1_0_mat/1463479?file=3369779
+- **Weblink\***: https://zenodo.org/records/18606051
 - **Data Product\***: a proxy for the meridional overturning circulation at 26N, using sea level anomaly and cable measurements
 - **Time Coverage Start\***: 1993-01-15
 - **Time Coverage End\***: 2014-12-15
@@ -184,9 +184,9 @@ The following metadata provides comprehensive information about this dataset:
 - **Conventions\***: CF-1.8, ACDD-1.3, OceanSITES-1.5
 - **featureType\***: timeSeries
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
-- **Source File\***: MOCproxy_for_figshare_v1.mat
-- **Source Path\***: ~/AMOCatlas/data/MOCproxy_for_figshare_v1.mat
-- **Source Url\***: https://figshare.com/articles/dataset/MOCproxy_for_figshare_v1_0_mat/1463479?file=3369779
+- **Source File\***: MOCproxy_for_figshare_v1.0.mat
+- **Source Path\***: ~/AMOCatlas/data/MOCproxy_for_figshare_v1.0.mat
+- **Source Url\***: https://zenodo.org/records/18606051/files/MOCproxy_for_figshare_v1.0.mat
 - **Date Modified**: 2026-02-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0

@@ -17,7 +17,7 @@ Dataset Overview
 - **Source File**: moc_transports.nc
 - **Data Product**: RAPID layer transport time series
 - **License**: UK Open Government Licence v3.0 https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/
-- **Date Created**: 23-Sep-2025
+- **Date Created**: 22-Jan-2026
 - **Time Coverage**: 2004-04-02 to 2024-03-27
 - **Record Length**: 14,599 observations (20.0 years)
 - **Sampling Frequency**: 12H
@@ -192,7 +192,7 @@ The following metadata provides comprehensive information about this dataset:
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: moc_transports.nc
 - **Source Path\***: ~/AMOCatlas/data/moc_transports.nc
-- **Date Created**: 23-Sep-2025
+- **Date Created**: 22-Jan-2026
 - **Date Modified**: 2026-02-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.2.0
@@ -200,7 +200,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Variable Mapping\***: [Complex metadata structure - 10 items]
 - **Original Variable Metadata\***: [Complex metadata structure - 9 items]
 - **Applied Variable Mapping**: [Complex metadata structure - 11 items]
-- **Version**: v2024.1
+- **Version**: v2024.1a
 - **Comment\***: (Note: date_modified has been set to a canonical value for documentation generation to avoid git churn)
 
 ----
@@ -755,29 +755,29 @@ along with key statistics for each variable.
      - **Salinity**: Absolute salinity following TEOS-10 standard
      - g kg-1
      - (730, 254, 307)
-     - 0.00
-     - 37.88
+     - 35.02
+     - 37.95
      - 0.0%
    * - *V_ekman* → **VCUR_EKMAN**
      - **Ekman velocity**: Ekman transport velocity component
      - m s-1
      - (730, 254, 307)
-     - 0.00
-     - 37.13
+     - -0.03
+     - 0.08
      - 0.0%
    * - *V_insitu* → **VCUR_INSITU**
      - **Meridional velocity**: In-situ meridional velocity component
      - m s-1
      - (730, 254, 307)
-     - 0.00
-     - 37.13
+     - -1.16
+     - 1.61
      - 0.0%
    * - *V_net* → **VCUR_NET**
      - **Net velocity**: Net meridional velocity (in-situ + Ekman)
      - m s-1
      - (730,)
-     - 0.00
-     - 0.00
+     - -0.00
+     - -0.00
      - 0.0%
 
 
