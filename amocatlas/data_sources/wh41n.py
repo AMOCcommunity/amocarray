@@ -194,28 +194,26 @@ def read_41n(
                     df.columns = column_names
                 else:
                     # New CSV format (v5) - file starts directly with header line
-                    # The CSV parser incorrectly splits the header, so we need to handle the actual column count
-                    if len(df.columns) == 9:
-                        # CSV parser split "Year,  Ekman (Sv),  Geos (Sv),  MOC (Sv),  MOC (PW)" incorrectly
-                        # We need to re-read this as a proper CSV file
-                        df = pandas.read_csv(file_path)
-                        # Now it should have the correct 5 columns
-                        df.columns = [
-                            "Decimal year",
-                            "Ekman (Sv)",
-                            "Geos (Sv)",
-                            "MOC (Sv)",
-                            "MOC (PW)",
-                        ]
+                    # Re-read as proper CSV to get correct column parsing
+                    df = pandas.read_csv(file_path)
+                    # Ensure we have the expected 5 columns
+                    expected_columns = [
+                        "Decimal year",
+                        "Ekman (Sv)",
+                        "Geos (Sv)",
+                        "MOC (Sv)",
+                        "MOC (PW)",
+                    ]
+                    if len(df.columns) == len(expected_columns):
+                        df.columns = expected_columns
                     else:
-                        # Fallback for unexpected column counts
-                        df.columns = [
-                            "Decimal year",
-                            "Ekman (Sv)",
-                            "Geos (Sv)",
-                            "MOC (Sv)",
-                            "MOC (PW)",
-                        ]
+                        log_error(
+                            "Unexpected number of columns (%d) in CSV file %s",
+                            len(df.columns),
+                            file,
+                        )
+                        # Use expected columns anyway as fallback
+                        df.columns = expected_columns[: len(df.columns)]
             except (
                 OSError,
                 IOError,
