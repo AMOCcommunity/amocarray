@@ -29,7 +29,7 @@ Dataset Overview
 Dataset Visualization
 ^^^^^^^^^^^^^^^^^^^^^
 
-.. figure:: ../_static/reports/FBC_timeseries.png
+.. figure:: ../_static/reports/fbc_timeseries.png
    :alt: AMOC time series plot
    :align: center
    :scale: 80%
@@ -120,7 +120,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source Url\***: https://envofar.fo/var/ftp/Timeseries/FBC_overflow_transport.txt
 - **Date Modified**: 2026-02-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.2.0
+- **Processing Version**: v0.3.0
 - **Processing Datasource\***: fbc
 - **Variable Mapping\***: {'Flux': 'TRANS_FBC'}
 - **Original Variable Metadata\***: [Complex metadata structure - 3 items]

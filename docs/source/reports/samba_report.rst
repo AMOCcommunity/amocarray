@@ -31,7 +31,7 @@ Dataset Overview
 Dataset Visualization
 ^^^^^^^^^^^^^^^^^^^^^
 
-.. figure:: ../_static/reports/Upper_Abyssal_Transport_Anomalies.txt_timeseries.png
+.. figure:: ../_static/reports/upper_abyssal_transport_anomalies.txt_timeseries.png
    :alt: AMOC time series plot
    :align: center
    :scale: 80%
@@ -130,7 +130,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source Url\***: ftp://ftp.aoml.noaa.gov/phod/pub/SAM/2020_Kersale_etal_ScienceAdvances/
 - **Date Modified**: 2026-02-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.2.0
+- **Processing Version**: v0.3.0
 - **Processing Datasource\***: samba34s
 - **Variable Mapping\***: [Complex metadata structure - 2 items]
 - **Original Variable Metadata\***: [Complex metadata structure - 2 items]
@@ -172,7 +172,7 @@ Dataset Overview
 Dataset Visualization
 ^^^^^^^^^^^^^^^^^^^^^
 
-.. figure:: ../_static/reports/MOC_TotalAnomaly_and_constituents.asc_timeseries.png
+.. figure:: ../_static/reports/moc_totalanomaly_and_constituents.asc_timeseries.png
    :alt: AMOC time series plot
    :align: center
    :scale: 80%
@@ -314,7 +314,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source Url\***: https://www.aoml.noaa.gov/phod/SAMOC_international/documents/
 - **Date Modified**: 2026-02-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.2.0
+- **Processing Version**: v0.3.0
 - **Processing Datasource\***: samba34s
 - **Variable Mapping\***: [Complex metadata structure - 8 items]
 - **Original Variable Metadata\***: [Complex metadata structure - 8 items]
