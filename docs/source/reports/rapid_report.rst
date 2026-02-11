@@ -755,29 +755,29 @@ along with key statistics for each variable.
      - **Salinity**: Absolute salinity following TEOS-10 standard
      - g kg-1
      - (730, 254, 307)
-     - 0.00
-     - 37.88
+     - 35.02
+     - 37.95
      - 0.0%
    * - *V_ekman* → **VCUR_EKMAN**
      - **Ekman velocity**: Ekman transport velocity component
      - m s-1
      - (730, 254, 307)
-     - 0.00
-     - 37.13
+     - -0.03
+     - 0.08
      - 0.0%
    * - *V_insitu* → **VCUR_INSITU**
      - **Meridional velocity**: In-situ meridional velocity component
      - m s-1
      - (730, 254, 307)
-     - 0.00
-     - 37.13
+     - -1.16
+     - 1.61
      - 0.0%
    * - *V_net* → **VCUR_NET**
      - **Net velocity**: Net meridional velocity (in-situ + Ekman)
      - m s-1
      - (730,)
-     - 0.00
-     - 0.00
+     - -0.00
+     - -0.00
      - 0.0%
 
 

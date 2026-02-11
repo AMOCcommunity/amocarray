@@ -27,27 +27,27 @@ DATASOURCE_ID = "fw2015"
 
 # Default file list
 FW2015_DEFAULT_FILES = [
-    "MOCproxy_for_figshare_v1.mat",
+    "MOCproxy_for_figshare_v1.0.mat",
 ]
-FW2015_TRANSPORT_FILES = ["MOCproxy_for_figshare_v1.mat"]
+FW2015_TRANSPORT_FILES = ["MOCproxy_for_figshare_v1.0.mat"]
 
 # Mapping of filenames to download URLs
 FW2015_FILE_URLS = {
-    "README.txt": "https://figshare.com/ndownloader/files/3369791?private_link=281b3e9c8abba860d553",
-    "MOCproxy_for_figshare_v1.mat": "https://figshare.com/ndownloader/files/3369779",
+    "README.txt": "https://zenodo.org/records/18606051/files/README%20for%20MOCproxy_for_figshare.txt",
+    "MOCproxy_for_figshare_v1.0.mat": "https://zenodo.org/records/18606051/files/MOCproxy_for_figshare_v1.0.mat",
 }
 
 # General Metadata (global for FW2015)
 
 FW2015_METADATA = {
     "project": "Estimating the Atlantic overturning at 26°N using satellite altimetry and cable measurements",
-    "doi": "http://dx.doi.org/10.1002/2015GL063220",
+    "doi": "10.5281/zenodo.18606051",
 }
 
 
 # File-specific metadata (placeholder, ready to extend)
 FW2015_FILE_METADATA = {
-    "MOCproxy_for_figshare_v1.mat": {
+    "MOCproxy_for_figshare_v1.0.mat": {
         "data_product": "Time series of MOC",
     },
 }
