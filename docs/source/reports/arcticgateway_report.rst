@@ -16,7 +16,7 @@ Dataset Overview
 - **DOI**: https://doi.org/10.21334/npolar.2025.80b69907
 - **Source File**: Adjusted_fulldepth/BarentsSeaOpening_adjusted_v_fulldepth.nc
 - **Data Product**: Pan-Arctic Gateway transports since 2004 - Barents Sea Opening
-- **License**: 
+- **License**: CC-BY-4.0
 - **Date Created**: 2025-10-31T23:55:53Z
 - **Time Coverage**: 2004-10-15 to 2022-05-15
 - **Record Length**: 212 observations (17.6 years)
@@ -134,7 +134,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Program**: Pan-Arctic Gateway transports since 2004
 - **Project**: Explaining and predicting the ocean conveyor belt, The Fram Strait Arctic Outflow Observatory
 - **Source**: Mooring and CTD data
-- **License**: None
+- **License**: CC-BY-4.0
 - **Acknowledgment**: This work is funded by the European Union as part of the EPOC project (Explaining and Predicting the Ocean Conveyor; grant number: 101059547). Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union. Neither the European Union nor the granting authority can be held responsible for them.
 - **Doi**: https://doi.org/10.21334/npolar.2025.80b69907
 - **Weblink**: https://doi.org/10.21334/NPOLAR.2025.80B69907
@@ -190,7 +190,7 @@ Dataset Overview
 - **DOI**: https://doi.org/10.21334/npolar.2025.80b69907
 - **Source File**: Adjusted_fulldepth/BeringStrait_adjusted_v_fulldepth.nc
 - **Data Product**: Pan-Arctic Gateway transports since 2004 - Bering Strait
-- **License**: 
+- **License**: CC-BY-4.0
 - **Date Created**: 2025-10-31T23:55:53Z
 - **Time Coverage**: 2004-10-15 to 2022-05-15
 - **Record Length**: 212 observations (17.6 years)
@@ -308,7 +308,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Program**: Pan-Arctic Gateway transports since 2004
 - **Project**: Explaining and predicting the ocean conveyor belt, The Fram Strait Arctic Outflow Observatory
 - **Source**: Mooring and CTD data
-- **License**: None
+- **License**: CC-BY-4.0
 - **Acknowledgment**: This work is funded by the European Union as part of the EPOC project (Explaining and Predicting the Ocean Conveyor; grant number: 101059547). Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union. Neither the European Union nor the granting authority can be held responsible for them.
 - **Doi**: https://doi.org/10.21334/npolar.2025.80b69907
 - **Weblink**: https://doi.org/10.21334/NPOLAR.2025.80B69907
@@ -364,7 +364,7 @@ Dataset Overview
 - **DOI**: https://doi.org/10.21334/npolar.2025.80b69907
 - **Source File**: Adjusted_fulldepth/DavisStrait_adjusted_v_fulldepth.nc
 - **Data Product**: Pan-Arctic Gateway transports since 2004 - Davis Strait
-- **License**: 
+- **License**: CC-BY-4.0
 - **Date Created**: 2025-10-31T23:55:53Z
 - **Time Coverage**: 2004-10-15 to 2022-05-15
 - **Record Length**: 212 observations (17.6 years)
@@ -482,7 +482,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Program**: Pan-Arctic Gateway transports since 2004
 - **Project**: Explaining and predicting the ocean conveyor belt, The Fram Strait Arctic Outflow Observatory
 - **Source**: Mooring and CTD data
-- **License**: None
+- **License**: CC-BY-4.0
 - **Acknowledgment**: This work is funded by the European Union as part of the EPOC project (Explaining and Predicting the Ocean Conveyor; grant number: 101059547). Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union. Neither the European Union nor the granting authority can be held responsible for them.
 - **Doi**: https://doi.org/10.21334/npolar.2025.80b69907
 - **Weblink**: https://doi.org/10.21334/NPOLAR.2025.80B69907
@@ -538,7 +538,7 @@ Dataset Overview
 - **DOI**: https://doi.org/10.21334/npolar.2025.80b69907
 - **Source File**: Adjusted_fulldepth/FramStrait_adjusted_v_fulldepth.nc
 - **Data Product**: Pan-Arctic Gateway transports since 2004 - Fram Strait
-- **License**: 
+- **License**: CC-BY-4.0
 - **Date Created**: 2025-10-31T23:55:53Z
 - **Time Coverage**: 2004-10-15 to 2022-05-15
 - **Record Length**: 212 observations (17.6 years)
@@ -656,7 +656,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Program**: Pan-Arctic Gateway transports since 2004
 - **Project**: Explaining and predicting the ocean conveyor belt, The Fram Strait Arctic Outflow Observatory
 - **Source**: Mooring and CTD data
-- **License**: None
+- **License**: CC-BY-4.0
 - **Acknowledgment**: This work is funded by the European Union as part of the EPOC project (Explaining and Predicting the Ocean Conveyor; grant number: 101059547). Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union. Neither the European Union nor the granting authority can be held responsible for them.
 - **Doi**: https://doi.org/10.21334/npolar.2025.80b69907
 - **Weblink**: https://doi.org/10.21334/NPOLAR.2025.80B69907
