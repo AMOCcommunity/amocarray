@@ -15,7 +15,7 @@ Dataset Overview
 - **Description**: 41N transport estimates dataset
 - **Source File**: hobbs_willis_amoc41N_tseries.txt
 - **Data Product**: Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations
-- **License**: 
+- **License**: CC-BY-4.0
 - **Time Coverage**: 2002-02-15 to 2024-12-16
 - **Record Length**: 275 observations (22.8 years)
 - **Sampling Frequency**: monthly
@@ -122,7 +122,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Description\***: 41N transport estimates dataset
 - **Program\***: 41N
 - **Project\***: Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations
-- **License\***: None
+- **License\***: CC-BY-4.0
 - **Weblink\***: https://doi.org/10.5281/zenodo.8170365
 - **Platform**: Argo floats
 - **Platform Vocabulary**: https://vocab.nerc.ac.uk/collection/L06/
@@ -164,7 +164,7 @@ Dataset Overview
 - **Description**: 41N transport estimates dataset
 - **Source File**: trans_ARGO_ERA5.nc
 - **Data Product**: Transport components from ARGO and ERA5
-- **License**: 
+- **License**: CC-BY-4.0
 - **Date Created**: Thu 16 Jan 2025 16:09:16 AEDT
 - **Time Coverage**: 2002-01-15 to 2024-12-15
 - **Record Length**: 276 observations (22.9 years)
@@ -287,7 +287,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Description\***: 41N transport estimates dataset
 - **Program\***: 41N
 - **Project\***: Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations
-- **License\***: None
+- **License\***: CC-BY-4.0
 - **Weblink\***: https://doi.org/10.5281/zenodo.8170365
 - **Platform**: Argo floats
 - **Platform Vocabulary**: https://vocab.nerc.ac.uk/collection/L06/
@@ -330,7 +330,7 @@ Dataset Overview
 - **Description**: 41N transport estimates dataset
 - **Source File**: Q_ARGO_obs_dens_2000depth_ERA5.nc
 - **Data Product**: Heat transport based on various assumptions about temperature below 2000m
-- **License**: 
+- **License**: CC-BY-4.0
 - **Date Created**: Thu 16 Jan 2025 16:09:16 AEDT
 - **Time Coverage**: 2002-01-15 to 2024-12-15
 - **Record Length**: 276 observations (22.9 years)
@@ -460,7 +460,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Description\***: 41N transport estimates dataset
 - **Program\***: 41N
 - **Project\***: Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations
-- **License\***: None
+- **License\***: CC-BY-4.0
 - **Weblink\***: https://doi.org/10.5281/zenodo.8170365
 - **Platform**: Argo floats
 - **Platform Vocabulary**: https://vocab.nerc.ac.uk/collection/L06/

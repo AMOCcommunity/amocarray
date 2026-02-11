@@ -6,7 +6,7 @@ metadata:
   comment: Dataset accessed and processed via http://github.com/AMOCcommunity/amocatlas
   citation: >
     Willis, J. K., and Hobbs, W. R., Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations. Dataset accessed at 10.5281/zenodo.8170366.
-  license:
+  license: CC-BY-4.0 # Based on feedback from Josh Willis on 2026-02-10
   Conventions: CF-1.8, ACDD-1.3
   time_coverage_start: '2002-02-15'
   time_coverage_end: '2024-12-16'

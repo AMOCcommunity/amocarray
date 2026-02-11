@@ -13,7 +13,7 @@ Dataset Overview
 - **Description**: No description available
 - **Source File**: NOAC_AMOC.tab
 - **Data Product**: Basin-wide AMOC volume transport from the NOAC array at 47°N in the subpolar North Atlantic (1993-2018)
-- **License**: 
+- **License**: CC-BY-4.0
 - **Time Coverage**: 1993-01-01 to 2018-01-01
 - **Record Length**: 301 observations (25.0 years)
 - **Sampling Frequency**: monthly
@@ -104,7 +104,7 @@ The following metadata provides comprehensive information about this dataset:
 
 - **Program\***: NOAC 47N array
 - **Project\***: Meridional Connectivity of a 25-Year Observational AMOC Record at 47°N
-- **License\***: None
+- **License\***: CC-BY-4.0
 - **References\***: Wett, S., Rhein, M., Kieke, D., Mertens, C., & Moritz, M. (2023). Meridional connectivity of a 25-year observational AMOC record at 47°N. Geophysical Research Letters, 50, e2023GL103284. https://doi.org/10.1029/2023GL103284
 - **Weblink\***: https://doi.pangaea.de/10.1594/PANGAEA.959558
 - **Data Product\***: Basin-wide AMOC volume transport from the NOAC array at 47°N in the subpolar North Atlantic (1993-2018)
