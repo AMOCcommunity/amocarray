@@ -6,17 +6,49 @@ metadata:
   comment: Dataset accessed and processed via http://github.com/AMOCcommunity/amocatlas
   citation: >
     Willis, J. K., and Hobbs, W. R., Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations. Dataset accessed at 10.5281/zenodo.8170366.
-  license: CC-BY-4.0 # Based on feedback from Josh Willis on 2026-02-10
+  license: CC-BY-4.0 # Based on feedback from Josh Willisn on 2026-02-10
   Conventions: CF-1.8, ACDD-1.3
-  time_coverage_start: '2002-02-15'
-  time_coverage_end: '2024-12-16'
   platform_type: Argo floats
   contributing_institutions: NASA JPL
   source_url: https://doi.org/10.5281/zenodo.8170365
 
 files:
   hobbs_willis_amoc41N_tseries.txt:
+    version: "v5"
     featureType: timeSeries
+    contributor_name: "Will Hobbs, Josh Willis"
+    contributor_role: "creator, PI"
+    data_product: "Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations"
+    variable_mapping:
+      "Ekman (Sv)": TRANS_EKMAN
+      "Geos (Sv)": TRANS_GEO
+      "MOC (Sv)": MOC
+      "MHT (PW)": MHT
+    original_variable_metadata:
+      "Ekman (Sv)":
+        long_name: "Ekman"
+        description: "Ekman Volume Transport"
+        units: Sverdrup
+        standard_name: ocean_volume_transport_across_line
+      "Geos (Sv)":
+        long_name: "Geostrophic Transport"
+        description: "Northward Geostrophic Transport"
+        units: Sverdrup
+        standard_name: ocean_volume_transport_across_line
+      "MOC (Sv)":
+        long_name: "MOC_z"
+        description: "Meridional Overturning Volume Transport"
+        units: Sverdrup
+        standard_name: ocean_meridional_overturning_transport
+      "MHT (PW)":
+        long_name: "MHT"
+        description: "Meridional Overturning Heat Transport"
+        units: PW
+        standard_name: northward_ocean_heat_transport
+
+  hobbs_willis_amoc41N_tseries_v2025_01.txt:
+    featureType: timeSeries
+    version: "v2025_01"
     contributor_name: "Will Hobbs, Josh Willis"
     contributor_role: "creator, PI"
     data_product: "Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations"

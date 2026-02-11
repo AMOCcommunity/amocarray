@@ -1646,7 +1646,9 @@ class StandardizedDatasetReport(BaseDatasetReport):
             plots_dir.mkdir(parents=True, exist_ok=True)
 
             # Generate plot filename
-            plot_filename = f"{self.dataset_name.replace(' ', '_').lower()}_timeseries.png"
+            plot_filename = (
+                f"{self.dataset_name.replace(' ', '_').lower()}_timeseries.png"
+            )
             plot_path = plots_dir / plot_filename
 
             # Try to find a suitable variable for plotting (prefer MOC variables)

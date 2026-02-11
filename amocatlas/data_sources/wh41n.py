@@ -11,6 +11,8 @@ from typing import Union
 
 import xarray as xr
 import datetime
+import pandas
+from pandas.errors import EmptyDataError, ParserError
 
 # Import the modules used
 from amocatlas import logger, utilities
@@ -30,11 +32,11 @@ WH41N_DEFAULT_FILES = [
     "Q_ARGO_obs_dens_2000depth_ERA5.nc",
 ]
 A41N_TRANSPORT_FILES = ["hobbs_willis_amoc41N_tseries.txt"]
-A41N_DEFAULT_SOURCE = "https://zenodo.org/records/14681441/files/"
+A41N_DEFAULT_SOURCE = "https://zenodo.org/records/18238115/files/"
 
 A41N_METADATA = {
     "project": "Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations",
-    "weblink": "https://zenodo.org/records/14681441",
+    "weblink": "https://zenodo.org/records/18238115",
     "comment": "Dataset accessed and processed via http://github.com/AMOCcommunity/amocatlas",
     "acknowledgement": "This study has been conducted using E.U. Copernicus Marine Service Information; https://doi.org/10.48670/moi-00149  and https://doi.org/10.48670/moi-00148. These data were collected and made freely available by the International Argo Program and the national programs that contribute to it.  (https://argo.ucsd.edu,  https://www.ocean-ops.org). The Argo Program is part of the Global Ocean Observing System.",
     "doi": "10.5281/zenodo.8170365",
@@ -156,8 +158,6 @@ def read_41n(
                             f"Converting YYYYMM time format to datetime for {file}"
                         )
 
-                        import pandas as pd
-
                         # Convert YYYYMM to datetime
                         yyyymm_values = time_data.values
                         datetime_values = []
@@ -165,7 +165,7 @@ def read_41n(
                             year = yyyymm // 100
                             month = yyyymm % 100
                             # Use 15th of month as representative date
-                            dt = pd.Timestamp(year=year, month=month, day=15)
+                            dt = pandas.Timestamp(year=year, month=month, day=15)
                             datetime_values.append(dt)
 
                         # Replace time coordinate with TIME and convert to standard format
@@ -182,20 +182,47 @@ def read_41n(
                             }
                         )
         else:
-            # file .txt
+            # file .txt - handle both old format (with % comments) and new CSV format
             try:
                 column_names, _ = utilities.parse_ascii_header(
                     file_path, comment_char="%"
                 )
                 df = utilities.read_ascii_file(file_path, comment_char="%")
-                df.columns = column_names
+
+                if column_names:
+                    # Old format with % comment headers - use parsed column names
+                    df.columns = column_names
+                else:
+                    # New CSV format (v5) - file starts directly with header line
+                    # The CSV parser incorrectly splits the header, so we need to handle the actual column count
+                    if len(df.columns) == 9:
+                        # CSV parser split "Year,  Ekman (Sv),  Geos (Sv),  MOC (Sv),  MOC (PW)" incorrectly
+                        # We need to re-read this as a proper CSV file
+                        df = pandas.read_csv(file_path)
+                        # Now it should have the correct 5 columns
+                        df.columns = [
+                            "Decimal year",
+                            "Ekman (Sv)",
+                            "Geos (Sv)",
+                            "MOC (Sv)",
+                            "MOC (PW)",
+                        ]
+                    else:
+                        # Fallback for unexpected column counts
+                        df.columns = [
+                            "Decimal year",
+                            "Ekman (Sv)",
+                            "Geos (Sv)",
+                            "MOC (Sv)",
+                            "MOC (PW)",
+                        ]
             except (
                 OSError,
                 IOError,
                 ValueError,
                 KeyError,
-                pd.errors.EmptyDataError,
-                pd.errors.ParserError,
+                EmptyDataError,
+                ParserError,
             ) as e:
                 log_error("Failed to parse ASCII file: %s: %s", file_path, e)
                 raise FileNotFoundError(
