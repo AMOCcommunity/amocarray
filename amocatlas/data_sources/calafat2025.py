@@ -98,7 +98,7 @@ def read_calafat2025(
     log.info("Starting to read CALAFAT2025 dataset")
 
     # Load YAML metadata with fallback
-    global_metadata, yaml_file_metadata = ReaderUtils.load_array_metadata_with_fallback(
+    _, yaml_file_metadata = ReaderUtils.load_array_metadata_with_fallback(
         DATASOURCE_ID, CALAFAT2025_METADATA
     )
 
@@ -258,6 +258,20 @@ def read_calafat2025(
                             "units": "seconds since 1970-01-01T00:00:00Z",
                             "vocabulary": "http://vocab.nerc.ac.uk/collection/OG1/current/TIME/",
                         }
+                    )
+
+                # Add coordinate for posterior distribution samples
+                if "posterior_samples" in ds.dims:
+                    import numpy as np
+
+                    # Create coordinate from posterior_samples dimension
+                    # Metadata will be applied from YAML during standardization
+                    n_samples = ds.sizes["posterior_samples"]
+                    sample_indices = np.arange(n_samples)
+                    ds = ds.assign_coords(posterior_samples=sample_indices)
+
+                    log_info(
+                        f"Added posterior_samples coordinate with {n_samples} samples"
                     )
 
                 # Use ReaderUtils for consistent metadata attachment

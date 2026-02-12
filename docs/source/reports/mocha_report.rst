@@ -151,7 +151,7 @@ along with key statistics for each variable.
      - 0.72
      - 0.0%
    * - *maxmoc* → **MOC**
-     - time-varying maximum value of MOC streamfunction 
+     - **MOC**: time-varying maximum value of MOC streamfunction 
      - Sverdrup
      - (12202,)
      - -5.07

@@ -22,7 +22,7 @@ Dataset Overview
 
 **Citation:**
 
-    Willis, J. K., and Hobbs, W. R., Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations. Dataset accessed at 10.5281/zenodo.8170366.
+    Willis, J. K., and Hobbs, W. R., Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations. Dataset accessed at 10.5281/zenodo.8170365.
 
 Dataset Visualization
 ^^^^^^^^^^^^^^^^^^^^^
@@ -83,19 +83,19 @@ along with key statistics for each variable.
      - Min Value
      - Max Value
      - Missing %
+   * - *MOC (PW)* → **MHT**
+     - **MHT**: Meridional Overturning Heat Transport
+     - PW
+     - (288,)
+     - -0.04
+     - 0.94
+     - 0.0%
    * - *MOC (Sv)* → **MOC**
      - **MOC_z**: Meridional Overturning Volume Transport
      - Sverdrup
      - (288,)
      - 2.47
      - 19.98
-     - 0.0%
-   * - **MOC (PW)**
-     - No description available
-     - unknown
-     - (288,)
-     - -0.04
-     - 0.94
      - 0.0%
    * - *Ekman (Sv)* → **TRANS_EKMAN**
      - **Ekman**: Ekman Volume Transport
@@ -145,9 +145,9 @@ The following metadata provides comprehensive information about this dataset:
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.3.0
 - **Processing Datasource\***: wh41n
-- **Variable Mapping\***: {'Ekman (Sv)': 'TRANS_EKMAN', 'Geos (Sv)': 'TRANS_GEO', 'MOC (Sv)': 'MOC', 'MHT (PW)': 'MHT'}
+- **Variable Mapping\***: {'Ekman (Sv)': 'TRANS_EKMAN', 'Geos (Sv)': 'TRANS_GEO', 'MOC (Sv)': 'MOC', 'MOC (PW)': 'MHT'}
 - **Original Variable Metadata\***: [Complex metadata structure - 4 items]
-- **Applied Variable Mapping**: {'Ekman (Sv)': 'TRANS_EKMAN', 'Geos (Sv)': 'TRANS_GEO', 'MOC (Sv)': 'MOC'}
+- **Applied Variable Mapping**: {'Ekman (Sv)': 'TRANS_EKMAN', 'Geos (Sv)': 'TRANS_GEO', 'MOC (Sv)': 'MOC', 'MOC (PW)': 'MHT'}
 - **Version\***: v5
 - **Comment\***: (Note: date_modified has been set to a canonical value for documentation generation to avoid git churn)
 
@@ -171,7 +171,7 @@ Dataset Overview
 
 **Citation:**
 
-    Willis, J. K., and Hobbs, W. R., Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations. Dataset accessed at 10.5281/zenodo.8170366.
+    Willis, J. K., and Hobbs, W. R., Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations. Dataset accessed at 10.5281/zenodo.8170365.
 
 Dataset Visualization
 ^^^^^^^^^^^^^^^^^^^^^
@@ -335,7 +335,7 @@ Dataset Overview
 
 **Citation:**
 
-    Willis, J. K., and Hobbs, W. R., Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations. Dataset accessed at 10.5281/zenodo.8170366.
+    Willis, J. K., and Hobbs, W. R., Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations. Dataset accessed at 10.5281/zenodo.8170365.
 
 Dataset Visualization
 ^^^^^^^^^^^^^^^^^^^^^
@@ -425,7 +425,7 @@ along with key statistics for each variable.
      - Max Value
      - Missing %
    * - *Q* → **MHT**
-     - Observed meridional heat transport
+     - **MHT**: Observed meridional heat transport
      - PW
      - (288, 4, 320, 201)
      - -0.22

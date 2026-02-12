@@ -29,7 +29,13 @@ files:
       "latitude": LATITUDE
       "mht": MHT
       "htc": HTC
+      "posterior_samples": N_ENSEMBLE
     original_variable_metadata:
+      posterior_samples:
+        long_name: realization 
+        description: "Posterior samples of the spatiotemporal Bayesian hierarchical model used to estimate MHT. Point estimates can be calculated as the mean of the samples, while uncertainty can be quantified as the standard deviation of the samples (1 sigma) or the 5–95% credible interval (i.e. the 5th–95th percentiles)."
+        units: 1
+        standard_name: realization
       time:
         long_name: "Time"
         description: "Time in decimal years"
