@@ -49,6 +49,11 @@ This is a work in progress, all contributions welcome!
 | **CALAFAT2025** | Atlantic | Bayesian estimates of Atlantic meridional heat transport spanning latitudes | `read.calafat2025()` |
 | **ZHENG2024** | Atlantic | Observation-based Atlantic meridional freshwater transport spanning latitudes | `read.zheng2024()` |
 
+For more detail on the AMOC and observing arrays, see: 
+
+  - UCAR overview: https://climatedataguide.ucar.edu/climate-data/observations-atlantic-meridional-overturning-circulation-amoc
+  - AtlantOS/OceanSITES: https://www.ocean-ops.org/oceansites/tma/index.html
+
 ## Installation
 
 ### From PyPI (Recommended)
