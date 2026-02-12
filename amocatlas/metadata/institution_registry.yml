@@ -18,6 +18,21 @@ institutions:
     id_url: "https://edmo.seadatanet.org/report/17"
     website: "https://noc.ac.uk"
     
+  "1224": # NASA JPL
+    standard_name: "National Aeronautics and Space Administration - Jet Propulsion Laboratory (NASA JPL)"
+    name_variants:
+      - "NASA JPL"
+      - "National Aeronautics and Space Administration, Jet Propulsion Laboratory"
+      - "National Aeronautics and Space Administration Jet Propulsion Laboratory"
+      - "NASA Jet Propulsion Laboratory"
+      - "National Aeronautics and Space Administration (NASA) Jet Propulsion Laboratory"
+      - "National Aeronautics and Space Administration (NASA) Jet Propulsion Laboratory (JPL)"
+      - "National Aeronautics and Space Administration JPL"
+      - "National Aeronautics and Space Administration Jet Propulsion Laboratory (USA)"
+    country: "USA"
+    id_url: "https://edmo.seadatanet.org/report/1224"
+    website: "https://www.jpl.nasa.gov"
+
   "2424":  # National Oceanography Centre Liverpool
     standard_name: "National Oceanography Centre (Liverpool)"
     name_variants:

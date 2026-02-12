@@ -126,4 +126,3 @@ The following metadata provides comprehensive information about this dataset:
 - **Original Variable Metadata\***: [Complex metadata structure - 3 items]
 - **Applied Variable Mapping**: {'Flux': 'TRANS_FBC'}
 - **Variables To Remove\***: Day, Month
-- **Comment\***: (Note: date_modified has been set to a canonical value for documentation generation to avoid git churn)

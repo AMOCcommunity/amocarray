@@ -137,7 +137,6 @@ The following metadata provides comprehensive information about this dataset:
 - **Applied Variable Mapping**: [Complex metadata structure - 2 items]
 - **Original Variable Mapping**: [Complex metadata structure - 2 items]
 - **Sanitization Mapping**: [Complex metadata structure - 7 items]
-- **Comment\***: (Note: date_modified has been set to a canonical value for documentation generation to avoid git churn)
 
 ----
 
@@ -321,4 +320,3 @@ The following metadata provides comprehensive information about this dataset:
 - **Applied Variable Mapping**: [Complex metadata structure - 8 items]
 - **Original Variable Mapping**: [Complex metadata structure - 8 items]
 - **Sanitization Mapping**: [Complex metadata structure - 12 items]
-- **Comment\***: (Note: date_modified has been set to a canonical value for documentation generation to avoid git churn)

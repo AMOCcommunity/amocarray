@@ -95,74 +95,81 @@ along with key statistics for each variable.
      - Max Value
      - Missing %
    * - *Q_sum* → **MHT**
-     - No description available
+     - **MHT**: Net meridional heat transport 
      - PW
      - (12202,)
      - -0.64
      - 2.52
      - 0.0%
    * - *Q_ek* → **MHT_EKMAN**
-     - No description available
+     - **MHT_EKMAN**: Ekman heat transports 
      - PW
      - (12202,)
      - -1.16
      - 1.74
      - 0.0%
    * - *Q_fc* → **MHT_FC**
-     - No description available
+     - **MHT_FC**: Florida Straits heat transports 
      - PW
      - (12202,)
      - 1.50
      - 3.29
      - 0.0%
    * - *Q_gyre* → **MHT_GYRE**
-     - No description available
+     - **MHT_GYRE**: Basinwide gyre heat transports, as classically defined (e.g. see Johns et al., 2011) 
      - PW
      - (12202,)
      - -0.03
      - 0.23
      - 0.0%
    * - *Q_int* → **MHT_INT**
-     - No description available
+     - **MHT_INT**: Heat transport for the rest of the interior to Africa (but only represents the contribution by the zonal mean v and T) 
      - PW
      - (12202,)
      - -2.97
      - -0.81
      - 0.0%
    * - *Q_mo* → **MHT_MO**
-     - No description available
+     - **MHT_MO**: The sum of all the three interior components between the Bahamas and Africa (Q_int + Q_wedge + Q_eddy) 
      - PW
      - (12202,)
      - -2.52
      - -0.92
      - 0.0%
    * - *Q_ot* → **MHT_OT**
-     - No description available
+     - **MHT_OT**: Basinwide overturning heat transports, as classically defined (e.g. see Johns et al., 2011) 
      - PW
      - (12202,)
      - -0.63
      - 2.47
      - 0.0%
    * - *Q_wedge* → **MHT_WEDGE**
-     - No description available
+     - **MHT_WEDGE**: Heat transport for the "western boundary wedge" off Abaco 
      - PW
      - (12202,)
      - -0.41
      - 0.72
      - 0.0%
    * - *maxmoc* → **MOC**
-     - **MOC**: time-varying maximum value of MOC streamfunction 
+     - **MOC_Z**: time-varying maximum value of MOC streamfunction 
      - Sverdrup
      - (12202,)
      - -5.07
      - 32.90
      - 0.0%
    * - **Q_eddy**
-     - No description available
+     - **MHT_EDDY**: interior gyre component due to spatially correlated v'T' variability across the interior, derived from an objective analysis of interior ARGO T/S data merged with the mooring T/S data from moorings, and smoothly merged into the EN4 climatology along 26.5°N below 2000m 
      - PW
      - (12202,)
      - -0.03
      - 0.13
+     - 0.0%
+   * - *moc* → **STREAMFUNCTION_Z**
+     - **Streamfunction**: Streamfunction across the Atlantic at 26.5°N
+     - Sverdrup
+     - (12202, 307)
+     - -18.92
+     - 37.79
      - 0.0%
    * - *T_basin* → **TEMP_BASIN**
      - **Temperature**: time-varying basinwide mean potential temperature profile 
@@ -227,13 +234,6 @@ along with key statistics for each variable.
      - 19.17
      - 39.53
      - 0.0%
-   * - **moc**
-     - **MOC_Z**: time-varying MOC streamfunction vs. depth 
-     - Sverdrup
-     - (12202, 307)
-     - -18.92
-     - 37.79
-     - 0.0%
 
 
 Metadata (edits applied noted)
@@ -272,12 +272,11 @@ The following metadata provides comprehensive information about this dataset:
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.3.0
 - **Processing Datasource\***: mocha26n
-- **Variable Mapping\***: [Complex metadata structure - 20 items]
+- **Variable Mapping\***: [Complex metadata structure - 21 items]
 - **Original Variable Metadata\***: [Complex metadata structure - 27 items]
-- **Applied Variable Mapping**: [Complex metadata structure - 22 items]
+- **Applied Variable Mapping**: [Complex metadata structure - 24 items]
 - **Convert To Coord\***: z
 - **Variables To Remove\***: day, hour, julian_day, month, year
 - **Principal Investigator Url**: http://www.rsmas.miami.edu/people/faculty-index/?p=william-johns
 - **Methodology Reference**: W.E. Johns, S. Elipot, D.A. Smeed, B. Moat, B. King, D.L. Volkov, R.H. Smith, “Towards Two Decades of Atlantic Ocean Mass and Heat Transports at 26.5ºN”, accepted for publication in Royal Society Philosophical Transactions A, 2023.
 - **Methodology Doi**: doi: 10.1098/rsta.2022.0188
-- **Comment\***: (Note: date_modified has been set to a canonical value for documentation generation to avoid git churn)

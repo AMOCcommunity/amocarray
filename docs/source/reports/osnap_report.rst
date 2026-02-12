@@ -16,7 +16,7 @@ Dataset Overview
 - **DOI**: https://doi.org/10.35090/gatech/70342
 - **Source File**: OSNAP_MOC_MHT_MFT_TimeSeries_201408_202207_2025.nc
 - **Data Product**: Time series of MOC, MHT, and MFT (2014-2022)
-- **License**: 
+- **License**: CC-BY-4.0
 - **Date Created**: 2025-05-21T15:09:24Z
 - **Time Coverage**: 2014-08-01 to 2022-07-01
 - **Record Length**: 96 observations (7.9 years)
@@ -102,42 +102,42 @@ along with key statistics for each variable.
      - -0.23
      - 0.0%
    * - **MFT_EAST**
-     - **Freshwater trans. east**: Meridional freshwater transport across OSNAP East
+     - **MFTeast**: Meridional freshwater transport across OSNAP East
      - Sverdrup
      - (96,)
      - -0.28
      - -0.09
      - 0.0%
    * - **MFT_EAST_ERR**
-     - **Freshwater trans. east error**: Uncertainty in MFT_EAST
+     - **MFTeast error**: Uncertainty in MFT_EAST
      - Sverdrup
      - (96,)
      - 0.03
      - 0.07
      - 0.0%
    * - *MFT_ALL_ERR* → **MFT_ERR**
-     - uncertainty for MFT_ALL
+     - **MFT error**: Uncertainty in MFT
      - Sverdrup
      - (96,)
      - 0.04
      - 0.08
      - 0.0%
    * - **MFT_WEST**
-     - **Freshwater trans. west**: Meridional freshwater transport across OSNAP West
+     - **MFTwest**: Meridional freshwater transport across OSNAP West
      - Sverdrup
      - (96,)
      - -0.24
      - -0.08
      - 0.0%
    * - **MFT_WEST_ERR**
-     - **Freshwater trans. west error**: Uncertainty in MFT_WEST
+     - **MFTwest error**: Uncertainty in MFT_WEST
      - Sverdrup
      - (96,)
      - 0.01
      - 0.04
      - 0.0%
    * - *MHT_ALL* → **MHT**
-     - Meridional heat transport across the full OSNAP array
+     - **MHT**: Meridional heat transport across full OSNAP array
      - PW
      - (96,)
      - 0.35
@@ -158,7 +158,7 @@ along with key statistics for each variable.
      - 0.15
      - 0.0%
    * - *MHT_ALL_ERR* → **MHT_ERR**
-     - uncertainty for MHT_ALL
+     - **MHT uncertainty**: Uncertainty in MHT
      - PW
      - (96,)
      - 0.07
@@ -186,7 +186,7 @@ along with key statistics for each variable.
      - 23.66
      - 0.0%
    * - *MOC_EAST_ERR* → **MOC_EAST_SIGMA0_ERR**
-     - uncertainty for MOC_EAST
+     - **Eastern MOC_sigma0 uncertainty**: Uncertainty in MOC_SIGMA0_EAST
      - Sverdrup
      - (96,)
      - 2.33
@@ -232,7 +232,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Description\***: OSNAP transport and hydrographic estimates dataset, 2014-2020
 - **Program\***: OSNAP
 - **Project**: Overturning in the Subpolar North Atlantic Program (OSNAP)
-- **License\***: None
+- **License\***: CC-BY-4.0
 - **Acknowledgment**: OSNAP data were collected and made freely available by the OSNAP (Overturning in the Subpolar North Atlantic Program) project and all the national programs that contribute to it (www.o-snap.org).
 - **Doi\***: https://doi.org/10.35090/gatech/70342
 - **References**: Lozier et al. (2019), Science, doi:10.1126/science.aau6592; Li et al. (2017), JTECH, doi:10.1175/JTECH-D-16-0247.1; Li et al. (2021), Nature Communications, doi:10.1038/s41467-021-23350-2; Fu et al. (2023), Communications Earth & Environment, doi:10.1038/s43247-023-00848-9
@@ -265,7 +265,6 @@ The following metadata provides comprehensive information about this dataset:
 - **Original Variable Metadata\***: [Complex metadata structure - 19 items]
 - **Applied Variable Mapping**: [Complex metadata structure - 10 items]
 - **Data Assembly Center**: Georgia Institute of Technology
-- **Comment\***: (Note: date_modified has been set to a canonical value for documentation generation to avoid git churn)
 
 ----
 
@@ -280,7 +279,7 @@ Dataset Overview
 - **DOI**: https://doi.org/10.35090/gatech/70342
 - **Source File**: OSNAP_Streamfunction_201408_202207_2025.nc
 - **Data Product**: Meridional overturning streamfunction (2014-2022)
-- **License**: 
+- **License**: CC-BY-4.0
 - **Date Created**: 2025-05-21T15:16:52Z
 - **Time Coverage**: 2014-08-01 to 2022-07-01
 - **Record Length**: 96 observations (7.9 years)
@@ -398,7 +397,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Description\***: OSNAP transport and hydrographic estimates dataset, 2014-2020
 - **Program\***: OSNAP
 - **Project**: Overturning in the Subpolar North Atlantic Program (OSNAP)
-- **License\***: None
+- **License\***: CC-BY-4.0
 - **Acknowledgment**: OSNAP data were collected and made freely available by the OSNAP (Overturning in the Subpolar North Atlantic Program) project and all the national programs that contribute to it (www.o-snap.org).
 - **Doi\***: https://doi.org/10.35090/gatech/70342
 - **References**: Lozier et al. (2019), Science, doi:10.1126/science.aau6592; Li et al. (2017), JTECH, doi:10.1175/JTECH-D-16-0247.1; Li et al. (2021), Nature Communications, doi:10.1038/s41467-021-23350-2; Fu et al. (2023), Communications Earth & Environment, doi:10.1038/s43247-023-00848-9
@@ -431,7 +430,6 @@ The following metadata provides comprehensive information about this dataset:
 - **Original Variable Metadata\***: [Complex metadata structure - 5 items]
 - **Applied Variable Mapping**: {'LEVEL': 'SIGMA0', 'T_ALL': 'STREAMFUNCTION_SIGMA0', 'T_WEST': 'STREAMFUNCTION_SIGMA0_WEST', 'T_EAST': 'STREAMFUNCTION_SIGMA0_EAST'}
 - **Data Assembly Center**: Georgia Institute of Technology
-- **Comment\***: (Note: date_modified has been set to a canonical value for documentation generation to avoid git churn)
 
 ----
 
@@ -446,7 +444,7 @@ Dataset Overview
 - **DOI**: https://doi.org/10.35090/gatech/70342
 - **Source File**: OSNAP_Gridded_TSV_201408_202207_2025.nc
 - **Data Product**: Gridded velocity, temperature, and salinity (2014-2022)
-- **License**: 
+- **License**: CC-BY-4.0
 - **Date Created**: 2025-05-21T15:11:05Z
 - **Time Coverage**: 2014-08-01 to 2022-07-01
 - **Record Length**: 96 observations (7.9 years)
@@ -568,7 +566,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Description\***: OSNAP transport and hydrographic estimates dataset, 2014-2020
 - **Program\***: OSNAP
 - **Project**: Overturning in the Subpolar North Atlantic Program (OSNAP)
-- **License\***: None
+- **License\***: CC-BY-4.0
 - **Acknowledgment**: OSNAP data were collected and made freely available by the OSNAP (Overturning in the Subpolar North Atlantic Program) project and all the national programs that contribute to it (www.o-snap.org).
 - **Doi\***: https://doi.org/10.35090/gatech/70342
 - **References**: Lozier et al. (2019), Science, doi:10.1126/science.aau6592; Li et al. (2017), JTECH, doi:10.1175/JTECH-D-16-0247.1; Li et al. (2021), Nature Communications, doi:10.1038/s41467-021-23350-2; Fu et al. (2023), Communications Earth & Environment, doi:10.1038/s43247-023-00848-9
@@ -603,4 +601,3 @@ The following metadata provides comprehensive information about this dataset:
 - **Url\***: https://repository.gatech.edu/bitstreams/af6a47f7-f705-49b4-a64f-5cd086b9b9fb/download
 - **Size\***: 55.98 MB
 - **Data Assembly Center**: Georgia Institute of Technology
-- **Comment\***: (Note: date_modified has been set to a canonical value for documentation generation to avoid git churn)

@@ -133,4 +133,4 @@ The following metadata provides comprehensive information about this dataset:
 - **Variable Mapping\***: {'time': 'TIME', 'lat': 'LATITUDE', 'mft': 'MFT'}
 - **Original Variable Metadata\***: [Complex metadata structure - 3 items]
 - **Applied Variable Mapping**: {'time': 'TIME', 'lat': 'LATITUDE', 'mft': 'MFT', 'TIME': 'TIME', 'MFT': 'MFT'}
-- **Comment\***: Salinity observations used in this study are from the Institute of Atmospheric Physics (IAP). Argo floats, CTD salinity sensors, bottles, mooring, sourced from the World Ocean Database (WOD). Precipitation and evaporation observations are derived from the Global Precipitation Climatology Project (GPCP). (Note: date_modified has been set to a canonical value for documentation generation to avoid git churn)
+- **Comment\***: Salinity observations used in this study are from the Institute of Atmospheric Physics (IAP). Argo floats, CTD salinity sensors, bottles, mooring, sourced from the World Ocean Database (WOD). Precipitation and evaporation observations are derived from the Global Precipitation Climatology Project (GPCP).

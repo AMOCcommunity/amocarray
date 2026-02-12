@@ -210,7 +210,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Variable Mapping\***: [Complex metadata structure - 7 items]
 - **Original Variable Metadata\***: [Complex metadata structure - 7 items]
 - **Applied Variable Mapping**: [Complex metadata structure - 7 items]
-- **Comment**: The primary scientific data here have variable names in CAPITAL LETTERS; ancillary data are given in lower-case. (Note: date_modified has been set to a canonical value for documentation generation to avoid git churn)
+- **Comment**: The primary scientific data here have variable names in CAPITAL LETTERS; ancillary data are given in lower-case.
 
 ----
 
@@ -416,7 +416,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Original Variable Metadata\***: [Complex metadata structure - 5 items]
 - **Applied Variable Mapping**: {'VELOCITY_U': 'UCUR', 'VELOCITY_V': 'VCUR', 'instrument_depth_time_varying': 'DEPTH', 'latitude_time_varying': 'LATITUDE_VARYING', 'longitude_time_varying': 'LONGITUDE_VARYING'}
 - **Update Interval**: void
-- **Comment**: The primary scientific data here have variable names in CAPITAL LETTERS; ancillary data are given in lower-case. (Note: date_modified has been set to a canonical value for documentation generation to avoid git churn)
+- **Comment**: The primary scientific data here have variable names in CAPITAL LETTERS; ancillary data are given in lower-case.
 - **Qc Indicator**: excellent
 - **Area**: Tropical Atlantic Ocean
 - **Geospatial Vertical Positive**: down
@@ -626,7 +626,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Original Variable Metadata\***: [Complex metadata structure - 5 items]
 - **Applied Variable Mapping**: {'TEMPERATURE': 'TEMP', 'SALINITY': 'PSAL', 'instrument_depth_time_varying': 'DEPTH', 'latitude_time_varying': 'LATITUDE_VARYING', 'longitude_time_varying': 'LONGITUDE_VARYING'}
 - **Update Interval**: void
-- **Comment**: The primary scientific data here have variable names in CAPITAL LETTERS; ancillary data are given in lower-case. (Note: date_modified has been set to a canonical value for documentation generation to avoid git churn)
+- **Comment**: The primary scientific data here have variable names in CAPITAL LETTERS; ancillary data are given in lower-case.
 - **Qc Indicator**: excellent
 - **Area**: Tropical Atlantic Ocean
 - **Geospatial Vertical Positive**: down

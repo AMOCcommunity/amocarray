@@ -17,16 +17,19 @@ metadata:
   contributor_name: "Hege-Beate Fredriksen, Laura de Steur"
   contributor_role: "originator, PI"
   contributor_role_vocabulary: "http://vocab.nerc.ac.uk/search_nvs/W08/"
-  creator_name_overwrite: " "
-  creator_url_overwrite: " "
-  creator_email_overwrite: " "
-  creator_type_overwrite: " "
-  publisher_name_overwrite: " "
-  publisher_email_overwrite: " "
   institution: " "
   contributing_institutions: "Norwegian Polar Institute, Alfred Wegener Institute, Institute for Marine Research, APL-UW"
   contributing_institutions_role: "publisher, "
-
+  remove_unwanted_attributes:
+    - creator_institution
+    - creator_name  # if you want to remove this too
+    - creator_url
+    - creator_email
+    - creator_type
+    - publisher_name
+    - publisher_email
+    - publisher_type
+    
 files:
   Adjusted_fulldepth/BarentsSeaOpening_adjusted_v_fulldepth.nc:
     source_url: "https://doi.org/10.21334/NPOLAR.2025.80B69907"
@@ -103,17 +106,17 @@ files:
         description: "Latitude of zonal sections across which freshwater transport is computed."
         units: degree_north 
         standard_name: "latitude"
-      conservative_temperature:
+      CT:
         long_name: "Cons. Temperature"
         description: "Conservative Temperature (TEOS-10)"
         units: degree_C
         standard_name: sea_water_conservative_temperature
-      absolute_salinity:
+      SA:
         long_name: "Abs. Salinity"
         description: "Absolute Salinity (TEOS-10)"
         units: "g kg-1"
         standard_name: sea_water_absolute_salinity
-      northward_velocity:
+      v:
         long_name: "V Velocity"
         description: "Northward Velocity component"
         units: "m s-1"

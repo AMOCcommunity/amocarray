@@ -132,8 +132,8 @@ The following metadata provides comprehensive information about this dataset:
 - **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
 - **Contributor Email**: , 
 - **Contributor Id**: https://orcid.org/0000-0002-2061-0899, https://orcid.org/0000-0002-4515-8771
-- **Contributing Institutions\***: NASA JPL
-- **Contributing Institutions Vocabulary**: 
+- **Contributing Institutions\***: National Aeronautics and Space Administration - Jet Propulsion Laboratory (NASA JPL)
+- **Contributing Institutions Vocabulary**: https://edmo.seadatanet.org/report/1224
 - **Contributing Institutions Role**: 
 - **Conventions\***: CF-1.8, ACDD-1.3, OceanSITES-1.5
 - **featureType\***: timeSeries
@@ -149,7 +149,6 @@ The following metadata provides comprehensive information about this dataset:
 - **Original Variable Metadata\***: [Complex metadata structure - 4 items]
 - **Applied Variable Mapping**: {'Ekman (Sv)': 'TRANS_EKMAN', 'Geos (Sv)': 'TRANS_GEO', 'MOC (Sv)': 'MOC', 'MOC (PW)': 'MHT'}
 - **Version\***: v5
-- **Comment\***: (Note: date_modified has been set to a canonical value for documentation generation to avoid git churn)
 
 ----
 
@@ -296,8 +295,8 @@ The following metadata provides comprehensive information about this dataset:
 - **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
 - **Contributor Email**: , 
 - **Contributor Id**: https://orcid.org/0000-0002-2061-0899, https://orcid.org/0000-0002-4515-8771
-- **Contributing Institutions\***: NASA JPL
-- **Contributing Institutions Vocabulary**: 
+- **Contributing Institutions\***: National Aeronautics and Space Administration - Jet Propulsion Laboratory (NASA JPL)
+- **Contributing Institutions Vocabulary**: https://edmo.seadatanet.org/report/1224
 - **Contributing Institutions Role**: 
 - **Conventions\***: CF-1.8, ACDD-1.3, OceanSITES-1.5
 - **Source File\***: trans_ARGO_ERA5.nc
@@ -313,7 +312,6 @@ The following metadata provides comprehensive information about this dataset:
 - **Applied Variable Mapping**: {'Vek': 'VEL_EKMAN', 'trans': 'TRANS_GEO', 'moc': 'MOC', 'depth': 'DEPTH', 'lat': 'LATITUDE', 'lon': 'LONGITUDE', 'MOC': 'MOC', 'DEPTH': 'DEPTH'}
 - **Reference Temp**: kelvin
 - **Wind Stress**: ERA5
-- **Comment\***: (Note: date_modified has been set to a canonical value for documentation generation to avoid git churn)
 
 ----
 
@@ -467,8 +465,8 @@ The following metadata provides comprehensive information about this dataset:
 - **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
 - **Contributor Email**: , 
 - **Contributor Id**: https://orcid.org/0000-0002-2061-0899, https://orcid.org/0000-0002-4515-8771
-- **Contributing Institutions\***: NASA JPL
-- **Contributing Institutions Vocabulary**: 
+- **Contributing Institutions\***: National Aeronautics and Space Administration - Jet Propulsion Laboratory (NASA JPL)
+- **Contributing Institutions Vocabulary**: https://edmo.seadatanet.org/report/1224
 - **Contributing Institutions Role**: 
 - **Conventions\***: CF-1.8, ACDD-1.3, OceanSITES-1.5
 - **Source File\***: Q_ARGO_obs_dens_2000depth_ERA5.nc
@@ -484,4 +482,3 @@ The following metadata provides comprehensive information about this dataset:
 - **Applied Variable Mapping**: {'Qnet': 'MHT_NET', 'Qek': 'MHT_EKMAN', 'Q': 'MHT', 'depth': 'DEPTH', 'lat': 'LATITUDE', 'lon': 'LONGITUDE', 'DEPTH': 'DEPTH', 'TIME': 'TIME'}
 - **Reference Temp**: kelvin
 - **Wind Stress**: ERA5
-- **Comment\***: (Note: date_modified has been set to a canonical value for documentation generation to avoid git churn)

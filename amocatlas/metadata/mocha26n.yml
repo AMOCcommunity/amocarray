@@ -24,6 +24,7 @@ files:
     variable_mapping:
       time: TIME
       maxmoc: MOC
+      moc: STREAMFUNCTION_Z
       Q_sum: MHT
       Q_ek: MHT_EKMAN
       Q_fc: MHT_FC
@@ -154,17 +155,11 @@ files:
         units: Sverdrup
         standard_name: ocean_volume_transport_across_line
       maxmoc:
-        long_name: "MOC"
+        long_name: "MOC_Z"
         description: >
           time-varying maximum value of MOC streamfunction
         units: Sverdrup
         standard_name: ocean_meridional_overturning_transport
-      moc:
-        long_name: "MOC_Z"
-        description: >
-          time-varying MOC streamfunction vs. depth
-        units: Sverdrup
-        standard_name: ocean_meridional_overturning_streamfunction
       z:
         long_name: "Depth"
         description: >
@@ -203,3 +198,8 @@ files:
         description: >
           corresponding hour of the measurements
         standard_name: "Hour"
+      moc:
+        long_name: "Streamfunction"
+        description: "Streamfunction across the Atlantic at 26.5°N"
+        units: Sverdrup
+        standard_name: ocean_meridional_overturning_streamfunction

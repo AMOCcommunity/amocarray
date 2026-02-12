@@ -115,7 +115,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Contributor Role Vocabulary\***: https://vocab.nerc.ac.uk/collection/G04/current/
 - **Contributor Email**: , 
 - **Contributor Id\***: https://orcid.org/0000-0003-3876-2206, https://orcid.org/0000-0003-1496-2828
-- **Contributing Institutions**: 
+- **Contributing Institutions\***: University of Bremen (Germany)
 - **Contributing Institutions Vocabulary**: 
 - **Contributing Institutions Role**: 
 - **Conventions**: CF-1.8, ACDD-1.3, OceanSITES-1.5
@@ -131,4 +131,3 @@ The following metadata provides comprehensive information about this dataset:
 - **Variable Mapping\***: {'Trans vol [Sv]': 'MOC_SIGMA0', 'Trans vol [Sv].1': 'MOC_SIGMA0_LPF'}
 - **Original Variable Metadata\***: [Complex metadata structure - 2 items]
 - **Applied Variable Mapping**: {'Trans vol [Sv]': 'MOC_SIGMA0', 'Trans vol [Sv].1': 'MOC_SIGMA0_LPF'}
-- **Comment\***: (Note: date_modified has been set to a canonical value for documentation generation to avoid git churn)

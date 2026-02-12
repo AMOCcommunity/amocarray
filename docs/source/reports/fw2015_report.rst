@@ -198,4 +198,3 @@ The following metadata provides comprehensive information about this dataset:
 - **Url**: http://eleanorfrajka.com/moc-from-space/
 - **Paper**: http://dx.doi.org/10.1002/2015GL063220
 - **Version**: v1.0
-- **Comment\***: (Note: date_modified has been set to a canonical value for documentation generation to avoid git churn)
