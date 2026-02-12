@@ -201,7 +201,6 @@ The following metadata provides comprehensive information about this dataset:
 - **Original Variable Metadata\***: [Complex metadata structure - 9 items]
 - **Applied Variable Mapping**: [Complex metadata structure - 11 items]
 - **Version**: v2024.1
-- **Comment\***: (Note: date_modified has been set to a canonical value for documentation generation to avoid git churn)
 
 ----
 
@@ -352,7 +351,6 @@ The following metadata provides comprehensive information about this dataset:
 - **Original Variable Metadata\***: [Complex metadata structure - 1 items]
 - **Applied Variable Mapping**: {'time': 'TIME', 'depth': 'DEPTH', 'stream_function_mar': 'STREAMFUNCTION_Z', 'TIME': 'TIME', 'DEPTH': 'DEPTH'}
 - **Version**: v2024.1a
-- **Comment\***: (Note: date_modified has been set to a canonical value for documentation generation to avoid git churn)
 
 ----
 
@@ -623,7 +621,6 @@ The following metadata provides comprehensive information about this dataset:
 - **Applied Variable Mapping**: [Complex metadata structure - 22 items]
 - **Version**: v2024.1a
 - **Convert To Coord\***: pressure
-- **Comment\***: (Note: date_modified has been set to a canonical value for documentation generation to avoid git churn)
 
 ----
 
@@ -821,7 +818,6 @@ The following metadata provides comprehensive information about this dataset:
 - **Dataset Creation Date**: 26-Jan-2026 14:06:26
 - **File Creation Date**: 2026-01-26
 - **Note On Velocity**: Velocity is separated into 3 components: V_insitu = Velocity derived from in-situ measurements and geostrophic balance, V_ekman = Ekman velocity derived from ERA5 reanalysis. The total transport from V_insitu and V_ekman is required to have zero net meridional transport. V_net is a spatially uniform velocity representing the net meridional transport derived from salt and mass conservation (McDonagh et al 2015) and is excluded from the calculation of the streamfunction. Note that the sizes of grid cells are not all equal, and velocity should be multiplied by area to obtain the transport in each cell. Longitude is the centre of the cells, except for values 2 and 3 which are the locations of moorings WB1 and WB2 and correspond with the eastern edge of the cells
-- **Comment\***: (Note: date_modified has been set to a canonical value for documentation generation to avoid git churn)
 
 ----
 
@@ -1039,4 +1035,3 @@ The following metadata provides comprehensive information about this dataset:
 - **Dataset Version**: v2024-1a
 - **Dataset Creation Date**: 26-Jan-2026 14:06:26
 - **File Creation Date**: 2026-01-26
-- **Comment\***: (Note: date_modified has been set to a canonical value for documentation generation to avoid git churn)

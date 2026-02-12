@@ -141,12 +141,11 @@ The following metadata provides comprehensive information about this dataset:
 - **Data Product\***: Pan-Arctic Gateway transports since 2004 - Barents Sea Opening
 - **Time Coverage Start**: 2004-10-15
 - **Time Coverage End**: 2022-05-15
-- **Creator Institution**: Norwegian Polar Institute (NPI)
-- **Contributor Name**: Hege-Beate Fredriksen, Laura de Steur
-- **Contributor Role**: originator, principalInvestigator
+- **Contributor Name**: Norwegian Polar Institute (NPI), Norwegian Polar Institute (NPI), Hege-Beate Fredriksen, Laura de Steur
+- **Contributor Role**: originator, publisher, originator, principalInvestigator
 - **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
-- **Contributor Email**: , 
-- **Contributor Id**: https://orcid.org/0000-0002-3598-4076, https://orcid.org/0000-0002-6043-7920
+- **Contributor Email**: post@npolar.no, post@npolar.no, , 
+- **Contributor Id**: www.npolar.no, www.npolar.no, https://orcid.org/0000-0002-3598-4076, https://orcid.org/0000-0002-6043-7920
 - **Contributing Institutions**: Norwegian Polar Institute (NPI), Norwegian Polar Institute (NPI), Alfred Wegener Institute (AWI), Institute for Marine Research (Bergen), Applied Physics Laboratory (University of Washington)
 - **Contributing Institutions Vocabulary**: https://edmo.seadatanet.org/report/1760, https://edmo.seadatanet.org/report/1760, https://edmo.seadatanet.org/report/1368, https://edmo.seadatanet.org/report/1351, https://edmo.seadatanet.org/report/1554
 - **Contributing Institutions Role**: publisher, , , , 
@@ -174,8 +173,6 @@ The following metadata provides comprehensive information about this dataset:
 - **Project Website**: https://epoc-eu.org
 - **Data Set Language**: eng
 - **Data Assembly Center**: NO/NPI
-- **Creator Type**:  
-- **Comment\***: (Note: date_modified has been set to a canonical value for documentation generation to avoid git churn)
 
 ----
 
@@ -275,21 +272,21 @@ along with key statistics for each variable.
      - Max Value
      - Missing %
    * - **CT**
-     - No description available
+     - **Cons. Temperature**: Conservative Temperature (TEOS-10)
      - degree_C
      - (212, 16, 33)
      - -1.83
      - 5.44
      - 6.2%
    * - **SA**
-     - No description available
+     - **Abs. Salinity**: Absolute Salinity (TEOS-10)
      - g kg-1
      - (212, 16, 33)
      - 31.17
      - 33.56
      - 6.2%
    * - *v* → **VCUR**
-     - velocity normal to gateway
+     - **V Velocity**: Northward Velocity component
      - m s-1
      - (212, 16, 33)
      - -0.08
@@ -315,12 +312,11 @@ The following metadata provides comprehensive information about this dataset:
 - **Data Product\***: Pan-Arctic Gateway transports since 2004 - Bering Strait
 - **Time Coverage Start**: 2004-10-15
 - **Time Coverage End**: 2022-05-15
-- **Creator Institution**: Norwegian Polar Institute (NPI)
-- **Contributor Name**: Hege-Beate Fredriksen, Laura de Steur
-- **Contributor Role**: originator, principalInvestigator
+- **Contributor Name**: Norwegian Polar Institute (NPI), Norwegian Polar Institute (NPI), Hege-Beate Fredriksen, Laura de Steur
+- **Contributor Role**: originator, publisher, originator, principalInvestigator
 - **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
-- **Contributor Email**: , 
-- **Contributor Id**: https://orcid.org/0000-0002-3598-4076, https://orcid.org/0000-0002-6043-7920
+- **Contributor Email**: post@npolar.no, post@npolar.no, , 
+- **Contributor Id**: www.npolar.no, www.npolar.no, https://orcid.org/0000-0002-3598-4076, https://orcid.org/0000-0002-6043-7920
 - **Contributing Institutions**: Norwegian Polar Institute (NPI), Norwegian Polar Institute (NPI), Alfred Wegener Institute (AWI), Institute for Marine Research (Bergen), Applied Physics Laboratory (University of Washington)
 - **Contributing Institutions Vocabulary**: https://edmo.seadatanet.org/report/1760, https://edmo.seadatanet.org/report/1760, https://edmo.seadatanet.org/report/1368, https://edmo.seadatanet.org/report/1351, https://edmo.seadatanet.org/report/1554
 - **Contributing Institutions Role**: publisher, , , , 
@@ -348,8 +344,6 @@ The following metadata provides comprehensive information about this dataset:
 - **Project Website**: https://epoc-eu.org
 - **Data Set Language**: eng
 - **Data Assembly Center**: NO/NPI
-- **Creator Type**:  
-- **Comment\***: (Note: date_modified has been set to a canonical value for documentation generation to avoid git churn)
 
 ----
 
@@ -489,12 +483,11 @@ The following metadata provides comprehensive information about this dataset:
 - **Data Product\***: Pan-Arctic Gateway transports since 2004 - Davis Strait
 - **Time Coverage Start**: 2004-10-15
 - **Time Coverage End**: 2022-05-15
-- **Creator Institution**: Norwegian Polar Institute (NPI)
-- **Contributor Name**: Hege-Beate Fredriksen, Laura de Steur
-- **Contributor Role**: originator, principalInvestigator
+- **Contributor Name**: Norwegian Polar Institute (NPI), Norwegian Polar Institute (NPI), Hege-Beate Fredriksen, Laura de Steur
+- **Contributor Role**: originator, publisher, originator, principalInvestigator
 - **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
-- **Contributor Email**: , 
-- **Contributor Id**: https://orcid.org/0000-0002-3598-4076, https://orcid.org/0000-0002-6043-7920
+- **Contributor Email**: post@npolar.no, post@npolar.no, , 
+- **Contributor Id**: www.npolar.no, www.npolar.no, https://orcid.org/0000-0002-3598-4076, https://orcid.org/0000-0002-6043-7920
 - **Contributing Institutions**: Norwegian Polar Institute (NPI), Norwegian Polar Institute (NPI), Alfred Wegener Institute (AWI), Institute for Marine Research (Bergen), Applied Physics Laboratory (University of Washington)
 - **Contributing Institutions Vocabulary**: https://edmo.seadatanet.org/report/1760, https://edmo.seadatanet.org/report/1760, https://edmo.seadatanet.org/report/1368, https://edmo.seadatanet.org/report/1351, https://edmo.seadatanet.org/report/1554
 - **Contributing Institutions Role**: publisher, , , , 
@@ -522,8 +515,6 @@ The following metadata provides comprehensive information about this dataset:
 - **Project Website**: https://epoc-eu.org
 - **Data Set Language**: eng
 - **Data Assembly Center**: NO/NPI
-- **Creator Type**:  
-- **Comment\***: (Note: date_modified has been set to a canonical value for documentation generation to avoid git churn)
 
 ----
 
@@ -663,12 +654,11 @@ The following metadata provides comprehensive information about this dataset:
 - **Data Product\***: Pan-Arctic Gateway transports since 2004 - Fram Strait
 - **Time Coverage Start**: 2004-10-15
 - **Time Coverage End**: 2022-05-15
-- **Creator Institution**: Norwegian Polar Institute (NPI)
-- **Contributor Name**: Hege-Beate Fredriksen, Laura de Steur
-- **Contributor Role**: originator, principalInvestigator
+- **Contributor Name**: Norwegian Polar Institute (NPI), Norwegian Polar Institute (NPI), Hege-Beate Fredriksen, Laura de Steur
+- **Contributor Role**: originator, publisher, originator, principalInvestigator
 - **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
-- **Contributor Email**: , 
-- **Contributor Id**: https://orcid.org/0000-0002-3598-4076, https://orcid.org/0000-0002-6043-7920
+- **Contributor Email**: post@npolar.no, post@npolar.no, , 
+- **Contributor Id**: www.npolar.no, www.npolar.no, https://orcid.org/0000-0002-3598-4076, https://orcid.org/0000-0002-6043-7920
 - **Contributing Institutions**: Norwegian Polar Institute (NPI), Norwegian Polar Institute (NPI), Alfred Wegener Institute (AWI), Institute for Marine Research (Bergen), Applied Physics Laboratory (University of Washington)
 - **Contributing Institutions Vocabulary**: https://edmo.seadatanet.org/report/1760, https://edmo.seadatanet.org/report/1760, https://edmo.seadatanet.org/report/1368, https://edmo.seadatanet.org/report/1351, https://edmo.seadatanet.org/report/1554
 - **Contributing Institutions Role**: publisher, , , , 
@@ -696,5 +686,3 @@ The following metadata provides comprehensive information about this dataset:
 - **Project Website**: https://epoc-eu.org
 - **Data Set Language**: eng
 - **Data Assembly Center**: NO/NPI
-- **Creator Type**:  
-- **Comment\***: (Note: date_modified has been set to a canonical value for documentation generation to avoid git churn)

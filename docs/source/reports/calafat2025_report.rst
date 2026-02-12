@@ -155,4 +155,3 @@ The following metadata provides comprehensive information about this dataset:
 - **Contact**: francisco.mcalafat@uib.eu
 - **Comment On Temporal Resolution**: Estimates of heat transport are quarterly values (i.e., 3-month means: Jan-Feb-Mar, Apr-May-Jun, ...)
 - **Convections**: CF-1.8, ACDD-1.3
-- **Comment\***: (Note: date_modified has been set to a canonical value for documentation generation to avoid git churn)

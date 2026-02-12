@@ -10,6 +10,7 @@ metadata:
     Wett, Simon; Rhein, Monika; Kieke, Dagmar; Mertens, Christian; Moritz, Martin; Nowitzki, Hannah (2023): Basin-wide AMOC volume transport from the NOAC array at 47°N in the subpolar North Atlantic (1993-2018) [dataset]. PANGAEA, https://doi.org/10.1594/PANGAEA.959558
   featureType: "timeSeries"
   time_coverage_start: '1993-01-01'
+  contributing_institutions: University of Bremen (Germany)
   time_coverage_end: '2018-01-01'
   contributor_name: "Simon Wett, Monika Rhein"
   contributor_role: "originator, PI"

@@ -1139,12 +1139,6 @@ class ReportUtils:
             for ds in datasets:
                 # Set canonical date_modified to avoid changing every time
                 ds.attrs["date_modified"] = canonical_date
-                # Add explanation comment
-                comment = ds.attrs.get("comment", "")
-                if comment:
-                    comment += " "
-                comment += "(Note: date_modified has been set to a canonical value for documentation generation to avoid git churn)"
-                ds.attrs["comment"] = comment
 
         # Extract and store contributors and institutions
         try:

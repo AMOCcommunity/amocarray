@@ -1339,9 +1339,12 @@ def standardise_data(ds: xr.Dataset, file_name: str) -> xr.Dataset:
             "standard_name", ""
         ):
             log_debug(f"Converting heat transport variable '{var_name}' from W to PW")
+            # Preserve all attributes before conversion
+            original_attrs = ds[var_name].attrs.copy()
             # Convert data from watts to petawatts (divide by 10^15)
             ds[var_name] = ds[var_name] / 1e15
-            # Update units attribute
+            # Restore all attributes and update units
+            ds[var_name].attrs = original_attrs
             ds[var_name].attrs["units"] = "PW"
 
     # If any attributes are blank or value 'n/a', remove them
@@ -1446,6 +1449,16 @@ def standardise_data(ds: xr.Dataset, file_name: str) -> xr.Dataset:
     for key in overwrite_keys_to_remove:
         cleaned.pop(key, None)
         log_debug(f"Removed processing directive: '{key}'")
+
+    # 4.4) Process remove_unwanted_attributes directive
+    remove_unwanted = all_yaml_metadata.get("remove_unwanted_attributes", [])
+    if remove_unwanted:
+        for attr_name in remove_unwanted:
+            if attr_name in cleaned:
+                cleaned.pop(attr_name)
+                log_debug(f"Removed unwanted attribute: '{attr_name}'")
+        # Also remove the remove_unwanted_attributes directive itself
+        cleaned.pop("remove_unwanted_attributes", None)
 
     # 5) Standardize date formats and add processing metadata
 
