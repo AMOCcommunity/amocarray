@@ -84,7 +84,7 @@ along with key statistics for each variable.
      - Max Value
      - Missing %
    * - *MOC (PW)* → **MHT**
-     - Meridional Overturning Heat Transport
+     - **MHT**: Meridional Overturning Heat Transport
      - PW
      - (288,)
      - -0.04
@@ -425,7 +425,7 @@ along with key statistics for each variable.
      - Max Value
      - Missing %
    * - *Q* → **MHT**
-     - Observed meridional heat transport
+     - **MHT**: Observed meridional heat transport
      - PW
      - (288, 4, 320, 201)
      - -0.22

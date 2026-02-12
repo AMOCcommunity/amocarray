@@ -5,9 +5,8 @@ metadata:
   weblink: https://mooring.ucsd.edu/move/
   comment: Dataset accessed and processed via http://github.com/AMOCcommunity/amocatlas
   acknowledgement: >
-    The MOVE project is made possible with funding from the NOAA Climate Program Office under award NA15OAR4320071 and carried out by principal investigators Uwe Send and Matthias Lankhorst. Initial funding came from the German Bundesministerium fuer Bildung und Forschung. MOVE data are made freely available through the international OceanSITES program.
-  license: >
-    Data freely available. User assumes all risk for use of data. Please give due credit to the authors, project, and funding sources when using these data, e.g. by including the 'citation' text provided here.
+    MOVE was supported by the U.S. NOAA's Global Ocean Monitoring and Observing (GOMO) program under award NA20OAR4320278 and earlier awards. Initially, MOVE was funded by the German BMBF.
+  license_overwrite: CC-BY-4.0 # Based on feedback from Lankhorst on 2026-02-12
   institution: Scripps Institution of Oceanography
   citation: >
     Send, U., Lankhorst, M., Kanzow, T.: Observation of decadal change in the Atlantic Meridional Overturning Circulation
@@ -20,6 +19,7 @@ metadata:
   time_coverage_end: "2018-06-30"
   date_created: "2019-01-30T18:13:16Z"
   platform_type: Mooring array
+  references: https://dods.ndbc.noaa.gov/thredds/catalog/oceansites/DATA_GRIDDED/MOVE/catalog.html
   source: >
     Derived using the following files:
       OceanSITES file OS_MOVE_MULTISITE_GRIDDED_TS.nc, created 2019-01-30T18:11:12Z

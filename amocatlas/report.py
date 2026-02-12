@@ -737,7 +737,7 @@ class ReportUtils:
 
             # Create display description: prioritize description, then add long_name in bold
             if description:
-                if long_name and long_name != item_name and long_name != description:
+                if long_name and long_name != description:
                     display_description = f"**{long_name}**: {description}"
                 else:
                     display_description = description

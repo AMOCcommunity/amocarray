@@ -38,9 +38,7 @@ A41N_METADATA = {
     "project": "Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations",
     "weblink": "https://zenodo.org/records/18238115",
     "comment": "Dataset accessed and processed via http://github.com/AMOCcommunity/amocatlas",
-    "acknowledgement": "This study has been conducted using E.U. Copernicus Marine Service Information; https://doi.org/10.48670/moi-00149  and https://doi.org/10.48670/moi-00148. These data were collected and made freely available by the International Argo Program and the national programs that contribute to it.  (https://argo.ucsd.edu,  https://www.ocean-ops.org). The Argo Program is part of the Global Ocean Observing System.",
     "doi": "10.5281/zenodo.8170365",
-    "paper": "Willis, J. K., and Hobbs, W. R., Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations. Dataset access [2025-05-27] at 10.5281/zenodo.8170366.",
 }
 
 A41N_FILE_METADATA = {

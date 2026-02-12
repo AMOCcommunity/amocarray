@@ -30,8 +30,8 @@ Dataset Statistics
 ^^^^^^^^^^^^^^^^^^
 
 - **Total Variables**: 2
-- **Total Coordinates**: 3
-- **Dataset Size**: 47.03 MB
+- **Total Coordinates**: 4
+- **Dataset Size**: 47.06 MB
 
 Coordinate Information
 ^^^^^^^^^^^^^^^^^^^^^^
@@ -62,6 +62,13 @@ The following table shows information about the dataset coordinates in the stand
      - (12, 2)
      - -40.00
      - 67.50
+     - 0.0%
+   * - *posterior_samples* → **N_ENSEMBLE**
+     - **realization**: Posterior samples of the spatiotemporal Bayesian hierarchical model used to estimate MHT. Point estimates can be calculated as the mean of the samples, while uncertainty can be quantified as the standard deviation of the samples (1 sigma) or the 5–95% credible interval (i.e. the 5th–95th percentiles).
+     - 1
+     - (4000,)
+     - 0.00
+     - 3999.00
      - 0.0%
    * - **TIME**
      - Time
@@ -97,7 +104,7 @@ along with key statistics for each variable.
      - 0.60
      - 1.5%
    * - *mht* → **MHT**
-     - These estimates have been computed by setting the transport at 65N equal to zero and then integrating the heat transport convergences southward. A time-mean value of 0.506 PW has been added to the transport at 60N based on estimates from the OSNAP project
+     - **MHT**: These estimates have been computed by setting the transport at 65N equal to zero and then integrating the heat transport convergences southward. A time-mean value of 0.506 PW has been added to the transport at 60N based on estimates from the OSNAP project
      - PW
      - (12, 67, 4000)
      - -1.04
@@ -141,9 +148,9 @@ The following metadata provides comprehensive information about this dataset:
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.3.0
 - **Processing Datasource\***: calafat2025
-- **Variable Mapping\***: {'time': 'TIME', 'latitude': 'LATITUDE', 'mht': 'MHT', 'htc': 'HTC'}
-- **Original Variable Metadata\***: [Complex metadata structure - 4 items]
-- **Applied Variable Mapping**: {'mht': 'MHT', 'htc': 'HTC', 'TIME': 'TIME', 'LATITUDE': 'LATITUDE', 'MHT': 'MHT', 'HTC': 'HTC'}
+- **Variable Mapping\***: {'time': 'TIME', 'latitude': 'LATITUDE', 'mht': 'MHT', 'htc': 'HTC', 'posterior_samples': 'N_ENSEMBLE'}
+- **Original Variable Metadata\***: [Complex metadata structure - 5 items]
+- **Applied Variable Mapping**: {'mht': 'MHT', 'htc': 'HTC', 'posterior_samples': 'N_ENSEMBLE', 'TIME': 'TIME', 'LATITUDE': 'LATITUDE', 'MHT': 'MHT', 'HTC': 'HTC'}
 - **Creation Data**: 31-Jul-2025 15:14:49
 - **Contact**: francisco.mcalafat@uib.eu
 - **Comment On Temporal Resolution**: Estimates of heat transport are quarterly values (i.e., 3-month means: Jan-Feb-Mar, Apr-May-Jun, ...)
