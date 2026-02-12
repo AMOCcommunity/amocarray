@@ -21,7 +21,7 @@ metadata:
   contributor_id: "https://orcid.org/0009-0004-5333-7595, https://orcid.org/0000-0002-9854-0392, https://scholar.google.com/citations?user=fXejLAwAAAAJ, https://orcid.org/0000-0001-7694-2625, https://orcid.org/0000-0002-9330-4294"
   contributor_role_vocabulary: "http://vocab.nerc.ac.uk/search_nvs/W08/"
   source_url: "https://zenodo.org/records/12790901"
-  distribtion_statement: "This dataset is publicly available. We kindly request that you cite the following reference in any publications that use this data."
+  distribution_statement: "This dataset is publicly available. We kindly request that you cite the following reference in any publications that use this data."
 
 files:
   atl_mft_2000_extend_gpcp_oaflux.nc:
