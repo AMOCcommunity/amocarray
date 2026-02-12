@@ -11,6 +11,7 @@ metadata:
   featureType: "timeSeries"
   time_coverage_start: '1993-01-01'
   contributing_institutions: University of Bremen (Germany)
+  contributing_institutions_vocabulary: "https://edmo.seadatanet.org/report/1157"
   time_coverage_end: '2018-01-01'
   contributor_name: "Simon Wett, Monika Rhein"
   contributor_role: "originator, PI"
