@@ -116,7 +116,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Contributor Email**: , 
 - **Contributor Id\***: https://orcid.org/0000-0003-3876-2206, https://orcid.org/0000-0003-1496-2828
 - **Contributing Institutions\***: University of Bremen (Germany)
-- **Contributing Institutions Vocabulary**: 
+- **Contributing Institutions Vocabulary\***: https://edmo.seadatanet.org/report/1157
 - **Contributing Institutions Role**: 
 - **Conventions**: CF-1.8, ACDD-1.3, OceanSITES-1.5
 - **featureType\***: timeSeries
@@ -126,7 +126,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source Url\***: https://doi.pangaea.de/10.1594/PANGAEA.959558
 - **Date Modified**: 2026-02-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.3.0
+- **Processing Version**: v0.0.4
 - **Processing Datasource\***: noac47n
 - **Variable Mapping\***: {'Trans vol [Sv]': 'MOC_SIGMA0', 'Trans vol [Sv].1': 'MOC_SIGMA0_LPF'}
 - **Original Variable Metadata\***: [Complex metadata structure - 2 items]

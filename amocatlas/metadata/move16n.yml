@@ -9,8 +9,8 @@ metadata:
   license_overwrite: CC-BY-4.0 # Based on feedback from Lankhorst on 2026-02-12
   institution: Scripps Institution of Oceanography
   citation: >
-    Send, U., Lankhorst, M., Kanzow, T.: Observation of decadal change in the Atlantic Meridional Overturning Circulation
-    using 10 years of continuous transport data. Geophysical Research Letters, Vol. 38, L24606, 2011. doi: 10.1029/2011GL049801.
+    Send, U., Lankhorst, M., Kanzow, T.: Observation of decadal change in the Atlantic Meridional Overturning Circulation using 10 years of continuous transport data. Geophysical Research Letters, Vol. 38, L24606, 2011. doi: 10.1029/2011GL049801.
+    M. Lankhorst and U. Send: "Ocean Volume Transport across the MOVE Line at 16 N". OceanSITES dataset. NOAA NDBC and Ifremer, 2025. Available online from e.g.: https://dods.ndbc.noaa.gov/thredds/catalog/oceansites/DATA_GRIDDED/MOVE/catalog.html
   doi: >
     http://dx.doi.org/10.1016/j.dsr.2005.12.007 http://dx.doi.org/10.1029/2011GL049801
   Conventions: CF-1.7, ACDD-1.3
