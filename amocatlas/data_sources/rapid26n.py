@@ -149,25 +149,29 @@ def read_rapid(
         ds = ReaderUtils.safe_load_dataset(file_path)
 
         # Fix sigma0 and sigma2 coordinates for meridional_transports.nc
-        # These values come in as potential density (e.g., 1027) but should be 
+        # These values come in as potential density (e.g., 1027) but should be
         # potential density anomaly (e.g., 27)
         if file == "meridional_transports.nc":
             if "sigma0" in ds.coords:
                 original_values = ds["sigma0"].values
                 if original_values.max() > 100:  # Check if values are > 1000 range
-                    log_info(f"Fixing sigma0 coordinates in {file}: subtracting 1000 to get density anomaly")
+                    log_info(
+                        f"Fixing sigma0 coordinates in {file}: subtracting 1000 to get density anomaly"
+                    )
                     ds["sigma0"] = ds["sigma0"] - 1000
                     # Preserve any existing attributes
-                    if hasattr(original_values, 'attrs'):
+                    if hasattr(original_values, "attrs"):
                         ds["sigma0"].attrs.update(original_values.attrs)
-            
+
             if "sigma2" in ds.coords:
                 original_values = ds["sigma2"].values
                 if original_values.max() > 100:  # Check if values are > 1000 range
-                    log_info(f"Fixing sigma2 coordinates in {file}: subtracting 1000 to get density anomaly")
+                    log_info(
+                        f"Fixing sigma2 coordinates in {file}: subtracting 1000 to get density anomaly"
+                    )
                     ds["sigma2"] = ds["sigma2"] - 1000
                     # Preserve any existing attributes
-                    if hasattr(original_values, 'attrs'):
+                    if hasattr(original_values, "attrs"):
                         ds["sigma2"].attrs.update(original_values.attrs)
 
         # Get file-specific metadata from YAML or fallback to hardcoded
