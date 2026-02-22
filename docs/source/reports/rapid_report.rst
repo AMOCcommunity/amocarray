@@ -895,15 +895,15 @@ The following table shows information about the dataset coordinates in the stand
      - **Sigma0**: Potential density anomaly to 1000 kg/m3, surface reference
      - kg m-3
      - (631,)
-     - 1022.00
-     - 1028.00
+     - 22.00
+     - 28.00
      - 0.0%
    * - *sigma2* → **SIGMA2**
      - **sigma2**: Potential density anomaly referenced to 2000m (sigma-2), density anomaly to 1000 kg/m3
      - kg m-3
      - (708,)
-     - 1030.00
-     - 1037.15
+     - 30.00
+     - 37.15
      - 0.0%
    * - *time* → **TIME**
      - **Time**: Time coordinate

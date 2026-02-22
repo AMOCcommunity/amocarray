@@ -171,7 +171,7 @@ def load_array_metadata(datasource_id: str) -> dict:
         with (
             resources.files("amocatlas.metadata")
             .joinpath(f"{datasource_id.lower()}.yml")
-            .open("r") as f
+            .open("r", encoding="utf-8") as f
         ):
             return yaml.safe_load(f)
     except FileNotFoundError as e:
