@@ -154,25 +154,27 @@ def read_rapid(
         if file == "meridional_transports.nc":
             if "sigma0" in ds.coords:
                 original_values = ds["sigma0"].values
-                if original_values.max() > 100:  # Check if values are > 1000 range
+                if original_values.max() > 100:  # Check if values are in absolute density range (>1000) rather than anomaly range
                     log_info(
                         f"Fixing sigma0 coordinates in {file}: subtracting 1000 to get density anomaly"
                     )
+                    # Preserve existing attributes from the DataArray
+                    original_attrs = ds["sigma0"].attrs.copy()
                     ds["sigma0"] = ds["sigma0"] - 1000
-                    # Preserve any existing attributes
-                    if hasattr(original_values, "attrs"):
-                        ds["sigma0"].attrs.update(original_values.attrs)
+                    # Restore the preserved attributes
+                    ds["sigma0"].attrs.update(original_attrs)
 
             if "sigma2" in ds.coords:
                 original_values = ds["sigma2"].values
-                if original_values.max() > 100:  # Check if values are > 1000 range
+                if original_values.max() > 100:  # Check if values are in absolute density range (>1000) rather than anomaly range
                     log_info(
                         f"Fixing sigma2 coordinates in {file}: subtracting 1000 to get density anomaly"
                     )
+                    # Preserve existing attributes from the DataArray
+                    original_attrs = ds["sigma2"].attrs.copy()
                     ds["sigma2"] = ds["sigma2"] - 1000
-                    # Preserve any existing attributes
-                    if hasattr(original_values, "attrs"):
-                        ds["sigma2"].attrs.update(original_values.attrs)
+                    # Restore the preserved attributes
+                    ds["sigma2"].attrs.update(original_attrs)
 
         # Get file-specific metadata from YAML or fallback to hardcoded
         if file in yaml_file_metadata:
