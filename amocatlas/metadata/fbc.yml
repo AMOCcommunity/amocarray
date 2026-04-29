@@ -1,8 +1,8 @@
 metadata:
   program: "FBC"
   description: "FBC Overflow transport time series"
-  project: "B. Hansen et al.: A stable Faroe Bank Channel overflow"
-  weblink: https://envofar.fo/data/index.php?dir=Timeseries&sort=N&order=A 
+  project: "B. Hansen, K. M. Larsen: NACLIM - Fluxes: Faroe Bank Channel overflow transport"
+  weblink: https://zenodo.org/records/19554222
   comment: Dataset accessed and processed via http://github.com/AMOCcommunity/amocatlas
   acknowledgment: >
    Funding for the in situ Faroe Bank Channel measurements is from the Environmental Research Programme of the Nordic Council of Ministers (NMR) 1993–1998, from national Nordic research councils, from the Danish DANCEA programme, and from the European Framework Programs, lately under grant agreement no. GA212643 (THOR) and under grant agreement no. 308299 (NACLIM).
@@ -11,29 +11,18 @@ metadata:
   license: 
   featureType: timeSeries
   time_coverage_start: '1995-11-13'
-  time_coverage_end: '2023-05-19'
+  time_coverage_end: '2024-05-18'
   contributing_institutions: "Faroe Marine Research Institute (FAMRI)"
 
 files:
-  FBC_overflow_transport.txt:
-    source_url: https://envofar.fo/var/ftp/Timeseries/FBC_overflow_transport.txt
+  OS_GSR_FBC_D_1995_2024.nc:
+    source_url: https://zenodo.org/records/19554222/files/
     data_product: "Daily averaged kinematic FBC-overflow flux (transport) in Sv"
-    variables_to_remove: [Day, Month]
     variable_mapping:
-      "Flux": TRANS_FBC
+      "FBC_tr": TRANS_FBC
     original_variable_metadata:
       Flux:
         long_name: "FBC Overflow"
         description: "FBC Overflow transport time series"
         units: Sverdrup
         standard_name: ocean_volume_transport_across_line
-      Month:
-        long_name: "Month"
-        description: "Month"
-        units: 
-        standard_name:
-      Day:
-        long_name: "Day"
-        description: "Day"
-        units:
-        standard_name:

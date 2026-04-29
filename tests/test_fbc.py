@@ -29,15 +29,15 @@ class TestFBC:
         """Test default files configuration is reasonable."""
         files = fbc.FBC_DEFAULT_FILES
         assert len(files) > 0
-        assert "FBC_overflow_transport.txt" in files
+        assert "OS_GSR_FBC_D_1995_2024.nc" in files
 
         transport_files = fbc.FBC_TRANSPORT_FILES
         assert len(transport_files) > 0
-        assert "FBC_overflow_transport.txt" in transport_files
+        assert "OS_GSR_FBC_D_1995_2024.nc" in transport_files
 
         # Files should be text format for FBC data
         for file in files:
-            assert file.endswith(".txt")
+            assert file.endswith(".nc")
 
     def test_function_exists_and_callable(self):
         """Test that main function exists and is callable."""
