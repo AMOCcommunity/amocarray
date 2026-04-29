@@ -19,8 +19,6 @@ from pathlib import Path
 from typing import Union
 
 import xarray as xr
-import datetime
-import pandas as pd
 
 # Import the modules used
 from amocatlas import logger, utilities
@@ -34,21 +32,19 @@ log = logger.log  # Use the global logger
 DATASOURCE_ID = "fbc"
 
 # Default list of FBC data files
-FBC_DEFAULT_FILES = [
-    "FBC_overflow_transport.txt",
-]
-FBC_TRANSPORT_FILES = ["FBC_overflow_transport.txt"]
-FBC_DEFAULT_SOURCE = "https://envofar.fo/var/ftp/Timeseries/"
+FBC_DEFAULT_FILES = ["OS_GSR_FBC_D_1995_2024.nc"]
+FBC_TRANSPORT_FILES = ["OS_GSR_FBC_D_1995_2024.nc"]
+FBC_DEFAULT_SOURCE = "https://zenodo.org/records/19554222/files/"
 
 FBC_METADATA = {
-    "project": "Faroe Bank Channel overflow 1995-2015",
-    "weblink": "https://envofar.fo/var/ftp/Timeseries/FBC_overflow_transport.txt",
+    "project": "Faroe Bank Channel overflow 1995-2024",
+    "weblink": "https://zenodo.org/records/19554222",
     "comment": "Dataset accessed and processed via http://github.com/AMOCcommunity/amocatlas",
 }
 
 FBC_FILE_METADATA = {
-    "FBC_overflow_transport.txt": {
-        "data_product": "Daily averaged kinematic FBC-overflow flux (transport) in Sv",
+    "OS_GSR_FBC_D_1995_2024.nc": {
+        "data_product": "Daily average of FBC overflow transport, estimated from an array of moored ADCPs in Sv",
     },
 }
 
@@ -124,7 +120,7 @@ def read_fbc(
 
     added_attrs_per_dataset = [] if track_added_attrs else None
     for file in file_list:
-        if not (file.lower().endswith(".txt")):
+        if not (file.lower().endswith(".nc")):
             log_warning("Skipping unsupported file type : %s", file)
             continue
 
@@ -141,57 +137,11 @@ def read_fbc(
         )
 
         # Open dataset
-        if file.lower().endswith(".txt"):
-            # file.txt
-            try:
-                # column_names, _ = utilities.parse_ascii_header(
-                #     file_path, comment_char="%"
-                # )
-                data_start = utilities.find_data_start(file_path)
 
-                df = pd.read_csv(
-                    file_path,
-                    sep=r"\s+",
-                    encoding="latin-1",
-                    skiprows=data_start,
-                    names=["Decimal year", "Month", "Day", "Flux"],
-                )
-            except Exception as e:
-                log_error("Failed to parse ASCII file: %s: %s", file_path, e)
-                raise FileNotFoundError(
-                    f"Failed to parse ASCII file: {file_path}: {e}"
-                ) from e
+        if file.lower().endswith(".nc"):
+            # Use ReaderUtils for consistent dataset loading
 
-            # Time handling
-            try:
-                df = df.apply(
-                    lambda col: col.astype(str)
-                    .str.replace(",", "", regex=False)
-                    .astype(float)
-                )
-                # df['Decimal year'] = df['Decimal year'].astype(str).str.replace(',', '',regex=False).astype(float)
-                df["TIME"] = df["Decimal year"].apply(
-                    lambda x: datetime.datetime(int(x), 1, 1)
-                    + datetime.timedelta(
-                        days=(x - int(x))
-                        * (
-                            datetime.datetime(int(x) + 1, 1, 1)
-                            - datetime.datetime(int(x), 1, 1)
-                        ).days
-                    )
-                )
-                df = df.drop(columns=["Decimal year"])
-                ds = df.set_index("TIME").to_xarray()
-            except Exception as e:
-                log_error(
-                    "Failed to convert DataFrame to xarray Dataset for %s: %s",
-                    file,
-                    e,
-                )
-                raise ValueError(
-                    f"Failed to convert DataFrame to xarray Dataset for {file}: {e}",
-                ) from e
-
+            ds = ReaderUtils.safe_load_dataset(file_path)
             # Attach metadata
             # Attach metadata with optional tracking
 
@@ -222,6 +172,10 @@ def read_fbc(
                     DATASOURCE_ID,
                     track_added_attrs=False,
                 )
+        else:
+            raise ValueError(
+                f"Unsupported file type for {file}. Only .nc files are supported."
+            )
 
         datasets.append(ds)
 
