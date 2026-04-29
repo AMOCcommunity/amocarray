@@ -35,7 +35,7 @@ class TestFBC:
         assert len(transport_files) > 0
         assert "OS_GSR_FBC_D_1995_2024.nc" in transport_files
 
-        # Files should be text format for FBC data
+        # Files should be NetCDF format for FBC data
         for file in files:
             assert file.endswith(".nc")
 

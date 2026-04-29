@@ -21,7 +21,7 @@ files:
     variable_mapping:
       "FBC_tr": TRANS_FBC
     original_variable_metadata:
-      Flux:
+      FBC_tr:
         long_name: "FBC Overflow"
         description: "FBC Overflow transport time series"
         units: Sverdrup
