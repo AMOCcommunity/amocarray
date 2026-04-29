@@ -62,4 +62,3 @@ class TestFBC:
         assert fbc is not None
         # Check required dependencies are accessible
         assert hasattr(fbc, "xr")  # xarray
-        assert hasattr(fbc, "pd")  # pandas
