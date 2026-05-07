@@ -41,6 +41,7 @@ from amocatlas.data_sources import (
     read_47n,
     read_fbc,
     read_arcticgateway,
+    read_nac,
 )
 
 log = logger.log
@@ -83,6 +84,7 @@ def _get_reader(array_name: str) -> Callable[..., List[xr.Dataset]]:
         "47n": read_47n,
         "fbc": read_fbc,
         "arcticgateway": read_arcticgateway,
+        "nac": read_nac,
     }
     try:
         return readers[array_name.lower()]
@@ -175,6 +177,7 @@ def load_dataset(
         - '47n' : 47N array
         - 'fbc' : Faroe Bank Channel overflow array
         - 'arcticgateway' : ARCTIC Gateway array
+        - 'nac' : North Atlantic Current array
     source : str, optional
         URL or local path to the data source.
         If None, the reader-specific default source will be used.

@@ -20,6 +20,7 @@ import yaml
 import pandas as pd
 import requests
 import xarray as xr
+import numpy as np
 
 from amocatlas import logger
 from amocatlas.logger import log_debug
@@ -878,6 +879,9 @@ def mask_invalid_values(ds: xr.Dataset) -> xr.Dataset:
         if valid_min is not None or valid_max is not None:
             # Use xarray operations to preserve lazy evaluation
             invalid_mask = xr.zeros_like(var, dtype=bool)
+
+            if np.issubdtype(var.dtype, np.datetime64):
+                continue
 
             if valid_min is not None:
                 invalid_mask = invalid_mask | (var < valid_min)
