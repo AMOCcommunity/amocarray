@@ -50,6 +50,7 @@ from .data_sources import (
     read_47n,
     read_fbc,
     read_arcticgateway,
+    read_nac,
 )
 
 # Import file constants for list_files() functionality
@@ -66,6 +67,7 @@ from .data_sources.zheng2024 import ZHENG2024_DEFAULT_FILES
 from .data_sources.noac47n import NOAC47N_DEFAULT_FILES
 from .data_sources.fbc import FBC_DEFAULT_FILES
 from .data_sources.arcticgateway import ARCTIC_DEFAULT_FILES
+from .data_sources.nac import NAC_DEFAULT_FILES
 
 # Import standardization functions
 from . import standardise
@@ -85,6 +87,7 @@ SUPPORTED_STANDARDIZATION = {
     "fbc",
     "calafat2025",
     "zheng2024",
+    "nac",
 }
 
 
@@ -428,6 +431,9 @@ calafat2025 = _create_array_function(
 zheng2024 = _create_array_function(
     read_zheng2024, "Zheng et al. 2024", available_files=ZHENG2024_DEFAULT_FILES
 )
+nac = _create_array_function(
+    read_nac, "North Atlantic Current", available_files=NAC_DEFAULT_FILES
+)
 
 
 # Define __all__ to control what's exported
@@ -445,4 +451,5 @@ __all__ = [
     "fbc",
     "calafat2025",
     "zheng2024",
+    "nac"
 ]

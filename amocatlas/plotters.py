@@ -585,14 +585,14 @@ def plot_amoc_timeseries(
 
         # Raw plot
         if plot_raw:
-            # Use black if no monthly resampling, grey otherwise
-            raw_color = "black" if not resample_monthly else "grey"
+            # Use grey if monthly resampling is enabled, otherwise the specified color
+            raw_color = "grey" if resample_monthly==True else color
             ax.plot(
                 da[time_key],
                 da,
                 color=raw_color,
-                alpha=0.7 if not resample_monthly else 0.5,
-                linewidth=0.5,
+                alpha=0.85 if not resample_monthly else 0.5,
+                linewidth=1 if not resample_monthly else 0.5,
                 label=f"{label} (raw)",
             )
 

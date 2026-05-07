@@ -27,6 +27,7 @@ from .calafat2025 import read_calafat2025
 from .zheng2024 import read_zheng2024
 from .wh41n import read_41n
 from .noac47n import read_47n
+from .nac import read_nac
 
 __all__ = [
     "read_rapid",
@@ -43,4 +44,5 @@ __all__ = [
     "read_zheng2024",
     "read_41n",
     "read_47n",
+    "read_nac",
 ]
