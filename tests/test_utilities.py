@@ -317,6 +317,11 @@ class TestNewUtilityFunctions:
                     [35.0, -99.0, 36.0, 37.0, 100.0],  # -99 and 100 are invalid
                     {"valid_min": 30.0, "valid_max": 40.0},
                 ),
+                "datetime_marker": (
+                    ["time"],
+                    pd.date_range("2020-01-01", periods=5),
+                    {"valid_min": 0.0, "valid_max": 50.0},
+                ),
                 "no_limits": (["time"], [1, 2, 3, 4, 5]),  # No valid_min/max
             },
             coords={"time": pd.date_range("2020-01-01", periods=5)},
@@ -339,6 +344,11 @@ class TestNewUtilityFunctions:
 
         # Variable without limits should be unchanged
         assert result["no_limits"].equals(ds["no_limits"])
+
+        # Datetime-valued data with numeric valid_min/valid_max should be left alone
+        assert result["datetime_marker"].equals(ds["datetime_marker"])
+        assert result["datetime_marker"].attrs["valid_min"] == 0.0
+        assert result["datetime_marker"].attrs["valid_max"] == 50.0
 
         # Attributes should be preserved
         assert result["temperature"].attrs["valid_min"] == 0.0

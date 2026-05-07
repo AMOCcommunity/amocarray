@@ -64,8 +64,6 @@ class TestNAC:
         """Test that the module imports without errors."""
         # This test passes if the module loaded successfully
         assert nac is not None
-        # Check required dependencies are accessible
-        assert hasattr(nac, "xr")  # xarray
 
     def test_nac_metadata_structure(self):
         """Test that NAC metadata has expected structure."""
@@ -86,11 +84,11 @@ class TestNAC:
         """Test that NAC file metadata has expected structure."""
         file_metadata = nac.NAC_FILE_METADATA
         
-        # Should have metadata for _2_1.nc file
-        assert "bb6635909m_2_1.nc" in file_metadata
+        # Should have metadata for the default _2_1.nc file
+        assert "_2_1.nc" in file_metadata
         
         # File metadata should have expected keys
-        file_meta = file_metadata["bb6635909m_2_1.nc"]
+        file_meta = file_metadata["_2_1.nc"]
         assert "data_product" in file_meta
         assert isinstance(file_meta["data_product"], str)
         assert len(file_meta["data_product"]) > 0

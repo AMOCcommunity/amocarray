@@ -40,15 +40,14 @@ NAC_METADATA = {
 }
 
 NAC_FILE_METADATA = {
-    "bb6635909m_2_1.nc": {
-        "data_product": "6-monthly estimates of NAC transport from satellite altimetryand float observations",
+    "_2_1.nc": {
+        "data_product": "6-monthly estimates of NAC transport from satellite altimetry and float observations",
     },
 }
 
 
 @apply_defaults(NAC_DEFAULT_SOURCE, NAC_DEFAULT_FILES)
 def read_nac(
-    ##    source: str,
     source: Union[str, Path, None],
     file_list: Union[str, list[str]],
     transport_only: bool = True,
@@ -82,6 +81,7 @@ def read_nac(
     -------
     list of xr.Dataset
         List of loaded xarray datasets with basic inline and file-specific metadata.
+        And if track_added_attrs is True, also returns a list of dictionaries with the attributes that were added to each dataset during metadata enrichment.
 
     Raises
     ------

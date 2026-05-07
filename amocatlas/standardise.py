@@ -1167,6 +1167,7 @@ def standardise_arcticgateway(ds: xr.Dataset, file_name: str) -> xr.Dataset:
 
     return standardise_array(ds, file_name)
 
+
 def standardise_nac(ds: xr.Dataset, file_name: str) -> xr.Dataset:
     """Standardise NAC array dataset to consistent format."""
     warnings.warn(
@@ -1177,6 +1178,7 @@ def standardise_nac(ds: xr.Dataset, file_name: str) -> xr.Dataset:
     )
 
     return standardise_array(ds, file_name)
+
 
 def standardise_data(ds: xr.Dataset, file_name: str) -> xr.Dataset:
     """Standardise a dataset using YAML-based metadata.
