@@ -17,9 +17,12 @@ metadata:
   time_coverage_end: '2020-12-31'
   comment: "Salinity observations used in this study are from the Institute of Atmospheric Physics (IAP). Argo floats, CTD salinity sensors, bottles, mooring, sourced from the World Ocean Database (WOD). Precipitation and evaporation observations are derived from the Global Precipitation Climatology Project (GPCP)."
   contributor_name: "Huayi Zheng, Lijing Cheng, Feili Li, Yuying Pan, Chenyu Zhu"
-  contributor_role: ""
-  contributor_id: "https://orcid.org/0009-0004-5333-7595, https://orcid.org/0000-0002-9854-0392, https://scholar.google.com/citations?user=fXejLAwAAAAJ, https://orcid.org/0000-0001-7694-2625, https://orcid.org/0000-0002-9330-4294"
+  contributor_id: "https://orcid.org/0009-0004-5333-7595, https://orcid.org/0000-0002-9854-0392, https://orcid.org/0000-0002-3073-9813, https://orcid.org/0000-0001-7694-2625, https://orcid.org/0000-0002-9330-4294"
+  contributor_email: "chenglij@mail.iap.ac.cn, zhenghuayi23@mails.ucas.ac.cn, , ,"
+  contributor_role: "originator, principalInvestigator, , ,"
   contributor_role_vocabulary: "http://vocab.nerc.ac.uk/search_nvs/W08/"
+  contributing_institutions: "Institute of Atmospheric Physics Chinese Academy of Sciences"
+  contributing_institutions_vocabulary: "https://edmo.seadatanet.org/report/2452"
   source_url: "https://zenodo.org/records/12790901"
   distribution_statement: "This dataset is publicly available. We kindly request that you cite the following reference in any publications that use this data."
 

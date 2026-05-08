@@ -312,6 +312,16 @@ institutions:
     id_url: "https://edmo.seadatanet.org/report/1586"
     website: "https://www.uib.eu"
 
+  "2452":  # Institute of Atmospheric Physics, Chinese Academy of Sciences
+    standard_name: "Institute of Atmospheric Physics, Chinese Academy of Sciences"
+    name_variants:
+      - "Institute of Atmospheric Physics, Chinese Academy of Sciences"
+      - "Institute of Atmospheric Physics Chinese Academy of Sciences"
+      - "IAP"
+    country: "China"
+    id_url: "https://edmo.seadatanet.org/report/2452"
+    website: "https://www.iap.ac.cn"
+
 
 
 # Example usage:
