@@ -1,7 +1,8 @@
 import pytest
+import numpy as np
 import xarray as xr
 
-from amocatlas import logger, readers
+from amocatlas import logger, read, readers
 
 logger.disable_logging()
 
@@ -27,6 +28,17 @@ def test_load_sample_dataset_invalid_array():
 def test_load_dataset_invalid_array():
     with pytest.raises(ValueError, match="Unknown array name: invalid"):
         readers.load_dataset("invalid")
+
+
+def test_sf2021_time_coordinate_is_decoded_correctly():
+    ds = read.sf2021()
+
+    assert "TIME" in ds.coords
+    assert np.issubdtype(ds["TIME"].dtype, np.datetime64)
+
+    time_values = ds["TIME"].values.astype("datetime64[D]")
+    assert str(time_values[0]).startswith("1993")
+    assert str(time_values[-1]).startswith("2018")
 
 
 def test_calafat2025_file_validation():

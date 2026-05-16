@@ -1,0 +1,44 @@
+metadata:
+  description: "A dynamically based method for estimating the Atlantic meridional overturning circulation at 26°N from satellite altimetry"
+  project: "Satellite proxy for the AMOC at 26N"
+  weblink: "https://zenodo.org/records/18941523"
+  comment: >
+    Dataset accessed and processed via http://github.com/AMOCcommunity/amocatlas
+  citation: >
+    Sanchez-Franks, A., Frajka-Williams, E., Moat, B. I., and Smeed, D. A.: A dynamically based method for estimating the Atlantic meridional overturning circulation at 26°N from satellite altimetry, Ocean Sci., 17, 1321-1340, https://doi.org/10.5194/os-17-1321-2021, 2021
+  license:
+  featureType: timeSeries
+  Conventions: CF-1.8, ACDD-1.3
+  time_coverage_start: '1993-01-15'
+  time_coverage_end: '2018-12-15'
+  contributor_name: "Alejandra Sanchez-Franks"
+  contributor_role: "creator"
+  contributing_institutions: "National Oceanographic Centre"
+
+files:
+  altimetry_moc_transport_1993_2020_18mos_smoothed.nc:
+    source_url: "https://zenodo.org/records/18941523/files/altimetry_moc_transport_1993_2020_18mos_smoothed.nc"
+    data_product: "A dynamically based method for estimating the Atlantic meridional overturning circulation at 26°N from satellite altimetry"
+    citation: >
+      Sanchez-Franks, A., Frajka-Williams, E., Moat, B. I., and Smeed, D. A.: A dynamically based method for estimating the Atlantic meridional overturning circulation at 26°N from satellite altimetry, Ocean Sci., 17, 1321-1340, https://doi.org/10.5194/os-17-1321-2021, 2021
+    variable_mapping:
+      "sat_time": "TIME"
+      "sat_moc_filt": "MOC_PROXY"
+      "sat_umo_filt": "TRANS_UMO_PROXY"
+      "sat_gs_filt": "TRANS_GS_PROXY"
+    original_variable_metadata:
+      sat_moc_filt:
+        long_name: "MOC proxy"
+        description: "constructed by adding the satellite-derived TRANS_GS and TRANS_UMO with the TRANS_EK, obtained from ERA5 wind stress"
+        units: Sverdrup
+        standard_name: ocean_meridional_overturning_streamfunction
+      sat_umo_filt:
+        long_name: "UMO proxy"
+        description: "sum of the western boundary wedge transport, the hypsometric mass compensation, and the internal geostrophic transport over the top 1100 m"
+        units: Sverdrup
+        standard_name: ocean_volume_transport_across_line
+      sat_gs_filt:
+        long_name: "Gulf Stream / Florida Current"
+        description: "The strength of the Gulf Stream transport through the Florida Straits between Florida and Bahamas, as measured by a submarine telephone cable."
+        units: Sverdrup
+        standard_name: ocean_volume_transport_across_line

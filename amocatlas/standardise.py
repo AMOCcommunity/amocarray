@@ -670,37 +670,38 @@ def standardize_time_coordinate(ds: xr.Dataset) -> xr.Dataset:
 
         if time_coord.dtype.kind in ["f", "i"]:  # numeric type (seconds since epoch)
             # Convert numeric time to datetime64[ns]
+            import numpy as np
             import pandas as pd
 
             try:
-                # Handle different epoch references - assume 1970-01-01 if no units specified
                 units = time_coord.attrs.get(
-                    "units", "seconds since 1970-01-01T00:00:00Z"
+                    "units", ""
                 )
+                values = np.asarray(time_coord.values)
+                
+                # If units explicitly contain 'since' use the original minimal conversion
                 if "since" in units.lower():
-                    # Parse the units and convert
                     time_datetime = pd.to_datetime(
-                        time_coord.values,
+                        values,
                         unit="s",
                         origin="1970-01-01",
                         errors="coerce",
                     )
+                    ds["TIME"] = ("TIME", time_datetime.astype("datetime64[ns]"))
+                # Heuristic: if units are missing and values are small, assume days since 0000-01-01
+                elif not units and np.nanmax(np.abs(values)) < 1e7:
+                    base_dt = np.datetime64("0000-01-01", "D")
+                    ds["TIME"] = ("TIME", base_dt + values.astype("timedelta64[D]"))
                 else:
                     # Assume seconds since 1970-01-01
                     time_datetime = pd.to_datetime(
-                        time_coord.values,
+                        values,
                         unit="s",
                         origin="1970-01-01",
                         errors="coerce",
                     )
-
-                ds["TIME"] = ("TIME", time_datetime.astype("datetime64[ns]"))
-            except (
-                ValueError,
-                TypeError,
-                OverflowError,
-                pd.errors.OutOfBoundsDatetime,
-            ) as e:
+                    ds["TIME"] = ("TIME", time_datetime.astype("datetime64[ns]"))
+            except Exception as e:
                 log_debug(f"Failed to convert numeric TIME to datetime64[ns]: {e}")
                 # Keep original values but warn
                 ds["TIME"] = time_coord
@@ -1172,6 +1173,18 @@ def standardise_nac(ds: xr.Dataset, file_name: str) -> xr.Dataset:
     """Standardise NAC array dataset to consistent format."""
     warnings.warn(
         "standardise_nac() is deprecated and will be removed in a future version. "
+        "Use standardise_data() instead.",
+        DeprecationWarning,
+        stacklevel=2,
+    )
+
+    return standardise_array(ds, file_name)
+
+
+def standardise_sf2021(ds: xr.Dataset, file_name: str) -> xr.Dataset:
+    """Standardise SF2021 array dataset to consistent format."""
+    warnings.warn(
+        "standardise_sf2021() is deprecated and will be removed in a future version. "
         "Use standardise_data() instead.",
         DeprecationWarning,
         stacklevel=2,

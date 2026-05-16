@@ -28,6 +28,7 @@ from .zheng2024 import read_zheng2024
 from .wh41n import read_41n
 from .noac47n import read_47n
 from .nac import read_nac
+from .sf2021 import read_sf2021
 
 __all__ = [
     "read_rapid",
@@ -45,4 +46,5 @@ __all__ = [
     "read_41n",
     "read_47n",
     "read_nac",
+    "read_sf2021"
 ]

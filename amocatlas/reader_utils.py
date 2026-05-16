@@ -36,6 +36,8 @@ DATASOURCE_DISPLAY_NAMES = {
     "fbc": "Faroe Bank Channel",
     "calafat2025": "Calafat et al. 2025",
     "zheng2024": "Zheng et al. 2024",
+    "nac": "North Atlantic Current, M. Lankhorst, 2025",
+    "sf2021": "Sanchez-Franks et al. 2021",
 }
 
 
