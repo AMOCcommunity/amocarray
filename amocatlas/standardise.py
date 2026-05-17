@@ -674,34 +674,35 @@ def standardize_time_coordinate(ds: xr.Dataset) -> xr.Dataset:
             import pandas as pd
 
             try:
+                # Handle different epoch references - assume 1970-01-01 if no units specified
                 units = time_coord.attrs.get(
                     "units", ""
                 )
-                values = np.asarray(time_coord.values)
-                
-                # If units explicitly contain 'since' use the original minimal conversion
+                source_file = ds.attrs.get("source_file", "")
                 if "since" in units.lower():
+                    # Parse the units and convert
                     time_datetime = pd.to_datetime(
-                        values,
+                        time_coord.values,
                         unit="s",
                         origin="1970-01-01",
                         errors="coerce",
                     )
-                    ds["TIME"] = ("TIME", time_datetime.astype("datetime64[ns]"))
-                # Heuristic: if units are missing and values are small, assume days since 0000-01-01
-                elif not units and np.nanmax(np.abs(values)) < 1e7:
+                elif source_file == "altimetry_moc_transport_1993_2020_18mos_smoothed.nc":
+                    # SF2021 uses unlabeled day counts in the raw file.
                     base_dt = np.datetime64("0000-01-01", "D")
-                    ds["TIME"] = ("TIME", base_dt + values.astype("timedelta64[D]"))
+                    sf2021_time = base_dt + time_coord.values.astype("timedelta64[D]")
+                    time_datetime = sf2021_time.astype("datetime64[ns]")
                 else:
                     # Assume seconds since 1970-01-01
                     time_datetime = pd.to_datetime(
-                        values,
+                        time_coord.values,
                         unit="s",
                         origin="1970-01-01",
                         errors="coerce",
                     )
-                    ds["TIME"] = ("TIME", time_datetime.astype("datetime64[ns]"))
-            except Exception as e:
+
+                ds = ds.assign_coords(TIME=("TIME", time_datetime.astype("datetime64[ns]")))
+            except (TypeError, OverflowError, pd.errors.OutOfBoundsDatetime) as e:
                 log_debug(f"Failed to convert numeric TIME to datetime64[ns]: {e}")
                 # Keep original values but warn
                 ds["TIME"] = time_coord

@@ -9,8 +9,8 @@ metadata:
   license:
   featureType: timeSeries
   Conventions: CF-1.8, ACDD-1.3
-  time_coverage_start: '1993-01-15'
-  time_coverage_end: '2018-12-15'
+  time_coverage_start: '1993-01-17'
+  time_coverage_end: '2018-12-17'
   contributor_name: "Alejandra Sanchez-Franks"
   contributor_role: "creator"
   contributing_institutions: "National Oceanographic Centre"

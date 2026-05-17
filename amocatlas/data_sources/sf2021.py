@@ -53,7 +53,6 @@ def read_sf2021(
 
     Parameters
     ----------
-    ----------
     source : str, optional
         Local path to the data directory (remote source is handled per-file).
 
@@ -78,7 +77,6 @@ def read_sf2021(
         List of loaded xarray datasets with basic inline and file-specific metadata.
 
     Raises
-    ------
     ------
     ValueError
         If no source is provided for a file and no default URL mapping is found.
