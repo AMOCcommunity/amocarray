@@ -145,3 +145,16 @@ class TestSF2021:
         first_date = ds_converted["TIME"].values[0]
         first_date_str = str(first_date)
         assert "1993" in first_date_str, f"Expected 1993 in date, got {first_date_str}"
+        # assert that fractional part is preserved 
+        second_date = ds_converted["TIME"].values[1]
+        second_date_str = str(second_date)
+        assert "1993" in second_date_str, f"Expected 1993 in date, got {second_date_str}"
+        # assert that fractional part is preserved 
+        third_date = ds_converted["TIME"].values[2]
+        third_date_str = str(third_date)
+        assert "1993" in third_date_str, f"Expected 1993 in date, got {third_date_str}"
+
+        # verify the month component is changing
+        assert "01" in first_date_str, f"Expected January in first date, got {first_date_str}"
+        assert "02" in second_date_str, f"Expected February in second date, got {second_date_str}"
+        assert "03" in third_date_str, f"Expected March in third date, got {third_date_str}"
