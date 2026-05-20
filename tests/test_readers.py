@@ -1,8 +1,7 @@
 import pytest
-import numpy as np
 import xarray as xr
 
-from amocatlas import logger, read, readers
+from amocatlas import logger, readers
 
 logger.disable_logging()
 

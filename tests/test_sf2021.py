@@ -4,7 +4,6 @@ These mirror the style used in other reader tests (see `test_noac47n.py`).
 """
 
 import tempfile
-from pathlib import Path
 
 import pytest
 

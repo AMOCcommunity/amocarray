@@ -10,7 +10,6 @@ from pathlib import Path
 from typing import Union
 
 import numpy as np
-import pandas as pd
 import xarray as xr
 
 # Import the modules used
