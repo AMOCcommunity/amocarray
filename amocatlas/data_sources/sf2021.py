@@ -73,12 +73,19 @@ def _normalize_sf2021_time_coordinate(ds: xr.Dataset, source_file: str = None) -
         return ds
     
     try:
-        # Convert days since 0000-01-01 to datetime64[ns]
-        # Use timedelta64[D] intermediate to avoid overflow
-        time_values = ds[time_var].values
-        time_delta = np.array(time_values, dtype="timedelta64[D]").astype("timedelta64[ns]")
-        base_dt = np.datetime64("0000-01-01", "ns")
-        time_datetime = (base_dt + time_delta).astype("datetime64[ns]")
+        # Convert days since 0000-01-01 to datetime64[ns] without using year 0 in ns resolution.
+        # Decompose into integer days and fractional nanoseconds relative to 1970-01-01.
+        time_values = np.asarray(ds[time_var].values, dtype=np.float64)
+        epoch_days = 719528.0  # Days between 0000-01-01 and 1970-01-01 in proleptic Gregorian calendar.
+        relative_days = time_values - epoch_days
+        whole_days = np.floor(relative_days).astype(np.int64)
+        fractional_ns = np.rint((relative_days - whole_days) * 86400 * 1e9).astype(np.int64)
+
+        time_datetime = (
+            np.datetime64("1970-01-01", "ns")
+            + whole_days.astype("timedelta64[D]")
+            + fractional_ns.astype("timedelta64[ns]")
+        ).astype("datetime64[ns]")
         
         # Use assign_coords to properly set dimension coordinate
         ds = ds.assign_coords({time_var: time_datetime})

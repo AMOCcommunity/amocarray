@@ -141,20 +141,9 @@ class TestSF2021:
         assert "TIME" in ds_converted.coords
         assert ds_converted["TIME"].dtype == np.dtype("datetime64[ns]")
         
-        # Verify the dates are correct
-        first_date = ds_converted["TIME"].values[0]
-        first_date_str = str(first_date)
-        assert "1993" in first_date_str, f"Expected 1993 in date, got {first_date_str}"
-        # assert that fractional part is preserved 
-        second_date = ds_converted["TIME"].values[1]
-        second_date_str = str(second_date)
-        assert "1993" in second_date_str, f"Expected 1993 in date, got {second_date_str}"
-        # assert that fractional part is preserved 
-        third_date = ds_converted["TIME"].values[2]
-        third_date_str = str(third_date)
-        assert "1993" in third_date_str, f"Expected 1993 in date, got {third_date_str}"
-
-        # verify the month component is changing
-        assert "01" in first_date_str, f"Expected January in first date, got {first_date_str}"
-        assert "02" in second_date_str, f"Expected February in second date, got {second_date_str}"
-        assert "03" in third_date_str, f"Expected March in third date, got {third_date_str}"
+        # Verify the dates are correct and the fractional 0.5 day is preserved.
+        converted_times = ds_converted["TIME"].values
+        assert str(converted_times[0]) == "1993-01-17T00:00:00.000000000"
+        assert str(converted_times[1]) == "1993-02-15T12:00:00.000000000"
+        assert str(converted_times[2]) == "1993-03-17T00:00:00.000000000"
+        assert converted_times[1] - converted_times[0] == np.timedelta64(29, "D") + np.timedelta64(12, "h")
