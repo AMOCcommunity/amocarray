@@ -9,11 +9,13 @@ The components are derived through a dynamically based method.
 from pathlib import Path
 from typing import Union
 
+import numpy as np
+import pandas as pd
 import xarray as xr
 
 # Import the modules used
 from amocatlas import logger, utilities
-from amocatlas.logger import log_error, log_info, log_warning
+from amocatlas.logger import log_error, log_info, log_warning, log_debug
 from amocatlas.utilities import apply_defaults
 from amocatlas.reader_utils import ReaderUtils
 
@@ -38,6 +40,55 @@ SF2021_FILE_METADATA = {
         "data_product": "A satellite reconstruction of the AMOC transport at 26N",
     }
 }
+
+# Metadata for time coordinate
+_TIME_METADATA = {
+    "units": "seconds since 1970-01-01T00:00:00Z",
+    "long_name": "Time elapsed since 1970-01-01T00:00:00Z",
+    "standard_name": "time",
+    "calendar": "gregorian",
+    "vocabulary": "http://vocab.nerc.ac.uk/collection/OG1/current/TIME/"
+}
+
+
+def _normalize_sf2021_time_coordinate(ds: xr.Dataset, source_file: str = None) -> xr.Dataset:
+    """Convert SF2021 TIME coordinate from days since 0000-01-01 to datetime64[ns].
+    
+    Parameters
+    ----------
+    ds : xr.Dataset
+        Dataset with sat_time or TIME coordinate as float (days since 0000-01-01)
+    source_file : str, optional
+        Source filename (currently unused, kept for API compatibility)
+    
+    Returns
+    -------
+    xr.Dataset
+        Dataset with time coordinate converted to datetime64[ns]
+    """
+    # Find time variable (check raw name first, then final name)
+    time_var = next((var for var in ["sat_time", "TIME"] if var in ds.coords), None)
+    
+    if not time_var or ds[time_var].dtype.kind not in ["f", "i"]:
+        log_debug(f"Skipping TIME normalization - {time_var or 'TIME'} not found or not numeric")
+        return ds
+    
+    try:
+        # Convert days since 0000-01-01 to datetime64[ns]
+        # Use timedelta64[D] intermediate to avoid overflow
+        time_values = ds[time_var].values
+        time_delta = np.array(time_values, dtype="timedelta64[D]").astype("timedelta64[ns]")
+        base_dt = np.datetime64("0000-01-01", "ns")
+        time_datetime = (base_dt + time_delta).astype("datetime64[ns]")
+        
+        # Use assign_coords to properly set dimension coordinate
+        ds = ds.assign_coords({time_var: time_datetime})
+        ds[time_var].attrs = _TIME_METADATA
+        log_debug(f"Converted SF2021 {time_var} from days to datetime64[ns]")
+    except (ValueError, TypeError, OverflowError) as e:
+        log_warning(f"Failed to convert SF2021 TIME coordinate: {e}")
+    
+    return ds
 
 
 @apply_defaults(SF2021_DEFAULT_SOURCE, SF2021_DEFAULT_FILES)
@@ -131,6 +182,7 @@ def read_sf2021(
             # Use ReaderUtils for consistent dataset loading
 
             ds = ReaderUtils.safe_load_dataset(file_path)
+            
             # Attach metadata
             # Attach metadata with optional tracking
 
@@ -161,6 +213,9 @@ def read_sf2021(
                     DATASOURCE_ID,
                     track_added_attrs=False,
                 )
+            
+            # Normalize SF2021 TIME coordinate AFTER metadata attachment
+            ds = _normalize_sf2021_time_coordinate(ds, source_file=file)
         else:
             raise ValueError(
                 f"Unsupported file type for {file}. Only .nc files are supported."

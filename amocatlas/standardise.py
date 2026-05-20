@@ -670,15 +670,13 @@ def standardize_time_coordinate(ds: xr.Dataset) -> xr.Dataset:
 
         if time_coord.dtype.kind in ["f", "i"]:  # numeric type (seconds since epoch)
             # Convert numeric time to datetime64[ns]
-            import numpy as np
             import pandas as pd
 
             try:
                 # Handle different epoch references - assume 1970-01-01 if no units specified
                 units = time_coord.attrs.get(
-                    "units", ""
+                    "units", "seconds since 1970-01-01T00:00:00Z"
                 )
-                source_file = ds.attrs.get("source_file", "")
                 if "since" in units.lower():
                     # Parse the units and convert
                     time_datetime = pd.to_datetime(
@@ -687,11 +685,6 @@ def standardize_time_coordinate(ds: xr.Dataset) -> xr.Dataset:
                         origin="1970-01-01",
                         errors="coerce",
                     )
-                elif source_file == "altimetry_moc_transport_1993_2020_18mos_smoothed.nc":
-                    # SF2021 uses unlabeled day counts in the raw file.
-                    base_dt = np.datetime64("0000-01-01", "D")
-                    sf2021_time = base_dt + time_coord.values.astype("timedelta64[D]")
-                    time_datetime = sf2021_time.astype("datetime64[ns]")
                 else:
                     # Assume seconds since 1970-01-01
                     time_datetime = pd.to_datetime(
@@ -701,8 +694,13 @@ def standardize_time_coordinate(ds: xr.Dataset) -> xr.Dataset:
                         errors="coerce",
                     )
 
-                ds = ds.assign_coords(TIME=("TIME", time_datetime.astype("datetime64[ns]")))
-            except (TypeError, OverflowError, pd.errors.OutOfBoundsDatetime) as e:
+                ds["TIME"] = ("TIME", time_datetime.astype("datetime64[ns]"))
+            except (
+                ValueError,
+                TypeError,
+                OverflowError,
+                pd.errors.OutOfBoundsDatetime,
+            ) as e:
                 log_debug(f"Failed to convert numeric TIME to datetime64[ns]: {e}")
                 # Keep original values but warn
                 ds["TIME"] = time_coord

@@ -122,9 +122,9 @@ The following metadata provides comprehensive information about this dataset:
 - **featureType\***: timeSeries
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: NOAC_AMOC.tab
-- **Source Path\***: ~/AMOCatlas/data/NOAC_AMOC.tab
+- **Source Path\***: C:\Users\Isabelle\Documents\GitHub\AMOCatlas\data\NOAC_AMOC.tab
 - **Source Url\***: https://doi.pangaea.de/10.1594/PANGAEA.959558
-- **Date Modified**: 2026-02-01T00:00:00Z
+- **Date Modified**: 2026-05-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.0.4
 - **Processing Datasource\***: noac47n

@@ -90,7 +90,7 @@ SUPPORTED_STANDARDIZATION = {
     "calafat2025",
     "zheng2024",
     "nac",
-    "sf2021"
+    "sf2021",
 }
 
 
@@ -457,5 +457,5 @@ __all__ = [
     "calafat2025",
     "zheng2024",
     "nac",
-    "sf2021"  
+    "sf2021",
 ]

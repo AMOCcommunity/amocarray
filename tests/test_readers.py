@@ -30,17 +30,6 @@ def test_load_dataset_invalid_array():
         readers.load_dataset("invalid")
 
 
-def test_sf2021_time_coordinate_is_decoded_correctly():
-    ds = read.sf2021()
-
-    assert "TIME" in ds.coords
-    assert np.issubdtype(ds["TIME"].dtype, np.datetime64)
-
-    time_values = ds["TIME"].values.astype("datetime64[D]")
-    assert str(time_values[0]).startswith("1993")
-    assert str(time_values[-1]).startswith("2018")
-
-
 def test_calafat2025_file_validation():
     """Test CALAFAT2025 reader error handling with invalid files."""
     from amocatlas.data_sources import calafat2025

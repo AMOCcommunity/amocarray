@@ -98,3 +98,51 @@ class TestSF2021:
         assert "TIME" in datasets[0].coords
         assert isinstance(added, list)
         assert isinstance(added[0], dict)
+
+    def test_normalize_sf2021_time_coordinate(self):
+        """Test that TIME coordinate is correctly converted from days since 0000-01-01 to datetime64[ns]."""
+        import xarray as xr
+        import numpy as np
+        
+        # Create a dataset with sat_time as float (days since 0000-01-01)
+        # 727945.0 days since 0000-01-01 should be approximately 1993-01-17
+        time_values = np.array([727945.0, 727974.5, 728004.0])
+        ds = xr.Dataset({"MOC_PROXY": ("sat_time", [1.0, 2.0, 3.0])}, coords={"sat_time": time_values})
+        
+        # Apply the conversion function
+        ds_converted = sf2021._normalize_sf2021_time_coordinate(ds, source_file="altimetry_moc_transport_1993_2020_18mos_smoothed.nc")
+        
+        # Verify the conversion happened
+        assert "sat_time" in ds_converted.coords
+        assert ds_converted["sat_time"].dtype == np.dtype("datetime64[ns]")
+        
+        # Verify the dates are correct (1993, not 1970)
+        first_date = ds_converted["sat_time"].values[0]
+        first_date_str = str(first_date)
+        assert "1993" in first_date_str, f"Expected 1993 in date, got {first_date_str}"
+        
+        # Verify metadata was set
+        assert "units" in ds_converted["sat_time"].attrs
+        assert "standard_name" in ds_converted["sat_time"].attrs
+        assert ds_converted["sat_time"].attrs["standard_name"] == "time"
+    
+    def test_normalize_sf2021_time_coordinate_with_TIME_name(self):
+        """Test that TIME coordinate conversion works when variable is already named TIME."""
+        import xarray as xr
+        import numpy as np
+        
+        # Create a dataset with TIME as float (days since 0000-01-01)
+        time_values = np.array([727945.0, 727974.5, 728004.0])
+        ds = xr.Dataset({"MOC_PROXY": ("TIME", [1.0, 2.0, 3.0])}, coords={"TIME": time_values})
+        
+        # Apply the conversion function
+        ds_converted = sf2021._normalize_sf2021_time_coordinate(ds, source_file="altimetry_moc_transport_1993_2020_18mos_smoothed.nc")
+        
+        # Verify the conversion happened on TIME coordinate
+        assert "TIME" in ds_converted.coords
+        assert ds_converted["TIME"].dtype == np.dtype("datetime64[ns]")
+        
+        # Verify the dates are correct
+        first_date = ds_converted["TIME"].values[0]
+        first_date_str = str(first_date)
+        assert "1993" in first_date_str, f"Expected 1993 in date, got {first_date_str}"

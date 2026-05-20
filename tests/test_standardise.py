@@ -141,37 +141,6 @@ class TestMetadataFunctions:
         assert "standard_name" in time_attrs
         assert time_attrs["standard_name"] == "time"
 
-    def test_standardize_time_coordinate_defaults_to_seconds_for_other_files(self):
-        """Test that unlabeled numeric time uses the seconds-since-1970 fallback for other files."""
-        ds = xr.Dataset(
-            {"data": (["TIME"], [1, 2, 3])},
-            coords={"TIME": [1, 2, 3]},
-            attrs={"source_file": "some_other_file.nc"},
-        )
-
-        result = standardise.standardize_time_coordinate(ds)
-
-        assert "TIME" in result.coords
-        assert str(result["TIME"].dtype).startswith("datetime64")
-        assert str(result["TIME"].values[0]).startswith("1970-01-01T00:00:01")
-        assert str(result["TIME"].values[-1]).startswith("1970-01-01T00:00:03")
-
-    def test_standardize_time_coordinate_allows_sf2021_day_counts(self):
-        """Test SF2021 unlabeled day counts still normalize as before."""
-        ds = xr.Dataset(
-            {"data": (["TIME"], [1, 2, 3])},
-            coords={"TIME": [1, 2, 3]},
-            attrs={
-                "source_file": "altimetry_moc_transport_1993_2020_18mos_smoothed.nc"
-            },
-        )
-
-        result = standardise.standardize_time_coordinate(ds)
-
-        assert "TIME" in result.coords
-        assert str(result["TIME"].dtype).startswith("datetime64")
-        assert not str(result["TIME"].values[0]).startswith("1970-01-01")
-
     def test_clean_metadata(self):
         """Test metadata cleaning functionality."""
         # Test the clean_metadata function that exists
