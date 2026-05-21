@@ -1180,6 +1180,18 @@ def standardise_nac(ds: xr.Dataset, file_name: str) -> xr.Dataset:
     return standardise_array(ds, file_name)
 
 
+def standardise_sf2021(ds: xr.Dataset, file_name: str) -> xr.Dataset:
+    """Standardise SF2021 array dataset to consistent format."""
+    warnings.warn(
+        "standardise_sf2021() is deprecated and will be removed in a future version. "
+        "Use standardise_data() instead.",
+        DeprecationWarning,
+        stacklevel=2,
+    )
+
+    return standardise_array(ds, file_name)
+
+
 def standardise_data(ds: xr.Dataset, file_name: str) -> xr.Dataset:
     """Standardise a dataset using YAML-based metadata.
 
