@@ -1,0 +1,140 @@
+SF2021 Datasets
+===============
+
+----
+
+altimetry_moc_transport_1993_2020_18mos_smoothed.nc
+---------------------------------------------------
+
+Dataset Overview
+^^^^^^^^^^^^^^^^
+
+- **Project**: Satellite proxy for the AMOC at 26N
+- **Description**: A dynamically based method for estimating the Atlantic meridional overturning circulation at 26°N from satellite altimetry
+- **Source File**: altimetry_moc_transport_1993_2020_18mos_smoothed.nc
+- **Data Product**: A dynamically based method for estimating the Atlantic meridional overturning circulation at 26°N from satellite altimetry
+- **License**: 
+- **Time Coverage**: 1993-01-17 to 2018-12-17
+- **Record Length**: 312 observations (25.9 years)
+- **Sampling Frequency**: monthly
+
+**Citation:**
+
+    Sanchez-Franks, A., Frajka-Williams, E., Moat, B. I., and Smeed, D. A.: A dynamically based method for estimating the Atlantic meridional overturning circulation at 26°N from satellite altimetry, Ocean Sci., 17, 1321-1340, https://doi.org/10.5194/os-17-1321-2021, 2021
+
+Dataset Visualization
+^^^^^^^^^^^^^^^^^^^^^
+
+.. figure:: ../_static/reports/sf2021_timeseries.png
+   :alt: AMOC time series plot
+   :align: center
+   :scale: 80%
+
+   Time series plot for SF2021 dataset.
+
+Dataset Statistics
+^^^^^^^^^^^^^^^^^^
+
+- **Total Variables**: 3
+- **Total Coordinates**: 1
+- **Dataset Size**: 0.01 MB
+
+Coordinate Information
+^^^^^^^^^^^^^^^^^^^^^^
+
+The following table shows information about the dataset coordinates in the standardised version, including coordinate name remapping from the original, if any:
+
+.. list-table::
+   :widths: 14 14 14 14 14 14 14
+   :header-rows: 1
+
+   * - Coordinate
+     - Description
+     - Units
+     - Size
+     - Min Value
+     - Max Value
+     - Missing %
+   * - *sat_time* → **TIME**
+     - Time
+     - datetime64[ns]
+     - (312,)
+     - 1993-01-17
+     - 2018-12-17
+     - 0.0%
+
+
+Variable Information
+^^^^^^^^^^^^^^^^^^^^
+
+The following table shows the mapping from original variable names to standardized names,
+along with key statistics for each variable.
+
+.. list-table::
+   :widths: 14 14 14 14 14 14 14
+   :header-rows: 1
+
+   * - Variable
+     - Description
+     - Units
+     - Size
+     - Min Value
+     - Max Value
+     - Missing %
+   * - *sat_moc_filt* → **MOC_PROXY**
+     - **MOC proxy**: constructed by adding the satellite-derived TRANS_GS and TRANS_UMO with the TRANS_EK, obtained from ERA5 wind stress
+     - Sverdrup
+     - (312,)
+     - -3.76
+     - 2.83
+     - 0.0%
+   * - *sat_gs_filt* → **TRANS_GS_PROXY**
+     - **Gulf Stream / Florida Current**: The strength of the Gulf Stream transport through the Florida Straits between Florida and Bahamas, as measured by a submarine telephone cable.
+     - Sverdrup
+     - (312,)
+     - -0.64
+     - 1.09
+     - 0.0%
+   * - *sat_umo_filt* → **TRANS_UMO_PROXY**
+     - **UMO proxy**: sum of the western boundary wedge transport, the hypsometric mass compensation, and the internal geostrophic transport over the top 1100 m
+     - Sverdrup
+     - (312,)
+     - -2.37
+     - 3.20
+     - 0.0%
+
+
+Metadata (edits applied noted)
+^^^^^^^^^^^^^^^^^
+
+The following metadata provides comprehensive information about this dataset:
+
+- **Summary**: A dynamically based method for estimating the Atlantic meridional overturning circulation at 26°N from satellite altimetry
+- **Description\***: A dynamically based method for estimating the Atlantic meridional overturning circulation at 26°N from satellite altimetry
+- **Project\***: Satellite proxy for the AMOC at 26N
+- **License\***: None
+- **Weblink\***: https://zenodo.org/records/18941523
+- **Data Product\***: A dynamically based method for estimating the Atlantic meridional overturning circulation at 26°N from satellite altimetry
+- **Time Coverage Start\***: 1993-01-17
+- **Time Coverage End\***: 2018-12-17
+- **Contributor Name\***: Alejandra Sanchez-Franks
+- **Contributor Role\***: originator
+- **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
+- **Contributor Email**: 
+- **Contributor Id**: 
+- **Contributing Institutions\***: National Oceanographic Centre
+- **Contributing Institutions Vocabulary**: 
+- **Contributing Institutions Role**: 
+- **Conventions\***: CF-1.8, ACDD-1.3, OceanSITES-1.5
+- **featureType\***: timeSeries
+- **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
+- **Source File\***: altimetry_moc_transport_1993_2020_18mos_smoothed.nc
+- **Source Path\***: ~/AMOCatlas/data/altimetry_moc_transport_1993_2020_18mos_smoothed.nc
+- **Source Url\***: https://zenodo.org/records/18941523/files/altimetry_moc_transport_1993_2020_18mos_smoothed.nc
+- **Date Modified**: 2026-06-01T00:00:00Z
+- **Processing Software**: http://github.com/AMOCcommunity/amocatlas
+- **Processing Version**: v0.0.4
+- **Processing Datasource\***: sf2021
+- **Variable Mapping\***: {'sat_time': 'TIME', 'sat_moc_filt': 'MOC_PROXY', 'sat_umo_filt': 'TRANS_UMO_PROXY', 'sat_gs_filt': 'TRANS_GS_PROXY'}
+- **Original Variable Metadata\***: [Complex metadata structure - 3 items]
+- **Applied Variable Mapping**: {'sat_time': 'TIME', 'sat_moc_filt': 'MOC_PROXY', 'sat_umo_filt': 'TRANS_UMO_PROXY', 'sat_gs_filt': 'TRANS_GS_PROXY'}

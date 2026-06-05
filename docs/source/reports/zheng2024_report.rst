@@ -18,9 +18,18 @@ Dataset Overview
 - **Record Length**: 201 observations (16.7 years)
 - **Sampling Frequency**: monthly
 
+**Distribution Statement:**
+
+    This dataset is publicly available. We kindly request that you cite the following reference in any publications that use this data.
+
+
 **Citation:**
 
     Zheng, H. (2024). An observation-based estimate of the Atlantic meridional freshwater transport [Data set]. Zenodo. https://doi.org/10.5281/zenodo.12790901
+
+**Acknowledgement:**
+
+    "This study was supported by the National Natural Science Foundation of China (Grant 42122046, 42076202, 42075036), National Key Scientific and Technological Infrastructure project “Earth System Science Numerical Simulator Facility” (EarthLab) and the new Cornerstone Science Foundation through the XPLORER PRIZE. F. Li acknowledges the financial support from the National Key R&D Program of China (Grant 2023YFF0805102). Gratitude is extended to Elaine L. McDonagh, who graciously shared RAPID freshwater transport data."
 
 Dataset Visualization
 ^^^^^^^^^^^^^^^^^^^^^
@@ -107,18 +116,20 @@ The following metadata provides comprehensive information about this dataset:
 - **Program\***: amft
 - **Project\***: An observation based estimate of the Atlantic meridional freshwater transport
 - **License\***: CC-BY-4.0
+- **Acknowledgment\***: "This study was supported by the National Natural Science Foundation of China (Grant 42122046, 42076202, 42075036), National Key Scientific and Technological Infrastructure project “Earth System Science Numerical Simulator Facility” (EarthLab) and the new Cornerstone Science Foundation through the XPLORER PRIZE. F. Li acknowledges the financial support from the National Key R&D Program of China (Grant 2023YFF0805102). Gratitude is extended to Elaine L. McDonagh, who graciously shared RAPID freshwater transport data."
 - **References\***: Zheng, H., Cheng, L., Li, F., Pan, Y., & Zhu, C. (2024). An observation-based estimate of Atlantic meridional freshwater transport. Geophysical Research Letters, 51, e2024GL110021. https://doi.org/10.1029/2024GL110021
 - **Weblink\***: https://zenodo.org/records/12790901
+- **Distribution Statement\***: This dataset is publicly available. We kindly request that you cite the following reference in any publications that use this data.
 - **Data Product\***: An observation based estimate of the Atlantic meridional freshwater transport
 - **Time Coverage Start\***: 2004-04-30
 - **Time Coverage End\***: 2020-12-31
 - **Contributor Name\***: Huayi Zheng, Lijing Cheng, Feili Li, Yuying Pan, Chenyu Zhu
-- **Contributor Role\***: contributor, , , , 
+- **Contributor Role\***: originator, principalInvestigator, , , 
 - **Contributor Role Vocabulary\***: https://vocab.nerc.ac.uk/collection/G04/current/
-- **Contributor Email**: , , , , 
+- **Contributor Email\***: chenglij@mail.iap.ac.cn, zhenghuayi23@mails.ucas.ac.cn, , , 
 - **Contributor Id\***: https://orcid.org/0009-0004-5333-7595, https://orcid.org/0000-0002-9854-0392, https://orcid.org/0000-0002-3073-9813, https://orcid.org/0000-0001-7694-2625, https://orcid.org/0000-0002-9330-4294
-- **Contributing Institutions**: 
-- **Contributing Institutions Vocabulary**: 
+- **Contributing Institutions\***: Institute of Atmospheric Physics, Chinese Academy of Sciences
+- **Contributing Institutions Vocabulary\***: https://edmo.seadatanet.org/report/2452
 - **Contributing Institutions Role**: 
 - **Conventions\***: CF-1.8, ACDD-1.3, OceanSITES-1.5
 - **featureType\***: timeSeries
@@ -126,9 +137,9 @@ The following metadata provides comprehensive information about this dataset:
 - **Source File\***: atl_mft_2000_extend_gpcp_oaflux.nc
 - **Source Path\***: ~/AMOCatlas/data/atl_mft_2000_extend_gpcp_oaflux.nc
 - **Source Url\***: https://zenodo.org/records/12790901
-- **Date Modified**: 2026-02-01T00:00:00Z
+- **Date Modified**: 2026-06-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.3.0
+- **Processing Version**: v0.0.4
 - **Processing Datasource\***: zheng2024
 - **Variable Mapping\***: {'time': 'TIME', 'lat': 'LATITUDE', 'mft': 'MFT'}
 - **Original Variable Metadata\***: [Complex metadata structure - 3 items]

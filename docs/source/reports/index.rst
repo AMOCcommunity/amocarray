@@ -20,6 +20,9 @@ AMOCatlas provides automated reports for all supported datasets so that you can 
    zheng2024_report
    wh41n_report
    noac47n_report
+   nac_report
+   sf2021_report
+   lebras35n_report
 
 Report Features
 ---------------

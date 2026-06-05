@@ -14,6 +14,7 @@ data/Johns_2023_mht_data_2020_ERA5.zip
 data/mocha_mht_data_ERA5_v2020.mat
 data/OSNAP_Gridded_TSV_201408_202006_2023.nc
 data/OSNAP_Streamfunction_201408_202006_2023.nc
+data/AMOC35N_gridded_velocities.nc
 
 
 #data/MOCproxy_for_figshare_v1.mat

@@ -238,6 +238,9 @@ ARRAY_NAMES = [
     "zheng2024",  # Observation-based Atlantic meridional freshwater transport
     "wh41n",  # Woods Hole 41°N array
     "noac47n",  # NOAC 47°N array (North Atlantic Ocean Current)
+    "nac",  # North Atlantic Current
+    "sf2021", # Sanchez-Franks 2021 satellite reconstruction of AMOC transport at 26°N
+    "lebras35n", # Lebras 2023 AMOC transport at 35°N
 ]
 
 # Mapping from array names to their full descriptions
@@ -255,6 +258,9 @@ ARRAY_DESCRIPTIONS = {
     "zheng2024": "ZHENG2024 - Observation-based Atlantic meridional freshwater transport",
     "wh41n": "WH41N - Woods Hole 41°N array transport monitoring",
     "noac47n": "NOAC 47°N - North Atlantic Ocean Current monitoring at 47°N",
+    "nac": "North Atlantic Current - Transport estimate from satellite altimetry and float observations",
+    "sf2021": "SF2021 - Sanchez-Franks 2021 satellite reconstruction of AMOC transport at 26°N",
+    "lebras35n": "Le Bras 2023 - AMOC transport estimates at 35°N from satellite altimetry and in situ data",
 }
 
 # Preferred units
