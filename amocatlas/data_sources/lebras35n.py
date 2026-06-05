@@ -8,7 +8,7 @@ Dataset two includes the geostrophic velocities through the section, the potenti
 Key functions:
 - read_lebras35n(): Main data loading interface for AMOC transport data at 35°N which includes both datasets
 
-Data source: AMOC transport monitoring program inlcuding deep moorings, floats and satellite altimetry
+Data source: AMOC transport monitoring program including deep moorings, floats and satellite altimetry
 Location: North Atlantic at 35°N
 """
 
@@ -34,7 +34,7 @@ LEBRAS35N_TRANSPORT_FILES = ["AMOC35N.nc"]
 LEBRAS35N_DEFAULT_SOURCE = "https://zenodo.org/records/7262142/files/"
 
 LEBRAS35N_METADATA = {
-    "project": "LEBRAS35N",
+    "project": "AMOC transport at 35N from deep moorings, floats and satellite altimetry",
     "weblink": "https://zenodo.org/records/7262142",
     "comment": "Dataset accessed and processed via http://github.com/AMOCcommunity/amocatlas",
 }
@@ -51,7 +51,6 @@ LEBRAS35N_FILE_METADATA = {
 
 @apply_defaults(LEBRAS35N_DEFAULT_SOURCE, LEBRAS35N_DEFAULT_FILES)
 def read_lebras35n(
-    ##    source: str,
     source: Union[str, Path, None],
     file_list: Union[str, list[str]],
     transport_only: bool = True,
