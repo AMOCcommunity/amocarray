@@ -31,7 +31,7 @@ files:
       "date":
         long_name: "Time"
         description: "Time of each observation in datetime format"
-        units: "datetime[64]"
+        units: "datetime64[ns]"
         standard_name: time
       "time":
         long_name: "Time in year.fraction of year"
