@@ -1,0 +1,96 @@
+metadata:
+  program: "AMOC at 35°N"
+  description: "The Atlantic meridional overturning circulation at 35N from deep moorings, floats, and satellite altimeter"
+  project: "I. Le Bras, J. Willis, J. Fenty: The Atlantic Meridional Overturning Circulation at 35°N From Deep Moorings, Floats, and Satellite Altimeter"
+  weblink: https://zenodo.org/records/7262142
+  comment: Dataset accessed and processed via http://github.com/AMOCcommunity/amocatlas
+  acknowledgment: >
+    ILB and JW gratefully acknowledge the National Aeronautics and Space Administration Grant 80NSSC20K0421. This work was done in part at the Jet Propulsion Laboratory, California Institute of Technology under a contract from NASA. The Argo float data were collected and made freely available by the International Argo Program and the national programs that contribute to it (https://argo.ucsd.edu,https://www.ocean-ops.org). The Argo Program is part of the Global Ocean Observing System. ECCO is supported by NASA's Physical Oceanography, Modeling Analysis and Prediction, and Cryosphere programs. We thank John Toole, Magdalena Andres, and the many other scientists and mariners who went to sea to collect the in situ observational data, particularly through the Line W program.
+  citation: >
+    Le Bras, I. A.-A, Willis, J., & Fenty, I. (2023). The Atlantic meridional overturning circulation at 35°N from deep moorings, floats, and satellite altimeter. Geophysical Research Letters, 50, e2022GL101931. https://doi.org/10.1029/2022GL101931
+  license: 
+  featureType: timeSeries
+  time_coverage_start: '2004-05-16'
+  time_coverage_end: '2014-04-17'
+  contributing_institutions: "Woodshole Oceanographic Institution (WHOI); Jet Propulsion Laboratory (JPL) at California Institute of Technology"
+
+files:
+  AMOC35N.nc:
+    source_url: https://zenodo.org/records/7262142/files/
+    data_product: "AMOC transport at 35N from deep moorings, floats, and satellite altimeter"
+    variable_mapping:
+      "date": TIME
+      "time": TIME_FRACTION
+      "depth": DEPTH
+      "pressure": PRESSURE
+      "MOCdepth": MOC_DEPTH
+      "MOCsigma": MOC_SIGMA2
+      "psi": STREAMFUNCTION_SIGMA2
+      "Ekman": TRANS_EKMAN
+    original_variable_metadata:
+      "date":
+        long_name: "Time"
+        description: "Time of each observation in datetime format"
+        units: "datetime[64]"
+        standard_name: time
+      "time":
+        long_name: "Time in year.fraction of year"
+        description: "Time of each observation which starts with the year and is followed by the fraction of the year that has passed at the time of the observation. For example, 2004.5 would correspond to June 30, 2004."
+        units: "year.fractionofyear"
+        standard_name: time
+      MOCdepth:
+        long_name: "AMOC transport in depth space"
+        description: "AMOC transport time series in depth space"
+        units: Sverdrup
+        standard_name: ocean_volume_transport_across_line
+      MOCsigma:
+        long_name: "AMOC transport in density space"
+        description: "AMOC transport time series in density space, with potential density referenced to 2000m"
+        units: Sverdrup
+        standard_name: ocean_volume_transport_across_line
+      psi:
+        long_name: "AMOC streamfunction in density space"
+        description: "Integrated across-basin transport streamfunction in depth space"
+        units: Sverdrup
+        standard_name: ocean_meridional_overturning_streamfunction
+      Ekman:
+        long_name: "Ekman transport"
+        description: "Ekman transport time series at 35N derived from CCMP"
+        units: Sverdrup
+        standard_name: ocean_volume_transport_across_line
+  AMOC35N_gridded_velocities.nc:
+    source_url: https://zenodo.org/records/7262142/files/
+    data_product: "Gridded velocities at 35N from deep moorings, floats, and satellite altimeter"
+    variable_mapping:
+      "date": TIME
+      "time": TIME_FRACTION
+      "depth": DEPTH
+      "pressure": PRESSURE
+      "distance": DISTANCE
+      "lat": LATITUDE
+      "lon": LONGITUDE
+      "vg": V_GEOSTROPHIC
+      "sigma2": SIGMA2
+      "bathymetry": BATHYMETRY
+      "area": AREA
+    original_variable_metadata:
+      vg:
+        long_name: "Geostrophic velocity"
+        description: "Gridded geostrophic velocity time series through the section"
+        units: m/s
+        standard_name: sea_water_geostrophic_velocity
+      sigma2:
+        long_name: "Potential density referenced to 2000m"
+        description: "Gridded potential density time series referenced to 2000m through the section"
+        units: kg/m^3
+        standard_name: sea_water_sigma_theta
+      bathymetry:
+        long_name: "Bathymetry"
+        description: "Gridded bathymetry through the section"
+        units: m
+        standard_name: bathymetry
+      area:
+        long_name: "Grid cell area"
+        description: "Area of each grid cell in the gridded velocity product"
+        units: m^2
+        standard_name: area

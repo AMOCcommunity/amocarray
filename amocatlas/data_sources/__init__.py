@@ -29,6 +29,7 @@ from .wh41n import read_41n
 from .noac47n import read_47n
 from .nac import read_nac
 from .sf2021 import read_sf2021
+from .lebras35n import read_lebras35n
 
 __all__ = [
     "read_rapid",
@@ -47,4 +48,5 @@ __all__ = [
     "read_47n",
     "read_nac",
     "read_sf2021"
+    "read_lebras35n",
 ]
