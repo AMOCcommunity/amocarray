@@ -150,7 +150,7 @@ The following metadata provides comprehensive information about this dataset:
 - **featureType\***: timeSeries
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: AMOC35N.nc
-- **Source Path\***: C:\Users\Isabelle\Documents\GitHub\AMOCatlas\data\AMOC35N.nc
+- **Source Path\***: ~/AMOCatlas/data/AMOC35N.nc
 - **Source Url\***: https://zenodo.org/records/7262142/files/
 - **Date Modified**: 2026-06-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
@@ -174,8 +174,8 @@ Dataset Overview
 - **Data Product**: Gridded velocities at 35N from deep moorings, floats, and satellite altimeter
 - **License**: 
 - **Time Coverage**: 2004.4 to 2014.3
-- **Record Length**: 120 observations (0.0 years)
-- **Sampling Frequency**: 2.0H
+- **Record Length**: 120 observations (10 years)
+- **Sampling Frequency**: monthly
 
 **Citation:**
 
@@ -328,7 +328,7 @@ The following metadata provides comprehensive information about this dataset:
 - **featureType\***: timeSeries
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: AMOC35N_gridded_velocities.nc
-- **Source Path\***: C:\Users\Isabelle\Documents\GitHub\AMOCatlas\data\AMOC35N_gridded_velocities.nc
+- **Source Path\***: ~/AMOCatlas/data/AMOC35N_gridded_velocities.nc
 - **Source Url\***: https://zenodo.org/records/7262142/files/
 - **Date Modified**: 2026-06-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas

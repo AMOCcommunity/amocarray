@@ -240,7 +240,7 @@ ARRAY_NAMES = [
     "noac47n",  # NOAC 47°N array (North Atlantic Ocean Current)
     "nac",  # North Atlantic Current
     "sf2021", # Sanchez-Franks 2021 satellite reconstruction of AMOC transport at 26°N
-    "lebras35n", # Lebras 2023 AMOC transport at 35°S
+    "lebras35n", # Lebras 2023 AMOC transport at 35°N
 ]
 
 # Mapping from array names to their full descriptions
@@ -260,7 +260,7 @@ ARRAY_DESCRIPTIONS = {
     "noac47n": "NOAC 47°N - North Atlantic Ocean Current monitoring at 47°N",
     "nac": "North Atlantic Current - Transport estimate from satellite altimetry and float observations",
     "sf2021": "SF2021 - Sanchez-Franks 2021 satellite reconstruction of AMOC transport at 26°N",
-    "lebras35n": "Le Bras 2023 - AMOC transport estimates at 35°S from satellite altimetry and in situ data",
+    "lebras35n": "Le Bras 2023 - AMOC transport estimates at 35°N from satellite altimetry and in situ data",
 }
 
 # Preferred units

@@ -21,7 +21,7 @@ Dataset Overview
 
 **Citation:**
 
-    Larsen, K. M. H., Hansen, B., Hátún, H., Johansen, G. E., Østerhus, S., & Olsen, S.M. (2024). The Coldest and densest overflow branch into the North Atlantic is stable in transport, but warming. Geophysical Research Letters, 51,e2024GL110097. https://doi.org/10.1029/2024GL110097These data were collected and made freely available by the OceanSITES project and the national programs that contribute to it.
+    Larsen, K. M. H., Hansen, B., Hátún, H., Johansen, G. E., Østerhus, S., & Olsen, S.M. (2024). The Coldest and densest overflow branch into the North Atlantic is stable in transport, but warming. Geophysical Research Letters, 51,e2024GL110097. https://doi.org/10.1029/2024GL110097. These data were collected and made freely available by the OceanSITES project and the national programs that contribute to it.
 
 **Acknowledgement:**
 
