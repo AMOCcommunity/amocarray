@@ -52,6 +52,7 @@ from .data_sources import (
     read_arcticgateway,
     read_nac,
     read_sf2021,
+    read_lebras35n,
 )
 
 # Import file constants for list_files() functionality
@@ -70,6 +71,7 @@ from .data_sources.fbc import FBC_DEFAULT_FILES
 from .data_sources.arcticgateway import ARCTIC_DEFAULT_FILES
 from .data_sources.nac import NAC_DEFAULT_FILES
 from .data_sources.sf2021 import SF2021_DEFAULT_FILES
+from .data_sources.lebras35n import LEBRAS35N_DEFAULT_FILES
 
 # Import standardization functions
 from . import standardise
@@ -91,6 +93,7 @@ SUPPORTED_STANDARDIZATION = {
     "zheng2024",
     "nac",
     "sf2021",
+    "lebras35n"
 }
 
 
@@ -440,7 +443,9 @@ nac = _create_array_function(
 sf2021 = _create_array_function(
     read_sf2021, "Sanchez-Franks et al. 2021", available_files=SF2021_DEFAULT_FILES
 )
-
+lebras35n = _create_array_function(
+    read_lebras35n, "Le Bras et al. 2023 at 35°N", available_files=LEBRAS35N_DEFAULT_FILES
+)
 # Define __all__ to control what's exported
 __all__ = [
     "rapid",
@@ -458,4 +463,5 @@ __all__ = [
     "zheng2024",
     "nac",
     "sf2021",
+    "lebras35n"
 ]

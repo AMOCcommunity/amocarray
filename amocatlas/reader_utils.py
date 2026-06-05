@@ -38,6 +38,7 @@ DATASOURCE_DISPLAY_NAMES = {
     "zheng2024": "Zheng et al. 2024",
     "nac": "North Atlantic Current, M. Lankhorst, 2025",
     "sf2021": "Sanchez-Franks et al. 2021",
+    "lebras35n": "Le Bras et al. 2023 at 35°N",
 }
 
 
