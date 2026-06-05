@@ -3,24 +3,25 @@ FBC Datasets
 
 ----
 
-FBC_overflow_transport.txt
---------------------------
+OS_GSR_FBC_D_1995_2024.nc
+-------------------------
 
 Dataset Overview
 ^^^^^^^^^^^^^^^^
 
-- **Project**: B. Hansen et al.: A stable Faroe Bank Channel overflow
+- **Project**: B. Hansen, K. M. Larsen: NACLIM - Fluxes: Faroe Bank Channel overflow transport
 - **Description**: FBC Overflow transport time series
-- **Source File**: FBC_overflow_transport.txt
+- **Source File**: OS_GSR_FBC_D_1995_2024.nc
 - **Data Product**: Daily averaged kinematic FBC-overflow flux (transport) in Sv
-- **License**: 
-- **Time Coverage**: 1995-11-13 to 2023-05-19
-- **Record Length**: 9,497 observations (27.5 years)
+- **License**: Data freely available. User assumes all risk for use of data. Please give due credit to the authors, project, and funding sources when using these data, e.g. by including the 'citation' text provided here.
+- **Date Created**: 2025-04-22T00:00:00Z
+- **Time Coverage**: 1995-11-14 to 2024-05-18
+- **Record Length**: 10,414 observations (28.5 years)
 - **Sampling Frequency**: daily
 
 **Citation:**
 
-    Hansen, B., Húsgarð Larsen, K. M., Hátún, H., and Østerhus, S.: A stable Faroe Bank Channel overflow 1995–2015, Ocean Sci., 12, 1205–1220, https://doi.org/10.5194/os-12-1205-2016, 2016.
+    Larsen, K. M. H., Hansen, B., Hátún, H., Johansen, G. E., Østerhus, S., & Olsen, S.M. (2024). The Coldest and densest overflow branch into the North Atlantic is stable in transport, but warming. Geophysical Research Letters, 51,e2024GL110097. https://doi.org/10.1029/2024GL110097These data were collected and made freely available by the OceanSITES project and the national programs that contribute to it.
 
 **Acknowledgement:**
 
@@ -40,8 +41,8 @@ Dataset Statistics
 ^^^^^^^^^^^^^^^^^^
 
 - **Total Variables**: 1
-- **Total Coordinates**: 1
-- **Dataset Size**: 0.14 MB
+- **Total Coordinates**: 4
+- **Dataset Size**: 0.12 MB
 
 Coordinate Information
 ^^^^^^^^^^^^^^^^^^^^^^
@@ -59,12 +60,33 @@ The following table shows information about the dataset coordinates in the stand
      - Min Value
      - Max Value
      - Missing %
+   * - **DEPTH**
+     - **Depth**:  Depth below surface of the water
+     - m
+     - (1,)
+     - 9969209968386869046778552952102584320.00
+     - 9969209968386869046778552952102584320.00
+     - 0.0%
+   * - **LATITUDE**
+     - **Latitude**: Latitude north (WGS84)
+     - degree_north
+     - (2,)
+     - 61.36
+     - 61.50
+     - 0.0%
+   * - **LONGITUDE**
+     - **Longitude**: Longitude east (WGS84)
+     - degree_east
+     - (2,)
+     - -8.36
+     - -8.17
+     - 0.0%
    * - **TIME**
      - Time
      - datetime64[ns]
-     - (9497,)
-     - 1995-11-13
-     - 2023-05-19
+     - (10414,)
+     - 1995-11-14
+     - 2024-05-18
      - 0.0%
 
 
@@ -85,13 +107,13 @@ along with key statistics for each variable.
      - Min Value
      - Max Value
      - Missing %
-   * - *Flux* → **TRANS_FBC**
+   * - *FBC_tr* → **TRANS_FBC**
      - **FBC Overflow**: FBC Overflow transport time series
      - Sverdrup
-     - (9497,)
+     - (10414, 1)
      - 0.50
      - 4.86
-     - 0.0%
+     - 5.5%
 
 
 Metadata (edits applied noted)
@@ -99,30 +121,74 @@ Metadata (edits applied noted)
 
 The following metadata provides comprehensive information about this dataset:
 
-- **Summary**: FBC Overflow transport time series
+- **Title**: Faroe Bank Channel Overflow Volume Transport
+- **Summary**: Time series of volume transport of the Faroe Bank Channel Overflow (FBCO). The transports are Daily averaged kinematic FBC-overflow as described in Hansen et al, 2016.
 - **Description\***: FBC Overflow transport time series
 - **Program\***: FBC
-- **Project\***: B. Hansen et al.: A stable Faroe Bank Channel overflow
-- **License\***: None
+- **Project**: B. Hansen, K. M. Larsen: NACLIM - Fluxes: Faroe Bank Channel overflow transport
+- **Source**: subsurface moorings
+- **Id**: OS_GSR_FBC_D_1995_2024
+- **Naming Authority**: OceanSITES
+- **License**: Data freely available. User assumes all risk for use of data. Please give due credit to the authors, project, and funding sources when using these data, e.g. by including the 'citation' text provided here.
 - **Acknowledgment\***: Funding for the in situ Faroe Bank Channel measurements is from the Environmental Research Programme of the Nordic Council of Ministers (NMR) 1993–1998, from national Nordic research councils, from the Danish DANCEA programme, and from the European Framework Programs, lately under grant agreement no. GA212643 (THOR) and under grant agreement no. 308299 (NACLIM).
-- **Weblink\***: https://envofar.fo/data/index.php?dir=Timeseries&sort=N&order=A
+- **References**: http://www.oceansites.org/tma/index.html
+- **Weblink\***: https://zenodo.org/records/19554222
+- **Platform Code**: FBCO
+- **Wmo Platform Code**: 6801006
+- **Processing Level**: Known bad data has been replaced with values based on surrounding data, Data interpolated, Data manually reviewed, Other QC process applied
 - **Data Product\***: Daily averaged kinematic FBC-overflow flux (transport) in Sv
-- **Time Coverage Start\***: 1995-11-13
-- **Time Coverage End\***: 2023-05-19
+- **Site Code**: GSR
+- **Array**: GSR
+- **Network**: GSR
+- **Time Coverage Start**: 1995-11-14
+- **Time Coverage End**: 2024-05-18
+- **Geospatial Lat Min**: 61.36
+- **Geospatial Lat Max**: 61.5
+- **Geospatial Lon Min**: -8.36
+- **Geospatial Lon Max**: -8.17
+- **Geospatial Vertical Min**: 500
+- **Geospatial Vertical Max**: 790
+- **Creator Institution**: Havstovan - Faroe Marine Research Institute
+- **Contributor Name**: Karin Margretha H. Larsen, Karin Margretha H. Larsen, Karin Margretha H. Larsen, Karin Margretha H. Larsen, Bogi Hansen, Hjálmar Hátún, Steffen M. Olsen, Svein Østerhus
+- **Contributor Role**: originator, principalInvestigator, publisher, contributor, , , , 
+- **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
+- **Contributor Email**: KarinL@hav.fo, , KarinL@hav.fo, KarinL@hav.fo, bogihan@hav.fo, hjalmarh@hav.fo, smo@dmi.dk, svos@norceresearch.no
+- **Contributor Id**: , , http://www.hav.fo, , https://orcid.org/0000-0001-8697-0013, , , 
 - **Contributing Institutions\***: Faroe Marine Research Institute (FAMRI)
 - **Contributing Institutions Vocabulary**: https://edmo.seadatanet.org/report/3084
 - **Contributing Institutions Role**: 
-- **Conventions**: CF-1.8, ACDD-1.3, OceanSITES-1.5
+- **Conventions**: OceanSITES-1.4, OceanSITES-1.5
 - **featureType\***: timeSeries
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
-- **Source File\***: FBC_overflow_transport.txt
-- **Source Path\***: ~/AMOCatlas/data/FBC_overflow_transport.txt
-- **Source Url\***: https://envofar.fo/var/ftp/Timeseries/FBC_overflow_transport.txt
-- **Date Modified**: 2026-02-01T00:00:00Z
+- **Cdm Data Type**: Station
+- **Data Type**: OceanSITES time-series data
+- **Source File\***: OS_GSR_FBC_D_1995_2024.nc
+- **Source Path\***: ~/AMOCatlas/data/OS_GSR_FBC_D_1995_2024.nc
+- **Source Url\***: https://zenodo.org/records/19554222/files/
+- **Date Created**: 2025-04-22T00:00:00Z
+- **Date Modified**: 2026-06-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.3.0
+- **Processing Version**: v0.0.4
 - **Processing Datasource\***: fbc
-- **Variable Mapping\***: {'Flux': 'TRANS_FBC'}
-- **Original Variable Metadata\***: [Complex metadata structure - 3 items]
-- **Applied Variable Mapping**: {'Flux': 'TRANS_FBC'}
-- **Variables To Remove\***: Day, Month
+- **Format Version**: 1.4
+- **Variable Mapping\***: {'FBC_tr': 'TRANS_FBC'}
+- **Original Variable Metadata\***: {'FBC_tr': {'long_name': 'FBC Overflow', 'description': 'FBC Overflow transport time series', 'units': 'Sverdrup', 'standard_name': 'ocean_volume_transport_across_line'}}
+- **Applied Variable Mapping**: {'FBC_tr': 'TRANS_FBC'}
+- **Keywords**: OCEANOGRAPHY: PHYSICAL >Currents, OCEANOGRAPHY: GENERAL >North Atlantic oceanography, OCEANOGRAPHY: GENERAL >Time series experiments
+- **Keywords Vocabulary**: AGU Index Terms
+- **Update Interval**: void
+- **Comment**: The array instrument data that the transports are based on are available from the Faroe Marine Research Institute
+- **Data Mode**: D
+- **Principal Investigator Url**: https://www.pure.fo/en/persons/karin-margretha-h%C3%BAsgar%C3%B0-larsen/
+- **Principal Investigator Id**: 0000-0001-7033-9139
+- **Creator Id**: 0000-0001-7033-9139
+- **Sea Area**: North Atlantic Ocean
+- **Geospatial Lat Units**: degree_north
+- **Geospatial Lon Units**: degree_east
+- **Geospatial Vertical Positive**: down
+- **Geospatial Vertical Units**: meter
+- **Time Coverage Duration**: P28Y07M04D
+- **Time Coverage Resolution**: PT01D
+- **Netcdf Version**: 3.5
+- **Qc Indicator**: excellent
+- **Contributor Institute**: Faroe Marine Research Institute (Faroe Islands); National Centre for Climate Research (Denmark); NORCE Research (Norway)
