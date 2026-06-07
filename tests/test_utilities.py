@@ -169,6 +169,36 @@ def test_set_data_dir_get_data_dir_integration() -> None:
         utilities._user_data_dir = original_data_dir
 
 
+def test_public_api_data_dir_functions() -> None:
+    """Test that set_data_dir and get_data_dir are available in public API."""
+    import amocatlas
+    import tempfile
+    
+    # Store original state
+    original_data_dir = utilities._user_data_dir
+    
+    try:
+        # Test that public API functions exist and work
+        assert hasattr(amocatlas, 'set_data_dir')
+        assert hasattr(amocatlas, 'get_data_dir')
+        assert callable(amocatlas.set_data_dir)
+        assert callable(amocatlas.get_data_dir)
+        
+        # Test that they actually work
+        with tempfile.TemporaryDirectory() as temp_dir:
+            test_path = Path(temp_dir) / "api_test"
+            
+            # Use public API
+            amocatlas.set_data_dir(str(test_path))
+            result = amocatlas.get_data_dir()
+            
+            assert result == test_path.resolve()
+    
+    finally:
+        # Restore original state
+        utilities._user_data_dir = original_data_dir
+
+
 def test_normalize_whitespace() -> None:
     """Test whitespace normalization in attributes."""
     attrs = {
