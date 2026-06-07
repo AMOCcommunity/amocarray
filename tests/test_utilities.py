@@ -92,24 +92,28 @@ def test_get_project_root() -> None:
     root = utilities.get_project_root()
     assert isinstance(root, Path)
     assert root.exists()
-    
+
     # The function should return a valid directory path
     # In development, it points to source. In installed package, it points to site-packages
     # Both are valid behaviors, so just verify it's a directory that exists
     assert root.is_dir()
-    
+
     # Additional validation: the path should contain amocatlas package structure
     # Either as source code or installed package
     amocatlas_indicators = [
         "pyproject.toml",  # Source repo
-        "setup.py",       # Source repo  
-        "setup.cfg",      # Source repo
-        "amocatlas",      # Installed package directory
+        "setup.py",  # Source repo
+        "setup.cfg",  # Source repo
+        "amocatlas",  # Installed package directory
     ]
-    
+
     # At least one indicator should exist (flexible for both dev and installed contexts)
-    indicators_found = [(root / indicator).exists() for indicator in amocatlas_indicators]
-    assert any(indicators_found), f"No project indicators found in {root}. Checked: {amocatlas_indicators}"
+    indicators_found = [
+        (root / indicator).exists() for indicator in amocatlas_indicators
+    ]
+    assert any(
+        indicators_found
+    ), f"No project indicators found in {root}. Checked: {amocatlas_indicators}"
 
 
 def test_get_default_data_dir() -> None:
