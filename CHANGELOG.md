@@ -16,7 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Comprehensive test cases for NOAC 47°N array data reader
 - CHANGELOG.md file for tracking project changes
 
-## [0.3.0] - 2024-12-XX
+## [0.3.0] - YYYY-MM-DD
 
 ### Added
 - New reader for Le Bras AMOC at 35°N (#139)
@@ -33,7 +33,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed convert lowercase URL into uppercase when case sensitive (#132)
 - Fixed standardized sigma coords on RAPID to be <1000 (#126)
 
-## [0.2.0] - 2024-XX-XX
+## [0.2.0] - YYYY-MM-DD
 
 ### Added
 - New intuitive API (`amocatlas.read` namespace)
@@ -45,19 +45,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Legacy API (`load_dataset`, `load_sample_dataset`) marked as deprecated
 - Improved package architecture with modular data sources
 
-## [0.1.1] - 2024-XX-XX
+## [0.1.1] - YYYY-MM-DD
 
 ### Fixed
 - Bug fixes and minor improvements
 
-## [0.1.0] - 2024-XX-XX
+## [0.1.0] - YYYY-MM-DD
 
 ### Added
 - Initial stable release
 - Basic data loading functionality for major AMOC arrays
 - Core plotting and analysis tools
 
-## [0.0.4] - 2024-XX-XX
+## [0.0.4] - YYYY-MM-DD
 
 ### Added
 - Early development version

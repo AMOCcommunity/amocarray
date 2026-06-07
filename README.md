@@ -106,9 +106,11 @@ Data will be cached in `~/.amocatlas_data/` unless you specify a custom location
 ```python
 import amocatlas
 amocatlas.set_data_dir("~/my_data")    # Custom location
-amocatlas.set_data_dir("project")      # Use project/data directory
+amocatlas.set_data_dir("project")      # Use project/data (source checkout only)
 print(amocatlas.get_data_dir())        # Show current setting
 ```
+
+**Note:** The `"project"` option only works when running from a source checkout (editable install with `pip install -e .`). For regular pip installations, use an explicit path like `"~/my_data"` instead.
 
 ### API Features (v0.2.0+)
 

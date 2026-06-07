@@ -125,6 +125,50 @@ def test_get_default_data_dir() -> None:
     assert data_dir.name == ".amocatlas_data"
 
 
+def test_set_data_dir_get_data_dir_integration() -> None:
+    """Test integration between set_data_dir and get_data_dir with proper cleanup."""
+    import tempfile
+    
+    # Store original state
+    original_data_dir = utilities._user_data_dir
+    
+    try:
+        # Test 1: Setting custom directory should be reflected in get_data_dir
+        with tempfile.TemporaryDirectory() as temp_dir:
+            custom_path = Path(temp_dir) / "custom_data"
+            
+            # Set custom directory
+            utilities.set_data_dir(str(custom_path))
+            
+            # get_data_dir should return the custom directory
+            current_dir = utilities.get_data_dir()
+            assert current_dir == custom_path.resolve()
+            
+            # Internal state should match
+            assert utilities._user_data_dir == custom_path.resolve()
+        
+        # Test 2: Setting different directory should update correctly
+        with tempfile.TemporaryDirectory() as temp_dir2:
+            another_path = Path(temp_dir2) / "another_data"
+            
+            utilities.set_data_dir(str(another_path))
+            
+            # Should now return the new directory
+            current_dir = utilities.get_data_dir()
+            assert current_dir == another_path.resolve()
+            assert utilities._user_data_dir == another_path.resolve()
+        
+        # Test 3: Resetting to default should work  
+        utilities._user_data_dir = None  # Reset to default
+        default_dir = utilities.get_data_dir()
+        expected_default = Path.home() / ".amocatlas_data"
+        assert default_dir == expected_default
+        
+    finally:
+        # Always restore original state to prevent test leakage
+        utilities._user_data_dir = original_data_dir
+
+
 def test_normalize_whitespace() -> None:
     """Test whitespace normalization in attributes."""
     attrs = {
@@ -538,3 +582,50 @@ def test_download_file() -> None:
             Path("/tmp"),
             filename="test_file.nc",
         )
+
+
+def test_set_data_dir_project_validation() -> None:
+    """Test that set_data_dir('project') validates source checkout."""
+    import tempfile
+    from unittest.mock import patch
+    
+    # Mock get_project_root to return a fake directory without project markers
+    with tempfile.TemporaryDirectory() as fake_root:
+        fake_path = Path(fake_root)
+        
+        with patch('amocatlas.utilities.get_project_root', return_value=fake_path):
+            with pytest.raises(ValueError, match='"project" data_dir is only supported from a source checkout'):
+                utilities.set_data_dir("project")
+    
+    # Test that it works when project markers exist
+    with tempfile.TemporaryDirectory() as fake_root:
+        fake_path = Path(fake_root)
+        # Create a pyproject.toml to make it look like a source checkout
+        (fake_path / "pyproject.toml").touch()
+        
+        with patch('amocatlas.utilities.get_project_root', return_value=fake_path):
+            # Should not raise an error and should use logging instead of print
+            utilities.set_data_dir("project")
+            # Check that data directory was set correctly
+            assert utilities._user_data_dir == fake_path / "data"
+
+
+def test_set_data_dir_uses_logging() -> None:
+    """Test that set_data_dir uses logging instead of print statements."""
+    import tempfile
+    from unittest.mock import patch
+    import io
+    import sys
+    
+    with tempfile.TemporaryDirectory() as temp_dir:
+        # Capture stdout to verify no print statements
+        captured_stdout = io.StringIO()
+        with patch('sys.stdout', captured_stdout):
+            utilities.set_data_dir(temp_dir)
+        
+        # Should not have printed anything to stdout
+        stdout_content = captured_stdout.getvalue()
+        assert stdout_content == "", f"set_data_dir should not print to stdout, but got: {stdout_content}"
+        
+        # Verify the directory was actually set
+        assert utilities._user_data_dir == Path(temp_dir).expanduser().resolve()

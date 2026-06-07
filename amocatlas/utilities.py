@@ -65,8 +65,16 @@ def set_data_dir(data_dir: Union[str, Path]) -> None:
     global _user_data_dir
 
     if str(data_dir).lower() == "project":
-        # Special case: use project root data directory
-        data_dir = get_project_root() / "data"
+        # Special case: use project root data directory (source checkout only)
+        project_root = get_project_root()
+        project_markers = ("pyproject.toml", "setup.py", "setup.cfg")
+        if not any((project_root / marker).exists() for marker in project_markers):
+            raise ValueError(
+                '"project" data_dir is only supported from a source checkout. '
+                f"Could not find any of {project_markers} in {project_root}. "
+                "Please pass an explicit path instead."
+            )
+        data_dir = project_root / "data"
     else:
         data_dir = Path(data_dir).expanduser().resolve()
 
@@ -74,7 +82,7 @@ def set_data_dir(data_dir: Union[str, Path]) -> None:
     data_dir.mkdir(parents=True, exist_ok=True)
 
     _user_data_dir = data_dir
-    print(f"Default data directory set to: {data_dir}")
+    log.info("Default data directory set to: %s", data_dir)
 
 
 def get_data_dir() -> Path:
