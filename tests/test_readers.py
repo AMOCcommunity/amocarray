@@ -276,6 +276,7 @@ def test_reader_url_constants(module_name, expected_url_constants):
                     ), f"URL in {constant_name} should be valid"
 
 
+@pytest.mark.slow
 @pytest.mark.parametrize(
     "array_name, expected_var",
     [

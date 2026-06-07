@@ -4,9 +4,11 @@ This test ensures that _overwrite fields are processed after field renaming
 so they can properly override renamed fields from original NetCDF files.
 """
 
+import pytest
 import amocatlas.read as read
 
 
+@pytest.mark.slow
 def test_dso_acknowledgment_overwrite_applied():
     """Test that DSO acknowledgment_overwrite properly overrides original file acknowledgement field.
 
@@ -41,6 +43,7 @@ def test_dso_acknowledgment_overwrite_applied():
     ), f"_overwrite fields not cleaned up: {overwrite_fields}"
 
 
+@pytest.mark.slow
 def test_overwrite_after_field_renaming():
     """Test that overwrite processing happens after field renaming.
 
