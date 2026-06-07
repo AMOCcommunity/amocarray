@@ -154,7 +154,9 @@ def read_rapid(
         if file == "meridional_transports.nc":
             if "sigma0" in ds.coords:
                 original_values = ds["sigma0"].values
-                if original_values.max() > 100:  # Check if values are in absolute density range (>1000) rather than anomaly range
+                if (
+                    original_values.max() > 100
+                ):  # Check if values are in absolute density range (>1000) rather than anomaly range
                     log_info(
                         f"Fixing sigma0 coordinates in {file}: subtracting 1000 to get density anomaly"
                     )
@@ -166,7 +168,9 @@ def read_rapid(
 
             if "sigma2" in ds.coords:
                 original_values = ds["sigma2"].values
-                if original_values.max() > 100:  # Check if values are in absolute density range (>1000) rather than anomaly range
+                if (
+                    original_values.max() > 100
+                ):  # Check if values are in absolute density range (>1000) rather than anomaly range
                     log_info(
                         f"Fixing sigma2 coordinates in {file}: subtracting 1000 to get density anomaly"
                     )

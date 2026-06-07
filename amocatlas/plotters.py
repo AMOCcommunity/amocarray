@@ -633,7 +633,7 @@ def plot_amoc_timeseries(
     ax.spines["right"].set_visible(False)
     ax.set_title(title)
     ax.set_xlabel("Time")
-    ax.set_ylabel(ylabel if ylabel else "Transport [Sv]")
+    ax.set_ylabel(ylabel if ylabel else "Transport (Sv)")
     ax.legend(loc="best")
     ax.grid(True, linestyle="--", alpha=0.5)
 
@@ -681,7 +681,7 @@ def plot_monthly_anomalies(
         axes[i].plot(time, data, color=color, label=label)
         axes[i].axhline(0, color="black", linestyle="--", linewidth=0.5)
         axes[i].set_title(label)
-        axes[i].set_ylabel("Transport [Sv]")
+        axes[i].set_ylabel("Transport (Sv)")
         axes[i].legend()
         axes[i].grid(True, linestyle="--", alpha=0.5)
 
@@ -745,7 +745,7 @@ def _add_amocatlas_timestamp(fig: object) -> None:
 
 
 def plot_moc_timeseries_pygmt(
-    df: pd.DataFrame, column: str = "moc", label: str = "MOC [Sv]"
+    df: pd.DataFrame, column: str = "moc", label: str = "MOC (Sv)"
 ) -> "pygmt.Figure":
     """Plot MOC time series using PyGMT with publication-quality styling.
 
@@ -755,7 +755,7 @@ def plot_moc_timeseries_pygmt(
         DataFrame with 'time_num' (decimal years) and data columns.
     column : str, default "moc"
         Name of the column to plot.
-    label : str, default "MOC [Sv]"
+    label : str, default "MOC (Sv)"
         Y-axis label for the plot.
 
     Returns
@@ -885,7 +885,7 @@ def plot_osnap_components_pygmt(data: Union[DataFrame, Dict]) -> "pygmt.Figure":
 
     # Basemap
     fig.basemap(
-        region=region, projection="X15c/7c", frame=["xaf", "yafg5f2+lMOC [Sv]", "WS"]
+        region=region, projection="X15c/7c", frame=["xaf", "yafg5f2+lMOC (Sv)", "WS"]
     )
 
     # --- Shaded error for EAST ---
@@ -977,7 +977,7 @@ def plot_rapid_components_pygmt(df: pd.DataFrame) -> "pygmt.Figure":
     fig.basemap(
         region=region,
         projection="X25c/15c",
-        frame=["xaf", "yafg5f2+lTransport [Sv]", "WS+tRAPID MOC Components"],
+        frame=["xaf", "yafg5f2+lTransport (Sv)", "WS+tRAPID MOC Components"],
     )
 
     # Plot each component with custom colors
@@ -1067,10 +1067,10 @@ def plot_all_moc_pygmt(
 
     # Prepare data and labels
     dfs = [
-        (osnap_df, "MOC [Sv]", (5, 25), 5, "OSNAP", green1, "W"),
-        (rapid_df, "MOC [Sv]", (5, 30), 6, "RAPID 26°N", red1, "E"),
-        (move_df, "MOC [Sv]", (5, 30), 6, "MOVE 16°N", magenta1, "W"),
-        (samba_df, "Anomaly [Sv]", (-10, 15), 6, "SAMBA 34.5°S", blue1, "ES"),
+        (osnap_df, "MOC (Sv)", (5, 25), 5, "OSNAP", green1, "W"),
+        (rapid_df, "MOC (Sv)", (5, 30), 6, "RAPID 26°N", red1, "E"),
+        (move_df, "MOC (Sv)", (5, 30), 6, "MOVE 16°N", magenta1, "W"),
+        (samba_df, "Anomaly (Sv)", (-10, 15), 6, "SAMBA 34.5°S", blue1, "ES"),
     ]
 
     # Find global x range
@@ -1210,7 +1210,7 @@ def plot_bryden2005_pygmt() -> "pygmt.Figure":
     fig.basemap(
         region=[1955, 2006, 13, 24],
         projection="X8c/6c",
-        frame=["WS", "yaf+lMOC [Sv]", "xccustom_xticks.txt"],
+        frame=["WS", "yaf+lMOC (Sv)", "xccustom_xticks.txt"],
     )
 
     # Plot red line
@@ -1278,10 +1278,10 @@ def plot_all_moc_overlaid_pygmt(
 
     # Prepare data and labels - overlay mode (shiftflag=False)
     dfs = [
-        (osnap_df, "MOC [Sv]", (10, 20), 6, "OSNAP", green1, "W"),
-        (rapid_df, "MOC [Sv]", (10, 20), 6, "RAPID 26°N", red1, "W"),
-        (move_df, "MOC [Sv]", (10, 20), 6, "MOVE 16°N", magenta1, "W"),
-        (samba_df, "Anomaly [Sv]", (-5, 5), 6, "SAMBA 34.5°S", blue1, "ES"),
+        (osnap_df, "MOC (Sv)", (10, 20), 6, "OSNAP", green1, "W"),
+        (rapid_df, "MOC (Sv)", (10, 20), 6, "RAPID 26°N", red1, "W"),
+        (move_df, "MOC (Sv)", (10, 20), 6, "MOVE 16°N", magenta1, "W"),
+        (samba_df, "Anomaly (Sv)", (-5, 5), 6, "SAMBA 34.5°S", blue1, "ES"),
     ]
 
     # Find global x range

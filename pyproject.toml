@@ -31,7 +31,7 @@ urls.homepage = "https://github.com/AMOCcommunity/AMOCatlas"
 urls.repository = "https://github.com/AMOCcommunity/AMOCatlas"
 
 [tool.setuptools]
-packages = ["amocatlas", "amocatlas.metadata"]
+packages = ["amocatlas", "amocatlas.metadata", "amocatlas.data_sources"]
 include-package-data = true
 
 [tool.setuptools.package-data]

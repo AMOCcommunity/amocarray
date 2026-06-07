@@ -1,7 +1,7 @@
 """Sanchez-Franks Satellite proxy for the AMOC at 26N data reader for AMOCatlas.
 
 This module provides functions to read and process satellite proxy transport data for 26N
-from Sanchez-Franks et al. (2021). This dataset provides a satellite reconstruction of the AMOC transport 
+from Sanchez-Franks et al. (2021). This dataset provides a satellite reconstruction of the AMOC transport
 at 26N based on satellite altimetry. It also includes the upper-mid-ocean and gulf stream components.
 The components are derived through a dynamically based method.
 """
@@ -46,32 +46,37 @@ _TIME_METADATA = {
     "long_name": "Time elapsed since 1970-01-01T00:00:00Z",
     "standard_name": "time",
     "calendar": "gregorian",
-    "vocabulary": "http://vocab.nerc.ac.uk/collection/OG1/current/TIME/"
+    "vocabulary": "http://vocab.nerc.ac.uk/collection/OG1/current/TIME/",
 }
 
 
-def _normalize_sf2021_time_coordinate(ds: xr.Dataset, source_file: str = None) -> xr.Dataset:
+def _normalize_sf2021_time_coordinate(
+    ds: xr.Dataset, source_file: str = None
+) -> xr.Dataset:
     """Convert SF2021 TIME coordinate from days since 0000-01-01 to datetime64[ns].
-    
+
     Parameters
     ----------
     ds : xr.Dataset
         Dataset with sat_time or TIME coordinate as float (days since 0000-01-01)
     source_file : str, optional
         Source filename (currently unused, kept for API compatibility)
-    
+
     Returns
     -------
     xr.Dataset
         Dataset with time coordinate converted to datetime64[ns]
+
     """
     # Find time variable (check raw name first, then final name)
     time_var = next((var for var in ["sat_time", "TIME"] if var in ds.coords), None)
-    
+
     if not time_var or ds[time_var].dtype.kind not in ["f", "i"]:
-        log_debug(f"Skipping TIME normalization - {time_var or 'TIME'} not found or not numeric")
+        log_debug(
+            f"Skipping TIME normalization - {time_var or 'TIME'} not found or not numeric"
+        )
         return ds
-    
+
     try:
         # Convert days since 0000-01-01 to datetime64[ns] without using year 0 in ns resolution.
         # Decompose into integer days and fractional nanoseconds relative to 1970-01-01.
@@ -79,21 +84,23 @@ def _normalize_sf2021_time_coordinate(ds: xr.Dataset, source_file: str = None) -
         epoch_days = 719528.0  # Days between 0000-01-01 and 1970-01-01 in proleptic Gregorian calendar.
         relative_days = time_values - epoch_days
         whole_days = np.floor(relative_days).astype(np.int64)
-        fractional_ns = np.rint((relative_days - whole_days) * 86400 * 1e9).astype(np.int64)
+        fractional_ns = np.rint((relative_days - whole_days) * 86400 * 1e9).astype(
+            np.int64
+        )
 
         time_datetime = (
             np.datetime64("1970-01-01", "ns")
             + whole_days.astype("timedelta64[D]")
             + fractional_ns.astype("timedelta64[ns]")
         ).astype("datetime64[ns]")
-        
+
         # Use assign_coords to properly set dimension coordinate
         ds = ds.assign_coords({time_var: time_datetime})
         ds[time_var].attrs = _TIME_METADATA
         log_debug(f"Converted SF2021 {time_var} from days to datetime64[ns]")
     except (ValueError, TypeError, OverflowError) as e:
         log_warning(f"Failed to convert SF2021 TIME coordinate: {e}")
-    
+
     return ds
 
 
@@ -188,7 +195,7 @@ def read_sf2021(
             # Use ReaderUtils for consistent dataset loading
 
             ds = ReaderUtils.safe_load_dataset(file_path)
-            
+
             # Attach metadata
             # Attach metadata with optional tracking
 
@@ -219,7 +226,7 @@ def read_sf2021(
                     DATASOURCE_ID,
                     track_added_attrs=False,
                 )
-            
+
             # Normalize SF2021 TIME coordinate AFTER metadata attachment
             ds = _normalize_sf2021_time_coordinate(ds, source_file=file)
         else:

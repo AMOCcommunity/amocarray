@@ -1,6 +1,6 @@
 """North Atlantic Current (NAC) data reader for AMOCatlas.
 
-This module provides functions to read and process the North Atlantic current time series from satellite and float observations. 
+This module provides functions to read and process the North Atlantic current time series from satellite and float observations.
 The NAC is a key component of the Atlantic Meridional Overturning Circulation, transporting warm, saline water from the tropics to the high northern latitudes.
 
 The dataset includes NAC transport estimates from satellite and float observations and an NAC estimation from satellite altimetry alone.

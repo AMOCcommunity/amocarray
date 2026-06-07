@@ -40,8 +40,11 @@ from . import (
     data_sources,  # New data sources package
 )
 
+# Import key utilities at top level for convenience
+from .utilities import set_data_dir, get_data_dir
+
 # Version information
-# from ._version import __version__
+from ._version import __version__
 
 __all__ = [
     "readers",
@@ -56,5 +59,7 @@ __all__ = [
     "compliance_checker",
     "reader_utils",
     "data_sources",
+    "set_data_dir",
+    "get_data_dir",
     "__version__",
 ]

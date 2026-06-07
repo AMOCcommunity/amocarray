@@ -2,7 +2,7 @@
 
 This module provides functions to read and process AMOC transport data at 35°N from deep moorings, floats and satellite altimetry.
 
-Dataset one includes the AMOC transport in depth and in density space, the integrated across-basin streamfunction in depth space and the Ekman transport time series derived from CCMP. 
+Dataset one includes the AMOC transport in depth and in density space, the integrated across-basin streamfunction in depth space and the Ekman transport time series derived from CCMP.
 Dataset two includes the geostrophic velocities through the section, the potential density anomaly referenced to 2000m, the depth of the sea floor along the section and the area of each grid point.
 
 Key functions:

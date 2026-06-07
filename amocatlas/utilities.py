@@ -33,9 +33,60 @@ def get_project_root() -> Path:
     return Path(__file__).resolve().parent.parent
 
 
+# Global variable for user-configured data directory
+_user_data_dir = None
+
+
 def get_default_data_dir() -> Path:
     """Get the default data directory path for AMOCatlas."""
-    return Path(__file__).resolve().parent.parent / "data"
+    if _user_data_dir is not None:
+        return _user_data_dir
+    return Path.home() / ".amocatlas_data"
+
+
+def set_data_dir(data_dir: Union[str, Path]) -> None:
+    """Set the default data directory for AMOCatlas.
+
+    This will be used by all readers unless overridden with data_dir parameter.
+
+    Parameters
+    ----------
+    data_dir : str or Path
+        Path to the directory to use as the default data location.
+        Use "project" to set to <project_root>/data.
+
+    Examples
+    --------
+    >>> import amocatlas
+    >>> amocatlas.set_data_dir("~/my_data")     # Custom location
+    >>> amocatlas.set_data_dir("project")       # Use project/data directory
+
+    """
+    global _user_data_dir
+
+    if str(data_dir).lower() == "project":
+        # Special case: use project root data directory
+        data_dir = get_project_root() / "data"
+    else:
+        data_dir = Path(data_dir).expanduser().resolve()
+
+    # Create the directory if it doesn't exist
+    data_dir.mkdir(parents=True, exist_ok=True)
+
+    _user_data_dir = data_dir
+    print(f"Default data directory set to: {data_dir}")
+
+
+def get_data_dir() -> Path:
+    """Get the current default data directory.
+
+    Returns
+    -------
+    Path
+        Current default data directory path.
+
+    """
+    return get_default_data_dir()
 
 
 def apply_defaults(default_source: str, default_files: List[str]) -> Callable:
