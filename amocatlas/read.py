@@ -93,7 +93,7 @@ SUPPORTED_STANDARDIZATION = {
     "zheng2024",
     "nac",
     "sf2021",
-    "lebras35n"
+    "lebras35n",
 }
 
 
@@ -444,7 +444,9 @@ sf2021 = _create_array_function(
     read_sf2021, "Sanchez-Franks et al. 2021", available_files=SF2021_DEFAULT_FILES
 )
 lebras35n = _create_array_function(
-    read_lebras35n, "Le Bras et al. 2023 at 35°N", available_files=LEBRAS35N_DEFAULT_FILES
+    read_lebras35n,
+    "Le Bras et al. 2023 at 35°N",
+    available_files=LEBRAS35N_DEFAULT_FILES,
 )
 # Define __all__ to control what's exported
 __all__ = [
@@ -463,5 +465,5 @@ __all__ = [
     "zheng2024",
     "nac",
     "sf2021",
-    "lebras35n"
+    "lebras35n",
 ]

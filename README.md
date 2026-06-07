@@ -96,14 +96,21 @@ from amocatlas import read
 ds = read.osnap()                          # Single standardized dataset
 all_files = read.osnap(all_files=True)     # Get all files for array
 
-# Or use the legacy API
-from amocatlas import readers
-datasets = readers.load_dataset("osnap")  # Returns list of raw datasets
 ```
 
 A `*.log` file will be written to `logs/` by default.
 
-Data will be cached in `~/.amocatlas_data/` unless you specify a custom location.
+Data will be cached in `~/.amocatlas_data/` unless you specify a custom location with `data_dir="/path/to/custom/data"`.
+
+**Setting Default Data Directory:**
+```python
+import amocatlas
+amocatlas.set_data_dir("~/my_data")    # Custom location
+amocatlas.set_data_dir("project")      # Use project/data (source checkout only)
+print(amocatlas.get_data_dir())        # Show current setting
+```
+
+**Note:** The `"project"` option only works when running from a source checkout (editable install with `pip install -e .`). For regular pip installations, use an explicit path like `"~/my_data"` instead.
 
 ### API Features (v0.2.0+)
 
@@ -128,11 +135,6 @@ all_rapid = read.rapid(all_files=True) # Get all files for an array
 raw_data = read.rapid(raw=True)        # Original format for special cases
 ```
 
-**Legacy API (still supported):**
-```python
-from amocatlas import readers
-datasets = readers.load_dataset("rapid")  # Returns raw data as before
-```
 
 ## Documentation
 

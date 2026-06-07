@@ -239,8 +239,8 @@ ARRAY_NAMES = [
     "wh41n",  # Woods Hole 41°N array
     "noac47n",  # NOAC 47°N array (North Atlantic Ocean Current)
     "nac",  # North Atlantic Current
-    "sf2021", # Sanchez-Franks 2021 satellite reconstruction of AMOC transport at 26°N
-    "lebras35n", # Lebras 2023 AMOC transport at 35°N
+    "sf2021",  # Sanchez-Franks 2021 satellite reconstruction of AMOC transport at 26°N
+    "lebras35n",  # Lebras 2023 AMOC transport at 35°N
 ]
 
 # Mapping from array names to their full descriptions

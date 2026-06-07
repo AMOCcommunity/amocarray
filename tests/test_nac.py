@@ -68,12 +68,12 @@ class TestNAC:
     def test_nac_metadata_structure(self):
         """Test that NAC metadata has expected structure."""
         metadata = nac.NAC_METADATA
-        
+
         # Should have expected keys
         assert "project" in metadata
         assert "weblink" in metadata
         assert "comment" in metadata
-        
+
         # Values should be non-empty strings
         assert isinstance(metadata["project"], str)
         assert len(metadata["project"]) > 0
@@ -83,10 +83,10 @@ class TestNAC:
     def test_nac_file_metadata_structure(self):
         """Test that NAC file metadata has expected structure."""
         file_metadata = nac.NAC_FILE_METADATA
-        
+
         # Should have metadata for the default _2_1.nc file
         assert "_2_1.nc" in file_metadata
-        
+
         # File metadata should have expected keys
         file_meta = file_metadata["_2_1.nc"]
         assert "data_product" in file_meta

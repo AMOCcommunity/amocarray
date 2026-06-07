@@ -276,6 +276,7 @@ def test_reader_url_constants(module_name, expected_url_constants):
                     ), f"URL in {constant_name} should be valid"
 
 
+@pytest.mark.slow
 @pytest.mark.parametrize(
     "array_name, expected_var",
     [
@@ -316,33 +317,33 @@ def test_load_dataset(array_name, expected_var):
 
 def test_rapid_sigma_coordinate_integration():
     """Integration test: verify sigma coordinate transformation is applied in practice.
-    
+
     This is a simple integration test that verifies the transformation functionality
     exists without requiring complex mocking. The comprehensive unit tests for the
     transformation logic are in test_readers_sigma.py.
     """
     # This test just verifies the integration works - detailed tests are in test_readers_sigma.py
     from amocatlas.data_sources.rapid26n import read_rapid
-    from unittest.mock import patch
-    
+
     # Test that the read_rapid function exists and has the sigma transformation code
     import inspect
+
     source_lines = inspect.getsource(read_rapid)
-    
+
     # Verify the transformation logic is present in the function
-    assert 'meridional_transports.nc' in source_lines, "Should check for meridional_transports.nc file"
-    assert 'sigma0' in source_lines, "Should handle sigma0 coordinate"
-    assert 'sigma2' in source_lines, "Should handle sigma2 coordinate" 
-    assert '1000' in source_lines, "Should subtract 1000 for transformation"
-    assert 'max() > 100' in source_lines, "Should check if max values > 100"
-    
+    assert (
+        "meridional_transports.nc" in source_lines
+    ), "Should check for meridional_transports.nc file"
+    assert "sigma0" in source_lines, "Should handle sigma0 coordinate"
+    assert "sigma2" in source_lines, "Should handle sigma2 coordinate"
+    assert "1000" in source_lines, "Should subtract 1000 for transformation"
+    assert "max() > 100" in source_lines, "Should check if max values > 100"
+
     # Test that required imports and dependencies are available
     import xarray as xr
-    import numpy as np
-    
+
     # Verify we can create a simple test dataset
     test_ds = xr.Dataset(
-        {'data': (['sigma0'], [1, 2, 3])},
-        coords={'sigma0': ([1025.0, 1027.0, 1030.0])}
+        {"data": (["sigma0"], [1, 2, 3])}, coords={"sigma0": ([1025.0, 1027.0, 1030.0])}
     )
-    assert 'sigma0' in test_ds.coords
+    assert "sigma0" in test_ds.coords
