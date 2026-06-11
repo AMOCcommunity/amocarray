@@ -30,6 +30,8 @@ from .noac47n import read_47n
 from .nac import read_nac
 from .sf2021 import read_sf2021
 from .lebras35n import read_lebras35n
+from .axmoc22s import read_axmoc22s
+from .axmoc34s import read_axmoc34s
 
 __all__ = [
     "read_rapid",
@@ -49,4 +51,6 @@ __all__ = [
     "read_nac",
     "read_sf2021",
     "read_lebras35n",
+    "read_axmoc22s",
+    "read_axmoc34s",
 ]

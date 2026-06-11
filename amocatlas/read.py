@@ -53,6 +53,8 @@ from .data_sources import (
     read_nac,
     read_sf2021,
     read_lebras35n,
+    read_axmoc22s,
+    read_axmoc34s,
 )
 
 # Import file constants for list_files() functionality
@@ -72,6 +74,8 @@ from .data_sources.arcticgateway import ARCTIC_DEFAULT_FILES
 from .data_sources.nac import NAC_DEFAULT_FILES
 from .data_sources.sf2021 import SF2021_DEFAULT_FILES
 from .data_sources.lebras35n import LEBRAS35N_DEFAULT_FILES
+from .data_sources.axmoc22s import AXMOC22S_DEFAULT_FILES
+from .data_sources.axmoc34s import AXMOC34S_DEFAULT_FILES
 
 # Import standardization functions
 from . import standardise
@@ -94,6 +98,8 @@ SUPPORTED_STANDARDIZATION = {
     "nac",
     "sf2021",
     "lebras35n",
+    "axmoc22s",
+    "axmoc34s",
 }
 
 
@@ -364,7 +370,7 @@ def _create_array_function(
     redownload : bool, optional
         Force redownload of data. Default: False.
     version : str, optional
-        Dataset version{' (used for version selection)' if supports_version else ' (ignored for this array)'}. Default: None.
+        Dataset version{" (used for version selection)" if supports_version else " (ignored for this array)"}. Default: None.
     track_added_attrs : bool, optional
         **INTERNAL USE ONLY** - Track which attributes were added during metadata
         enrichment. When True, embeds a temporary '_amocatlas_metadata_changes'
@@ -448,6 +454,17 @@ lebras35n = _create_array_function(
     "Le Bras et al. 2023 at 35°N",
     available_files=LEBRAS35N_DEFAULT_FILES,
 )
+axmoc22s = _create_array_function(
+    read_axmoc22s,
+    "AXMOC 22.5°S",
+    available_files=AXMOC22S_DEFAULT_FILES,
+)
+axmoc34s = _create_array_function(
+    read_axmoc34s,
+    "AXMOC 34.5°S",
+    available_files=AXMOC34S_DEFAULT_FILES,
+)
+
 # Define __all__ to control what's exported
 __all__ = [
     "rapid",
@@ -466,4 +483,6 @@ __all__ = [
     "nac",
     "sf2021",
     "lebras35n",
+    "axmoc22s",
+    "axmoc34s",
 ]

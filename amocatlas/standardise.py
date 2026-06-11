@@ -1204,6 +1204,30 @@ def standardise_lebras35n(ds: xr.Dataset, file_name: str) -> xr.Dataset:
     return standardise_array(ds, file_name)
 
 
+def standardise_axmoc22s(ds: xr.Dataset, file_name: str) -> xr.Dataset:
+    """Standardise AXMOC22S array dataset to consistent format."""
+    warnings.warn(
+        "standardise_axmoc22s() is deprecated and will be removed in a future version. "
+        "Use standardise_data() instead.",
+        DeprecationWarning,
+        stacklevel=2,
+    )
+
+    return standardise_array(ds, file_name)
+
+
+def standardise_axmoc34s(ds: xr.Dataset, file_name: str) -> xr.Dataset:
+    """Standardise AXMOC34S array dataset to consistent format."""
+    warnings.warn(
+        "standardise_axmoc34s() is deprecated and will be removed in a future version. "
+        "Use standardise_data() instead.",
+        DeprecationWarning,
+        stacklevel=2,
+    )
+
+    return standardise_array(ds, file_name)
+
+
 def standardise_data(ds: xr.Dataset, file_name: str) -> xr.Dataset:
     """Standardise a dataset using YAML-based metadata.
 
