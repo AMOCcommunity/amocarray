@@ -1,14 +1,14 @@
 """AMOC at 34.5°S transport data reader for AMOCatlas.
 
-This module provides functions to read and process AMOC and meridional heat and freshwater transport data at 34.5°S based on sustained in situ observations.
+This module provides functions to read and process AMOC, meridional heat and freshwater transport data at 34.5°S based on sustained in situ observations.
 
-Dataset includes estimates of AMOC, heat and freshwatertransport at 34.5°S. All three also have the Ekman and geostrophic component available.
+Dataset includes estimates of AMOC, heat and freshwater transport at 34.5°S. All three also have the Ekman and geostrophic component available.
 
 Key functions:
-- read_axmoc34s(): Main data loading interface for AMOC transport data at 34.5°S which includes both datasets
+- read_axmoc34s(): Main data loading interface for AMOC, meridional heat and freshwater transport data at 34.5°S
 
 Data source: AXMOC: Estimate of AMOC, heat and freshwater transports at 22.5 and 34.5S based on sustained in situ observations
-Location: North Atlantic at 34.5°S
+Location: South Atlantic at 34.5°S
 """
 
 from pathlib import Path
@@ -40,7 +40,7 @@ AXMOC34S_METADATA = {
 
 AXMOC34S_FILE_METADATA = {
     "AXMOC_34S_timeseries_2005_2023.nc": {
-        "data_product": "AMOC and MHT transport data at 34.5°S",
+        "data_product": "AMOC, MHT and FOV transport data at 34.5°S",
     },
 }
 

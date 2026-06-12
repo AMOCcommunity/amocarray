@@ -1,6 +1,6 @@
 metadata:
   program: "AXMOC34S"
-  description: "Estimates of AMOC and heat transport at 34.5°S"
+  description: "Estimates of AMOC, heat and freshwater transports at 34.5°S"
   project: "I. Pita, M. Goes - AXMOC: Estimate of AMOC, heat and freshwater transports at 22.5 and 34.5S based on sustained in situ observations"
   weblink: https://zenodo.org/records/18839461
   comment: Dataset accessed and processed via http://github.com/AMOCcommunity/amocatlas
@@ -63,15 +63,15 @@ files:
       fov_total:
         long_name: "Total FOV"
         description: "Overturning component of freshwater transport at 34.5°S, also referred to as Fov or Mov"
-        units: Sv
+        units: Sverdrup
         standard_name: northward_ocean_freshwater_transport
       fov_ekman:
         long_name: "Ekman FOV"
         description: "Ekman contribution to overturning freshwater transport at 34.5°S"
-        units: Sv
+        units: Sverdrup
         standard_name: northward_ocean_freshwater_transport_component
       fov_geostrophic:
         long_name: "Geostrophic FOV"
         description: "Geostrophic contribution to overturning freshwater transport at 34.5°S"
-        units: Sv
+        units: Sverdrup
         standard_name: northward_ocean_freshwater_transport_component

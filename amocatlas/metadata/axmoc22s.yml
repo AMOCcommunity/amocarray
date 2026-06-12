@@ -17,7 +17,7 @@ metadata:
 files:
   AXMOC_22S_timeseries_2007_2023.nc:
     source_url: https://zenodo.org/records/18839461/files/
-    data_product: "Estimates of AMOC, heat and freshwater transports at 22.5°S based on sustained in situ observations"
+    data_product: "Estimates of AMOC and meridional heat transports at 22.5°S based on sustained in situ observations"
     variable_mapping:
       "time": TIME
       "moc_total": MOC

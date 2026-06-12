@@ -5,10 +5,10 @@ This module provides functions to read and process AMOC and meridional heat tran
 Dataset includes estimates of AMOC and heat transport at 22.5°S. Both also have the Ekman and geostrophic component available.
 
 Key functions:
-- read_axmoc22s(): Main data loading interface for AMOC transport data at 22.5°S which includes both datasets
+- read_axmoc22s(): Main data loading interface for AMOC and meridional heat transport data at 22.5°S
 
 Data source: AXMOC: Estimate of AMOC, heat and freshwater transports at 22.5 and 34.5S based on sustained in situ observations
-Location: North Atlantic at 22.5°S
+Location: South Atlantic at 22.5°S
 """
 
 from pathlib import Path
