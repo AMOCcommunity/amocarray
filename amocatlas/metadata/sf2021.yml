@@ -4,6 +4,8 @@ metadata:
   weblink: "https://zenodo.org/records/18941523"
   comment: >
     Dataset accessed and processed via http://github.com/AMOCcommunity/amocatlas
+  acknowledgment: >
+    The authors thank the reviewers for their helpful comments. The authors also thank the many officers, crew, and technicians who helped to collect these data. Alejandra Sanchez-Franks also thanks Louis Clément for helpful discussions on normal-mode decomposition. This research has been supported by grants from the UK Natural Environment Research Council for the RAPID-AMOC programme and the ACSIS programme (grant no. NE/N018044/1) as well as funding from the European Union Horizon 2020 Research and Innovation programme BLUE-ACTION (grant no. 727852).
   citation: >
     Sanchez-Franks, A., Frajka-Williams, E., Moat, B. I., and Smeed, D. A.: A dynamically based method for estimating the Atlantic meridional overturning circulation at 26°N from satellite altimetry, Ocean Sci., 17, 1321-1340, https://doi.org/10.5194/os-17-1321-2021, 2021
   license:
