@@ -1,0 +1,184 @@
+"""AMOC at 34.5°S transport data reader for AMOCatlas.
+
+This module provides functions to read and process AMOC, meridional heat and freshwater transport data at 34.5°S based on sustained in situ observations.
+
+Dataset includes estimates of AMOC, heat and freshwater transport at 34.5°S. All three also have the Ekman and geostrophic component available.
+
+Key functions:
+- read_axmoc34s(): Main data loading interface for AMOC, meridional heat and freshwater transport data at 34.5°S
+
+Data source: AXMOC: Estimate of AMOC, heat and freshwater transports at 22.5 and 34.5S based on sustained in situ observations
+Location: South Atlantic at 34.5°S
+"""
+
+from pathlib import Path
+from typing import Union
+
+import xarray as xr
+
+# Import the modules used
+from amocatlas import logger, utilities
+from amocatlas.logger import log_error, log_info, log_warning
+from amocatlas.utilities import apply_defaults
+from amocatlas.reader_utils import ReaderUtils
+
+log = logger.log  # Use the global logger
+
+# Datasource identifier for automatic standardization
+DATASOURCE_ID = "axmoc34s"
+
+# Default list of AXMOC34S data files
+AXMOC34S_DEFAULT_FILES = ["AXMOC_34S_timeseries_2005_2023.nc"]
+AXMOC34S_TRANSPORT_FILES = ["AXMOC_34S_timeseries_2005_2023.nc"]
+AXMOC34S_DEFAULT_SOURCE = "https://zenodo.org/records/18839461/files/"
+
+AXMOC34S_METADATA = {
+    "project": "AMOC transport at 34.5S from sustained in situ observations",
+    "weblink": "https://zenodo.org/records/18839461",
+    "comment": "Dataset accessed and processed via http://github.com/AMOCcommunity/amocatlas",
+}
+
+AXMOC34S_FILE_METADATA = {
+    "AXMOC_34S_timeseries_2005_2023.nc": {
+        "data_product": "AMOC, MHT and FOV transport data at 34.5°S",
+    },
+}
+
+
+@apply_defaults(AXMOC34S_DEFAULT_SOURCE, AXMOC34S_DEFAULT_FILES)
+def read_axmoc34s(
+    source: Union[str, Path, None],
+    file_list: Union[str, list[str]],
+    transport_only: bool = True,
+    data_dir: Union[str, Path, None] = None,
+    redownload: bool = False,
+    track_added_attrs: bool = False,
+) -> list[xr.Dataset]:
+    """Load the AXMOC34S datasets from a URL or local file path into xarray Datasets.
+
+    Parameters
+    ----------
+    source : str, optional
+        Local path to the data directory (remote source is handled per-file).
+
+    file_list : str or list of str, optional
+        Filename or list of filenames to process.
+        Defaults to AXMOC34S_DEFAULT_FILES.
+
+    transport_only : bool, optional
+        If True, restrict to transport files only.
+
+    data_dir : str, Path or None, optional
+        Optional local data directory.
+
+    redownload : bool, optional
+        If True, force redownload of the data.
+    track_added_attrs : bool, optional
+        If True, track which attributes were added during metadata enrichment.
+
+    Returns
+    -------
+    list of xr.Dataset
+        List of loaded xarray datasets with basic inline and file-specific metadata.
+
+    Raises
+    ------
+    ValueError
+        If no source is provided for a file and no default URL mapping is found.
+
+    FileNotFoundError
+        If the file cannot be downloaded or does not exist locally.
+
+    """
+    log.info("Starting to read AXMOC34S dataset")
+
+    # Load YAML metadata with fallback
+    global_metadata, yaml_file_metadata = ReaderUtils.load_array_metadata_with_fallback(
+        DATASOURCE_ID, AXMOC34S_METADATA
+    )
+
+    # Ensure file_list has a default
+    if file_list is None:
+        file_list = AXMOC34S_DEFAULT_FILES
+    if transport_only:
+        file_list = AXMOC34S_TRANSPORT_FILES
+    if isinstance(file_list, str):
+        file_list = [file_list]
+    # Determine the local storage path
+    local_data_dir = Path(data_dir) if data_dir else utilities.get_default_data_dir()
+    local_data_dir.mkdir(parents=True, exist_ok=True)
+
+    # Print information about files being loaded
+    ReaderUtils.print_loading_info(file_list, DATASOURCE_ID, AXMOC34S_FILE_METADATA)
+
+    datasets = []
+
+    added_attrs_per_dataset = [] if track_added_attrs else None
+    for file in file_list:
+        if not (file.lower().endswith(".nc")):
+            log_warning("Skipping unsupported file type : %s", file)
+            continue
+
+        download_url = (
+            f"{source.rstrip('/')}/{file}" if utilities.is_valid_url(source) else None
+        )
+
+        file_path = utilities.resolve_file_path(
+            file_name=file,
+            source=source,
+            download_url=download_url,
+            local_data_dir=local_data_dir,
+            redownload=redownload,
+        )
+
+        # Open dataset
+
+        if file.lower().endswith(".nc"):
+            # Use ReaderUtils for consistent dataset loading
+
+            ds = ReaderUtils.safe_load_dataset(file_path)
+            # Attach metadata
+            # Attach metadata with optional tracking
+
+            if track_added_attrs:
+                ds, attr_changes = ReaderUtils.attach_metadata_with_tracking(
+                    ds,
+                    file,
+                    file_path,
+                    global_metadata,
+                    yaml_file_metadata,
+                    AXMOC34S_FILE_METADATA,
+                    DATASOURCE_ID,
+                    track_added_attrs=True,
+                )
+
+                added_attrs_per_dataset.append(attr_changes)
+
+            else:
+                ds = ReaderUtils.attach_metadata_with_tracking(
+                    ds,
+                    file,
+                    file_path,
+                    global_metadata,
+                    yaml_file_metadata,
+                    AXMOC34S_FILE_METADATA,
+                    DATASOURCE_ID,
+                    track_added_attrs=False,
+                )
+        else:
+            raise ValueError(
+                f"Unsupported file type for {file}. Only .nc files are supported."
+            )
+
+        datasets.append(ds)
+
+    if not datasets:
+        log_error("No valid AXMOC34S files in %s", file_list)
+        raise FileNotFoundError(f"No valid data files found in {file_list}")
+
+    log_info("Successfully loaded %d AXMOC34S dataset(s)", len(datasets))
+
+    if track_added_attrs:
+        return datasets, added_attrs_per_dataset
+    else:
+        return datasets

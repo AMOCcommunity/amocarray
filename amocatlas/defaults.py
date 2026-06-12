@@ -241,6 +241,8 @@ ARRAY_NAMES = [
     "nac",  # North Atlantic Current
     "sf2021",  # Sanchez-Franks 2021 satellite reconstruction of AMOC transport at 26°N
     "lebras35n",  # Lebras 2023 AMOC transport at 35°N
+    "axmoc22s",  # AXMOC and heat transport from sustained in situ observations at 22.5°S
+    "axmoc34s",  # AXMOC, heat and freshwater transport from sustained in situ observations 34.5°S
 ]
 
 # Mapping from array names to their full descriptions
@@ -261,6 +263,8 @@ ARRAY_DESCRIPTIONS = {
     "nac": "North Atlantic Current - Transport estimate from satellite altimetry and float observations",
     "sf2021": "SF2021 - Sanchez-Franks 2021 satellite reconstruction of AMOC transport at 26°N",
     "lebras35n": "Le Bras 2023 - AMOC transport estimates at 35°N from satellite altimetry and in situ data",
+    "axmoc22s": "AXMOC 22.5°S - AMOC and heat transport from sustained in situ observations at 22.5°S",
+    "axmoc34s": "AXMOC 34.5°S - AMOC, heat and freshwater transport from sustained in situ observations at 34.5°S",
 }
 
 # Preferred units

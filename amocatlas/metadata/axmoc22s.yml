@@ -1,0 +1,59 @@
+metadata:
+  program: "AXMOC22S"
+  description: "Estimates of AMOC and heat transport at 22.5°S"
+  project: "I. Pita, M. Goes - AXMOC: Estimate of AMOC, heat and freshwater transports at 22.5 and 34.5S based on sustained in situ observations"
+  weblink: https://zenodo.org/records/18839461
+  comment: Dataset accessed and processed via http://github.com/AMOCcommunity/amocatlas
+  acknowledgments: >
+    This research was carried out in part under the auspices of the Cooperative Institute for Marine and Atmospheric Studies, a cooperative institute of the University of Miami and the National Oceanic and Atmospheric Administration (NOAA), cooperative agreement NA20OAR4320472, and was supported by NOAA's Atlantic Oceanographic and Meteorological Laboratory (AOML). MG and DLV were also supported by the National Oceanic and Atmospheric Administration (NOAA) Climate Variability and Predictability program (Grant NA20OAR4310407).
+  citation: >
+    Pita, I., Goes, M., Volkov, D. L., Dong, S., Goni, G., & Cirano, M. (2024). An ARGO and XBT observing system for the Atlantic Meridional Overturning Circulation and Meridional Heat Transport (AXMOC) at 22.5°S. Journal of Geophysical Research: Oceans, 129, e2023JC020010. https://doi.org/10.1029/2023JC020010
+  license: 
+  featureType: timeSeries
+  time_coverage_start: '2007-11-13'
+  time_coverage_end: '2023-05-18'
+  contributing_institutions: "University of Miami, NOAA"
+
+files:
+  AXMOC_22S_timeseries_2007_2023.nc:
+    source_url: https://zenodo.org/records/18839461/files/
+    data_product: "Estimates of AMOC and meridional heat transports at 22.5°S based on sustained in situ observations"
+    variable_mapping:
+      "time": TIME
+      "moc_total": MOC
+      "moc_ekman": TRANS_EKMAN
+      "moc_geostrophic": TRANS_GEOSTROPHIC
+      "mht_total": MHT
+      "mht_ekman": MHT_EKMAN
+      "mht_geostrophic": MHT_GEOSTROPHIC
+    original_variable_metadata:
+      moc_total:
+        long_name: "Total AMOC"
+        description: "Total AMOC transport time series at 22.5°S"
+        units: Sverdrup
+        standard_name: ocean_meridional_overturning_streamfunction
+      moc_ekman:
+        long_name: "Ekman AMOC"
+        description: "Ekman component of AMOC transport time series at 22.5°S"
+        units: Sverdrup
+        standard_name: ocean_volume_transport_across_line
+      moc_geostrophic:
+        long_name: "Geostrophic AMOC"
+        description: "Geostrophic component of AMOC transport time series at 22.5°S"
+        units: Sverdrup
+        standard_name: ocean_volume_transport_across_line
+      mht_total:
+        long_name: "Total MHT"
+        description: "Total meridional heat transport at 22.5°S"
+        units: PW
+        standard_name: northward_ocean_heat_transport
+      mht_ekman:
+        long_name: "Ekman MHT"
+        description: "Ekman component of meridional heat transport at 22.5°S"
+        units: PW
+        standard_name: northward_ocean_heat_transport_component
+      mht_geostrophic:
+        long_name: "Geostrophic MHT"
+        description: "Geostrophic component of meridional heat transport at 22.5°S"
+        units: PW
+        standard_name: northward_ocean_heat_transport_component

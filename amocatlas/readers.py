@@ -44,6 +44,8 @@ from amocatlas.data_sources import (
     read_nac,
     read_sf2021,
     read_lebras35n,
+    read_axmoc22s,
+    read_axmoc34s,
 )
 
 log = logger.log
@@ -89,6 +91,8 @@ def _get_reader(array_name: str) -> Callable[..., List[xr.Dataset]]:
         "nac": read_nac,
         "sf2021": read_sf2021,
         "lebras35n": read_lebras35n,
+        "axmoc22s": read_axmoc22s,
+        "axmoc34s": read_axmoc34s,
     }
     try:
         return readers[array_name.lower()]
