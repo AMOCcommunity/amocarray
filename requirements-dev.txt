@@ -18,7 +18,7 @@ myst-parser>=2.0
 
 # Testing
 pytest>=8.0
-pytest-cov>=4.1  # optional
+pytest-cov>=7.1.0  # optional
 
 # Code quality
 black>=24.0
