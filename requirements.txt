@@ -1,9 +1,9 @@
 # Core scientific stack
 numpy>=1.23
 pandas>=2.0
-xarray>=2023.12.0
-netcdf4>=1.6
-scipy>=1.10
+xarray>=2024.6.0
+netcdf4>=1.7.4
+scipy>=1.15.3
 pyyaml>=6.0
 requests>=2.25.0
 jinja2>=3.0.0

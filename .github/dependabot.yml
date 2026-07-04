@@ -1,0 +1,57 @@
+version: 2
+updates:
+  # Python dependencies
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+      time: "09:00"
+      timezone: "UTC"
+    open-pull-requests-limit: 10
+    commit-message:
+      prefix: "[DEPS]"
+      include: "scope"
+    reviewers:
+      - "eleanorfrajka"
+      - "isaschmitz"
+    assignees:
+      - "eleanorfrajka"
+      - "isaschmitz"
+    labels:
+      - "dependencies"
+      - "automated"
+    groups:
+      minor-and-patch:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
+
+  # GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+      time: "09:00"
+      timezone: "UTC"
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "[CI]"
+      include: "scope"
+    reviewers:
+      - "eleanorfrajka"
+      - "isaschmitz"
+    assignees:
+      - "eleanorfrajka"
+      - "isaschmitz"
+    labels:
+      - "github-actions"
+      - "automated"
+    groups:
+      actions-minor-and-patch:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
