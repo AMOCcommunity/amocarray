@@ -1,5 +1,5 @@
 # Core scientific stack
-numpy>=1.23
+numpy>=2.2.6
 pandas>=2.0
 xarray>=2024.6.0
 netcdf4>=1.7.4
