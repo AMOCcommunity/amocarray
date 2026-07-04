@@ -7,6 +7,11 @@ on:
     paths:
       - '**.py'
       - '**.ipynb'
+      - '**.rst'
+      - '**.md'
+      - 'requirements*.txt'
+      - 'pyproject.toml'
+      - 'setup.cfg'
 
 jobs:
   job_mytests:
@@ -14,7 +19,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        python-version: ["3.10"]
+        python-version: ["3.10", "3.11", "3.12"]
       fail-fast: true
 
     defaults:
