@@ -8,7 +8,7 @@ myst-nb>=1.4.0
 nbsphinx>=0.9.8  # optional, confirm usage
 
 # Advanced plotting (optional for publication figures)
-pygmt>=0.10
+pygmt>=0.13.0
 
 # Documentation
 sphinx>=7.2
