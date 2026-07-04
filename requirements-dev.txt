@@ -12,7 +12,7 @@ pygmt>=0.10
 
 # Documentation
 sphinx>=7.2
-sphinx-rtd-theme>=2.0
+sphinx-rtd-theme>=3.1.0
 pypandoc>=1.11  # optional, confirm usage
 myst-parser>=2.0
 
