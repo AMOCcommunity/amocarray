@@ -4,7 +4,7 @@
 # Jupyter and notebooks
 jupyterlab>=4.0
 nbconvert>=7.17.1
-myst-nb>=1.0
+myst-nb>=1.4.0
 nbsphinx>=0.9.8  # optional, confirm usage
 
 # Advanced plotting (optional for publication figures)
