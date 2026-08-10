@@ -204,8 +204,14 @@ data/Adjusted_fulldepth/
 data/ts_gridded.nc.corrupted
 data/ts_gridded.nc
 
-# Claude Code
+# Claude Code (local-only working notes and guidance)
 .claude/
+CLAUDE.md
+CLAUDE-*.md
+
+# Test build artifacts (fresh-wheel clean-env testing)
+dist-test/
+
 data/OS_MOVE_20000101-20221018_GRD_TEMPERATURE-SALINITY-AT-SITES-MOVE1-MOVE3.nc
 data/OS_MOVE_20000101-20221021_GRD_CURRENTS-AT-SITES-MOVE3-MOVE4.nc
 contributors_database_edited.yml

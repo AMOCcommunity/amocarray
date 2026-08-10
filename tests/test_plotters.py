@@ -388,6 +388,7 @@ def test_plotting_with_saving() -> None:
         plt.close(fig)
 
 
+@pytest.mark.slow
 def test_plot_with_real_data() -> None:
     """Test plotting with real RAPID sample data."""
     try:
