@@ -7,6 +7,7 @@ This module provides functions to:
 - Standardize contributor names using the registry
 """
 
+import warnings
 import yaml
 import re
 from pathlib import Path
@@ -287,6 +288,24 @@ def parse_contributors(
             "role": roles[i] if i < len(roles) else "",
         }
 
+    # Heuristic check: commas separate contributors, so a "Last, First" name is
+    # silently split into two people. A parsed name that is a single word (no internal
+    # whitespace) is the tell-tale sign of such a split — warn so a curator can switch
+    # to ";" as the separator. Only flag when there are multiple contributors.
+    if max_len >= 2:
+        single_word = [
+            entry["name"]
+            for entry in result.values()
+            if entry["name"] and " " not in entry["name"]
+        ]
+        if single_word:
+            warnings.warn(
+                f"Contributor name(s) parsed as a single word: {single_word}. "
+                "Commas separate contributors, so a 'Last, First' name is split into "
+                "two people; use ';' between contributors to disambiguate.",
+                stacklevel=2,
+            )
+
     log_debug(f"Parsed {max_len} contributors from metadata")
     return result
 
@@ -556,12 +575,23 @@ def parse_institutions(
     corrected_institutions = contributing_institutions
     if corrected_institutions:
         for original, corrected in INSTITUTION_CORRECTIONS.items():
+            # Additive corrections (the original is a substring of the corrected form,
+            # e.g. one that appends "(IfM)") must not be re-applied to a value that is
+            # already correct, or the appended text is duplicated
+            # ("University of Hamburg (IfM) (IfM)").
+            if original in corrected and corrected in corrected_institutions:
+                continue
             corrected_institutions = corrected_institutions.replace(original, corrected)
 
     # Parse all fields (using corrected institutions string and shared helper)
     names = _split_clean(corrected_institutions)
     vocabularies = _split_clean(contributing_institutions_vocabulary)
     roles = _split_clean(contributing_institutions_role)
+
+    # A single role applies to every listed institution; broadcast it so institutions
+    # after the first are not left with an empty role (avoids "host, , ").
+    if len(roles) == 1 and len(names) > 1:
+        roles = roles * len(names)
 
     # Find maximum length to determine number of institutions
     # For institutions, we use max length to allow enrichment to fill vocabulary gaps

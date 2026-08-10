@@ -212,6 +212,10 @@ CLAUDE-*.md
 # Test build artifacts (fresh-wheel clean-env testing)
 dist-test/
 
+# Stray report output from running report tests with tests/ as CWD
+# (report.py uses a CWD-relative plots_dir; real reports live in docs/source/_static/reports)
+tests/docs/
+
 data/OS_MOVE_20000101-20221018_GRD_TEMPERATURE-SALINITY-AT-SITES-MOVE1-MOVE3.nc
 data/OS_MOVE_20000101-20221021_GRD_CURRENTS-AT-SITES-MOVE3-MOVE4.nc
 contributors_database_edited.yml

@@ -4,11 +4,11 @@ metadata:
   project: "I. Le Bras, J. Willis, J. Fenty: The Atlantic Meridional Overturning Circulation at 35°N From Deep Moorings, Floats, and Satellite Altimeter"
   weblink: https://zenodo.org/records/7262142
   comment: Dataset accessed and processed via http://github.com/AMOCcommunity/amocatlas
+  license: CC-BY-4.0  # From Zenodo record 7262142
   acknowledgment: >
     ILB and JW gratefully acknowledge the National Aeronautics and Space Administration Grant 80NSSC20K0421. This work was done in part at the Jet Propulsion Laboratory, California Institute of Technology under a contract from NASA. The Argo float data were collected and made freely available by the International Argo Program and the national programs that contribute to it (https://argo.ucsd.edu,https://www.ocean-ops.org). The Argo Program is part of the Global Ocean Observing System. ECCO is supported by NASA's Physical Oceanography, Modeling Analysis and Prediction, and Cryosphere programs. We thank John Toole, Magdalena Andres, and the many other scientists and mariners who went to sea to collect the in situ observational data, particularly through the Line W program.
   citation: >
     Le Bras, I. A.-A, Willis, J., & Fenty, I. (2023). The Atlantic meridional overturning circulation at 35°N from deep moorings, floats, and satellite altimeter. Geophysical Research Letters, 50, e2022GL101931. https://doi.org/10.1029/2022GL101931
-  license: 
   featureType: timeSeries
   time_coverage_start: '2004-05-16'
   time_coverage_end: '2014-04-17'

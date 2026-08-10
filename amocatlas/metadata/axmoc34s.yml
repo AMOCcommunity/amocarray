@@ -4,11 +4,11 @@ metadata:
   project: "I. Pita, M. Goes - AXMOC: Estimate of AMOC, heat and freshwater transports at 22.5 and 34.5S based on sustained in situ observations"
   weblink: https://zenodo.org/records/18839461
   comment: Dataset accessed and processed via http://github.com/AMOCcommunity/amocatlas
-  acknowledgments: >
+  license: CC-BY-4.0  # From Zenodo record 18839461
+  acknowledgment: >
     The author(s) declare that financial support was received for the research, authorship, and/or publication of this article. This research was carried out in part under the auspices of the Cooperative Institute for Marine and Atmospheric Studies, a cooperative institute of the University of Miami and the National Oceanic and Atmospheric Administration (NOAA), cooperative agreement NA20OAR4320472, and was supported by NOAA's Atlantic Oceanographic and Meteorological Laboratory (AOML). MG and DLV were also supported by the National Oceanic and Atmospheric Administration (NOAA) Climate Variability and Predictability program (Grant NA20OAR4310407)
   citation: >
     Pita I, Goes M, Volkov DL, Dong S and Schmid C (2024) South Atlantic meridional overturning circulation and its respective heat and freshwater transports from sustained observations near 34.5°S. Front. Mar. Sci. 11:1474133. doi: 10.3389/fmars.2024.1474133
-  license: 
   featureType: timeSeries
   time_coverage_start: '2005-11-13'
   time_coverage_end: '2023-05-18'

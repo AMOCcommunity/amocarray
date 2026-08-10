@@ -1,0 +1,181 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://amoccommunity.github.io/amocatlas/array_schema.json",
+  "title": "AMOCatlas array metadata YAML",
+  "description": "Schema for amocatlas/metadata/<array>.yml files. Closed key sets (additionalProperties:false) catch typos and unmapped keys. Allowed metadata keys are the union of defaults.GLOBAL_ATTR_ORDER, the recognised METADATA_KEY_MAPPINGS aliases and their targets, and a few processing directives; test_metadata_schema.py asserts this stays in sync with defaults.py. Any '<field>_overwrite' key is allowed.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "metadata",
+    "files"
+  ],
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "ACDD_version": true,
+        "CF_version": true,
+        "Conventions": {
+          "type": "string"
+        },
+        "DOI": true,
+        "Institution": true,
+        "Project": true,
+        "acknowledgement": true,
+        "acknowledgment": true,
+        "applied_variable_mapping": true,
+        "array": true,
+        "cdm_data_type": true,
+        "citation": true,
+        "comment": true,
+        "contributing_institutions": true,
+        "contributing_institutions_role": true,
+        "contributing_institutions_role_vocabulary": true,
+        "contributing_institutions_vocabulary": true,
+        "contributor": true,
+        "contributor_email": true,
+        "contributor_id": true,
+        "contributor_institution": true,
+        "contributor_name": true,
+        "contributor_role": true,
+        "contributor_role_vocabulary": true,
+        "contributor_url": true,
+        "created_by": true,
+        "creation_date": true,
+        "creator": true,
+        "creator_email": true,
+        "creator_institution": true,
+        "creator_name": true,
+        "creator_url": true,
+        "data_policy": true,
+        "data_product": true,
+        "data_type": true,
+        "data_url": true,
+        "date_created": true,
+        "date_modified": true,
+        "description": true,
+        "distribution_statement": true,
+        "doi": true,
+        "featureType": true,
+        "featureType_vocabulary": true,
+        "format_version": true,
+        "geospatial_lat_max": true,
+        "geospatial_lat_min": true,
+        "geospatial_lon_max": true,
+        "geospatial_lon_min": true,
+        "geospatial_vertical_max": true,
+        "geospatial_vertical_min": true,
+        "history": true,
+        "id": true,
+        "institution": true,
+        "internal_mission_identifier": true,
+        "keywords": true,
+        "keywords_vocabulary": true,
+        "license": {
+          "type": "string"
+        },
+        "naming_authority": true,
+        "ncei_template_version": true,
+        "network": true,
+        "note": true,
+        "original_variable_metadata": {
+          "type": "object"
+        },
+        "platform": true,
+        "platform_code": true,
+        "platform_type": true,
+        "platform_vocabulary": true,
+        "principal_investigator": true,
+        "principal_investigator_email": true,
+        "principle_investigator": true,
+        "principle_investigator_email": true,
+        "processing_datasource": true,
+        "processing_date": true,
+        "processing_level": true,
+        "processing_software": true,
+        "processing_version": true,
+        "product_version": true,
+        "program": true,
+        "program_vocabulary": true,
+        "project": true,
+        "publisher_email": true,
+        "publisher_institution": true,
+        "publisher_name": true,
+        "publisher_type": true,
+        "publisher_url": true,
+        "reference": true,
+        "references": true,
+        "remove_unwanted_attributes": {
+          "type": "array"
+        },
+        "rtqc_method": true,
+        "rtqc_method_doi": true,
+        "sea_name": true,
+        "site": true,
+        "site_code": true,
+        "site_vocabulary": true,
+        "source": true,
+        "source_file": true,
+        "source_path": true,
+        "source_url": true,
+        "standard_name_vocabulary": true,
+        "start_date": true,
+        "summary": true,
+        "time_coverage_end": {
+          "type": "string"
+        },
+        "time_coverage_start": {
+          "type": "string"
+        },
+        "title": true,
+        "update_interval": true,
+        "uri": true,
+        "uuid": true,
+        "variable_mapping": {
+          "type": "object"
+        },
+        "web_link": true,
+        "weblink": true,
+        "website": true,
+        "wmo_platform_code": true
+      },
+      "patternProperties": {
+        "_overwrite$": true
+      }
+    },
+    "files": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "citation": true,
+          "comment": true,
+          "contributor_name": true,
+          "contributor_role": true,
+          "convert_to_coord": true,
+          "coordinates": true,
+          "data_product": true,
+          "distribution_statement": true,
+          "featureType": true,
+          "original_variable_metadata": {
+            "type": "object"
+          },
+          "product_version": true,
+          "size": true,
+          "source_file": true,
+          "source_path": true,
+          "source_url": true,
+          "url": true,
+          "variable_mapping": {
+            "type": "object"
+          },
+          "variables_to_remove": true,
+          "version": true
+        }
+      }
+    }
+  }
+}

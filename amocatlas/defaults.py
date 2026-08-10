@@ -139,7 +139,7 @@ INSTITUTION_CORRECTIONS = {
     "National Oceanography Centre,UK": "National Oceanography Centre (Southampton)",
     "National Oceanography Centre, UK": "National Oceanography Centre (Southampton)",
     # Add more exact string fixes here as needed
-    "Multiple contributing institutions (US, UK, Germany, Netherlands, Canada, France, China)": "Multiple contribution institutions",
+    "Multiple contributing institutions (US, UK, Germany, Netherlands, Canada, France, China)": "Multiple contributing institutions",
     "Georgia Institute of Technology, USA": "Georgia Institute of Technology",
     "National Oceanography Centre at Southampton, UK": "National Oceanography Centre (Southampton)",
     "Woods Hole Oceanographic Institution, USA": "Woods Hole Oceanographic Institution",

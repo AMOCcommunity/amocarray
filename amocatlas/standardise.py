@@ -164,6 +164,83 @@ def get_dynamic_version() -> str:
     return __version__
 
 
+_NUMERIC_CONFLICT_KEYS = {
+    "geospatial_lat_min",
+    "geospatial_lat_max",
+    "geospatial_lon_min",
+    "geospatial_lon_max",
+    "geospatial_vertical_min",
+    "geospatial_vertical_max",
+}
+
+
+def _classify_conflict_field(key: str) -> str:
+    """Classify a metadata key for conflict resolution.
+
+    Returns one of ``"number"``, ``"date"``, ``"identifier"`` or ``"text"``. Typed
+    fields are resolved by value equivalence and source priority, never by string
+    length (which let a wrong-hemisphere latitude win because the minus sign made the
+    string longer).
+    """
+    k = key.lower()
+    if key in _NUMERIC_CONFLICT_KEYS or k.startswith("geospatial_"):
+        return "number"
+    if "time_coverage" in k or "date" in k:
+        return "date"
+    if (
+        k in {"doi", "id", "uuid", "uri", "contributor_id", "license"}
+        or k.endswith(("_url", "_id", "_doi", "_vocabulary"))
+        or "doi" in k
+    ):
+        return "identifier"
+    return "text"
+
+
+def _typed_values_equivalent(field_type: str, first: str, second: str) -> bool:
+    """Return True if two typed values are equivalent despite differing text."""
+    if field_type == "number":
+        try:
+            return float(first) == float(second)
+        except (TypeError, ValueError):
+            return False
+    if field_type == "date":
+        try:
+            import pandas as pd
+
+            return pd.to_datetime(first) == pd.to_datetime(second)
+        except (TypeError, ValueError):
+            return first == second
+    # identifiers are only equivalent when the strings match exactly, which the caller
+    # has already ruled out by the time this is reached.
+    return False
+
+
+def _warn_metadata_conflict(
+    key: str,
+    existing_str: str,
+    new_str: str,
+    existing_source: str,
+    new_source: str,
+    resolution: str,
+) -> None:
+    """Log the full conflict detail and emit a user-visible warning."""
+
+    def _trunc(value: str) -> str:
+        return f"{value[:100]}{'...' if len(value) > 100 else ''} ({len(value)} chars)"
+
+    log_debug(
+        f"METADATA CONFLICT for '{key}':\n"
+        f"  Option 1 ({existing_source}): {_trunc(existing_str)}\n"
+        f"  Option 2 ({new_source}): {_trunc(new_str)}\n"
+        f"  → {resolution}"
+    )
+    warnings.warn(
+        f"Metadata conflict for '{key}': {existing_source}={existing_str!r} vs "
+        f"{new_source}={new_str!r}; {resolution}.",
+        stacklevel=3,
+    )
+
+
 def resolve_metadata_conflict(
     key: str,
     existing_value: str,
@@ -171,12 +248,14 @@ def resolve_metadata_conflict(
     existing_source: str = "unknown",
     new_source: str = "unknown",
 ) -> str:
-    """Resolve metadata conflicts using consistent logic with detailed warnings.
+    """Resolve metadata conflicts using field-typed logic.
 
     Resolution rules:
     1. If values are identical, return without warning
     2. If one is empty/whitespace and other isn't, use non-empty
-    3. Otherwise, use longer value and warn about the conflict
+    3. For typed fields (numbers, dates, identifiers): keep the source-of-truth
+       (existing) value and warn if the values genuinely differ; never compare by length
+    4. For free text: keep the longer value (logged, not warned, to avoid noise)
 
     Parameters
     ----------
@@ -214,10 +293,27 @@ def resolve_metadata_conflict(
         log_debug(f"'{key}': keeping existing non-empty value from {existing_source}")
         return existing_value
 
-    # Both are non-empty but different - use longer value with warning
+    # Both are non-empty but different - resolve by field type.
+    field_type = _classify_conflict_field(key)
+
+    if field_type in ("number", "date", "identifier"):
+        if _typed_values_equivalent(field_type, existing_str, new_str):
+            log_debug(f"'{key}': equivalent {field_type} values, keeping existing")
+            return existing_value
+        _warn_metadata_conflict(
+            key,
+            existing_str,
+            new_str,
+            existing_source,
+            new_source,
+            resolution=f"keeping {existing_source} ({field_type} mismatch)",
+        )
+        return existing_value
+
+    # Free text: keep the longer value. Logged (not warned) to avoid noise, since
+    # array-level YAML routinely provides longer descriptions than the source file.
     existing_len = len(existing_str)
     new_len = len(new_str)
-
     if new_len > existing_len:
         log_debug(
             f"METADATA CONFLICT for '{key}':\n"
@@ -226,14 +322,13 @@ def resolve_metadata_conflict(
             f"  → Using Option 2 (longer value)"
         )
         return new_value
-    else:
-        log_debug(
-            f"METADATA CONFLICT for '{key}':\n"
-            f"  Option 1 ({existing_source}): {existing_str[:100]}{'...' if existing_len > 100 else ''} ({existing_len} chars)\n"
-            f"  Option 2 ({new_source}): {new_str[:100]}{'...' if new_len > 100 else ''} ({new_len} chars)\n"
-            f"  → Using Option 1 (longer/equal value)"
-        )
-        return existing_value
+    log_debug(
+        f"METADATA CONFLICT for '{key}':\n"
+        f"  Option 1 ({existing_source}): {existing_str[:100]}{'...' if existing_len > 100 else ''} ({existing_len} chars)\n"
+        f"  Option 2 ({new_source}): {new_str[:100]}{'...' if new_len > 100 else ''} ({new_len} chars)\n"
+        f"  → Using Option 1 (longer/equal value)"
+    )
+    return existing_value
 
 
 def clean_metadata(attrs: dict, preferred_keys: dict = None) -> dict:

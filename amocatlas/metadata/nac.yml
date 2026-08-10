@@ -4,11 +4,11 @@ metadata:
   project: "Lankhorst, Matthias (2025). North Atlantic Current Time Series from Satellite and Float Observations (1993-2025). "
   weblink: https://library.ucsd.edu/dc/object/bb6635909m
   comment: Dataset accessed and processed via http://github.com/AMOCcommunity/amocatlas
+  license: CC-BY-4.0  # From UCSD Library dc/object/bb6635909m
   acknowledgment: >
    Earlier versions of this dataset were created with support from the European Commission through awards EVK2-CT-2000-00087 and EVR1-CT-2001-40014 (projects 'GYROSCOPE' and 'ANIMATE'). Updated versions were partially supported through award NA15OAR4320071 from U.S. NOAA OOMD.
   citation: >
     Lankhorst, Matthias (2025). North Atlantic Current Time Series from Satellite and Float Observations (1993-2025). In North Atlantic Current Time Series from Satellite and Float Observations. UC San Diego Library Digital Collections. https://doi.org/10.6075/J0D79CCG
-  license: 
   featureType: timeSeries
   time_coverage_start: '1993-01-01'
   time_coverage_end: '2025-07-02'
