@@ -3,7 +3,6 @@ metadata:
   description: "An observation based estimate of the Atlantic meridional freshwater transport"
   project: "An observation based estimate of the Atlantic meridional freshwater transport"
   weblink: "https://zenodo.org/records/12790901"
-  comment: "Dataset accessed and processed via http://github.com/AMOCcommunity/amocatlas"
   acknowledgment: >
     "This study was supported by the National Natural Science Foundation of China (Grant 42122046, 42076202, 42075036), National Key Scientific and Technological Infrastructure project “Earth System Science Numerical Simulator Facility” (EarthLab) and the new Cornerstone Science Foundation through the XPLORER PRIZE. F. Li acknowledges the financial support from the National Key R&D Program of China (Grant 2023YFF0805102). Gratitude is extended to Elaine L. McDonagh, who graciously shared RAPID freshwater transport data."
   citation: >

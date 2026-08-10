@@ -5,7 +5,6 @@ xarray>=2025.6.1
 netcdf4>=1.7.4
 scipy>=1.15.3
 pyyaml>=6.0
-jsonschema>=4.0
 requests>=2.25.0
 jinja2>=3.1.6
 

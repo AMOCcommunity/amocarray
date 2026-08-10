@@ -173,6 +173,19 @@ _NUMERIC_CONFLICT_KEYS = {
     "geospatial_vertical_max",
 }
 
+_DATE_CONFLICT_KEYS = {
+    "time_coverage_start",
+    "time_coverage_end",
+    "start_date",
+    "date_created",
+    "date_modified",
+    "creation_date",
+    "processing_date",
+}
+
+_IDENTIFIER_CONFLICT_KEYS = {"doi", "id", "uuid", "uri", "contributor_id", "license"}
+_IDENTIFIER_CONFLICT_SUFFIXES = ("_url", "_id", "_doi", "_vocabulary")
+
 
 def _classify_conflict_field(key: str) -> str:
     """Classify a metadata key for conflict resolution.
@@ -181,17 +194,17 @@ def _classify_conflict_field(key: str) -> str:
     fields are resolved by value equivalence and source priority, never by string
     length (which let a wrong-hemisphere latitude win because the minus sign made the
     string longer).
+
+    Matching uses explicit key sets and underscore-delimited suffixes rather than bare
+    substrings, so keys like ``update_interval`` (which contains ``"date"``) are not
+    misclassified.
     """
     k = key.lower()
     if key in _NUMERIC_CONFLICT_KEYS or k.startswith("geospatial_"):
         return "number"
-    if "time_coverage" in k or "date" in k:
+    if k in _DATE_CONFLICT_KEYS or k.endswith("_date") or k.startswith("date_"):
         return "date"
-    if (
-        k in {"doi", "id", "uuid", "uri", "contributor_id", "license"}
-        or k.endswith(("_url", "_id", "_doi", "_vocabulary"))
-        or "doi" in k
-    ):
+    if k in _IDENTIFIER_CONFLICT_KEYS or k.endswith(_IDENTIFIER_CONFLICT_SUFFIXES):
         return "identifier"
     return "text"
 

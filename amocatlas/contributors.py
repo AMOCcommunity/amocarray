@@ -575,13 +575,21 @@ def parse_institutions(
     corrected_institutions = contributing_institutions
     if corrected_institutions:
         for original, corrected in INSTITUTION_CORRECTIONS.items():
-            # Additive corrections (the original is a substring of the corrected form,
-            # e.g. one that appends "(IfM)") must not be re-applied to a value that is
-            # already correct, or the appended text is duplicated
-            # ("University of Hamburg (IfM) (IfM)").
-            if original in corrected and corrected in corrected_institutions:
-                continue
-            corrected_institutions = corrected_institutions.replace(original, corrected)
+            if corrected != original and corrected.startswith(original):
+                # Additive correction that appends text (e.g. "(IfM)"). Apply it only
+                # where the appended text is not already present, using a negative
+                # lookahead — so a plain occurrence is corrected while an
+                # already-correct one is not doubled, even within the same string.
+                tail = re.escape(corrected[len(original) :])
+                corrected_institutions = re.sub(
+                    re.escape(original) + f"(?!{tail})",
+                    corrected,
+                    corrected_institutions,
+                )
+            else:
+                corrected_institutions = corrected_institutions.replace(
+                    original, corrected
+                )
 
     # Parse all fields (using corrected institutions string and shared helper)
     names = _split_clean(corrected_institutions)

@@ -565,6 +565,19 @@ class TestInstitutionHandling:
         )
         assert result["contributing_institutions"] == "University of Hamburg (IfM)"
 
+    def test_additive_correction_fixes_plain_and_keeps_corrected(self):
+        """A string mixing a plain and an already-suffixed name: plain gains the suffix
+        (once), the suffixed one is not doubled.
+        """
+        # parse_institutions runs the correction before de-duplication, so both entries
+        # are visible here (process_institution_metadata would collapse the duplicates).
+        result = contributors.parse_institutions(
+            "University of Hamburg, University of Hamburg (IfM)", "", ""
+        )
+        names = [entry["name"] for entry in result.values()]
+        assert names == ["University of Hamburg (IfM)", "University of Hamburg (IfM)"]
+        assert all("(IfM) (IfM)" not in name for name in names)
+
     def test_single_role_broadcast_to_all_institutions(self):
         """A single role is applied to every institution, not just the first."""
         result = contributors.process_institution_metadata(

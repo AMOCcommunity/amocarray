@@ -31,8 +31,31 @@ def _array_yaml_files() -> list[Path]:
 
 
 def _load_schema() -> dict:
-    with SCHEMA_PATH.open() as fh:
+    with SCHEMA_PATH.open(encoding="utf-8") as fh:
         return json.load(fh)
+
+
+class _UniqueKeyLoader(yaml.SafeLoader):
+    """YAML loader that rejects duplicate mapping keys.
+
+    ``yaml.safe_load`` silently keeps the last of a duplicated key, so a rename onto
+    an existing key drops a value with no error. This loader raises instead.
+    """
+
+
+def _no_duplicate_keys(loader: _UniqueKeyLoader, node: yaml.MappingNode) -> dict:
+    seen = set()
+    for key_node, _value_node in node.value:
+        key = loader.construct_object(key_node, deep=True)
+        if key in seen:
+            raise ValueError(f"Duplicate key {key!r}")
+        seen.add(key)
+    return yaml.SafeLoader.construct_mapping(loader, node, deep=True)
+
+
+_UniqueKeyLoader.add_constructor(
+    yaml.resolver.BaseResolver.DEFAULT_MAPPING_TAG, _no_duplicate_keys
+)
 
 
 def test_schema_file_is_valid() -> None:
@@ -48,7 +71,7 @@ def test_at_least_one_array_yaml_found() -> None:
 @pytest.mark.parametrize("yaml_path", _array_yaml_files(), ids=lambda p: p.name)
 def test_array_yaml_matches_schema(yaml_path: Path) -> None:
     """Each array YAML validates against the schema with no errors."""
-    with yaml_path.open() as fh:
+    with yaml_path.open(encoding="utf-8") as fh:
         data = yaml.safe_load(fh)
     validator = Draft202012Validator(_load_schema())
     errors = sorted(validator.iter_errors(data), key=lambda e: e.path)
@@ -56,6 +79,13 @@ def test_array_yaml_matches_schema(yaml_path: Path) -> None:
         f"{'/'.join(str(p) for p in e.path) or '<root>'}: {e.message}" for e in errors
     ]
     assert not messages, f"{yaml_path.name} violates schema:\n" + "\n".join(messages)
+
+
+@pytest.mark.parametrize("yaml_path", _array_yaml_files(), ids=lambda p: p.name)
+def test_array_yaml_has_no_duplicate_keys(yaml_path: Path) -> None:
+    """No array YAML has a duplicate mapping key (which safe_load would hide)."""
+    with yaml_path.open(encoding="utf-8") as fh:
+        yaml.load(fh, Loader=_UniqueKeyLoader)
 
 
 def test_schema_stays_in_sync_with_defaults() -> None:

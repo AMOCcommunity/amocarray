@@ -288,6 +288,10 @@ class TestConflictResolution:
             )
         assert result == "10.5281/zenodo.1"
 
+    def test_update_interval_not_misclassified_as_date(self):
+        """A key containing the substring 'date' is not treated as a date field."""
+        assert standardise._classify_conflict_field("update_interval") == "text"
+
     def test_free_text_uses_longer_value_without_warning(self):
         """Free text keeps the longer value and does not warn (avoids noise)."""
         with warnings.catch_warnings(record=True) as caught:
