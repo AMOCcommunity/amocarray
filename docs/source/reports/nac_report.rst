@@ -13,7 +13,7 @@ Dataset Overview
 - **Description**: North Atlantic Current Time Series from Satellite and Float Observations (1993-2025)
 - **Source File**: _2_1.nc
 - **Data Product**: 6-monthly mean NAC transport time series (1993-2025) estimated from satellite and float observations
-- **License**: https://creativecommons.org/licenses/by/4.0/
+- **License**: CC-BY-4.0
 - **Date Created**: 2025-10-07T00:00:00Z
 - **Time Coverage**: 1993-01-01 to 2025-07-02
 - **Record Length**: 66 observations (32.5 years)
@@ -175,7 +175,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Description\***: North Atlantic Current Time Series from Satellite and Float Observations (1993-2025)
 - **Program\***: NAC
 - **Project\***: Lankhorst, Matthias (2025). North Atlantic Current Time Series from Satellite and Float Observations (1993-2025).
-- **License**: https://creativecommons.org/licenses/by/4.0/
+- **License**: CC-BY-4.0
 - **Acknowledgment\***: Earlier versions of this dataset were created with support from the European Commission through awards EVK2-CT-2000-00087 and EVR1-CT-2001-40014 (projects 'GYROSCOPE' and 'ANIMATE'). Updated versions were partially supported through award NA15OAR4320071 from U.S. NOAA OOMD.
 - **References**: https://doi.org/10.1016/j.pocean.2020.102402 https://doi.org/10.21941/E8RT-MQ80 https://doi.org/10.48670/moi-00148 https://doi.org/10.48670/moi-00149 https://doi.org/10.48670/moi-00150 https://doi.org/10.17882/42182#121877
 - **Weblink\***: https://library.ucsd.edu/dc/object/bb6635909m
@@ -201,12 +201,12 @@ The following metadata provides comprehensive information about this dataset:
 - **featureType\***: timeSeries
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: _2_1.nc
-- **Source Path\***: ~/AMOCatlas/data/_2_1.nc
+- **Source Path\***: /Users/eddifying/.amocatlas_data/_2_1.nc
 - **Source Url\***: https://library.ucsd.edu/dc/object/bb6635909m/
 - **Date Created**: 2025-10-07T00:00:00Z
-- **Date Modified**: 2026-06-01T00:00:00Z
+- **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.0.4
+- **Processing Version**: v0.3.1
 - **Processing Datasource\***: nac
 - **Variable Mapping\***: {'NAC': 'TRANS_NAC', 'NAC_UNCERTAINTY': 'TRANS_NAC_UNCERTAINTY', 'NAC_PROXY': 'TRANS_NAC_PROXY'}
 - **Original Variable Metadata\***: [Complex metadata structure - 3 items]
