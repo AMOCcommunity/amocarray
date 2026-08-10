@@ -61,7 +61,7 @@ class TestNOAC47N:
         assert "NOAC_AMOC.tab" in file_urls
 
         # Check URL format
-        for filename, url in file_urls.items():
+        for _filename, url in file_urls.items():
             assert isinstance(url, str)
             assert url.startswith("https://")
 
@@ -71,7 +71,7 @@ class TestNOAC47N:
         assert isinstance(file_metadata, dict)
         assert "NOAC_AMOC.tab" in file_metadata
 
-        for filename, metadata in file_metadata.items():
+        for _filename, metadata in file_metadata.items():
             assert isinstance(metadata, dict)
             assert "data_product" in metadata
 
@@ -312,7 +312,6 @@ class TestNOAC47N:
                 {"NOAC_AMOC.tab": f"file://{sample_file}"},
                 clear=True,
             ):
-
                 result = noac47n.read_47n(
                     source=temp_dir, file_list=["NOAC_AMOC.tab"], data_dir=temp_dir
                 )

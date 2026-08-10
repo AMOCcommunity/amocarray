@@ -18,6 +18,7 @@ class TestSF2021:
     """Basic tests for the `sf2021` reader module."""
 
     def test_module_constants_defined(self):
+        """Module exposes the expected datasource constants."""
         assert hasattr(sf2021, "DATASOURCE_ID")
         assert hasattr(sf2021, "SF2021_DEFAULT_FILES")
         assert hasattr(sf2021, "SF2021_TRANSPORT_FILES")
@@ -26,6 +27,7 @@ class TestSF2021:
         assert hasattr(sf2021, "SF2021_FILE_METADATA")
 
     def test_default_files_and_transport_files(self):
+        """Default and transport file lists are populated and well-formed."""
         files = sf2021.SF2021_DEFAULT_FILES
         transports = sf2021.SF2021_TRANSPORT_FILES
         assert isinstance(files, list)
@@ -36,6 +38,7 @@ class TestSF2021:
         assert "altimetry_moc_transport_1993_2020_18mos_smoothed.nc" in files
 
     def test_source_and_metadata_structure(self):
+        """Default source is a URL and metadata carries the expected keys."""
         source = sf2021.SF2021_DEFAULT_SOURCE
         assert isinstance(source, str)
         assert source.startswith("http")
@@ -46,11 +49,13 @@ class TestSF2021:
             assert key in metadata
 
     def test_read_function_exists(self):
+        """The public read_sf2021 entry point exists and is documented."""
         assert hasattr(sf2021, "read_sf2021")
         assert callable(sf2021.read_sf2021)
         assert sf2021.read_sf2021.__doc__ is not None
 
     def test_read_sf2021_raises_on_missing_local_file(self):
+        """Reading a missing local file raises FileNotFoundError."""
         with tempfile.TemporaryDirectory() as tmp_dir:
             with pytest.raises(FileNotFoundError, match="Local file not found"):
                 sf2021.read_sf2021(
@@ -58,6 +63,7 @@ class TestSF2021:
                 )
 
     def test_read_returns_dataset_and_tracks_attrs(self, monkeypatch, tmp_path):
+        """read_sf2021 returns a Dataset and records tracked attribute changes."""
         import xarray as xr
         import pandas as pd
 
@@ -73,7 +79,11 @@ class TestSF2021:
 
         monkeypatch.setattr(
             "amocatlas.utilities.resolve_file_path",
-            lambda file_name, source, download_url, local_data_dir, redownload=False: fake_path,
+            lambda file_name,
+            source,
+            download_url,
+            local_data_dir,
+            redownload=False: fake_path,
         )
 
         monkeypatch.setattr(

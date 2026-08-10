@@ -113,12 +113,12 @@ def test_rapid_sigma_coordinate_transformation():
     )
 
     # Verify transformed values are all < 100 (density anomaly range)
-    assert np.all(
-        transformed_sigma0 < 100
-    ), "All transformed sigma0 values should be < 100"
-    assert np.all(
-        transformed_sigma0 > 0
-    ), "All transformed sigma0 values should be positive"
+    assert np.all(transformed_sigma0 < 100), (
+        "All transformed sigma0 values should be < 100"
+    )
+    assert np.all(transformed_sigma0 > 0), (
+        "All transformed sigma0 values should be positive"
+    )
 
     # Test 2: Verify sigma2 values > 100 were transformed (1000 subtracted)
     assert "sigma2" in ds.coords, "sigma2 coordinate should be present"
@@ -132,12 +132,12 @@ def test_rapid_sigma_coordinate_transformation():
     )
 
     # Verify transformed values are all < 100
-    assert np.all(
-        transformed_sigma2 < 100
-    ), "All transformed sigma2 values should be < 100"
-    assert np.all(
-        transformed_sigma2 > 0
-    ), "All transformed sigma2 values should be positive"
+    assert np.all(transformed_sigma2 < 100), (
+        "All transformed sigma2 values should be < 100"
+    )
+    assert np.all(transformed_sigma2 > 0), (
+        "All transformed sigma2 values should be positive"
+    )
 
     # Test 3: Verify attributes are preserved during transformation
     sigma0_attrs = ds["sigma0"].attrs
@@ -148,9 +148,9 @@ def test_rapid_sigma_coordinate_transformation():
     )
     assert "units" in sigma0_attrs, "sigma0 should preserve units attribute"
     assert sigma0_attrs["units"] == "kg m-3"
-    assert (
-        "standard_name" in sigma0_attrs
-    ), "sigma0 should preserve standard_name attribute"
+    assert "standard_name" in sigma0_attrs, (
+        "sigma0 should preserve standard_name attribute"
+    )
 
     sigma2_attrs = ds["sigma2"].attrs
     assert "long_name" in sigma2_attrs, "sigma2 should preserve long_name attribute"
@@ -160,9 +160,9 @@ def test_rapid_sigma_coordinate_transformation():
     )
     assert "units" in sigma2_attrs, "sigma2 should preserve units attribute"
     assert sigma2_attrs["units"] == "kg m-3"
-    assert (
-        "standard_name" in sigma2_attrs
-    ), "sigma2 should preserve standard_name attribute"
+    assert "standard_name" in sigma2_attrs, (
+        "sigma2 should preserve standard_name attribute"
+    )
 
 
 def test_rapid_sigma_coordinate_no_transformation_when_values_small():
@@ -335,18 +335,18 @@ def test_rapid_sigma_transformation_edge_cases():
     )
 
     # Verify some values become negative (which is expected for values originally < 1000)
-    assert np.any(
-        ds["sigma0"].values < 0
-    ), "Some transformed values should be negative for mixed input"
+    assert np.any(ds["sigma0"].values < 0), (
+        "Some transformed values should be negative for mixed input"
+    )
 
     # But the originally high values should now be in reasonable density anomaly range
     transformed_high_values = ds["sigma0"].values[mixed_values > 1000]
-    assert np.all(
-        transformed_high_values > 0
-    ), "Originally high values should be positive after transformation"
-    assert np.all(
-        transformed_high_values < 100
-    ), "Originally high values should be < 100 after transformation"
+    assert np.all(transformed_high_values > 0), (
+        "Originally high values should be positive after transformation"
+    )
+    assert np.all(transformed_high_values < 100), (
+        "Originally high values should be < 100 after transformation"
+    )
 
 
 def test_rapid_sigma_coordinate_attributes_preserved():
@@ -388,14 +388,14 @@ def test_rapid_sigma_coordinate_attributes_preserved():
     transformed_attrs = ds["sigma0"].attrs
     for key, value in original_attrs.items():
         assert key in transformed_attrs, f"Attribute '{key}' should be preserved"
-        assert (
-            transformed_attrs[key] == value
-        ), f"Attribute '{key}' value should be unchanged"
+        assert transformed_attrs[key] == value, (
+            f"Attribute '{key}' value should be unchanged"
+        )
 
     # Verify no extra attributes were added
-    assert len(transformed_attrs) == len(
-        original_attrs
-    ), "No extra attributes should be added"
+    assert len(transformed_attrs) == len(original_attrs), (
+        "No extra attributes should be added"
+    )
 
 
 def test_rapid_sigma_coordinate_missing_coordinates():
@@ -429,12 +429,12 @@ def test_rapid_sigma_coordinate_missing_coordinates():
             ds["sigma2"].attrs.update(original_attrs)
 
     # Verify dataset is unchanged
-    assert (
-        set(ds.coords.keys()) == original_coords
-    ), "Coordinate names should be unchanged"
-    assert (
-        set(ds.data_vars.keys()) == original_data_vars
-    ), "Data variable names should be unchanged"
+    assert set(ds.coords.keys()) == original_coords, (
+        "Coordinate names should be unchanged"
+    )
+    assert set(ds.data_vars.keys()) == original_data_vars, (
+        "Data variable names should be unchanged"
+    )
 
     # Verify specific coordinates are still missing
     assert "sigma0" not in ds.coords, "sigma0 should still be missing"

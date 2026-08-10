@@ -1018,12 +1018,12 @@ class TestSplitCleanFunction:
 
         # The result should NOT contain "Norwegian Polar Institute (NPI)"
         contributor_names = result.get("contributor_name", "")
-        assert (
-            "Norwegian Polar Institute" not in contributor_names
-        ), f"Institution should not appear in contributors: {contributor_names}"
-        assert (
-            "NPI" not in contributor_names
-        ), f"Institution abbreviation should not appear in contributors: {contributor_names}"
+        assert "Norwegian Polar Institute" not in contributor_names, (
+            f"Institution should not appear in contributors: {contributor_names}"
+        )
+        assert "NPI" not in contributor_names, (
+            f"Institution abbreviation should not appear in contributors: {contributor_names}"
+        )
 
         # Should contain the individual contributors (registry enriches names)
         assert "Hege-Beate Fredriksen" in contributor_names  # H. Fredriksen enriched
@@ -1039,9 +1039,9 @@ class TestSplitCleanFunction:
             f"Hege-Beate Fredriksen appears {frederiksen_count} times in contributor list"
         )
         # Should appear twice: once as creator, once as publisher (different roles, not duplicates)
-        assert (
-            frederiksen_count == 2
-        ), f"Expected 2 instances of Fredriksen (different roles), got {frederiksen_count}"
+        assert frederiksen_count == 2, (
+            f"Expected 2 instances of Fredriksen (different roles), got {frederiksen_count}"
+        )
 
 
 if __name__ == "__main__":

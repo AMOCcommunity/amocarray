@@ -384,7 +384,6 @@ class ReportUtils:
                     if 190000 <= max_val <= 300000 and abs(numeric_diff) < 10000:
                         # Convert YYYYMM to actual dates and calculate difference
                         try:
-
                             # Convert YYYYMM to datetime
                             min_year = int(time_min) // 100
                             min_month = int(time_min) % 100
@@ -433,7 +432,6 @@ class ReportUtils:
                 try:
                     numeric_val = float(date_obj)
                     if numeric_val > 1e9:  # Likely seconds since 1970
-
                         return pd.to_datetime(numeric_val, unit="s").strftime(
                             "%Y-%m-%d"
                         )
@@ -599,7 +597,6 @@ class ReportUtils:
             try:
                 # Special handling for TIME coordinates
                 if coord_name == "TIME":
-
                     # Handle different TIME coordinate formats
                     if coord_var.dtype.kind == "M":  # datetime64 type
                         # Convert datetime64 directly to readable dates
@@ -1177,7 +1174,7 @@ class ReportUtils:
             )
 
             for i, (dataset, attr_changes) in enumerate(
-                zip(datasets, attr_changes_list)
+                zip(datasets, attr_changes_list, strict=False)
             ):
                 source_file = dataset.attrs.get("source_file", f"dataset_{i}")
                 print(f"Processing {source_file}...")
@@ -1612,7 +1609,7 @@ class StandardizedDatasetReport(BaseDatasetReport):
         hours = median_diff.total_seconds() / 3600
 
         if hours < 1:
-            return f"{int(median_diff.total_seconds()//60)}min"
+            return f"{int(median_diff.total_seconds() // 60)}min"
         elif hours < 12:
             return f"{hours:.1f}H"
         elif 10 <= hours <= 14:
@@ -1793,7 +1790,7 @@ def analyze_dataset(
     # Check dataset index
     if dataset_index >= len(datasets):
         raise ValueError(
-            f"Dataset index {dataset_index} out of range. Available datasets: 0-{len(datasets)-1}"
+            f"Dataset index {dataset_index} out of range. Available datasets: 0-{len(datasets) - 1}"
         )
 
     # Get the requested dataset and extract its metadata changes

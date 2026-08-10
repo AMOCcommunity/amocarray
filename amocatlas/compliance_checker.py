@@ -850,9 +850,9 @@ def print_validation_report(result: ValidationResult, filepath: str) -> None:
         Path to the validated file
 
     """
-    print(f"\n{'='*60}")
+    print(f"\n{'=' * 60}")
     print(f"AC1 Compliance Report: {Path(filepath).name}")
-    print(f"{'='*60}")
+    print(f"{'=' * 60}")
 
     if result.file_type:
         print(f"File Type: {result.file_type}")
@@ -862,16 +862,16 @@ def print_validation_report(result: ValidationResult, filepath: str) -> None:
     print(f"Warnings: {len(result.warnings)}")
 
     if result.errors:
-        print(f"\n{'-'*30} ERRORS {'-'*30}")
+        print(f"\n{'-' * 30} ERRORS {'-' * 30}")
         for i, error in enumerate(result.errors, 1):
             print(f"{i:2d}. {error}")
 
     if result.warnings:
-        print(f"\n{'-'*29} WARNINGS {'-'*29}")
+        print(f"\n{'-' * 29} WARNINGS {'-' * 29}")
         for i, warning in enumerate(result.warnings, 1):
             print(f"{i:2d}. {warning}")
 
-    print(f"\n{'='*60}")
+    print(f"\n{'=' * 60}")
 
 
 def create_array_specs_template() -> dict:

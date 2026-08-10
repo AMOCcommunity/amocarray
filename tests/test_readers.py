@@ -249,31 +249,31 @@ def test_reader_url_constants(module_name, expected_url_constants):
 
     # Check each expected URL constant exists and is not None/empty
     for constant_name in expected_url_constants:
-        assert hasattr(
-            module, constant_name
-        ), f"{module_name} should have {constant_name} constant"
+        assert hasattr(module, constant_name), (
+            f"{module_name} should have {constant_name} constant"
+        )
         constant_value = getattr(module, constant_name)
         assert constant_value is not None, f"{constant_name} should not be None"
 
         if isinstance(constant_value, str):
-            assert (
-                len(constant_value.strip()) > 0
-            ), f"{constant_name} should not be empty string"
+            assert len(constant_value.strip()) > 0, (
+                f"{constant_name} should not be empty string"
+            )
             # Basic URL validation for SOURCE constants
             if "_SOURCE" in constant_name:
-                assert constant_value.startswith(
-                    ("http://", "https://", "ftp://")
-                ), f"{constant_name} should be a valid URL"
+                assert constant_value.startswith(("http://", "https://", "ftp://")), (
+                    f"{constant_name} should be a valid URL"
+                )
         elif isinstance(constant_value, dict):
-            assert (
-                len(constant_value) > 0
-            ), f"{constant_name} dictionary should not be empty"
+            assert len(constant_value) > 0, (
+                f"{constant_name} dictionary should not be empty"
+            )
             # Check that all URLs in the dictionary are valid
             for url in constant_value.values():
                 if isinstance(url, str):
-                    assert url.startswith(
-                        ("http://", "https://", "ftp://")
-                    ), f"URL in {constant_name} should be valid"
+                    assert url.startswith(("http://", "https://", "ftp://")), (
+                        f"URL in {constant_name} should be valid"
+                    )
 
 
 @pytest.mark.slow
@@ -299,20 +299,20 @@ def test_load_dataset(array_name, expected_var):
             ds,
             xr.Dataset,
         ), f"Each dataset for {array_name} should be an xarray.Dataset"
-        assert (
-            "TIME" in ds or "time" in ds
-        ), f"{array_name} dataset should have TIME or time coordinate"
-        assert (
-            expected_var in ds
-        ), f"{array_name} dataset should contain variable {expected_var}"
-        assert (
-            "source_file" in ds.attrs
-        ), f"{array_name} dataset should include 'source_file' metadata"
+        assert "TIME" in ds or "time" in ds, (
+            f"{array_name} dataset should have TIME or time coordinate"
+        )
+        assert expected_var in ds, (
+            f"{array_name} dataset should contain variable {expected_var}"
+        )
+        assert "source_file" in ds.attrs, (
+            f"{array_name} dataset should include 'source_file' metadata"
+        )
         # Check for project metadata (case-insensitive)
         project_keys = [k for k in ds.attrs.keys() if k.lower() == "project"]
-        assert (
-            len(project_keys) > 0
-        ), f"{array_name} dataset should include 'project' metadata (case-insensitive)"
+        assert len(project_keys) > 0, (
+            f"{array_name} dataset should include 'project' metadata (case-insensitive)"
+        )
 
 
 def test_rapid_sigma_coordinate_integration():
@@ -331,9 +331,9 @@ def test_rapid_sigma_coordinate_integration():
     source_lines = inspect.getsource(read_rapid)
 
     # Verify the transformation logic is present in the function
-    assert (
-        "meridional_transports.nc" in source_lines
-    ), "Should check for meridional_transports.nc file"
+    assert "meridional_transports.nc" in source_lines, (
+        "Should check for meridional_transports.nc file"
+    )
     assert "sigma0" in source_lines, "Should handle sigma0 coordinate"
     assert "sigma2" in source_lines, "Should handle sigma2 coordinate"
     assert "1000" in source_lines, "Should subtract 1000 for transformation"

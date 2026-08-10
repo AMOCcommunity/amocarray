@@ -119,7 +119,6 @@ def read_move(
     netcdf_files = ReaderUtils.filter_netcdf_files(file_list)
 
     for file in netcdf_files:
-
         download_url = (
             f"{source.rstrip('/')}/{file}" if utilities.is_valid_url(source) else None
         )
