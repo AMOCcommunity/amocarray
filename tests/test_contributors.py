@@ -265,6 +265,19 @@ class TestEnrichContributors:
             "https://psc.apl.uw.edu/people/investigators/rebecca-woodgate/"
         )
 
+    def test_is_orcid_url_anchors_on_host(self):
+        """_is_orcid_url matches genuine orcid.org URLs, not substring lookalikes."""
+        assert contributors._is_orcid_url("https://orcid.org/0000-0002-1234-5678")
+        assert contributors._is_orcid_url("http://orcid.org/0000-0002-1234-5678")
+        assert contributors._is_orcid_url("https://www.orcid.org/0000-0002-1234-5678")
+        # Lookalikes that merely contain the substring must be rejected.
+        assert not contributors._is_orcid_url(
+            "https://notorcid.org/0000-0002-1234-5678"
+        )
+        assert not contributors._is_orcid_url("https://example.com/?ref=orcid.org/x")
+        assert not contributors._is_orcid_url("")
+        assert not contributors._is_orcid_url(None)
+
     def test_id_only_lookup(self):
         """Test lookup when starting with only IDs (names empty)."""
         contributors_dict = {

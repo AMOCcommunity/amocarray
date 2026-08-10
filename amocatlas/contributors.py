@@ -198,9 +198,17 @@ def _find_contributor_by_name(name: str, registry: Dict) -> Optional[Tuple[str, 
     return None
 
 
+_ORCID_URL_RE = re.compile(r"^https?://(www\.)?orcid\.org/", re.IGNORECASE)
+
+
 def _is_orcid_url(value: str) -> bool:
-    """Return True if a value looks like an ORCID URL (contains ``orcid.org/``)."""
-    return isinstance(value, str) and "orcid.org/" in value
+    """Return True if a value is an ORCID URL (scheme + host ``orcid.org``).
+
+    Anchored on the host so lookalike strings that merely contain ``orcid.org/``
+    as a substring (e.g. ``https://notorcid.org/x`` or a ``?ref=orcid.org/x``
+    query) are not mistaken for an ORCID.
+    """
+    return isinstance(value, str) and bool(_ORCID_URL_RE.match(value))
 
 
 def _find_contributor_by_orcid(
