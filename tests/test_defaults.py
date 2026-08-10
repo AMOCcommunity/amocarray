@@ -137,9 +137,9 @@ class TestConfigurationConsistency:
         # Check for simple circular references (A->B, B->A)
         for alias, canonical in mappings.items():
             # canonical shouldn't map back to alias
-            assert (
-                mappings.get(canonical) != alias
-            ), f"Circular mapping: {alias} <-> {canonical}"
+            assert mappings.get(canonical) != alias, (
+                f"Circular mapping: {alias} <-> {canonical}"
+            )
 
     def test_case_sensitive_attributes_preserved(self):
         """Test that case-sensitive attributes are properly handled."""
@@ -151,16 +151,16 @@ class TestConfigurationConsistency:
 
         for attr in case_sensitive:
             # Should appear in global attribute order with exact case
-            assert (
-                attr in attr_order
-            ), f"Case-sensitive attribute '{attr}' missing from GLOBAL_ATTR_ORDER"
+            assert attr in attr_order, (
+                f"Case-sensitive attribute '{attr}' missing from GLOBAL_ATTR_ORDER"
+            )
 
             # Should not have lowercase mappings that would conflict
             lowercase = attr.lower()
             if lowercase in mappings:
-                assert (
-                    mappings[lowercase] != attr.lower()
-                ), f"Conflicting case mapping for {attr}"
+                assert mappings[lowercase] != attr.lower(), (
+                    f"Conflicting case mapping for {attr}"
+                )
 
     def test_required_vocabularies_present(self):
         """Test that required vocabulary URLs are present."""
@@ -234,8 +234,8 @@ class TestEdgeCases:
         ]
 
         for config_name in required_configs:
-            assert hasattr(
-                defaults, config_name
-            ), f"Missing configuration: {config_name}"
+            assert hasattr(defaults, config_name), (
+                f"Missing configuration: {config_name}"
+            )
             config_value = getattr(defaults, config_name)
             assert config_value is not None, f"Configuration {config_name} is None"

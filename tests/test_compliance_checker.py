@@ -301,9 +301,9 @@ class TestComplianceChecker:
             time_units_errors = [
                 error for error in result.errors if "TIME" in error and "units" in error
             ]
-            assert (
-                len(time_units_errors) == 0
-            ), f"TIME should not require manual units. Errors: {time_units_errors}"
+            assert len(time_units_errors) == 0, (
+                f"TIME should not require manual units. Errors: {time_units_errors}"
+            )
 
         os.unlink(tmp.name)
 
@@ -341,12 +341,12 @@ class TestComplianceChecker:
                 if "TRANSPORT_DESCRIPTION" in error and "units" in error
             ]
 
-            assert (
-                len(name_units_errors) == 0
-            ), f"TRANSPORT_NAME should not require units. Errors: {name_units_errors}"
-            assert (
-                len(desc_units_errors) == 0
-            ), f"TRANSPORT_DESCRIPTION should not require units. Errors: {desc_units_errors}"
+            assert len(name_units_errors) == 0, (
+                f"TRANSPORT_NAME should not require units. Errors: {name_units_errors}"
+            )
+            assert len(desc_units_errors) == 0, (
+                f"TRANSPORT_DESCRIPTION should not require units. Errors: {desc_units_errors}"
+            )
 
         os.unlink(tmp.name)
 

@@ -60,7 +60,7 @@ def _normalize_sf2021_time_coordinate(
     ds : xr.Dataset
         Dataset with sat_time or TIME coordinate as float (days since 0000-01-01)
     source_file : str, optional
-        Source filename (currently unused, kept for API compatibility)
+        Source filename, included in debug/warning log messages for provenance.
 
     Returns
     -------
@@ -68,12 +68,15 @@ def _normalize_sf2021_time_coordinate(
         Dataset with time coordinate converted to datetime64[ns]
 
     """
+    file_context = f" ({source_file})" if source_file else ""
+
     # Find time variable (check raw name first, then final name)
     time_var = next((var for var in ["sat_time", "TIME"] if var in ds.coords), None)
 
     if not time_var or ds[time_var].dtype.kind not in ["f", "i"]:
         log_debug(
-            f"Skipping TIME normalization - {time_var or 'TIME'} not found or not numeric"
+            f"Skipping TIME normalization{file_context} - "
+            f"{time_var or 'TIME'} not found or not numeric"
         )
         return ds
 
@@ -97,9 +100,11 @@ def _normalize_sf2021_time_coordinate(
         # Use assign_coords to properly set dimension coordinate
         ds = ds.assign_coords({time_var: time_datetime})
         ds[time_var].attrs = _TIME_METADATA
-        log_debug(f"Converted SF2021 {time_var} from days to datetime64[ns]")
+        log_debug(
+            f"Converted SF2021 {time_var} from days to datetime64[ns]{file_context}"
+        )
     except (ValueError, TypeError, OverflowError) as e:
-        log_warning(f"Failed to convert SF2021 TIME coordinate: {e}")
+        log_warning(f"Failed to convert SF2021 TIME coordinate{file_context}: {e}")
 
     return ds
 
@@ -200,7 +205,6 @@ def read_sf2021(
             # Attach metadata with optional tracking
 
             if track_added_attrs:
-
                 ds, attr_changes = ReaderUtils.attach_metadata_with_tracking(
                     ds,
                     file,
@@ -215,7 +219,6 @@ def read_sf2021(
                 added_attrs_per_dataset.append(attr_changes)
 
             else:
-
                 ds = ReaderUtils.attach_metadata_with_tracking(
                     ds,
                     file,

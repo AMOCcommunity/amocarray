@@ -465,7 +465,7 @@ def _create_ac1_global_attributes(
         "Data verified against model or other contextual information"
     )
     attrs["comment"] = (
-        f'Converted to AC1 format from {ds.attrs.get("source_file", "original data")} using amocatlas.convert.to_AC1()'
+        f"Converted to AC1 format from {ds.attrs.get('source_file', 'original data')} using amocatlas.convert.to_AC1()"
     )
 
     # Additional mandatory OceanSITES attributes

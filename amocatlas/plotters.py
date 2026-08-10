@@ -534,7 +534,7 @@ def plot_amoc_timeseries(
     if varnames is None:
         varnames = [None] * len(data)
     if labels is None:
-        labels = [f"Dataset {i+1}" for i in range(len(data))]
+        labels = [f"Dataset {i + 1}" for i in range(len(data))]
     if colors is None:
         colors = ["red", "darkblue", "green", "purple", "orange"]
 
@@ -598,7 +598,6 @@ def plot_amoc_timeseries(
 
         # Monthly mean plot
         if resample_monthly:
-
             da_monthly = monthly_resample(da)
 
             ax.plot(
@@ -676,7 +675,9 @@ def plot_monthly_anomalies(
 
     fig, axes = plt.subplots(len(datasets), 1, figsize=(10, 16), sharex=True)
 
-    for i, (data, label, color) in enumerate(zip(datasets, labels, color_cycle)):
+    for i, (data, label, color) in enumerate(
+        zip(datasets, labels, color_cycle, strict=False)
+    ):
         time = data["TIME"]
         axes[i].plot(time, data, color=color, label=label)
         axes[i].axhline(0, color="black", linestyle="--", linewidth=0.5)
@@ -1138,9 +1139,9 @@ def plot_all_moc_pygmt(
         # Shift down for next panel, except after last
         if i < len(dfs) - 1:
             if i < 2:
-                fig.shift_origin(yshift=f"-{panel_height-1.5}c")
+                fig.shift_origin(yshift=f"-{panel_height - 1.5}c")
             else:
-                fig.shift_origin(yshift=f"-{panel_height-1.2}c")
+                fig.shift_origin(yshift=f"-{panel_height - 1.2}c")
 
     # Add AMOCatlas timestamp
     _add_amocatlas_timestamp(fig)
@@ -1185,7 +1186,7 @@ def plot_bryden2005_pygmt() -> "pygmt.Figure":
 
     # Write custom tick annotation file
     with open("custom_xticks.txt", "w") as f:
-        for x, label in zip(xticks, xtick_labels):
+        for x, label in zip(xticks, xtick_labels, strict=False):
             f.write(f"{x} {label}\n")
 
     # Create DataFrame

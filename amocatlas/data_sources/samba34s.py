@@ -154,7 +154,9 @@ def read_samba(
 
             # Store original column names mapping for later use in variable mapping
             # This enables tracking of original names -> sanitized names -> standardized names
-            original_to_sanitized = dict(zip(column_names, sanitized_column_names))
+            original_to_sanitized = dict(
+                zip(column_names, sanitized_column_names, strict=False)
+            )
         except (
             OSError,
             IOError,

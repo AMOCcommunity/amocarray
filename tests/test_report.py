@@ -96,21 +96,21 @@ class TestReportGeneration:
         # Test table generation: should have 2 tables per dataset (coordinates + variables)
         # SAMBA has 2 datasets, so expect 4 tables total
         list_tables = rst_content.count(".. list-table::")
-        assert (
-            list_tables == 4
-        ), f"Expected 4 list-tables (2 per dataset), found {list_tables}"
+        assert list_tables == 4, (
+            f"Expected 4 list-tables (2 per dataset), found {list_tables}"
+        )
 
         # Test figure generation: should have 2 figures (one per dataset)
         figures = rst_content.count(".. figure::")
         assert figures == 2, f"Expected 2 figures (one per dataset), found {figures}"
 
         # Test specific time coverage for SAMBA files
-        assert (
-            "2013-09-12 to 2017-07-16" in rst_content
-        ), "Missing time coverage for Upper_Abyssal_Transport_Anomalies.txt"
-        assert (
-            "2009-03-19 to 2017-04-29" in rst_content
-        ), "Missing time coverage for second SAMBA file"
+        assert "2013-09-12 to 2017-07-16" in rst_content, (
+            "Missing time coverage for Upper_Abyssal_Transport_Anomalies.txt"
+        )
+        assert "2009-03-19 to 2017-04-29" in rst_content, (
+            "Missing time coverage for second SAMBA file"
+        )
 
         # Test metadata addition: processing software should be added
         assert (
@@ -126,9 +126,9 @@ class TestReportGeneration:
 
         # Test units conversion: should have multiple instances of "Sverdrup" units
         sverdrup_count = rst_content.count("Sverdrup")
-        assert (
-            sverdrup_count >= 2
-        ), f"Expected at least 2 'Sverdrup' units, found {sverdrup_count}"
+        assert sverdrup_count >= 2, (
+            f"Expected at least 2 'Sverdrup' units, found {sverdrup_count}"
+        )
 
         # Should be longer than single-file reports due to multiple files
         assert len(rst_content) > 2000

@@ -193,7 +193,6 @@ def read_fw2015(
         # Attach metadata with optional tracking
 
         if track_added_attrs:
-
             ds, attr_changes = ReaderUtils.attach_metadata_with_tracking(
                 ds,
                 file,
@@ -208,7 +207,6 @@ def read_fw2015(
             added_attrs_per_dataset.append(attr_changes)
 
         else:
-
             ds = ReaderUtils.attach_metadata_with_tracking(
                 ds,
                 file,

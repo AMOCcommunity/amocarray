@@ -74,7 +74,9 @@ def generate_array_report(array_name: str, output_dir: pathlib.Path) -> pathlib.
         )
 
         # Process each file
-        for i, (dataset, attr_changes) in enumerate(zip(datasets, attr_changes_list)):
+        for i, (dataset, attr_changes) in enumerate(
+            zip(datasets, attr_changes_list, strict=False)
+        ):
             source_file = dataset.attrs.get("source_file", f"file_{i}")
             print(f"  Processing {source_file}...")
 
@@ -121,7 +123,7 @@ def generate_array_report(array_name: str, output_dir: pathlib.Path) -> pathlib.
                             "^^^^^^^^^^^^^^^^",
                             "",
                             f"- **Source File**: {source_file}",
-                            f'- **Data Product**: {dataset.attrs.get("data_product", "Unknown")}',
+                            f"- **Data Product**: {dataset.attrs.get('data_product', 'Unknown')}",
                             "",
                             "Note: Full analysis not available for this dataset.",
                             "",
@@ -140,7 +142,7 @@ def generate_array_report(array_name: str, output_dir: pathlib.Path) -> pathlib.
                         "^^^^^^^^^^^^^^^^",
                         "",
                         f"- **Source File**: {source_file}",
-                        f'- **Data Product**: {dataset.attrs.get("data_product", "Unknown")}',
+                        f"- **Data Product**: {dataset.attrs.get('data_product', 'Unknown')}",
                         f"- **Variables**: {list(dataset.data_vars.keys())}",
                         f"- **Coordinates**: {list(dataset.coords.keys())}",
                         "",

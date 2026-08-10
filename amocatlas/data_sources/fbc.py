@@ -146,7 +146,6 @@ def read_fbc(
             # Attach metadata with optional tracking
 
             if track_added_attrs:
-
                 ds, attr_changes = ReaderUtils.attach_metadata_with_tracking(
                     ds,
                     file,
@@ -161,7 +160,6 @@ def read_fbc(
                 added_attrs_per_dataset.append(attr_changes)
 
             else:
-
                 ds = ReaderUtils.attach_metadata_with_tracking(
                     ds,
                     file,

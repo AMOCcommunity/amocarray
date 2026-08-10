@@ -97,7 +97,8 @@ ignore = [
 ]
 
 [tool.ruff.lint.per-file-ignores]
-"tests/*" = ["E402", "SLF001", "ANN", "D103", "D100", "ARG001", "ARG002", "BLE001"]  # Allow module level imports, private member access, missing type annotations, missing docstrings, unused function/method arguments, and blind exceptions in tests
+"tests/*" = ["E402", "SLF001", "ANN", "D103", "D100", "ARG001", "ARG002", "ARG005", "BLE001"]  # Allow module level imports, private member access, missing type annotations, missing docstrings, unused function/method/lambda arguments (mock stubs), and blind exceptions in tests
+"notebooks/*" = ["ANN", "F821"]  # Example notebooks: type annotations not expected; cross-cell names ruff cannot resolve per-cell
 "amocatlas/logger.py" = ["ANN401"]  # Allow Any type for *args in logging functions (standard pattern)
 "amocatlas/report.py" = ["BLE001"]  # Allow broad exception handling in plot generation where many failure modes exist
 
