@@ -4,6 +4,8 @@ Tests the standardization pipeline including metadata application,
 variable renaming, and dataset enrichment.
 """
 
+import warnings
+
 import pytest
 import xarray as xr
 import pandas as pd
@@ -232,3 +234,70 @@ class TestEdgeCases:
             # Should still return something reasonable
             assert isinstance(version, str)
             assert len(version) > 0
+
+
+class TestConflictResolution:
+    """Field-typed metadata conflict resolution."""
+
+    def test_wrong_hemisphere_latitude_keeps_source_and_warns(self):
+        """A numeric mismatch keeps the source-of-truth value and warns, not longest."""
+        with pytest.warns(UserWarning, match="Metadata conflict"):
+            result = standardise.resolve_metadata_conflict(
+                "geospatial_lat_min",
+                "26.5",
+                "-26.5",
+                "original file",
+                "array-level YAML",
+            )
+        # '-26.5' is the longer string but must NOT win for a numeric field.
+        assert result == "26.5"
+
+    def test_equivalent_numbers_do_not_warn(self):
+        """Numerically equal values resolve silently."""
+        with warnings.catch_warnings(record=True) as caught:
+            warnings.simplefilter("always")
+            result = standardise.resolve_metadata_conflict(
+                "geospatial_lat_min", "26.5", "26.50"
+            )
+        assert result == "26.5"
+        assert not [w for w in caught if "Metadata conflict" in str(w.message)]
+
+    def test_date_mismatch_keeps_source_and_warns(self):
+        """A genuine date mismatch keeps existing and warns."""
+        with pytest.warns(UserWarning, match="Metadata conflict"):
+            result = standardise.resolve_metadata_conflict(
+                "time_coverage_end", "2024-05-18", "2020-12-31"
+            )
+        assert result == "2024-05-18"
+
+    def test_equivalent_dates_do_not_warn(self):
+        """Dates that parse to the same instant resolve silently."""
+        with warnings.catch_warnings(record=True) as caught:
+            warnings.simplefilter("always")
+            result = standardise.resolve_metadata_conflict(
+                "time_coverage_start", "2004-02-15", "2004-02-15T00:00:00"
+            )
+        assert result == "2004-02-15"
+        assert not [w for w in caught if "Metadata conflict" in str(w.message)]
+
+    def test_doi_mismatch_keeps_source_and_warns(self):
+        """A differing identifier keeps existing and warns rather than using length."""
+        with pytest.warns(UserWarning, match="Metadata conflict"):
+            result = standardise.resolve_metadata_conflict(
+                "doi", "10.5281/zenodo.1", "10.5281/zenodo.22222"
+            )
+        assert result == "10.5281/zenodo.1"
+
+    def test_update_interval_not_misclassified_as_date(self):
+        """A key containing the substring 'date' is not treated as a date field."""
+        assert standardise._classify_conflict_field("update_interval") == "text"
+
+    def test_free_text_uses_longer_value_without_warning(self):
+        """Free text keeps the longer value and does not warn (avoids noise)."""
+        with warnings.catch_warnings(record=True) as caught:
+            warnings.simplefilter("always")
+            result = standardise.resolve_metadata_conflict(
+                "description", "short", "a considerably longer description"
+            )
+        assert result == "a considerably longer description"
+        assert not [w for w in caught if "Metadata conflict" in str(w.message)]

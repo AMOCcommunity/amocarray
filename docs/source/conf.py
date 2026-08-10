@@ -51,6 +51,11 @@ myst_enable_extensions = [
     # add more if you use them
 ]
 
+# Never execute notebooks at build time: they read live data from remote array
+# servers, which is unavailable/flaky in CI. Notebooks are executed locally and their
+# outputs committed. This also stops nbsphinx from executing output-less notebooks.
+nbsphinx_execute = "never"
+
 templates_path = ["_templates"]
 
 

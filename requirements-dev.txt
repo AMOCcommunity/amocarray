@@ -19,6 +19,7 @@ myst-parser>=4.0.1
 # Testing
 pytest>=8.0
 pytest-cov>=7.1.0  # optional
+jsonschema>=4.0  # validates metadata YAMLs in tests/test_metadata_schema.py
 
 # Code quality
 black>=24.0
