@@ -34,45 +34,6 @@ def sample_attributes():
     }
 
 
-def test_enrich_contributor_ids():
-    """Test enriching contributor information with ORCID IDs."""
-    # Test with known contributor
-    attrs = {"contributor_name": "Ben Moat", "contributor_role": "author"}
-
-    result = convert.enrich_contributor_ids(attrs, array_name="RAPID")
-
-    assert "contributor_id" in result
-    assert result["contributor_id"] == "https://orcid.org/0000-0001-8676-7779"
-    # Original attributes should be preserved
-    assert result["contributor_name"] == "Ben Moat"
-    assert result["contributor_role"] == "author"
-
-
-def test_enrich_contributor_ids_unknown():
-    """Test enriching contributor information with unknown contributor."""
-    attrs = {"contributor_name": "Unknown Person", "contributor_role": "author"}
-
-    result = convert.enrich_contributor_ids(attrs, array_name="RAPID")
-
-    # Should preserve original attributes but not add ORCID
-    assert result["contributor_name"] == "Unknown Person"
-    assert result["contributor_role"] == "author"
-    # Should add contributor_id field but empty for unknown contributors
-    assert "contributor_id" in result
-    assert result["contributor_id"] == ""
-
-
-def test_enrich_contributor_ids_no_array():
-    """Test enriching contributor information without array name."""
-    attrs = {"contributor_name": "Ben Moat", "contributor_role": "author"}
-
-    result = convert.enrich_contributor_ids(attrs)
-
-    # Should not add ORCID without array name context
-    assert result["contributor_name"] == "Ben Moat"
-    assert "contributor_id" not in result
-
-
 def test_to_AC1_basic_conversion(sample_rapid_data):
     """Test basic AC1 conversion with sample RAPID data."""
     result = convert.to_AC1(sample_rapid_data)

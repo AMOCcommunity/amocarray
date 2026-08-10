@@ -241,6 +241,30 @@ class TestEnrichContributors:
         result = contributors.enrich_contributors(contributors_dict)
         assert result == expected
 
+    def test_genuine_orcid_not_overwritten_by_non_orcid_placeholder(self):
+        """A genuine incoming ORCID survives a registry entry with a non-ORCID id_url."""
+        # Rebecca Woodgate's registry id_url is a lab webpage, not an ORCID.
+        genuine_orcid = "https://orcid.org/0000-0002-1234-5678"
+        contributors_dict = {
+            "1": {"name": "R. Woodgate", "email": "", "id": genuine_orcid, "role": "PI"}
+        }
+        result = contributors.enrich_contributors(contributors_dict)
+        # Name is standardised from the registry, but the genuine ORCID is kept.
+        assert result["1"]["name"] == "Rebecca Woodgate"
+        assert result["1"]["id"] == genuine_orcid
+
+    def test_non_orcid_registry_id_used_when_no_incoming_id(self):
+        """With no incoming id, a non-ORCID registry id_url is used as a fallback."""
+        contributors_dict = {
+            "1": {"name": "R. Woodgate", "email": "", "id": "", "role": "PI"}
+        }
+        result = contributors.enrich_contributors(contributors_dict)
+        assert result["1"]["name"] == "Rebecca Woodgate"
+        assert "orcid.org/" not in result["1"]["id"]
+        assert result["1"]["id"] == (
+            "https://psc.apl.uw.edu/people/investigators/rebecca-woodgate/"
+        )
+
     def test_id_only_lookup(self):
         """Test lookup when starting with only IDs (names empty)."""
         contributors_dict = {

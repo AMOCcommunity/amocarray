@@ -198,6 +198,11 @@ def _find_contributor_by_name(name: str, registry: Dict) -> Optional[Tuple[str, 
     return None
 
 
+def _is_orcid_url(value: str) -> bool:
+    """Return True if a value looks like an ORCID URL (contains ``orcid.org/``)."""
+    return isinstance(value, str) and "orcid.org/" in value
+
+
 def _find_contributor_by_orcid(
     orcid_url: str, registry: Dict
 ) -> Optional[Tuple[str, Dict]]:
@@ -374,10 +379,19 @@ def enrich_contributors(
             )
             updated_contributor["name"] = standard_name
 
-            # Always prefer registry ORCID URL over any existing ID
-            orcid_url = contributor_info.get("id_url", "")
-            if orcid_url:
-                updated_contributor["id"] = orcid_url
+            # Prefer the registry id_url only when it is a real ORCID, so a genuine
+            # incoming ORCID is never overwritten by a non-ORCID placeholder (some
+            # registry entries hold a personal or lab webpage). Precedence: a registry
+            # ORCID standardises the id; otherwise keep an incoming ORCID; otherwise
+            # fall back to whatever the registry provides.
+            registry_id = contributor_info.get("id_url", "")
+            existing_id = (contributor.get("id") or "").strip()
+            if _is_orcid_url(registry_id):
+                updated_contributor["id"] = registry_id
+            elif _is_orcid_url(existing_id):
+                updated_contributor["id"] = existing_id
+            elif registry_id:
+                updated_contributor["id"] = registry_id
 
             log_debug(
                 f"Enriched contributor: '{contributor.get('name', '')}' -> '{standard_name}' ({orcid})"

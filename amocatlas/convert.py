@@ -14,61 +14,6 @@ from amocatlas import logger
 log = logger.log
 
 
-# Contributor ORCID lookup table
-# Maps (array_name, contributor_name) tuples to ORCID identifiers
-CONTRIBUTOR_ORCID_LOOKUP = {
-    ("RAPID", "Ben Moat"): "https://orcid.org/0000-0001-8676-7779",
-    ("rapid", "Ben Moat"): "https://orcid.org/0000-0001-8676-7779",
-    ("RAPID", "Ben I. Moat"): "https://orcid.org/0000-0001-8676-7779",
-    ("rapid", "Ben I. Moat"): "https://orcid.org/0000-0001-8676-7779",
-}
-
-
-def enrich_contributor_ids(attrs: Dict, array_name: str = None) -> Dict:
-    """Enrich contributor information by adding ORCID identifiers where available.
-
-    Parameters
-    ----------
-    attrs : Dict
-        Dataset attributes dictionary
-    array_name : str, optional
-        Array name (e.g., 'RAPID', 'OSNAP')
-
-    Returns
-    -------
-    Dict
-        Updated attributes with enriched contributor_id field
-
-    """
-    if "contributor_name" not in attrs or not array_name:
-        return attrs
-
-    # Parse contributor names (handle comma-separated lists)
-    names = [name.strip() for name in attrs["contributor_name"].split(",")]
-
-    # Look up ORCIDs for each contributor
-    orcids = []
-    for name in names:
-        # Try exact match first
-        lookup_key = (array_name, name)
-        if lookup_key in CONTRIBUTOR_ORCID_LOOKUP:
-            orcids.append(CONTRIBUTOR_ORCID_LOOKUP[lookup_key])
-            logger.log_info(
-                f"Found ORCID for {name} in {array_name}: {CONTRIBUTOR_ORCID_LOOKUP[lookup_key]}"
-            )
-        else:
-            # No match found, use empty string as placeholder
-            orcids.append("")
-            logger.log_warning(
-                f"No ORCID found for contributor '{name}' in array '{array_name}'"
-            )
-
-    # Update contributor_id field
-    attrs["contributor_id"] = ", ".join(orcids)
-
-    return attrs
-
-
 def to_AC1(
     ds: xr.Dataset, array_name: str = None, start_date: str = None, end_date: str = None
 ) -> List[xr.Dataset]:
@@ -436,8 +381,8 @@ def _create_ac1_global_attributes(
         if attr in ds.attrs:
             attrs[attr] = ds.attrs[attr]
 
-    # Enrich contributor information with ORCID identifiers
-    attrs = enrich_contributor_ids(attrs, array_name)
+    # contributor_id is already resolved by contributors.py during standardisation;
+    # do not re-derive it here (a single source of truth for ORCIDs).
 
     # Set default contributor role vocabulary if not present
     if "contributor_role_vocabulary" not in attrs:
