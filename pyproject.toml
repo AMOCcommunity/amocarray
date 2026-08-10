@@ -13,11 +13,11 @@ readme = "README.md"
 license = { file = "LICENSE" }
 maintainers = [
   { name = "Eleanor Frajka-Williams", email = "eleanorfrajka@gmail.com" },
+  { name = "Isabelle Schmitz", email = "isabelle.schmitz@uni-hamburg.de" },
 ]
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 classifiers = [
   "Programming Language :: Python :: 3 :: Only",
-  "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",

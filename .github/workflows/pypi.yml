@@ -41,6 +41,9 @@ jobs:
       - name: Test wheel install
         run: python -m pip install dist/*.whl
 
+      - name: Smoke-test imports (clean environment)
+        run: python -c "import amocatlas; from amocatlas import read; print(amocatlas.__version__)"
+
       - name: Publish to PyPI
         if: success() && github.event_name == 'release'
         uses: pypa/gh-action-pypi-publish@release/v1

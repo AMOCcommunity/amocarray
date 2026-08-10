@@ -66,6 +66,7 @@ class TestReportUtilities:
 class TestReportGeneration:
     """Integration tests for report generation."""
 
+    @pytest.mark.slow
     def test_generate_small_dataset_report(self):
         """Test report generation with a small dataset (47N - 0.01 MB)."""
         # Use 47N: single small file, safe for CI
@@ -79,6 +80,7 @@ class TestReportGeneration:
         # Should have reasonable length (not empty, not massive)
         assert 500 < len(rst_content) < 10000
 
+    @pytest.mark.slow
     def test_generate_multi_file_small_dataset_report(self):
         """Test report generation with multiple small files (SAMBA - 0.03 + 0.20 = 0.23 MB)."""
         # SAMBA has 2 small files, perfect for testing multi-file reports

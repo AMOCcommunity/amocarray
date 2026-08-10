@@ -57,6 +57,7 @@ class TestStandardizeData:
         # Should preserve data values while changing names
         assert standardized.sizes["TIME"] == raw_dataset.sizes["time"]
 
+    @pytest.mark.slow
     def test_standardise_data_with_real_metadata(self):
         """Test that read.rapid() produces properly standardized data."""
         # Test that the new read API produces standardized data
