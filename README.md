@@ -4,6 +4,7 @@
 [![PyPI version](https://img.shields.io/pypi/v/AMOCatlas.svg)](https://pypi.org/project/AMOCatlas/)
 [![Python](https://img.shields.io/pypi/pyversions/AMOCatlas.svg)](https://pypi.org/project/AMOCatlas/)
 [![License](https://img.shields.io/github/license/AMOCcommunity/amocatlas.svg)](LICENSE)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21921671.svg)](https://doi.org/10.5281/zenodo.21921671)
 
 **Standardized, modular loading of AMOC observing array datasets, with optional structured logging and metadata enrichment.**
 
