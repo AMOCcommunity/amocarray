@@ -11,6 +11,8 @@ All types of contributions are encouraged and valued. See the [Table of Contents
 
 - [I Have a Question](#i-have-a-question)
 - [I Want To Contribute](#i-want-to-contribute)
+- [Licensing of Contributions](#licensing-of-contributions)
+- [Credit and Authorship](#credit-and-authorship)
 - [Reporting Bugs](#reporting-bugs)
 - [Suggesting Enhancements](#suggesting-enhancements)
 - [Your First Code Contribution](#your-first-code-contribution)
@@ -51,8 +53,30 @@ Depending on how large the project is, you may want to outsource the questioning
 
 ## I Want To Contribute
 
-> ### Legal Notice <!-- omit in toc -->
-> When contributing to this project, you must agree that you have authored 100% of the content, that you have the necessary rights to the content and that the content you contribute may be provided under the project licence.
+Please read the two short sections on licensing and credit before opening a pull request. They exist so that nobody has to have an awkward retrospective conversation about attribution — which, for a package whose whole product is correct attribution, matters more here than in most projects.
+
+### Licensing of Contributions
+
+amocatlas is MIT licensed (see `LICENSE`), and contributions are accepted **under the same licence** — what GitHub calls "inbound = outbound". By opening a pull request you confirm that:
+
+1. you wrote the contribution, or you otherwise have the right to submit it; and
+2. you agree to license it to the project under the MIT licence.
+
+This does not transfer your copyright, which remains yours.
+
+**If your contribution contains code or data from somewhere else** — another repository, a paper's supplementary material, a Stack Overflow answer, a colleague's script, or generated output you did not review line by line — say so in the pull request and name the source and its licence. This is the single most useful thing you can tell a reviewer. Code from an unlicensed or incompatibly-licensed source cannot be merged until that is resolved, so flagging it early avoids wasted work.
+
+### Credit and Authorship
+
+Three separate things, often confused:
+
+**Copyright** stays with whoever wrote the code. You are not asked to assign it.
+
+**Contributor credit** is automatic. Everyone whose pull request is merged appears in the git history. If your name or preferred email in the git log is wrong, open an issue or a PR to correct it.
+
+**Citation authorship** is the author list in `CITATION.cff`, which propagates into the Zenodo/GitHub citation record for every release and therefore into other people's bibliographies. It reflects *substantial* contribution to the software — its design, a significant body of its implementation, its test suite, or its documentation architecture — and is decided by the maintainers at release time. Funding or supervision alone does not qualify. There is no line count that guarantees it and none that excludes it: a well-designed module that fixes a whole class of problem may count where a large mechanical change does not. If you believe your contribution crosses that line and it has not been reflected, say so in an issue — being asked is better than being resented.
+
+Where a contribution is adapted from someone else's work rather than written from scratch, credit it **in the docstring of the code itself** (an "original author" line), so the attribution travels with the code rather than living only in a file nobody reads.
 
 ### Reporting Bugs
 
@@ -134,8 +158,18 @@ The *.py* files are separated into broad categories of readers (to load datesets
 - Did you write a docstring? We use the [numpy standard for docstings](https://numpydoc.readthedocs.io/en/latest/format.html#docstring-standard). We also suggest including your name or GitHub handle under the original author heading. Look at some existing docstrings in `amocatlas` if you are unsure of the format.
 - There are also some basic error checking behaviours you should consider including. If you're plotting a particular variable, use the `amocatlas.utilities._check_necessary_variables()` function to check whether or not the required variables are within the dataset passed to the function.
 - For plotting functions on a single axis, you should include as optional inputs the `fig` and `ax`, and return the same, to enable their usage within multi-axes plots. For plotting functions with multiple or interrelated axes, perhaps fig and ax shouldn't be included as inputs, but can be provided as outputs for the user to make onward edits.
-- For plotting, see the guidance on uniformity (using standard lineswidths, figure sizes and font sizes etc.). These are all described in `amocatlas/amocatlas.mplstyle`, in case an individual user wants to change these to their preferences.
+- For plotting, keep figures visually consistent with the existing ones: reuse the line widths, figure sizes, and font sizes already used in `plotters.py` rather than introducing new magic values scattered through the code.
 - Each new function should have a corresponding test, feel free to ask if you're not sure how to write a test!
+
+### Metadata, provenance, and pull-request hygiene
+
+amocatlas creates no science data — its product is *metadata*: the same numbers as the upstream publications, re-served with correct attribution, vocabulary, units, and provenance. A few conventions follow directly from that:
+
+- **Never silently substitute a default** where the correct value cannot be determined. Leave it empty, or raise / warn loudly and record what was assumed. A plausible wrong value (a mangled contributor name, a dropped EDMO code, a wrong-hemisphere latitude) is worse than a missing one, because nothing downstream can detect it.
+- **Preserve upstream qualifiers and units exactly.** Units are not optional; never strip or assume them.
+- **Record provenance.** When a processing step applies a correction, threshold, or registry replacement, make it inspectable — prefer a `warnings.warn` a user will see in a notebook over a DEBUG log they never read, and where relevant record what was applied in the output's attributes.
+- **One logical change per pull request.** A rename PR that also fixes a bug, or a fix that also carries an unrelated feature, is a PR nobody can review cleanly. If two changes are independent, split them.
+- **Tests should assert a value, not that something ran.** For anything numerical, assert against a figure you can justify independently of the code. Avoid tests that pass when nothing happened — `assert result is not None` on a function that returns `None` on failure is the shape to avoid.
 
 ### Jupyter Notebook Guidelines
 
@@ -156,7 +190,7 @@ Our [documentation](https://amoccommunity.github.io/AMOCatlas/) is built from th
 To build the documentation locally you need to install a few extra requirements:
 
 - Install `make` for your computer, e.g. on ubuntu with `sudo apt install make`
-- Install the additional python requirements. Activate the environment you use for working with glidertest, navigate to the top directory of this repo, then run `pip install -r requirements-dev.txt`
+- Install the additional python requirements. Activate the environment you use for amocatlas, navigate to the top directory of this repo, then run `pip install -r requirements-dev.txt`
 
 Once you have the extras installed, you can build the docs locally by navigating to the `docs/` directory and running `make clean html`. This command will create a directory called `build/` which contains the html files of the documentation. Open the file `docs/build/html/index.html` in your browser, and you will see the docs with your changes applied. After making more changes, just run make clean html again to rebuild the docs.
 

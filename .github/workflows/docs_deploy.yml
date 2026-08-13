@@ -54,7 +54,10 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: docs/build/html
-          # Replace gh-pages with a single commit each deploy: the built site is
-          # regenerable, and keeping full history re-committed the whole site every
-          # run (107 copies of the built demo notebook bloated gh-pages to ~71 MB).
+          # Replace gh-pages with a single commit each deploy. The built site is
+          # regenerable, so its history has no value. The saving is smaller than it
+          # looks: git deltas near-identical HTML well, and squashing 70-120 deploys
+          # shrinks a fresh clone by only 4-18%. What it does bound is the growth from
+          # re-executed demo notebooks, whose embedded PNGs differ every build and so
+          # never delta. Current site size dominates, not history - keep _static small.
           force_orphan: true
