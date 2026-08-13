@@ -257,7 +257,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Contributor Name\***: William E. Johns, William E. Johns, Shane Elipot, David A. Smeed, Ben I. Moat, Brian King, Denis Volkov, Ryan H. Smith
 - **Contributor Role\***: originator, principalInvestigator, coAuthor, coAuthor, coAuthor, coAuthor, coAuthor, coAuthor
 - **Contributor Role Vocabulary\***: https://vocab.nerc.ac.uk/collection/G04/current/
-- **Contributor Email**: , bjohns@rsmas.miami.edu, , , , , , 
+- **Contributor Email**: bjohns@rsmas.miami.edu, bjohns@rsmas.miami.edu, , , , , , 
 - **Contributor Id\***: https://orcid.org/0000-0002-1093-7871, https://orcid.org/0000-0002-1093-7871, https://orcid.org/0000-0001-6051-5426, https://orcid.org/0000-0003-1740-1778, https://orcid.org/0000-0001-8676-7779, https://orcid.org/0000-0003-1338-3234, https://orcid.org/0000-0002-9290-0502, https://orcid.org/0000-0001-9824-6989
 - **Contributing Institutions**: Rosenstiel School of Marine and Atmospheric Science (University of Miami), National Oceanography Centre (Southampton), NOAA AOML
 - **Contributing Institutions Vocabulary**: https://edmo.seadatanet.org/report/1382, https://edmo.seadatanet.org/report/17, 

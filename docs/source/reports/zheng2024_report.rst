@@ -129,8 +129,8 @@ The following metadata provides comprehensive information about this dataset:
 - **Contributor Email\***: zhenghuayi23@mails.ucas.ac.cn, chenglij@mail.iap.ac.cn, , , 
 - **Contributor Id\***: https://orcid.org/0009-0004-5333-7595, https://orcid.org/0000-0002-9854-0392, https://orcid.org/0000-0002-3073-9813, https://orcid.org/0000-0001-7694-2625, https://orcid.org/0000-0002-9330-4294
 - **Contributing Institutions\***: Institute of Atmospheric Physics, Chinese Academy of Sciences
-- **Contributing Institutions Vocabulary\***: https://edmo.seadatanet.org/report/2452
-- **Contributing Institutions Role**: 
+- **Contributing Institutions Vocabulary\***: https://edmo.seadatanet.org/report/2452, 
+- **Contributing Institutions Role**: , 
 - **Conventions\***: CF-1.8, ACDD-1.3, OceanSITES-1.5
 - **featureType\***: timeSeries
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types

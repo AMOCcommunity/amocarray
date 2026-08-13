@@ -182,7 +182,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Contributor Name**: Ben I. Moat, Ben I. Moat
 - **Contributor Role**: originator, principalInvestigator
 - **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
-- **Contributor Email**: , ben.moat@noc.ac.uk
+- **Contributor Email**: ben.moat@noc.ac.uk, ben.moat@noc.ac.uk
 - **Contributor Id**: https://orcid.org/0000-0001-8676-7779, https://orcid.org/0000-0001-8676-7779
 - **Contributing Institutions**: National Oceanography Centre (Southampton)
 - **Contributing Institutions Vocabulary**: https://edmo.seadatanet.org/report/17
@@ -331,7 +331,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Contributor Name**: Ben I. Moat, Ben I. Moat
 - **Contributor Role**: originator, principalInvestigator
 - **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
-- **Contributor Email**: , ben.moat@noc.ac.uk
+- **Contributor Email**: ben.moat@noc.ac.uk, ben.moat@noc.ac.uk
 - **Contributor Id**: https://orcid.org/0000-0001-8676-7779, https://orcid.org/0000-0001-8676-7779
 - **Contributing Institutions**: National Oceanography Centre (Southampton)
 - **Contributing Institutions Vocabulary**: https://edmo.seadatanet.org/report/17
@@ -599,7 +599,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Contributor Name**: Ben I. Moat, Ben I. Moat
 - **Contributor Role**: originator, principalInvestigator
 - **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
-- **Contributor Email**: , ben.moat@noc.ac.uk
+- **Contributor Email**: ben.moat@noc.ac.uk, ben.moat@noc.ac.uk
 - **Contributor Id**: https://orcid.org/0000-0001-8676-7779, https://orcid.org/0000-0001-8676-7779
 - **Contributing Institutions**: National Oceanography Centre (Southampton)
 - **Contributing Institutions Vocabulary**: https://edmo.seadatanet.org/report/17
