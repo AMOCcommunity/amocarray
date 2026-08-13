@@ -98,7 +98,7 @@ def read_calafat2025(
     log.info("Starting to read CALAFAT2025 dataset")
 
     # Load YAML metadata with fallback
-    _, yaml_file_metadata = ReaderUtils.load_array_metadata_with_fallback(
+    global_metadata, yaml_file_metadata = ReaderUtils.load_array_metadata_with_fallback(
         DATASOURCE_ID, CALAFAT2025_METADATA
     )
 
@@ -283,7 +283,7 @@ def read_calafat2025(
                         ds,
                         nc_file,
                         nc_path,
-                        CALAFAT2025_METADATA,
+                        global_metadata,
                         yaml_file_metadata,
                         file_metadata,
                         DATASOURCE_ID,
@@ -296,7 +296,7 @@ def read_calafat2025(
                         ds,
                         nc_file,
                         nc_path,
-                        CALAFAT2025_METADATA,
+                        global_metadata,
                         yaml_file_metadata,
                         file_metadata,
                         DATASOURCE_ID,
