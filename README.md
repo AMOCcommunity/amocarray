@@ -6,9 +6,17 @@
 [![License](https://img.shields.io/github/license/AMOCcommunity/amocatlas.svg)](LICENSE)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21921671.svg)](https://doi.org/10.5281/zenodo.21921671)
 
-**Standardized, modular loading of AMOC observing array datasets, with optional structured logging and metadata enrichment.**
+**One Python API for loading and comparing AMOC transport datasets — from moored observing arrays to satellite/Argo-based estimates — with consistent variable names, units, and metadata.**
 
-AMOCatlas provides a unified system to access and process data from major Atlantic Meridional Overturning Circulation (AMOC) observing arrays. The Atlantic Meridional Overturning Circulation is a critical component of Earth's climate system, transporting heat northward in the Atlantic Ocean. This project enables researchers to easily access, analyze, and visualize data from key monitoring stations.
+AMOCatlas provides unified access to data on the Atlantic Meridional Overturning Circulation (AMOC), which transports heat northward in the Atlantic and is a key component of the climate system. It spans both in-situ observing arrays (RAPID, OSNAP, MOVE, SAMBA, …) and blended or estimation-based products (satellite altimetry, Argo, and reanalysis-derived estimates). Instead of hand-parsing a different file format for each source, you load any of 18 datasets through one interface and get back standardised, analysis-ready `xarray` datasets.
+
+AMOCatlas does not alter the underlying data. It re-serves the same values as the source publications, adding standardised units, variable names, attribution, and provenance metadata — so the numbers you analyse are the numbers you would cite from the original dataset.
+
+<div align="center">
+  <img src="docs/source/_static/paperfigs/amoc_multi_array_overlaid.png" alt="Atlantic Meridional Overturning Circulation time series from multiple observing arrays plotted on the same coordinate system: OSNAP (subpolar North Atlantic), RAPID (26°N), MOVE (16°N) and SAMBA (34.5°S), showing MOC transport in Sverdrups across Atlantic latitudes." width="600"/>
+  <br/>
+  <em>AMOC transport from OSNAP, RAPID (26°N), MOVE (16°N) and SAMBA (34.5°S) — loaded and plotted through AMOCatlas.</em>
+</div>
 
 This is a work in progress, all contributions welcome!
 
@@ -18,6 +26,7 @@ This is a work in progress, all contributions welcome!
 - [Installation](#installation)
 - [Quick Start](#quick-start)
 - [Documentation](#documentation)
+- [Citing](#citing)
 - [Development](#development)
 - [Funding & Support](#funding--support)
 - [Acknowledgements](#acknowledgements)
@@ -26,7 +35,7 @@ This is a work in progress, all contributions welcome!
 ## Features
 
 - 🌊 **Unified Data Access**: Single interface for multiple AMOC observing arrays
-- 📊 **Automatic Data Download**: Intelligent caching system prevents redundant downloads
+- 📊 **Automatic Data Download**: Local caching avoids redundant downloads
 - 📝 **Structured Logging**: Per-dataset logging for reproducible workflows
 - 🔍 **Metadata Enrichment**: Enhanced datasets with processing timestamps and source information
 - 📈 **Visualization Tools**: Built-in plotting functions with consistent styling
@@ -34,24 +43,33 @@ This is a work in progress, all contributions welcome!
 
 ## Available Data Sources
 
+AMOCatlas serves two kinds of source, distinguished below. **Observing arrays** are direct in-situ measurements from moored instruments; **blended/estimated products** derive transports from satellite altimetry, Argo, XBT, or statistical methods. Both are served through the same `read.<name>()` interface.
+
+### Observing arrays (in-situ)
+
 | Data Source | Location | Description | Read Command |
 |-------------|----------|-------------|--------------|
 | **RAPID** | 26°N | MOC and overturning transports since 2004 | `read.rapid()` |
-| **MOCHA** | 26°N | Meridional Heat transport since 2004 | `read.mocha()` |
+| **MOCHA** | 26°N | Meridional heat transport since 2004 | `read.mocha()` |
 | **MOVE** | 16°N | Meridional overturning since 2001 | `read.move()` |
 | **OSNAP** | Subpolar North Atlantic | Meridional overturning since 2014 | `read.osnap()` |
 | **SAMBA** | 34.5°S | South Atlantic MOC *anomaly* | `read.samba()` |
-| **41°N Array** | 41°N | Meridional overturning from Argo + altimetry | `read.wh41n()` |
-| **NOAC 47°N** | 47°N | North Atlantic Ocean Current - MOC | `read.noac47n()` |
 | **DSO** | Denmark Strait | Overflow transport | `read.dso()` |
 | **FBC** | Faroe Bank Channel | Overflow transport monitoring | `read.fbc()` |
 | **Arctic Gateway** | Arctic Ocean | Pan-Arctic gateway transports | `read.arcticgateway()` |
-| **FW2015** | 26°N | Frajka-Williams 2015 satellite-cable dataset at 26°N | `read.fw2015()` |
+
+### Blended / estimated products
+
+| Data Source | Location | Description | Read Command |
+|-------------|----------|-------------|--------------|
+| **NOAC 47°N** | 47°N | North Atlantic Ocean Current MOC | `read.noac47n()` |
+| **41°N Array** | 41°N | Meridional overturning from Argo + altimetry | `read.wh41n()` |
+| **FW2015** | 26°N | Frajka-Williams 2015 satellite–cable estimate at 26°N | `read.fw2015()` |
+| **SF2021** | 26°N | Meridional overturning estimate at 26°N from satellite altimetry | `read.sf2021()` |
+| **NAC** | Atlantic | North Atlantic Current from satellite and float observations | `read.nac()` |
 | **CALAFAT2025** | Atlantic | Bayesian estimates of Atlantic meridional heat transport spanning latitudes | `read.calafat2025()` |
 | **ZHENG2024** | Atlantic | Observation-based Atlantic meridional freshwater transport spanning latitudes | `read.zheng2024()` |
-| **SF2021** | 26°N | Meridional overturning estimate at 26°N from satellite altimetry | `read.sf2021()` |
-| **NAC** | Atlantic | North Atlantic Current from Satellite and Float Observations | `read.nac()` |
-| **LEBRAS35N** | 35°N | Meridional Overturning at 35°N from deep moorings, floats, and satellite altimeter | `read.lebras35n()` |
+| **LEBRAS35N** | 35°N | Meridional overturning at 35°N from deep moorings, floats, and satellite altimeter | `read.lebras35n()` |
 | **AXMOC34.5S** | 34.5°S | Estimates of AMOC, heat and freshwater transports at 34.5°S | `read.axmoc34s()` |
 | **AXMOC22.5S** | 22.5°S | Estimates of AMOC and heat transport at 22.5°S | `read.axmoc22s()` |
 
@@ -81,65 +99,45 @@ This installs amocatlas locally. The `-e` ensures that any edits you make in the
 
 ## Quick Start
 
-### Load a Dataset
+The `read` namespace returns a single standardised `xarray` dataset per array, downloading and caching on the first call:
+
 ```python
 from amocatlas import read
 
-# Load the full RAPID transport dataset (new API - recommended)
-ds = read.rapid()
+ds = read.rapid()              # RAPID transport at 26°N
 print(ds)
 
-# Or load a small bundled sample dataset via the legacy API
-from amocatlas import readers
-ds = readers.load_sample_dataset("rapid")
+osnap = read.osnap()           # OSNAP; uses the latest version by default
 ```
 
-### Load Full Datasets
+Common options:
+
 ```python
-from amocatlas import read
-
-# Load complete dataset (downloads and caches data) - new API
-ds = read.osnap()                          # Single standardized dataset
-all_files = read.osnap(all_files=True)     # Get all files for array
-
+read.osnap(version="2025")     # select a version where multiple exist
+read.rapid(all_files=True)     # list of all files for an array, not just the standard one
+read.rapid(raw=True)           # original upstream format, without standardisation
 ```
 
-A `*.log` file will be written to `logs/` by default.
+The legacy string-based API and small bundled samples remain available:
 
-Data will be cached in `~/.amocatlas_data/` unless you specify a custom location with `data_dir="/path/to/custom/data"`.
+```python
+from amocatlas import readers
 
-**Setting Default Data Directory:**
+ds = readers.load_sample_dataset("rapid")   # small bundled sample, no download
+datasets = readers.load_dataset("rapid")    # returns a list of datasets
+```
+
+**Data location and logs.** Downloads are cached in `~/.amocatlas_data/` and a per-run `*.log` is written to `logs/`. Override the cache per call with `data_dir="/path/to/data"`, or set a default:
+
 ```python
 import amocatlas
-amocatlas.set_data_dir("~/my_data")    # Custom location
-amocatlas.set_data_dir("project")      # Use project/data (source checkout only)
-print(amocatlas.get_data_dir())        # Show current setting
+amocatlas.set_data_dir("~/my_data")    # custom location
+print(amocatlas.get_data_dir())
 ```
 
-**Note:** The `"project"` option only works when running from a source checkout (editable install with `pip install -e .`). For regular pip installations, use an explicit path like `"~/my_data"` instead.
+The `set_data_dir("project")` shortcut (use `project/data`) only works from a source checkout (`pip install -e .`); regular installs need an explicit path.
 
-### API Features (v0.2.0+)
-
-AMOCatlas provides **standardized, analysis-ready data by default** with the new `read` API:
-
-**Key Benefits:**
-- 🧹 **Standardized Data**: Consistent variable names, metadata, and units
-- 🚀 **Easy to Use**: Single function calls instead of complex workflows  
-- 🔄 **Flexible**: Get raw data when needed with `raw=True`
-- 📊 **Smart Defaults**: Automatically handles array-specific parameters
-
-```python
-from amocatlas import read
-
-# Standard workflow - recommended for most users
-rapid_data = read.rapid()              # Single standardized dataset
-osnap_data = read.osnap()              # Automatically uses latest version
-arctic_data = read.arcticgateway()     # Consistent across all arrays
-
-# Advanced usage
-all_rapid = read.rapid(all_files=True) # Get all files for an array
-raw_data = read.rapid(raw=True)        # Original format for special cases
-```
+For the full API, see the [documentation](https://amoccommunity.github.io/AMOCatlas/).
 
 
 ## Documentation
@@ -147,6 +145,18 @@ raw_data = read.rapid(raw=True)        # Original format for special cases
 Documentation is available at [https://amoccommunity.github.io/AMOCatlas](https://amoccommunity.github.io/AMOCatlas/).
 
 Check out the demo notebook `notebooks/demo.ipynb` for example functionality.
+
+## Citing
+
+AMOCatlas serves data collected and published by others. If it supports your work, please cite **both**:
+
+1. **The original observing array(s) you used.** Each dataset has its own reference and acknowledgement — see [Acknowledgements](#acknowledgements) and the per-array documentation. The scientific credit belongs to the teams who collect, quality-control, and publish these measurements.
+
+2. **AMOCatlas**, if the tooling itself was useful, via its archived release:
+
+   > Frajka-Williams, E. and Schmitz, I. (2026). *amocatlas* (v0.4.0). Zenodo. https://doi.org/10.5281/zenodo.21921671
+
+The DOI [10.5281/zenodo.21921671](https://doi.org/10.5281/zenodo.21921671) always resolves to the latest release; see [CITATION.cff](CITATION.cff) for the machine-readable citation and version-specific details.
 
 ## Project Structure
 
@@ -177,15 +187,20 @@ amocatlas/
 │   ├── axmoc34s.py          # MOC, MHT and FOV (34.5°S)
 │   └── axmoc22s.py          # MOC and MHT (22.5°S)
 │
-├── metadata/                # 🆕 YAML metadata files for standardization
+├── metadata/                # YAML metadata files for standardization
+├── standardise.py           # Data standardization functions
+├── contributors.py          # Contributor/institution standardization & consolidation
+├── convert.py               # Conversion to the AC1 output format
+├── compliance_checker.py    # AC1 format compliance checking
+├── defaults.py              # Default configs & canonical metadata attribute order
 ├── utilities.py             # Core utilities (downloads, parsing, validation)
 ├── logger.py                # Structured logging system
-├── standardise.py           # Data standardization functions
 ├── plotters.py              # Visualization and plotting functions
 ├── tools.py                 # Analysis and calculation functions
 ├── writers.py               # Data export functionality
-│
-└── tests/                   # Comprehensive unit tests
+└── report.py                # Per-dataset report generator
+
+tests/                       # Unit tests (repo root, not inside the package)
 ```
 
 ## Development
@@ -199,7 +214,7 @@ pytest --cov=amocatlas --cov-report term-missing tests/
 Try to ensure that all the lines of your contribution are covered in the tests.
 
 ### Generating Dataset Reports
-AMOCatlas includes automated report generation for comprehensive dataset documentation:
+AMOCatlas includes automated report generation for dataset documentation:
 
 ```bash
 # Generate reports for all supported arrays
@@ -215,7 +230,7 @@ python generate_report --output_dir custom_reports/
 Reports are generated as structured RST files in `docs/source/reports/` with:
 - Dataset visualization plots
 - Variable mapping tables (original → standardized names)
-- Comprehensive metadata documentation
+- Metadata documentation
 - Temporal coverage analysis
 - Statistical summaries
 
@@ -247,18 +262,6 @@ This project is supported by the Horizon Europe project **EPOC - Explaining and 
 
 *Funded by the European Union. Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union. Neither the European Union nor the granting authority can be held responsible for them.*
 
-
-## Current Roadmap
-
-- [x] Improve test coverage for data sources with <40% coverage
-- [ ] Add more comprehensive visualization function tests  
-- [ ] Expand plotting capabilities with additional array-specific visualizations
-- [x] Create summary table of variable names, standard_names, long_names and units across all datasets
-- [x] Create summary table of default units and formatting conventions used for standardization
-- [x] Document deviations from OceanSITES-1.5 standard and rationale for changes
-- [x] Enrich metadata with ORCID identifiers for contributors
-- [x] Enrich metadata with https://edmo.seadatanet.org identifiers for contributing institutions
-- [ ] Create sample 3D plots for Arctic Gateway and Calafat2025 datasets
 
 ## Acknowledgements
 
@@ -314,9 +317,6 @@ Example figures generated by the notebook:
 
 **Multi-array AMOC comparison (filtered):**
 <img src="docs/source/_static/paperfigs/amoc_multi_array_filtered.png" alt="Low-pass filtered Atlantic Meridional Overturning Circulation time series using Tukey window filtering to highlight long-term trends. Shows OSNAP, RAPID, MOVE, and SAMBA MOC transport data with reduced high-frequency variability, revealing decadal-scale changes in ocean circulation strength from 2000-2025." width="600"/>
-
-**Multi-array AMOC overlaid:**
-<img src="docs/source/_static/paperfigs/amoc_multi_array_overlaid.png" alt="Overlaid Atlantic Meridional Overturning Circulation time series from multiple observing arrays plotted on the same coordinate system. OSNAP (green), RAPID 26°N (red), and MOVE 16°N (magenta) show MOC transport in Sverdrups, while SAMBA 34.5°S (blue) displays anomaly values, enabling direct comparison of AMOC variability across Atlantic latitudes." width="600"/>
 
 **Historical AMOC (Bryden 2005):**
 <img src="docs/source/_static/paperfigs/bryden2005_amoc.png" alt="Historical Atlantic Meridional Overturning Circulation estimates from Bryden et al. 2005 showing AMOC decline from 1957 to 2004. Red line and diamond markers indicate MOC transport measurements at 26°N, demonstrating significant weakening of Atlantic overturning circulation over five decades from 23 to 15 Sverdrups." width="400"/>
