@@ -42,6 +42,11 @@ class TestStandardizeData:
         assert isinstance(mapping, dict)
         assert len(mapping) > 0
 
+        # Internal working structures must not leak into the output attrs
+        # (they are nested dicts and not netCDF-serialisable).
+        for internal in ("files", "variable_mapping", "original_variable_metadata"):
+            assert internal not in standardized.attrs
+
         # Should have standardized variable names
         std_vars = list(standardized.data_vars)
 
@@ -301,3 +306,48 @@ class TestConflictResolution:
             )
         assert result == "a considerably longer description"
         assert not [w for w in caught if "Metadata conflict" in str(w.message)]
+
+
+class TestTimeCoordinate:
+    """TIME coordinate standardisation, including non-1970 epochs."""
+
+    def test_parse_cf_time_units(self):
+        """CF units strings parse into (pandas unit, origin); junk returns None."""
+        assert standardise._parse_cf_time_units("days since 1950-01-01") == (
+            "D",
+            "1950-01-01",
+        )
+        assert standardise._parse_cf_time_units(
+            "seconds since 1970-01-01T00:00:00Z"
+        ) == ("s", "1970-01-01T00:00:00Z")
+        assert standardise._parse_cf_time_units("hours since 2000-01-01") == (
+            "h",
+            "2000-01-01",
+        )
+        assert standardise._parse_cf_time_units("garbage") is None
+        assert standardise._parse_cf_time_units("furlongs since 1900") is None
+
+    def test_numeric_time_honours_declared_epoch(self):
+        """A 'days since 1950-01-01' coordinate decodes to 1950, not 1970."""
+        ds = xr.Dataset(coords={"TIME": ("TIME", [0.0, 1.0, 365.0])})
+        ds["TIME"].attrs["units"] = "days since 1950-01-01"
+        out = standardise.standardize_time_coordinate(ds)
+        assert pd.Timestamp(out["TIME"].values[0]) == pd.Timestamp("1950-01-01")
+        assert pd.Timestamp(out["TIME"].values[1]) == pd.Timestamp("1950-01-02")
+        assert pd.Timestamp(out["TIME"].values[2]) == pd.Timestamp("1951-01-01")
+
+    def test_unknown_units_warn_and_fall_back(self):
+        """Unrecognised TIME units warn and fall back to seconds since 1970."""
+        ds = xr.Dataset(coords={"TIME": ("TIME", [0.0, 1.0])})
+        ds["TIME"].attrs["units"] = "weird units"
+        with pytest.warns(UserWarning, match="not understood"):
+            out = standardise.standardize_time_coordinate(ds)
+        assert pd.Timestamp(out["TIME"].values[0]) == pd.Timestamp("1970-01-01")
+
+    def test_output_units_is_udunits_not_dtype_name(self):
+        """Standardised TIME reports a UDUNITS string, not the numpy dtype name."""
+        ds = xr.Dataset(coords={"TIME": ("TIME", [0.0, 1.0])})
+        ds["TIME"].attrs["units"] = "seconds since 1970-01-01"
+        out = standardise.standardize_time_coordinate(ds)
+        assert out["TIME"].attrs["units"] == "seconds since 1970-01-01T00:00:00Z"
+        assert "datetime64" not in out["TIME"].attrs["units"]

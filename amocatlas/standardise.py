@@ -732,6 +732,43 @@ def merge_metadata_aliases(attrs: dict, preferred_keys: dict) -> dict:
     return merged
 
 
+_TIME_UNIT_ALIASES = {
+    "seconds": "s",
+    "second": "s",
+    "secs": "s",
+    "sec": "s",
+    "s": "s",
+    "minutes": "m",
+    "minute": "m",
+    "mins": "m",
+    "min": "m",
+    "hours": "h",
+    "hour": "h",
+    "hrs": "h",
+    "hr": "h",
+    "h": "h",
+    "days": "D",
+    "day": "D",
+    "d": "D",
+}
+
+
+def _parse_cf_time_units(units: str) -> "tuple[str, str] | None":
+    """Parse a CF time-units string into a (pandas unit, origin) pair.
+
+    For example ``"days since 1950-01-01"`` returns ``("D", "1950-01-01")``. Returns
+    ``None`` if the string is not a recognised ``"<interval> since <date>"`` form, so the
+    caller can fall back explicitly rather than silently assuming an epoch.
+    """
+    match = re.match(r"\s*(\w+)\s+since\s+(.+?)\s*$", units, re.IGNORECASE)
+    if not match:
+        return None
+    pandas_unit = _TIME_UNIT_ALIASES.get(match.group(1).lower())
+    if pandas_unit is None:
+        return None
+    return pandas_unit, match.group(2).strip()
+
+
 def standardize_time_coordinate(ds: xr.Dataset) -> xr.Dataset:
     """Standardize TIME coordinate to comply with AMOCatlas specifications.
 
@@ -785,16 +822,24 @@ def standardize_time_coordinate(ds: xr.Dataset) -> xr.Dataset:
                 units = time_coord.attrs.get(
                     "units", "seconds since 1970-01-01T00:00:00Z"
                 )
-                if "since" in units.lower():
-                    # Parse the units and convert
+                parsed_units = _parse_cf_time_units(units)
+                if parsed_units is not None:
+                    # Honour the declared interval and epoch, e.g. "days since 1950-01-01".
+                    pandas_unit, origin = parsed_units
                     time_datetime = pd.to_datetime(
                         time_coord.values,
-                        unit="s",
-                        origin="1970-01-01",
+                        unit=pandas_unit,
+                        origin=origin,
                         errors="coerce",
                     )
                 else:
-                    # Assume seconds since 1970-01-01
+                    # Units not understood: fall back to seconds since 1970-01-01, and warn,
+                    # since that assumption is wrong for any other epoch.
+                    warnings.warn(
+                        f"TIME units {units!r} not understood; assuming "
+                        "'seconds since 1970-01-01'.",
+                        stacklevel=2,
+                    )
                     time_datetime = pd.to_datetime(
                         time_coord.values,
                         unit="s",
@@ -831,7 +876,9 @@ def standardize_time_coordinate(ds: xr.Dataset) -> xr.Dataset:
         "long_name": "Time",
         "standard_name": "time",
         "calendar": "gregorian",
-        "units": "datetime64[ns]",  # Use datetime64 units for clarity
+        # A valid UDUNITS/CF string, not the internal numpy dtype name. The actual
+        # on-disk encoding for the datetime64 values is chosen by xarray at write time.
+        "units": "seconds since 1970-01-01T00:00:00Z",
         "vocabulary": "http://vocab.nerc.ac.uk/collection/P01/current/ELTMEP01/",
     }
 
@@ -1811,7 +1858,12 @@ def standardise_data(ds: xr.Dataset, file_name: str) -> xr.Dataset:
     # 8) Standardize units
     ds = standardize_units(ds)
 
-    # 9) Apply cleaned metadata and reorder according to canonical order
+    # 9) Apply cleaned metadata and reorder according to canonical order.
+    # Drop internal working structures that leaked into attrs: these are nested dicts
+    # (not netCDF-serialisable) and are only used during processing, not in the output.
+    # (applied_variable_mapping is intentionally kept — it is part of the public attrs.)
+    for _internal_attr in ("files", "variable_mapping", "original_variable_metadata"):
+        cleaned.pop(_internal_attr, None)
     ds.attrs = cleaned
     ds.attrs = reorder_metadata(ds.attrs)
 
