@@ -6,12 +6,10 @@ on:
       - main
     paths:
       - '**.py'
-      - '**.ipynb'
-      - '**.rst'
-      - '**.md'
       - 'requirements*.txt'
       - 'pyproject.toml'
       - 'setup.cfg'
+      - '.github/workflows/tests.yml'
 
 jobs:
   job_mytests:
