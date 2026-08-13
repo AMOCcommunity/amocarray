@@ -663,3 +663,116 @@ def test_set_data_dir_uses_logging() -> None:
 
         # Verify the directory was actually set
         assert utilities._user_data_dir == Path(temp_dir).expanduser().resolve()
+
+
+class _FakeResponse:
+    """Minimal stand-in for a streaming ``requests`` response.
+
+    Yields the given byte chunks from ``iter_content``; if ``raise_on_chunk`` is set,
+    raises ``ConnectionError`` when that chunk index is reached, to simulate a transfer
+    that fails partway through.
+    """
+
+    def __init__(
+        self,
+        chunks: list,
+        headers: dict = None,
+        raise_on_chunk: int = None,
+    ) -> None:
+        self._chunks = chunks
+        self.headers = headers or {}
+        self._raise_on_chunk = raise_on_chunk
+
+    def __enter__(self) -> "_FakeResponse":
+        return self
+
+    def __exit__(self, *exc: Any) -> bool:
+        return False
+
+    def raise_for_status(self) -> None:
+        pass
+
+    def iter_content(self, chunk_size: int = 8192):
+        for i, chunk in enumerate(self._chunks):
+            if self._raise_on_chunk is not None and i == self._raise_on_chunk:
+                raise ConnectionError("simulated mid-transfer failure")
+            yield chunk
+
+
+class TestDownloadProvenance:
+    """Atomic downloads, provenance sidecars, and read_provenance()."""
+
+    def test_successful_download_writes_provenance_sidecar(self, monkeypatch) -> None:
+        """A completed download promotes the file and writes a matching sidecar."""
+        import hashlib
+
+        payload_chunks = [b"hello ", b"world"]
+        payload = b"".join(payload_chunks)
+        headers = {"ETag": '"abc123"', "Last-Modified": "Wed, 13 Aug 2026 00:00:00 GMT"}
+
+        def fake_get(url, stream=True, timeout=None):
+            return _FakeResponse(payload_chunks, headers=headers)
+
+        monkeypatch.setattr(utilities.requests, "get", fake_get)
+
+        with tempfile.TemporaryDirectory() as tmp:
+            path = utilities.download_file(
+                "https://example.com/data.nc", tmp, filename="data.nc"
+            )
+            data_file = Path(path)
+
+            # File promoted into place, no leftover .part
+            assert data_file.read_bytes() == payload
+            assert not data_file.with_name(data_file.name + ".part").exists()
+
+            # Sidecar round-trips via read_provenance with correct content
+            prov = utilities.read_provenance(data_file)
+            assert prov is not None
+            assert prov["url"] == "https://example.com/data.nc"
+            assert prov["bytes"] == len(payload)
+            assert prov["sha256"] == hashlib.sha256(payload).hexdigest()
+            assert prov["etag"] == '"abc123"'
+            assert prov["last_modified"] == "Wed, 13 Aug 2026 00:00:00 GMT"
+
+    def test_failed_download_leaves_no_partial_file(self, monkeypatch) -> None:
+        """A transfer that fails mid-stream leaves neither the .part nor final file."""
+
+        def fake_get(url, stream=True, timeout=None):
+            return _FakeResponse([b"partial", b"more"], raise_on_chunk=1)
+
+        monkeypatch.setattr(utilities.requests, "get", fake_get)
+
+        with tempfile.TemporaryDirectory() as tmp:
+            with pytest.raises(ConnectionError):
+                utilities.download_file(
+                    "https://example.com/data.nc", tmp, filename="data.nc"
+                )
+            final = Path(tmp) / "data.nc"
+            assert not final.exists()
+            assert not final.with_name(final.name + ".part").exists()
+            # No sidecar for a download that never completed
+            assert utilities.read_provenance(final) is None
+
+    def test_read_provenance_missing_sidecar_returns_none(self) -> None:
+        """read_provenance returns None when no sidecar exists beside the file."""
+        with tempfile.TemporaryDirectory() as tmp:
+            data_file = Path(tmp) / "nosidecar.nc"
+            data_file.write_bytes(b"data")
+            assert utilities.read_provenance(data_file) is None
+
+    def test_provenance_omits_absent_http_headers(self, monkeypatch) -> None:
+        """When the server sends no ETag/Last-Modified, those keys are omitted."""
+
+        def fake_get(url, stream=True, timeout=None):
+            return _FakeResponse([b"x"], headers={})
+
+        monkeypatch.setattr(utilities.requests, "get", fake_get)
+
+        with tempfile.TemporaryDirectory() as tmp:
+            path = utilities.download_file(
+                "https://example.com/x.nc", tmp, filename="x.nc"
+            )
+            prov = utilities.read_provenance(path)
+            assert prov is not None
+            assert "etag" not in prov
+            assert "last_modified" not in prov

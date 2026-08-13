@@ -8,12 +8,16 @@ This module provides shared utility functions including:
 - Decorator functions for default parameters
 """
 
+from datetime import datetime, timezone
 from ftplib import FTP
 from functools import wraps
 from importlib import resources
 from pathlib import Path
 from typing import Callable, Dict, List, Optional, Tuple, Union
 from urllib.parse import urlparse
+import hashlib
+import json
+import os
 import re
 import yaml
 
@@ -26,6 +30,13 @@ from amocatlas import logger
 from amocatlas.logger import log_debug
 
 log = logger.log
+
+#: (connect, read) timeout in seconds for network downloads, so a stalled server
+#: cannot hang a download indefinitely.
+DOWNLOAD_TIMEOUT = (30, 300)
+
+#: Suffix for the JSON provenance sidecar written next to each downloaded file.
+PROVENANCE_SUFFIX = ".provenance.json"
 
 
 def get_project_root() -> Path:
@@ -495,26 +506,99 @@ def download_file(
         return str(local_filename)
 
     parsed_url = urlparse(url)
-
-    if parsed_url.scheme in ("http", "https"):
-        # HTTP(S) download
-        with requests.get(url, stream=True) as response:
-            response.raise_for_status()
-            with open(local_filename, "wb") as f:
-                for chunk in response.iter_content(chunk_size=8192):
-                    f.write(chunk)
-
-    elif parsed_url.scheme == "ftp":
-        # FTP download
-        with FTP(parsed_url.netloc) as ftp:
-            ftp.login()  # anonymous login
-            with open(local_filename, "wb") as f:
-                ftp.retrbinary(f"RETR {parsed_url.path}", f.write)
-
-    else:
+    if parsed_url.scheme not in ("http", "https", "ftp"):
         raise ValueError(f"Unsupported URL scheme in {url}")
 
+    # Download to a temporary ".part" file and only rename into place once the transfer
+    # completes, so an interrupted download can never leave a truncated file that a later
+    # call would treat as a valid cached copy.
+    part_file = local_filename.with_name(local_filename.name + ".part")
+    response_headers: Dict[str, str] = {}
+
+    try:
+        if parsed_url.scheme in ("http", "https"):
+            # HTTP(S) download, with a timeout so a stalled server does not hang forever.
+            with requests.get(url, stream=True, timeout=DOWNLOAD_TIMEOUT) as response:
+                response.raise_for_status()
+                response_headers = dict(response.headers)
+                with open(part_file, "wb") as f:
+                    for chunk in response.iter_content(chunk_size=8192):
+                        f.write(chunk)
+        else:
+            # FTP download
+            with FTP(parsed_url.netloc, timeout=DOWNLOAD_TIMEOUT[1]) as ftp:
+                ftp.login()  # anonymous login
+                with open(part_file, "wb") as f:
+                    ftp.retrbinary(f"RETR {parsed_url.path}", f.write)
+
+        # Atomic promotion of the completed download (same directory -> same filesystem).
+        os.replace(part_file, local_filename)
+    except BaseException:
+        part_file.unlink(missing_ok=True)
+        raise
+
+    _write_provenance_sidecar(local_filename, url, response_headers)
     return str(local_filename)
+
+
+def _write_provenance_sidecar(
+    local_filename: Path, url: str, headers: Dict[str, str]
+) -> None:
+    """Write a JSON provenance sidecar next to a downloaded file.
+
+    Records the source URL, download time (UTC), size, SHA-256, and the server's ETag /
+    Last-Modified when available, so a cached file's origin and version are recoverable.
+    A failure to write the sidecar never breaks the download.
+    """
+    try:
+        digest = hashlib.sha256()
+        with open(local_filename, "rb") as f:
+            for chunk in iter(lambda: f.read(1 << 20), b""):
+                digest.update(chunk)
+        provenance = {
+            "url": url,
+            "downloaded_at": datetime.now(timezone.utc)
+            .isoformat()
+            .replace("+00:00", "Z"),
+            "bytes": local_filename.stat().st_size,
+            "sha256": digest.hexdigest(),
+        }
+        etag = headers.get("ETag") or headers.get("etag")
+        last_modified = headers.get("Last-Modified") or headers.get("last-modified")
+        if etag:
+            provenance["etag"] = etag
+        if last_modified:
+            provenance["last_modified"] = last_modified
+        sidecar = local_filename.with_name(local_filename.name + PROVENANCE_SUFFIX)
+        sidecar.write_text(json.dumps(provenance, indent=2) + "\n", encoding="utf-8")
+    except OSError as e:
+        log_debug("Could not write provenance sidecar for %s: %s", local_filename, e)
+
+
+def read_provenance(file_path: Union[str, Path]) -> Optional[Dict]:
+    """Return the provenance sidecar for a downloaded file, or None if absent.
+
+    Parameters
+    ----------
+    file_path : str or Path
+        Path to the downloaded data file (not the sidecar itself).
+
+    Returns
+    -------
+    dict or None
+        The recorded provenance (url, downloaded_at, bytes, sha256, and optionally etag /
+        last_modified), or None if no sidecar exists or it cannot be read.
+
+    """
+    path = Path(file_path)
+    sidecar = path.with_name(path.name + PROVENANCE_SUFFIX)
+    if not sidecar.exists():
+        return None
+    try:
+        return json.loads(sidecar.read_text(encoding="utf-8"))
+    except (OSError, ValueError) as e:
+        log_debug("Could not read provenance sidecar %s: %s", sidecar, e)
+        return None
 
 
 def parse_ascii_header(
