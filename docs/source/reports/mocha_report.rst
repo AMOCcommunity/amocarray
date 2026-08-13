@@ -14,8 +14,8 @@ Dataset Overview
 - **DOI**: https://doi.org/10.17604/3nfq-va20
 - **Source File**: mocha_mht_data_ERA5_v2020.nc
 - **Data Product**: MOCHA heat transport at 26.5°N
-- **License**: ODC-BY
-- **Date Created**: 2023-08-26T00:14:33Z
+- **License**: ODC-By-1.0
+- **Date Created**: 2023-01-01T00:00:00Z
 - **Time Coverage**: 2004-04-02 to 2020-12-14
 - **Record Length**: 12,202 observations (16.7 years)
 - **Sampling Frequency**: 12H
@@ -26,7 +26,7 @@ Dataset Overview
 
 **Acknowledgement:**
 
-    Funding source: the US National Science Foundation.
+    Data from the RAPID-MOCHA program are funded by the U.S. National Science Foundation and U.K. Natural Environment Research Council and are freely available at www.rapid.ac.uk/data/data-download and mocha.rsmas.miami.edu/mocha.
 
 Dataset Visualization
 ^^^^^^^^^^^^^^^^^^^^^
@@ -70,7 +70,7 @@ The following table shows information about the dataset coordinates in the stand
      - 0.0%
    * - *time* → **TIME**
      - **Time**: time array that corresponds to the profile variables 
-     - datetime64[ns]
+     - seconds since 1970-01-01T00:00:00Z
      - (12202,)
      - 2004-04-02
      - 2020-12-14
@@ -241,42 +241,38 @@ Metadata (edits applied noted)
 
 The following metadata provides comprehensive information about this dataset:
 
-- **Title**: MOCHA Heat Transport Data 3/29/2004-12/14/2020
+- **Title\***: Atlantic Meridional Overturning Circulation (AMOC) Heat Transport Time Series between April 2004 and December 2020 at 26.5°N
 - **Summary**: Total heat transport results for the first 16.8 years of the RAPID/MOCHA program, from April 2004 through December 2020.
-- **Program**: RAPID
-- **Project**: RAPID-MOCHA
-- **License**: ODC-BY
-- **Acknowledgment**: Funding source: the US National Science Foundation.
-- **Doi**: https://doi.org/10.17604/3nfq-va20
-- **Weblink**: https://mocha.earth.miami.edu/mocha/index.html, https://rapid.ac.uk/rapidmoc/
+- **Program\***: RAPID
+- **Project\***: RAPID-MOCHA
+- **License\***: ODC-By-1.0
+- **Acknowledgment**: Data from the RAPID-MOCHA program are funded by the U.S. National Science Foundation and U.K. Natural Environment Research Council and are freely available at www.rapid.ac.uk/data/data-download and mocha.rsmas.miami.edu/mocha.
+- **Doi\***: https://doi.org/10.17604/3nfq-va20
+- **Weblink\***: http://mocha.rsmas.miami.edu/mocha
 - **Platform**: mooring
 - **Platform Vocabulary**: https://vocab.nerc.ac.uk/collection/L06/
 - **Data Product\***: MOCHA heat transport at 26.5°N
-- **Time Coverage Start**: 2004-04-02
-- **Time Coverage End**: 2020-12-14
-- **Contributor Name**: William E. Johns, William E. Johns
-- **Contributor Role**: originator, principalInvestigator
-- **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
-- **Contributor Email**: , 
-- **Contributor Id**: https://orcid.org/0000-0002-1093-7871, https://orcid.org/0000-0002-1093-7871
-- **Contributing Institutions**: Rosenstiel School of Marine and Atmospheric Science (University of Miami)
-- **Contributing Institutions Vocabulary**: https://edmo.seadatanet.org/report/1382
-- **Contributing Institutions Role**: 
+- **Time Coverage Start\***: 2004-04-02
+- **Time Coverage End\***: 2020-12-14
+- **Contributor Name\***: William E. Johns, William E. Johns, Shane Elipot, David A. Smeed, Ben I. Moat, Brian King, Denis Volkov, Ryan H. Smith
+- **Contributor Role\***: originator, principalInvestigator, coAuthor, coAuthor, coAuthor, coAuthor, coAuthor, coAuthor
+- **Contributor Role Vocabulary\***: https://vocab.nerc.ac.uk/collection/G04/current/
+- **Contributor Email**: , bjohns@rsmas.miami.edu, , , , , , 
+- **Contributor Id\***: https://orcid.org/0000-0002-1093-7871, https://orcid.org/0000-0002-1093-7871, https://orcid.org/0000-0001-6051-5426, https://orcid.org/0000-0003-1740-1778, https://orcid.org/0000-0001-8676-7779, https://orcid.org/0000-0003-1338-3234, https://orcid.org/0000-0002-9290-0502, https://orcid.org/0000-0001-9824-6989
+- **Contributing Institutions**: Rosenstiel School of Marine and Atmospheric Science (University of Miami), National Oceanography Centre (Southampton), NOAA AOML
+- **Contributing Institutions Vocabulary**: https://edmo.seadatanet.org/report/1382, https://edmo.seadatanet.org/report/17, 
+- **Contributing Institutions Role**: , , 
 - **Conventions**: CF-1.8, ACDD-1.3, OceanSITES-1.5
-- **featureType**: timeSeriesProfile
+- **featureType\***: timeSeriesProfile
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: mocha_mht_data_ERA5_v2020.nc
-- **Source Path\***: ~/AMOCatlas/data/mocha_mht_data_ERA5_v2020.nc
-- **Date Created**: 2023-08-26T00:14:33Z
-- **Date Modified**: 2026-02-01T00:00:00Z
+- **Source Path\***: ~/.amocatlas_data/mocha_mht_data_ERA5_v2020.nc
+- **Date Created\***: 2023-01-01T00:00:00Z
+- **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.3.0
+- **Processing Version**: v0.3.1
 - **Processing Datasource\***: mocha26n
-- **Variable Mapping\***: [Complex metadata structure - 21 items]
-- **Original Variable Metadata\***: [Complex metadata structure - 27 items]
 - **Applied Variable Mapping**: [Complex metadata structure - 24 items]
 - **Convert To Coord\***: z
-- **Variables To Remove\***: day, hour, julian_day, month, year
-- **Principal Investigator Url**: http://www.rsmas.miami.edu/people/faculty-index/?p=william-johns
 - **Methodology Reference**: W.E. Johns, S. Elipot, D.A. Smeed, B. Moat, B. King, D.L. Volkov, R.H. Smith, “Towards Two Decades of Atlantic Ocean Mass and Heat Transports at 26.5ºN”, accepted for publication in Royal Society Philosophical Transactions A, 2023.
 - **Methodology Doi**: doi: 10.1098/rsta.2022.0188

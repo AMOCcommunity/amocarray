@@ -13,7 +13,6 @@ Dataset Overview
 
 - **Project**: Meridional Overturning Variability Experiment (MOVE)
 - **Description**: MOVE transport estimates dataset from UCSD mooring project
-- **DOI**: http://dx.doi.org/10.1016/j.dsr.2005.12.007 http://dx.doi.org/10.1029/2011GL049801
 - **Source File**: OS_MOVE_20000206-20221014_DPR_VOLUMETRANSPORT.nc
 - **Data Product**: MOVE transport time series (2000-2022)
 - **License**: CC-BY-4.0
@@ -86,7 +85,7 @@ The following table shows information about the dataset coordinates in the stand
      - 0.0%
    * - **TIME**
      - Time
-     - datetime64[ns]
+     - seconds since 1970-01-01T00:00:00Z
      - (4164,)
      - NaT
      - NaT
@@ -181,8 +180,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source**: Derived using the following files: OceanSITES file OS_MOVE_20000101-20221018_GRD_TEMPERATURE-SALINITY-AT-SITES-MOVE1-MOVE3.nc, created 20230112T194648Z OceanSITES file OS_MOVE_20000101-20221021_GRD_CURRENTS-AT-SITES-MOVE3-MOVE4.nc, created 20230112T233946Z
 - **License**: CC-BY-4.0
 - **Acknowledgment**: MOVE was supported by the U.S. NOAA's Global Ocean Monitoring and Observing (GOMO) program under award NA20OAR4320278 and earlier awards. Initially, MOVE was funded by the German BMBF.
-- **Doi\***: http://dx.doi.org/10.1016/j.dsr.2005.12.007 http://dx.doi.org/10.1029/2011GL049801
-- **References**: https://dods.ndbc.noaa.gov/thredds/catalog/oceansites/DATA_GRIDDED/MOVE/catalog.html
+- **References**: https://doi.org/10.1016/j.dsr.2005.12.007, https://doi.org/10.1029/2011GL049801, https://dods.ndbc.noaa.gov/thredds/catalog/oceansites/DATA_GRIDDED/MOVE/catalog.html
 - **Weblink\***: https://mooring.ucsd.edu/move/
 - **Platform**: mooring
 - **Platform Vocabulary**: https://vocab.nerc.ac.uk/collection/L06/
@@ -201,14 +199,12 @@ The following metadata provides comprehensive information about this dataset:
 - **featureType**: timeSeries
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: OS_MOVE_20000206-20221014_DPR_VOLUMETRANSPORT.nc
-- **Source Path\***: ~/AMOCatlas/data/OS_MOVE_20000206-20221014_DPR_VOLUMETRANSPORT.nc
+- **Source Path\***: ~/.amocatlas_data/OS_MOVE_20000206-20221014_DPR_VOLUMETRANSPORT.nc
 - **Date Created**: 2025-04-23T01:35:26Z
-- **Date Modified**: 2026-06-01T00:00:00Z
+- **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.0.4
+- **Processing Version**: v0.3.1
 - **Processing Datasource\***: move16n
-- **Variable Mapping\***: [Complex metadata structure - 7 items]
-- **Original Variable Metadata\***: [Complex metadata structure - 7 items]
 - **Applied Variable Mapping**: [Complex metadata structure - 7 items]
 - **Comment**: The primary scientific data here have variable names in CAPITAL LETTERS; ancillary data are given in lower-case.
 
@@ -222,11 +218,10 @@ Dataset Overview
 
 - **Project**: Meridional Overturning Variability Experiment (MOVE)
 - **Description**: MOVE transport estimates dataset from UCSD mooring project
-- **DOI**: http://dx.doi.org/10.1016/j.dsr.2005.12.007 http://dx.doi.org/10.1029/2011GL049801
 - **Source File**: OS_MOVE_20000101-20221021_GRD_CURRENTS-AT-SITES-MOVE3-MOVE4.nc
 - **Data Product**: MOVE gridded currents at sites MOVE3-MOVE4
 - **License**: CC-BY-4.0
-- **Date Created**: 2019-01-30T18:13:16Z
+- **Date Created**: 20230112T233946Z
 - **Time Coverage**: 2000-01-01 to 2022-10-21
 - **Record Length**: 8,330 observations (22.8 years)
 - **Sampling Frequency**: daily
@@ -295,7 +290,7 @@ The following table shows information about the dataset coordinates in the stand
      - 0.0%
    * - **TIME**
      - Time
-     - datetime64[ns]
+     - seconds since 1970-01-01T00:00:00Z
      - (8330,)
      - 2000-01-01
      - 2022-10-21
@@ -378,8 +373,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Naming Authority**: OceanSITES
 - **License**: CC-BY-4.0
 - **Acknowledgment**: MOVE was supported by the U.S. NOAA's Global Ocean Monitoring and Observing (GOMO) program under award NA20OAR4320278 and earlier awards. Initially, MOVE was funded by the German BMBF.
-- **Doi\***: http://dx.doi.org/10.1016/j.dsr.2005.12.007 http://dx.doi.org/10.1029/2011GL049801
-- **References**: https://dods.ndbc.noaa.gov/thredds/catalog/oceansites/DATA_GRIDDED/MOVE/catalog.html
+- **References**: https://doi.org/10.1016/j.dsr.2005.12.007, https://doi.org/10.1029/2011GL049801, https://dods.ndbc.noaa.gov/thredds/catalog/oceansites/DATA_GRIDDED/MOVE/catalog.html
 - **Weblink\***: https://mooring.ucsd.edu/move/
 - **Platform**: mooring
 - **Platform Vocabulary**: https://vocab.nerc.ac.uk/collection/L06/
@@ -405,15 +399,13 @@ The following metadata provides comprehensive information about this dataset:
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Data Type**: OceanSITES time-series data
 - **Source File\***: OS_MOVE_20000101-20221021_GRD_CURRENTS-AT-SITES-MOVE3-MOVE4.nc
-- **Source Path\***: ~/AMOCatlas/data/OS_MOVE_20000101-20221021_GRD_CURRENTS-AT-SITES-MOVE3-MOVE4.nc
-- **Date Created**: 2019-01-30T18:13:16Z
-- **Date Modified**: 2026-06-01T00:00:00Z
+- **Source Path\***: ~/.amocatlas_data/OS_MOVE_20000101-20221021_GRD_CURRENTS-AT-SITES-MOVE3-MOVE4.nc
+- **Date Created**: 20230112T233946Z
+- **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.0.4
+- **Processing Version**: v0.3.1
 - **Processing Datasource\***: move16n
 - **Format Version**: 1.5
-- **Variable Mapping\***: {'VELOCITY_U': 'UCUR', 'VELOCITY_V': 'VCUR', 'instrument_depth_time_varying': 'DEPTH', 'latitude_time_varying': 'LATITUDE_VARYING', 'longitude_time_varying': 'LONGITUDE_VARYING'}
-- **Original Variable Metadata\***: [Complex metadata structure - 5 items]
 - **Applied Variable Mapping**: {'VELOCITY_U': 'UCUR', 'VELOCITY_V': 'VCUR', 'instrument_depth_time_varying': 'DEPTH', 'latitude_time_varying': 'LATITUDE_VARYING', 'longitude_time_varying': 'LONGITUDE_VARYING'}
 - **Update Interval**: void
 - **Comment**: The primary scientific data here have variable names in CAPITAL LETTERS; ancillary data are given in lower-case.
@@ -432,11 +424,10 @@ Dataset Overview
 
 - **Project**: Meridional Overturning Variability Experiment (MOVE)
 - **Description**: MOVE transport estimates dataset from UCSD mooring project
-- **DOI**: http://dx.doi.org/10.1016/j.dsr.2005.12.007 http://dx.doi.org/10.1029/2011GL049801
 - **Source File**: OS_MOVE_20000101-20221018_GRD_TEMPERATURE-SALINITY-AT-SITES-MOVE1-MOVE3.nc
 - **Data Product**: MOVE gridded temperature and salinity at sites MOVE1-MOVE3
 - **License**: CC-BY-4.0
-- **Date Created**: 2019-01-30T18:13:16Z
+- **Date Created**: 20230112T194648Z
 - **Time Coverage**: 2000-01-01 to 2022-10-18
 - **Record Length**: 4,164 observations (22.8 years)
 - **Sampling Frequency**: 48.0H
@@ -505,7 +496,7 @@ The following table shows information about the dataset coordinates in the stand
      - 0.0%
    * - **TIME**
      - Time
-     - datetime64[ns]
+     - seconds since 1970-01-01T00:00:00Z
      - (4164,)
      - 2000-01-01
      - 2022-10-18
@@ -588,8 +579,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Naming Authority**: OceanSITES
 - **License**: CC-BY-4.0
 - **Acknowledgment**: MOVE was supported by the U.S. NOAA's Global Ocean Monitoring and Observing (GOMO) program under award NA20OAR4320278 and earlier awards. Initially, MOVE was funded by the German BMBF.
-- **Doi\***: http://dx.doi.org/10.1016/j.dsr.2005.12.007 http://dx.doi.org/10.1029/2011GL049801
-- **References**: https://dods.ndbc.noaa.gov/thredds/catalog/oceansites/DATA_GRIDDED/MOVE/catalog.html
+- **References**: https://doi.org/10.1016/j.dsr.2005.12.007, https://doi.org/10.1029/2011GL049801, https://dods.ndbc.noaa.gov/thredds/catalog/oceansites/DATA_GRIDDED/MOVE/catalog.html
 - **Weblink\***: https://mooring.ucsd.edu/move/
 - **Platform**: mooring
 - **Platform Vocabulary**: https://vocab.nerc.ac.uk/collection/L06/
@@ -615,15 +605,13 @@ The following metadata provides comprehensive information about this dataset:
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Data Type**: OceanSITES time-series data
 - **Source File\***: OS_MOVE_20000101-20221018_GRD_TEMPERATURE-SALINITY-AT-SITES-MOVE1-MOVE3.nc
-- **Source Path\***: ~/AMOCatlas/data/OS_MOVE_20000101-20221018_GRD_TEMPERATURE-SALINITY-AT-SITES-MOVE1-MOVE3.nc
-- **Date Created**: 2019-01-30T18:13:16Z
-- **Date Modified**: 2026-06-01T00:00:00Z
+- **Source Path\***: ~/.amocatlas_data/OS_MOVE_20000101-20221018_GRD_TEMPERATURE-SALINITY-AT-SITES-MOVE1-MOVE3.nc
+- **Date Created**: 20230112T194648Z
+- **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.0.4
+- **Processing Version**: v0.3.1
 - **Processing Datasource\***: move16n
 - **Format Version**: 1.5
-- **Variable Mapping\***: {'TEMPERATURE': 'TEMP', 'SALINITY': 'PSAL', 'instrument_depth_time_varying': 'DEPTH', 'latitude_time_varying': 'LATITUDE_VARYING', 'longitude_time_varying': 'LONGITUDE_VARYING'}
-- **Original Variable Metadata\***: [Complex metadata structure - 5 items]
 - **Applied Variable Mapping**: {'TEMPERATURE': 'TEMP', 'SALINITY': 'PSAL', 'instrument_depth_time_varying': 'DEPTH', 'latitude_time_varying': 'LATITUDE_VARYING', 'longitude_time_varying': 'LONGITUDE_VARYING'}
 - **Update Interval**: void
 - **Comment**: The primary scientific data here have variable names in CAPITAL LETTERS; ancillary data are given in lower-case.

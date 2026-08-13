@@ -72,7 +72,7 @@ The following table shows information about the dataset coordinates in the stand
      - 0.0%
    * - **TIME**
      - Time
-     - datetime64[ns]
+     - seconds since 1970-01-01T00:00:00Z
      - (67,)
      - 2004-02-14
      - 2020-08-14
@@ -119,39 +119,36 @@ The following metadata provides comprehensive information about this dataset:
 
 - **Title**: Observation-based probabilistic estimates of Atlantic meridional heat transport
 - **Summary**: MHT estimates dataset
-- **Description**: MHT estimates dataset
-- **Program**: Calafat2025
-- **Project**: Estimates of Atlantic meridional heat transport from spatiotemporal fusion of Argo, altimetry and gravimetry data
-- **License**: CC-BY-4.0
-- **Acknowledgment**: This work has been carried out within the framework of the EPOC project funded by the European Union's Horizon Europe programme (grant agreement No 101059547), under call HORIZON-CL6-2021-CLIMATE01. Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union. Neither the European Union nor the granting authority can be held responsible for them.
-- **Weblink**: https://zenodo.org/records/16640426
+- **Description\***: MHT estimates dataset
+- **Program\***: Calafat2025
+- **Project\***: Estimates of Atlantic meridional heat transport from spatiotemporal fusion of Argo, altimetry and gravimetry data
+- **License\***: CC-BY-4.0
+- **Acknowledgment\***: This work has been carried out within the framework of the EPOC project funded by the European Union's Horizon Europe programme (grant agreement No 101059547), under call HORIZON-CL6-2021-CLIMATE01. Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union. Neither the European Union nor the granting authority can be held responsible for them.
+- **Weblink\***: https://zenodo.org/records/16640426
 - **Platform**: Argo floats, altimetry, gravimetry data
 - **Platform Vocabulary**: https://vocab.nerc.ac.uk/collection/L06/
 - **Data Product\***: MHT estimates at 12 latitudes across the Atlantic based on spatiotemporal Bayesian hierarchical model
-- **Time Coverage Start**: 2004-02-14
-- **Time Coverage End**: 2020-08-14
-- **Contributor Name**: Francisco Calafat, Parvathi Vallivattathillam, Eleanor Frajka-Williams
-- **Contributor Role**: originator, coAuthor, principalInvestigator
-- **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
+- **Time Coverage Start\***: 2004-02-14
+- **Time Coverage End\***: 2020-08-14
+- **Contributor Name\***: Francisco Calafat, Parvathi Vallivattathillam, Eleanor Frajka-Williams
+- **Contributor Role\***: originator, coAuthor, principalInvestigator
+- **Contributor Role Vocabulary\***: https://vocab.nerc.ac.uk/collection/G04/current/
 - **Contributor Email**: , , 
-- **Contributor Id**: https://orcid.org/0000-0002-7474-135X, https://orcid.org/0000-0003-1670-964X, https://orcid.org/0000-0001-8773-7838
-- **Contributing Institutions**: National Oceanography Centre (Southampton) / University of the Balearic Islands, Spain, National Oceanography Centre (Liverpool), Balearic Islands University (Department of Physics), University of Hamburg (IfM) (IfM)
-- **Contributing Institutions Vocabulary**: , , https://edmo.seadatanet.org/report/2424, https://edmo.seadatanet.org/report/1586, 
+- **Contributor Id\***: https://orcid.org/0000-0002-7474-135X, https://orcid.org/0000-0003-1670-964X, https://orcid.org/0000-0001-8773-7838
+- **Contributing Institutions**: National Oceanography Centre (Southampton) / University of the Balearic Islands, Spain, National Oceanography Centre (Liverpool), Balearic Islands University (Department of Physics), University of Hamburg (IfM)
+- **Contributing Institutions Vocabulary**: , , https://edmo.seadatanet.org/report/2424, https://edmo.seadatanet.org/report/1586, https://edmo.seadatanet.org/report/1156
 - **Contributing Institutions Role**: , , , , 
-- **Conventions**: CF-1.8, ACDD-1.3, OceanSITES-1.5
-- **featureType**: timeSeries
+- **Conventions\***: CF-1.8, ACDD-1.3, OceanSITES-1.5
+- **featureType\***: timeSeries
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: Bayesian_estimates_Atlantic_MHT.nc
-- **Source Path\***: ~/AMOCatlas/data/Bayesian_estimates_Atlantic_MHT.nc
+- **Source Path\***: ~/.amocatlas_data/Bayesian_estimates_Atlantic_MHT.nc
 - **Source Url\***: https://zenodo.org/records/16640426
-- **Date Modified**: 2026-02-01T00:00:00Z
+- **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.3.0
+- **Processing Version**: v0.3.1
 - **Processing Datasource\***: calafat2025
-- **Variable Mapping\***: {'time': 'TIME', 'latitude': 'LATITUDE', 'mht': 'MHT', 'htc': 'HTC', 'posterior_samples': 'N_ENSEMBLE'}
-- **Original Variable Metadata\***: [Complex metadata structure - 5 items]
 - **Applied Variable Mapping**: {'mht': 'MHT', 'htc': 'HTC', 'posterior_samples': 'N_ENSEMBLE', 'TIME': 'TIME', 'LATITUDE': 'LATITUDE', 'MHT': 'MHT', 'HTC': 'HTC'}
 - **Creation Data**: 31-Jul-2025 15:14:49
 - **Contact**: francisco.mcalafat@uib.eu
 - **Comment On Temporal Resolution**: Estimates of heat transport are quarterly values (i.e., 3-month means: Jan-Feb-Mar, Apr-May-Jun, ...)
-- **Convections**: CF-1.8, ACDD-1.3

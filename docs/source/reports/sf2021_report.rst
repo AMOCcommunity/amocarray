@@ -13,7 +13,7 @@ Dataset Overview
 - **Description**: A dynamically based method for estimating the Atlantic meridional overturning circulation at 26°N from satellite altimetry
 - **Source File**: altimetry_moc_transport_1993_2020_18mos_smoothed.nc
 - **Data Product**: A dynamically based method for estimating the Atlantic meridional overturning circulation at 26°N from satellite altimetry
-- **License**: 
+- **License**: CC-BY-4.0
 - **Time Coverage**: 1993-01-17 to 2018-12-17
 - **Record Length**: 312 observations (25.9 years)
 - **Sampling Frequency**: monthly
@@ -21,6 +21,10 @@ Dataset Overview
 **Citation:**
 
     Sanchez-Franks, A., Frajka-Williams, E., Moat, B. I., and Smeed, D. A.: A dynamically based method for estimating the Atlantic meridional overturning circulation at 26°N from satellite altimetry, Ocean Sci., 17, 1321-1340, https://doi.org/10.5194/os-17-1321-2021, 2021
+
+**Acknowledgement:**
+
+    The authors thank the reviewers for their helpful comments. The authors also thank the many officers, crew, and technicians who helped to collect these data. Alejandra Sanchez-Franks also thanks Louis Clément for helpful discussions on normal-mode decomposition. This research has been supported by grants from the UK Natural Environment Research Council for the RAPID-AMOC programme and the ACSIS programme (grant no. NE/N018044/1) as well as funding from the European Union Horizon 2020 Research and Innovation programme BLUE-ACTION (grant no. 727852).
 
 Dataset Visualization
 ^^^^^^^^^^^^^^^^^^^^^
@@ -57,7 +61,7 @@ The following table shows information about the dataset coordinates in the stand
      - Missing %
    * - *sat_time* → **TIME**
      - Time
-     - datetime64[ns]
+     - seconds since 1970-01-01T00:00:00Z
      - (312,)
      - 1993-01-17
      - 2018-12-17
@@ -112,14 +116,15 @@ The following metadata provides comprehensive information about this dataset:
 - **Summary**: A dynamically based method for estimating the Atlantic meridional overturning circulation at 26°N from satellite altimetry
 - **Description\***: A dynamically based method for estimating the Atlantic meridional overturning circulation at 26°N from satellite altimetry
 - **Project\***: Satellite proxy for the AMOC at 26N
-- **License\***: None
+- **License\***: CC-BY-4.0
+- **Acknowledgment\***: The authors thank the reviewers for their helpful comments. The authors also thank the many officers, crew, and technicians who helped to collect these data. Alejandra Sanchez-Franks also thanks Louis Clément for helpful discussions on normal-mode decomposition. This research has been supported by grants from the UK Natural Environment Research Council for the RAPID-AMOC programme and the ACSIS programme (grant no. NE/N018044/1) as well as funding from the European Union Horizon 2020 Research and Innovation programme BLUE-ACTION (grant no. 727852).
 - **Weblink\***: https://zenodo.org/records/18941523
 - **Data Product\***: A dynamically based method for estimating the Atlantic meridional overturning circulation at 26°N from satellite altimetry
 - **Time Coverage Start\***: 1993-01-17
 - **Time Coverage End\***: 2018-12-17
 - **Contributor Name\***: Alejandra Sanchez-Franks
 - **Contributor Role\***: originator
-- **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
+- **Contributor Role Vocabulary\***: https://vocab.nerc.ac.uk/collection/G04/current/
 - **Contributor Email**: 
 - **Contributor Id**: 
 - **Contributing Institutions\***: National Oceanographic Centre
@@ -129,12 +134,10 @@ The following metadata provides comprehensive information about this dataset:
 - **featureType\***: timeSeries
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: altimetry_moc_transport_1993_2020_18mos_smoothed.nc
-- **Source Path\***: ~/AMOCatlas/data/altimetry_moc_transport_1993_2020_18mos_smoothed.nc
+- **Source Path\***: ~/.amocatlas_data/altimetry_moc_transport_1993_2020_18mos_smoothed.nc
 - **Source Url\***: https://zenodo.org/records/18941523/files/altimetry_moc_transport_1993_2020_18mos_smoothed.nc
-- **Date Modified**: 2026-06-01T00:00:00Z
+- **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.0.4
+- **Processing Version**: v0.3.1
 - **Processing Datasource\***: sf2021
-- **Variable Mapping\***: {'sat_time': 'TIME', 'sat_moc_filt': 'MOC_PROXY', 'sat_umo_filt': 'TRANS_UMO_PROXY', 'sat_gs_filt': 'TRANS_GS_PROXY'}
-- **Original Variable Metadata\***: [Complex metadata structure - 3 items]
 - **Applied Variable Mapping**: {'sat_time': 'TIME', 'sat_moc_filt': 'MOC_PROXY', 'sat_umo_filt': 'TRANS_UMO_PROXY', 'sat_gs_filt': 'TRANS_GS_PROXY'}

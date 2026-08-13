@@ -70,7 +70,7 @@ The following table shows information about the dataset coordinates in the stand
      - Missing %
    * - **TIME**
      - **Time**: Time in days since 1950-01-01
-     - datetime64[ns]
+     - seconds since 1970-01-01T00:00:00Z
      - (96,)
      - 2014-08-01
      - 2022-07-01
@@ -244,25 +244,23 @@ The following metadata provides comprehensive information about this dataset:
 - **Time Coverage Start**: 2014-08-01
 - **Time Coverage End**: 2022-07-01
 - **Contributor Name**: OSNAP investigators, M. Susan Lozier, Yao Fu, Yao Fu, M. Susan Lozier, Amy Bower, Kristin Burmeister, Tiago Carrilho Biló, Frederic Cyr, Stuart A. Cunningham, Brad deYoung, Ahmad Fehmi Dilmahamod, M. Femke de Jong, Nora Fried, N. Penny Holliday, Neil Fraser, William E. Johns, Feili Li, Johannes Karstensen, Robert Pickart, Fiammetta Straneo, Igor Yashayaev
-- **Contributor Role**: originator, publisher, , data design, collection and/or processing, , , , , , , , , , , , , , , , , 
+- **Contributor Role**: originator, publisher, publisher, data design, collection and/or processing, , , , , , , , , , , , , , , , , 
 - **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
 - **Contributor Email**: , susan.lozier@gatech.edu, yaofu@usf.edu, , , , , , , , , , , , , , , , , , , 
 - **Contributor Id**: , , https://orcid.org/0000-0003-2227-3694, https://orcid.org/0000-0003-2227-3694, , https://orcid.org/0000-0003-0902-4984, https://orcid.org/0000-0003-3881-0298, https://orcid.org/0000-0002-4007-5862, https://orcid.org/0000-0002-1581-7502, https://orcid.org/0000-0001-9439-5442, https://scholar.google.com/citations?user=c6SCfzAAAAAJ&hl=en, https://orcid.org/0000-0003-1110-940X, https://orcid.org/0000-0001-5683-0570, https://orcid.org/0000-0001-5457-1026, https://orcid.org/0000-0002-9733-8002, https://orcid.org/0000-0002-2171-9060, https://orcid.org/0000-0002-1093-7871, https://orcid.org/0000-0002-3073-9813, https://orcid.org/0000-0001-5044-7079, https://orcid.org/0000-0002-7826-911X, https://orcid.org/0000-0002-1735-2366, https://orcid.org/0000-0002-6976-7803
-- **Contributing Institutions**: Multiple contribution institutions, Georgia Institute of Technology, National Oceanography Centre (Southampton), Woods Hole Oceanographic Institution, Scottish Association for Marine Science (SAMS), Royal Netherlands Institute for Sea Research (NIOZ), Memorial University of Newfoundland, Fisheries and Oceans Canada, Northwest Atlantic Fisheries Centre, Institute of Ocean Sciences (DFO), Scripps Institution of Oceanography, Rosenstiel School of Marine and Atmospheric Science, Rosenstiel School of Marine and Atmospheric Science (University of Miami), Helmholtz Centre for Ocean Research Kiel (GEOMAR), Bedford Institute of Oceanography, Xiamen University - State Key Laboratory of Marine Environmental Science, State Key Laboratory of Marine Environmental Science, University of South Florida
+- **Contributing Institutions**: Multiple contributing institutions, Georgia Institute of Technology, National Oceanography Centre (Southampton), Woods Hole Oceanographic Institution, Scottish Association for Marine Science (SAMS), Royal Netherlands Institute for Sea Research (NIOZ), Memorial University of Newfoundland, Fisheries and Oceans Canada, Northwest Atlantic Fisheries Centre, Institute of Ocean Sciences (DFO), Scripps Institution of Oceanography, Rosenstiel School of Marine and Atmospheric Science, Rosenstiel School of Marine and Atmospheric Science (University of Miami), Helmholtz Centre for Ocean Research Kiel (GEOMAR), Bedford Institute of Oceanography, Xiamen University - State Key Laboratory of Marine Environmental Science, State Key Laboratory of Marine Environmental Science, University of South Florida
 - **Contributing Institutions Vocabulary**: , https://edmo.seadatanet.org/report/3075, https://edmo.seadatanet.org/report/17, https://edmo.seadatanet.org/report/3844, https://edmo.seadatanet.org/report/44, https://edmo.seadatanet.org/report/630, , https://edmo.seadatanet.org/report/5370, https://edmo.seadatanet.org/report/4157, https://edmo.seadatanet.org/report/4155, https://edmo.seadatanet.org/report/1390, , https://edmo.seadatanet.org/report/1382, https://edmo.seadatanet.org/report/2947, https://edmo.seadatanet.org/report/1811, https://edmo.seadatanet.org/report/2401, , https://edmo.seadatanet.org/report/3838
 - **Contributing Institutions Role**: , , , , , , , , , , , , , , , , , 
 - **Conventions\***: CF-1.8, ACDD-1.3, OceanSITES-1.5
 - **featureType\***: timeSeries
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: OSNAP_MOC_MHT_MFT_TimeSeries_201408_202207_2025.nc
-- **Source Path\***: ~/AMOCatlas/data/OSNAP_MOC_MHT_MFT_TimeSeries_201408_202207_2025.nc
+- **Source Path\***: ~/.amocatlas_data/OSNAP_MOC_MHT_MFT_TimeSeries_201408_202207_2025.nc
 - **Date Created**: 2025-05-21T15:09:24Z
-- **Date Modified**: 2026-02-01T00:00:00Z
+- **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.3.0
+- **Processing Version**: v0.3.1
 - **Processing Datasource\***: osnap55n
-- **Variable Mapping\***: [Complex metadata structure - 10 items]
-- **Original Variable Metadata\***: [Complex metadata structure - 19 items]
 - **Applied Variable Mapping**: [Complex metadata structure - 10 items]
 - **Data Assembly Center**: Georgia Institute of Technology
 
@@ -340,7 +338,7 @@ The following table shows information about the dataset coordinates in the stand
      - 0.0%
    * - **TIME**
      - **Time**: Start date of each monthly period
-     - datetime64[ns]
+     - seconds since 1970-01-01T00:00:00Z
      - (96,)
      - 2014-08-01
      - 2022-07-01
@@ -409,25 +407,23 @@ The following metadata provides comprehensive information about this dataset:
 - **Time Coverage Start**: 2014-08-01
 - **Time Coverage End**: 2022-07-01
 - **Contributor Name**: OSNAP investigators, M. Susan Lozier, Yao Fu, Yao Fu, M. Susan Lozier, Amy Bower, Kristin Burmeister, Tiago Carrilho Biló, Frederic Cyr, Stuart A. Cunningham, Brad deYoung, Ahmad Fehmi Dilmahamod, M. Femke de Jong, Nora Fried, N. Penny Holliday, Neil Fraser, William E. Johns, Feili Li, Johannes Karstensen, Robert Pickart, Fiammetta Straneo, Igor Yashayaev
-- **Contributor Role**: originator, publisher, , data design, collection and/or processing, , , , , , , , , , , , , , , , , 
+- **Contributor Role**: originator, publisher, publisher, data design, collection and/or processing, , , , , , , , , , , , , , , , , 
 - **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
 - **Contributor Email**: , susan.lozier@gatech.edu, yaofu@usf.edu, , , , , , , , , , , , , , , , , , , 
 - **Contributor Id**: , , https://orcid.org/0000-0003-2227-3694, https://orcid.org/0000-0003-2227-3694, , https://orcid.org/0000-0003-0902-4984, https://orcid.org/0000-0003-3881-0298, https://orcid.org/0000-0002-4007-5862, https://orcid.org/0000-0002-1581-7502, https://orcid.org/0000-0001-9439-5442, https://scholar.google.com/citations?user=c6SCfzAAAAAJ&hl=en, https://orcid.org/0000-0003-1110-940X, https://orcid.org/0000-0001-5683-0570, https://orcid.org/0000-0001-5457-1026, https://orcid.org/0000-0002-9733-8002, https://orcid.org/0000-0002-2171-9060, https://orcid.org/0000-0002-1093-7871, https://orcid.org/0000-0002-3073-9813, https://orcid.org/0000-0001-5044-7079, https://orcid.org/0000-0002-7826-911X, https://orcid.org/0000-0002-1735-2366, https://orcid.org/0000-0002-6976-7803
-- **Contributing Institutions**: Multiple contribution institutions, Georgia Institute of Technology, National Oceanography Centre (Southampton), Woods Hole Oceanographic Institution, Scottish Association for Marine Science (SAMS), Royal Netherlands Institute for Sea Research (NIOZ), Memorial University of Newfoundland, Fisheries and Oceans Canada, Northwest Atlantic Fisheries Centre, Institute of Ocean Sciences (DFO), Scripps Institution of Oceanography, Rosenstiel School of Marine and Atmospheric Science, Rosenstiel School of Marine and Atmospheric Science (University of Miami), Helmholtz Centre for Ocean Research Kiel (GEOMAR), Bedford Institute of Oceanography, Xiamen University - State Key Laboratory of Marine Environmental Science, State Key Laboratory of Marine Environmental Science, University of South Florida
+- **Contributing Institutions**: Multiple contributing institutions, Georgia Institute of Technology, National Oceanography Centre (Southampton), Woods Hole Oceanographic Institution, Scottish Association for Marine Science (SAMS), Royal Netherlands Institute for Sea Research (NIOZ), Memorial University of Newfoundland, Fisheries and Oceans Canada, Northwest Atlantic Fisheries Centre, Institute of Ocean Sciences (DFO), Scripps Institution of Oceanography, Rosenstiel School of Marine and Atmospheric Science, Rosenstiel School of Marine and Atmospheric Science (University of Miami), Helmholtz Centre for Ocean Research Kiel (GEOMAR), Bedford Institute of Oceanography, Xiamen University - State Key Laboratory of Marine Environmental Science, State Key Laboratory of Marine Environmental Science, University of South Florida
 - **Contributing Institutions Vocabulary**: , https://edmo.seadatanet.org/report/3075, https://edmo.seadatanet.org/report/17, https://edmo.seadatanet.org/report/3844, https://edmo.seadatanet.org/report/44, https://edmo.seadatanet.org/report/630, , https://edmo.seadatanet.org/report/5370, https://edmo.seadatanet.org/report/4157, https://edmo.seadatanet.org/report/4155, https://edmo.seadatanet.org/report/1390, , https://edmo.seadatanet.org/report/1382, https://edmo.seadatanet.org/report/2947, https://edmo.seadatanet.org/report/1811, https://edmo.seadatanet.org/report/2401, , https://edmo.seadatanet.org/report/3838
 - **Contributing Institutions Role**: , , , , , , , , , , , , , , , , , 
 - **Conventions\***: CF-1.8, ACDD-1.3, OceanSITES-1.5
 - **featureType\***: timeSeriesProfile
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: OSNAP_Streamfunction_201408_202207_2025.nc
-- **Source Path\***: ~/AMOCatlas/data/OSNAP_Streamfunction_201408_202207_2025.nc
+- **Source Path\***: ~/.amocatlas_data/OSNAP_Streamfunction_201408_202207_2025.nc
 - **Date Created**: 2025-05-21T15:16:52Z
-- **Date Modified**: 2026-02-01T00:00:00Z
+- **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.3.0
+- **Processing Version**: v0.3.1
 - **Processing Datasource\***: osnap55n
-- **Variable Mapping\***: {'LEVEL': 'SIGMA0', 'T_ALL': 'STREAMFUNCTION_SIGMA0', 'T_WEST': 'STREAMFUNCTION_SIGMA0_WEST', 'T_EAST': 'STREAMFUNCTION_SIGMA0_EAST'}
-- **Original Variable Metadata\***: [Complex metadata structure - 5 items]
 - **Applied Variable Mapping**: {'LEVEL': 'SIGMA0', 'T_ALL': 'STREAMFUNCTION_SIGMA0', 'T_WEST': 'STREAMFUNCTION_SIGMA0_WEST', 'T_EAST': 'STREAMFUNCTION_SIGMA0_EAST'}
 - **Data Assembly Center**: Georgia Institute of Technology
 
@@ -509,7 +505,7 @@ The following table shows information about the dataset coordinates in the stand
      - 0.0%
    * - **TIME**
      - **Time**: Start date of each monthly period
-     - datetime64[ns]
+     - seconds since 1970-01-01T00:00:00Z
      - (96,)
      - 2014-08-01
      - 2022-07-01
@@ -578,25 +574,23 @@ The following metadata provides comprehensive information about this dataset:
 - **Time Coverage Start**: 2014-08-01
 - **Time Coverage End**: 2022-07-01
 - **Contributor Name**: OSNAP investigators, M. Susan Lozier, Yao Fu, Yao Fu, M. Susan Lozier, Amy Bower, Kristin Burmeister, Tiago Carrilho Biló, Frederic Cyr, Stuart A. Cunningham, Brad deYoung, Ahmad Fehmi Dilmahamod, M. Femke de Jong, Nora Fried, N. Penny Holliday, Neil Fraser, William E. Johns, Feili Li, Johannes Karstensen, Robert Pickart, Fiammetta Straneo, Igor Yashayaev
-- **Contributor Role**: originator, publisher, , data design, collection and/or processing, , , , , , , , , , , , , , , , , 
+- **Contributor Role**: originator, publisher, publisher, data design, collection and/or processing, , , , , , , , , , , , , , , , , 
 - **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
 - **Contributor Email**: , susan.lozier@gatech.edu, yaofu@usf.edu, , , , , , , , , , , , , , , , , , , 
 - **Contributor Id**: , , https://orcid.org/0000-0003-2227-3694, https://orcid.org/0000-0003-2227-3694, , https://orcid.org/0000-0003-0902-4984, https://orcid.org/0000-0003-3881-0298, https://orcid.org/0000-0002-4007-5862, https://orcid.org/0000-0002-1581-7502, https://orcid.org/0000-0001-9439-5442, https://scholar.google.com/citations?user=c6SCfzAAAAAJ&hl=en, https://orcid.org/0000-0003-1110-940X, https://orcid.org/0000-0001-5683-0570, https://orcid.org/0000-0001-5457-1026, https://orcid.org/0000-0002-9733-8002, https://orcid.org/0000-0002-2171-9060, https://orcid.org/0000-0002-1093-7871, https://orcid.org/0000-0002-3073-9813, https://orcid.org/0000-0001-5044-7079, https://orcid.org/0000-0002-7826-911X, https://orcid.org/0000-0002-1735-2366, https://orcid.org/0000-0002-6976-7803
-- **Contributing Institutions**: Multiple contribution institutions, Georgia Institute of Technology, National Oceanography Centre (Southampton), Woods Hole Oceanographic Institution, Scottish Association for Marine Science (SAMS), Royal Netherlands Institute for Sea Research (NIOZ), Memorial University of Newfoundland, Fisheries and Oceans Canada, Northwest Atlantic Fisheries Centre, Institute of Ocean Sciences (DFO), Scripps Institution of Oceanography, Rosenstiel School of Marine and Atmospheric Science, Rosenstiel School of Marine and Atmospheric Science (University of Miami), Helmholtz Centre for Ocean Research Kiel (GEOMAR), Bedford Institute of Oceanography, Xiamen University - State Key Laboratory of Marine Environmental Science, State Key Laboratory of Marine Environmental Science, University of South Florida
+- **Contributing Institutions**: Multiple contributing institutions, Georgia Institute of Technology, National Oceanography Centre (Southampton), Woods Hole Oceanographic Institution, Scottish Association for Marine Science (SAMS), Royal Netherlands Institute for Sea Research (NIOZ), Memorial University of Newfoundland, Fisheries and Oceans Canada, Northwest Atlantic Fisheries Centre, Institute of Ocean Sciences (DFO), Scripps Institution of Oceanography, Rosenstiel School of Marine and Atmospheric Science, Rosenstiel School of Marine and Atmospheric Science (University of Miami), Helmholtz Centre for Ocean Research Kiel (GEOMAR), Bedford Institute of Oceanography, Xiamen University - State Key Laboratory of Marine Environmental Science, State Key Laboratory of Marine Environmental Science, University of South Florida
 - **Contributing Institutions Vocabulary**: , https://edmo.seadatanet.org/report/3075, https://edmo.seadatanet.org/report/17, https://edmo.seadatanet.org/report/3844, https://edmo.seadatanet.org/report/44, https://edmo.seadatanet.org/report/630, , https://edmo.seadatanet.org/report/5370, https://edmo.seadatanet.org/report/4157, https://edmo.seadatanet.org/report/4155, https://edmo.seadatanet.org/report/1390, , https://edmo.seadatanet.org/report/1382, https://edmo.seadatanet.org/report/2947, https://edmo.seadatanet.org/report/1811, https://edmo.seadatanet.org/report/2401, , https://edmo.seadatanet.org/report/3838
 - **Contributing Institutions Role**: , , , , , , , , , , , , , , , , , 
 - **Conventions\***: CF-1.8, ACDD-1.3, OceanSITES-1.5
 - **featureType\***: timeSeriesProfile
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: OSNAP_Gridded_TSV_201408_202207_2025.nc
-- **Source Path\***: ~/AMOCatlas/data/OSNAP_Gridded_TSV_201408_202207_2025.nc
+- **Source Path\***: ~/.amocatlas_data/OSNAP_Gridded_TSV_201408_202207_2025.nc
 - **Date Created**: 2025-05-21T15:11:05Z
-- **Date Modified**: 2026-02-01T00:00:00Z
+- **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.3.0
+- **Processing Version**: v0.3.1
 - **Processing Datasource\***: osnap55n
-- **Variable Mapping\***: {'SAL': 'PSAL', 'VELO': 'VCUR'}
-- **Original Variable Metadata\***: [Complex metadata structure - 7 items]
 - **Applied Variable Mapping**: {'SAL': 'PSAL', 'VELO': 'VCUR'}
 - **Url\***: https://repository.gatech.edu/bitstreams/af6a47f7-f705-49b4-a64f-5cd086b9b9fb/download
 - **Size\***: 55.98 MB

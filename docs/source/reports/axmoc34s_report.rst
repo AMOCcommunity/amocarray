@@ -62,7 +62,7 @@ The following table shows information about the dataset coordinates in the stand
      - Missing %
    * - *time* → **TIME**
      - Time
-     - datetime64[ns]
+     - seconds since 1970-01-01T00:00:00Z
      - (221,)
      - 2005-01-15
      - 2023-05-15
@@ -179,15 +179,13 @@ The following metadata provides comprehensive information about this dataset:
 - **featureType\***: timeSeries
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: AXMOC_34S_timeseries_2005_2023.nc
-- **Source Path\***: /Users/eddifying/.amocatlas_data/AXMOC_34S_timeseries_2005_2023.nc
+- **Source Path\***: ~/.amocatlas_data/AXMOC_34S_timeseries_2005_2023.nc
 - **Source Url\***: https://zenodo.org/records/18839461/files/
 - **Date Created**: 21-May-2026
 - **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.3.1
 - **Processing Datasource\***: axmoc34s
-- **Variable Mapping\***: [Complex metadata structure - 10 items]
-- **Original Variable Metadata\***: [Complex metadata structure - 9 items]
 - **Applied Variable Mapping**: [Complex metadata structure - 15 items]
 - **Methodology**: AMOC, MHT, and Fov were estimated using the AXMOC methodology. Mapped temperature and salinity fields were constructed from sustained in situ observations, including Argo, XBT, and CTD data. The total transports include Ekman and geostrophic components.
 - **Paper Reference**: Pita, I., Goes, M., Volkov, D. L., Dong, S., & Schmid, C. (2024). South Atlantic meridional overturning circulation and its respective heat and freshwater transports from sustained observations near 34.5° S. Frontiers in Marine Science, 11, 1474133. doi:10.3389/fmars.2024.1474133

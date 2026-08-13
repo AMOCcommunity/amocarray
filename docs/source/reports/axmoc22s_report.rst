@@ -62,7 +62,7 @@ The following table shows information about the dataset coordinates in the stand
      - Missing %
    * - *time* → **TIME**
      - Time
-     - datetime64[ns]
+     - seconds since 1970-01-01T00:00:00Z
      - (204,)
      - 2007-01-15
      - 2023-12-15
@@ -158,15 +158,13 @@ The following metadata provides comprehensive information about this dataset:
 - **featureType\***: timeSeries
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: AXMOC_22S_timeseries_2007_2023.nc
-- **Source Path\***: /Users/eddifying/.amocatlas_data/AXMOC_22S_timeseries_2007_2023.nc
+- **Source Path\***: ~/.amocatlas_data/AXMOC_22S_timeseries_2007_2023.nc
 - **Source Url\***: https://zenodo.org/records/18839461/files/
 - **Date Created**: 21-May-2026
 - **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.3.1
 - **Processing Datasource\***: axmoc22s
-- **Variable Mapping\***: {'time': 'TIME', 'moc_total': 'MOC', 'moc_ekman': 'TRANS_EKMAN', 'moc_geostrophic': 'TRANS_GEOSTROPHIC', 'mht_total': 'MHT', 'mht_ekman': 'MHT_EKMAN', 'mht_geostrophic': 'MHT_GEOSTROPHIC'}
-- **Original Variable Metadata\***: [Complex metadata structure - 6 items]
 - **Applied Variable Mapping**: [Complex metadata structure - 10 items]
 - **Methodology**: AMOC, and MHT were estimated using the AXMOC methodology, which utilizes temperature and salinity fields constructed from sustained in situ observations, including Argo and XBT data. The total transports include Ekman and geostrophic components.
 - **Paper Reference**: Pita, I., Goes, M., Volkov, D. L., Dong, S., Goni, G., & Cirano, M. (2024). An ARGO and XBT observing system for the Atlantic Meridional Ocerturning Circulation and Meridional Heat Transport (AXMOC) at 22.5° S. Journal of Geophysical Research: Oceans, 129, e2023JC020010. doi:10.1029/2023JC020010

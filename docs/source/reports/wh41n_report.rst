@@ -59,7 +59,7 @@ The following table shows information about the dataset coordinates in the stand
      - Missing %
    * - **TIME**
      - Time
-     - datetime64[ns]
+     - seconds since 1970-01-01T00:00:00Z
      - (288,)
      - 2002-01-16
      - 2025-12-16
@@ -129,7 +129,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Data Product\***: Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations
 - **Contributor Name\***: Will Hobbs, Josh K. Willis
 - **Contributor Role\***: originator, principalInvestigator
-- **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
+- **Contributor Role Vocabulary\***: https://vocab.nerc.ac.uk/collection/G04/current/
 - **Contributor Email**: , 
 - **Contributor Id**: https://orcid.org/0000-0002-2061-0899, https://orcid.org/0000-0002-4515-8771
 - **Contributing Institutions\***: National Aeronautics and Space Administration - Jet Propulsion Laboratory (NASA JPL)
@@ -139,14 +139,12 @@ The following metadata provides comprehensive information about this dataset:
 - **featureType\***: timeSeries
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: hobbs_willis_amoc41N_tseries.txt
-- **Source Path\***: ~/AMOCatlas/data/hobbs_willis_amoc41N_tseries.txt
+- **Source Path\***: ~/.amocatlas_data/hobbs_willis_amoc41N_tseries.txt
 - **Source Url\***: https://doi.org/10.5281/zenodo.8170365
-- **Date Modified**: 2026-02-01T00:00:00Z
+- **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.3.0
+- **Processing Version**: v0.3.1
 - **Processing Datasource\***: wh41n
-- **Variable Mapping\***: {'Ekman (Sv)': 'TRANS_EKMAN', 'Geos (Sv)': 'TRANS_GEO', 'MOC (Sv)': 'MOC', 'MOC (PW)': 'MHT'}
-- **Original Variable Metadata\***: [Complex metadata structure - 4 items]
 - **Applied Variable Mapping**: {'Ekman (Sv)': 'TRANS_EKMAN', 'Geos (Sv)': 'TRANS_GEO', 'MOC (Sv)': 'MOC', 'MOC (PW)': 'MHT'}
 - **Version\***: v5
 
@@ -228,7 +226,7 @@ The following table shows information about the dataset coordinates in the stand
      - 0.0%
    * - **TIME**
      - Time
-     - datetime64[ns]
+     - seconds since 1970-01-01T00:00:00Z
      - (288,)
      - 2002-01-15
      - 2025-12-15
@@ -292,7 +290,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Data Product\***: Transport components from ARGO and ERA5
 - **Contributor Name\***: Will Hobbs, Josh K. Willis
 - **Contributor Role\***: originator, principalInvestigator
-- **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
+- **Contributor Role Vocabulary\***: https://vocab.nerc.ac.uk/collection/G04/current/
 - **Contributor Email**: , 
 - **Contributor Id**: https://orcid.org/0000-0002-2061-0899, https://orcid.org/0000-0002-4515-8771
 - **Contributing Institutions\***: National Aeronautics and Space Administration - Jet Propulsion Laboratory (NASA JPL)
@@ -300,15 +298,13 @@ The following metadata provides comprehensive information about this dataset:
 - **Contributing Institutions Role**: 
 - **Conventions\***: CF-1.8, ACDD-1.3, OceanSITES-1.5
 - **Source File\***: trans_ARGO_ERA5.nc
-- **Source Path\***: ~/AMOCatlas/data/trans_ARGO_ERA5.nc
+- **Source Path\***: ~/.amocatlas_data/trans_ARGO_ERA5.nc
 - **Source Url\***: https://doi.org/10.5281/zenodo.8170365
 - **Date Created**: Mon 12 Jan 2026 14:06:47 AEDT
-- **Date Modified**: 2026-02-01T00:00:00Z
+- **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.3.0
+- **Processing Version**: v0.3.1
 - **Processing Datasource\***: wh41n
-- **Variable Mapping\***: {'Vek': 'VEL_EKMAN', 'trans': 'TRANS_GEO', 'moc': 'MOC', 'depth': 'DEPTH', 'lat': 'LATITUDE', 'lon': 'LONGITUDE'}
-- **Original Variable Metadata\***: [Complex metadata structure - 3 items]
 - **Applied Variable Mapping**: {'Vek': 'VEL_EKMAN', 'trans': 'TRANS_GEO', 'moc': 'MOC', 'depth': 'DEPTH', 'lat': 'LATITUDE', 'lon': 'LONGITUDE', 'MOC': 'MOC', 'DEPTH': 'DEPTH'}
 - **Reference Temp**: kelvin
 - **Wind Stress**: ERA5
@@ -398,7 +394,7 @@ The following table shows information about the dataset coordinates in the stand
      - 0.0%
    * - **TIME**
      - Time
-     - datetime64[ns]
+     - seconds since 1970-01-01T00:00:00Z
      - (288,)
      - 2002-01-15
      - 2025-12-15
@@ -462,7 +458,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Data Product\***: Heat transport based on various assumptions about temperature below 2000m
 - **Contributor Name\***: Will Hobbs, Josh K. Willis
 - **Contributor Role\***: originator, principalInvestigator
-- **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
+- **Contributor Role Vocabulary\***: https://vocab.nerc.ac.uk/collection/G04/current/
 - **Contributor Email**: , 
 - **Contributor Id**: https://orcid.org/0000-0002-2061-0899, https://orcid.org/0000-0002-4515-8771
 - **Contributing Institutions\***: National Aeronautics and Space Administration - Jet Propulsion Laboratory (NASA JPL)
@@ -470,15 +466,13 @@ The following metadata provides comprehensive information about this dataset:
 - **Contributing Institutions Role**: 
 - **Conventions\***: CF-1.8, ACDD-1.3, OceanSITES-1.5
 - **Source File\***: Q_ARGO_obs_dens_2000depth_ERA5.nc
-- **Source Path\***: ~/AMOCatlas/data/Q_ARGO_obs_dens_2000depth_ERA5.nc
+- **Source Path\***: ~/.amocatlas_data/Q_ARGO_obs_dens_2000depth_ERA5.nc
 - **Source Url\***: https://doi.org/10.5281/zenodo.8170365
 - **Date Created**: Mon 12 Jan 2026 14:06:47 AEDT
-- **Date Modified**: 2026-02-01T00:00:00Z
+- **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.3.0
+- **Processing Version**: v0.3.1
 - **Processing Datasource\***: wh41n
-- **Variable Mapping\***: {'Qnet': 'MHT_NET', 'Qek': 'MHT_EKMAN', 'Q': 'MHT', 'depth': 'DEPTH', 'lat': 'LATITUDE', 'lon': 'LONGITUDE', 'time': 'TIME'}
-- **Original Variable Metadata\***: [Complex metadata structure - 3 items]
 - **Applied Variable Mapping**: {'Qnet': 'MHT_NET', 'Qek': 'MHT_EKMAN', 'Q': 'MHT', 'depth': 'DEPTH', 'lat': 'LATITUDE', 'lon': 'LONGITUDE', 'DEPTH': 'DEPTH', 'TIME': 'TIME'}
 - **Reference Temp**: kelvin
 - **Wind Stress**: ERA5

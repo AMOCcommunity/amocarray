@@ -6,6 +6,7 @@ sanitization, and datetime encoding. Includes functions to save datasets
 with proper compression and metadata formatting.
 """
 
+import json
 from numbers import Number
 from pathlib import Path
 from typing import Union
@@ -53,17 +54,32 @@ def save_dataset(ds: xr.Dataset, output_file: str = "../test.nc") -> bool:
     # Make a copy to avoid modifying the original dataset
     ds_copy = ds.copy()
 
-    # Sanitize attributes: replace None with empty string to avoid NetCDF issues
-    new_attrs = {}
-    for k, v in ds_copy.attrs.items():
-        if v is None:
-            new_attrs[k] = ""
-        else:
-            new_attrs[k] = v
+    # Sanitize attributes for netCDF serialization. NETCDF4_CLASSIC does not support
+    # NC_STRING attributes, so values that would serialise as one are converted to a single
+    # string up front: None -> ""; dicts (e.g. applied_variable_mapping) and lists/tuples
+    # that contain strings (e.g. variables_to_remove) are JSON-encoded. Numeric lists are
+    # left as-is (they write as a valid numeric array attribute).
+    def _sanitize_attr(value: object) -> object:
+        if value is None:
+            return ""
+        if isinstance(value, dict):
+            return json.dumps(value)
+        if isinstance(value, (list, tuple)) and (
+            not value
+            or not all(isinstance(x, Number) and not isinstance(x, bool) for x in value)
+        ):
+            return json.dumps(list(value))
+        return value
 
-    # Replace all attributes with sanitized versions
+    new_attrs = {k: _sanitize_attr(v) for k, v in ds_copy.attrs.items()}
     ds_copy.attrs.clear()
     ds_copy.attrs.update(new_attrs)
+
+    # Same sanitisation for variable-level attributes.
+    for var_name in ds_copy.variables:
+        var_attrs = ds_copy[var_name].attrs
+        for key in list(var_attrs):
+            var_attrs[key] = _sanitize_attr(var_attrs[key])
 
     # Handle datetime coordinate encoding conflicts
     # For datetime variables, remove manual units to let xarray handle encoding properly
@@ -79,12 +95,16 @@ def save_dataset(ds: xr.Dataset, output_file: str = "../test.nc") -> bool:
                 if key in ds_copy[var_name].attrs:
                     del ds_copy[var_name].attrs[key]
 
-            # Set proper datetime encoding
-            if var_name not in ds_copy.encoding:
-                ds_copy.encoding[var_name] = {}
-            ds_copy.encoding[var_name].update(
-                {"units": "seconds since 1970-01-01T00:00:00Z", "calendar": "gregorian"}
-            )
+            # Pin the datetime encoding on the VARIABLE (ds_copy[var].encoding), not the
+            # dataset-level ds_copy.encoding[var] — the latter is ignored on write, which
+            # let each array keep its source units (e.g. "days since 2004-4-1"). Set a
+            # fresh dict so stale source keys (old units/dtype/_FillValue) can't conflict;
+            # float64 avoids the int32 "seconds since 1970" overflow (Y2038) for modern dates.
+            ds_copy[var_name].encoding = {
+                "units": "seconds since 1970-01-01T00:00:00Z",
+                "calendar": "gregorian",
+                "dtype": "float64",
+            }
 
     # Set up compression encoding for data variables
     encoding = {}

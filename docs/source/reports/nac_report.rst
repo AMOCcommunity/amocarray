@@ -83,7 +83,7 @@ The following table shows information about the dataset coordinates in the stand
      - 0.0%
    * - **TIME**
      - Time
-     - datetime64[ns]
+     - seconds since 1970-01-01T00:00:00Z
      - (66,)
      - 1993-01-01
      - 2025-07-02
@@ -201,15 +201,13 @@ The following metadata provides comprehensive information about this dataset:
 - **featureType\***: timeSeries
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: _2_1.nc
-- **Source Path\***: /Users/eddifying/.amocatlas_data/_2_1.nc
+- **Source Path\***: ~/.amocatlas_data/_2_1.nc
 - **Source Url\***: https://library.ucsd.edu/dc/object/bb6635909m/
 - **Date Created**: 2025-10-07T00:00:00Z
 - **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
 - **Processing Version**: v0.3.1
 - **Processing Datasource\***: nac
-- **Variable Mapping\***: {'NAC': 'TRANS_NAC', 'NAC_UNCERTAINTY': 'TRANS_NAC_UNCERTAINTY', 'NAC_PROXY': 'TRANS_NAC_PROXY'}
-- **Original Variable Metadata\***: [Complex metadata structure - 3 items]
 - **Applied Variable Mapping**: {'NAC': 'TRANS_NAC', 'NAC_UNCERTAINTY': 'TRANS_NAC_UNCERTAINTY', 'NAC_PROXY': 'TRANS_NAC_PROXY'}
 - **Keywords**: geostrophic current, North Atlantic Current, altimetry, Argo, Irminger Sea, Porcupine Abyssal Plain
 - **Geospatial Vertical Units**: dbar

@@ -13,11 +13,11 @@ Dataset Overview
 
 - **Project**: RAPID-AMOC 26°N array
 - **Description**: RAPID 26N transport estimates dataset
-- **DOI**: https://doi.org/10.5285/223b34a32dc5c945e0637086abc0f274
+- **DOI**: https://doi.org/10.5285/48d0bf43-0598-ceb2-e063-7086abc062f1
 - **Source File**: moc_transports.nc
 - **Data Product**: RAPID layer transport time series
 - **License**: UK Open Government Licence v3.0 https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/
-- **Date Created**: 23-Sep-2025
+- **Date Created**: 17-Sep-2024
 - **Time Coverage**: 2004-04-02 to 2024-03-27
 - **Record Length**: 14,599 observations (20.0 years)
 - **Sampling Frequency**: 12H
@@ -70,7 +70,7 @@ The following table shows information about the dataset coordinates in the stand
      - Missing %
    * - *time* → **TIME**
      - Time
-     - datetime64[ns]
+     - seconds since 1970-01-01T00:00:00Z
      - (14599,)
      - 2004-04-02
      - 2024-03-27
@@ -171,7 +171,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Project\***: RAPID-AMOC 26°N array
 - **License\***: UK Open Government Licence v3.0 https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/
 - **Acknowledgment\***: Data from the RAPID MOC monitoring project are funded by the Natural Environment Research Council, the National Science Foundation (NSF) with support from NOAA. They are freely available from www.rapid.ac.uk/.
-- **Doi\***: https://doi.org/10.5285/223b34a32dc5c945e0637086abc0f274
+- **Doi\***: https://doi.org/10.5285/48d0bf43-0598-ceb2-e063-7086abc062f1
 - **Weblink\***: https://rapid.ac.uk/rapidmoc
 - **Distribution Statement\***: Data from RAPID MOC monitoring project are made freely available to the public. Continued funding of this project depends on us being able to justify the usefulness of the data to the Natural Environment Research Council. The project scientists would appreciate it if you would use the data DOI (see "citation") and add the following acknowledgment (see "acknowledgment") to any publications that use this data.
 - **Platform**: mooring
@@ -182,7 +182,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Contributor Name**: Ben I. Moat, Ben I. Moat
 - **Contributor Role**: originator, principalInvestigator
 - **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
-- **Contributor Email**: , 
+- **Contributor Email**: , ben.moat@noc.ac.uk
 - **Contributor Id**: https://orcid.org/0000-0001-8676-7779, https://orcid.org/0000-0001-8676-7779
 - **Contributing Institutions**: National Oceanography Centre (Southampton)
 - **Contributing Institutions Vocabulary**: https://edmo.seadatanet.org/report/17
@@ -191,16 +191,15 @@ The following metadata provides comprehensive information about this dataset:
 - **featureType\***: timeSeries
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: moc_transports.nc
-- **Source Path\***: ~/AMOCatlas/data/moc_transports.nc
-- **Date Created**: 23-Sep-2025
-- **Date Modified**: 2026-02-01T00:00:00Z
+- **Source Path\***: ~/.amocatlas_data/moc_transports.nc
+- **Date Created\***: 17-Sep-2024
+- **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.3.0
+- **Processing Version**: v0.3.1
 - **Processing Datasource\***: rapid26n
-- **Variable Mapping\***: [Complex metadata structure - 10 items]
-- **Original Variable Metadata\***: [Complex metadata structure - 9 items]
+- **Product Version\***: 2024.1a
 - **Applied Variable Mapping**: [Complex metadata structure - 11 items]
-- **Version**: v2024.1
+- **Version**: v2024.1a
 
 ----
 
@@ -212,11 +211,11 @@ Dataset Overview
 
 - **Project**: RAPID-AMOC 26°N array
 - **Description**: RAPID 26N transport estimates dataset
-- **DOI**: https://doi.org/10.5285/223b34a32dc5c945e0637086abc0f274
+- **DOI**: https://doi.org/10.5285/48d0bf43-0598-ceb2-e063-7086abc062f1
 - **Source File**: moc_vertical.nc
 - **Data Product**: RAPID vertical streamfunction time series
 - **License**: UK Open Government Licence v3.0 https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/
-- **Date Created**: 22-Jan-2026
+- **Date Created**: 17-Sep-2024
 - **Time Coverage**: 2004-04-02 to 2024-03-27
 - **Record Length**: 14,599 observations (20.0 years)
 - **Sampling Frequency**: 12H
@@ -276,7 +275,7 @@ The following table shows information about the dataset coordinates in the stand
      - 0.0%
    * - *time* → **TIME**
      - Time
-     - datetime64[ns]
+     - seconds since 1970-01-01T00:00:00Z
      - (14599,)
      - 2004-04-02
      - 2024-03-27
@@ -321,7 +320,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Project\***: RAPID-AMOC 26°N array
 - **License\***: UK Open Government Licence v3.0 https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/
 - **Acknowledgment\***: Data from the RAPID MOC monitoring project are funded by the Natural Environment Research Council, the National Science Foundation (NSF) with support from NOAA. They are freely available from www.rapid.ac.uk/.
-- **Doi\***: https://doi.org/10.5285/223b34a32dc5c945e0637086abc0f274
+- **Doi\***: https://doi.org/10.5285/48d0bf43-0598-ceb2-e063-7086abc062f1
 - **Weblink\***: https://rapid.ac.uk/rapidmoc
 - **Distribution Statement\***: Data from RAPID MOC monitoring project are made freely available to the public. Continued funding of this project depends on us being able to justify the usefulness of the data to the Natural Environment Research Council. The project scientists would appreciate it if you would use the data DOI (see "citation") and add the following acknowledgment (see "acknowledgment") to any publications that use this data.
 - **Platform**: mooring
@@ -332,7 +331,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Contributor Name**: Ben I. Moat, Ben I. Moat
 - **Contributor Role**: originator, principalInvestigator
 - **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
-- **Contributor Email**: , 
+- **Contributor Email**: , ben.moat@noc.ac.uk
 - **Contributor Id**: https://orcid.org/0000-0001-8676-7779, https://orcid.org/0000-0001-8676-7779
 - **Contributing Institutions**: National Oceanography Centre (Southampton)
 - **Contributing Institutions Vocabulary**: https://edmo.seadatanet.org/report/17
@@ -341,14 +340,13 @@ The following metadata provides comprehensive information about this dataset:
 - **featureType\***: timeSeriesProfile
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: moc_vertical.nc
-- **Source Path\***: ~/AMOCatlas/data/moc_vertical.nc
-- **Date Created**: 22-Jan-2026
-- **Date Modified**: 2026-02-01T00:00:00Z
+- **Source Path\***: ~/.amocatlas_data/moc_vertical.nc
+- **Date Created\***: 17-Sep-2024
+- **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.3.0
+- **Processing Version**: v0.3.1
 - **Processing Datasource\***: rapid26n
-- **Variable Mapping\***: {'time': 'TIME', 'depth': 'DEPTH', 'stream_function_mar': 'STREAMFUNCTION_Z'}
-- **Original Variable Metadata\***: [Complex metadata structure - 1 items]
+- **Product Version\***: 2024.1a
 - **Applied Variable Mapping**: {'time': 'TIME', 'depth': 'DEPTH', 'stream_function_mar': 'STREAMFUNCTION_Z', 'TIME': 'TIME', 'DEPTH': 'DEPTH'}
 - **Version**: v2024.1a
 
@@ -362,11 +360,11 @@ Dataset Overview
 
 - **Project**: RAPID-AMOC 26°N array
 - **Description**: RAPID 26N transport estimates dataset
-- **DOI**: https://doi.org/10.5285/223b34a32dc5c945e0637086abc0f274
+- **DOI**: https://doi.org/10.5285/48d0bf43-0598-ceb2-e063-7086abc062f1
 - **Source File**: ts_gridded.nc
 - **Data Product**: RAPID gridded temperature and salinity
 - **License**: UK Open Government Licence v3.0 https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/
-- **Date Created**: 22-Jan-2026
+- **Date Created**: 17-Sep-2024
 - **Time Coverage**: 2004-04-02 to 2024-03-27
 - **Record Length**: 14,599 observations (20.0 years)
 - **Sampling Frequency**: 12H
@@ -426,7 +424,7 @@ The following table shows information about the dataset coordinates in the stand
      - 0.0%
    * - *time* → **TIME**
      - Time
-     - datetime64[ns]
+     - seconds since 1970-01-01T00:00:00Z
      - (14599,)
      - 2004-04-02
      - 2024-03-27
@@ -590,7 +588,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Project\***: RAPID-AMOC 26°N array
 - **License\***: UK Open Government Licence v3.0 https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/
 - **Acknowledgment\***: Data from the RAPID MOC monitoring project are funded by the Natural Environment Research Council, the National Science Foundation (NSF) with support from NOAA. They are freely available from www.rapid.ac.uk/.
-- **Doi\***: https://doi.org/10.5285/223b34a32dc5c945e0637086abc0f274
+- **Doi\***: https://doi.org/10.5285/48d0bf43-0598-ceb2-e063-7086abc062f1
 - **Weblink\***: https://rapid.ac.uk/rapidmoc
 - **Distribution Statement\***: Data from RAPID MOC monitoring project are made freely available to the public. Continued funding of this project depends on us being able to justify the usefulness of the data to the Natural Environment Research Council. The project scientists would appreciate it if you would use the data DOI (see "citation") and add the following acknowledgment (see "acknowledgment") to any publications that use this data.
 - **Platform**: mooring
@@ -601,7 +599,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Contributor Name**: Ben I. Moat, Ben I. Moat
 - **Contributor Role**: originator, principalInvestigator
 - **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
-- **Contributor Email**: , 
+- **Contributor Email**: , ben.moat@noc.ac.uk
 - **Contributor Id**: https://orcid.org/0000-0001-8676-7779, https://orcid.org/0000-0001-8676-7779
 - **Contributing Institutions**: National Oceanography Centre (Southampton)
 - **Contributing Institutions Vocabulary**: https://edmo.seadatanet.org/report/17
@@ -610,17 +608,16 @@ The following metadata provides comprehensive information about this dataset:
 - **featureType\***: timeSeriesProfile
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: ts_gridded.nc
-- **Source Path\***: ~/AMOCatlas/data/ts_gridded.nc
-- **Date Created**: 22-Jan-2026
-- **Date Modified**: 2026-02-01T00:00:00Z
+- **Source Path\***: ~/.amocatlas_data/ts_gridded.nc
+- **Date Created\***: 17-Sep-2024
+- **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.3.0
+- **Processing Version**: v0.3.1
 - **Processing Datasource\***: rapid26n
-- **Variable Mapping\***: [Complex metadata structure - 22 items]
-- **Original Variable Metadata\***: [Complex metadata structure - 10 items]
+- **Product Version\***: 2024.1a
 - **Applied Variable Mapping**: [Complex metadata structure - 22 items]
-- **Version**: v2024.1a
 - **Convert To Coord\***: pressure
+- **Version**: v2024.1a
 
 ----
 
@@ -632,7 +629,7 @@ Dataset Overview
 
 - **Project**: RAPID-AMOC 26°N array
 - **Description**: RAPID 26N transport estimates dataset
-- **DOI**: https://doi.org/10.5285/223b34a32dc5c945e0637086abc0f274
+- **DOI**: https://doi.org/10.5285/48d0bf43-0598-ceb2-e063-7086abc062f1
 - **Source File**: 2d_gridded.nc
 - **Data Product**: RAPID 2D gridded data
 - **License**: UK Open Government Licence v3.0 https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/
@@ -703,7 +700,7 @@ The following table shows information about the dataset coordinates in the stand
      - 0.0%
    * - *time* → **TIME**
      - **Time**: Time coordinate
-     - datetime64[ns]
+     - seconds since 1970-01-01T00:00:00Z
      - (730,)
      - 2004-04-06
      - 2024-03-22
@@ -789,7 +786,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Project\***: RAPID-AMOC 26°N array
 - **License\***: UK Open Government Licence v3.0 https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/
 - **Acknowledgment\***: Data from the RAPID MOC monitoring project are funded by the Natural Environment Research Council, the National Science Foundation (NSF) with support from NOAA. They are freely available from www.rapid.ac.uk/.
-- **Doi\***: https://doi.org/10.5285/223b34a32dc5c945e0637086abc0f274
+- **Doi\***: https://doi.org/10.5285/48d0bf43-0598-ceb2-e063-7086abc062f1
 - **Weblink\***: https://rapid.ac.uk/rapidmoc
 - **Distribution Statement\***: Data from RAPID MOC monitoring project are made freely available to the public. Continued funding of this project depends on us being able to justify the usefulness of the data to the Natural Environment Research Council. The project scientists would appreciate it if you would use the data DOI (see "citation") and add the following acknowledgment (see "acknowledgment") to any publications that use this data.
 - **Platform**: mooring
@@ -804,16 +801,14 @@ The following metadata provides comprehensive information about this dataset:
 - **featureType\***: timeSeriesProfile
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: 2d_gridded.nc
-- **Source Path\***: ~/AMOCatlas/data/2d_gridded.nc
-- **Date Created**: 17-Sep-2024
-- **Date Modified**: 2026-02-01T00:00:00Z
+- **Source Path\***: ~/.amocatlas_data/2d_gridded.nc
+- **Date Created\***: 17-Sep-2024
+- **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.3.0
+- **Processing Version**: v0.3.1
 - **Processing Datasource\***: rapid26n
-- **Variable Mapping\***: {'time': 'TIME', 'depth': 'DEPTH', 'longitude': 'LONGITUDE', 'pressure': 'PRESSURE', 'area': 'AREA', 'V_insitu': 'VCUR_INSITU', 'V_ekman': 'VCUR_EKMAN', 'V_net': 'VCUR_NET'}
-- **Original Variable Metadata\***: [Complex metadata structure - 7 items]
+- **Product Version\***: 2024.1a
 - **Applied Variable Mapping**: [Complex metadata structure - 13 items]
-- **Version\***: 2024.1a
 - **Dataset Version**: v2024-1a
 - **Dataset Creation Date**: 26-Jan-2026 14:06:26
 - **File Creation Date**: 2026-01-26
@@ -829,7 +824,7 @@ Dataset Overview
 
 - **Project**: RAPID-AMOC 26°N array
 - **Description**: RAPID 26N transport estimates dataset
-- **DOI**: https://doi.org/10.5285/223b34a32dc5c945e0637086abc0f274
+- **DOI**: https://doi.org/10.5285/48d0bf43-0598-ceb2-e063-7086abc062f1
 - **Source File**: meridional_transports.nc
 - **Data Product**: RAPID meridional transport data
 - **License**: UK Open Government Licence v3.0 https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/
@@ -907,7 +902,7 @@ The following table shows information about the dataset coordinates in the stand
      - 0.0%
    * - *time* → **TIME**
      - **Time**: Time coordinate
-     - datetime64[ns]
+     - seconds since 1970-01-01T00:00:00Z
      - (730,)
      - 2004-04-06
      - 2024-03-22
@@ -1007,7 +1002,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Project\***: RAPID-AMOC 26°N array
 - **License\***: UK Open Government Licence v3.0 https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/
 - **Acknowledgment\***: Data from the RAPID MOC monitoring project are funded by the Natural Environment Research Council, the National Science Foundation (NSF) with support from NOAA. They are freely available from www.rapid.ac.uk/.
-- **Doi\***: https://doi.org/10.5285/223b34a32dc5c945e0637086abc0f274
+- **Doi\***: https://doi.org/10.5285/48d0bf43-0598-ceb2-e063-7086abc062f1
 - **Weblink\***: https://rapid.ac.uk/rapidmoc
 - **Distribution Statement\***: Data from RAPID MOC monitoring project are made freely available to the public. Continued funding of this project depends on us being able to justify the usefulness of the data to the Natural Environment Research Council. The project scientists would appreciate it if you would use the data DOI (see "citation") and add the following acknowledgment (see "acknowledgment") to any publications that use this data.
 - **Platform**: mooring
@@ -1022,16 +1017,14 @@ The following metadata provides comprehensive information about this dataset:
 - **featureType\***: timeSeriesProfile
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: meridional_transports.nc
-- **Source Path\***: ~/AMOCatlas/data/meridional_transports.nc
-- **Date Created**: 17-Sep-2024
-- **Date Modified**: 2026-02-01T00:00:00Z
+- **Source Path\***: ~/.amocatlas_data/meridional_transports.nc
+- **Date Created\***: 17-Sep-2024
+- **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.3.0
+- **Processing Version**: v0.3.1
 - **Processing Datasource\***: rapid26n
-- **Variable Mapping\***: [Complex metadata structure - 13 items]
-- **Original Variable Metadata\***: [Complex metadata structure - 9 items]
+- **Product Version\***: 2024.1a
 - **Applied Variable Mapping**: [Complex metadata structure - 18 items]
-- **Version\***: 2024.1a
 - **Dataset Version**: v2024-1a
 - **Dataset Creation Date**: 26-Jan-2026 14:06:26
 - **File Creation Date**: 2026-01-26

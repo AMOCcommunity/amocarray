@@ -57,7 +57,7 @@ The following table shows information about the dataset coordinates in the stand
      - Missing %
    * - *time* → **TIME**
      - Time
-     - datetime64[ns]
+     - seconds since 1970-01-01T00:00:00Z
      - (264,)
      - 1993-01-15
      - 2014-12-15
@@ -175,7 +175,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Time Coverage End\***: 2014-12-15
 - **Contributor Name\***: Eleanor Frajka-Williams
 - **Contributor Role\***: originator
-- **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
+- **Contributor Role Vocabulary\***: https://vocab.nerc.ac.uk/collection/G04/current/
 - **Contributor Email**: 
 - **Contributor Id**: https://orcid.org/0000-0001-8773-7838
 - **Contributing Institutions\***: University of Southampton
@@ -185,14 +185,12 @@ The following metadata provides comprehensive information about this dataset:
 - **featureType\***: timeSeries
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: MOCproxy_for_figshare_v1.0.mat
-- **Source Path\***: ~/AMOCatlas/data/MOCproxy_for_figshare_v1.0.mat
+- **Source Path\***: ~/.amocatlas_data/MOCproxy_for_figshare_v1.0.mat
 - **Source Url\***: https://zenodo.org/records/18606051/files/MOCproxy_for_figshare_v1.0.mat
-- **Date Modified**: 2026-02-01T00:00:00Z
+- **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.3.0
+- **Processing Version**: v0.3.1
 - **Processing Datasource\***: fw2015
-- **Variable Mapping\***: [Complex metadata structure - 12 items]
-- **Original Variable Metadata\***: [Complex metadata structure - 11 items]
 - **Applied Variable Mapping**: [Complex metadata structure - 14 items]
 - **Created**: Jun 2015, Eleanor Frajka-Williams
 - **Url**: http://eleanorfrajka.com/moc-from-space/

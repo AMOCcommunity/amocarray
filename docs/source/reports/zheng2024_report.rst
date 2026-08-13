@@ -73,7 +73,7 @@ The following table shows information about the dataset coordinates in the stand
      - 0.0%
    * - *time* → **TIME**
      - **Time**: Time in datetime format
-     - datetime64[ns]
+     - seconds since 1970-01-01T00:00:00Z
      - (201,)
      - 2004-04-30
      - 2020-12-31
@@ -124,9 +124,9 @@ The following metadata provides comprehensive information about this dataset:
 - **Time Coverage Start\***: 2004-04-30
 - **Time Coverage End\***: 2020-12-31
 - **Contributor Name\***: Huayi Zheng, Lijing Cheng, Feili Li, Yuying Pan, Chenyu Zhu
-- **Contributor Role\***: originator, principalInvestigator, , , 
+- **Contributor Role\***: originator, principalInvestigator, coAuthor, coAuthor, coAuthor
 - **Contributor Role Vocabulary\***: https://vocab.nerc.ac.uk/collection/G04/current/
-- **Contributor Email\***: chenglij@mail.iap.ac.cn, zhenghuayi23@mails.ucas.ac.cn, , , 
+- **Contributor Email\***: zhenghuayi23@mails.ucas.ac.cn, chenglij@mail.iap.ac.cn, , , 
 - **Contributor Id\***: https://orcid.org/0009-0004-5333-7595, https://orcid.org/0000-0002-9854-0392, https://orcid.org/0000-0002-3073-9813, https://orcid.org/0000-0001-7694-2625, https://orcid.org/0000-0002-9330-4294
 - **Contributing Institutions\***: Institute of Atmospheric Physics, Chinese Academy of Sciences
 - **Contributing Institutions Vocabulary\***: https://edmo.seadatanet.org/report/2452
@@ -135,13 +135,11 @@ The following metadata provides comprehensive information about this dataset:
 - **featureType\***: timeSeries
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: atl_mft_2000_extend_gpcp_oaflux.nc
-- **Source Path\***: ~/AMOCatlas/data/atl_mft_2000_extend_gpcp_oaflux.nc
+- **Source Path\***: ~/.amocatlas_data/atl_mft_2000_extend_gpcp_oaflux.nc
 - **Source Url\***: https://zenodo.org/records/12790901
-- **Date Modified**: 2026-06-01T00:00:00Z
+- **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.0.4
+- **Processing Version**: v0.3.1
 - **Processing Datasource\***: zheng2024
-- **Variable Mapping\***: {'time': 'TIME', 'lat': 'LATITUDE', 'mft': 'MFT'}
-- **Original Variable Metadata\***: [Complex metadata structure - 3 items]
 - **Applied Variable Mapping**: {'time': 'TIME', 'lat': 'LATITUDE', 'mft': 'MFT', 'TIME': 'TIME', 'MFT': 'MFT'}
 - **Comment\***: Salinity observations used in this study are from the Institute of Atmospheric Physics (IAP). Argo floats, CTD salinity sensors, bottles, mooring, sourced from the World Ocean Database (WOD). Precipitation and evaporation observations are derived from the Global Precipitation Climatology Project (GPCP).

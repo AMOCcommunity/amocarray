@@ -15,10 +15,10 @@ Dataset Overview
 - **Description**: The Atlantic meridional overturning circulation at 35N from deep moorings, floats, and satellite altimeter
 - **Source File**: AMOC35N.nc
 - **Data Product**: AMOC transport at 35N from deep moorings, floats, and satellite altimeter
-- **License**: 
-- **Time Coverage**: 2004.4 to 2014.3
-- **Record Length**: 120 observations (0.0 years)
-- **Sampling Frequency**: 2.0H
+- **License**: CC-BY-4.0
+- **Time Coverage**: 2004-05-16 to 2014-04-17
+- **Record Length**: 120 observations (9.9 years)
+- **Sampling Frequency**: monthly
 
 **Citation:**
 
@@ -27,6 +27,16 @@ Dataset Overview
 **Acknowledgement:**
 
     ILB and JW gratefully acknowledge the National Aeronautics and Space Administration Grant 80NSSC20K0421. This work was done in part at the Jet Propulsion Laboratory, California Institute of Technology under a contract from NASA. The Argo float data were collected and made freely available by the International Argo Program and the national programs that contribute to it (https://argo.ucsd.edu,https://www.ocean-ops.org). The Argo Program is part of the Global Ocean Observing System. ECCO is supported by NASA's Physical Oceanography, Modeling Analysis and Prediction, and Cryosphere programs. We thank John Toole, Magdalena Andres, and the many other scientists and mariners who went to sea to collect the in situ observational data, particularly through the Line W program.
+
+Dataset Visualization
+^^^^^^^^^^^^^^^^^^^^^
+
+.. figure:: ../_static/reports/amoc35n_2d_gridded.png
+   :alt: AMOC time series plot
+   :align: center
+   :scale: 80%
+
+   Time series plot for AMOC35N dataset.
 
 Dataset Statistics
 ^^^^^^^^^^^^^^^^^^
@@ -67,7 +77,7 @@ The following table shows information about the dataset coordinates in the stand
      - 0.0%
    * - *date* → **TIME**
      - **Time**: Time of each observation in datetime format
-     - datetime64[ns]
+     - seconds since 1970-01-01T00:00:00Z
      - (120,)
      - 2004-05-16
      - 2014-04-17
@@ -137,12 +147,12 @@ The following metadata provides comprehensive information about this dataset:
 - **Description\***: The Atlantic meridional overturning circulation at 35N from deep moorings, floats, and satellite altimeter
 - **Program\***: AMOC at 35°N
 - **Project\***: I. Le Bras, J. Willis, J. Fenty: The Atlantic Meridional Overturning Circulation at 35°N From Deep Moorings, Floats, and Satellite Altimeter
-- **License\***: None
+- **License\***: CC-BY-4.0
 - **Acknowledgment\***: ILB and JW gratefully acknowledge the National Aeronautics and Space Administration Grant 80NSSC20K0421. This work was done in part at the Jet Propulsion Laboratory, California Institute of Technology under a contract from NASA. The Argo float data were collected and made freely available by the International Argo Program and the national programs that contribute to it (https://argo.ucsd.edu,https://www.ocean-ops.org). The Argo Program is part of the Global Ocean Observing System. ECCO is supported by NASA's Physical Oceanography, Modeling Analysis and Prediction, and Cryosphere programs. We thank John Toole, Magdalena Andres, and the many other scientists and mariners who went to sea to collect the in situ observational data, particularly through the Line W program.
 - **Weblink\***: https://zenodo.org/records/7262142
 - **Data Product\***: AMOC transport at 35N from deep moorings, floats, and satellite altimeter
-- **Time Coverage Start\***: 2004.4
-- **Time Coverage End\***: 2014.3
+- **Time Coverage Start\***: 2004-05-16
+- **Time Coverage End\***: 2014-04-17
 - **Contributing Institutions\***: Woodshole Oceanographic Institution (WHOI), Jet Propulsion Laboratory (JPL) at California Institute of Technology
 - **Contributing Institutions Vocabulary**: , 
 - **Contributing Institutions Role**: , 
@@ -150,14 +160,12 @@ The following metadata provides comprehensive information about this dataset:
 - **featureType\***: timeSeries
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: AMOC35N.nc
-- **Source Path\***: ~/AMOCatlas/data/AMOC35N.nc
+- **Source Path\***: ~/.amocatlas_data/AMOC35N.nc
 - **Source Url\***: https://zenodo.org/records/7262142/files/
-- **Date Modified**: 2026-06-01T00:00:00Z
+- **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.0.4
+- **Processing Version**: v0.3.1
 - **Processing Datasource\***: lebras35n
-- **Variable Mapping\***: {'date': 'TIME', 'time': 'TIME_FRACTION', 'depth': 'DEPTH', 'pressure': 'PRESSURE', 'MOCdepth': 'MOC_DEPTH', 'MOCsigma': 'MOC_SIGMA2', 'psi': 'STREAMFUNCTION_SIGMA2', 'Ekman': 'TRANS_EKMAN'}
-- **Original Variable Metadata\***: [Complex metadata structure - 6 items]
 - **Applied Variable Mapping**: [Complex metadata structure - 11 items]
 
 ----
@@ -172,9 +180,9 @@ Dataset Overview
 - **Description**: The Atlantic meridional overturning circulation at 35N from deep moorings, floats, and satellite altimeter
 - **Source File**: AMOC35N_gridded_velocities.nc
 - **Data Product**: Gridded velocities at 35N from deep moorings, floats, and satellite altimeter
-- **License**: 
-- **Time Coverage**: 2004.4 to 2014.3
-- **Record Length**: 120 observations (10 years)
+- **License**: CC-BY-4.0
+- **Time Coverage**: 2004-05-16 to 2014-04-17
+- **Record Length**: 120 observations (9.9 years)
 - **Sampling Frequency**: monthly
 
 **Citation:**
@@ -245,7 +253,7 @@ The following table shows information about the dataset coordinates in the stand
      - 0.0%
    * - *date* → **TIME**
      - Time
-     - datetime64[ns]
+     - seconds since 1970-01-01T00:00:00Z
      - (120,)
      - 2004-05-16
      - 2014-04-17
@@ -315,12 +323,12 @@ The following metadata provides comprehensive information about this dataset:
 - **Description\***: The Atlantic meridional overturning circulation at 35N from deep moorings, floats, and satellite altimeter
 - **Program\***: AMOC at 35°N
 - **Project\***: I. Le Bras, J. Willis, J. Fenty: The Atlantic Meridional Overturning Circulation at 35°N From Deep Moorings, Floats, and Satellite Altimeter
-- **License\***: None
+- **License\***: CC-BY-4.0
 - **Acknowledgment\***: ILB and JW gratefully acknowledge the National Aeronautics and Space Administration Grant 80NSSC20K0421. This work was done in part at the Jet Propulsion Laboratory, California Institute of Technology under a contract from NASA. The Argo float data were collected and made freely available by the International Argo Program and the national programs that contribute to it (https://argo.ucsd.edu,https://www.ocean-ops.org). The Argo Program is part of the Global Ocean Observing System. ECCO is supported by NASA's Physical Oceanography, Modeling Analysis and Prediction, and Cryosphere programs. We thank John Toole, Magdalena Andres, and the many other scientists and mariners who went to sea to collect the in situ observational data, particularly through the Line W program.
 - **Weblink\***: https://zenodo.org/records/7262142
 - **Data Product\***: Gridded velocities at 35N from deep moorings, floats, and satellite altimeter
-- **Time Coverage Start\***: 2004.4
-- **Time Coverage End\***: 2014.3
+- **Time Coverage Start\***: 2004-05-16
+- **Time Coverage End\***: 2014-04-17
 - **Contributing Institutions\***: Woodshole Oceanographic Institution (WHOI), Jet Propulsion Laboratory (JPL) at California Institute of Technology
 - **Contributing Institutions Vocabulary**: , 
 - **Contributing Institutions Role**: , 
@@ -328,12 +336,10 @@ The following metadata provides comprehensive information about this dataset:
 - **featureType\***: timeSeries
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: AMOC35N_gridded_velocities.nc
-- **Source Path\***: ~/AMOCatlas/data/AMOC35N_gridded_velocities.nc
+- **Source Path\***: ~/.amocatlas_data/AMOC35N_gridded_velocities.nc
 - **Source Url\***: https://zenodo.org/records/7262142/files/
-- **Date Modified**: 2026-06-01T00:00:00Z
+- **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.0.4
+- **Processing Version**: v0.3.1
 - **Processing Datasource\***: lebras35n
-- **Variable Mapping\***: [Complex metadata structure - 11 items]
-- **Original Variable Metadata\***: [Complex metadata structure - 4 items]
 - **Applied Variable Mapping**: [Complex metadata structure - 18 items]

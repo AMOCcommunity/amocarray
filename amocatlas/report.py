@@ -33,6 +33,23 @@ from amocatlas import read, plotters
 from amocatlas.logger import log_info, log_debug
 
 
+def _select_time_coordinate(dataset: xr.Dataset, time_coords: list) -> str:
+    """Choose the canonical datetime time coordinate from candidate names.
+
+    Prefers a coordinate named exactly ``"time"``/``"date"``, then any ``datetime64``
+    coordinate, then the first candidate. Auxiliary coordinates such as ``TIME_FRACTION``
+    (decimal years) also contain "time" but are not real datetimes; selecting one yields a
+    nonsense record length and coverage, so they are only used as a last resort.
+    """
+    exact = [c for c in time_coords if c.lower() in ("time", "date")]
+    if exact:
+        return exact[0]
+    datetime_coords = [
+        c for c in time_coords if np.issubdtype(dataset[c].dtype, np.datetime64)
+    ]
+    return datetime_coords[0] if datetime_coords else time_coords[0]
+
+
 class ReportUtils:
     """Shared utilities for AMOCatlas report generation."""
 
@@ -461,7 +478,7 @@ class ReportUtils:
         if not time_coords:
             return {"has_time": False}
 
-        time_coord = time_coords[0]  # Use first time coordinate found
+        time_coord = _select_time_coordinate(dataset, time_coords)
         time_data = dataset[time_coord]
 
         # Convert to pandas datetime if needed
@@ -841,7 +858,7 @@ class ReportUtils:
                 print(f"  No time coordinate found in {dataset_name}")
                 return None
 
-            time_coord = time_coords[0]  # Use first time coordinate
+            time_coord = _select_time_coordinate(dataset, time_coords)
 
             # Find 1D time series and 2D variables
             timeseries_vars = []
@@ -1524,7 +1541,7 @@ class StandardizedDatasetReport(BaseDatasetReport):
         if not time_coords:
             return {"has_time": False}
 
-        time_coord = time_coords[0]  # Use first time coordinate found
+        time_coord = _select_time_coordinate(self.dataset, time_coords)
         time_data = self.dataset[time_coord]
 
         # Convert to pandas datetime if needed

@@ -57,7 +57,7 @@ The following table shows information about the dataset coordinates in the stand
      - Missing %
    * - **TIME**
      - Time
-     - datetime64[ns]
+     - seconds since 1970-01-01T00:00:00Z
      - (301,)
      - 1993-01-01
      - 2018-01-01
@@ -110,11 +110,11 @@ The following metadata provides comprehensive information about this dataset:
 - **Data Product\***: Basin-wide AMOC volume transport from the NOAC array at 47°N in the subpolar North Atlantic (1993-2018)
 - **Time Coverage Start\***: 1993-01-01
 - **Time Coverage End\***: 2018-01-01
-- **Contributor Name\***: Simon Wett, Monika Rhein
-- **Contributor Role\***: originator, principalInvestigator
+- **Contributor Name\***: Simon Wett, Monika Rhein, Dagmar Kieke, Christian Mertens, Martin Moritz, Hannah Nowitzki
+- **Contributor Role\***: originator, principalInvestigator, coAuthor, coAuthor, coAuthor, coAuthor
 - **Contributor Role Vocabulary\***: https://vocab.nerc.ac.uk/collection/G04/current/
-- **Contributor Email**: , 
-- **Contributor Id\***: https://orcid.org/0000-0003-3876-2206, https://orcid.org/0000-0003-1496-2828
+- **Contributor Email**: , , , , , 
+- **Contributor Id\***: https://orcid.org/0000-0003-3876-2206, https://orcid.org/0000-0003-1496-2828, https://orcid.org/0000-0002-2414-0695, https://orcid.org/0000-0002-7602-4194, https://orcid.org/0000-0002-9878-5648, https://orcid.org/0000-0001-5936-0527
 - **Contributing Institutions\***: University of Bremen (Germany)
 - **Contributing Institutions Vocabulary\***: https://edmo.seadatanet.org/report/1157
 - **Contributing Institutions Role**: 
@@ -124,10 +124,8 @@ The following metadata provides comprehensive information about this dataset:
 - **Source File\***: NOAC_AMOC.tab
 - **Source Path\***: ~/.amocatlas_data/NOAC_AMOC.tab
 - **Source Url\***: https://doi.pangaea.de/10.1594/PANGAEA.959558
-- **Date Modified**: 2026-06-01T00:00:00Z
+- **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.3.0
+- **Processing Version**: v0.3.1
 - **Processing Datasource\***: noac47n
-- **Variable Mapping\***: {'Trans vol [Sv]': 'MOC_SIGMA0', 'Trans vol [Sv].1': 'MOC_SIGMA0_LPF'}
-- **Original Variable Metadata\***: [Complex metadata structure - 2 items]
 - **Applied Variable Mapping**: {'Trans vol [Sv]': 'MOC_SIGMA0', 'Trans vol [Sv].1': 'MOC_SIGMA0_LPF'}

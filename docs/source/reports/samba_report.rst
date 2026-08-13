@@ -20,6 +20,11 @@ Dataset Overview
 - **Record Length**: 1,404 observations (3.8 years)
 - **Sampling Frequency**: daily
 
+**Distribution Statement:**
+
+    Upper and abyssal cell transport data from the South Atlantic MOC Basin-wide Array (SAMBA) is made freely available to the public at: https://www.aoml.noaa.gov/phod/SAMOC_international/ in accordance with the SAMOC Data Sharing Policy. If you use these data, please make sure to cite the Kersalé et al. (2020) publication as it contains the appropriate credit for all of the data producers in the Acknowledgements.
+
+
 **Citation:**
 
     M. Kersalé et al., Highly variable upper and abyssal overturning cells in the South Atlantic. Sci. Adv. 6, eaba7573 (2020). DOI: 10.1126/sciadv.aba7573
@@ -63,7 +68,7 @@ The following table shows information about the dataset coordinates in the stand
      - Missing %
    * - **TIME**
      - Time
-     - datetime64[ns]
+     - seconds since 1970-01-01T00:00:00Z
      - (1404,)
      - 2013-09-12
      - 2017-07-16
@@ -114,6 +119,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Project\***: South Atlantic MOC Basin-wide Array (SAMBA)
 - **Acknowledgment**: SAMBA data were collected and made freely available by the SAMOC international project and contributing national programs.
 - **Weblink\***: https://www.aoml.noaa.gov/phod/samoc
+- **Distribution Statement\***: Upper and abyssal cell transport data from the South Atlantic MOC Basin-wide Array (SAMBA) is made freely available to the public at: https://www.aoml.noaa.gov/phod/SAMOC_international/ in accordance with the SAMOC Data Sharing Policy. If you use these data, please make sure to cite the Kersalé et al. (2020) publication as it contains the appropriate credit for all of the data producers in the Acknowledgements.
 - **Platform**: mooring
 - **Platform Vocabulary**: https://vocab.nerc.ac.uk/collection/L06/
 - **Data Product\***: Daily volume transport anomaly estimates for the upper and abyssal cells of the MOC
@@ -126,14 +132,12 @@ The following metadata provides comprehensive information about this dataset:
 - **featureType\***: timeSeries
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: Upper_Abyssal_Transport_Anomalies.txt
-- **Source Path\***: ~/AMOCatlas/data/Upper_Abyssal_Transport_Anomalies.txt
+- **Source Path\***: ~/.amocatlas_data/Upper_Abyssal_Transport_Anomalies.txt
 - **Source Url\***: ftp://ftp.aoml.noaa.gov/phod/pub/SAM/2020_Kersale_etal_ScienceAdvances/
-- **Date Modified**: 2026-02-01T00:00:00Z
+- **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.3.0
+- **Processing Version**: v0.3.1
 - **Processing Datasource\***: samba34s
-- **Variable Mapping\***: [Complex metadata structure - 2 items]
-- **Original Variable Metadata\***: [Complex metadata structure - 2 items]
 - **Applied Variable Mapping**: [Complex metadata structure - 2 items]
 - **Original Variable Mapping**: [Complex metadata structure - 2 items]
 - **Sanitization Mapping**: [Complex metadata structure - 7 items]
@@ -203,7 +207,7 @@ The following table shows information about the dataset coordinates in the stand
      - Missing %
    * - **TIME**
      - Time
-     - datetime64[ns]
+     - seconds since 1970-01-01T00:00:00Z
      - (2964,)
      - 2009-03-19
      - 2017-04-29
@@ -309,14 +313,12 @@ The following metadata provides comprehensive information about this dataset:
 - **featureType\***: timeSeries
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: MOC_TotalAnomaly_and_constituents.asc
-- **Source Path\***: ~/AMOCatlas/data/MOC_TotalAnomaly_and_constituents.asc
+- **Source Path\***: ~/.amocatlas_data/MOC_TotalAnomaly_and_constituents.asc
 - **Source Url\***: https://www.aoml.noaa.gov/phod/SAMOC_international/documents/
-- **Date Modified**: 2026-02-01T00:00:00Z
+- **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.3.0
+- **Processing Version**: v0.3.1
 - **Processing Datasource\***: samba34s
-- **Variable Mapping\***: [Complex metadata structure - 8 items]
-- **Original Variable Metadata\***: [Complex metadata structure - 8 items]
 - **Applied Variable Mapping**: [Complex metadata structure - 8 items]
 - **Original Variable Mapping**: [Complex metadata structure - 8 items]
 - **Sanitization Mapping**: [Complex metadata structure - 12 items]

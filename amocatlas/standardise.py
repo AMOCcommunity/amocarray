@@ -345,6 +345,73 @@ def resolve_metadata_conflict(
     return existing_value
 
 
+def _backfill_contributor_email_by_id(cleaned: dict) -> None:
+    """Propagate a contributor's email to every row sharing the same ORCID, in place.
+
+    A person may appear under several distinct roles (originator + principalInvestigator),
+    with the email present on only one row. Once ids are resolved, fill any empty
+    contributor_email whose row has an ORCID that another row supplied an email for.
+    contributor_id and contributor_email stay aligned (same length).
+    """
+    ids = [s.strip() for s in str(cleaned.get("contributor_id", "")).split(",")]
+    emails = [s.strip() for s in str(cleaned.get("contributor_email", "")).split(",")]
+    if not any(ids) or len(ids) != len(emails):
+        return
+    email_by_id: dict = {}
+    for cid, email in zip(ids, emails, strict=False):
+        if cid and email:
+            email_by_id.setdefault(cid, email)
+    changed = False
+    for i, (cid, email) in enumerate(zip(ids, emails, strict=False)):
+        if cid and not email and cid in email_by_id:
+            emails[i] = email_by_id[cid]
+            changed = True
+    if changed:
+        cleaned["contributor_email"] = ", ".join(emails)
+
+
+def _dedup_institution_metadata(cleaned: dict) -> None:
+    """Deduplicate the parallel contributing-institution lists in place.
+
+    Like contributors, an institution may legitimately appear once per DISTINCT role, but
+    should not be listed twice with the same or an empty role (e.g. a source that lists an
+    institution as both publisher and an unroled contributor). Keeps the first (name, role),
+    fills an empty vocabulary from a duplicate, and drops a bare empty-role entry when the
+    same institution already carries a real role. Institution/vocabulary/role stay aligned.
+    """
+    names = [s.strip() for s in str(cleaned.get("contributing_institutions", "")).split(",")]
+    if not any(names):
+        return
+    vocabs = [
+        s.strip()
+        for s in str(cleaned.get("contributing_institutions_vocabulary", "")).split(",")
+    ]
+    roles = [
+        s.strip()
+        for s in str(cleaned.get("contributing_institutions_role", "")).split(",")
+    ]
+    vocabs += [""] * (len(names) - len(vocabs))
+    roles += [""] * (len(names) - len(roles))
+
+    deduped: dict = {}
+    for name, vocab, role in zip(names, vocabs, roles, strict=False):
+        if not name:
+            continue
+        key = (name.lower(), role)
+        if key in deduped:
+            if not deduped[key]["vocab"] and vocab:
+                deduped[key]["vocab"] = vocab
+        else:
+            deduped[key] = {"name": name, "vocab": vocab, "role": role}
+
+    named_with_role = {nk for (nk, role) in deduped if role}
+    kept = [v for (nk, role), v in deduped.items() if role or nk not in named_with_role]
+
+    cleaned["contributing_institutions"] = ", ".join(x["name"] for x in kept)
+    cleaned["contributing_institutions_vocabulary"] = ", ".join(x["vocab"] for x in kept)
+    cleaned["contributing_institutions_role"] = ", ".join(x["role"] for x in kept)
+
+
 def clean_metadata(attrs: dict, preferred_keys: dict = None) -> dict:
     """Clean up a metadata dictionary.
 
@@ -502,6 +569,26 @@ def _consolidate_contributors(cleaned: dict) -> dict:
                 all_contributors[str(current_index)] = contributor
                 current_index += 1
 
+    # Deduplicate exact (name, role) pairs. A person legitimately appears once per DISTINCT
+    # role (e.g. originator + principalInvestigator), but the SAME person with the SAME role
+    # from several source fields — e.g. a curated contributor_name marked principalInvestigator
+    # plus a source principal_investigator field — is pure redundancy (mocha showed "Johns,
+    # Johns, Johns"). Keep the first occurrence per (normalised name, role), filling in any
+    # email/id a later duplicate supplies. Distinct roles for the same person are preserved.
+    if all_contributors:
+        deduped: dict = {}
+        for contributor in all_contributors.values():
+            key = (" ".join(contributor["name"].split()).lower(), contributor["role"])
+            if key in deduped:
+                existing = deduped[key]
+                if not existing.get("email") and contributor.get("email"):
+                    existing["email"] = contributor["email"]
+                if not existing.get("id") and contributor.get("id"):
+                    existing["id"] = contributor["id"]
+            else:
+                deduped[key] = dict(contributor)
+        all_contributors = {str(i + 1): c for i, c in enumerate(deduped.values())}
+
     # Extract any remaining URLs/emails that weren't processed
     remaining_emails = []
     remaining_ids = []
@@ -590,6 +677,11 @@ def _consolidate_contributors(cleaned: dict) -> dict:
             # Update cleaned dictionary with processed results
             cleaned.update(processed)
 
+            # Backfill email by ORCID now that ids are resolved (registry enrichment runs
+            # inside process_contributor_metadata). The same person can appear under several
+            # roles with the email on only one row; propagate it to their other rows.
+            _backfill_contributor_email_by_id(cleaned)
+
             # Add NERC G04 vocabulary URL if we have contributor roles
             if "contributor_role" in cleaned and cleaned["contributor_role"]:
                 cleaned["contributor_role_vocabulary"] = (
@@ -671,6 +763,7 @@ def _consolidate_contributors(cleaned: dict) -> dict:
         )
         # Update cleaned dictionary with processed results
         cleaned.update(processed)
+        _dedup_institution_metadata(cleaned)
         log_debug("Processed institution metadata: %s", processed)
 
     except (ValueError, KeyError, TypeError, AttributeError) as e:
@@ -774,7 +867,14 @@ def _parse_cf_time_units(units: str) -> "tuple[str, str] | None":
     pandas_unit = _TIME_UNIT_ALIASES.get(match.group(1).lower())
     if pandas_unit is None:
         return None
-    return pandas_unit, match.group(2).strip()
+    origin = match.group(2).strip()
+    # Drop a trailing UTC "Z": pandas' to_datetime(origin=..., unit=...) rejects a
+    # timezone-aware origin, and the numeric values are UTC regardless. Without this a
+    # units string like "seconds since 1970-01-01T00:00:00Z" fails to decode, leaving the
+    # coordinate as raw floats (e.g. calafat2025) instead of datetime64.
+    if origin.endswith(("Z", "z")):
+        origin = origin[:-1].strip()
+    return pandas_unit, origin
 
 
 def standardize_time_coordinate(ds: xr.Dataset) -> xr.Dataset:
@@ -884,13 +984,12 @@ def standardize_time_coordinate(ds: xr.Dataset) -> xr.Dataset:
         "long_name": "Time",
         "standard_name": "time",
         "calendar": "gregorian",
-        # A valid UDUNITS/CF string, not the internal numpy dtype name. The actual
-        # on-disk encoding for the datetime64 values is chosen by xarray at write time.
+        # A valid UDUNITS/CF string, not the numpy dtype name. On write, writers.py moves
+        # this to the encoding and pins "seconds since 1970-01-01" for every array, so the
+        # saved on-disk units are consistent regardless of each source file's own encoding.
         "units": "seconds since 1970-01-01T00:00:00Z",
         "vocabulary": "http://vocab.nerc.ac.uk/collection/P01/current/ELTMEP01/",
     }
-
-    # Note: 'units' attribute not needed for datetime64 coordinates per CF conventions
 
     # Update TIME coordinate attributes
     ds["TIME"].attrs.update(standard_time_attrs)
@@ -1806,7 +1905,7 @@ def standardise_data(ds: xr.Dataset, file_name: str) -> xr.Dataset:
         # User-agnostic: matches whoever ran the processing.
         home = os.path.expanduser("~")
         if path_str.startswith(home):
-            sanitized = "~" + path_str[len(home):]
+            sanitized = "~" + path_str[len(home) :]
             log_debug(f"Sanitized source path: {path_str} → {sanitized}")
             return sanitized
 
@@ -1868,11 +1967,29 @@ def standardise_data(ds: xr.Dataset, file_name: str) -> xr.Dataset:
     ds = standardize_units(ds)
 
     # 9) Apply cleaned metadata and reorder according to canonical order.
-    # Drop internal working structures that leaked into attrs: these are nested dicts
-    # (not netCDF-serialisable) and are only used during processing, not in the output.
+    # Drop internal working directives that leaked into attrs: these are only used during
+    # processing, not in the output. "files"/"variable_mapping"/"original_variable_metadata"
+    # are nested dicts (not netCDF-serialisable); "variables_to_remove" is a processing
+    # directive already applied above (its variables are gone), so the list itself is stale.
     # (applied_variable_mapping is intentionally kept — it is part of the public attrs.)
-    for _internal_attr in ("files", "variable_mapping", "original_variable_metadata"):
+    for _internal_attr in (
+        "files",
+        "variable_mapping",
+        "original_variable_metadata",
+        "variables_to_remove",
+    ):
         cleaned.pop(_internal_attr, None)
+
+    # Insert a missing space after an ISO timestamp in `history`: some upstream files run
+    # the timestamp straight into the message (e.g. "...07ZOceanSITES file..."). Only fires
+    # when a letter immediately follows the timestamp, so separators like "; " are untouched.
+    if cleaned.get("history"):
+        cleaned["history"] = re.sub(
+            r"(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z)(?=[A-Za-z])",
+            r"\1 ",
+            str(cleaned["history"]),
+        )
+
     ds.attrs = cleaned
     ds.attrs = reorder_metadata(ds.attrs)
 

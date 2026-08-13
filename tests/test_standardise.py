@@ -312,14 +312,18 @@ class TestTimeCoordinate:
     """TIME coordinate standardisation, including non-1970 epochs."""
 
     def test_parse_cf_time_units(self):
-        """CF units strings parse into (pandas unit, origin); junk returns None."""
+        """CF units strings parse into (pandas unit, origin); junk returns None.
+
+        A trailing UTC "Z" is stripped from the origin, because pandas' to_datetime
+        rejects a timezone-aware origin when a unit is given (values are UTC regardless).
+        """
         assert standardise._parse_cf_time_units("days since 1950-01-01") == (
             "D",
             "1950-01-01",
         )
         assert standardise._parse_cf_time_units(
             "seconds since 1970-01-01T00:00:00Z"
-        ) == ("s", "1970-01-01T00:00:00Z")
+        ) == ("s", "1970-01-01T00:00:00")
         assert standardise._parse_cf_time_units("hours since 2000-01-01") == (
             "h",
             "2000-01-01",

@@ -76,7 +76,7 @@ The following table shows information about the dataset coordinates in the stand
      - 0.0%
    * - *time* → **TIME**
      - **Time**: Time in datetime format
-     - datetime64[ns]
+     - seconds since 1970-01-01T00:00:00Z
      - (212,)
      - 2004-10-15
      - 2022-05-15
@@ -130,40 +130,37 @@ The following metadata provides comprehensive information about this dataset:
 
 - **Title**: Pan-Arctic Gateway transports since 2004
 - **Summary**: Input data and adjusted data derived with an inverse model of ocean velocity, temperature and salinity obtained from ocean moorings and hydrography from the four main Arctic Gateways Fram Strait, Barents Sea Opening, Bering Strait and Davis Strait
-- **Description**: Input data and adjusted data derived with an inverse model of ocean velocity, temperature and salinity obtained from ocean moorings and hydrography from the four main Arctic Gateways Fram Strait, Barents Sea Opening, Bering Strait and Davis Strait
-- **Program**: Pan-Arctic Gateway transports since 2004
+- **Description\***: Input data and adjusted data derived with an inverse model of ocean velocity, temperature and salinity obtained from ocean moorings and hydrography from the four main Arctic Gateways Fram Strait, Barents Sea Opening, Bering Strait and Davis Strait
+- **Program\***: Pan-Arctic Gateway transports since 2004
 - **Project**: Explaining and predicting the ocean conveyor belt, The Fram Strait Arctic Outflow Observatory
 - **Source**: Mooring and CTD data
-- **License**: CC-BY-4.0
+- **License\***: CC-BY-4.0
 - **Acknowledgment**: This work is funded by the European Union as part of the EPOC project (Explaining and Predicting the Ocean Conveyor; grant number: 101059547). Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union. Neither the European Union nor the granting authority can be held responsible for them.
 - **Doi**: https://doi.org/10.21334/npolar.2025.80b69907
-- **Weblink**: https://doi.org/10.21334/NPOLAR.2025.80B69907
+- **Weblink\***: https://doi.org/10.21334/NPOLAR.2025.80B69907
 - **Data Product\***: Pan-Arctic Gateway transports since 2004 - Barents Sea Opening
-- **Time Coverage Start**: 2004-10-15
-- **Time Coverage End**: 2022-05-15
-- **Contributor Name**: Norwegian Polar Institute (NPI), Norwegian Polar Institute (NPI), Hege-Beate Fredriksen, Laura de Steur
-- **Contributor Role**: originator, publisher, originator, principalInvestigator
-- **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
+- **Time Coverage Start\***: 2004-10-15
+- **Time Coverage End\***: 2022-05-15
+- **Contributor Name\***: Norwegian Polar Institute (NPI), Norwegian Polar Institute (NPI), Hege-Beate Fredriksen, Laura de Steur
+- **Contributor Role\***: originator, publisher, originator, principalInvestigator
+- **Contributor Role Vocabulary\***: https://vocab.nerc.ac.uk/collection/G04/current/
 - **Contributor Email**: post@npolar.no, post@npolar.no, , 
 - **Contributor Id**: www.npolar.no, www.npolar.no, https://orcid.org/0000-0002-3598-4076, https://orcid.org/0000-0002-6043-7920
-- **Contributing Institutions**: Norwegian Polar Institute (NPI), Norwegian Polar Institute (NPI), Alfred Wegener Institute (AWI), Institute for Marine Research (Bergen), Applied Physics Laboratory (University of Washington)
+- **Contributing Institutions\***: Norwegian Polar Institute (NPI), Norwegian Polar Institute (NPI), Alfred Wegener Institute (AWI), Institute for Marine Research (Bergen), Applied Physics Laboratory (University of Washington)
 - **Contributing Institutions Vocabulary**: https://edmo.seadatanet.org/report/1760, https://edmo.seadatanet.org/report/1760, https://edmo.seadatanet.org/report/1368, https://edmo.seadatanet.org/report/1351, https://edmo.seadatanet.org/report/1554
-- **Contributing Institutions Role**: publisher, , , , 
-- **Publisher Type**: institution
-- **Conventions**: , OceanSITES-1.5
-- **featureType**: timeSeriesProfile
+- **Contributing Institutions Role\***: publisher, , , , 
+- **Conventions\***: , OceanSITES-1.5
+- **featureType\***: timeSeriesProfile
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: Adjusted_fulldepth/BarentsSeaOpening_adjusted_v_fulldepth.nc
-- **Source Path\***: ~/AMOCatlas/data/Adjusted_fulldepth/BarentsSeaOpening_adjusted_v_fulldepth.nc
+- **Source Path\***: ~/.amocatlas_data/Adjusted_fulldepth/BarentsSeaOpening_adjusted_v_fulldepth.nc
 - **Source Url\***: https://doi.org/10.21334/NPOLAR.2025.80B69907
 - **Date Created**: 2025-10-31T23:55:53Z
-- **Date Modified**: 2026-02-01T00:00:00Z
+- **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.3.0
+- **Processing Version**: v0.3.1
 - **Processing Datasource\***: arcticgateway
 - **Product Version**: v0
-- **Variable Mapping\***: {'time': 'TIME', 'depth': 'DEPTH', 'lon': 'LONGITUDE', 'lat': 'LATITUDE', 'v': 'VCUR'}
-- **Original Variable Metadata\***: [Complex metadata structure - 7 items]
 - **Applied Variable Mapping**: {'time': 'TIME', 'depth': 'DEPTH', 'lon': 'LONGITUDE', 'lat': 'LATITUDE', 'v': 'VCUR', 'TIME': 'TIME', 'DEPTH': 'DEPTH'}
 - **Gateway**: BarentsSeaOpening
 - **Adjustments**: v is adjusted by a constant monthly value obtained from the inverse model, for all grid cells in a segment
@@ -247,7 +244,7 @@ The following table shows information about the dataset coordinates in the stand
      - 0.0%
    * - *time* → **TIME**
      - Time
-     - datetime64[ns]
+     - seconds since 1970-01-01T00:00:00Z
      - (212,)
      - 2004-10-15
      - 2022-05-15
@@ -301,40 +298,37 @@ The following metadata provides comprehensive information about this dataset:
 
 - **Title**: Pan-Arctic Gateway transports since 2004
 - **Summary**: Input data and adjusted data derived with an inverse model of ocean velocity, temperature and salinity obtained from ocean moorings and hydrography from the four main Arctic Gateways Fram Strait, Barents Sea Opening, Bering Strait and Davis Strait
-- **Description**: Input data and adjusted data derived with an inverse model of ocean velocity, temperature and salinity obtained from ocean moorings and hydrography from the four main Arctic Gateways Fram Strait, Barents Sea Opening, Bering Strait and Davis Strait
-- **Program**: Pan-Arctic Gateway transports since 2004
+- **Description\***: Input data and adjusted data derived with an inverse model of ocean velocity, temperature and salinity obtained from ocean moorings and hydrography from the four main Arctic Gateways Fram Strait, Barents Sea Opening, Bering Strait and Davis Strait
+- **Program\***: Pan-Arctic Gateway transports since 2004
 - **Project**: Explaining and predicting the ocean conveyor belt, The Fram Strait Arctic Outflow Observatory
 - **Source**: Mooring and CTD data
-- **License**: CC-BY-4.0
+- **License\***: CC-BY-4.0
 - **Acknowledgment**: This work is funded by the European Union as part of the EPOC project (Explaining and Predicting the Ocean Conveyor; grant number: 101059547). Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union. Neither the European Union nor the granting authority can be held responsible for them.
 - **Doi**: https://doi.org/10.21334/npolar.2025.80b69907
-- **Weblink**: https://doi.org/10.21334/NPOLAR.2025.80B69907
+- **Weblink\***: https://doi.org/10.21334/NPOLAR.2025.80B69907
 - **Data Product\***: Pan-Arctic Gateway transports since 2004 - Bering Strait
-- **Time Coverage Start**: 2004-10-15
-- **Time Coverage End**: 2022-05-15
-- **Contributor Name**: Norwegian Polar Institute (NPI), Norwegian Polar Institute (NPI), Hege-Beate Fredriksen, Laura de Steur
-- **Contributor Role**: originator, publisher, originator, principalInvestigator
-- **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
+- **Time Coverage Start\***: 2004-10-15
+- **Time Coverage End\***: 2022-05-15
+- **Contributor Name\***: Norwegian Polar Institute (NPI), Norwegian Polar Institute (NPI), Hege-Beate Fredriksen, Laura de Steur
+- **Contributor Role\***: originator, publisher, originator, principalInvestigator
+- **Contributor Role Vocabulary\***: https://vocab.nerc.ac.uk/collection/G04/current/
 - **Contributor Email**: post@npolar.no, post@npolar.no, , 
 - **Contributor Id**: www.npolar.no, www.npolar.no, https://orcid.org/0000-0002-3598-4076, https://orcid.org/0000-0002-6043-7920
-- **Contributing Institutions**: Norwegian Polar Institute (NPI), Norwegian Polar Institute (NPI), Alfred Wegener Institute (AWI), Institute for Marine Research (Bergen), Applied Physics Laboratory (University of Washington)
+- **Contributing Institutions\***: Norwegian Polar Institute (NPI), Norwegian Polar Institute (NPI), Alfred Wegener Institute (AWI), Institute for Marine Research (Bergen), Applied Physics Laboratory (University of Washington)
 - **Contributing Institutions Vocabulary**: https://edmo.seadatanet.org/report/1760, https://edmo.seadatanet.org/report/1760, https://edmo.seadatanet.org/report/1368, https://edmo.seadatanet.org/report/1351, https://edmo.seadatanet.org/report/1554
-- **Contributing Institutions Role**: publisher, , , , 
-- **Publisher Type**: institution
-- **Conventions**: , OceanSITES-1.5
-- **featureType**: timeSeriesProfile
+- **Contributing Institutions Role\***: publisher, , , , 
+- **Conventions\***: , OceanSITES-1.5
+- **featureType\***: timeSeriesProfile
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: Adjusted_fulldepth/BeringStrait_adjusted_v_fulldepth.nc
-- **Source Path\***: ~/AMOCatlas/data/Adjusted_fulldepth/BeringStrait_adjusted_v_fulldepth.nc
+- **Source Path\***: ~/.amocatlas_data/Adjusted_fulldepth/BeringStrait_adjusted_v_fulldepth.nc
 - **Source Url\***: https://doi.org/10.21334/NPOLAR.2025.80B69907
 - **Date Created**: 2025-10-31T23:55:53Z
-- **Date Modified**: 2026-02-01T00:00:00Z
+- **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.3.0
+- **Processing Version**: v0.3.1
 - **Processing Datasource\***: arcticgateway
 - **Product Version**: v0
-- **Variable Mapping\***: {'time': 'TIME', 'depth': 'DEPTH', 'lon': 'LONGITUDE', 'lat': 'LATITUDE', 'v': 'VCUR'}
-- **Original Variable Metadata\***: [Complex metadata structure - 7 items]
 - **Applied Variable Mapping**: {'time': 'TIME', 'depth': 'DEPTH', 'lon': 'LONGITUDE', 'lat': 'LATITUDE', 'v': 'VCUR', 'TIME': 'TIME', 'DEPTH': 'DEPTH'}
 - **Gateway**: BeringStrait
 - **Adjustments**: v is adjusted by a constant monthly value obtained from the inverse model, for all grid cells in a segment
@@ -418,7 +412,7 @@ The following table shows information about the dataset coordinates in the stand
      - 0.0%
    * - *time* → **TIME**
      - Time
-     - datetime64[ns]
+     - seconds since 1970-01-01T00:00:00Z
      - (212,)
      - 2004-10-15
      - 2022-05-15
@@ -472,40 +466,37 @@ The following metadata provides comprehensive information about this dataset:
 
 - **Title**: Pan-Arctic Gateway transports since 2004
 - **Summary**: Input data and adjusted data derived with an inverse model of ocean velocity, temperature and salinity obtained from ocean moorings and hydrography from the four main Arctic Gateways Fram Strait, Barents Sea Opening, Bering Strait and Davis Strait
-- **Description**: Input data and adjusted data derived with an inverse model of ocean velocity, temperature and salinity obtained from ocean moorings and hydrography from the four main Arctic Gateways Fram Strait, Barents Sea Opening, Bering Strait and Davis Strait
-- **Program**: Pan-Arctic Gateway transports since 2004
+- **Description\***: Input data and adjusted data derived with an inverse model of ocean velocity, temperature and salinity obtained from ocean moorings and hydrography from the four main Arctic Gateways Fram Strait, Barents Sea Opening, Bering Strait and Davis Strait
+- **Program\***: Pan-Arctic Gateway transports since 2004
 - **Project**: Explaining and predicting the ocean conveyor belt, The Fram Strait Arctic Outflow Observatory
 - **Source**: Mooring and CTD data
-- **License**: CC-BY-4.0
+- **License\***: CC-BY-4.0
 - **Acknowledgment**: This work is funded by the European Union as part of the EPOC project (Explaining and Predicting the Ocean Conveyor; grant number: 101059547). Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union. Neither the European Union nor the granting authority can be held responsible for them.
 - **Doi**: https://doi.org/10.21334/npolar.2025.80b69907
-- **Weblink**: https://doi.org/10.21334/NPOLAR.2025.80B69907
+- **Weblink\***: https://doi.org/10.21334/NPOLAR.2025.80B69907
 - **Data Product\***: Pan-Arctic Gateway transports since 2004 - Davis Strait
-- **Time Coverage Start**: 2004-10-15
-- **Time Coverage End**: 2022-05-15
-- **Contributor Name**: Norwegian Polar Institute (NPI), Norwegian Polar Institute (NPI), Hege-Beate Fredriksen, Laura de Steur
-- **Contributor Role**: originator, publisher, originator, principalInvestigator
-- **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
+- **Time Coverage Start\***: 2004-10-15
+- **Time Coverage End\***: 2022-05-15
+- **Contributor Name\***: Norwegian Polar Institute (NPI), Norwegian Polar Institute (NPI), Hege-Beate Fredriksen, Laura de Steur
+- **Contributor Role\***: originator, publisher, originator, principalInvestigator
+- **Contributor Role Vocabulary\***: https://vocab.nerc.ac.uk/collection/G04/current/
 - **Contributor Email**: post@npolar.no, post@npolar.no, , 
 - **Contributor Id**: www.npolar.no, www.npolar.no, https://orcid.org/0000-0002-3598-4076, https://orcid.org/0000-0002-6043-7920
-- **Contributing Institutions**: Norwegian Polar Institute (NPI), Norwegian Polar Institute (NPI), Alfred Wegener Institute (AWI), Institute for Marine Research (Bergen), Applied Physics Laboratory (University of Washington)
+- **Contributing Institutions\***: Norwegian Polar Institute (NPI), Norwegian Polar Institute (NPI), Alfred Wegener Institute (AWI), Institute for Marine Research (Bergen), Applied Physics Laboratory (University of Washington)
 - **Contributing Institutions Vocabulary**: https://edmo.seadatanet.org/report/1760, https://edmo.seadatanet.org/report/1760, https://edmo.seadatanet.org/report/1368, https://edmo.seadatanet.org/report/1351, https://edmo.seadatanet.org/report/1554
-- **Contributing Institutions Role**: publisher, , , , 
-- **Publisher Type**: institution
-- **Conventions**: , OceanSITES-1.5
-- **featureType**: timeSeriesProfile
+- **Contributing Institutions Role\***: publisher, , , , 
+- **Conventions\***: , OceanSITES-1.5
+- **featureType\***: timeSeriesProfile
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: Adjusted_fulldepth/DavisStrait_adjusted_v_fulldepth.nc
-- **Source Path\***: ~/AMOCatlas/data/Adjusted_fulldepth/DavisStrait_adjusted_v_fulldepth.nc
+- **Source Path\***: ~/.amocatlas_data/Adjusted_fulldepth/DavisStrait_adjusted_v_fulldepth.nc
 - **Source Url\***: https://doi.org/10.21334/NPOLAR.2025.80B69907
 - **Date Created**: 2025-10-31T23:55:53Z
-- **Date Modified**: 2026-02-01T00:00:00Z
+- **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.3.0
+- **Processing Version**: v0.3.1
 - **Processing Datasource\***: arcticgateway
 - **Product Version**: v0
-- **Variable Mapping\***: {'time': 'TIME', 'depth': 'DEPTH', 'lon': 'LONGITUDE', 'lat': 'LATITUDE', 'v': 'VCUR'}
-- **Original Variable Metadata\***: [Complex metadata structure - 7 items]
 - **Applied Variable Mapping**: {'time': 'TIME', 'depth': 'DEPTH', 'lon': 'LONGITUDE', 'lat': 'LATITUDE', 'v': 'VCUR', 'TIME': 'TIME', 'DEPTH': 'DEPTH'}
 - **Gateway**: DavisStrait
 - **Adjustments**: v is adjusted by a constant monthly value obtained from the inverse model, for all grid cells in a segment
@@ -589,7 +580,7 @@ The following table shows information about the dataset coordinates in the stand
      - 0.0%
    * - *time* → **TIME**
      - Time
-     - datetime64[ns]
+     - seconds since 1970-01-01T00:00:00Z
      - (212,)
      - 2004-10-15
      - 2022-05-15
@@ -643,40 +634,37 @@ The following metadata provides comprehensive information about this dataset:
 
 - **Title**: Pan-Arctic Gateway transports since 2004
 - **Summary**: Input data and adjusted data derived with an inverse model of ocean velocity, temperature and salinity obtained from ocean moorings and hydrography from the four main Arctic Gateways Fram Strait, Barents Sea Opening, Bering Strait and Davis Strait
-- **Description**: Input data and adjusted data derived with an inverse model of ocean velocity, temperature and salinity obtained from ocean moorings and hydrography from the four main Arctic Gateways Fram Strait, Barents Sea Opening, Bering Strait and Davis Strait
-- **Program**: Pan-Arctic Gateway transports since 2004
+- **Description\***: Input data and adjusted data derived with an inverse model of ocean velocity, temperature and salinity obtained from ocean moorings and hydrography from the four main Arctic Gateways Fram Strait, Barents Sea Opening, Bering Strait and Davis Strait
+- **Program\***: Pan-Arctic Gateway transports since 2004
 - **Project**: Explaining and predicting the ocean conveyor belt, The Fram Strait Arctic Outflow Observatory
 - **Source**: Mooring and CTD data
-- **License**: CC-BY-4.0
+- **License\***: CC-BY-4.0
 - **Acknowledgment**: This work is funded by the European Union as part of the EPOC project (Explaining and Predicting the Ocean Conveyor; grant number: 101059547). Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union. Neither the European Union nor the granting authority can be held responsible for them.
 - **Doi**: https://doi.org/10.21334/npolar.2025.80b69907
-- **Weblink**: https://doi.org/10.21334/NPOLAR.2025.80B69907
+- **Weblink\***: https://doi.org/10.21334/NPOLAR.2025.80B69907
 - **Data Product\***: Pan-Arctic Gateway transports since 2004 - Fram Strait
-- **Time Coverage Start**: 2004-10-15
-- **Time Coverage End**: 2022-05-15
-- **Contributor Name**: Norwegian Polar Institute (NPI), Norwegian Polar Institute (NPI), Hege-Beate Fredriksen, Laura de Steur
-- **Contributor Role**: originator, publisher, originator, principalInvestigator
-- **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
+- **Time Coverage Start\***: 2004-10-15
+- **Time Coverage End\***: 2022-05-15
+- **Contributor Name\***: Norwegian Polar Institute (NPI), Norwegian Polar Institute (NPI), Hege-Beate Fredriksen, Laura de Steur
+- **Contributor Role\***: originator, publisher, originator, principalInvestigator
+- **Contributor Role Vocabulary\***: https://vocab.nerc.ac.uk/collection/G04/current/
 - **Contributor Email**: post@npolar.no, post@npolar.no, , 
 - **Contributor Id**: www.npolar.no, www.npolar.no, https://orcid.org/0000-0002-3598-4076, https://orcid.org/0000-0002-6043-7920
-- **Contributing Institutions**: Norwegian Polar Institute (NPI), Norwegian Polar Institute (NPI), Alfred Wegener Institute (AWI), Institute for Marine Research (Bergen), Applied Physics Laboratory (University of Washington)
+- **Contributing Institutions\***: Norwegian Polar Institute (NPI), Norwegian Polar Institute (NPI), Alfred Wegener Institute (AWI), Institute for Marine Research (Bergen), Applied Physics Laboratory (University of Washington)
 - **Contributing Institutions Vocabulary**: https://edmo.seadatanet.org/report/1760, https://edmo.seadatanet.org/report/1760, https://edmo.seadatanet.org/report/1368, https://edmo.seadatanet.org/report/1351, https://edmo.seadatanet.org/report/1554
-- **Contributing Institutions Role**: publisher, , , , 
-- **Publisher Type**: institution
-- **Conventions**: , OceanSITES-1.5
-- **featureType**: timeSeriesProfile
+- **Contributing Institutions Role\***: publisher, , , , 
+- **Conventions\***: , OceanSITES-1.5
+- **featureType\***: timeSeriesProfile
 - **featureType_vocabulary**: https://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html#_features_and_feature_types
 - **Source File\***: Adjusted_fulldepth/FramStrait_adjusted_v_fulldepth.nc
-- **Source Path\***: ~/AMOCatlas/data/Adjusted_fulldepth/FramStrait_adjusted_v_fulldepth.nc
+- **Source Path\***: ~/.amocatlas_data/Adjusted_fulldepth/FramStrait_adjusted_v_fulldepth.nc
 - **Source Url\***: https://doi.org/10.21334/NPOLAR.2025.80B69907
 - **Date Created**: 2025-10-31T23:55:53Z
-- **Date Modified**: 2026-02-01T00:00:00Z
+- **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.3.0
+- **Processing Version**: v0.3.1
 - **Processing Datasource\***: arcticgateway
 - **Product Version**: v0
-- **Variable Mapping\***: {'time': 'TIME', 'depth': 'DEPTH', 'lon': 'LONGITUDE', 'lat': 'LATITUDE', 'v': 'VCUR'}
-- **Original Variable Metadata\***: [Complex metadata structure - 7 items]
 - **Applied Variable Mapping**: {'time': 'TIME', 'depth': 'DEPTH', 'lon': 'LONGITUDE', 'lat': 'LATITUDE', 'v': 'VCUR', 'TIME': 'TIME', 'DEPTH': 'DEPTH'}
 - **Gateway**: FramStrait
 - **Adjustments**: v is adjusted by a constant monthly value obtained from the inverse model, for all grid cells in a segment
