@@ -26,15 +26,14 @@ files:
       NAC:
         long_name: "NAC Transport"
         description: "North Atlantic Current transport time series from satellite and float observations"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_volume_transport_across_line
       NAC_UNCERTAINTY:
         long_name: "Uncertainty of values in NAC variable"
         description: "Uncertainty of North Atlantic Current transport time series"
-        units: Sverdrup
-        standard_name: ocean_volume_transport_across_line_uncertainty
+        units: sverdrup
       NAC_PROXY:
         long_name: "NAC Transport Proxy"
         description: "Proxy for North Atlantic Current transport time series from satellite altimetry"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_volume_transport_across_line

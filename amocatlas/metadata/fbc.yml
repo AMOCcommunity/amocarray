@@ -25,5 +25,5 @@ files:
       FBC_tr:
         long_name: "FBC Overflow"
         description: "FBC Overflow transport time series"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_volume_transport_across_line

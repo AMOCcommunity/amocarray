@@ -41,22 +41,22 @@ files:
       MOCdepth:
         long_name: "AMOC transport in depth space"
         description: "AMOC transport time series in depth space"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_volume_transport_across_line
       MOCsigma:
         long_name: "AMOC transport in density space"
         description: "AMOC transport time series in density space, with potential density referenced to 2000m"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_volume_transport_across_line
       psi:
         long_name: "AMOC streamfunction in density space"
         description: "Integrated across-basin transport streamfunction in depth space"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_meridional_overturning_streamfunction
       Ekman:
         long_name: "Ekman transport"
         description: "Ekman transport time series at 35N derived from CCMP"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_volume_transport_across_line
   AMOC35N_gridded_velocities.nc:
     source_url: https://zenodo.org/records/7262142/files/
@@ -78,7 +78,6 @@ files:
         long_name: "Geostrophic velocity"
         description: "Gridded geostrophic velocity time series through the section"
         units: m/s
-        standard_name: sea_water_geostrophic_velocity
       sigma2:
         long_name: "Potential density referenced to 2000m"
         description: "Gridded potential density time series referenced to 2000m through the section"
@@ -88,9 +87,9 @@ files:
         long_name: "Bathymetry"
         description: "Gridded bathymetry through the section"
         units: m
-        standard_name: bathymetry
+        standard_name: sea_floor_depth_below_geoid
       area:
         long_name: "Grid cell area"
         description: "Area of each grid cell in the gridded velocity product"
         units: m^2
-        standard_name: area
+        standard_name: cell_area

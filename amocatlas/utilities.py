@@ -704,7 +704,7 @@ def find_data_start(file_path: str) -> int:
 
 
 def get_standard_unit_mappings() -> Dict[str, str]:
-    """Get the comprehensive mapping of unit variations to standard units.
+    """Get the mapping of unit variations to standard units.
 
     Uses defaults.PREFERRED_UNITS as target values for standardization.
 
@@ -722,7 +722,7 @@ def get_standard_unit_mappings() -> Dict[str, str]:
     Examples
     --------
     >>> mappings = get_standard_unit_mappings()
-    >>> print(mappings["Sv"])  # "Sverdrup"
+    >>> print(mappings["Sv"])  # "sverdrup"
     >>> print(mappings["deg C"])  # "degree_C"
 
     """
@@ -732,6 +732,7 @@ def get_standard_unit_mappings() -> Dict[str, str]:
         # Transport units → defaults.PREFERRED_UNITS["transport"]
         "Sv": defaults.PREFERRED_UNITS["transport"],
         "sv": defaults.PREFERRED_UNITS["transport"],
+        "Sverdrup": defaults.PREFERRED_UNITS["transport"],
         "Sverdrups": defaults.PREFERRED_UNITS["transport"],
         "1e6 m3 s-1": defaults.PREFERRED_UNITS["transport"],
         "1e6 m^3/s": defaults.PREFERRED_UNITS["transport"],
@@ -836,7 +837,7 @@ def get_standard_unit_mappings() -> Dict[str, str]:
 def standardize_dataset_units(
     ds: xr.Dataset, mapping: Optional[Dict[str, str]] = None, log_changes: bool = True
 ) -> xr.Dataset:
-    """Standardize units throughout a dataset using comprehensive mapping rules.
+    """Standardize units throughout a dataset using the unit mapping rules.
 
     Parameters
     ----------
@@ -861,8 +862,8 @@ def standardize_dataset_units(
     Examples
     --------
     >>> ds_std = standardize_dataset_units(ds)
-    >>> # Check if Sv was converted to Sverdrup
-    >>> print(ds_std['transport'].attrs['units'])  # "Sverdrup"
+    >>> # Check if Sv was converted to sverdrup
+    >>> print(ds_std['transport'].attrs['units'])  # "sverdrup"
 
     """
     from .logger import log_info, log_debug
@@ -966,7 +967,7 @@ def apply_unit_standardization_after_metadata(ds: xr.Dataset) -> xr.Dataset:
     Notes
     -----
     This addresses the issue where YAML metadata files contain "Sv" units
-    that override the standardized "Sverdrup" units. This function should
+    that override the standardized "sverdrup" units. This function should
     be called as the final step in standardization.
 
     Examples

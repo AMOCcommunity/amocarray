@@ -1,7 +1,7 @@
 """AMOCatlas Dataset Report Generator.
 
 This module provides automated reporting capabilities for AMOCatlas datasets,
-generating comprehensive, human-readable documentation with dataset statistics,
+generating human-readable documentation with dataset statistics,
 variable mappings, and quality assessments.
 
 Features:
@@ -284,7 +284,7 @@ class ReportUtils:
 
     @staticmethod
     def compute_dataset_statistics(dataset: xr.Dataset) -> Dict[str, Any]:
-        """Compute comprehensive dataset statistics."""
+        """Compute dataset statistics."""
         stats = {
             "total_variables": len(dataset.data_vars),
             "total_coordinates": len(dataset.coords),
@@ -1060,7 +1060,7 @@ class ReportUtils:
         output_file: str = None,
         canonical_dates: bool = False,
     ) -> str:
-        """Generate comprehensive report for any array following the read.{array}() pattern.
+        """Generate a report for any array following the read.{array}() pattern.
 
         Parameters
         ----------
@@ -1178,7 +1178,7 @@ class ReportUtils:
             rst_content = _generate_rst_report(report_data)
 
         else:
-            # Multiple datasets - create comprehensive report
+            # Multiple datasets - create combined report
             lines = []
             lines.extend(
                 [
@@ -1465,7 +1465,7 @@ class StandardizedDatasetReport(BaseDatasetReport):
         return self._plot_path
 
     def _compute_statistics(self) -> Dict[str, Any]:
-        """Compute comprehensive dataset statistics."""
+        """Compute dataset statistics."""
         stats = {
             "total_variables": len(self.dataset.data_vars),
             "total_coordinates": len(self.dataset.coords),
@@ -1715,7 +1715,7 @@ def analyze_standardized_dataset(
     all_files: bool = False,  # noqa: ARG001
     dataset_index: int = 0,  # noqa: ARG001
 ) -> Union[StandardizedDatasetReport, List[StandardizedDatasetReport]]:
-    """Analyze a standardized dataset and return comprehensive report data with metadata tracking.
+    """Analyze a standardized dataset and return report data with metadata tracking.
 
     Parameters
     ----------
@@ -1731,7 +1731,7 @@ def analyze_standardized_dataset(
     Returns
     -------
     StandardizedDatasetReport
-        Comprehensive analysis results with variable mapping and metadata tracking
+        Analysis results with variable mapping and metadata tracking
 
     Examples
     --------
@@ -1758,7 +1758,7 @@ def analyze_standardized_dataset(
 def analyze_dataset(
     dataset_name: str, transport_only: bool = True, dataset_index: int = 0
 ) -> RawDatasetReport:
-    """Analyze a dataset and return comprehensive report data.
+    """Analyze a dataset and return report data.
 
     Parameters
     ----------
@@ -1772,7 +1772,7 @@ def analyze_dataset(
     Returns
     -------
     DatasetReport
-        Comprehensive analysis results
+        Analysis results
 
     Examples
     --------
@@ -1829,7 +1829,7 @@ def generate_dataset_report(
     output_format: str = "rst",
     dataset_index: int = 0,
 ) -> str:
-    """Generate a comprehensive dataset report.
+    """Generate a dataset report.
 
     Parameters
     ----------
@@ -2158,7 +2158,7 @@ def _generate_rst_report(
             "Metadata (edits applied noted)",
             "^^^^^^^^^^^^^^^^^",
             "",
-            "The following metadata provides comprehensive information about this dataset:",
+            "The following metadata describes this dataset:",
             "",
         ]
     )
@@ -2313,7 +2313,7 @@ def _dataframe_to_rst_table(df: pd.DataFrame) -> List[str]:
 
 
 def rapid(all_files: bool = True, output_file: str = None) -> str:
-    """Generate comprehensive RAPID dataset report.
+    """Generate a RAPID dataset report.
 
     Parameters
     ----------
@@ -2340,21 +2340,21 @@ def rapid(all_files: bool = True, output_file: str = None) -> str:
 
 
 def osnap(all_files: bool = True, output_file: str = None) -> str:
-    """Generate comprehensive OSNAP dataset report."""
+    """Generate an OSNAP dataset report."""
     return ReportUtils.generate_array_report(
         "osnap", all_files=all_files, output_file=output_file
     )
 
 
 def move(all_files: bool = True, output_file: str = None) -> str:
-    """Generate comprehensive MOVE dataset report."""
+    """Generate a MOVE dataset report."""
     return ReportUtils.generate_array_report(
         "move", all_files=all_files, output_file=output_file
     )
 
 
 def samba(all_files: bool = True, output_file: str = None) -> str:
-    """Generate comprehensive SAMBA dataset report."""
+    """Generate a SAMBA dataset report."""
     return ReportUtils.generate_array_report(
         "samba", all_files=all_files, output_file=output_file
     )

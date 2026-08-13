@@ -51,7 +51,11 @@ GENERIC_SPECS = {
         # Transports and streamfunction
         "ocean_volume_transport_across_line": "sverdrup",
         "northward_ocean_heat_transport": "petawatt",
-        "northward_ocean_freshwater_transport": "sverdrup",
+        # northward_ocean_freshwater_transport intentionally omitted: AMOCatlas reports
+        # freshwater transport in sverdrup (a volume flux), which is not convertible to
+        # the CF canonical units kg s-1 (a mass flux). Rather than change the reported
+        # values, the standard_name is dropped (carried instead in long_name + a comment
+        # naming the reference density), so there is no CF units expectation to check here.
         "ocean_meridional_overturning_streamfunction": "sverdrup",
         # Additional oceanographic variables
         "sea_water_potential_density": "kg m-3",

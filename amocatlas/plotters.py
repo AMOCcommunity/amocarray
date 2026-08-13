@@ -156,6 +156,8 @@ def format_units_for_plotting(units: str) -> str:
         "seconds": "s",
         "m s-1": "m/s",
         "Sverdrup/m": "Sv/m",
+        "sverdrup m-1": "Sv/m",
+        "Sverdrup m-1": "Sv/m",
         "second": "s",
         "PetaWatts": "PW",
         "petawatts": "PW",
@@ -471,7 +473,7 @@ def _format_units_for_plots(units: str) -> str:
         Abbreviated unit string for plots
 
     """
-    # Use the comprehensive unit formatting function
+    # Use the unit formatting function
     return format_units_for_plotting(units)
 
 

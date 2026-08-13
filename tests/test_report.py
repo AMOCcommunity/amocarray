@@ -124,10 +124,10 @@ class TestReportGeneration:
             in rst_content
         ), "Missing variable mapping for EKMAN"
 
-        # Test units conversion: should have multiple instances of "Sverdrup" units
-        sverdrup_count = rst_content.count("Sverdrup")
+        # Test units conversion: should have multiple instances of "sverdrup" units
+        sverdrup_count = rst_content.count("sverdrup")
         assert sverdrup_count >= 2, (
-            f"Expected at least 2 'Sverdrup' units, found {sverdrup_count}"
+            f"Expected at least 2 'sverdrup' units, found {sverdrup_count}"
         )
 
         # Should be longer than single-file reports due to multiple files

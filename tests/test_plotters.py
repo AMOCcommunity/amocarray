@@ -36,7 +36,7 @@ def sample_dataset() -> xr.Dataset:
                 "moc_mar_hc10": (
                     ["TIME"],
                     data * 10,
-                    {"units": "Sverdrup", "long_name": "AMOC transport"},
+                    {"units": "sverdrup", "long_name": "AMOC transport"},
                 )
             },
             coords={"TIME": time},
@@ -62,7 +62,7 @@ def simple_dataset():
             "moc_mar_hc10": (
                 ["time"],
                 data,
-                {"units": "Sverdrup", "long_name": "AMOC transport"},
+                {"units": "sverdrup", "long_name": "AMOC transport"},
             )
         },
         coords={"time": time},
@@ -163,7 +163,7 @@ def test_format_variable_name_for_plotting():
 def test_format_units_for_plotting():
     """Test format_units_for_plotting function."""
     # Test standard unit conversions
-    assert plotters.format_units_for_plotting("Sverdrup") == "Sv"
+    assert plotters.format_units_for_plotting("sverdrup") == "Sv"
     assert plotters.format_units_for_plotting("sverdrup") == "Sv"
     assert plotters.format_units_for_plotting("degrees_north") == "°N"
     assert plotters.format_units_for_plotting("degrees_Celsius") == "°C"

@@ -55,4 +55,3 @@ files:
         long_name: "Heat Transport Convergence"
         description: "Regions are ordered from north to south. That is, htc(:,:,1) corresponds to the northernmost region, which is bounded by latitude(1) and latitude(2)"
         units: PW
-        standard_name: ocean_heat_transport_convergence

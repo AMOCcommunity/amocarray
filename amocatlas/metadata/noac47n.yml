@@ -29,12 +29,12 @@ files:
       "Trans vol [Sv]":
         long_name: "MOC_sigma0"
         description: "AMOC volume transport at 47N"
-        units: Sverdrup
+        units: sverdrup
         reference_pressure: 0
-        standard_name: ocean_meridional_overturning_transport
+        standard_name: ocean_meridional_overturning_streamfunction
       "Trans vol [Sv].1":
         long_name: "MOC_sigma0 (filtered)"
         description: "AMOC volume transport at 47N, low-pass filtered"
-        units: Sverdrup
+        units: sverdrup
         reference_pressure: 0
-        standard_name: ocean_meridional_overturning_transport
+        standard_name: ocean_meridional_overturning_streamfunction

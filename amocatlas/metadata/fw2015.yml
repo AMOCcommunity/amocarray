@@ -39,55 +39,54 @@ files:
       mocproxy:
         long_name: "MOC_z proxy"
         description: "a proxy for the meridional overturning circulation at 26N, using sea level anomaly and cable measurements"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_meridional_overturning_streamfunction
       umoproxy:
         long_name: "UMO proxy"
         description: "a proxy for the upper mid-ocean transport based on the linear regression between recon.h1umo and mocgrid.umo"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_volume_transport_across_line
       h1umo:
         long_name: "SSHA near 28N, 70W"
         description: "sea level anomaly from a spatially-smoothed and temporally filtered version of the AVISO mapped absolute dynamic topography product and selected near 28N, 70W in the Atlantic, at the point with the highest anticorrelation between the upper mid-ocean transport measured by the RAPID-MOCHA project and sea level anomaly"
         units: cm
-        standard_name: Sea_surface_height_anomaly
       gs:
         long_name: "Florida Current"
         description: "The strength of the Gulf Stream transport through the Florida Straits between Florida and Bahamas, as measured by a submarine telephone cable."
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_volume_transport_across_line
       umo:
         long_name: "Upper mid-ocean"
         description: "The strength of the upper mid-ocean transport between the Bahamas and Africa at 26N, in the top (roughly) 1100 m of the ocean."
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_volume_transport_across_line
       ek:
         long_name: "Ekman"
         description: "Surface meridional (north-south) Ekman transport as estimated from ERA-Interim reanalysis winds."
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_volume_transport_across_line
       moc:
         long_name: "MOC_z"
         description: "The meridional overturning circulation at 26N or, the volume of water moving northward in the top (roughly) 1100 m of the ocean which is equal-and-opposite-to the volume of water moving southward below this depth."
-        units: Sverdrup
-        standard_name: ocean_meridional_overturning_transport
+        units: sverdrup
+        standard_name: ocean_meridional_overturning_streamfunction
       lnadw:
         long_name: "Lower NADW"
         description: "The lower North Atlantic Deep water transport or mid-ocean transport between the Bahamas and Africa and between the depth layers of 3000 m and 5000 m."
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_volume_transport_across_line
       unadw:
         long_name: "Upper NADW"
         description: "The upper North Atlantic Deep water transport or mid-ocean transport between the Bahamas and Africa and between the depth layers of 1100 m and 3000 m."
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_volume_transport_across_line
       ek_grid:
         long_name: "Ekman"
-        units: Sverdrup
+        units: sverdrup
         description: "Surface meridional (north-south) Ekman transport as estimated from ERA-Interim reanalysis winds."
         standard_name: ocean_volume_transport_across_line
       gs_grid:
         long_name: "Florida Current"
         description: "The strength of the Gulf Stream transport through the Florida Straits between Florida and Bahamas, as measured by a submarine telephone cable."
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_volume_transport_across_line

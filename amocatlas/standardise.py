@@ -1239,7 +1239,7 @@ def standardize_sigma0_coordinate(ds: xr.Dataset) -> xr.Dataset:
 def standardize_units(ds: xr.Dataset) -> xr.Dataset:
     """Standardize variable units throughout the dataset.
 
-    Uses the comprehensive unit mapping from utilities module.
+    Uses the unit mapping from utilities module.
 
     Parameters
     ----------

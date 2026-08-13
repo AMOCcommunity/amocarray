@@ -46,5 +46,4 @@ files:
       mft:
         long_name: "Freshwater"
         description: "An Observation-Based Estimate of Atlantic Meridional Freshwater Transport. AMFT given by RAPID array at 26.5°N was integrated southward and northward in combination with ocean freshwater content (calculated by salinity) and surface freshwater flux, with the residual of the freshwater budget equation being the AMFT."
-        units: Sverdrup
-        standard_name: "northward_ocean_freshwater_transport"
+        units: sverdrup

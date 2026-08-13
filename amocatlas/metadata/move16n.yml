@@ -40,22 +40,22 @@ files:
       TRANSPORT_TOTAL:
         long_name: "MOC_z"
         description: "Ocean volume transport across the MOVE line"
-        units: Sverdrup
-        standard_name: ocean_meridional_overturning_transport
+        units: sverdrup
+        standard_name: ocean_meridional_overturning_streamfunction
       transport_component_internal:
         long_name: "Internal transport"
         description: "Internal component of ocean volume transport across the MOVE line"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_volume_transport_across_line
       transport_component_internal_offset:
         long_name: "Transport offset"
         description: "Offset to be added to internal component of ocean volume transport across the MOVE line"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_volume_transport_across_line
       transport_component_boundary:
         long_name: "Boundary transport"
         description: "Boundary component of ocean volume transport across the MOVE line"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_volume_transport_across_line
       location_vertices_latitude:
         long_name: "Latitude of location vertices"
@@ -154,7 +154,7 @@ files:
       MOVE:
         long_name: "MOC"
         description: "Total ocean volume transport across the MOVE line between Guadeloupe and Researcher Ridge in the depth layer defined by pressures 1200 to 4950 dbar"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_volume_transport_across_line
         valid_min: -100.0
         valid_max: 100.0
@@ -162,7 +162,7 @@ files:
       transport_component_internal:
         long_name: "Internal transport"
         description: "Internal component of ocean volume transport across the MOVE line"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_volume_transport_across_line
         valid_min: -100.0
         valid_max: 100.0
@@ -170,7 +170,7 @@ files:
       transport_component_internal_offset:
         long_name: "Transport offset"
         description: "Offset to be added to internal component of ocean volume transport across the MOVE line"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_volume_transport_across_line
         valid_min: -100.0
         valid_max: 100.0
@@ -178,22 +178,22 @@ files:
       transport_component_boundary:
         long_name: "Boundary transport"
         description: "Boundary component of ocean volume transport across the MOVE line"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_volume_transport_across_line
         valid_min: -100.0
         valid_max: 100.0
       MOC_INTERNAL:
         long_name: "Internal transport"
         description: "Internal component of ocean volume transport across the MOVE line"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_volume_transport_across_line
       MOC_INTERNAL_OFFSET:
         long_name: "Transport offset"
         description: "Offset to be added to internal component of ocean volume transport across the MOVE line"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_volume_transport_across_line
       MOC_BOUNDARY:
         long_name: "Boundary transport"
         description: "Boundary component of ocean volume transport across the MOVE line"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_volume_transport_across_line

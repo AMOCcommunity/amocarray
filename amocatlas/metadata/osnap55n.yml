@@ -51,32 +51,32 @@ files:
       MOC_ALL:
         long_name: "MOC_sigma0"
         description: "Maximum overturning streamfunction across full OSNAP array"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_meridional_overturning_streamfunction
       MOC_ALL_ERR:
         long_name: "MOC uncertainty"
         description: "Uncertainty in MOC_ALL"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_meridional_overturning_streamfunction
       MOC_WEST:
         long_name: "MOC_sigma0,west"
         description: "Overturning streamfunction at OSNAP West"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_meridional_overturning_streamfunction
       MOC_WEST_ERR:
         long_name: "MOCwest uncertainty"
         description: "Uncertainty in MOC_WEST"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_meridional_overturning_streamfunction
       MOC_EAST:
         long_name: "MOCeast(sigma0)"
         description: "Overturning streamfunction at OSNAP East"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_meridional_overturning_streamfunction
       MOC_EAST_ERR:
         long_name: "MOCeast uncertainty"
         description: "Uncertainty in MOC_EAST"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_meridional_overturning_streamfunction
       MHT_ALL:
         long_name: "MHT"
@@ -111,33 +111,27 @@ files:
       MFT_ALL:
         long_name: "MFT"
         description: "Meridional freshwater transport across full OSNAP array"
-        units: Sverdrup
-        standard_name: northward_ocean_freshwater_transport
+        units: sverdrup
       MFT_ALL_ERR:
         long_name: "MFT uncertainty"
         description: "Uncertainty in MFT_ALL"
-        units: Sverdrup
-        standard_name: northward_ocean_freshwater_transport
+        units: sverdrup
       MFT_EAST:
         long_name: "MFTeast"
         description: "Meridional freshwater transport at OSNAP East"
-        units: Sverdrup
-        standard_name: northward_ocean_freshwater_transport
+        units: sverdrup
       MFT_EAST_ERR:
         long_name: "MFTeast uncertainty"
         description: "Uncertainty in MFT_EAST"
-        units: Sverdrup
-        standard_name: northward_ocean_freshwater_transport
+        units: sverdrup
       MFT_WEST:
         long_name: "MFTwest"
         description: "Meridional freshwater transport at OSNAP West"
-        units: Sverdrup
-        standard_name: northward_ocean_freshwater_transport
+        units: sverdrup
       MFT_WEST_ERR:
         long_name: "MFTwest uncertainty"
         description: "Uncertainty in MFT_WEST"
-        units: Sverdrup
-        standard_name: northward_ocean_freshwater_transport
+        units: sverdrup
 
   OSNAP_MOC_MHT_MFT_TimeSeries_201408_202207_2025.nc:
     featureType: timeSeries
@@ -164,32 +158,32 @@ files:
       MOC_ALL:
         long_name: "MOC_sigma0"
         description: "Maximum overturning streamfunction across full OSNAP array"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_meridional_overturning_streamfunction
       MOC_ALL_ERR:
         long_name: "MOC_sigma0 uncertainty"
         description: "Uncertainty in MOC_ALL"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_meridional_overturning_streamfunction
       MOC_WEST:
         long_name: "Western MOC_sigma0"
         description: "Maximum overturning streamfunction across OSNAP West"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_meridional_overturning_streamfunction
       MOC_WEST_ERR:
         long_name: "Western MOC_sigma0 uncertainty"
         description: "Uncertainty in MOC_WEST"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_meridional_overturning_streamfunction
       MOC_EAST:
         long_name: "Eastern MOC_sigma0"
         description: "Maximum overturning streamfunction across OSNAP East"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_meridional_overturning_streamfunction
       MOC_EAST_ERR:
         long_name: "Eastern MOC_sigma0 uncertainty"
         description: "Uncertainty in MOC_SIGMA0_EAST"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_meridional_overturning_streamfunction
       MHT_ALL:
         long_name: "MHT"
@@ -224,33 +218,27 @@ files:
       MFT:
         long_name: "MFT"
         description: "Meridional freshwater transport across full OSNAP array"
-        units: Sverdrup
-        standard_name: northward_ocean_freshwater_transport
+        units: sverdrup
       MFT_ALL_ERR:
         long_name: "MFT error"
         description: "Uncertainty in MFT"
-        units: Sverdrup
-        standard_name: northward_ocean_freshwater_transport
+        units: sverdrup
       MFT_WEST:
         long_name: "MFTwest"
         description: "Meridional freshwater transport across OSNAP West"
-        units: Sverdrup
-        standard_name: northward_ocean_freshwater_transport
+        units: sverdrup
       MFT_WEST_ERR:
         long_name: "MFTwest error"
         description: "Uncertainty in MFT_WEST"
-        units: Sverdrup
-        standard_name: northward_ocean_freshwater_transport
+        units: sverdrup
       MFT_EAST:
         long_name: "MFTeast"
         description: "Meridional freshwater transport across OSNAP East"
-        units: Sverdrup
-        standard_name: northward_ocean_freshwater_transport
+        units: sverdrup
       MFT_EAST_ERR:
         long_name: "MFTeast error"
         description: "Uncertainty in MFT_EAST"
-        units: Sverdrup
-        standard_name: northward_ocean_freshwater_transport
+        units: sverdrup
 
   OSNAP_Streamfunction_201408_202006_2023.nc:
     citation: >
@@ -276,17 +264,17 @@ files:
       T_ALL:
         long_name: "Streamfunction"
         description: "Streamfunction in σθ coordinates across full OSNAP"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_meridional_overturning_streamfunction
       T_WEST:
         long_name: "Streamfunction west"
         description: "Streamfunction in σθ at OSNAP West"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_meridional_overturning_streamfunction
       T_EAST:
         long_name: "Streamfunction east"
         description: "Streamfunction in σθ at OSNAP East"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_meridional_overturning_streamfunction
 
   OSNAP_Streamfunction_201408_202207_2025.nc:
@@ -313,17 +301,17 @@ files:
       T_ALL:
         long_name: "Streamfunction"
         description: "Streamfunction in σθ coordinates across full OSNAP"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_meridional_overturning_streamfunction
       T_WEST:
         long_name: "Streamfunction west"
         description: "Streamfunction in σθ at OSNAP West"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_meridional_overturning_streamfunction
       T_EAST:
         long_name: "Streamfunction east"
         description: "Streamfunction in σθ at OSNAP East"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_meridional_overturning_streamfunction
 
   OSNAP_Gridded_TSV_201408_202006_2023.nc:
@@ -359,7 +347,6 @@ files:
         long_name: "Velocity"
         description: "Cross-sectional velocity along OSNAP"
         units: m s-1
-        standard_name: sea_water_velocity
       TEMP:
         long_name: "Temperature"
         description: "In-situ temperature along OSNAP"
@@ -407,7 +394,6 @@ files:
         long_name: "Velocity"
         description: "Cross-sectional velocity along OSNAP"
         units: m s-1
-        standard_name: sea_water_velocity
       TEMP:
         long_name: "Temperature"
         description: "In-situ temperature along OSNAP"

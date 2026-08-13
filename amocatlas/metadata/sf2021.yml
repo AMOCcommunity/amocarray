@@ -33,15 +33,15 @@ files:
       sat_moc_filt:
         long_name: "MOC proxy"
         description: "constructed by adding the satellite-derived TRANS_GS and TRANS_UMO with the TRANS_EK, obtained from ERA5 wind stress"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_meridional_overturning_streamfunction
       sat_umo_filt:
         long_name: "UMO proxy"
         description: "sum of the western boundary wedge transport, the hypsometric mass compensation, and the internal geostrophic transport over the top 1100 m"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_volume_transport_across_line
       sat_gs_filt:
         long_name: "Gulf Stream / Florida Current"
         description: "The strength of the Gulf Stream transport through the Florida Straits between Florida and Bahamas, as measured by a submarine telephone cable."
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_volume_transport_across_line

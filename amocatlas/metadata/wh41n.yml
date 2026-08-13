@@ -29,18 +29,18 @@ files:
       "Ekman (Sv)":
         long_name: "Ekman"
         description: "Ekman Volume Transport"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_volume_transport_across_line
       "Geos (Sv)":
         long_name: "Geostrophic Transport"
         description: "Northward Geostrophic Transport"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_volume_transport_across_line
       "MOC (Sv)":
         long_name: "MOC_z"
         description: "Meridional Overturning Volume Transport"
-        units: Sverdrup
-        standard_name: ocean_meridional_overturning_transport
+        units: sverdrup
+        standard_name: ocean_meridional_overturning_streamfunction
       "MOC (PW)":
         long_name: "MHT"
         description: "Meridional Overturning Heat Transport"
@@ -63,18 +63,18 @@ files:
       "Ekman Volume Transport (Sverdrups)":
         long_name: "Ekman"
         description: "Ekman Volume Transport"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_volume_transport_across_line
       "Northward Geostrophic Transport (Sverdrups)":
         long_name: "Geostrophic Transport"
         description: "Northward Geostrophic Transport"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_volume_transport_across_line
       "Meridional Overturning Volume Transport (Sverdrups)":
         long_name: "MOC_z"
         description: "Meridional Overturning Volume Transport"
-        units: Sverdrup
-        standard_name: ocean_meridional_overturning_transport
+        units: sverdrup
+        standard_name: ocean_meridional_overturning_streamfunction
       "Meridional Overturning Heat Transport (PetaWatts)":
         long_name: "MHT"
         description: "Meridional Overturning Heat Transport"
@@ -97,18 +97,18 @@ files:
       Vek:
         long_name: "Ekman"
         description: "Ekman transport from ERA5 reanalysis"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_volume_transport_across_line
       trans:
         long_name: "Geostrophic transport"
         description: "Observed geostrophic transport from ARGO"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_volume_transport_across_line
       moc:
         long_name: "MOC_z"
         description: "Overturning circulation transport"
-        units: Sverdrup
-        standard_name: ocean_meridional_overturning_transport
+        units: sverdrup
+        standard_name: ocean_meridional_overturning_streamfunction
 
   Q_ARGO_obs_dens_2000depth_ERA5.nc:
     contributor_name: "Will Hobbs, Josh Willis"

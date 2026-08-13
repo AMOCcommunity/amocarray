@@ -30,17 +30,17 @@ files:
       moc_total:
         long_name: "Total AMOC"
         description: "Total AMOC transport time series at 22.5°S"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_meridional_overturning_streamfunction
       moc_ekman:
         long_name: "Ekman AMOC"
         description: "Ekman component of AMOC transport time series at 22.5°S"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_volume_transport_across_line
       moc_geostrophic:
         long_name: "Geostrophic AMOC"
         description: "Geostrophic component of AMOC transport time series at 22.5°S"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_volume_transport_across_line
       mht_total:
         long_name: "Total MHT"
@@ -51,9 +51,7 @@ files:
         long_name: "Ekman MHT"
         description: "Ekman component of meridional heat transport at 22.5°S"
         units: PW
-        standard_name: northward_ocean_heat_transport_component
       mht_geostrophic:
         long_name: "Geostrophic MHT"
         description: "Geostrophic component of meridional heat transport at 22.5°S"
         units: PW
-        standard_name: northward_ocean_heat_transport_component

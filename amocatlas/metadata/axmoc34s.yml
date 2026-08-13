@@ -33,17 +33,17 @@ files:
       moc_total:
         long_name: "Total AMOC"
         description: "Total AMOC transport time series at 34.5°S"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_meridional_overturning_streamfunction
       moc_ekman:
         long_name: "Ekman AMOC"
         description: "Ekman component of AMOC transport time series at 34.5°S"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_volume_transport_across_line
       moc_geostrophic:
         long_name: "Geostrophic AMOC"
         description: "Geostrophic component of AMOC transport time series at 34.5°S"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_volume_transport_across_line
       mht_total:
         long_name: "Total MHT"
@@ -54,24 +54,19 @@ files:
         long_name: "Ekman MHT"
         description: "Ekman component of meridional heat transport at 34.5°S"
         units: PW
-        standard_name: northward_ocean_heat_transport_component
       mht_geostrophic:
         long_name: "Geostrophic MHT"
         description: "Geostrophic component of meridional heat transport at 34.5°S"
         units: PW
-        standard_name: northward_ocean_heat_transport_component
       fov_total:
         long_name: "Total FOV"
         description: "Overturning component of freshwater transport at 34.5°S, also referred to as Fov or Mov"
-        units: Sverdrup
-        standard_name: northward_ocean_freshwater_transport
+        units: sverdrup
       fov_ekman:
         long_name: "Ekman FOV"
         description: "Ekman contribution to overturning freshwater transport at 34.5°S"
-        units: Sverdrup
-        standard_name: northward_ocean_freshwater_transport_component
+        units: sverdrup
       fov_geostrophic:
         long_name: "Geostrophic FOV"
         description: "Geostrophic contribution to overturning freshwater transport at 34.5°S"
-        units: Sverdrup
-        standard_name: northward_ocean_freshwater_transport_component
+        units: sverdrup

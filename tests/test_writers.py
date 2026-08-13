@@ -70,7 +70,7 @@ def ac1_dataset() -> xr.Dataset:
             "TRANSPORT": (
                 ["TIME"],
                 transport,
-                {"units": "Sverdrup", "long_name": "Ocean Transport"},
+                {"units": "sverdrup", "long_name": "Ocean Transport"},
             )
         },
         coords={"TIME": time},

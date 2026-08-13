@@ -42,48 +42,48 @@ files:
       t_therm10:
         long_name: "Transport (0-800m)"
         description: "Thermocline recirculation 0-800m"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_volume_transport_across_line
       t_aiw10:
         long_name: "Transport (800-1100m)"
         description: "Intermediate water 800-1100m"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_volume_transport_across_line
       t_ud10:
         long_name: "Transport (1100-3000m)"
         description: "upper NADW 1100-3000m"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_volume_transport_across_line
       t_ld10:
         long_name: "Transport (3000-5000m)"
         description: "lower NADW 3000-5000m"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_volume_transport_across_line
       t_bw10:
         long_name: "Transport (AABW)"
         description: "AABW > 5000m"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_volume_transport_across_line
       t_gs10:
         long_name: "Florida Current"
         description: "Florida Current from cable measurements"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_volume_transport_across_line
       t_ek10:
         long_name: "Ekman"
         description: "Ekman transport from wind stress"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_volume_transport_across_line
       t_umo10:
         long_name: "Upper mid-ocean"
         description: "Upper Mid-Ocean transport"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_volume_transport_across_line
       moc_mar_hc10:
         long_name: "MOC_z"
         description: "MOC strength"
-        units: Sverdrup
-        standard_name: ocean_meridional_overturning_transport
+        units: sverdrup
+        standard_name: ocean_meridional_overturning_streamfunction
 
   ts_gridded.nc:
     featureType: timeSeriesProfile
@@ -169,7 +169,7 @@ files:
       stream_function_mar:
         long_name: "Streamfunction"
         description: "Streamfunction across the Atlantic at 26.5°N"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_meridional_overturning_streamfunction
 
   2d_gridded.nc:
@@ -260,20 +260,20 @@ files:
       amoc_depth:
         long_name: "MOC_z"
         description: "Atlantic meridional overturning circulation strength in depth coordinates"
-        units: Sverdrup
-        standard_name: ocean_meridional_overturning_transport
+        units: sverdrup
+        standard_name: ocean_meridional_overturning_streamfunction
       amoc_sigma0:
         long_name: "MOC_sigma0"
         description: "Atlantic meridional overturning circulation strength in potential density (sigma0) coordinates"
-        units: Sverdrup
+        units: sverdrup
         reference_pressure: 0
-        standard_name: ocean_meridional_overturning_transport
+        standard_name: ocean_meridional_overturning_streamfunction
       amoc_sigma2:
         long_name: "MOC_sigma2"
         description: "Atlantic meridional overturning circulation strength in potential density (sigma2) coordinates"
-        units: Sverdrup
+        units: sverdrup
         reference_pressure: 2000
-        standard_name: ocean_meridional_overturning_transport
+        standard_name: ocean_meridional_overturning_streamfunction
       heat_trans:
         long_name: "Meridional heat transport"
         description: "Northward oceanic heat transport"
@@ -282,8 +282,7 @@ files:
       frwa_trans:
         long_name: "Freshwater transport"
         description: "Meridional freshwater transport"
-        units: Sverdrup
-        standard_name: northward_ocean_freshwater_transport
+        units: sverdrup
       pressure:
         long_name: "Pressure"
         description: "Sea water pressure at depth"
@@ -292,18 +291,18 @@ files:
       stream_depth:
         long_name: "Streamfunction"
         description: "Meridional overturning streamfunction in depth coordinates"
-        units: Sverdrup
+        units: sverdrup
         standard_name: ocean_meridional_overturning_streamfunction
       stream_sigma0:
         long_name: "Streamfunction"
         description: "Meridional overturning streamfunction in potential density (sigma0) coordinates"
-        units: Sverdrup
+        units: sverdrup
         reference_pressure: 0
         standard_name: ocean_meridional_overturning_streamfunction
       stream_sigma2:
         long_name: "Streamfunction"
         description: "Meridional overturning streamfunction in potential density (sigma2) coordinates"
-        units: Sverdrup
+        units: sverdrup
         reference_pressure: 2000
         standard_name: ocean_meridional_overturning_streamfunction
     coordinates:
