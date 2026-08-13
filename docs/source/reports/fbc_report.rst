@@ -153,7 +153,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Contributor Role**: originator, principalInvestigator, publisher, contributor, contributor, contributor, contributor, contributor
 - **Contributor Role Vocabulary**: https://vocab.nerc.ac.uk/collection/G04/current/
 - **Contributor Email**: KarinL@hav.fo, KarinL@hav.fo, KarinL@hav.fo, KarinL@hav.fo, bogihan@hav.fo, hjalmarh@hav.fo, smo@dmi.dk, svos@norceresearch.no
-- **Contributor Id**: 0000-0001-7033-9139, 0000-0001-7033-9139, http://www.hav.fo, , https://orcid.org/0000-0001-8697-0013, , , 
+- **Contributor Id**: https://orcid.org/0000-0001-7033-9139, https://orcid.org/0000-0001-7033-9139, http://www.hav.fo, , https://orcid.org/0000-0001-8697-0013, , , 
 - **Contributing Institutions\***: Faroe Marine Research Institute (FAMRI)
 - **Contributing Institutions Vocabulary**: https://edmo.seadatanet.org/report/3084
 - **Contributing Institutions Role**: 

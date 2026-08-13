@@ -345,6 +345,34 @@ def resolve_metadata_conflict(
     return existing_value
 
 
+def _normalize_contributor_ids(cleaned: dict) -> None:
+    """Normalise contributor_id values to full dereferenceable URLs, in place.
+
+    A bare ORCID (``0000-0001-2345-6789``) becomes ``https://orcid.org/…`` and a bare web
+    address (``www.example.org``) gets an ``https://`` scheme. Values already starting with a
+    scheme, and empty placeholders (which keep the list aligned with names), are unchanged.
+    """
+    raw = str(cleaned.get("contributor_id", ""))
+    if not raw.strip():
+        return
+    orcid = re.compile(r"^\d{4}-\d{4}-\d{4}-\d{3}[\dX]$")
+    out = []
+    changed = False
+    for v in [x.strip() for x in raw.split(",")]:
+        if not v or v.startswith(("http://", "https://")):
+            out.append(v)
+        elif orcid.match(v):
+            out.append("https://orcid.org/" + v)
+            changed = True
+        elif "." in v and " " not in v:  # a bare web address, e.g. www.npolar.no
+            out.append("https://" + v)
+            changed = True
+        else:
+            out.append(v)
+    if changed:
+        cleaned["contributor_id"] = ", ".join(out)
+
+
 def _backfill_contributor_email_by_id(cleaned: dict) -> None:
     """Propagate a contributor's email to every row sharing the same ORCID, in place.
 
@@ -379,7 +407,9 @@ def _dedup_institution_metadata(cleaned: dict) -> None:
     fills an empty vocabulary from a duplicate, and drops a bare empty-role entry when the
     same institution already carries a real role. Institution/vocabulary/role stay aligned.
     """
-    names = [s.strip() for s in str(cleaned.get("contributing_institutions", "")).split(",")]
+    names = [
+        s.strip() for s in str(cleaned.get("contributing_institutions", "")).split(",")
+    ]
     if not any(names):
         return
     vocabs = [
@@ -408,7 +438,9 @@ def _dedup_institution_metadata(cleaned: dict) -> None:
     kept = [v for (nk, role), v in deduped.items() if role or nk not in named_with_role]
 
     cleaned["contributing_institutions"] = ", ".join(x["name"] for x in kept)
-    cleaned["contributing_institutions_vocabulary"] = ", ".join(x["vocab"] for x in kept)
+    cleaned["contributing_institutions_vocabulary"] = ", ".join(
+        x["vocab"] for x in kept
+    )
     cleaned["contributing_institutions_role"] = ", ".join(x["role"] for x in kept)
 
 
@@ -677,9 +709,11 @@ def _consolidate_contributors(cleaned: dict) -> dict:
             # Update cleaned dictionary with processed results
             cleaned.update(processed)
 
-            # Backfill email by ORCID now that ids are resolved (registry enrichment runs
-            # inside process_contributor_metadata). The same person can appear under several
-            # roles with the email on only one row; propagate it to their other rows.
+            # Normalise ids to full URLs (bare ORCID -> https://orcid.org/…; bare web
+            # address -> https://…), then backfill email by ORCID now that ids are resolved
+            # (registry enrichment runs inside process_contributor_metadata). The same person
+            # can appear under several roles with the email on only one row; propagate it.
+            _normalize_contributor_ids(cleaned)
             _backfill_contributor_email_by_id(cleaned)
 
             # Add NERC G04 vocabulary URL if we have contributor roles

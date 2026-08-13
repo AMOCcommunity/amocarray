@@ -145,9 +145,9 @@ The following metadata provides comprehensive information about this dataset:
 - **Contributor Role\***: originator, publisher, originator, principalInvestigator
 - **Contributor Role Vocabulary\***: https://vocab.nerc.ac.uk/collection/G04/current/
 - **Contributor Email**: post@npolar.no, post@npolar.no, , 
-- **Contributor Id**: www.npolar.no, www.npolar.no, https://orcid.org/0000-0002-3598-4076, https://orcid.org/0000-0002-6043-7920
+- **Contributor Id**: https://www.npolar.no, https://www.npolar.no, https://orcid.org/0000-0002-3598-4076, https://orcid.org/0000-0002-6043-7920
 - **Contributing Institutions\***: Norwegian Polar Institute (NPI), Alfred Wegener Institute (AWI), Institute for Marine Research (Bergen), Applied Physics Laboratory (University of Washington)
-- **Contributing Institutions Vocabulary**: https://edmo.seadatanet.org/report/1760, https://edmo.seadatanet.org/report/1368, https://edmo.seadatanet.org/report/1351, https://edmo.seadatanet.org/report/1554
+- **Contributing Institutions Vocabulary**: https://edmo.seadatanet.org/report/1349, https://edmo.seadatanet.org/report/1368, https://edmo.seadatanet.org/report/1351, https://edmo.seadatanet.org/report/1554
 - **Contributing Institutions Role\***: publisher, , , 
 - **Conventions\***: , OceanSITES-1.5
 - **featureType\***: timeSeriesProfile
@@ -313,9 +313,9 @@ The following metadata provides comprehensive information about this dataset:
 - **Contributor Role\***: originator, publisher, originator, principalInvestigator
 - **Contributor Role Vocabulary\***: https://vocab.nerc.ac.uk/collection/G04/current/
 - **Contributor Email**: post@npolar.no, post@npolar.no, , 
-- **Contributor Id**: www.npolar.no, www.npolar.no, https://orcid.org/0000-0002-3598-4076, https://orcid.org/0000-0002-6043-7920
+- **Contributor Id**: https://www.npolar.no, https://www.npolar.no, https://orcid.org/0000-0002-3598-4076, https://orcid.org/0000-0002-6043-7920
 - **Contributing Institutions\***: Norwegian Polar Institute (NPI), Alfred Wegener Institute (AWI), Institute for Marine Research (Bergen), Applied Physics Laboratory (University of Washington)
-- **Contributing Institutions Vocabulary**: https://edmo.seadatanet.org/report/1760, https://edmo.seadatanet.org/report/1368, https://edmo.seadatanet.org/report/1351, https://edmo.seadatanet.org/report/1554
+- **Contributing Institutions Vocabulary**: https://edmo.seadatanet.org/report/1349, https://edmo.seadatanet.org/report/1368, https://edmo.seadatanet.org/report/1351, https://edmo.seadatanet.org/report/1554
 - **Contributing Institutions Role\***: publisher, , , 
 - **Conventions\***: , OceanSITES-1.5
 - **featureType\***: timeSeriesProfile
@@ -481,9 +481,9 @@ The following metadata provides comprehensive information about this dataset:
 - **Contributor Role\***: originator, publisher, originator, principalInvestigator
 - **Contributor Role Vocabulary\***: https://vocab.nerc.ac.uk/collection/G04/current/
 - **Contributor Email**: post@npolar.no, post@npolar.no, , 
-- **Contributor Id**: www.npolar.no, www.npolar.no, https://orcid.org/0000-0002-3598-4076, https://orcid.org/0000-0002-6043-7920
+- **Contributor Id**: https://www.npolar.no, https://www.npolar.no, https://orcid.org/0000-0002-3598-4076, https://orcid.org/0000-0002-6043-7920
 - **Contributing Institutions\***: Norwegian Polar Institute (NPI), Alfred Wegener Institute (AWI), Institute for Marine Research (Bergen), Applied Physics Laboratory (University of Washington)
-- **Contributing Institutions Vocabulary**: https://edmo.seadatanet.org/report/1760, https://edmo.seadatanet.org/report/1368, https://edmo.seadatanet.org/report/1351, https://edmo.seadatanet.org/report/1554
+- **Contributing Institutions Vocabulary**: https://edmo.seadatanet.org/report/1349, https://edmo.seadatanet.org/report/1368, https://edmo.seadatanet.org/report/1351, https://edmo.seadatanet.org/report/1554
 - **Contributing Institutions Role\***: publisher, , , 
 - **Conventions\***: , OceanSITES-1.5
 - **featureType\***: timeSeriesProfile
@@ -649,9 +649,9 @@ The following metadata provides comprehensive information about this dataset:
 - **Contributor Role\***: originator, publisher, originator, principalInvestigator
 - **Contributor Role Vocabulary\***: https://vocab.nerc.ac.uk/collection/G04/current/
 - **Contributor Email**: post@npolar.no, post@npolar.no, , 
-- **Contributor Id**: www.npolar.no, www.npolar.no, https://orcid.org/0000-0002-3598-4076, https://orcid.org/0000-0002-6043-7920
+- **Contributor Id**: https://www.npolar.no, https://www.npolar.no, https://orcid.org/0000-0002-3598-4076, https://orcid.org/0000-0002-6043-7920
 - **Contributing Institutions\***: Norwegian Polar Institute (NPI), Alfred Wegener Institute (AWI), Institute for Marine Research (Bergen), Applied Physics Laboratory (University of Washington)
-- **Contributing Institutions Vocabulary**: https://edmo.seadatanet.org/report/1760, https://edmo.seadatanet.org/report/1368, https://edmo.seadatanet.org/report/1351, https://edmo.seadatanet.org/report/1554
+- **Contributing Institutions Vocabulary**: https://edmo.seadatanet.org/report/1349, https://edmo.seadatanet.org/report/1368, https://edmo.seadatanet.org/report/1351, https://edmo.seadatanet.org/report/1554
 - **Contributing Institutions Role\***: publisher, , , 
 - **Conventions\***: , OceanSITES-1.5
 - **featureType\***: timeSeriesProfile

@@ -99,15 +99,14 @@ institutions:
     website: http://www.hav.fo
     country: "Faroe Islands"
 
-  "1760":  # Norwegian Polar Institute
+  "1349":  # Norwegian Polar Institute
     standard_name: "Norwegian Polar Institute (NPI)"
     name_variants:
       - "Norwegian Polar Institute"
       - "Norwegian Polar Institute (NPI)"
       - "NPI"
-      - "Norsk Polarinstitutt"
     country: "Norway"
-    id_url: "https://edmo.seadatanet.org/report/1760"
+    id_url: "https://edmo.seadatanet.org/report/1349"
     website: "https://www.npolar.no"
 
   "1368":  # Alfred Wegener Institute
