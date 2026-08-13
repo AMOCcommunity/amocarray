@@ -655,7 +655,7 @@ class AC1ComplianceChecker:
         # Check contributor role vocabulary (warning for non-standard, error for invalid URL)
         if "contributor_role_vocabulary" in ds.attrs:
             vocab_url = ds.attrs["contributor_role_vocabulary"]
-            expected_url = "https://vocab.nerc.ac.uk/collection/W08/current/"
+            expected_url = "https://vocab.nerc.ac.uk/collection/G04/current/"
 
             # Check if it's a valid URL format
             if not (

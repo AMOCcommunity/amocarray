@@ -122,7 +122,7 @@ def valid_ac1_dataset() -> xr.Dataset:
             "contributor_email": "ben.moat@example.org",
             "contributor_id": "https://orcid.org/0000-0001-8676-7779",
             "contributor_role": "principalInvestigator",
-            "contributor_role_vocabulary": "https://vocab.nerc.ac.uk/collection/W08/current/",
+            "contributor_role_vocabulary": "https://vocab.nerc.ac.uk/collection/G04/current/",
             "contributing_institutions": "National Oceanography Centre",
             "contributing_institutions_vocabulary": "https://ror.org/example",
             "contributing_institutions_role": "operator",

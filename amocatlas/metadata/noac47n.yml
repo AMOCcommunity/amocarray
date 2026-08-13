@@ -13,10 +13,10 @@ metadata:
   contributing_institutions: University of Bremen (Germany)
   contributing_institutions_vocabulary: "https://edmo.seadatanet.org/report/1157"
   time_coverage_end: '2018-01-01'
-  contributor_name: "Simon Wett, Monika Rhein"
-  contributor_role: "originator, PI"
+  contributor_name: "Simon Wett, Monika Rhein, Dagmar Kieke, Christian Mertens, Martin Moritz, Hannah Nowitzki"
+  contributor_role: "originator, principalInvestigator, coAuthor, coAuthor, coAuthor, coAuthor"
   contributor_id: https://orcid.org/0000-0003-3876-2206, https://orcid.org/0000-0003-1496-2828, https://orcid.org/0000-0002-2414-0695, https://orcid.org/0000-0002-7602-4194, https://orcid.org/0000-0002-9878-5648, https://orcid.org/0000-0001-5936-0527
-  contributor_role_vocabulary: "http://vocab.nerc.ac.uk/search_nvs/W08/"
+  contributor_role_vocabulary: "https://vocab.nerc.ac.uk/collection/G04/current/"
 
 files:
   NOAC_AMOC.tab:

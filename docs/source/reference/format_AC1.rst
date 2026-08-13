@@ -52,7 +52,7 @@ The AC-0.1 format represents the standardization level in the AMOCatlas hierarch
 - **CF Conventions 1.8**: `Climate and Forecast metadata conventions <https://cfconventions.org/cf-conventions/cf-conventions.html>`_
 - **OceanSITES-1.4**: `Ocean observing time series data format <https://ocean-uhh.github.io/oceanarray/oceanSITES_manual.html>`_
 - **ACDD 1.3**: `Attribute Convention for Data Discovery <https://wiki.esipfed.org/Attribute_Convention_for_Data_Discovery_1-3>`_
-- **NERC Vocabularies**: :doc:`Controlled vocabularies for oceanographic parameters <AC1_vocabularies>`
+- **NERC Vocabularies**: `Controlled vocabularies for oceanographic parameters <https://vocab.nerc.ac.uk/>`_
 
 2. Key Design Decisions
 -----------------------

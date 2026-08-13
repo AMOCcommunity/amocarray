@@ -97,6 +97,7 @@ institutions:
       - "Faroese Marine Research Institute"
     id_url: "https://edmo.seadatanet.org/report/3084"
     website: http://www.hav.fo
+    country: "Faroe Islands"
 
   "1760":  # Norwegian Polar Institute
     standard_name: "Norwegian Polar Institute (NPI)"

@@ -14,7 +14,8 @@ metadata:
   time_coverage_start: '1993-01-17'
   time_coverage_end: '2018-12-17'
   contributor_name: "Alejandra Sanchez-Franks"
-  contributor_role: "creator"
+  contributor_role: "originator"
+  contributor_role_vocabulary: "https://vocab.nerc.ac.uk/collection/G04/current/"
   contributing_institutions: "National Oceanographic Centre"
 
 files:

@@ -5,13 +5,15 @@ metadata:
   comment: >
     Dataset accessed and processed via http://github.com/AMOCcommunity/amocatlas
   citation: >
-  license: CC-BY 4.0
+    Frajka-Williams, E. (2015), Estimating the Atlantic overturning at 26°N using satellite altimetry and cable measurements. Geophys. Res. Lett., 42, 3458–3464. doi: 10.1002/2015GL063220.
+  license: CC-BY-4.0
   featureType: timeSeries
   Conventions: CF-1.8, ACDD-1.3
   time_coverage_start: '1993-01-15'
   time_coverage_end: '2014-12-15'
   contributor_name: "Eleanor Frajka-Williams"
-  contributor_role: "creator"
+  contributor_role: "originator"
+  contributor_role_vocabulary: "https://vocab.nerc.ac.uk/collection/G04/current/"
   contributing_institutions: "University of Southampton"
 
 files:

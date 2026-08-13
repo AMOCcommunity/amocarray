@@ -33,6 +33,11 @@ Available Functions
 .. autofunction:: read_zheng2024
 .. autofunction:: read_41n
 .. autofunction:: read_47n
+.. autofunction:: read_nac
+.. autofunction:: read_sf2021
+.. autofunction:: read_lebras35n
+.. autofunction:: read_axmoc22s
+.. autofunction:: read_axmoc34s
 
 Submodules
 ----------
@@ -112,5 +117,35 @@ calafat2025
 zheng2024
 ~~~~~~~~~
 .. automodule:: amocatlas.data_sources.zheng2024
+   :members:
+   :undoc-members:
+
+nac
+~~~
+.. automodule:: amocatlas.data_sources.nac
+   :members:
+   :undoc-members:
+
+sf2021
+~~~~~~
+.. automodule:: amocatlas.data_sources.sf2021
+   :members:
+   :undoc-members:
+
+lebras35n
+~~~~~~~~~
+.. automodule:: amocatlas.data_sources.lebras35n
+   :members:
+   :undoc-members:
+
+axmoc22s
+~~~~~~~~
+.. automodule:: amocatlas.data_sources.axmoc22s
+   :members:
+   :undoc-members:
+
+axmoc34s
+~~~~~~~~
+.. automodule:: amocatlas.data_sources.axmoc34s
    :members:
    :undoc-members:

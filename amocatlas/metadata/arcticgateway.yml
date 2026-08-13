@@ -15,8 +15,8 @@ metadata:
   time_coverage_start: '2004-10-15'
   time_coverage_end: '2022-05-15'
   contributor_name: "Hege-Beate Fredriksen, Laura de Steur"
-  contributor_role: "originator, PI"
-  contributor_role_vocabulary: "http://vocab.nerc.ac.uk/search_nvs/W08/"
+  contributor_role: "originator, principalInvestigator"
+  contributor_role_vocabulary: "https://vocab.nerc.ac.uk/collection/G04/current/"
   institution: " "
   contributing_institutions: "Norwegian Polar Institute, Alfred Wegener Institute, Institute for Marine Research, APL-UW"
   contributing_institutions_role: "publisher, "

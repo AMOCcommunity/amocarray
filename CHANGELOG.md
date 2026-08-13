@@ -7,14 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Fixed
-- Fixed `__version__` import in `__init__.py` for proper package version access
-- Enhanced test coverage for `fbc.py` and `noac47n.py` modules
+## [0.4.0] - 2026-08-13
 
 ### Added
-- Comprehensive test cases for FBC (Faroe Bank Channel) data reader
-- Comprehensive test cases for NOAC 47°N array data reader
-- CHANGELOG.md file for tracking project changes
+- New reader for the AXMOC 22.5°S and 34.5°S arrays (#142)
+- Schema validation for array metadata YAML files (`array_schema.json`), enforced in CI (#171)
+- Download provenance: each downloaded file now gets a `<name>.provenance.json` sidecar recording the source URL, download time, byte size, SHA-256, and server ETag/Last-Modified, plus a `read_provenance()` accessor (#175)
+- Comprehensive test cases for the FBC (Faroe Bank Channel) and NOAC 47°N readers, and this CHANGELOG
+
+### Changed
+- Downloads are now atomic (streamed to a `.part` file and renamed on completion) and use a connect/read timeout, so an interrupted or stalled download can no longer leave a truncated file in the cache (#175)
+- Contributor handling: single-contributor datasets are handled correctly and a genuine ORCID is never overwritten by a registry placeholder (#172)
+- License metadata normalised toward SPDX identifiers: `fw2015` `CC-BY 4.0` → `CC-BY-4.0`, `mocha26n` `ODC-By` → `ODC-By-1.0`, and `fbc` `CC0-1.0` → `CC-BY-4.0` following the providers' updated Zenodo record
+- Documentation deploy runs offline (notebooks are copied, not executed) and `gh-pages` is force-orphaned each deploy to stop history bloat (#174)
+- Repository history rewritten to remove large data files committed in the past (fresh-clone size reduced from ~162 MB to ~24 MB)
+- Dependency and CI maintenance: bumped xarray, pandas, matplotlib, jinja2, sphinx and other dev/CI dependencies, and added Dependabot (#144–#168)
+
+### Fixed
+- TIME coordinate converter now honours the declared epoch and units (e.g. `days since 1950-01-01` decodes to 1950, not 1970); unrecognised units warn instead of silently assuming 1970; and the output `units` attribute is a valid UDUNITS string rather than the numpy dtype name `datetime64[ns]` (#175)
+- Internal working structures (`files`, `variable_mapping`, `original_variable_metadata`) are stripped from output attributes so standardised datasets serialise to netCDF without error (#175)
+- Metadata conflict resolution corrected, and the metadata drift surfaced by the new schema validation fixed (#171)
+- Small metadata updates across several arrays (#143)
+- Fixed `__version__` import in `__init__.py` for proper package version access
 
 ## [0.3.1] - 2026-06-07
 

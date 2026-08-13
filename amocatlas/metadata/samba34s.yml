@@ -20,6 +20,8 @@ files:
     citation: >
       M. Kersalé et al., Highly variable upper and abyssal overturning cells in the South Atlantic.
       Sci. Adv. 6, eaba7573 (2020). DOI: 10.1126/sciadv.aba7573
+    distribution_statement: >
+      Upper and abyssal cell transport data from the South Atlantic MOC Basin-wide Array (SAMBA) is made freely available to the public at: https://www.aoml.noaa.gov/phod/SAMOC_international/ in accordance with the SAMOC Data Sharing Policy. If you use these data, please make sure to cite the Kersalé et al. (2020) publication as it contains the appropriate credit for all of the data producers in the Acknowledgements.
     variable_mapping:
       "Upper-cell volume transport anomaly (relative to record-length average of 17.3 Sv)": UPPER_TRANSPORT
       "Abyssal-cell volume transport anomaly (relative to record-length average of 7.8 Sv)": ABYSSAL_TRANSPORT

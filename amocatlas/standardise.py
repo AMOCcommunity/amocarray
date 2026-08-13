@@ -12,6 +12,7 @@ Currently implemented:
 
 import xarray as xr
 from collections import OrderedDict
+import os
 import re
 import warnings
 from datetime import datetime, timezone
@@ -1793,11 +1794,12 @@ def standardise_data(ds: xr.Dataset, file_name: str) -> xr.Dataset:
 
         path_str = str(path_string).strip()
 
-        # Replace specific user path with generic equivalent
-        # This will only match for the specific user, others see full paths
-        specific_path = "/Users/eddifying/Cloudfree/github/"
-        if specific_path in path_str:
-            sanitized = path_str.replace(specific_path, "~/")
+        # Replace the user's home directory with "~" so published reports never leak an
+        # absolute local path (e.g. /Users/<name>/.amocatlas_data/... or a repo checkout).
+        # User-agnostic: matches whoever ran the processing.
+        home = os.path.expanduser("~")
+        if path_str.startswith(home):
+            sanitized = "~" + path_str[len(home):]
             log_debug(f"Sanitized source path: {path_str} → {sanitized}")
             return sanitized
 

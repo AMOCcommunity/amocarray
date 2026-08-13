@@ -17,7 +17,8 @@ files:
     version: "v5"
     featureType: timeSeries
     contributor_name: "Will Hobbs, Josh Willis"
-    contributor_role: "creator, PI"
+    contributor_role: "originator, principalInvestigator"
+    contributor_role_vocabulary: "https://vocab.nerc.ac.uk/collection/G04/current/"
     data_product: "Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations"
     variable_mapping:
       "Ekman (Sv)": TRANS_EKMAN
@@ -50,7 +51,8 @@ files:
     featureType: timeSeries
     version: "v2025_01"
     contributor_name: "Will Hobbs, Josh Willis"
-    contributor_role: "creator, PI"
+    contributor_role: "originator, principalInvestigator"
+    contributor_role_vocabulary: "https://vocab.nerc.ac.uk/collection/G04/current/"
     data_product: "Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations"
     variable_mapping:
       "Ekman Volume Transport (Sverdrups)": TRANS_EKMAN
@@ -81,7 +83,8 @@ files:
 
   trans_ARGO_ERA5.nc:
     contributor_name: "Will Hobbs, Josh Willis"
-    contributor_role: "creator, PI"
+    contributor_role: "originator, principalInvestigator"
+    contributor_role_vocabulary: "https://vocab.nerc.ac.uk/collection/G04/current/"
     data_product: "Transport components from ARGO and ERA5"
     variable_mapping:
       Vek: VEL_EKMAN
@@ -109,7 +112,8 @@ files:
 
   Q_ARGO_obs_dens_2000depth_ERA5.nc:
     contributor_name: "Will Hobbs, Josh Willis"
-    contributor_role: "creator, PI"
+    contributor_role: "originator, principalInvestigator"
+    contributor_role_vocabulary: "https://vocab.nerc.ac.uk/collection/G04/current/"
     data_product: "Heat transport based on various assumptions about temperature below 2000m"
     variable_mapping:
       Qnet: MHT_NET

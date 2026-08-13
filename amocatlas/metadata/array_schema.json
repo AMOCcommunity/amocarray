@@ -155,6 +155,7 @@
           "comment": true,
           "contributor_name": true,
           "contributor_role": true,
+          "contributor_role_vocabulary": true,
           "convert_to_coord": true,
           "coordinates": true,
           "data_product": true,

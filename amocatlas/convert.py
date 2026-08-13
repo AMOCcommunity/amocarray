@@ -371,6 +371,7 @@ def _create_ac1_global_attributes(
         "contributor_email",
         "contributor_id",
         "contributor_role",
+        "contributor_role_vocabulary",
         "contributing_institutions",
         "contributing_institutions_vocabulary",
         "contributing_institutions_role",
@@ -384,10 +385,11 @@ def _create_ac1_global_attributes(
     # contributor_id is already resolved by contributors.py during standardisation;
     # do not re-derive it here (a single source of truth for ORCIDs).
 
-    # Set default contributor role vocabulary if not present
+    # Set default contributor role vocabulary if not present. G04 is the ISO 19115
+    # CI_RoleCode collection, matching the role terms standardise.py normalises to.
     if "contributor_role_vocabulary" not in attrs:
         attrs["contributor_role_vocabulary"] = (
-            "https://vocab.nerc.ac.uk/collection/W08/current/"
+            "https://vocab.nerc.ac.uk/collection/G04/current/"
         )
 
     # Source acknowledgement

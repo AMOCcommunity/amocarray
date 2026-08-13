@@ -66,7 +66,7 @@ For more detail on the AMOC and observing arrays, see:
 pip install AMOCatlas
 ```
 
-**Requirements**: Python ≥3.9, with numpy, pandas, xarray, and matplotlib.
+**Requirements**: Python ≥3.10, with numpy, pandas, xarray, and matplotlib.
 
 ### For Development
 ```bash
@@ -80,15 +80,15 @@ This installs amocatlas locally. The `-e` ensures that any edits you make in the
 
 ## Quick Start
 
-### Load Sample Data
+### Load a Dataset
 ```python
 from amocatlas import read
 
-# Load RAPID sample dataset (new API - recommended)
+# Load the full RAPID transport dataset (new API - recommended)
 ds = read.rapid()
 print(ds)
 
-# Or use the legacy API
+# Or load a small bundled sample dataset via the legacy API
 from amocatlas import readers
 ds = readers.load_sample_dataset("rapid")
 ```

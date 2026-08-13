@@ -61,7 +61,7 @@ templates_path = ["_templates"]
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
-exclude_patterns = ["_build"]
+exclude_patterns = ["_build", "archive/**"]
 nitpick_ignore = []
 
 # Note: Custom RST substitutions are now defined per-file in report generation

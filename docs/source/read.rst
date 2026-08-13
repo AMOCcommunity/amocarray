@@ -46,9 +46,8 @@ Available Array Functions
 .. autofunction:: fbc
 .. autofunction:: calafat2025
 .. autofunction:: zheng2024
-
-Helper Functions
-----------------
-
-.. autofunction:: _return_single_or_list
-.. autofunction:: _create_array_function
+.. autofunction:: nac
+.. autofunction:: sf2021
+.. autofunction:: lebras35n
+.. autofunction:: axmoc22s
+.. autofunction:: axmoc34s
