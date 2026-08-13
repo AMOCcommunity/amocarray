@@ -438,14 +438,21 @@ def _consolidate_contributors(cleaned: dict) -> dict:
 
     for key in role_priority_fields:
         if key in cleaned:
+            # Derive the sibling field prefix. "creator_name"/"publisher_name" -> "creator"
+            # /"publisher"; "principal_investigator" has no "_name" suffix and is its own base.
+            base = key[:-5] if key.endswith("_name") else key
             name_raw = cleaned.pop(key, "")
-            email_raw = cleaned.pop(key.replace("_name", "_email"), "")
-            url_raw = cleaned.pop(key.replace("_name", "_url"), "")
+            email_raw = cleaned.pop(f"{base}_email", "")
+            id_raw = cleaned.pop(f"{base}_id", "")
+            url_raw = cleaned.pop(f"{base}_url", "")
             role_value = role_map.get(key, "")
 
-            # Process this category using modular functions
+            # Prefer a real identifier (e.g. ORCID); fall back to a profile URL only when no
+            # id is given (matches the registry's id_url convention). Previously the URL was
+            # passed as the id, which put webpages in contributor_id and left creator_id /
+            # principal_investigator_id leaking into the output as stray attributes.
             category_dict = contributors.parse_contributors(
-                name_raw, url_raw, email_raw, role_value
+                name_raw, id_raw or url_raw, email_raw, role_value
             )
 
             # Add to combined dict with sequential indices

@@ -72,7 +72,10 @@ class TestParseContributors:
         assert result == expected
 
     def test_mismatched_lengths(self):
-        """Test parsing when field lengths don't match (should pad with empty strings)."""
+        """Fields shorter than the name list pad with empty strings, EXCEPT a single role,
+        which broadcasts to every contributor (one role for a list of people means they all
+        share it). Per-person fields (id, email) still pad positionally.
+        """
         names = "Yao Fu, Penny Holliday, Brian King"
         ids = "https://orcid.org/0000-0003-2227-3694"
         emails = "yao.fu@fsu.edu, penny@example.com"
@@ -89,9 +92,9 @@ class TestParseContributors:
                 "name": "Penny Holliday",
                 "email": "penny@example.com",
                 "id": "",
-                "role": "",
+                "role": "creator",
             },
-            "3": {"name": "Brian King", "email": "", "id": "", "role": ""},
+            "3": {"name": "Brian King", "email": "", "id": "", "role": "creator"},
         }
 
         result = contributors.parse_contributors(names, ids, emails, roles)

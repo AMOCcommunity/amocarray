@@ -291,6 +291,11 @@ def parse_contributors(
     if max_len == 0:
         return {}
 
+    # A single role given for a list of contributors applies to all of them (e.g. one
+    # "coAuthor"/"contributor" role for five co-authors), not just the first name.
+    if len(roles) == 1 and max_len > 1:
+        roles = roles * max_len
+
     # Build result dictionary
     result = {}
     for i in range(max_len):
