@@ -149,3 +149,15 @@ axmoc34s
 .. automodule:: amocatlas.data_sources.axmoc34s
    :members:
    :undoc-members:
+
+ovide
+~~~~~
+.. automodule:: amocatlas.data_sources.ovide
+   :members:
+   :undoc-members:
+
+scotia
+~~~~~~
+.. automodule:: amocatlas.data_sources.scotia
+   :members:
+   :undoc-members:
