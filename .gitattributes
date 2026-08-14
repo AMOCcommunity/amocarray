@@ -1,0 +1,17 @@
+# Generated / derived files. Marked so GitHub excludes them from language
+# statistics, collapses them by default in pull-request diffs, and skips them in
+# blame. These are produced by tooling, not hand-edited — regenerate rather than
+# edit by hand.
+
+# Derived CF standard-name subset (built from the CF XML by build_cf_subset.py)
+amocatlas/vocabulary/cf_standard_names.json linguist-generated=true
+
+# setuptools_scm version file
+amocatlas/_version.py linguist-generated=true
+
+# Per-array reports and their plots (scripts/generate_reports.py)
+docs/source/reports/*.rst linguist-generated=true
+docs/source/_static/reports/** linguist-generated=true
+
+# Generated vocabulary reference page (build_rst.py)
+docs/source/reference/vocabulary.rst linguist-generated=true
