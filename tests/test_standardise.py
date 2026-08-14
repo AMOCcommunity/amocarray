@@ -364,7 +364,9 @@ class TestTimeCoverageDerivation:
             coords={
                 "TIME": (
                     "TIME",
-                    np.array(["2005-01-15", "NaT", "2021-08-07"], dtype="datetime64[ns]"),
+                    np.array(
+                        ["2005-01-15", "NaT", "2021-08-07"], dtype="datetime64[ns]"
+                    ),
                 )
             }
         )

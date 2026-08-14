@@ -80,9 +80,7 @@ def write_subset(subset: dict, out_path: Path = DEFAULT_SUBSET) -> None:
 def main(argv: Optional[list] = None) -> int:
     """CLI entry point."""
     ap = argparse.ArgumentParser(description="Derive the committed CF subset.")
-    ap.add_argument(
-        "--xml", required=True, help="Path to cf-standard-name-table.xml"
-    )
+    ap.add_argument("--xml", required=True, help="Path to cf-standard-name-table.xml")
     ap.add_argument("--out", default=str(DEFAULT_SUBSET), help="Output JSON path")
     args = ap.parse_args(argv)
 

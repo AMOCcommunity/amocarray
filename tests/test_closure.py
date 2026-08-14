@@ -92,7 +92,15 @@ DATASETS = {
         [
             (
                 "rapid_mass_balance",
-                ["t_gs10", "t_ek10", "t_therm10", "t_aiw10", "t_ud10", "t_ld10", "t_bw10"],
+                [
+                    "t_gs10",
+                    "t_ek10",
+                    "t_therm10",
+                    "t_aiw10",
+                    "t_ud10",
+                    "t_ld10",
+                    "t_bw10",
+                ],
                 "0",  # sum-to-zero relation: checked with an absolute tolerance
                 True,
             ),
@@ -142,7 +150,9 @@ def test_closure(dataset, env, filename, label, parts, total, must_close):
         # Sum-to-zero relation: relative tolerance is degenerate, use absolute Sv.
         ok = np.isfinite(lhs)
         resid = float(np.max(np.abs(lhs[ok])))
-        assert bool(resid < ZERO_ABS_TOL) == must_close, f"{label}: max |sum| {resid:.3f} Sv"
+        assert bool(resid < ZERO_ABS_TOL) == must_close, (
+            f"{label}: max |sum| {resid:.3f} Sv"
+        )
         return
     rhs = val(total)
     ok = np.isfinite(lhs) & np.isfinite(rhs)
