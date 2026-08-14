@@ -1,0 +1,182 @@
+# amocvocab — controlled short-name vocabulary for AMOC observing-array quantities.
+#
+# SOURCE OF TRUTH. Hand-edited. vocabulary.rst, the compliance checker, and any
+# published JSON/SKOS are generated from this file. Specification:
+# .claude/notes/2026-08-13-amocvocab-spec.md.
+#
+# ULTRA-CAREFUL rules (see CLAUDE.md):
+#   - Every `standard_name` is verified against the live CF standard-name table
+#     BEFORE it is written (exact <entry id="..."> match), or it is null. Never a guess.
+#   - Every `units` parses under UDUNITS-2 and, where standard_name is set, converts to
+#     the CF canonical units. Checked in CI by validate_amocvocab.py.
+#   - p01/p02 stay null until verified against vocab.nerc.ac.uk. A wrong URI is worse
+#     than an absent one.
+#
+# STATUS: 0.1 SEED. This file contains only the base quantities the specification works
+# out in full. The remaining ~100 served short names (the TRANS_* / MOC_* / STREAMFUNCTION_*
+# families and their qualifier + decomposition structure) are NOT yet populated — they need
+# the naming-grammar and decomposition decisions that are still open (see
+# .claude/docs-update-format-1-qs_for_eleanor.md). Do not treat absence here as "not served".
+
+version: "0.1"
+cf_standard_name_table: "v94 (2026-06-09)"
+
+reserved_suffixes: ["_ERR", "_QC"]
+
+qualifier_classes: ["component", "region", "coordinate", "layer", "method", "statistic"]
+
+qualifiers:
+  OT:
+    class: component
+    order: 1
+    definition: >
+      Overturning (zonally averaged) component of a section transport, associated with
+      the vertical-mean overturning circulation.
+  GYRE:
+    class: component
+    order: 1
+    definition: >
+      Gyre (zonally varying) component of a section transport, associated with the
+      horizontal circulation.
+  EKMAN:
+    class: component
+    order: 1
+    definition: Wind-driven Ekman component of a transport.
+
+decompositions:
+  overturning_gyre:
+    of: MHT
+    components: [MHT_OT, MHT_GYRE]
+    closure: exact
+    closure_verified: >
+      Q_ot + Q_gyre = Q_sum verified over all 12202 records of
+      mocha_mht_data_ERA5_v2020.nc: max |residual| 6.0 kW against PW-scale values,
+      2.4e-12 relative (float32 round-off). See spec section 13c.
+    status: provisional
+    reference: null
+    definition: >
+      Dynamical separation of section heat transport into a component associated with
+      the zonally averaged overturning and a component associated with the zonally
+      varying (gyre) circulation. Provisional until the scheme reference is confirmed.
+
+quantities:
+
+  MOC:
+    name: MOC
+    quantity: MOC
+    kind: overturning_streamfunction
+    long_name: ocean meridional overturning streamfunction
+    definition: >
+      Strength of the Atlantic meridional overturning circulation: the maximum over the
+      vertical coordinate of the meridional overturning streamfunction across the array
+      section. It shares the standard_name of the streamfunction field (PSI); the
+      cell_methods maximum is what distinguishes the two.
+    cf_status: exact
+    standard_name: ocean_meridional_overturning_streamfunction
+    cell_methods: "DEPTH: maximum"
+    units: sverdrup
+    sign_convention: Positive for northward flow in the upper limb.
+    admits_qualifiers: [coordinate, region, statistic, method]
+    since: "0.1"
+    status: current
+
+  MHT:
+    name: MHT
+    quantity: MHT
+    kind: heat_transport
+    long_name: northward ocean heat transport
+    definition: >
+      Total northward ocean heat transport across the array section.
+    cf_status: exact
+    standard_name: northward_ocean_heat_transport
+    units: petawatt
+    units_alternatives: [W]
+    sign_convention: Positive northward.
+    admits_qualifiers: [component, region, statistic]
+    since: "0.1"
+    status: current
+
+  MHT_OT:
+    name: MHT_OT
+    quantity: MHT
+    kind: heat_transport
+    long_name: northward ocean heat transport due to overturning
+    definition: >
+      Overturning component of the northward heat transport across the section, under
+      the overturning_gyre decomposition.
+    cf_status: exact
+    standard_name: northward_ocean_heat_transport_due_to_overturning
+    units: petawatt
+    units_alternatives: [W]
+    sign_convention: Positive northward.
+    qualifiers: [OT]
+    decomposition: overturning_gyre
+    admits_qualifiers: [component]
+    since: "0.1"
+    status: current
+
+  MHT_GYRE:
+    name: MHT_GYRE
+    quantity: MHT
+    kind: heat_transport
+    long_name: northward ocean heat transport due to gyre
+    definition: >
+      Gyre component of the northward heat transport across the section, under the
+      overturning_gyre decomposition.
+    cf_status: exact
+    standard_name: northward_ocean_heat_transport_due_to_gyre
+    units: petawatt
+    units_alternatives: [W]
+    sign_convention: Positive northward.
+    qualifiers: [GYRE]
+    decomposition: overturning_gyre
+    admits_qualifiers: [component]
+    since: "0.1"
+    status: current
+
+  MHT_EKMAN:
+    name: MHT_EKMAN
+    quantity: MHT
+    kind: heat_transport
+    long_name: northward ocean heat transport due to Ekman transport
+    definition: >
+      Wind-driven Ekman component of the northward heat transport across the section.
+      A component of a geographic (Florida Current / Ekman / mid-ocean) decomposition
+      that is not yet registered; see qs file.
+    cf_status: none
+    standard_name: null
+    cf_related: northward_ocean_heat_transport
+    cf_note: >
+      No CF standard name exists for an Ekman heat-transport component: zero CF names
+      (table v94, 2026-06-09) contain "ekman". CF names the overturning and gyre
+      siblings (_due_to_overturning, _due_to_gyre) but not this one. Case C.
+    units: petawatt
+    units_alternatives: [W]
+    sign_convention: Positive northward.
+    qualifiers: [EKMAN]
+    admits_qualifiers: [component]
+    since: "0.1"
+    status: current
+
+  MFT:
+    name: MFT
+    quantity: MFT
+    kind: freshwater_transport
+    long_name: northward ocean freshwater transport
+    definition: >
+      Total northward ocean freshwater transport across the array section, reported as
+      a volume flux in sverdrup.
+    cf_status: units_incompatible
+    standard_name: null
+    cf_related: northward_ocean_freshwater_transport
+    cf_note: >
+      CF's northward_ocean_freshwater_transport has canonical units kg s-1 (a mass
+      flux). AMOC arrays report freshwater transport in sverdrup (a volume flux), which
+      is not convertible to kg s-1 (verified with pyudunits2). Attaching the standard
+      name would make the file invalid; conversion needs an assumed reference density,
+      a provider science choice. Case B.
+    units: sverdrup
+    sign_convention: Positive northward.
+    admits_qualifiers: [component, region, statistic]
+    since: "0.1"
+    status: current

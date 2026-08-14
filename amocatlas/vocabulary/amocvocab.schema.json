@@ -1,0 +1,160 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://amoccommunity.github.io/amocatlas/amocvocab.schema.json",
+  "title": "amocvocab — AMOC observing-array variable vocabulary",
+  "description": "Schema for amocatlas/vocabulary/amocvocab.yml: the controlled short-name vocabulary for AMOC observing-array quantities, extending OceanSITES Reference Table 6 where it stops. Single source of truth; vocabulary.rst, the compliance checker, and the published JSON/SKOS are generated from it. Two things this schema CANNOT enforce (checked in CI instead): (1) each quantity's `name` equals its key; (2) referential integrity of `qualifiers`, `admits_qualifiers`, `quantity`/`base`, `decomposition` against the registries; (3) `units` parses under UDUNITS-2 and, when standard_name is set, converts to its CF canonical units (pyudunits2). Every standard_name is either a CF-verified string (cf_status: exact) or null — never a guess.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "cf_standard_name_table", "quantities"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+(\\.[0-9]+)?$",
+      "description": "Vocabulary version, independent of the amocatlas package version. Matches entries' `since`."
+    },
+    "cf_standard_name_table": {
+      "type": "string",
+      "description": "CF standard-name table version every cf_status decision was checked against, e.g. 'v94 (2026-06-09)'. Re-verify entries when bumped."
+    },
+    "reserved_suffixes": {
+      "type": "array",
+      "items": {"type": "string", "pattern": "^_[A-Z]+$"},
+      "description": "Suffixes never part of a base short name (applied programmatically): _ERR (uncertainty), _QC (quality flag).",
+      "default": ["_ERR", "_QC"]
+    },
+    "qualifier_classes": {
+      "type": "array",
+      "description": "Closed set of qualifier axes that `admits_qualifiers` may reference.",
+      "items": {"enum": ["coordinate", "region", "layer", "component", "method", "statistic"]},
+      "uniqueItems": true
+    },
+    "qualifiers": {
+      "type": "object",
+      "description": "Closed set of qualifier suffix codes and how they compose. A qualified name (e.g. MHT_OT) is base + qualifiers applied in ascending `order`.",
+      "propertyNames": {"pattern": "^[A-Z][A-Z0-9]*$"},
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["class", "order", "definition"],
+        "properties": {
+          "class": {"enum": ["coordinate", "region", "layer", "component", "method", "statistic"]},
+          "order": {"type": "integer", "minimum": 1, "description": "Composition order (low-to-high) so generated names are deterministic."},
+          "definition": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "decompositions": {
+      "type": "object",
+      "description": "Named component sets referenced by an entry's `decomposition` (spec section 6.2, e.g. rapid_fc_ekman_umo). For 0.1 every decomposition is `status: provisional` until its scheme reference is confirmed.",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["of", "components", "definition", "closure", "status"],
+        "properties": {
+          "of": {"type": "string", "description": "Base quantity the decomposition sums to (short name)."},
+          "components": {"type": "array", "items": {"type": "string"}, "minItems": 2, "description": "Component quantity short names."},
+          "closure": {"enum": ["exact", "approximate", "incomplete"], "description": "exact: components sum to the total by construction. approximate: sum within `closure_tolerance`. incomplete: a subset; total not recoverable (closure check stays silent)."},
+          "closure_tolerance": {"type": "string", "description": "Stated tolerance for an `approximate` closure."},
+          "closure_verified": {"type": "string", "description": "Free-text record of a closure check run against real data (dataset, records, max residual)."},
+          "definition": {"type": "string", "minLength": 1},
+          "reference": {"type": ["string", "null"], "description": "DOI/URL of the published scheme. Null allowed only while `status: provisional`."},
+          "status": {"enum": ["provisional", "published"], "description": "provisional: scheme reference not yet confirmed (0.1 default). published: `reference` resolves."}
+        }
+      }
+    },
+    "quantities": {
+      "type": "object",
+      "description": "One entry per short name. Keys are UPPERCASE with underscore separators, no doubled underscores, no leading digit, and must not end in a reserved suffix.",
+      "propertyNames": {"pattern": "^(?!.*_(ERR|QC)$)[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$"},
+      "additionalProperties": {"$ref": "#/$defs/quantity"}
+    }
+  },
+  "$defs": {
+    "quantity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name", "quantity", "kind", "long_name", "definition",
+        "cf_status", "standard_name", "units", "since", "status"
+      ],
+      "properties": {
+        "name": {"type": "string", "pattern": "^(?!.*_(ERR|QC)$)[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$", "description": "The short name; must equal the key (checked in CI)."},
+        "quantity": {"type": "string", "description": "Base quantity this term measures, e.g. MHT_EKMAN -> MHT."},
+        "kind": {
+          "enum": [
+            "volume_transport", "overturning_streamfunction", "heat_transport",
+            "freshwater_transport", "salt_transport", "velocity",
+            "transport_per_depth", "integrated_property", "budget_term",
+            "geometry", "label"
+          ],
+          "description": "Closed list from spec section 4; fixes dimensionality, default units, and which qualifiers may apply. Point measurements (TEMP/PSAL/PRES/...) are out of scope (OceanSITES Table 6). `velocity` covers VCUR decomposition components pending the section 4 vs 5a reconciliation."
+        },
+        "long_name": {"type": "string", "minLength": 1},
+        "definition": {"type": "string", "minLength": 1, "description": "A sentence a scientist can act on."},
+
+        "cf_status": {
+          "enum": ["exact", "units_incompatible", "none"],
+          "description": "exact: a CF standard_name applies and its units are convertible -> standard_name set. units_incompatible: a CF name names the concept but its canonical units are not convertible to `units` (e.g. freshwater transport in sverdrup vs CF kg s-1) -> standard_name null, cf_related names it. none: no CF name exists -> standard_name null."
+        },
+        "standard_name": {"type": ["string", "null"], "description": "CF standard name; non-null ONLY when cf_status == exact. Never a guess."},
+        "cf_related": {"type": ["string", "null"], "description": "Nearest CF concept when cf_status != exact (informational; not written to files as standard_name)."},
+        "cf_note": {"type": "string", "minLength": 1, "description": "Why cf_status != exact, with what was checked and when. Required unless cf_status == exact."},
+        "p02": {"type": ["string", "null"], "description": "SeaDataNet P02 URI, or null. NEVER invent — verify against vocab.nerc.ac.uk."},
+        "p01": {"type": ["string", "null"], "description": "BODC P01 URI, or null. NEVER invent — verify against vocab.nerc.ac.uk."},
+
+        "units": {"type": "string", "minLength": 1, "description": "UDUNITS-2-parseable (lowercase spelled-out names, e.g. 'sverdrup', 'PW', 'degree_C'). Validated with pyudunits2 in CI."},
+        "units_alternatives": {"type": "array", "items": {"type": "string"}, "description": "Other acceptable units, each convertible to `units`."},
+        "cell_methods": {"type": "string", "minLength": 1, "description": "CF cell_methods when this term is a reduction of a field that shares its standard_name (e.g. MOC = maximum of the overturning streamfunction -> 'DEPTH: maximum'). This is what distinguishes MOC from PSI at the same standard_name; instances must carry it. The vertical coordinate follows the term's coordinate qualifier (SIGMA0/SIGMA2)."},
+        "sign_convention": {"type": "string", "minLength": 1, "description": "Sign meaning, e.g. 'Positive northward.' Required for signed quantities."},
+
+        "decomposition": {"type": ["string", "null"], "description": "Name of a decomposition (key in top-level `decompositions`) this term participates in."},
+        "qualifiers": {"type": "array", "items": {"type": "string", "pattern": "^[A-Z][A-Z0-9]*$"}, "description": "Applied qualifier codes, in canonical order."},
+        "admits_qualifiers": {"type": "array", "items": {"enum": ["coordinate", "region", "layer", "component", "method", "statistic"]}, "uniqueItems": true, "description": "Which qualifier classes may be applied to this quantity."},
+        "reference_pressure": {"type": "number", "description": "For sigma/density quantities: reference pressure in dbar (0 for sigma0, 2000 for sigma2)."},
+        "source_names": {
+          "type": "array",
+          "description": "Original variable names in provider files, for traceability (spec section 3).",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["dataset", "name"],
+            "properties": {
+              "dataset": {"type": "string"},
+              "name": {"type": "string"}
+            }
+          }
+        },
+        "source_long_name": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Provider long_name(s) preserved when the amocvocab long_name (C1) replaces them. Provenance: never destroy the upstream wording."
+        },
+        "cf_proposal": {"type": ["string", "null"], "description": "URL of a CF-convention proposal to add this name upstream (spec section 12)."},
+        "cf_proposal_status": {"enum": ["none", "drafted", "submitted", "accepted", "rejected"], "description": "State of the CF proposal, if any."},
+
+        "since": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+(\\.[0-9]+)?$", "description": "Vocabulary version this entry was introduced."},
+        "status": {"enum": ["current", "deprecated", "superseded"]},
+        "superseded_by": {"type": ["string", "null"], "description": "Short name that replaces this one; required (non-null) when status != current."},
+        "deprecated_in": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+(\\.[0-9]+)?$", "description": "Vocabulary version in which this term was deprecated (spec section 10)."}
+      },
+      "allOf": [
+        {
+          "comment": "cf_status exact <-> standard_name is a non-empty string.",
+          "if": {"properties": {"cf_status": {"const": "exact"}}},
+          "then": {"properties": {"standard_name": {"type": "string", "minLength": 1}}},
+          "else": {"properties": {"standard_name": {"type": "null"}}, "required": ["cf_note"]}
+        },
+        {
+          "comment": "Non-current entries must name their replacement.",
+          "if": {"properties": {"status": {"enum": ["deprecated", "superseded"]}}},
+          "then": {"properties": {"superseded_by": {"type": "string", "minLength": 1}}}
+        },
+        {
+          "comment": "Signed quantities must state their sign convention.",
+          "if": {"properties": {"kind": {"enum": ["overturning_streamfunction", "volume_transport", "heat_transport", "freshwater_transport", "salt_transport", "velocity", "transport_per_depth", "budget_term"]}}},
+          "then": {"required": ["sign_convention"]}
+        }
+      ]
+    }
+  }
+}
