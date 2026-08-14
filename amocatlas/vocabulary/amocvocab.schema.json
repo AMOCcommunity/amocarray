@@ -54,12 +54,19 @@
           "of": {"type": "string", "description": "Base quantity the decomposition sums to (short name)."},
           "components": {"type": "array", "items": {"type": "string"}, "minItems": 2, "description": "Component quantity short names."},
           "closure": {"enum": ["exact", "approximate", "incomplete"], "description": "exact: components sum to the total by construction. approximate: sum within `closure_tolerance`. incomplete: a subset; total not recoverable (closure check stays silent)."},
-          "closure_tolerance": {"type": "string", "description": "Stated tolerance for an `approximate` closure."},
-          "closure_verified": {"type": "string", "description": "Free-text record of a closure check run against real data (dataset, records, max residual)."},
+          "closure_tolerance": {"type": "string", "description": "Stated tolerance for an `approximate` closure (required when `closure: approximate`), e.g. '0.5 Sv'."},
+          "closure_statistic": {"enum": ["max", "median", "robust_mad"], "description": "Statistic the `closure_tolerance` applies to: `max` for exact float64 budgets; `median`/`robust_mad` for rounded or glitch-prone sources."},
+          "closure_verified": {"type": "string", "description": "Free-text record of a closure check run against real data (dataset, records, residual statistic)."},
           "definition": {"type": "string", "minLength": 1},
           "reference": {"type": ["string", "null"], "description": "DOI/URL of the published scheme. Null allowed only while `status: provisional`."},
           "status": {"enum": ["provisional", "published"], "description": "provisional: scheme reference not yet confirmed (0.1 default). published: `reference` resolves."}
-        }
+        },
+        "allOf": [
+          {
+            "if": {"required": ["closure"], "properties": {"closure": {"const": "approximate"}}},
+            "then": {"required": ["closure_tolerance"]}
+          }
+        ]
       }
     },
     "quantities": {

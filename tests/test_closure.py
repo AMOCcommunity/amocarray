@@ -16,25 +16,11 @@ check discriminates (Appendix A.3). Relations flagged "hypothesis" below are one
 but have not yet verified against data — when the file is present they will confirm or refute.
 """
 
-import os
-from pathlib import Path
-
 import numpy as np
 import pytest
+from closure_utils import resolve_data as _resolve
 
 REL_TOL = 1e-9  # Appendix A.4
-
-
-def _resolve(env, filename):
-    candidates = [os.environ.get(env)] if os.environ.get(env) else []
-    candidates += [
-        Path.home() / ".amocatlas_data" / filename,
-        Path("/tmp") / filename,
-    ]
-    for c in candidates:
-        if c and Path(c).is_file():
-            return Path(c)
-    return None
 
 
 # dataset -> (env var, source filename, [(label, parts, total, must_close)])
