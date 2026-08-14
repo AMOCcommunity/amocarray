@@ -232,7 +232,12 @@ def seed_draft_file(
     draft = seed_draft(existing, metadata_dir, vocab_path)
     with open(draft_path, "w", encoding="utf-8") as fh:
         yaml.safe_dump(
-            draft, fh, sort_keys=False, allow_unicode=True, default_flow_style=False, width=100
+            draft,
+            fh,
+            sort_keys=False,
+            allow_unicode=True,
+            default_flow_style=False,
+            width=100,
         )
     return len(draft["quantities"])
 

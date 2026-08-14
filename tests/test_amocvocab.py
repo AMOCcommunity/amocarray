@@ -121,7 +121,9 @@ def test_seed_draft_shape():
     # observed is refreshed from the arrays (raw vs sanitised key mismatch is handled).
     assert q["TRANS_RELATIVE_WEST"]["observed"]["units"] == ["sverdrup"]
     # _ERR/_QC variants inherit their base; they are not draft quantities.
-    assert not any(k.endswith(("_ERR", "_QC")) for k in q), "reserved-suffix name leaked in"
+    assert not any(k.endswith(("_ERR", "_QC")) for k in q), (
+        "reserved-suffix name leaked in"
+    )
 
 
 @pytest.mark.skipif(not DRAFT.is_file(), reason="draft not generated")
@@ -151,7 +153,9 @@ def test_draft_graduation_guard(tmp_path):
         return V.validate_draft(path, DRAFT_SCHEMA, SCHEMA, _cf_table())
 
     assert _run(good_entry) == []  # a complete, valid entry graduates
-    assert _run(bad_entry) != []  # a fabricated standard_name is caught before graduation
+    assert (
+        _run(bad_entry) != []
+    )  # a fabricated standard_name is caught before graduation
     # an entry-less 'ready' is also rejected
     p = tmp_path / "e.yml"
     p.write_text(

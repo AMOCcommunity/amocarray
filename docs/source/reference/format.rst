@@ -48,8 +48,11 @@ Section 4.2 recognises three kinds of higher-level file, and AMOCatlas's holding
 Section 4.2.1 states the full requirement set, and it is short:
 
 - NetCDF.
-- **CF conventions** — a ``standard_name`` is required *when one exists in the CF table*; it is
-  omitted when none exists. A CF name is never invented.
+- **CF conventions** — a ``standard_name`` is required *when one exists in the CF table* and its
+  canonical units are convertible to the reported units; it is omitted otherwise — both when no CF
+  name exists, and when a CF name fits the concept but its canonical units are not convertible (for
+  example a freshwater transport in ``sverdrup`` against CF's ``kg s-1``, which would misrepresent
+  the units). A CF name is never invented.
 - **ACDD** discovery metadata.
 - Section-2 deployment attributes are *"possible and welcome, as long as they make sense for the data
   product in question"* — i.e. optional, and dropped where they do not apply.

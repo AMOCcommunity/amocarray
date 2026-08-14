@@ -43,9 +43,24 @@ SAMBA_EXACT_TOL = 0.02  # Sv — twice the provider's 0.01 Sv rounding step
 SAMBA_APPROX_TOL = 0.5  # Sv — an "approximate" reconstruction of the total
 
 _SAMBA_CASES = [
-    ("samba_relative=Wdensity+Edensity", ["w_density", "e_density"], "relative", "exact"),
-    ("samba_reference=Wbotpres+Ebotpres", ["w_botpres", "e_botpres"], "reference", "approximate"),
-    ("samba_total=relative+reference+ekman", ["relative", "reference", "ekman"], "total", "approximate"),
+    (
+        "samba_relative=Wdensity+Edensity",
+        ["w_density", "e_density"],
+        "relative",
+        "exact",
+    ),
+    (
+        "samba_reference=Wbotpres+Ebotpres",
+        ["w_botpres", "e_botpres"],
+        "reference",
+        "approximate",
+    ),
+    (
+        "samba_total=relative+reference+ekman",
+        ["relative", "reference", "ekman"],
+        "total",
+        "approximate",
+    ),
 ]
 
 
