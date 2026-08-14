@@ -183,7 +183,12 @@ class TestReportGeneration:
         # Test the CLI interface that users will actually use
         # Use a small dataset for faster testing (NOAC47N is only 0.01 MB)
         result = subprocess.run(
-            [sys.executable, "generate_report", "--data_source", "noac47n"],
+            [
+                sys.executable,
+                "scripts/generate_reports.py",
+                "--data_source",
+                "noac47n",
+            ],
             capture_output=True,
             text=True,
             cwd=Path(__file__).parent.parent,  # Run from project root
