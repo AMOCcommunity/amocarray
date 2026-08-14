@@ -1771,6 +1771,14 @@ def standardise_data(ds: xr.Dataset, file_name: str) -> xr.Dataset:
 
     # Add array-level YAML metadata with conflict resolution
     array_metadata = meta.get("metadata", {})
+    # Nominal time_coverage is skipped from the merge below (it is derived from the TIME
+    # coordinate); keep the declared values as a fallback for datasets where the TIME
+    # coordinate cannot be used, so a declared coverage is never silently dropped.
+    _nominal_tc = {
+        key: array_metadata[key]
+        for key in _TIME_COVERAGE_KEYS
+        if array_metadata.get(key) not in (None, "")
+    }
     for key, value in array_metadata.items():
         if key in _TIME_COVERAGE_KEYS:
             # Derived from the TIME coordinate below; ignore the nominal YAML value
@@ -2075,6 +2083,20 @@ def standardise_data(ds: xr.Dataset, file_name: str) -> xr.Dataset:
     if tc_start is not None:
         cleaned["time_coverage_start"] = tc_start
         cleaned["time_coverage_end"] = tc_end
+    else:
+        # Could not derive from the TIME coordinate (no datetime64 TIME/time variable, or
+        # all values NaT). Fall back to the nominal YAML values that were skipped from the
+        # merge — without a file value already present, dropping them would regress the
+        # coverage the array used to serve. Warn so the substitution is inspectable.
+        for key in _TIME_COVERAGE_KEYS:
+            if key not in cleaned and key in _nominal_tc:
+                cleaned[key] = _nominal_tc[key]
+        warnings.warn(
+            "time_coverage could not be derived from the TIME coordinate "
+            "(no datetime64 TIME/time variable); serving the nominal time_coverage "
+            "from the source file or array metadata instead.",
+            stacklevel=2,
+        )
 
     ds.attrs = cleaned
     ds.attrs = reorder_metadata(ds.attrs)
