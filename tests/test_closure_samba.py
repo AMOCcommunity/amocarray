@@ -16,7 +16,7 @@ Appendix A.1):
 The approximate bound is two-sided: the median must be below APPROX_TOL (it does close
 roughly) AND at or above EXACT_TOL (it is genuinely approximate, not exact), so the tier
 label stays meaningful. The file is a large download, so every case is ``slow`` and skips
-unless the source is available locally. See ``.claude/samba-closure/`` for the plots.
+unless the source is available locally.
 
 Observed tiers (v2020 source, 1957 daily records):
   relative  = W_density + E_density   -> exact       (median 0.01 Sv)

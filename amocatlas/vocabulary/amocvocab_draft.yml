@@ -326,12 +326,22 @@ quantities:
     - mocha26n
     - move16n
     - rapid26n
-    - samba34s
     - wh41n
     observed:
       standard_names:
       - ocean_meridional_overturning_streamfunction
-      - null
+      units:
+      - sverdrup
+      conflict: false
+    notes: ''
+    entry: null
+  MOC_ANOM:
+    review_status: unreviewed
+    served_by:
+    - samba34s
+    observed:
+      standard_names:
+      - ocean_volume_transport_across_line
       units:
       - sverdrup
       conflict: false

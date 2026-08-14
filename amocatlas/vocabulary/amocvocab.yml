@@ -1,10 +1,10 @@
 # amocvocab — controlled short-name vocabulary for AMOC observing-array quantities.
 #
 # SOURCE OF TRUTH. Hand-edited. vocabulary.rst, the compliance checker, and any
-# published JSON/SKOS are generated from this file. Specification:
-# .claude/notes/2026-08-13-amocvocab-spec.md.
+# published JSON/SKOS are generated from this file. The format conformance rules are in
+# docs/source/reference/format.rst.
 #
-# ULTRA-CAREFUL rules (see CLAUDE.md):
+# ULTRA-CAREFUL rules:
 #   - Every `standard_name` is verified against the live CF standard-name table
 #     BEFORE it is written (exact <entry id="..."> match), or it is null. Never a guess.
 #   - Every `units` parses under UDUNITS-2 and, where standard_name is set, converts to
@@ -12,11 +12,10 @@
 #   - p01/p02 stay null until verified against vocab.nerc.ac.uk. A wrong URI is worse
 #     than an absent one.
 #
-# STATUS: 0.1 SEED. This file contains only the base quantities the specification works
-# out in full. The remaining ~100 served short names (the TRANS_* / MOC_* / STREAMFUNCTION_*
-# families and their qualifier + decomposition structure) are NOT yet populated — they need
-# the naming-grammar and decomposition decisions that are still open (see
-# .claude/docs-update-format-1-qs_for_eleanor.md). Do not treat absence here as "not served".
+# STATUS: 0.1 SEED. This file contains only the base quantities worked out in full. The
+# remaining ~100 served short names (the TRANS_* / MOC_* / PSI_* families and their qualifier
+# + decomposition structure) are NOT yet populated — they need naming-grammar and
+# decomposition decisions that are still open. Do not treat absence here as "not served".
 
 version: "0.1"
 cf_standard_name_table: "v94 (2026-06-09)"
@@ -51,7 +50,7 @@ decompositions:
     closure_verified: >
       Q_ot + Q_gyre = Q_sum verified over all 12202 records of
       mocha_mht_data_ERA5_v2020.nc: max |residual| 6.0 kW against PW-scale values,
-      2.4e-12 relative (float32 round-off). See spec section 13c.
+      2.4e-12 relative (float32 round-off).
     status: provisional
     reference: null
     definition: >
@@ -142,7 +141,7 @@ quantities:
     definition: >
       Wind-driven Ekman component of the northward heat transport across the section.
       A component of a geographic (Florida Current / Ekman / mid-ocean) decomposition
-      that is not yet registered; see qs file.
+      that is not yet registered.
     cf_status: none
     standard_name: null
     cf_related: northward_ocean_heat_transport

@@ -26,19 +26,29 @@ files:
       "Upper-cell volume transport anomaly (relative to record-length average of 17.3 Sv)": TRANS_UPPER
       "Abyssal-cell volume transport anomaly (relative to record-length average of 7.8 Sv)": TRANS_ABYSSAL
     original_variable_metadata:
-      # Case C: anomalies; CF has no anomaly form of ocean_volume_transport_across_line.
+      # Upper- and abyssal-cell transport anomalies. Case C (standard_name omitted): unlike
+      # the MOC total, these are not retained for discoverability (see qs note); flag if that
+      # should change. Baselines are in anomaly_reference_* (CF cannot express them).
       "Upper_cell_volume_transport_anomaly__relative_to_record_length_average_of_17_3_Sv":
         long_name: "upper-cell meridional overturning transport anomaly"
         source_long_name: "Upper Transport"
         description: "Upper-cell volume transport anomaly (relative to record-length average of 17.3 Sv)"
-        comment: "anomaly relative to the record-length mean of 17.3 Sv"
+        comment: "Anomaly, not absolute transport; relative to the record-length mean in anomaly_reference_*."
         units: sverdrup
+        anomaly_reference_value: 17.3
+        anomaly_reference_units: sverdrup
+        anomaly_reference_basis: "record-length mean"
+        anomaly_reference_period: "2013-09-11/2017-07-16"
       "Abyssal_cell_volume_transport_anomaly__relative_to_record_length_average_of_7_8_Sv":
         long_name: "abyssal-cell meridional overturning transport anomaly"
         source_long_name: "Abyssal Transport"
         description: "Abyssal-cell volume transport anomaly (relative to record-length average of 7.8 Sv)"
-        comment: "anomaly relative to the record-length mean of 7.8 Sv"
+        comment: "Anomaly, not absolute transport; relative to the record-length mean in anomaly_reference_*."
         units: sverdrup
+        anomaly_reference_value: 7.8
+        anomaly_reference_units: sverdrup
+        anomaly_reference_basis: "record-length mean"
+        anomaly_reference_period: "2013-09-11/2017-07-16"
 
   MOC_TotalAnomaly_and_constituents.asc:
     source_url: https://www.aoml.noaa.gov/phod/SAMOC_international/documents/
@@ -51,7 +61,7 @@ files:
       Baroclinic and barotropic flows and the dueling influence of the boundaries.
       Geophysical Research Letters, 45, 4180–4188. https://doi.org/10.1029/2018GL077408
     variable_mapping:
-      "Total MOC anomaly (relative to record-length average of 14.7 Sv)": MOC
+      "Total MOC anomaly (relative to record-length average of 14.7 Sv)": MOC_ANOM
       "Relative (density gradient) contribution to the MOC anomaly": TRANS_RELATIVE
       "Reference (bottom pressure gradient) contribution to the MOC anomaly": TRANS_REFERENCE
       "Ekman (wind) contribution to the MOC anomaly": TRANS_EKMAN
@@ -60,48 +70,73 @@ files:
       "Western bottom pressure contribution to the MOC anomaly": TRANS_REFERENCE_WEST
       "Eastern bottom pressure contribution to the MOC anomaly": TRANS_REFERENCE_EAST
     original_variable_metadata:
-      # Case C: every SAMBA variable is an anomaly, and CF has no anomaly form of
-      # ocean_meridional_overturning_streamfunction or ocean_volume_transport_across_line
-      # (checked against the CF standard-name table). standard_name is therefore omitted;
-      # "anomaly" is carried in long_name, and the baseline CF cannot express is in comment.
+      # Every variable here is an anomaly (record-length mean 14.7 sverdrup), recorded in the
+      # anomaly_reference_* fields (CF cannot express a baseline). The MOC total KEEPS
+      # standard_name ocean_volume_transport_across_line as a DECLARED overclaim — the value
+      # is the anomaly, not the absolute transport — so the series stays discoverable; the
+      # comment states it plainly. The six decomposition constituents OMIT standard_name:
+      # under the same name they would double-count the total, and CF has no component name
+      # for a line transport, so they are Case C (nearest CF concept noted in the vocabulary).
       "Total_MOC_anomaly__relative_to_record_length_average_of_14_7_Sv":
         long_name: "meridional overturning transport anomaly"
         source_long_name: "MOC_z"
+        standard_name: ocean_volume_transport_across_line
         description: "MOC Total Anomaly (relative to record-length average of 14.7 Sv)"
-        comment: "anomaly relative to the record-length mean of 14.7 Sv"
+        comment: "Anomaly, not absolute transport. standard_name is the absolute across-line-transport name, retained for discoverability; values are relative to the record-length mean in anomaly_reference_*."
         units: sverdrup
+        anomaly_reference_value: 14.7
+        anomaly_reference_units: sverdrup
+        anomaly_reference_basis: "record-length mean"
+        anomaly_reference_period: "2009-03-18/2017-04-29"
       "Relative__density_gradient__contribution_to_the_MOC_anomaly":
         long_name: "meridional overturning transport anomaly, relative (density-gradient) contribution"
         source_long_name: "Geos. Trans. Anom."
         description: "Relative (density gradient) contribution to the MOC anomaly"
         units: sverdrup
+        anomaly_reference_basis: "component of the meridional overturning transport anomaly (total record-length mean 14.7 sverdrup)"
+        anomaly_reference_period: "2009-03-18/2017-04-29"
+      # 'reference (bottom pressure gradient)' is the reference-level contribution, NOT the
+      # depth-mean flow, so it is deliberately not relabelled 'barotropic' despite the title
+      # of Meinen et al. (2018). Provider wording is preserved in source_long_name.
       "Reference__bottom_pressure_gradient__contribution_to_the_MOC_anomaly":
         long_name: "meridional overturning transport anomaly, reference (bottom-pressure-gradient) contribution"
         source_long_name: "Barotropic Trans. anom."
         description: "Reference (bottom pressure gradient) contribution to the MOC anomaly"
         units: sverdrup
+        anomaly_reference_basis: "component of the meridional overturning transport anomaly (total record-length mean 14.7 sverdrup)"
+        anomaly_reference_period: "2009-03-18/2017-04-29"
       "Ekman__wind__contribution_to_the_MOC_anomaly":
         long_name: "meridional overturning transport anomaly, Ekman (wind) contribution"
         source_long_name: "Ekman"
         description: "Ekman (wind) contribution to the MOC anomaly"
         units: sverdrup
+        anomaly_reference_basis: "component of the meridional overturning transport anomaly (total record-length mean 14.7 sverdrup)"
+        anomaly_reference_period: "2009-03-18/2017-04-29"
       "Western_density_contribution_to_the_MOC_anomaly":
         long_name: "meridional overturning transport anomaly, western-boundary density contribution"
         source_long_name: "ρ West Transport"
         description: "Western density contribution to the MOC anomaly"
         units: sverdrup
+        anomaly_reference_basis: "component of the meridional overturning transport anomaly (total record-length mean 14.7 sverdrup)"
+        anomaly_reference_period: "2009-03-18/2017-04-29"
       "Eastern_density_contribution_to_the_MOC_anomaly":
         long_name: "meridional overturning transport anomaly, eastern-boundary density contribution"
         source_long_name: "ρ East Transport"
         description: "Eastern density contribution to the MOC anomaly"
         units: sverdrup
+        anomaly_reference_basis: "component of the meridional overturning transport anomaly (total record-length mean 14.7 sverdrup)"
+        anomaly_reference_period: "2009-03-18/2017-04-29"
       "Western_bottom_pressure_contribution_to_the_MOC_anomaly":
         long_name: "meridional overturning transport anomaly, western-boundary bottom-pressure contribution"
         source_long_name: "BP West Transport"
         description: "Western bottom pressure contribution to the MOC anomaly"
         units: sverdrup
+        anomaly_reference_basis: "component of the meridional overturning transport anomaly (total record-length mean 14.7 sverdrup)"
+        anomaly_reference_period: "2009-03-18/2017-04-29"
       "Eastern_bottom_pressure_contribution_to_the_MOC_anomaly":
         long_name: "meridional overturning transport anomaly, eastern-boundary bottom-pressure contribution"
         source_long_name: "BP East Transport"
         description: "Eastern bottom pressure contribution to the MOC anomaly"
         units: sverdrup
+        anomaly_reference_basis: "component of the meridional overturning transport anomaly (total record-length mean 14.7 sverdrup)"
+        anomaly_reference_period: "2009-03-18/2017-04-29"

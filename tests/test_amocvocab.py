@@ -2,8 +2,8 @@
 
 The fast checks (schema, name==key, referential integrity) run everywhere. The CF-name
 and units-convertibility checks need the CF standard-name table; they run only when a
-table is available locally (``AMOCVOCAB_CF_TABLE`` or a cached copy). CI runs the full
-validator in a dedicated job that fetches the table (see .github/workflows/amocvocab.yml).
+table is available locally (``AMOCVOCAB_CF_TABLE`` or a cached copy), and otherwise fall
+back to the committed CF subset.
 """
 
 import pytest

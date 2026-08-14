@@ -70,8 +70,7 @@ DATASETS = {
     # NOTE (not tested): MOC = FC + Ekman + UMO does NOT close cleanly (spikes to ~2.8 Sv at
     # ~33 short windows) because `moc_mar_hc10` is low-pass filtered AFTER summing while the
     # components are filtered individually; filter-of-sum != sum-of-filters near data gaps.
-    # It is a filter-ordering artifact, not a component error. See
-    # .claude/rapid-moc-anomaly/ for the plots and the dated event list.
+    # It is a filter-ordering artifact, not a component error.
     "rapid": (
         "AMOCVOCAB_RAPID_MOCT_NC",
         "moc_transports.nc",
