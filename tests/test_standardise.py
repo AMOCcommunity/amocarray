@@ -285,6 +285,32 @@ class TestConflictResolution:
         assert result == "2004-02-15"
         assert not [w for w in caught if "Metadata conflict" in str(w.message)]
 
+    def test_tz_aware_and_same_day_dates_do_not_warn(self):
+        """A nominal day-precision YAML date agrees with the file's precise timestamp.
+
+        Covers both a tz-aware/naive pair (same instant) and a same-day/different-time
+        pair, which previously raised spurious 'date mismatch' warnings.
+        """
+        for existing, new in [
+            ("1996-05-01T00:00:00Z", "1996-05-01"),  # tz-aware vs naive, same instant
+            ("2021-08-07T17:00:00Z", "2021-08-07"),  # same calendar day, 17h apart
+        ]:
+            with warnings.catch_warnings(record=True) as caught:
+                warnings.simplefilter("always")
+                result = standardise.resolve_metadata_conflict(
+                    "time_coverage_end", existing, new
+                )
+            assert result == existing
+            assert not [w for w in caught if "Metadata conflict" in str(w.message)]
+
+    def test_different_calendar_day_still_warns(self):
+        """A genuine multi-day difference (nominal YAML wrong by days) still conflicts."""
+        with pytest.warns(UserWarning, match="Metadata conflict"):
+            result = standardise.resolve_metadata_conflict(
+                "time_coverage_start", "2004-04-06T00:00:00Z", "2004-04-01"
+            )
+        assert result == "2004-04-06T00:00:00Z"
+
     def test_doi_mismatch_keeps_source_and_warns(self):
         """A differing identifier keeps existing and warns rather than using length."""
         with pytest.warns(UserWarning, match="Metadata conflict"):
@@ -306,6 +332,54 @@ class TestConflictResolution:
             )
         assert result == "a considerably longer description"
         assert not [w for w in caught if "Metadata conflict" in str(w.message)]
+
+
+class TestTimeCoverageDerivation:
+    """time_coverage_start/end are derived from the TIME coordinate, not nominal attrs."""
+
+    def test_derived_from_time_coordinate(self):
+        """Start/end come from TIME min/max as ISO-8601 Z strings."""
+        import numpy as np
+        import xarray as xr
+
+        ds = xr.Dataset(
+            coords={
+                "TIME": (
+                    "TIME",
+                    np.array(["2004-04-02", "2024-03-27"], dtype="datetime64[ns]"),
+                )
+            }
+        )
+        assert standardise._time_coverage_from_data(ds) == (
+            "2004-04-02T00:00:00Z",
+            "2024-03-27T00:00:00Z",
+        )
+
+    def test_nat_values_are_ignored(self):
+        """NaT entries are dropped before taking min/max."""
+        import numpy as np
+        import xarray as xr
+
+        ds = xr.Dataset(
+            coords={
+                "TIME": (
+                    "TIME",
+                    np.array(["2005-01-15", "NaT", "2021-08-07"], dtype="datetime64[ns]"),
+                )
+            }
+        )
+        assert standardise._time_coverage_from_data(ds) == (
+            "2005-01-15T00:00:00Z",
+            "2021-08-07T00:00:00Z",
+        )
+
+    def test_none_when_time_not_datetime(self):
+        """A non-datetime TIME yields (None, None) so callers keep existing attrs."""
+        import numpy as np
+        import xarray as xr
+
+        ds = xr.Dataset(coords={"TIME": ("TIME", np.array([1.0, 2.0]))})
+        assert standardise._time_coverage_from_data(ds) == (None, None)
 
 
 class TestTimeCoordinate:

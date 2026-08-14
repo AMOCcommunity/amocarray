@@ -221,12 +221,52 @@ def _typed_values_equivalent(field_type: str, first: str, second: str) -> bool:
         try:
             import pandas as pd
 
-            return pd.to_datetime(first) == pd.to_datetime(second)
+            a, b = pd.to_datetime(first), pd.to_datetime(second)
+            # A tz-naive and a tz-aware timestamp compare unequal (or raise), so
+            # '1995-11-13' would spuriously conflict with '1995-11-13T00:00:00Z'.
+            # Treat a naive value as UTC so same-instant, differently-formatted dates match.
+            if (a.tzinfo is None) != (b.tzinfo is None):
+                if a.tzinfo is None:
+                    a = a.tz_localize("UTC")
+                else:
+                    b = b.tz_localize("UTC")
         except (TypeError, ValueError):
             return first == second
+        else:
+            # Compare at day granularity: a nominal YAML date ('2021-08-07', day precision)
+            # agrees with the file's precise timestamp on the same day
+            # ('2021-08-07T17:00:00Z'). A different calendar day is still a real conflict.
+            return a.normalize() == b.normalize()
     # identifiers are only equivalent when the strings match exactly, which the caller
     # has already ruled out by the time this is reached.
     return False
+
+
+# time_coverage is derived from the TIME coordinate, not merged from nominal YAML/file
+# attributes (which are often wrong by days). These keys are skipped in the YAML merge.
+_TIME_COVERAGE_KEYS = ("time_coverage_start", "time_coverage_end")
+
+
+def _time_coverage_from_data(ds: xr.Dataset) -> "tuple[str | None, str | None]":
+    """Return (start, end) as ISO-8601 'Z' strings from the TIME coordinate.
+
+    time_coverage should describe the actual served data, so it is computed from the
+    standardized TIME coordinate rather than trusted from nominal YAML/file attributes.
+    Returns (None, None) if there is no usable datetime TIME.
+    """
+    import numpy as np
+
+    for tname in ("TIME", "time"):
+        if tname in ds.variables:
+            t = np.asarray(ds[tname].values)
+            if np.issubdtype(t.dtype, np.datetime64):
+                t = t[~np.isnat(t)]
+                if t.size:
+                    return (
+                        np.datetime_as_string(t.min(), unit="s") + "Z",
+                        np.datetime_as_string(t.max(), unit="s") + "Z",
+                    )
+    return None, None
 
 
 def _warn_metadata_conflict(
@@ -1732,6 +1772,10 @@ def standardise_data(ds: xr.Dataset, file_name: str) -> xr.Dataset:
     # Add array-level YAML metadata with conflict resolution
     array_metadata = meta.get("metadata", {})
     for key, value in array_metadata.items():
+        if key in _TIME_COVERAGE_KEYS:
+            # Derived from the TIME coordinate below; ignore the nominal YAML value
+            # (which is often wrong by days) instead of raising a conflict.
+            continue
         if key in combined:
             resolved_value = resolve_metadata_conflict(
                 key, combined[key], value, "original file", "array-level YAML"
@@ -2023,6 +2067,14 @@ def standardise_data(ds: xr.Dataset, file_name: str) -> xr.Dataset:
             r"\1 ",
             str(cleaned["history"]),
         )
+
+    # time_coverage_start/end are authoritative from the standardized TIME coordinate,
+    # not the nominal YAML/file attrs. Computed here so they always match the served data
+    # (and flow through to the report, which reads these from the dataset attrs).
+    tc_start, tc_end = _time_coverage_from_data(ds)
+    if tc_start is not None:
+        cleaned["time_coverage_start"] = tc_start
+        cleaned["time_coverage_end"] = tc_end
 
     ds.attrs = cleaned
     ds.attrs = reorder_metadata(ds.attrs)
