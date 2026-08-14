@@ -83,14 +83,14 @@ along with key statistics for each variable.
      - Missing %
    * - *moc* → **MOC**
      - **MOC_z**: The meridional overturning circulation at 26N or, the volume of water moving northward in the top (roughly) 1100 m of the ocean which is equal-and-opposite-to the volume of water moving southward below this depth.
-     - Sverdrup
+     - sverdrup
      - (264,)
      - 12.98
      - 19.95
      - 61.0%
    * - *mocproxy* → **MOC_PROXY**
      - **MOC_z proxy**: a proxy for the meridional overturning circulation at 26N, using sea level anomaly and cable measurements
-     - Sverdrup
+     - sverdrup
      - (264,)
      - 13.21
      - 20.54
@@ -104,56 +104,56 @@ along with key statistics for each variable.
      - 10.2%
    * - *unadw* → **TRANS_1100_3000**
      - **Upper NADW**: The upper North Atlantic Deep water transport or mid-ocean transport between the Bahamas and Africa and between the depth layers of 1100 m and 3000 m.
-     - Sverdrup
+     - sverdrup
      - (264,)
      - -12.89
      - -10.79
      - 61.0%
    * - *lnadw* → **TRANS_3000_5000**
      - **Lower NADW**: The lower North Atlantic Deep water transport or mid-ocean transport between the Bahamas and Africa and between the depth layers of 3000 m and 5000 m.
-     - Sverdrup
+     - sverdrup
      - (264,)
      - -8.34
      - -3.21
      - 61.0%
    * - *ek* → **TRANS_EKMAN**
      - **Ekman**: Surface meridional (north-south) Ekman transport as estimated from ERA-Interim reanalysis winds.
-     - Sverdrup
+     - sverdrup
      - (264,)
      - 1.64
      - 5.11
      - 6.1%
-   * - *ek_grid* → **TRANS_EKMAN__GRID**
+   * - *ek_grid* → **TRANS_EKMAN_GRID**
      - **Ekman**: Surface meridional (north-south) Ekman transport as estimated from ERA-Interim reanalysis winds.
-     - Sverdrup
+     - sverdrup
      - (264,)
      - 1.97
      - 4.42
      - 61.0%
    * - *gs* → **TRANS_FC**
      - **Florida Current**: The strength of the Gulf Stream transport through the Florida Straits between Florida and Bahamas, as measured by a submarine telephone cable.
-     - Sverdrup
+     - sverdrup
      - (264,)
      - 30.19
      - 34.61
      - 3.8%
    * - *gs_grid* → **TRANS_FC_GRID**
      - **Florida Current**: The strength of the Gulf Stream transport through the Florida Straits between Florida and Bahamas, as measured by a submarine telephone cable.
-     - Sverdrup
+     - sverdrup
      - (264,)
      - 30.61
      - 32.13
      - 61.0%
    * - *umo* → **TRANS_UMO**
      - **Upper mid-ocean**: The strength of the upper mid-ocean transport between the Bahamas and Africa at 26N, in the top (roughly) 1100 m of the ocean.
-     - Sverdrup
+     - sverdrup
      - (264,)
      - -20.18
      - -15.31
      - 61.0%
    * - *umoproxy* → **TRANS_UMO_PROXY**
      - **UMO proxy**: a proxy for the upper mid-ocean transport based on the linear regression between recon.h1umo and mocgrid.umo
-     - Sverdrup
+     - sverdrup
      - (264,)
      - -19.51
      - -15.16
@@ -163,7 +163,7 @@ along with key statistics for each variable.
 Metadata (edits applied noted)
 ^^^^^^^^^^^^^^^^^
 
-The following metadata provides comprehensive information about this dataset:
+The following metadata describes this dataset:
 
 - **Summary**: Estimating the Atlantic overturning at 26°N using satellite altimetry and cable measurements
 - **Description\***: Estimating the Atlantic overturning at 26°N using satellite altimetry and cable measurements
@@ -189,7 +189,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source Url\***: https://zenodo.org/records/18606051/files/MOCproxy_for_figshare_v1.0.mat
 - **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.3.1
+- **Processing Version**: v0.4.0
 - **Processing Datasource\***: fw2015
 - **Applied Variable Mapping**: [Complex metadata structure - 14 items]
 - **Created**: Jun 2015, Eleanor Frajka-Williams

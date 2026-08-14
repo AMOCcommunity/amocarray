@@ -126,7 +126,7 @@ along with key statistics for each variable.
 Metadata (edits applied noted)
 ^^^^^^^^^^^^^^^^^
 
-The following metadata provides comprehensive information about this dataset:
+The following metadata describes this dataset:
 
 - **Title**: Pan-Arctic Gateway transports since 2004
 - **Summary**: Input data and adjusted data derived with an inverse model of ocean velocity, temperature and salinity obtained from ocean moorings and hydrography from the four main Arctic Gateways Fram Strait, Barents Sea Opening, Bering Strait and Davis Strait
@@ -158,7 +158,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Date Created**: 2025-10-31T23:55:53Z
 - **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.3.1
+- **Processing Version**: v0.4.0
 - **Processing Datasource\***: arcticgateway
 - **Product Version**: v0
 - **Applied Variable Mapping**: {'time': 'TIME', 'depth': 'DEPTH', 'lon': 'LONGITUDE', 'lat': 'LATITUDE', 'v': 'VCUR', 'TIME': 'TIME', 'DEPTH': 'DEPTH'}
@@ -294,7 +294,7 @@ along with key statistics for each variable.
 Metadata (edits applied noted)
 ^^^^^^^^^^^^^^^^^
 
-The following metadata provides comprehensive information about this dataset:
+The following metadata describes this dataset:
 
 - **Title**: Pan-Arctic Gateway transports since 2004
 - **Summary**: Input data and adjusted data derived with an inverse model of ocean velocity, temperature and salinity obtained from ocean moorings and hydrography from the four main Arctic Gateways Fram Strait, Barents Sea Opening, Bering Strait and Davis Strait
@@ -326,7 +326,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Date Created**: 2025-10-31T23:55:53Z
 - **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.3.1
+- **Processing Version**: v0.4.0
 - **Processing Datasource\***: arcticgateway
 - **Product Version**: v0
 - **Applied Variable Mapping**: {'time': 'TIME', 'depth': 'DEPTH', 'lon': 'LONGITUDE', 'lat': 'LATITUDE', 'v': 'VCUR', 'TIME': 'TIME', 'DEPTH': 'DEPTH'}
@@ -462,7 +462,7 @@ along with key statistics for each variable.
 Metadata (edits applied noted)
 ^^^^^^^^^^^^^^^^^
 
-The following metadata provides comprehensive information about this dataset:
+The following metadata describes this dataset:
 
 - **Title**: Pan-Arctic Gateway transports since 2004
 - **Summary**: Input data and adjusted data derived with an inverse model of ocean velocity, temperature and salinity obtained from ocean moorings and hydrography from the four main Arctic Gateways Fram Strait, Barents Sea Opening, Bering Strait and Davis Strait
@@ -494,7 +494,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Date Created**: 2025-10-31T23:55:53Z
 - **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.3.1
+- **Processing Version**: v0.4.0
 - **Processing Datasource\***: arcticgateway
 - **Product Version**: v0
 - **Applied Variable Mapping**: {'time': 'TIME', 'depth': 'DEPTH', 'lon': 'LONGITUDE', 'lat': 'LATITUDE', 'v': 'VCUR', 'TIME': 'TIME', 'DEPTH': 'DEPTH'}
@@ -630,7 +630,7 @@ along with key statistics for each variable.
 Metadata (edits applied noted)
 ^^^^^^^^^^^^^^^^^
 
-The following metadata provides comprehensive information about this dataset:
+The following metadata describes this dataset:
 
 - **Title**: Pan-Arctic Gateway transports since 2004
 - **Summary**: Input data and adjusted data derived with an inverse model of ocean velocity, temperature and salinity obtained from ocean moorings and hydrography from the four main Arctic Gateways Fram Strait, Barents Sea Opening, Bering Strait and Davis Strait
@@ -662,7 +662,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Date Created**: 2025-10-31T23:55:53Z
 - **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.3.1
+- **Processing Version**: v0.4.0
 - **Processing Datasource\***: arcticgateway
 - **Product Version**: v0
 - **Applied Variable Mapping**: {'time': 'TIME', 'depth': 'DEPTH', 'lon': 'LONGITUDE', 'lat': 'LATITUDE', 'v': 'VCUR', 'TIME': 'TIME', 'DEPTH': 'DEPTH'}

@@ -51,22 +51,27 @@ files:
         units: PW
         standard_name: northward_ocean_heat_transport
       mht_ekman:
-        long_name: "Ekman MHT"
+        long_name: "northward ocean heat transport due to Ekman transport"
+        source_long_name: "Ekman MHT"
         description: "Ekman component of meridional heat transport at 34.5°S"
         units: PW
       mht_geostrophic:
-        long_name: "Geostrophic MHT"
+        long_name: "northward ocean heat transport due to geostrophic transport"
+        source_long_name: "Geostrophic MHT"
         description: "Geostrophic component of meridional heat transport at 34.5°S"
         units: PW
       fov_total:
-        long_name: "Total FOV"
+        long_name: "northward ocean freshwater transport due to overturning"
+        source_long_name: "Total FOV"
         description: "Overturning component of freshwater transport at 34.5°S, also referred to as Fov or Mov"
         units: sverdrup
       fov_ekman:
-        long_name: "Ekman FOV"
+        long_name: "northward ocean freshwater transport due to Ekman transport"
+        source_long_name: "Ekman FOV"
         description: "Ekman contribution to overturning freshwater transport at 34.5°S"
         units: sverdrup
       fov_geostrophic:
-        long_name: "Geostrophic FOV"
+        long_name: "northward ocean freshwater transport due to geostrophic transport"
+        source_long_name: "Geostrophic FOV"
         description: "Geostrophic contribution to overturning freshwater transport at 34.5°S"
         units: sverdrup

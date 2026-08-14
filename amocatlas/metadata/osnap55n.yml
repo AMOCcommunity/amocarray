@@ -53,6 +53,7 @@ files:
         description: "Maximum overturning streamfunction across full OSNAP array"
         units: sverdrup
         standard_name: ocean_meridional_overturning_streamfunction
+        cell_methods: "SIGMA0: maximum"
       MOC_ALL_ERR:
         long_name: "MOC uncertainty"
         description: "Uncertainty in MOC_ALL"
@@ -63,6 +64,7 @@ files:
         description: "Overturning streamfunction at OSNAP West"
         units: sverdrup
         standard_name: ocean_meridional_overturning_streamfunction
+        cell_methods: "SIGMA0: maximum"
       MOC_WEST_ERR:
         long_name: "MOCwest uncertainty"
         description: "Uncertainty in MOC_WEST"
@@ -73,6 +75,7 @@ files:
         description: "Overturning streamfunction at OSNAP East"
         units: sverdrup
         standard_name: ocean_meridional_overturning_streamfunction
+        cell_methods: "SIGMA0: maximum"
       MOC_EAST_ERR:
         long_name: "MOCeast uncertainty"
         description: "Uncertainty in MOC_EAST"
@@ -109,7 +112,8 @@ files:
         units: PW
         standard_name: northward_ocean_heat_transport
       MFT_ALL:
-        long_name: "MFT"
+        long_name: "northward ocean freshwater transport"
+        source_long_name: "MFT"
         description: "Meridional freshwater transport across full OSNAP array"
         units: sverdrup
       MFT_ALL_ERR:
@@ -160,6 +164,7 @@ files:
         description: "Maximum overturning streamfunction across full OSNAP array"
         units: sverdrup
         standard_name: ocean_meridional_overturning_streamfunction
+        cell_methods: "SIGMA0: maximum"
       MOC_ALL_ERR:
         long_name: "MOC_sigma0 uncertainty"
         description: "Uncertainty in MOC_ALL"
@@ -170,6 +175,7 @@ files:
         description: "Maximum overturning streamfunction across OSNAP West"
         units: sverdrup
         standard_name: ocean_meridional_overturning_streamfunction
+        cell_methods: "SIGMA0: maximum"
       MOC_WEST_ERR:
         long_name: "Western MOC_sigma0 uncertainty"
         description: "Uncertainty in MOC_WEST"
@@ -180,6 +186,7 @@ files:
         description: "Maximum overturning streamfunction across OSNAP East"
         units: sverdrup
         standard_name: ocean_meridional_overturning_streamfunction
+        cell_methods: "SIGMA0: maximum"
       MOC_EAST_ERR:
         long_name: "Eastern MOC_sigma0 uncertainty"
         description: "Uncertainty in MOC_SIGMA0_EAST"
@@ -216,7 +223,8 @@ files:
         units: PW
         standard_name: northward_ocean_heat_transport
       MFT:
-        long_name: "MFT"
+        long_name: "northward ocean freshwater transport"
+        source_long_name: "MFT"
         description: "Meridional freshwater transport across full OSNAP array"
         units: sverdrup
       MFT_ALL_ERR:
@@ -247,9 +255,9 @@ files:
     featureType: timeSeriesProfile
     variable_mapping: 
       LEVEL: SIGMA0
-      T_ALL: STREAMFUNCTION_SIGMA0
-      T_WEST: STREAMFUNCTION_SIGMA0_WEST
-      T_EAST: STREAMFUNCTION_SIGMA0_EAST
+      T_ALL: PSI_SIGMA0
+      T_WEST: PSI_SIGMA0_WEST
+      T_EAST: PSI_SIGMA0_EAST
     original_variable_metadata:
       TIME:
         description: "Start date of each monthly period"
@@ -284,9 +292,9 @@ files:
     data_product: "Meridional overturning streamfunction (2014-2022)"
     variable_mapping: 
       LEVEL: SIGMA0
-      T_ALL: STREAMFUNCTION_SIGMA0
-      T_WEST: STREAMFUNCTION_SIGMA0_WEST
-      T_EAST: STREAMFUNCTION_SIGMA0_EAST
+      T_ALL: PSI_SIGMA0
+      T_WEST: PSI_SIGMA0_WEST
+      T_EAST: PSI_SIGMA0_EAST
     original_variable_metadata:
       TIME:
         description: "Start date of each monthly period"

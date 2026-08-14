@@ -111,28 +111,28 @@ along with key statistics for each variable.
      - Missing %
    * - *TRANSPORT_TOTAL* → **MOC**
      - **MOC_z**: Ocean volume transport across the MOVE line
-     - Sverdrup
+     - sverdrup
      - (4164,)
      - -31.86
      - -3.34
      - 4.3%
    * - *transport_component_boundary* → **MOC_BOUNDARY**
      - **Boundary transport**: Boundary component of ocean volume transport across the MOVE line
-     - Sverdrup
+     - sverdrup
      - (4164,)
      - -10.98
      - 7.42
      - 1.6%
    * - *transport_component_internal* → **MOC_INTERNAL**
      - **Internal transport**: Internal component of ocean volume transport across the MOVE line
-     - Sverdrup
+     - sverdrup
      - (4164,)
      - -35.46
      - -3.76
      - 4.0%
    * - *transport_component_internal_offset* → **MOC_INTERNAL_OFFSET**
      - **Transport offset**: Offset to be added to internal component of ocean volume transport across the MOVE line
-     - Sverdrup
+     - sverdrup
      - (4164,)
      - 5.78
      - 5.78
@@ -170,7 +170,7 @@ along with key statistics for each variable.
 Metadata (edits applied noted)
 ^^^^^^^^^^^^^^^^^
 
-The following metadata provides comprehensive information about this dataset:
+The following metadata describes this dataset:
 
 - **Title**: Ocean Volume Transport across the MOVE Line at 16 N
 - **Summary**: The Meridional Overturning Variability Experiment (MOVE) has been making mooring observations in the tropical Atlantic since 2000. Here, the derived ocean volume transports across the array are given. These represent the deep flow across the line spanned by the MOVE mooring array, approximately at 16 N from Guadeloupe island in the west to Researcher Ridge (part of the Mid-Atlantic Ridge) in the east and covering the vertical range defined by pressures of 1200-4950 dbar. The strength of this flow is thought to represent the Atlantic Meridional Overturning Circulation (AMOC). Results here are computed from gridded temperature, salinity, and velocity observations that are available separately through the OceanSITES data system. Earlier versions of the data have been discussed by Kanzow et al. (Deep-Sea Research I, 2006) as well as Send et al. (Geophys. Res. Letters, 2011), both linked in the 'references'.
@@ -203,7 +203,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Date Created**: 2025-04-23T01:35:26Z
 - **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.3.1
+- **Processing Version**: v0.4.0
 - **Processing Datasource\***: move16n
 - **Applied Variable Mapping**: [Complex metadata structure - 7 items]
 - **Comment**: The primary scientific data here have variable names in CAPITAL LETTERS; ancillary data are given in lower-case.
@@ -361,7 +361,7 @@ along with key statistics for each variable.
 Metadata (edits applied noted)
 ^^^^^^^^^^^^^^^^^
 
-The following metadata provides comprehensive information about this dataset:
+The following metadata describes this dataset:
 
 - **Title**: Gridded Velocity Data from the MOVE Moorings
 - **Summary**: The Meridional Overturning Variability Experiment (MOVE) has been making mooring observations in the tropical Atlantic since 2000. Here, the direct velocity observations from a subset of these moorings are presented on an easy-to-use grid in space and time. The underlying data at the original resolution in time, deployment-by-deployment, are available in separate files with more detailed and deployment-specific metadata.
@@ -403,7 +403,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Date Created**: 20230112T233946Z
 - **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.3.1
+- **Processing Version**: v0.4.0
 - **Processing Datasource\***: move16n
 - **Format Version**: 1.5
 - **Applied Variable Mapping**: {'VELOCITY_U': 'UCUR', 'VELOCITY_V': 'VCUR', 'instrument_depth_time_varying': 'DEPTH', 'latitude_time_varying': 'LATITUDE_VARYING', 'longitude_time_varying': 'LONGITUDE_VARYING'}
@@ -567,7 +567,7 @@ along with key statistics for each variable.
 Metadata (edits applied noted)
 ^^^^^^^^^^^^^^^^^
 
-The following metadata provides comprehensive information about this dataset:
+The following metadata describes this dataset:
 
 - **Title**: Gridded Temperature and Salinity Data from the MOVE Moorings
 - **Summary**: The Meridional Overturning Variability Experiment (MOVE) has been making mooring observations in the tropical Atlantic since 2000. Here, the temperature and salinity observations from the western and eastern mooring sites are presented on an easy-to-use grid in space and time. The underlying data at the original resolution in time, deployment-by-deployment, are available in separate files with more detailed and deployment-specific metadata.
@@ -609,7 +609,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Date Created**: 20230112T194648Z
 - **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.3.1
+- **Processing Version**: v0.4.0
 - **Processing Datasource\***: move16n
 - **Format Version**: 1.5
 - **Applied Variable Mapping**: {'TEMPERATURE': 'TEMP', 'SALINITY': 'PSAL', 'instrument_depth_time_varying': 'DEPTH', 'latitude_time_varying': 'LATITUDE_VARYING', 'longitude_time_varying': 'LONGITUDE_VARYING'}

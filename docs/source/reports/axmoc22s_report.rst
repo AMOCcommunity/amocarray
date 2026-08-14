@@ -94,14 +94,14 @@ along with key statistics for each variable.
      - 1.19
      - 0.0%
    * - *mht_ekman* → **MHT_EKMAN**
-     - **Ekman MHT**: Ekman component of meridional heat transport at 22.5°S
+     - **northward ocean heat transport due to Ekman transport**: Ekman component of meridional heat transport at 22.5°S
      - PW
      - (204,)
      - -0.77
      - -0.14
      - 0.0%
    * - *mht_geostrophic* → **MHT_GEOSTROPHIC**
-     - **Geostrophic MHT**: Geostrophic component of meridional heat transport at 22.5°S
+     - **northward ocean heat transport due to geostrophic transport**: Geostrophic component of meridional heat transport at 22.5°S
      - PW
      - (204,)
      - 0.87
@@ -109,21 +109,21 @@ along with key statistics for each variable.
      - 0.0%
    * - *moc_total* → **MOC**
      - **Total AMOC**: Total AMOC transport time series at 22.5°S
-     - Sverdrup
+     - sverdrup
      - (204,)
      - 8.95
      - 27.99
      - 0.0%
    * - *moc_ekman* → **TRANS_EKMAN**
      - **Ekman AMOC**: Ekman component of AMOC transport time series at 22.5°S
-     - Sverdrup
+     - sverdrup
      - (204,)
      - -10.67
      - -1.90
      - 0.0%
    * - *moc_geostrophic* → **TRANS_GEOSTROPHIC**
      - **Geostrophic AMOC**: Geostrophic component of AMOC transport time series at 22.5°S
-     - Sverdrup
+     - sverdrup
      - (204,)
      - 15.90
      - 32.42
@@ -133,7 +133,7 @@ along with key statistics for each variable.
 Metadata (edits applied noted)
 ^^^^^^^^^^^^^^^^^
 
-The following metadata provides comprehensive information about this dataset:
+The following metadata describes this dataset:
 
 - **Title**: AXMOC estimates of AMOC, MHT, and Fov (or Mov) at 22.5S
 - **Summary**: This file contains monthly estimates of the Atlantic Meridional Overturning Circulation (AMOC), and meridional heat transport (MHT) at 22.5S.
@@ -163,7 +163,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Date Created**: 21-May-2026
 - **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.3.1
+- **Processing Version**: v0.4.0
 - **Processing Datasource\***: axmoc22s
 - **Applied Variable Mapping**: [Complex metadata structure - 10 items]
 - **Methodology**: AMOC, and MHT were estimated using the AXMOC methodology, which utilizes temperature and salinity fields constructed from sustained in situ observations, including Argo and XBT data. The total transports include Ekman and geostrophic components.

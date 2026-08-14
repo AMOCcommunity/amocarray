@@ -23,9 +23,9 @@ files:
       "time": TIME_FRACTION
       "depth": DEPTH
       "pressure": PRESSURE
-      "MOCdepth": MOC_DEPTH
+      "MOCdepth": MOC
       "MOCsigma": MOC_SIGMA2
-      "psi": STREAMFUNCTION_SIGMA2
+      "psi": PSI_Z
       "Ekman": TRANS_EKMAN
     original_variable_metadata:
       "date":
@@ -39,17 +39,23 @@ files:
         units: "year.fractionofyear"
         standard_name: time
       MOCdepth:
-        long_name: "AMOC transport in depth space"
+        long_name: "ocean meridional overturning streamfunction"
+        source_long_name: "AMOC transport in depth space"
         description: "AMOC transport time series in depth space"
         units: sverdrup
-        standard_name: ocean_volume_transport_across_line
+        standard_name: ocean_meridional_overturning_streamfunction
+        cell_methods: "DEPTH: maximum"
       MOCsigma:
-        long_name: "AMOC transport in density space"
+        long_name: "ocean meridional overturning streamfunction"
+        source_long_name: "AMOC transport in density space"
         description: "AMOC transport time series in density space, with potential density referenced to 2000m"
         units: sverdrup
-        standard_name: ocean_volume_transport_across_line
+        reference_pressure: 2000
+        standard_name: ocean_meridional_overturning_streamfunction
+        cell_methods: "SIGMA2: maximum"
       psi:
-        long_name: "AMOC streamfunction in density space"
+        long_name: "ocean meridional overturning streamfunction"
+        source_long_name: "AMOC streamfunction in density space"
         description: "Integrated across-basin transport streamfunction in depth space"
         units: sverdrup
         standard_name: ocean_meridional_overturning_streamfunction

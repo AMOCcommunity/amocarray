@@ -84,6 +84,7 @@ files:
         description: "MOC strength"
         units: sverdrup
         standard_name: ocean_meridional_overturning_streamfunction
+        cell_methods: "DEPTH: maximum"
 
   ts_gridded.nc:
     featureType: timeSeriesProfile
@@ -164,7 +165,7 @@ files:
     variable_mapping: 
       time: TIME
       depth: DEPTH
-      stream_function_mar: STREAMFUNCTION_Z
+      stream_function_mar: PSI_Z
     original_variable_metadata:
       stream_function_mar:
         long_name: "Streamfunction"
@@ -253,34 +254,38 @@ files:
       amoc_depth: MOC
       amoc_sigma0: MOC_SIGMA0
       amoc_sigma2: MOC_SIGMA2
-      stream_depth: STREAMFUNCTION_Z
-      stream_sigma0: STREAMFUNCTION_SIGMA0
-      stream_sigma2: STREAMFUNCTION_SIGMA2
+      stream_depth: PSI_Z
+      stream_sigma0: PSI_SIGMA0
+      stream_sigma2: PSI_SIGMA2
     original_variable_metadata:
       amoc_depth:
         long_name: "MOC_z"
         description: "Atlantic meridional overturning circulation strength in depth coordinates"
         units: sverdrup
         standard_name: ocean_meridional_overturning_streamfunction
+        cell_methods: "DEPTH: maximum"
       amoc_sigma0:
         long_name: "MOC_sigma0"
         description: "Atlantic meridional overturning circulation strength in potential density (sigma0) coordinates"
         units: sverdrup
         reference_pressure: 0
         standard_name: ocean_meridional_overturning_streamfunction
+        cell_methods: "SIGMA0: maximum"
       amoc_sigma2:
         long_name: "MOC_sigma2"
         description: "Atlantic meridional overturning circulation strength in potential density (sigma2) coordinates"
         units: sverdrup
         reference_pressure: 2000
         standard_name: ocean_meridional_overturning_streamfunction
+        cell_methods: "SIGMA2: maximum"
       heat_trans:
         long_name: "Meridional heat transport"
         description: "Northward oceanic heat transport"
         units: PW
         standard_name: northward_ocean_heat_transport
       frwa_trans:
-        long_name: "Freshwater transport"
+        long_name: "northward ocean freshwater transport"
+        source_long_name: "Freshwater transport"
         description: "Meridional freshwater transport"
         units: sverdrup
       pressure:

@@ -48,10 +48,12 @@ files:
         units: PW
         standard_name: northward_ocean_heat_transport
       mht_ekman:
-        long_name: "Ekman MHT"
+        long_name: "northward ocean heat transport due to Ekman transport"
+        source_long_name: "Ekman MHT"
         description: "Ekman component of meridional heat transport at 22.5°S"
         units: PW
       mht_geostrophic:
-        long_name: "Geostrophic MHT"
+        long_name: "northward ocean heat transport due to geostrophic transport"
+        source_long_name: "Geostrophic MHT"
         description: "Geostrophic component of meridional heat transport at 22.5°S"
         units: PW

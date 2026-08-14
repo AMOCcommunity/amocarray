@@ -87,7 +87,7 @@ files:
     contributor_role_vocabulary: "https://vocab.nerc.ac.uk/collection/G04/current/"
     data_product: "Transport components from ARGO and ERA5"
     variable_mapping:
-      Vek: VEL_EKMAN
+      Vek: TRANS_EKMAN
       trans: TRANS_GEO
       moc: MOC
       depth: DEPTH
@@ -130,10 +130,14 @@ files:
         units: PW
         standard_name: northward_ocean_heat_transport
       Qek:
-        long_name: "MHT Ekman"
+        # Case C (no CF name): long_name is constructed as CF would if the name existed
+        # (amocvocab rule C1), so it reads as a sibling of the overturning/gyre terms.
+        # standard_name omitted: CF has no name for the Ekman component (zero CF names
+        # contain "ekman"); northward_ocean_heat_transport names the total, not this.
+        long_name: "northward ocean heat transport due to Ekman transport"
+        source_long_name: "MHT Ekman"
         description: "Ekman meridional heat transport"
         units: PW
-        standard_name: northward_ocean_heat_transport
       Q:
         long_name: "MHT"
         description: "Observed meridional heat transport"

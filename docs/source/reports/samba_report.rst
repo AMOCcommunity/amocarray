@@ -94,14 +94,14 @@ along with key statistics for each variable.
      - Missing %
    * - *Abyssal_cell_volume_transport_anomaly__relative_to_record_length_average_of_7_8_Sv* → **ABYSSAL_TRANSPORT**
      - **Abyssal Transport**: Abyssal-cell volume transport anomaly (relative to record-length average of 7.8 Sv)
-     - Sverdrup
+     - sverdrup
      - (1404,)
      - -19.09
      - 24.00
      - 0.0%
    * - *Upper_cell_volume_transport_anomaly__relative_to_record_length_average_of_17_3_Sv* → **UPPER_TRANSPORT**
      - **Upper Transport**: Upper-cell volume transport anomaly (relative to record-length average of 17.3 Sv)
-     - Sverdrup
+     - sverdrup
      - (1404,)
      - -50.28
      - 52.69
@@ -111,7 +111,7 @@ along with key statistics for each variable.
 Metadata (edits applied noted)
 ^^^^^^^^^^^^^^^^^
 
-The following metadata provides comprehensive information about this dataset:
+The following metadata describes this dataset:
 
 - **Summary**: SAMBA 34S transport estimates dataset
 - **Description\***: SAMBA 34S transport estimates dataset
@@ -136,7 +136,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source Url\***: ftp://ftp.aoml.noaa.gov/phod/pub/SAM/2020_Kersale_etal_ScienceAdvances/
 - **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.3.1
+- **Processing Version**: v0.4.0
 - **Processing Datasource\***: samba34s
 - **Applied Variable Mapping**: [Complex metadata structure - 2 items]
 - **Original Variable Mapping**: [Complex metadata structure - 2 items]
@@ -233,56 +233,56 @@ along with key statistics for each variable.
      - Missing %
    * - *Reference__bottom_pressure_gradient__contribution_to_the_MOC_anomaly* → **BAROTROPIC_MOC**
      - **Barotropic Trans. anom.**: Reference (bottom pressure gradient) contribution to the MOC anomaly
-     - Sverdrup
+     - sverdrup
      - (2964,)
      - -12.14
      - 20.58
      - 34.0%
    * - *Eastern_bottom_pressure_contribution_to_the_MOC_anomaly* → **EASTERN_BOT_PRESSURE**
      - **BP East Transport**: Eastern bottom pressure contribution to the MOC anomaly
-     - Sverdrup
+     - sverdrup
      - (2964,)
      - -12.93
      - 11.15
      - 34.0%
    * - *Eastern_density_contribution_to_the_MOC_anomaly* → **EASTERN_DENSITY**
-     - ** ho East Transport**: Eastern density contribution to the MOC anomaly
-     - Sverdrup
+     - **ρ East Transport**: Eastern density contribution to the MOC anomaly
+     - sverdrup
      - (2964,)
      - -16.67
      - 13.94
      - 34.0%
    * - *Ekman__wind__contribution_to_the_MOC_anomaly* → **EKMAN**
      - **Ekman**: Ekman (wind) contribution to the MOC anomaly
-     - Sverdrup
+     - sverdrup
      - (2964,)
      - -15.65
      - 20.30
      - 34.0%
    * - *Total_MOC_anomaly__relative_to_record_length_average_of_14_7_Sv* → **MOC**
      - **MOC_z**: MOC Total Anomaly (relative to record-length average of 14.7 Sv)
-     - Sverdrup
+     - sverdrup
      - (2964,)
      - -25.89
      - 28.72
      - 34.0%
    * - *Relative__density_gradient__contribution_to_the_MOC_anomaly* → **RELATIVE_MOC**
      - **Geos. Trans. Anom.**: Relative (density gradient) contribution to the MOC anomaly
-     - Sverdrup
+     - sverdrup
      - (2964,)
      - -19.69
      - 16.51
      - 34.0%
    * - *Western_bottom_pressure_contribution_to_the_MOC_anomaly* → **WESTERN_BOT_PRESSURE**
      - **BP West Transport**: Western bottom pressure contribution to the MOC anomaly
-     - Sverdrup
+     - sverdrup
      - (2964,)
      - -13.60
      - 21.73
      - 34.0%
    * - *Western_density_contribution_to_the_MOC_anomaly* → **WESTERN_DENSITY**
-     - ** ho West Transport**: Western density contribution to the MOC anomaly
-     - Sverdrup
+     - **ρ West Transport**: Western density contribution to the MOC anomaly
+     - sverdrup
      - (2964,)
      - -16.32
      - 6.87
@@ -292,7 +292,7 @@ along with key statistics for each variable.
 Metadata (edits applied noted)
 ^^^^^^^^^^^^^^^^^
 
-The following metadata provides comprehensive information about this dataset:
+The following metadata describes this dataset:
 
 - **Summary**: SAMBA 34S transport estimates dataset
 - **Description\***: SAMBA 34S transport estimates dataset
@@ -317,7 +317,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source Url\***: https://www.aoml.noaa.gov/phod/SAMOC_international/documents/
 - **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.3.1
+- **Processing Version**: v0.4.0
 - **Processing Datasource\***: samba34s
 - **Applied Variable Mapping**: [Complex metadata structure - 8 items]
 - **Original Variable Mapping**: [Complex metadata structure - 8 items]

@@ -87,21 +87,21 @@ along with key statistics for each variable.
      - Missing %
    * - *sat_moc_filt* → **MOC_PROXY**
      - **MOC proxy**: constructed by adding the satellite-derived TRANS_GS and TRANS_UMO with the TRANS_EK, obtained from ERA5 wind stress
-     - Sverdrup
+     - sverdrup
      - (312,)
      - -3.76
      - 2.83
      - 0.0%
    * - *sat_gs_filt* → **TRANS_GS_PROXY**
      - **Gulf Stream / Florida Current**: The strength of the Gulf Stream transport through the Florida Straits between Florida and Bahamas, as measured by a submarine telephone cable.
-     - Sverdrup
+     - sverdrup
      - (312,)
      - -0.64
      - 1.09
      - 0.0%
    * - *sat_umo_filt* → **TRANS_UMO_PROXY**
      - **UMO proxy**: sum of the western boundary wedge transport, the hypsometric mass compensation, and the internal geostrophic transport over the top 1100 m
-     - Sverdrup
+     - sverdrup
      - (312,)
      - -2.37
      - 3.20
@@ -111,7 +111,7 @@ along with key statistics for each variable.
 Metadata (edits applied noted)
 ^^^^^^^^^^^^^^^^^
 
-The following metadata provides comprehensive information about this dataset:
+The following metadata describes this dataset:
 
 - **Summary**: A dynamically based method for estimating the Atlantic meridional overturning circulation at 26°N from satellite altimetry
 - **Description\***: A dynamically based method for estimating the Atlantic meridional overturning circulation at 26°N from satellite altimetry
@@ -138,6 +138,6 @@ The following metadata provides comprehensive information about this dataset:
 - **Source Url\***: https://zenodo.org/records/18941523/files/altimetry_moc_transport_1993_2020_18mos_smoothed.nc
 - **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.3.1
+- **Processing Version**: v0.4.0
 - **Processing Datasource\***: sf2021
 - **Applied Variable Mapping**: {'sat_time': 'TIME', 'sat_moc_filt': 'MOC_PROXY', 'sat_umo_filt': 'TRANS_UMO_PROXY', 'sat_gs_filt': 'TRANS_GS_PROXY'}

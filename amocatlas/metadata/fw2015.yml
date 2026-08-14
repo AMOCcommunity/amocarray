@@ -33,7 +33,7 @@ files:
       "moc": "MOC"
       "unadw": "TRANS_1100_3000"
       "lnadw": "TRANS_3000_5000"
-      "ek_grid": "TRANS_EKMAN__GRID"
+      "ek_grid": "TRANS_EKMAN_GRID"
       "gs_grid": "TRANS_FC_GRID"
     original_variable_metadata:
       mocproxy:
