@@ -8,7 +8,6 @@ with proper compression and metadata formatting.
 
 import json
 from numbers import Number
-from pathlib import Path
 from typing import Union
 
 import numpy as np
@@ -151,42 +150,3 @@ def save_dataset(ds: xr.Dataset, output_file: str = "../test.nc") -> bool:
             return True
     else:
         return True
-
-
-def save_AC1_dataset(ds: xr.Dataset, data_dir: Union[str, Path]) -> Path:
-    """Save AC1 dataset to netCDF using the OceanSITES 'id' attribute.
-
-    Parameters
-    ----------
-    ds : xarray.Dataset
-        Dataset with AC1-compliant global attributes including 'id'.
-    data_dir : str or pathlib.Path
-        Directory to save the netCDF file.
-
-    Returns
-    -------
-    Path
-        Full path to the saved NetCDF file.
-
-    Raises
-    ------
-    ValueError
-        If 'id' global attribute is not found.
-
-    """
-    if "id" not in ds.attrs:
-        raise ValueError(
-            "Global attribute 'id' not found. Cannot determine output filename."
-        )
-
-    data_dir = Path(data_dir)
-    filename = f"{ds.attrs['id']}.nc"
-    filepath = data_dir / filename
-
-    # Use the main save_dataset function which handles all the encoding issues
-    success = save_dataset(ds, str(filepath))
-
-    if not success:
-        raise RuntimeError(f"Failed to save AC1 dataset to {filepath}")
-
-    return filepath

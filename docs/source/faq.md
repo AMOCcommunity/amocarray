@@ -2,7 +2,7 @@ FAQ / Troubleshooting
 ======================
 
 
-#### I get an error when doing `from amocatlas import plotters`
+## I get an error when doing `from amocatlas import plotters`
 
 This is because your code can't find the project `amocatlas`.
 
@@ -29,7 +29,7 @@ sys.path.append('/a/path/on/your/computer/amocatlas')
 ```
 before the line where you try `from amocatlas import plotters`.
 
-#### Failing to install the package in a Github Action
+## Failing to install the package in a Github Action
 
 ```
 × Getting requirements to build editable did not run successfully.

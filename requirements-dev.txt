@@ -25,8 +25,5 @@ jsonschema>=4.0  # validates metadata YAMLs and amocvocab.yml against their sche
 # Dev/CI-only — the package does not import this at runtime (imports are lazy).
 pyudunits2[xml]>=0.1  # [xml] extra required for UnitSystem.from_udunits2_xml() in validate_amocvocab
 
-# Code quality
-black>=24.0
+# Code quality (ruff handles both linting and formatting)
 ruff>=0.3
-pre-commit>=4.6.0
-codespell

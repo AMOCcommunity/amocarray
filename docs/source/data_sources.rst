@@ -1,5 +1,5 @@
 data_sources package
-===================
+====================
 
 .. currentmodule:: amocatlas.data_sources
 

@@ -1,8 +1,6 @@
 ZHENG2024 Datasets
 ==================
 
-----
-
 atl_mft_2000_extend_gpcp_oaflux.nc
 ----------------------------------
 
@@ -98,8 +96,8 @@ along with key statistics for each variable.
      - Max Value
      - Missing %
    * - *mft* → **MFT**
-     - **Freshwater**: An Observation-Based Estimate of Atlantic Meridional Freshwater Transport. AMFT given by RAPID array at 26.5°N was integrated southward and northward in combination with ocean freshwater content (calculated by salinity) and surface freshwater flux, with the residual of the freshwater budget equation being the AMFT.
-     - Sverdrup
+     - **northward ocean freshwater transport**: An Observation-Based Estimate of Atlantic Meridional Freshwater Transport. AMFT given by RAPID array at 26.5°N was integrated southward and northward in combination with ocean freshwater content (calculated by salinity) and surface freshwater flux, with the residual of the freshwater budget equation being the AMFT.
+     - sverdrup
      - (201, 101)
      - -0.98
      - 0.92
@@ -107,9 +105,9 @@ along with key statistics for each variable.
 
 
 Metadata (edits applied noted)
-^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The following metadata provides comprehensive information about this dataset:
+The following metadata describes this dataset:
 
 - **Summary**: An observation based estimate of the Atlantic meridional freshwater transport
 - **Description\***: An observation based estimate of the Atlantic meridional freshwater transport
@@ -139,7 +137,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source Url\***: https://zenodo.org/records/12790901
 - **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.3.1
+- **Processing Version**: v0.4.0
 - **Processing Datasource\***: zheng2024
 - **Applied Variable Mapping**: {'time': 'TIME', 'lat': 'LATITUDE', 'mft': 'MFT', 'TIME': 'TIME', 'MFT': 'MFT'}
 - **Comment\***: Salinity observations used in this study are from the Institute of Atmospheric Physics (IAP). Argo floats, CTD salinity sensors, bottles, mooring, sourced from the World Ocean Database (WOD). Precipitation and evaporation observations are derived from the Global Precipitation Climatology Project (GPCP).

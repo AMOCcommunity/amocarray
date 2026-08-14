@@ -1208,11 +1208,12 @@ class ReportUtils:
                     )
                     rst_lines = individual_rst.split("\n")
 
-                    # Add filename as section header with horizontal rule
+                    # Separate datasets with a horizontal rule — but not before the first,
+                    # since a document may not begin with a transition.
+                    if i > 0:
+                        lines.extend(["----", ""])
                     lines.extend(
                         [
-                            "----",
-                            "",
                             source_file,
                             "-" * len(source_file),
                             "",
@@ -1902,13 +1903,12 @@ def _generate_rst_report(
         ]
     )
 
-    # Source file as level 2 header (skip if requested)
+    # Source file as level 2 header (skip if requested). No leading "----": this is the
+    # first section, and a document may not begin with a transition.
     if not skip_source_header:
         source_file = report_data.dataset.attrs.get("source_file", "Unknown source")
         lines.extend(
             [
-                "----",
-                "",
                 source_file,
                 "-" * len(source_file),
                 "",
@@ -2153,10 +2153,11 @@ def _generate_rst_report(
     lines.append("")
 
     # Complete Metadata
+    _meta_title = "Metadata (edits applied noted)"
     lines.extend(
         [
-            "Metadata (edits applied noted)",
-            "^^^^^^^^^^^^^^^^^",
+            _meta_title,
+            "^" * len(_meta_title),
             "",
             "The following metadata describes this dataset:",
             "",

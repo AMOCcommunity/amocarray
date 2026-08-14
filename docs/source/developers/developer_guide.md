@@ -33,7 +33,7 @@ pip install -e .
 # 3. Branch, change, test
 git switch -c yourname-feature
 pytest -m "not slow"
-pre-commit run --all-files
+ruff check . && ruff format .
 
 # 4. Commit and push, then open a PR on GitHub
 git commit -am "feat: describe your change"
@@ -98,8 +98,8 @@ pip install -e .                      # editable install
 pytest -m "not slow"                  # confirm the setup
 ```
 
-**Tooling:** Black (formatting, 88-char lines), Ruff (linting + import order), pytest (tests +
-coverage), pre-commit (quality checks, run manually), Sphinx (docs).
+**Tooling:** Ruff (linting, import order, and formatting; 88-char lines), pytest (tests +
+coverage), Sphinx (docs).
 
 **PyGMT** is optional and can be awkward to install; prefer conda-forge
 (`conda install pygmt -c conda-forge`) or see the
@@ -130,25 +130,16 @@ This is the most common contribution. To add an array called `newarray`:
 2. **Export it** from `amocatlas/data_sources/__init__.py` (add the import and list it in
    `__all__`).
 
-3. **Register the legacy API** in the `readers` dict inside `_get_reader()` in
-   `amocatlas/readers.py`:
-
-   ```python
-   readers = {
-       # ... existing entries
-       "newarray": read_newarray,
-   }
-   ```
-
-4. **Expose the modern API** in `amocatlas/read.py`: import `read_newarray` from `.data_sources`,
+3. **Expose the modern API** in `amocatlas/read.py`: import `read_newarray` from `.data_sources`,
    add a `read.newarray()` wrapper following the existing readers, and add `"newarray"` to
-   `__all__`.
+   `__all__`. (The legacy `readers.load_dataset` API is deprecated; new arrays are exposed only
+   through `read.*`.)
 
-5. **Add metadata** at `amocatlas/metadata/newarray.yml` (title, contributors, institutions,
+4. **Add metadata** at `amocatlas/metadata/newarray.yml` (title, contributors, institutions,
    licence, citation) so the dataset is enriched and passes the schema in
    `metadata/array_schema.json`.
 
-6. **Add tests** in `tests/` (fast, mocked tests plus an optional `@pytest.mark.slow` integration
+5. **Add tests** in `tests/` (fast, mocked tests plus an optional `@pytest.mark.slow` integration
    test).
 
 ### Adding visualisation functions
@@ -166,7 +157,7 @@ graceful fallback when PyGMT is absent, return a `pygmt.Figure`, and stamp the f
   relevant).
 - **Naming:** `snake_case` for functions/variables; `ALL_CAPS` for xarray data variables
   (e.g. `MOC`, `TRANS`, `MHT`, `TIME`).
-- **Line length** 88 (Black default); imports ordered by Ruff.
+- **Line length** 88; imports ordered by Ruff.
 - **Units** always live in variable attributes, never in variable names. Use the full word
   `Sverdrup` (not `Sv`, which collides with sieverts).
 - **Attributes** are `lowercase_with_underscores`, following OceanSITES conventions, with a few
@@ -176,10 +167,9 @@ graceful fallback when PyGMT is absent, return a `pygmt.Figure`, and stamp the f
 Run before committing:
 
 ```bash
-black amocatlas/ tests/
+ruff format amocatlas/ tests/
 ruff check amocatlas/ tests/
 pytest -m "not slow" --cov=amocatlas
-pre-commit run --all-files
 ```
 
 ---

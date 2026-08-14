@@ -305,6 +305,7 @@ def resolve_metadata_conflict(
     """Resolve metadata conflicts using field-typed logic.
 
     Resolution rules:
+
     1. If values are identical, return without warning
     2. If one is empty/whitespace and other isn't, use non-empty
     3. For typed fields (numbers, dates, identifiers): keep the source-of-truth

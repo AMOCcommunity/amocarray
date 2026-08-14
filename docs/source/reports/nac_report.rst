@@ -1,8 +1,6 @@
 NAC Datasets
 ============
 
-----
-
 _2_1.nc
 -------
 
@@ -144,21 +142,21 @@ along with key statistics for each variable.
      - 0.0%
    * - *NAC* → **TRANS_NAC**
      - **NAC Transport**: North Atlantic Current transport time series from satellite and float observations
-     - Sverdrup
+     - sverdrup
      - (66, 1)
      - 22.74
      - 31.65
      - 33.3%
    * - *NAC_PROXY* → **TRANS_NAC_PROXY**
      - **NAC Transport Proxy**: Proxy for North Atlantic Current transport time series from satellite altimetry
-     - Sverdrup
+     - sverdrup
      - (66, 1)
      - 23.30
      - 30.63
      - 0.0%
    * - *NAC_UNCERTAINTY* → **TRANS_NAC_UNCERTAINTY**
      - **Uncertainty of values in NAC variable**: Uncertainty of North Atlantic Current transport time series
-     - Sverdrup
+     - sverdrup
      - (66, 1)
      - 1.47
      - 2.17
@@ -166,9 +164,9 @@ along with key statistics for each variable.
 
 
 Metadata (edits applied noted)
-^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The following metadata provides comprehensive information about this dataset:
+The following metadata describes this dataset:
 
 - **Title**: North Atlantic Current Time Series from Satellite and Float Observations
 - **Summary**: The North Atlantic Current (NAC) is the continuation of the Gulf Stream on its path towards Europe. Here, a time series of its strength is reported that is calculated from two observational datasets: One is the sea surface height from satellite altimetry, the other consists of watercolumn temperature and salinity profiles from Argo floats. The NAC flow is given as the total volume transport of water in a depth layer defined by pressure ranges of 0 - 1000 dbar, across a section that spans from a site in the Central Irminger Sea (CIS) to another in the Porcupine Abyssal Plain (PAP) area. Uncertainty estimates of the flow are included, as is a proxy time series of longer duration that is estimated from satellite data alone. The corresponding variables in this file are NAC and NAC_UNCERTAINTY for the main volume transport time series and its uncertainy, and NAC_PROXY for the satellite-only time series. The methodology is described in a publication by Lankhorst and Send (Progress in Oceanography, 2020; see 'references'); the data here represent an updated version of what is shown in figure 6a of this publication.
@@ -206,7 +204,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Date Created**: 2025-10-07T00:00:00Z
 - **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.3.1
+- **Processing Version**: v0.4.0
 - **Processing Datasource\***: nac
 - **Applied Variable Mapping**: {'NAC': 'TRANS_NAC', 'NAC_UNCERTAINTY': 'TRANS_NAC_UNCERTAINTY', 'NAC_PROXY': 'TRANS_NAC_PROXY'}
 - **Keywords**: geostrophic current, North Atlantic Current, altimetry, Argo, Irminger Sea, Porcupine Abyssal Plain

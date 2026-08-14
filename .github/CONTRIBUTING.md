@@ -21,7 +21,7 @@ Please follow these steps to get started:
 5. **Run tests and quality checks:**
    ```bash
    pytest
-   pre-commit run --all-files
+   ruff check . && ruff format .
    ```
 6. **Push to your fork** and open a pull request.
 

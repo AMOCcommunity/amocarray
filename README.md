@@ -236,9 +236,8 @@ Reports are generated as structured RST files in `docs/source/reports/` with:
 
 ### Code Quality
 ```bash
-black amocatlas/ tests/          # Format code
+ruff format amocatlas/ tests/     # Format code
 ruff check amocatlas/ tests/     # Lint code
-pre-commit run --all-files       # Run all hooks
 ```
 
 ### Working with Notebooks

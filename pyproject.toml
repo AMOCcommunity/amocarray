@@ -70,12 +70,10 @@ ignore = [
   "tests/*",
 ]
 
-[tool.black]
-line-length = 88
-target-version = ['py310']
-
 [tool.ruff]
-# …any other top‑level settings you use (extend, cache-dir, line-length, exclude, etc.)…
+line-length = 88
+target-version = "py310"
+# ruff handles both linting (below) and formatting (ruff format), replacing black.
 
 [tool.ruff.lint]
 select = [

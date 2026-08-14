@@ -59,31 +59,6 @@ def dataset_with_problematic_attrs() -> xr.Dataset:
     return ds
 
 
-@pytest.fixture
-def ac1_dataset() -> xr.Dataset:
-    """Create AC1-compliant dataset with proper 'id' attribute."""
-    time = pd.date_range("2020-01-01", periods=5, freq="D")
-    transport = np.random.randn(5)
-
-    ds = xr.Dataset(
-        {
-            "TRANSPORT": (
-                ["TIME"],
-                transport,
-                {"units": "sverdrup", "long_name": "Ocean Transport"},
-            )
-        },
-        coords={"TIME": time},
-        attrs={
-            "id": "OS_RAPID_20200101-20200105_DP_component_transport",
-            "Conventions": "CF-1.8, OceanSITES-1.4",
-            "title": "RAPID Transport Data",
-            "institution": "NOC",
-        },
-    )
-    return ds
-
-
 def test_save_dataset_basic(simple_dataset: xr.Dataset) -> None:
     """Test basic dataset saving functionality."""
     with tempfile.TemporaryDirectory() as tmp_dir:
@@ -231,62 +206,6 @@ def test_save_dataset_with_global_dict_attrs() -> None:
         # Should succeed because dict attrs are converted to strings
         assert success
         assert os.path.exists(output_file)
-
-
-def test_save_AC1_dataset_basic(ac1_dataset: xr.Dataset) -> None:
-    """Test basic AC1 dataset saving."""
-    with tempfile.TemporaryDirectory() as tmp_dir:
-        result_path = writers.save_AC1_dataset(ac1_dataset, tmp_dir)
-
-        assert isinstance(result_path, Path)
-        assert result_path.exists()
-        assert (
-            result_path.name == "OS_RAPID_20200101-20200105_DP_component_transport.nc"
-        )
-        assert result_path.parent == Path(tmp_dir)
-
-        # Verify content
-        loaded_ds = xr.open_dataset(result_path)
-        assert "TRANSPORT" in loaded_ds.data_vars
-        assert loaded_ds.attrs["id"] == ac1_dataset.attrs["id"]
-        loaded_ds.close()
-
-
-def test_save_AC1_dataset_string_path(ac1_dataset: xr.Dataset) -> None:
-    """Test AC1 saving with string path instead of Path object."""
-    with tempfile.TemporaryDirectory() as tmp_dir:
-        result_path = writers.save_AC1_dataset(
-            ac1_dataset, tmp_dir
-        )  # tmp_dir is string
-
-        assert isinstance(result_path, Path)
-        assert result_path.exists()
-
-
-def test_save_AC1_dataset_missing_id() -> None:
-    """Test AC1 saving with missing 'id' attribute."""
-    ds = xr.Dataset({"data": (["x"], [1, 2, 3])}, attrs={"title": "No ID dataset"})
-
-    with tempfile.TemporaryDirectory() as tmp_dir:
-        with pytest.raises(ValueError, match="Global attribute 'id' not found"):
-            writers.save_AC1_dataset(ds, tmp_dir)
-
-
-def test_save_AC1_dataset_with_dict_attrs() -> None:
-    """Test AC1 saving with dict attributes (should be converted to strings)."""
-    # Create dataset with 'id' and dict attributes that will be converted to strings
-    ds = xr.Dataset(
-        {"data": (["x"], [1, 2, 3])},
-        attrs={
-            "id": "test_id",
-            "problematic_dict": {"nested": "value"},  # This will be converted to string
-        },
-    )
-
-    with tempfile.TemporaryDirectory() as tmp_dir:
-        result_path = writers.save_AC1_dataset(ds, tmp_dir)
-        assert result_path.exists()
-        assert result_path.name == "test_id.nc"
 
 
 def test_save_dataset_edge_cases() -> None:

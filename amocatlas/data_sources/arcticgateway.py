@@ -8,16 +8,17 @@ The data is provided as a zip archive containing multiple NetCDF files for
 each gateway, with full-depth velocity adjustments applied.
 
 Key functions:
+
 - read_arcticgateway(): Main data loading interface for Arctic Gateway transport data
 
 Data source: Pan-Arctic Gateway transports since 2004
 Project: Norwegian Polar Institute Arctic gateway transport monitoring
 
-Notes:
-- The original NetCDF metadata incorrectly uses creator_name and publisher_name
-  for institutional names ("Norwegian Polar Institute (NPI)") instead of
-  individual researcher names. This causes institutions to appear in contributor
-  fields. This should be corrected in the source dataset metadata.
+.. note::
+   The original NetCDF metadata incorrectly uses ``creator_name`` and ``publisher_name``
+   for institutional names ("Norwegian Polar Institute (NPI)") instead of individual
+   researcher names, so institutions can appear in contributor fields. This should be
+   corrected in the source dataset metadata.
 
 """
 

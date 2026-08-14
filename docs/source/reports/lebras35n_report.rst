@@ -3,8 +3,6 @@ LEBRAS35N Datasets
 
 This report covers all available LEBRAS35N datasets.
 
-----
-
 AMOC35N.nc
 ----------
 
@@ -108,30 +106,30 @@ along with key statistics for each variable.
      - Min Value
      - Max Value
      - Missing %
-   * - *MOCdepth* → **MOC_DEPTH**
-     - **AMOC transport in depth space**: AMOC transport time series in depth space
-     - Sverdrup
+   * - *MOCdepth* → **MOC**
+     - **ocean meridional overturning streamfunction**: AMOC transport time series in depth space
+     - sverdrup
      - (120,)
      - 8.72
      - 21.21
      - 0.0%
    * - *MOCsigma* → **MOC_SIGMA2**
-     - **AMOC transport in density space**: AMOC transport time series in density space, with potential density referenced to 2000m
-     - Sverdrup
+     - **ocean meridional overturning streamfunction**: AMOC transport time series in density space, with potential density referenced to 2000m
+     - sverdrup
      - (120,)
      - 10.88
      - 23.60
      - 0.0%
-   * - *psi* → **STREAMFUNCTION_SIGMA2**
-     - **AMOC streamfunction in density space**: Integrated across-basin transport streamfunction in depth space
-     - Sverdrup
+   * - *psi* → **PSI_Z**
+     - **ocean meridional overturning streamfunction**: Integrated across-basin transport streamfunction in depth space
+     - sverdrup
      - (120, 560)
      - -5.76
      - 19.66
      - 0.0%
    * - *Ekman* → **TRANS_EKMAN**
      - **Ekman transport**: Ekman transport time series at 35N derived from CCMP
-     - Sverdrup
+     - sverdrup
      - (120,)
      - -8.86
      - 2.28
@@ -139,9 +137,9 @@ along with key statistics for each variable.
 
 
 Metadata (edits applied noted)
-^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The following metadata provides comprehensive information about this dataset:
+The following metadata describes this dataset:
 
 - **Summary**: The Atlantic meridional overturning circulation at 35N from deep moorings, floats, and satellite altimeter
 - **Description\***: The Atlantic meridional overturning circulation at 35N from deep moorings, floats, and satellite altimeter
@@ -164,7 +162,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Source Url\***: https://zenodo.org/records/7262142/files/
 - **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.3.1
+- **Processing Version**: v0.4.0
 - **Processing Datasource\***: lebras35n
 - **Applied Variable Mapping**: [Complex metadata structure - 11 items]
 
@@ -315,9 +313,9 @@ along with key statistics for each variable.
 
 
 Metadata (edits applied noted)
-^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The following metadata provides comprehensive information about this dataset:
+The following metadata describes this dataset:
 
 - **Summary**: The Atlantic meridional overturning circulation at 35N from deep moorings, floats, and satellite altimeter
 - **Description\***: The Atlantic meridional overturning circulation at 35N from deep moorings, floats, and satellite altimeter
@@ -340,6 +338,6 @@ The following metadata provides comprehensive information about this dataset:
 - **Source Url\***: https://zenodo.org/records/7262142/files/
 - **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.3.1
+- **Processing Version**: v0.4.0
 - **Processing Datasource\***: lebras35n
 - **Applied Variable Mapping**: [Complex metadata structure - 18 items]

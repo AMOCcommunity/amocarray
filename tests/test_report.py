@@ -120,9 +120,9 @@ class TestReportGeneration:
 
         # Test variable mapping: check for specific SAMBA variable remapping
         assert (
-            "   * - *Ekman__wind__contribution_to_the_MOC_anomaly* → **EKMAN**"
+            "   * - *Ekman__wind__contribution_to_the_MOC_anomaly* → **TRANS_EKMAN**"
             in rst_content
-        ), "Missing variable mapping for EKMAN"
+        ), "Missing variable mapping for TRANS_EKMAN"
 
         # Test units conversion: should have multiple instances of "sverdrup" units
         sverdrup_count = rst_content.count("sverdrup")

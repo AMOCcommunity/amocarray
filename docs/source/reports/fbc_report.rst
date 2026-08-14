@@ -1,8 +1,6 @@
 FBC Datasets
 ============
 
-----
-
 OS_GSR_FBC_D_1995_2024.nc
 -------------------------
 
@@ -109,7 +107,7 @@ along with key statistics for each variable.
      - Missing %
    * - *FBC_tr* → **TRANS_FBC**
      - **FBC Overflow**: FBC Overflow transport time series
-     - Sverdrup
+     - sverdrup
      - (10414, 1)
      - 0.50
      - 4.86
@@ -117,9 +115,9 @@ along with key statistics for each variable.
 
 
 Metadata (edits applied noted)
-^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The following metadata provides comprehensive information about this dataset:
+The following metadata describes this dataset:
 
 - **Title**: Faroe Bank Channel Overflow Volume Transport
 - **Summary**: Time series of volume transport of the Faroe Bank Channel Overflow (FBCO). The transports are Daily averaged kinematic FBC-overflow as described in Hansen et al, 2016.
@@ -168,7 +166,7 @@ The following metadata provides comprehensive information about this dataset:
 - **Date Created**: 2025-04-22T00:00:00Z
 - **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.3.1
+- **Processing Version**: v0.4.0
 - **Processing Datasource\***: fbc
 - **Format Version**: 1.4
 - **Applied Variable Mapping**: {'FBC_tr': 'TRANS_FBC'}

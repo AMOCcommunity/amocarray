@@ -1,231 +1,112 @@
 #!/usr/bin/env python3
-"""Generate comprehensive dataset reports for AMOCatlas arrays.
+"""Generate dataset reports for Sphinx documentation.
 
-This script generates detailed Sphinx RST reports for each observing array,
-including variable mapping, metadata analysis, and processing change tracking.
+Usage (run from the repo root, with the package installed via `pip install -e .`):
+    python scripts/generate_reports.py                      # generates all reports (default)
+    python scripts/generate_reports.py --data_source rapid  # generates only RAPID report
+    python scripts/generate_reports.py --data_source osnap  # generates only OSNAP report
+    etc.
 """
 
 import argparse
-import pathlib
-import sys
-from datetime import datetime, timezone
+from pathlib import Path
 
-# Add the project root to the path so we can import amocatlas
-sys.path.insert(0, str(pathlib.Path(__file__).parent.parent))
+# amocatlas must be importable — install the package in editable mode (`pip install -e .`).
+from amocatlas.report import ReportUtils
+from amocatlas.defaults import ARRAY_NAMES
 
-from amocatlas import read
-from amocatlas.report import StandardizedDatasetReport, _generate_rst_report
+# Available data sources (centralized in defaults.py)
+AVAILABLE_SOURCES = ARRAY_NAMES
 
+ALL_SOURCES = AVAILABLE_SOURCES + ["all"]
 
-def generate_array_report(array_name: str, output_dir: pathlib.Path) -> pathlib.Path:
-    """Generate comprehensive report for a single array.
+def main() -> int:
+    """Generate dataset report and save to docs directory."""
+    parser = argparse.ArgumentParser(
+        description="Generate dataset reports for AMOCatlas documentation",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog=f"""
+Available data sources:
+{', '.join(AVAILABLE_SOURCES)}
 
-    Parameters
-    ----------
-    array_name : str
-        Name of the array (e.g., 'rapid', 'osnap', 'move', 'samba')
-    output_dir : pathlib.Path
-        Directory to write the report
-
-    Returns
-    -------
-    pathlib.Path
-        Path to the generated report file
-
-    """
-    print(f"Generating report for {array_name.upper()} array...")
-
-    # Get the read function for this array
-    if not hasattr(read, array_name.lower()):
-        available_arrays = [
-            attr
-            for attr in dir(read)
-            if not attr.startswith("_") and callable(getattr(read, attr))
-        ]
-        raise ValueError(
-            f"Unsupported array '{array_name}'. Available arrays: {', '.join(available_arrays)}"
-        )
-
-    read_func = getattr(read, array_name.lower())
-
-    try:
-        # Load all files for this array with attribute tracking
-        datasets, attr_changes_list = read_func(
-            all_files=True,
-            transport_only=False,
-            track_added_attrs=True,
-            raw=False,  # Get standardized versions
-        )
-
-        print(f"Loaded {len(datasets)} {array_name.upper()} datasets")
-
-        # Build comprehensive RST content
-        lines = []
-        lines.extend(
-            [
-                f"{array_name.upper()} Dataset Report",
-                "=" * (len(array_name) + 15),
-                "",
-                f"*Generated: {datetime.now(timezone.utc).strftime('%Y-%m-%d')}*",
-                "",
-                f"This report covers all available {array_name.upper()} datasets with comprehensive analysis.",
-                "",
-            ]
-        )
-
-        # Process each file
-        for i, (dataset, attr_changes) in enumerate(
-            zip(datasets, attr_changes_list, strict=False)
-        ):
-            source_file = dataset.attrs.get("source_file", f"file_{i}")
-            print(f"  Processing {source_file}...")
-
-            try:
-                # Create detailed report for this dataset
-                report_data = StandardizedDatasetReport(
-                    f"{array_name.upper()} {source_file}", dataset, attr_changes
-                )
-
-                # Generate the full RST content for this dataset
-                # We'll use the existing _generate_rst_report but modify the title
-                dataset_rst = _generate_rst_report(report_data)
-
-                # Extract everything after the first title line for inclusion
-                rst_lines = dataset_rst.split("\n")
-
-                # Find the first section (after the main title) and include from there
-                start_idx = 0
-                for j, line in enumerate(rst_lines):
-                    if line.startswith("Generated:"):
-                        start_idx = j - 2  # Include the filename header
-                        break
-
-                # Add the filename as a section header
-                lines.extend(
-                    [
-                        source_file,
-                        "-" * len(source_file),
-                        "",
-                    ]
-                )
-
-                # Add the rest of the report content (skip the main title)
-                if start_idx > 0:
-                    for line in rst_lines[
-                        start_idx + 2 :
-                    ]:  # Skip filename and underline
-                        lines.append(line)
-                else:
-                    # Fallback: add basic info
-                    lines.extend(
-                        [
-                            "Dataset Overview",
-                            "^^^^^^^^^^^^^^^^",
-                            "",
-                            f"- **Source File**: {source_file}",
-                            f"- **Data Product**: {dataset.attrs.get('data_product', 'Unknown')}",
-                            "",
-                            "Note: Full analysis not available for this dataset.",
-                            "",
-                        ]
-                    )
-
-            except (ValueError, KeyError, TypeError, AttributeError) as e:
-                print(f"    Error processing {source_file}: {e}")
-                # Add basic fallback info
-                lines.extend(
-                    [
-                        source_file,
-                        "-" * len(source_file),
-                        "",
-                        "Dataset Overview",
-                        "^^^^^^^^^^^^^^^^",
-                        "",
-                        f"- **Source File**: {source_file}",
-                        f"- **Data Product**: {dataset.attrs.get('data_product', 'Unknown')}",
-                        f"- **Variables**: {list(dataset.data_vars.keys())}",
-                        f"- **Coordinates**: {list(dataset.coords.keys())}",
-                        "",
-                        f"Note: Report generation failed: {e}",
-                        "",
-                    ]
-                )
-
-        # Write the report
-        rst_content = "\n".join(lines)
-        output_file = output_dir / f"{array_name.lower()}_report.rst"
-        output_file.write_text(rst_content)
-
-    except Exception as e:
-        print(f"Failed to generate report for {array_name}: {e}")
-        raise
-    else:
-        print(f"Report written to: {output_file}")
-        return output_file
-
-
-def main() -> None:
-    """Main script entry point."""
-    parser = argparse.ArgumentParser(description="Generate AMOCatlas dataset reports")
-    parser.add_argument(
-        "arrays",
-        nargs="*",
-        default=["rapid"],
-        help="Array names to generate reports for (default: rapid)",
+Examples:
+  python scripts/generate_reports.py                      # generates all reports (default)
+  python scripts/generate_reports.py --data_source rapid  # generates only RAPID report
+  python scripts/generate_reports.py --data_source osnap  # generates only OSNAP report
+        """
     )
     parser.add_argument(
-        "--output-dir",
-        "-o",
-        type=pathlib.Path,
-        default=pathlib.Path("docs/source/reports"),
-        help="Output directory for reports",
+        "--data_source",
+        default="all",
+        choices=ALL_SOURCES,
+        help="Data source to generate report for (default: 'all' to generate all reports)"
     )
     parser.add_argument(
-        "--all",
-        "-a",
-        action="store_true",
-        help="Generate reports for all available arrays",
+        "--output_dir",
+        default="docs/source/reports",
+        help="Output directory for the report (default: docs/source/reports)"
     )
 
     args = parser.parse_args()
 
-    # Create output directory if it doesn't exist
-    args.output_dir.mkdir(parents=True, exist_ok=True)
-
-    # Determine which arrays to process
-    if args.all:
-        # List of all available arrays
-        available_arrays = [
-            "rapid",
-            "osnap",
-            "move",
-            "samba",
-            "fw2015",
-            "mocha",
-            "wh41n",
-            "dso",
-        ]
-        arrays_to_process = available_arrays
+    # Determine which data sources to process
+    if args.data_source == "all":
+        sources_to_process = AVAILABLE_SOURCES
+        print(f"Generating reports for ALL {len(sources_to_process)} data sources...")
     else:
-        arrays_to_process = args.arrays
+        sources_to_process = [args.data_source]
+        print(f"Generating {args.data_source.upper()} array report...")
 
-    print(f"Generating reports for arrays: {', '.join(arrays_to_process)}")
+    # Create output directory if it doesn't exist
+    output_dir = Path(args.output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
 
-    # Generate reports
-    generated_files = []
-    for array_name in arrays_to_process:
+    # Process each data source
+    total_generated = 0
+    errors = []
+
+    for source in sources_to_process:
+        print(f"\n--- Processing {source.upper()} ---")
+
+        # Generate the report content using the ReportUtils method
         try:
-            output_file = generate_array_report(array_name, args.output_dir)
-            generated_files.append(output_file)
-        except (ValueError, KeyError, TypeError, AttributeError, OSError, IOError) as e:
-            print(f"Failed to generate report for {array_name}: {e}")
+            content = ReportUtils.generate_array_report(source, canonical_dates=True)
+            print(f"Generated report with {len(content)} characters")
+        except Exception as e:  # noqa: BLE001 - batch tool: continue past a failing array
+            import traceback
+            error_msg = f"Error generating {source} report: {e}"
+            print(error_msg)
+            print("Full traceback:")
+            traceback.print_exc()
+            errors.append(error_msg)
+            continue
 
-    print(f"\nGenerated {len(generated_files)} reports:")
-    for file_path in generated_files:
-        print(f"  {file_path}")
+        # Write the report
+        output_file = output_dir / f"{source}_report.rst"
+        try:
+            with open(output_file, 'w', encoding='utf-8') as f:
+                f.write(content)
+            print(f"Report saved to: {output_file}")
+            print(f"File size: {output_file.stat().st_size} bytes")
+            total_generated += 1
+        except Exception as e:  # noqa: BLE001 - batch tool: continue past a failing array
+            error_msg = f"Error writing {source} report: {e}"
+            print(error_msg)
+            errors.append(error_msg)
 
-    print("\nTo rebuild documentation: cd docs && make html")
+    # Summary
+    print("\n=== SUMMARY ===")
+    print(f"Successfully generated {total_generated} report(s)")
+    if errors:
+        print(f"Encountered {len(errors)} error(s):")
+        for error in errors:
+            print(f"  - {error}")
+        return 1
 
+    print("\nTo rebuild documentation, run:")
+    print("cd docs && make clean html")
+
+    return 0
 
 if __name__ == "__main__":
-    main()
+    exit(main())
