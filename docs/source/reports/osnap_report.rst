@@ -96,42 +96,42 @@ along with key statistics for each variable.
      - Missing %
    * - *MFT_ALL* → **MFT**
      - Meridional freshwater transport across the full OSNAP array
-     - sverdrup
+     - Sverdrup
      - (96,)
      - -0.48
      - -0.23
      - 0.0%
    * - **MFT_EAST**
      - **MFTeast**: Meridional freshwater transport across OSNAP East
-     - sverdrup
+     - Sverdrup
      - (96,)
      - -0.28
      - -0.09
      - 0.0%
    * - **MFT_EAST_ERR**
      - **MFTeast error**: Uncertainty in MFT_EAST
-     - sverdrup
+     - Sverdrup
      - (96,)
      - 0.03
      - 0.07
      - 0.0%
    * - *MFT_ALL_ERR* → **MFT_ERR**
      - **MFT error**: Uncertainty in MFT
-     - sverdrup
+     - Sverdrup
      - (96,)
      - 0.04
      - 0.08
      - 0.0%
    * - **MFT_WEST**
      - **MFTwest**: Meridional freshwater transport across OSNAP West
-     - sverdrup
+     - Sverdrup
      - (96,)
      - -0.24
      - -0.08
      - 0.0%
    * - **MFT_WEST_ERR**
      - **MFTwest error**: Uncertainty in MFT_WEST
-     - sverdrup
+     - Sverdrup
      - (96,)
      - 0.01
      - 0.04
@@ -180,42 +180,42 @@ along with key statistics for each variable.
      - 0.0%
    * - *MOC_EAST* → **MOC_EAST_SIGMA0**
      - **Eastern MOC_sigma0**: Maximum overturning streamfunction across OSNAP East
-     - sverdrup
+     - Sverdrup
      - (96,)
      - 10.36
      - 23.66
      - 0.0%
    * - *MOC_EAST_ERR* → **MOC_EAST_SIGMA0_ERR**
      - **Eastern MOC_sigma0 uncertainty**: Uncertainty in MOC_SIGMA0_EAST
-     - sverdrup
+     - Sverdrup
      - (96,)
      - 2.33
      - 5.68
      - 0.0%
    * - *MOC_ALL* → **MOC_SIGMA0**
      - **MOC_sigma0**: Maximum overturning streamfunction across full OSNAP array
-     - sverdrup
+     - Sverdrup
      - (96,)
      - 7.98
      - 25.59
      - 0.0%
    * - *MOC_ALL_ERR* → **MOC_SIGMA0_ERR**
      - **MOC_sigma0 uncertainty**: Uncertainty in MOC_ALL
-     - sverdrup
+     - Sverdrup
      - (96,)
      - 2.87
      - 5.99
      - 0.0%
    * - *MOC_WEST* → **MOC_WEST_SIGMA0**
      - **Western MOC_sigma0**: Maximum overturning streamfunction across OSNAP West
-     - sverdrup
+     - Sverdrup
      - (96,)
      - 0.36
      - 7.78
      - 0.0%
    * - *MOC_WEST_ERR* → **MOC_WEST_SIGMA0_ERR**
      - **Western MOC_sigma0 uncertainty**: Uncertainty in MOC_WEST
-     - sverdrup
+     - Sverdrup
      - (96,)
      - 0.90
      - 3.05
@@ -225,7 +225,7 @@ along with key statistics for each variable.
 Metadata (edits applied noted)
 ^^^^^^^^^^^^^^^^^
 
-The following metadata describes this dataset:
+The following metadata provides comprehensive information about this dataset:
 
 - **Title**: OSNAP MOC MHT MFT time series (2014-2022)
 - **Summary**: OSNAP transport and hydrographic estimates dataset, 2014-2020
@@ -259,7 +259,7 @@ The following metadata describes this dataset:
 - **Date Created**: 2025-05-21T15:09:24Z
 - **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.4.0
+- **Processing Version**: v0.3.1
 - **Processing Datasource\***: osnap55n
 - **Applied Variable Mapping**: [Complex metadata structure - 10 items]
 - **Data Assembly Center**: Georgia Institute of Technology
@@ -362,23 +362,23 @@ along with key statistics for each variable.
      - Min Value
      - Max Value
      - Missing %
-   * - *T_ALL* → **PSI_SIGMA0**
+   * - *T_ALL* → **STREAMFUNCTION_SIGMA0**
      - **Streamfunction**: Streamfunction in σθ coordinates across full OSNAP
-     - sverdrup
+     - Sverdrup
      - (481, 96)
      - -5.16
      - 25.34
      - 0.0%
-   * - *T_EAST* → **PSI_SIGMA0_EAST**
+   * - *T_EAST* → **STREAMFUNCTION_SIGMA0_EAST**
      - **Streamfunction east**: Streamfunction in σθ at OSNAP East
-     - sverdrup
+     - Sverdrup
      - (481, 96)
      - -1.77
      - 23.82
      - 0.0%
-   * - *T_WEST* → **PSI_SIGMA0_WEST**
+   * - *T_WEST* → **STREAMFUNCTION_SIGMA0_WEST**
      - **Streamfunction west**: Streamfunction in σθ at OSNAP West
-     - sverdrup
+     - Sverdrup
      - (481, 96)
      - -5.72
      - 7.67
@@ -388,7 +388,7 @@ along with key statistics for each variable.
 Metadata (edits applied noted)
 ^^^^^^^^^^^^^^^^^
 
-The following metadata describes this dataset:
+The following metadata provides comprehensive information about this dataset:
 
 - **Title**: OSNAP Streamfunction (2014-2022)
 - **Summary**: OSNAP transport and hydrographic estimates dataset, 2014-2020
@@ -422,9 +422,9 @@ The following metadata describes this dataset:
 - **Date Created**: 2025-05-21T15:16:52Z
 - **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.4.0
+- **Processing Version**: v0.3.1
 - **Processing Datasource\***: osnap55n
-- **Applied Variable Mapping**: {'LEVEL': 'SIGMA0', 'T_ALL': 'PSI_SIGMA0', 'T_WEST': 'PSI_SIGMA0_WEST', 'T_EAST': 'PSI_SIGMA0_EAST'}
+- **Applied Variable Mapping**: {'LEVEL': 'SIGMA0', 'T_ALL': 'STREAMFUNCTION_SIGMA0', 'T_WEST': 'STREAMFUNCTION_SIGMA0_WEST', 'T_EAST': 'STREAMFUNCTION_SIGMA0_EAST'}
 - **Data Assembly Center**: Georgia Institute of Technology
 
 ----
@@ -555,7 +555,7 @@ along with key statistics for each variable.
 Metadata (edits applied noted)
 ^^^^^^^^^^^^^^^^^
 
-The following metadata describes this dataset:
+The following metadata provides comprehensive information about this dataset:
 
 - **Title**: OSNAP Gridded Temperature Salinity and Velocity data 2014-2020
 - **Summary**: OSNAP transport and hydrographic estimates dataset, 2014-2020
@@ -589,7 +589,7 @@ The following metadata describes this dataset:
 - **Date Created**: 2025-05-21T15:11:05Z
 - **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.4.0
+- **Processing Version**: v0.3.1
 - **Processing Datasource\***: osnap55n
 - **Applied Variable Mapping**: {'SAL': 'PSAL', 'VELO': 'VCUR'}
 - **Url\***: https://repository.gatech.edu/bitstreams/af6a47f7-f705-49b4-a64f-5cd086b9b9fb/download

@@ -115,7 +115,7 @@ along with key statistics for each variable.
 Metadata (edits applied noted)
 ^^^^^^^^^^^^^^^^^
 
-The following metadata describes this dataset:
+The following metadata provides comprehensive information about this dataset:
 
 - **Title**: Observation-based probabilistic estimates of Atlantic meridional heat transport
 - **Summary**: MHT estimates dataset
@@ -146,7 +146,7 @@ The following metadata describes this dataset:
 - **Source Url\***: https://zenodo.org/records/16640426
 - **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.4.0
+- **Processing Version**: v0.3.1
 - **Processing Datasource\***: calafat2025
 - **Applied Variable Mapping**: {'mht': 'MHT', 'htc': 'HTC', 'posterior_samples': 'N_ENSEMBLE', 'TIME': 'TIME', 'LATITUDE': 'LATITUDE', 'MHT': 'MHT', 'HTC': 'HTC'}
 - **Creation Data**: 31-Jul-2025 15:14:49

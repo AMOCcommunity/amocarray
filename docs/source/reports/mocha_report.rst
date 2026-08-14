@@ -95,81 +95,81 @@ along with key statistics for each variable.
      - Max Value
      - Missing %
    * - *Q_sum* → **MHT**
-     - **northward ocean heat transport**: Net meridional heat transport 
+     - **MHT**: Net meridional heat transport 
      - PW
      - (12202,)
      - -0.64
      - 2.52
      - 0.0%
    * - *Q_ek* → **MHT_EKMAN**
-     - **northward ocean heat transport due to Ekman transport**: Ekman heat transports 
-     - W
+     - **MHT_EKMAN**: Ekman heat transports 
+     - PW
      - (12202,)
-     - -1164230805524764.75
-     - 1740501416424006.75
+     - -1.16
+     - 1.74
      - 0.0%
    * - *Q_fc* → **MHT_FC**
-     - **northward ocean heat transport due to Florida Current transport**: Florida Straits heat transports 
-     - W
+     - **MHT_FC**: Florida Straits heat transports 
+     - PW
      - (12202,)
-     - 1496015485426369.25
-     - 3286291331250119.50
+     - 1.50
+     - 3.29
      - 0.0%
    * - *Q_gyre* → **MHT_GYRE**
-     - **northward ocean heat transport due to gyre**: Basinwide gyre heat transports, as classically defined (e.g. see Johns et al., 2011) 
+     - **MHT_GYRE**: Basinwide gyre heat transports, as classically defined (e.g. see Johns et al., 2011) 
      - PW
      - (12202,)
      - -0.03
      - 0.23
      - 0.0%
    * - *Q_int* → **MHT_INT**
-     - **northward ocean heat transport due to interior transport**: Heat transport for the rest of the interior to Africa (but only represents the contribution by the zonal mean v and T) 
-     - W
+     - **MHT_INT**: Heat transport for the rest of the interior to Africa (but only represents the contribution by the zonal mean v and T) 
+     - PW
      - (12202,)
-     - -2969895885209712.00
-     - -814597926350619.38
+     - -2.97
+     - -0.81
      - 0.0%
    * - *Q_mo* → **MHT_MO**
-     - **northward ocean heat transport due to mid-ocean transport**: The sum of all the three interior components between the Bahamas and Africa (Q_int + Q_wedge + Q_eddy) 
-     - W
+     - **MHT_MO**: The sum of all the three interior components between the Bahamas and Africa (Q_int + Q_wedge + Q_eddy) 
+     - PW
      - (12202,)
-     - -2523308464721369.00
-     - -921832486087110.00
+     - -2.52
+     - -0.92
      - 0.0%
    * - *Q_ot* → **MHT_OT**
-     - **northward ocean heat transport due to overturning**: Basinwide overturning heat transports, as classically defined (e.g. see Johns et al., 2011) 
+     - **MHT_OT**: Basinwide overturning heat transports, as classically defined (e.g. see Johns et al., 2011) 
      - PW
      - (12202,)
      - -0.63
      - 2.47
      - 0.0%
    * - *Q_wedge* → **MHT_WEDGE**
-     - **northward ocean heat transport due to western boundary wedge transport**: Heat transport for the "western boundary wedge" off Abaco 
-     - W
+     - **MHT_WEDGE**: Heat transport for the "western boundary wedge" off Abaco 
+     - PW
      - (12202,)
-     - -413997795827425.31
-     - 715477685042347.00
+     - -0.41
+     - 0.72
      - 0.0%
    * - *maxmoc* → **MOC**
      - **MOC_Z**: time-varying maximum value of MOC streamfunction 
-     - sverdrup
+     - Sverdrup
      - (12202,)
      - -5.07
      - 32.90
      - 0.0%
-   * - *moc* → **PSI_Z**
+   * - **Q_eddy**
+     - **MHT_EDDY**: interior gyre component due to spatially correlated v'T' variability across the interior, derived from an objective analysis of interior ARGO T/S data merged with the mooring T/S data from moorings, and smoothly merged into the EN4 climatology along 26.5°N below 2000m 
+     - PW
+     - (12202,)
+     - -0.03
+     - 0.13
+     - 0.0%
+   * - *moc* → **STREAMFUNCTION_Z**
      - **Streamfunction**: Streamfunction across the Atlantic at 26.5°N
-     - sverdrup
+     - Sverdrup
      - (12202, 307)
      - -18.92
      - 37.79
-     - 0.0%
-   * - **Q_eddy**
-     - **MHT_EDDY**: interior gyre component due to spatially correlated v'T' variability across the interior, derived from an objective analysis of interior ARGO T/S data merged with the mooring T/S data from moorings, and smoothly merged into the EN4 climatology along 26.5°N below 2000m 
-     - W
-     - (12202,)
-     - -31795267564798.27
-     - 132280944423897.55
      - 0.0%
    * - *T_basin* → **TEMP_BASIN**
      - **Temperature**: time-varying basinwide mean potential temperature profile 
@@ -194,42 +194,42 @@ along with key statistics for each variable.
      - 0.0%
    * - *V_basin* → **TRANSPROF_BASIN**
      - **Transport per unit depth**: time-varying basinwide mean transport profile 
-     - sverdrup/m
+     - Sverdrup/m
      - (12202, 307)
      - -0.39
      - 0.56
      - 0.0%
    * - *V_basin_mean* → **TRANSPROF_BASIN_MEAN**
      - **Mean Transport per unit depth**: time-mean basinwide mean transport profile 
-     - sverdrup/m
+     - Sverdrup/m
      - (307,)
      - -0.01
      - 0.10
      - 0.0%
    * - *V_fc* → **TRANSPROF_FC**
      - **FC Transport per unit depth**: time-varying Florida Current transport profile 
-     - sverdrup/m
+     - Sverdrup/m
      - (12202, 307)
      - -0.00
      - 0.15
      - 0.0%
    * - *V_fc_mean* → **TRANSPROF_FC_MEAN**
      - **Mean FC Transport per unit depth**: time-mean Florida Current transport profile 
-     - sverdrup/m
+     - Sverdrup/m
      - (307,)
      - -0.00
      - 0.11
      - 0.0%
    * - *trans_ek* → **TRANS_EKMAN**
      - **Ekman**: time-varying Ekman transport (calculated from ERA-I winds) 
-     - sverdrup
+     - Sverdrup
      - (12202,)
      - -12.92
      - 18.16
      - 0.0%
    * - *trans_fc* → **TRANS_FC**
      - **FC**: time-varying Florida Current transport (from the cable) 
-     - sverdrup
+     - Sverdrup
      - (12202,)
      - 19.17
      - 39.53
@@ -239,7 +239,7 @@ along with key statistics for each variable.
 Metadata (edits applied noted)
 ^^^^^^^^^^^^^^^^^
 
-The following metadata describes this dataset:
+The following metadata provides comprehensive information about this dataset:
 
 - **Title\***: Atlantic Meridional Overturning Circulation (AMOC) Heat Transport Time Series between April 2004 and December 2020 at 26.5°N
 - **Summary**: Total heat transport results for the first 16.8 years of the RAPID/MOCHA program, from April 2004 through December 2020.
@@ -270,7 +270,7 @@ The following metadata describes this dataset:
 - **Date Created\***: 2023-01-01T00:00:00Z
 - **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.4.0
+- **Processing Version**: v0.3.1
 - **Processing Datasource\***: mocha26n
 - **Applied Variable Mapping**: [Complex metadata structure - 24 items]
 - **Convert To Coord\***: z

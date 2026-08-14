@@ -83,14 +83,14 @@ along with key statistics for each variable.
      - Missing %
    * - *Trans vol [Sv]* → **MOC_SIGMA0**
      - **MOC_sigma0**: AMOC volume transport at 47N
-     - sverdrup
+     - Sverdrup
      - (301,)
      - 4.08
      - 37.33
      - 0.0%
    * - *Trans vol [Sv].1* → **MOC_SIGMA0_LPF**
      - **MOC_sigma0 (filtered)**: AMOC volume transport at 47N, low-pass filtered
-     - sverdrup
+     - Sverdrup
      - (301,)
      - 13.85
      - 21.50
@@ -100,7 +100,7 @@ along with key statistics for each variable.
 Metadata (edits applied noted)
 ^^^^^^^^^^^^^^^^^
 
-The following metadata describes this dataset:
+The following metadata provides comprehensive information about this dataset:
 
 - **Program\***: NOAC 47N array
 - **Project\***: Meridional Connectivity of a 25-Year Observational AMOC Record at 47°N
@@ -126,6 +126,6 @@ The following metadata describes this dataset:
 - **Source Url\***: https://doi.pangaea.de/10.1594/PANGAEA.959558
 - **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.4.0
+- **Processing Version**: v0.3.1
 - **Processing Datasource\***: noac47n
 - **Applied Variable Mapping**: {'Trans vol [Sv]': 'MOC_SIGMA0', 'Trans vol [Sv].1': 'MOC_SIGMA0_LPF'}

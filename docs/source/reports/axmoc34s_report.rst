@@ -87,22 +87,22 @@ along with key statistics for each variable.
      - Max Value
      - Missing %
    * - *fov_total* → **FOV**
-     - **northward ocean freshwater transport due to overturning**: Overturning component of freshwater transport at 34.5°S, also referred to as Fov or Mov
-     - sverdrup
+     - **Total FOV**: Overturning component of freshwater transport at 34.5°S, also referred to as Fov or Mov
+     - Sverdrup
      - (221,)
      - -0.40
      - 0.05
      - 0.0%
    * - *fov_ekman* → **FOV_EKMAN**
-     - **northward ocean freshwater transport due to Ekman transport**: Ekman contribution to overturning freshwater transport at 34.5°S
-     - sverdrup
+     - **Ekman FOV**: Ekman contribution to overturning freshwater transport at 34.5°S
+     - Sverdrup
      - (221,)
      - -0.32
      - 0.09
      - 0.0%
    * - *fov_geostrophic* → **FOV_GEOSTROPHIC**
-     - **northward ocean freshwater transport due to geostrophic transport**: Geostrophic contribution to overturning freshwater transport at 34.5°S
-     - sverdrup
+     - **Geostrophic FOV**: Geostrophic contribution to overturning freshwater transport at 34.5°S
+     - Sverdrup
      - (221,)
      - -0.22
      - 0.07
@@ -115,14 +115,14 @@ along with key statistics for each variable.
      - 1.07
      - 0.0%
    * - *mht_ekman* → **MHT_EKMAN**
-     - **northward ocean heat transport due to Ekman transport**: Ekman component of meridional heat transport at 34.5°S
+     - **Ekman MHT**: Ekman component of meridional heat transport at 34.5°S
      - PW
      - (221,)
      - -0.19
      - 0.67
      - 0.0%
    * - *mht_geostrophic* → **MHT_GEOSTROPHIC**
-     - **northward ocean heat transport due to geostrophic transport**: Geostrophic component of meridional heat transport at 34.5°S
+     - **Geostrophic MHT**: Geostrophic component of meridional heat transport at 34.5°S
      - PW
      - (221,)
      - 0.03
@@ -130,21 +130,21 @@ along with key statistics for each variable.
      - 0.0%
    * - *moc_total* → **MOC**
      - **Total AMOC**: Total AMOC transport time series at 34.5°S
-     - sverdrup
+     - Sverdrup
      - (221,)
      - 6.80
      - 26.82
      - 0.0%
    * - *moc_ekman* → **TRANS_EKMAN**
      - **Ekman AMOC**: Ekman component of AMOC transport time series at 34.5°S
-     - sverdrup
+     - Sverdrup
      - (221,)
      - -2.83
      - 10.90
      - 0.0%
    * - *moc_geostrophic* → **TRANS_GEOSTROPHIC**
      - **Geostrophic AMOC**: Geostrophic component of AMOC transport time series at 34.5°S
-     - sverdrup
+     - Sverdrup
      - (221,)
      - 2.23
      - 27.02
@@ -154,7 +154,7 @@ along with key statistics for each variable.
 Metadata (edits applied noted)
 ^^^^^^^^^^^^^^^^^
 
-The following metadata describes this dataset:
+The following metadata provides comprehensive information about this dataset:
 
 - **Title**: AXMOC estimates of AMOC, MHT, and Fov (or Mov) at 34.5S
 - **Summary**: This file contains monthly estimates of the Atlantic Meridional Overturning Circulation (AMOC), meridional heat transport (MHT), and overturning freshwater transport (Fov or Mov) at 34.5S.
@@ -184,7 +184,7 @@ The following metadata describes this dataset:
 - **Date Created**: 21-May-2026
 - **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.4.0
+- **Processing Version**: v0.3.1
 - **Processing Datasource\***: axmoc34s
 - **Applied Variable Mapping**: [Complex metadata structure - 15 items]
 - **Methodology**: AMOC, MHT, and Fov were estimated using the AXMOC methodology. Mapped temperature and salinity fields were constructed from sustained in situ observations, including Argo, XBT, and CTD data. The total transports include Ekman and geostrophic components.

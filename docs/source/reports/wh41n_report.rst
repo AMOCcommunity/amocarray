@@ -92,21 +92,21 @@ along with key statistics for each variable.
      - 0.0%
    * - *MOC (Sv)* → **MOC**
      - **MOC_z**: Meridional Overturning Volume Transport
-     - sverdrup
+     - Sverdrup
      - (288,)
      - 2.47
      - 19.98
      - 0.0%
    * - *Ekman (Sv)* → **TRANS_EKMAN**
      - **Ekman**: Ekman Volume Transport
-     - sverdrup
+     - Sverdrup
      - (288,)
      - -8.79
      - 0.51
      - 0.0%
    * - *Geos (Sv)* → **TRANS_GEO**
      - **Geostrophic Transport**: Northward Geostrophic Transport
-     - sverdrup
+     - Sverdrup
      - (288,)
      - 6.16
      - 23.96
@@ -116,7 +116,7 @@ along with key statistics for each variable.
 Metadata (edits applied noted)
 ^^^^^^^^^^^^^^^^^
 
-The following metadata describes this dataset:
+The following metadata provides comprehensive information about this dataset:
 
 - **Summary**: 41N transport estimates dataset
 - **Description\***: 41N transport estimates dataset
@@ -127,8 +127,6 @@ The following metadata describes this dataset:
 - **Platform**: Argo floats
 - **Platform Vocabulary**: https://vocab.nerc.ac.uk/collection/L06/
 - **Data Product\***: Atlantic Meridional Overturning Circulation Near 41N from Altimetry and Argo Observations
-- **Time Coverage Start**: 2002-01-16
-- **Time Coverage End**: 2025-12-16
 - **Contributor Name\***: Will Hobbs, Josh K. Willis
 - **Contributor Role\***: originator, principalInvestigator
 - **Contributor Role Vocabulary\***: https://vocab.nerc.ac.uk/collection/G04/current/
@@ -145,7 +143,7 @@ The following metadata describes this dataset:
 - **Source Url\***: https://doi.org/10.5281/zenodo.8170365
 - **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.4.0
+- **Processing Version**: v0.3.1
 - **Processing Datasource\***: wh41n
 - **Applied Variable Mapping**: {'Ekman (Sv)': 'TRANS_EKMAN', 'Geos (Sv)': 'TRANS_GEO', 'MOC (Sv)': 'MOC', 'MOC (PW)': 'MHT'}
 - **Version\***: v5
@@ -254,31 +252,31 @@ along with key statistics for each variable.
      - Missing %
    * - *moc* → **MOC**
      - **MOC_z**: Overturning circulation transport
-     - sverdrup
+     - Sverdrup
      - (288, 4)
      - -4.78
      - 20.74
      - 0.0%
-   * - *Vek* → **TRANS_EKMAN**
-     - **Ekman**: Ekman transport from ERA5 reanalysis
-     - sverdrup
-     - (288, 4)
-     - -8.99
-     - 0.73
-     - 0.0%
    * - *trans* → **TRANS_GEO**
      - **Geostrophic transport**: Observed geostrophic transport from ARGO
-     - sverdrup
+     - Sverdrup
      - (288, 4, 320, 201)
      - -0.18
      - 0.19
      - 26.2%
+   * - *Vek* → **VEL_EKMAN**
+     - **Ekman**: Ekman transport from ERA5 reanalysis
+     - Sverdrup
+     - (288, 4)
+     - -8.99
+     - 0.73
+     - 0.0%
 
 
 Metadata (edits applied noted)
 ^^^^^^^^^^^^^^^^^
 
-The following metadata describes this dataset:
+The following metadata provides comprehensive information about this dataset:
 
 - **Title**: transport from ARGO/SSH data
 - **Summary**: 41N transport estimates dataset
@@ -290,8 +288,6 @@ The following metadata describes this dataset:
 - **Platform**: Argo floats
 - **Platform Vocabulary**: https://vocab.nerc.ac.uk/collection/L06/
 - **Data Product\***: Transport components from ARGO and ERA5
-- **Time Coverage Start**: 2002-01-15
-- **Time Coverage End**: 2025-12-15
 - **Contributor Name\***: Will Hobbs, Josh K. Willis
 - **Contributor Role\***: originator, principalInvestigator
 - **Contributor Role Vocabulary\***: https://vocab.nerc.ac.uk/collection/G04/current/
@@ -307,9 +303,9 @@ The following metadata describes this dataset:
 - **Date Created**: Mon 12 Jan 2026 14:06:47 AEDT
 - **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.4.0
+- **Processing Version**: v0.3.1
 - **Processing Datasource\***: wh41n
-- **Applied Variable Mapping**: {'Vek': 'TRANS_EKMAN', 'trans': 'TRANS_GEO', 'moc': 'MOC', 'depth': 'DEPTH', 'lat': 'LATITUDE', 'lon': 'LONGITUDE', 'MOC': 'MOC', 'DEPTH': 'DEPTH'}
+- **Applied Variable Mapping**: {'Vek': 'VEL_EKMAN', 'trans': 'TRANS_GEO', 'moc': 'MOC', 'depth': 'DEPTH', 'lat': 'LATITUDE', 'lon': 'LONGITUDE', 'MOC': 'MOC', 'DEPTH': 'DEPTH'}
 - **Reference Temp**: kelvin
 - **Wind Stress**: ERA5
 
@@ -430,7 +426,7 @@ along with key statistics for each variable.
      - 0.24
      - 26.2%
    * - *Qek* → **MHT_EKMAN**
-     - **northward ocean heat transport due to Ekman transport**: Ekman meridional heat transport
+     - **MHT Ekman**: Ekman meridional heat transport
      - PW
      - (288, 4)
      - -10.55
@@ -448,7 +444,7 @@ along with key statistics for each variable.
 Metadata (edits applied noted)
 ^^^^^^^^^^^^^^^^^
 
-The following metadata describes this dataset:
+The following metadata provides comprehensive information about this dataset:
 
 - **Title**: heat transport from ARGO/SSH data
 - **Summary**: 41N transport estimates dataset
@@ -460,8 +456,6 @@ The following metadata describes this dataset:
 - **Platform**: Argo floats
 - **Platform Vocabulary**: https://vocab.nerc.ac.uk/collection/L06/
 - **Data Product\***: Heat transport based on various assumptions about temperature below 2000m
-- **Time Coverage Start**: 2002-01-15
-- **Time Coverage End**: 2025-12-15
 - **Contributor Name\***: Will Hobbs, Josh K. Willis
 - **Contributor Role\***: originator, principalInvestigator
 - **Contributor Role Vocabulary\***: https://vocab.nerc.ac.uk/collection/G04/current/
@@ -477,7 +471,7 @@ The following metadata describes this dataset:
 - **Date Created**: Mon 12 Jan 2026 14:06:47 AEDT
 - **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.4.0
+- **Processing Version**: v0.3.1
 - **Processing Datasource\***: wh41n
 - **Applied Variable Mapping**: {'Qnet': 'MHT_NET', 'Qek': 'MHT_EKMAN', 'Q': 'MHT', 'depth': 'DEPTH', 'lat': 'LATITUDE', 'lon': 'LONGITUDE', 'DEPTH': 'DEPTH', 'TIME': 'TIME'}
 - **Reference Temp**: kelvin

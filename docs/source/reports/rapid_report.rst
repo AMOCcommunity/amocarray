@@ -96,63 +96,63 @@ along with key statistics for each variable.
      - Missing %
    * - *moc_mar_hc10* → **MOC**
      - **MOC_z**: MOC strength
-     - sverdrup
+     - Sverdrup
      - (14599,)
      - -4.35
      - 32.34
      - 0.1%
    * - *t_therm10* → **TRANS_0_800**
      - **Transport (0-800m)**: Thermocline recirculation 0-800m
-     - sverdrup
+     - Sverdrup
      - (14599,)
      - -28.85
      - -7.63
      - 0.1%
    * - *t_ud10* → **TRANS_1100_3000**
      - **Transport (1100-3000m)**: upper NADW 1100-3000m
-     - sverdrup
+     - Sverdrup
      - (14599,)
      - -22.20
      - -0.38
      - 0.1%
    * - *t_ld10* → **TRANS_3000_5000**
      - **Transport (3000-5000m)**: lower NADW 3000-5000m
-     - sverdrup
+     - Sverdrup
      - (14599,)
      - -14.41
      - 7.14
      - 0.1%
    * - *t_aiw10* → **TRANS_800_1100**
      - **Transport (800-1100m)**: Intermediate water 800-1100m
-     - sverdrup
+     - Sverdrup
      - (14599,)
      - -2.17
      - 2.82
      - 0.1%
    * - *t_ek10* → **TRANS_EKMAN**
      - **Ekman**: Ekman transport from wind stress
-     - sverdrup
+     - Sverdrup
      - (14599,)
      - -13.00
      - 18.29
      - 0.1%
    * - *t_gs10* → **TRANS_FC**
      - **Florida Current**: Florida Current from cable measurements
-     - sverdrup
+     - Sverdrup
      - (14599,)
      - 21.01
      - 39.65
      - 0.1%
    * - *t_umo10* → **TRANS_UMO**
      - **Upper mid-ocean**: Upper Mid-Ocean transport
-     - sverdrup
+     - Sverdrup
      - (14599,)
      - -28.24
      - -6.65
      - 0.1%
    * - *t_bw10* → **TRANS_below_5000**
      - **Transport (AABW)**: AABW > 5000m
-     - sverdrup
+     - Sverdrup
      - (14599,)
      - -0.60
      - 3.46
@@ -162,7 +162,7 @@ along with key statistics for each variable.
 Metadata (edits applied noted)
 ^^^^^^^^^^^^^^^^^
 
-The following metadata describes this dataset:
+The following metadata provides comprehensive information about this dataset:
 
 - **Title**: RAPID MOC timeseries
 - **Summary**: RAPID 26N transport estimates dataset
@@ -195,7 +195,7 @@ The following metadata describes this dataset:
 - **Date Created\***: 17-Sep-2024
 - **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.4.0
+- **Processing Version**: v0.3.1
 - **Processing Datasource\***: rapid26n
 - **Product Version\***: 2024.1a
 - **Applied Variable Mapping**: [Complex metadata structure - 11 items]
@@ -299,9 +299,9 @@ along with key statistics for each variable.
      - Min Value
      - Max Value
      - Missing %
-   * - *stream_function_mar* → **PSI_Z**
+   * - *stream_function_mar* → **STREAMFUNCTION_Z**
      - **Streamfunction**: Streamfunction across the Atlantic at 26.5°N
-     - sverdrup
+     - Sverdrup
      - (307, 14599)
      - -17.34
      - 37.79
@@ -311,7 +311,7 @@ along with key statistics for each variable.
 Metadata (edits applied noted)
 ^^^^^^^^^^^^^^^^^
 
-The following metadata describes this dataset:
+The following metadata provides comprehensive information about this dataset:
 
 - **Title**: RAPID streamfunction
 - **Summary**: RAPID 26N transport estimates dataset
@@ -344,10 +344,10 @@ The following metadata describes this dataset:
 - **Date Created\***: 17-Sep-2024
 - **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.4.0
+- **Processing Version**: v0.3.1
 - **Processing Datasource\***: rapid26n
 - **Product Version\***: 2024.1a
-- **Applied Variable Mapping**: {'time': 'TIME', 'depth': 'DEPTH', 'stream_function_mar': 'PSI_Z', 'TIME': 'TIME', 'DEPTH': 'DEPTH'}
+- **Applied Variable Mapping**: {'time': 'TIME', 'depth': 'DEPTH', 'stream_function_mar': 'STREAMFUNCTION_Z', 'TIME': 'TIME', 'DEPTH': 'DEPTH'}
 - **Version**: v2024.1a
 
 ----
@@ -579,7 +579,7 @@ along with key statistics for each variable.
 Metadata (edits applied noted)
 ^^^^^^^^^^^^^^^^^
 
-The following metadata describes this dataset:
+The following metadata provides comprehensive information about this dataset:
 
 - **Title**: RAPID streamfunction
 - **Summary**: RAPID 26N transport estimates dataset
@@ -612,7 +612,7 @@ The following metadata describes this dataset:
 - **Date Created\***: 17-Sep-2024
 - **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.4.0
+- **Processing Version**: v0.3.1
 - **Processing Datasource\***: rapid26n
 - **Product Version\***: 2024.1a
 - **Applied Variable Mapping**: [Complex metadata structure - 22 items]
@@ -778,7 +778,7 @@ along with key statistics for each variable.
 Metadata (edits applied noted)
 ^^^^^^^^^^^^^^^^^
 
-The following metadata describes this dataset:
+The following metadata provides comprehensive information about this dataset:
 
 - **Summary**: RAPID 26N transport estimates dataset
 - **Description\***: RAPID 26N transport estimates dataset
@@ -805,7 +805,7 @@ The following metadata describes this dataset:
 - **Date Created\***: 17-Sep-2024
 - **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.4.0
+- **Processing Version**: v0.3.1
 - **Processing Datasource\***: rapid26n
 - **Product Version\***: 2024.1a
 - **Applied Variable Mapping**: [Complex metadata structure - 13 items]
@@ -927,8 +927,8 @@ along with key statistics for each variable.
      - Max Value
      - Missing %
    * - *frwa_trans* → **MFT**
-     - **northward ocean freshwater transport**: Meridional freshwater transport
-     - sverdrup
+     - **Freshwater transport**: Meridional freshwater transport
+     - Sverdrup
      - (730,)
      - -1.98
      - -0.48
@@ -942,21 +942,21 @@ along with key statistics for each variable.
      - 0.0%
    * - *amoc_depth* → **MOC**
      - **MOC_z**: Atlantic meridional overturning circulation strength in depth coordinates
-     - sverdrup
+     - Sverdrup
      - (730,)
      - -0.45
      - 27.68
      - 0.0%
    * - *amoc_sigma0* → **MOC_SIGMA0**
      - **MOC_sigma0**: Atlantic meridional overturning circulation strength in potential density (sigma0) coordinates
-     - sverdrup
+     - Sverdrup
      - (730,)
      - 7.23
      - 28.95
      - 0.0%
    * - *amoc_sigma2* → **MOC_SIGMA2**
      - **MOC_sigma2**: Atlantic meridional overturning circulation strength in potential density (sigma2) coordinates
-     - sverdrup
+     - Sverdrup
      - (730,)
      - 7.09
      - 29.23
@@ -968,23 +968,23 @@ along with key statistics for each variable.
      - 0.00
      - 6120.00
      - 0.0%
-   * - *stream_sigma0* → **PSI_SIGMA0**
+   * - *stream_sigma0* → **STREAMFUNCTION_SIGMA0**
      - **Streamfunction**: Meridional overturning streamfunction in potential density (sigma0) coordinates
-     - sverdrup
+     - Sverdrup
      - (730, 631)
      - -10.98
      - 28.95
      - 0.0%
-   * - *stream_sigma2* → **PSI_SIGMA2**
+   * - *stream_sigma2* → **STREAMFUNCTION_SIGMA2**
      - **Streamfunction**: Meridional overturning streamfunction in potential density (sigma2) coordinates
-     - sverdrup
+     - Sverdrup
      - (730, 708)
      - -9.31
      - 29.23
      - 0.0%
-   * - *stream_depth* → **PSI_Z**
+   * - *stream_depth* → **STREAMFUNCTION_Z**
      - **Streamfunction**: Meridional overturning streamfunction in depth coordinates
-     - sverdrup
+     - Sverdrup
      - (730, 307)
      - -8.89
      - 27.68
@@ -994,7 +994,7 @@ along with key statistics for each variable.
 Metadata (edits applied noted)
 ^^^^^^^^^^^^^^^^^
 
-The following metadata describes this dataset:
+The following metadata provides comprehensive information about this dataset:
 
 - **Summary**: RAPID 26N transport estimates dataset
 - **Description\***: RAPID 26N transport estimates dataset
@@ -1021,7 +1021,7 @@ The following metadata describes this dataset:
 - **Date Created\***: 17-Sep-2024
 - **Date Modified**: 2026-08-01T00:00:00Z
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.4.0
+- **Processing Version**: v0.3.1
 - **Processing Datasource\***: rapid26n
 - **Product Version\***: 2024.1a
 - **Applied Variable Mapping**: [Complex metadata structure - 18 items]

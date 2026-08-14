@@ -110,7 +110,7 @@ along with key statistics for each variable.
      - Missing %
    * - *DSO_tr* → **TRANS_DSO**
      - **DS Overflow**: Denmark Strait Overflow volume transport
-     - sverdrup
+     - Sverdrup
      - (221514, 1)
      - -9.66
      - 3.08
@@ -120,7 +120,7 @@ along with key statistics for each variable.
 Metadata (edits applied noted)
 ^^^^^^^^^^^^^^^^^
 
-The following metadata describes this dataset:
+The following metadata provides comprehensive information about this dataset:
 
 - **Title**: Volume transport timeseries in the North Atlantic
 - **Summary**: Time series of volume transport of the Denmark Strait Overflow (DSO) at about 66 degN. The transports are calculated through interpolation of mooring data between the maximum mooring depth at 660 m and 400 m above bottom. The time period is between 1996 and 2017; the time increment is 1 hour.
@@ -167,9 +167,9 @@ The following metadata describes this dataset:
 - **Source Url\***: https://www.cen.uni-hamburg.de/en/icdc/data/ocean/denmark-strait-overflow.html
 - **Date Created**: 2021-12-06T19:37:07Z
 - **Date Modified**: 2026-08-01T00:00:00Z
-- **History**: 2021-12-06T19:37:07Z OceanSITES file with provisional transport data sent to DAC by Ursula Schauer; 2026-08-14T05:34:00Z AMOCatlas: Corrupted DEPTH value in DSO_transport_hourly_1996_2021.nc marked as NaN (was 9.97e+36)
+- **History**: 2021-12-06T19:37:07Z OceanSITES file with provisional transport data sent to DAC by Ursula Schauer; 2026-08-13T14:54:53Z AMOCatlas: Corrupted DEPTH value in DSO_transport_hourly_1996_2021.nc marked as NaN (was 9.97e+36)
 - **Processing Software**: http://github.com/AMOCcommunity/amocatlas
-- **Processing Version**: v0.4.0
+- **Processing Version**: v0.3.1
 - **Processing Datasource\***: dso
 - **Format Version**: 1.3
 - **Applied Variable Mapping**: {'DSO_tr': 'TRANS_DSO'}
