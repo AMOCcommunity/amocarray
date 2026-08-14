@@ -52,19 +52,10 @@ For recommendations or bug reports, please visit https://github.com/AMOCcommunit
 
 .. toctree::
    :maxdepth: 2
-   :caption: AC-0.1 Format 
-
-   reference/AC1_format
-   reference/AC1_variables
-   reference/AC1_units
-   reference/variables
-
-
-.. toctree::
-   :maxdepth: 2
    :caption: Reference
 
-   reference/format_AC1
+   reference/format
+   reference/vocabulary
    amoc_paperfigs-output.ipynb
 
 

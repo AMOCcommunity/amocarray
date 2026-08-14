@@ -1,518 +1,239 @@
 # Developer Guide for AMOCatlas
 
-Welcome to the AMOCatlas Developer Guide! This comprehensive guide will help you contribute effectively to the project, whether you're fixing bugs, adding new data readers, or improving documentation.
+This guide covers how to contribute to AMOCatlas: setting up an environment, adding a new
+data reader, code standards, and testing.
 
-**Quick Navigation:**
-- [Quickstart](#quickstart) - Get contributing in 5 minutes
-- [Development Environment](#development-environment) - Setup and tools
-- [Adding New Features](#adding-new-features) - Core contribution patterns
-- [Code Standards](#code-standards) - Style and quality guidelines
-- [Git Workflow](#git-workflow) - Fork, branch, and PR process
-- [Testing](#testing) - Running tests locally and in CI
-- [Specialized Guides](#specialized-guides) - Links to detailed references
+**Contents:**
+- [Quickstart](#quickstart)
+- [Project overview](#project-overview)
+- [Development environment](#development-environment)
+- [Adding a new data reader](#adding-a-new-data-reader)
+- [Code standards](#code-standards)
+- [Testing](#testing)
+- [Git workflow](#git-workflow)
 
-**Related Documentation:**
-- {doc}`git_beginners_guide` - Step-by-step Git workflow for beginners
-- {doc}`housekeeping` - Maintenance tasks
-- {doc}`actions` - CI/CD and release process
+For a step-by-step Git walkthrough see {doc}`git_beginners_guide`; for CI/CD and releases see
+{doc}`actions`; for maintenance tasks see {doc}`housekeeping`.
 
 ---
 
 ## Quickstart
 
-Get started contributing in 5 minutes:
+```bash
+# 1. Fork on GitHub, then clone your fork
+git clone https://github.com/YOUR_USERNAME/amocatlas.git
+cd amocatlas
 
-1. **Fork and clone** the repository:
-   ```bash
-   # Fork on GitHub, then clone your fork
-   git clone https://github.com/YOUR_USERNAME/amocatlas.git
-   cd amocatlas
-   ```
+# 2. Set up a development environment
+python3 -m venv venv
+source venv/bin/activate            # Windows: venv\Scripts\activate
+pip install -r requirements-dev.txt
+pip install -e .
 
-2. **Set up development environment**:
-   ```bash
-   python3 -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   pip install -r requirements-dev.txt
-   pip install -e .
-   ```
+# 3. Branch, change, test
+git switch -c yourname-feature
+pytest -m "not slow"
+pre-commit run --all-files
 
-3. **Create a feature branch**:
-   ```bash
-   git checkout -b yourname-patch-1
-   ```
-
-4. **Make your changes** and test them:
-   ```bash
-   pytest  # Run tests
-   pre-commit run --all-files  # Check formatting and linting
-   ```
-
-5. **Push and create a pull request**:
-   ```bash
-   git add .
-   git commit -m "feat: your descriptive commit message"
-   git push origin yourname-patch-1
-   # Then create PR on GitHub
-   ```
+# 4. Commit and push, then open a PR on GitHub
+git commit -am "feat: describe your change"
+git push origin yourname-feature
+```
 
 ---
 
-## Project Overview
+## Project overview
 
-AMOCatlas is a Python package for accessing and analyzing data from Atlantic Meridional Overturning Circulation (AMOC) observing arrays. The project aims to provide:
+AMOCatlas provides unified access to data from AMOC observing arrays and related estimates,
+standardising variable names, units, and metadata across sources. It creates no new science
+data: it re-serves the values published by each source with consistent formatting and
+provenance.
 
-- **Unified data access** across multiple AMOC arrays (RAPID, OSNAP, MOVE, SAMBA, etc.)
-- **Consistent data formats** and standardized metadata
-- **Visualization tools** including publication-quality PyGMT figures
-- **Analysis functions** for filtering, processing, and comparing datasets
-
-### Core Architecture
+### Core architecture
 
 ```
 amocatlas/
-├── readers.py           # Main interface - load_dataset(), load_sample_dataset()
-├── read_*.py           # Individual array readers (rapid, osnap, move, etc.)
-├── utilities.py        # Shared functions (downloads, file handling)
-├── tools.py            # Analysis functions (filtering, unit conversion)
-├── plotters.py         # Visualization (matplotlib + PyGMT)
-├── standardise.py      # Data format standardization
-├── writers.py          # Data export functionality
-└── logger.py           # Structured logging system
+├── read.py              # Recommended API — read.rapid(), read.osnap(), ...
+├── readers.py           # Legacy API — load_dataset(), load_sample_dataset()
+├── reader_utils.py      # Shared helpers for the individual readers
+├── data_sources/        # One module per array/product (rapid26n.py, osnap55n.py, ...)
+├── metadata/            # Per-array YAML metadata + array_schema.json
+├── standardise.py       # Naming, units, and metadata standardisation
+├── contributors.py      # Contributor / institution consolidation
+├── convert.py           # Conversion to the AC1 output format
+├── compliance_checker.py# AC1 format compliance checks
+├── defaults.py          # Default configs and canonical attribute order
+├── utilities.py         # Downloads, parsing, validation
+├── plotters.py          # Visualisation (matplotlib + optional PyGMT)
+├── tools.py             # Analysis / calculation functions
+├── writers.py           # Data export
+├── report.py            # Per-dataset report generator
+└── logger.py            # Structured logging
 ```
 
-**Data Flow**: User calls `readers.load_dataset("rapid")` → `readers.py` routes to `read_rapid.py` → downloads data → standardizes format → returns xarray Dataset(s)
+**Data flow:** `read.rapid()` (or the legacy `readers.load_dataset("rapid")`) resolves the array
+name through `_get_reader()` in `readers.py`, which calls the matching `read_<array>()` function in
+`data_sources/`. That reader downloads and caches the source files, standardises them, and returns
+one or more `xarray.Dataset` objects.
 
-### Package-Level Imports
+### Package-level imports
 
-We import modules in `__init__.py` instead of at the top of each individual module:
-
-```python
-# In amocatlas/__init__.py
-from . import (
-    readers,
-    plotters,
-    compliance_checker,
-    convert,
-    # etc.
-)
-```
-
-This means:
-- Tests can do `from amocatlas import compliance_checker` 
-- Without this, tests would need `from amocatlas.compliance_checker import ...`
-- Modules like `plotters.HAS_PYGMT` are accessible because `plotters` is imported at package level
+`amocatlas/__init__.py` imports the submodules (`readers`, `plotters`, `compliance_checker`,
+`convert`, ...) so that `from amocatlas import compliance_checker` works and attributes like
+`plotters.HAS_PYGMT` are reachable without importing each module by its full path.
 
 ---
 
-## Development Environment
+## Development environment
 
-### Prerequisites
-
-- Python 3.9 or higher
-- Git for version control
-- Optional: PyGMT for publication figures (see installation notes below)
-
-### Setup Steps
-
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/AMOCcommunity/amocatlas.git
-   cd amocatlas
-   ```
-
-2. **Create virtual environment**:
-   ```bash
-   python3 -m venv venv
-   source venv/bin/activate && micromamba deactivate  # Safeguard if using micromamba
-   ```
-
-3. **Install dependencies**:
-   ```bash
-   pip install -r requirements-dev.txt    # Includes runtime + development tools
-   pip install -e .                       # Install amocatlas in editable mode
-   ```
-
-4. **Test your setup**:
-   ```bash
-   pytest                                 # Run tests
-   python -c "import amocatlas; print('Success!')"
-   ```
-
-### Development Tools
-
-- **Black**: Code formatting (88 character line length)
-- **Ruff**: Linting and import sorting
-- **pytest**: Testing framework with coverage reporting
-- **pre-commit**: Automated code quality checks (run manually)
-- **Sphinx**: Documentation generation
-
-### PyGMT Installation Notes
-
-PyGMT is an optional dependency for publication-quality figures but can be challenging to install:
+**Prerequisites:** Python ≥ 3.10, Git, and (optional) PyGMT for publication figures.
 
 ```bash
-# Try conda/mamba first (recommended):
-conda install pygmt -c conda-forge
-
-# Or pip (may require GMT to be installed separately):
-pip install pygmt
+git clone https://github.com/AMOCcommunity/amocatlas.git
+cd amocatlas
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements-dev.txt   # runtime + dev tools
+pip install -e .                      # editable install
+pytest -m "not slow"                  # confirm the setup
 ```
 
-See the [PyGMT installation guide](https://www.pygmt.org/latest/install.html) for platform-specific instructions.
+**Tooling:** Black (formatting, 88-char lines), Ruff (linting + import order), pytest (tests +
+coverage), pre-commit (quality checks, run manually), Sphinx (docs).
+
+**PyGMT** is optional and can be awkward to install; prefer conda-forge
+(`conda install pygmt -c conda-forge`) or see the
+[PyGMT install guide](https://www.pygmt.org/latest/install.html). All non-PyGMT functionality
+works without it.
 
 ---
 
-## Adding New Features
+## Adding a new data reader
 
-### Adding a New Data Reader
+This is the most common contribution. To add an array called `newarray`:
 
-This is the most common contribution type. Here's the step-by-step process:
+1. **Create the reader** `amocatlas/data_sources/newarray.py` with a `read_newarray()` function
+   that returns a list of standardised datasets:
 
-1. **Create the reader module** `amocatlas/read_newarray.py`:
    ```python
    """Reader for NEWARRAY data."""
-   
    import xarray as xr
-   from amocatlas.utilities import download_file
    from amocatlas.logger import log_info
-   
-   def read_newarray(source: str = None, **kwargs) -> list[xr.Dataset]:
-       """Read NEWARRAY data and return standardized datasets.
-       
-       Parameters
-       ----------
-       source : str, optional
-           Data source URL or path.
-       **kwargs
-           Additional parameters passed to data loading.
-           
-       Returns
-       -------
-       list[xr.Dataset]
-           List of standardized xarray datasets.
-       """
+
+   def read_newarray(source: str | None = None, **kwargs) -> list[xr.Dataset]:
+       """Read NEWARRAY data and return standardised datasets."""
        log_info("Loading NEWARRAY data...")
-       # Implementation here
+       # download, parse, standardise
        return [dataset]
    ```
 
-2. **Add to the main readers interface** in `amocatlas/readers.py`:
+2. **Export it** from `amocatlas/data_sources/__init__.py` (add the import and list it in
+   `__all__`).
+
+3. **Register the legacy API** in the `readers` dict inside `_get_reader()` in
+   `amocatlas/readers.py`:
+
    ```python
-   # Add to AVAILABLE_ARRAYS
-   AVAILABLE_ARRAYS = {
-       # ... existing arrays
-       "newarray": "amocatlas.read_newarray",
+   readers = {
+       # ... existing entries
+       "newarray": read_newarray,
    }
    ```
 
-3. **Create tests** in `tests/test_read_newarray.py`:
-   ```python
-   import pytest
-   from amocatlas.read_newarray import read_newarray
-   
-   def test_read_newarray():
-       """Test basic functionality of NEWARRAY reader."""
-       datasets = read_newarray()
-       assert isinstance(datasets, list)
-       assert len(datasets) > 0
-   ```
+4. **Expose the modern API** in `amocatlas/read.py`: import `read_newarray` from `.data_sources`,
+   add a `read.newarray()` wrapper following the existing readers, and add `"newarray"` to
+   `__all__`.
 
-4. **Document the original format** in `docs/source/format_orig_newarray.rst`:
-   ```rst
-   NEWARRAY Original Format
-   ========================
-   
-   Description of the native NEWARRAY data format, including:
-   - File structure and naming conventions
-   - Variable names and units in original format
-   - Metadata structure
-   - Any format-specific considerations
-   ```
+5. **Add metadata** at `amocatlas/metadata/newarray.yml` (title, contributors, institutions,
+   licence, citation) so the dataset is enriched and passes the schema in
+   `metadata/array_schema.json`.
 
-5. **Add sample data** (if needed) and update other documentation.
+6. **Add tests** in `tests/` (fast, mocked tests plus an optional `@pytest.mark.slow` integration
+   test).
 
-### Adding Visualization Functions
+### Adding visualisation functions
 
-Add to `amocatlas/plotters.py`. Choose between matplotlib (default) or PyGMT (publication quality):
-
-```python
-def plot_new_visualization(data, **kwargs):
-    """Create a new type of visualization.
-    
-    Parameters
-    ----------
-    data : pandas.DataFrame or xarray.Dataset
-        Input data to plot.
-    **kwargs
-        Plotting options.
-        
-    Returns
-    -------
-    matplotlib.figure.Figure or pygmt.Figure
-        Generated plot.
-    """
-    # Implementation
-    return fig
-```
-
-For PyGMT functions, include the availability check:
-```python
-def plot_new_pygmt_viz(data, **kwargs):
-    """Create publication-quality plot using PyGMT."""
-    _check_pygmt()  # This function handles missing PyGMT gracefully
-    # Implementation
-```
+Add plotting functions to `amocatlas/plotters.py`. PyGMT functions must call `_check_pygmt()` for a
+graceful fallback when PyGMT is absent, return a `pygmt.Figure`, and stamp the figure with
+`_add_amocatlas_timestamp(fig)`.
 
 ---
 
-## Code Standards
+## Code standards
 
-### Python Style
+- **Type hints** on all public function parameters and return values.
+- **NumPy-style docstrings** on all public functions (Parameters, Returns, and Raises where
+  relevant).
+- **Naming:** `snake_case` for functions/variables; `ALL_CAPS` for xarray data variables
+  (e.g. `MOC`, `TRANS`, `MHT`, `TIME`).
+- **Line length** 88 (Black default); imports ordered by Ruff.
+- **Units** always live in variable attributes, never in variable names. Use the full word
+  `Sverdrup` (not `Sv`, which collides with sieverts).
+- **Attributes** are `lowercase_with_underscores`, following OceanSITES conventions, with a few
+  variable-attribute additions adopted from OceanGliders OG1 where they do not conflict with
+  OceanSITES.
 
-- **Type hints**: Use for all function parameters and return values
-- **Docstrings**: NumPy-style docstrings for all public functions
-- **Naming**: snake_case for functions and variables, ALL_CAPS for xarray variables
-- **Line length**: 88 characters (Black default)
-- **Import order**: Standard library → Third party → Local imports (handled by Ruff)
+Run before committing:
 
-### Example Function:
-```python
-def convert_units_var(
-    var_values: xr.DataArray,
-    current_unit: str,
-    new_unit: str,
-    unit_conversion: dict = None,
-) -> xr.DataArray:
-    """Convert variable values from one unit to another.
-
-    Parameters
-    ----------
-    var_values : xr.DataArray
-        The numerical values to convert.
-    current_unit : str
-        Unit of the original values.
-    new_unit : str
-        Desired unit for the output values.
-    unit_conversion : dict, optional
-        Dictionary containing conversion factors between units.
-
-    Returns
-    -------
-    xr.DataArray
-        Converted values in the desired unit.
-    """
-    # Implementation
-    return converted_values
-```
-
-### Data Standards
-
-- **xarray variables**: ALL_CAPS (e.g., `TRANSPORT`, `TIME`, `DEPTH`)
-- **Attributes**: lowercase_with_underscores following OceanGliders OG1 format
-- **Units**: Always include units in variable attributes, never in variable names
-- **Missing values**: Handle NaN values consistently across functions
-
-### Quality Checks
-
-Run these before committing:
 ```bash
-black amocatlas/ tests/           # Format code
-ruff check amocatlas/ tests/      # Lint code  
-pytest --cov=amocatlas           # Run tests with coverage
-pre-commit run --all-files       # Run all quality checks
+black amocatlas/ tests/
+ruff check amocatlas/ tests/
+pytest -m "not slow" --cov=amocatlas
+pre-commit run --all-files
 ```
-
----
-
-## Git Workflow
-
-### Basic Workflow
-
-1. **Keep your fork synced**:
-   ```bash
-   # Add upstream remote (one time only)
-   git remote add upstream https://github.com/AMOCcommunity/amocatlas.git
-   
-   # Sync your fork
-   git checkout main
-   git fetch upstream
-   git merge upstream/main
-   git push origin main
-   ```
-
-2. **Create feature branches**:
-   ```bash
-   git checkout main
-   git pull origin main
-   git checkout -b yourname-patch-1  # Or descriptive name like: fix-osnap-metadata
-   ```
-
-3. **Make commits with clear messages**:
-   ```bash
-   git add .
-   git commit -m "feat: add support for NEWARRAY dataset"
-   # or
-   git commit -m "fix: handle missing timestamps in RAPID data"
-   ```
-
-### Commit Message Format
-
-Use conventional commits for consistency:
-
-```
-[type]: brief description of change
-
-Types:
-- feat: new feature
-- fix: bug fix  
-- docs: documentation changes
-- style: formatting changes (no logic change)
-- refactor: code restructuring (no behavior change)
-- test: adding or updating tests
-- chore: maintenance tasks
-```
-
-### Pull Request Process
-
-1. **Push your branch**:
-   ```bash
-   git push origin yourname-patch-1
-   ```
-
-2. **Create PR on GitHub** targeting `AMOCcommunity/amocatlas:main`
-
-3. **Address feedback** and update your branch as needed
-
-4. **Merge** once approved (you can merge your own PR after approval)
 
 ---
 
 ## Testing
 
-### Running Tests Locally
-
 ```bash
-# Run all tests
-pytest
-
-# Run with coverage report
-pytest --cov=amocatlas --cov-report term-missing
-
-# Run specific test file
-pytest tests/test_readers.py
-
-# Run specific test
-pytest tests/test_readers.py::test_load_sample_dataset_rapid
+pytest -m "not slow"                              # fast tests (CI set)
+pytest                                            # all tests, incl. slow integration
+pytest --cov=amocatlas --cov-report term-missing  # coverage
+pytest tests/test_readers.py::test_load_sample_dataset_rapid  # a single test
 ```
 
-### Writing Tests
-
-Place tests in `tests/` directory following the naming convention `test_*.py`:
+Place tests in `tests/` named `test_*.py`. Fast, mocked tests run in CI; mark network/integration
+tests with `@pytest.mark.slow` (excluded from CI, expected before a PR). Use sample datasets for
+fast tests:
 
 ```python
-import pytest
-import numpy as np
 from amocatlas import readers
 
 def test_load_sample_dataset():
-    """Test that sample datasets load correctly."""
-    ds = readers.load_sample_dataset("rapid")
+    ds = readers.load_sample_dataset("rapid")   # raw sample, original variable names
     assert ds is not None
-    assert "TRANSPORT" in ds.variables
-
-def test_data_processing():
-    """Test data processing functions."""
-    # Use sample data for testing
-    data = np.array([1, 2, 3, 4, 5])
-    result = your_function(data)
-    expected = np.array([2, 4, 6, 8, 10])
-    np.testing.assert_array_equal(result, expected)
+    assert "time" in ds.variables
 ```
 
-### GitHub Actions CI
-
-Tests run automatically on:
-- Pull requests
-- Pushes to main branch
-
-The CI tests on multiple platforms (Windows, macOS, Linux) and Python versions. Check the "Actions" tab on GitHub to see test results.
-
-### Pre-commit Checks
-
-Before submitting PRs, ensure these pass:
-```bash
-pre-commit run --all-files
-```
-
-This runs:
-- Black code formatting
-- Ruff linting and import sorting  
-- Basic pytest tests (on modified files)
+CI runs the fast tests on Windows, macOS, and Linux across supported Python versions on pull
+requests and pushes to `main`; see the Actions tab for results.
 
 ---
 
-## PyGMT Development
+## Git workflow
 
-*Note: PyGMT development is advanced and not expected for most contributors.*
+Full step-by-step instructions (with screenshots) are in {doc}`git_beginners_guide`. In short:
 
-PyGMT functions in `amocatlas/plotters.py` follow these patterns:
-
-- All PyGMT functions include `_check_pygmt()` for graceful fallback
-- Functions return `pygmt.Figure` objects
-- Include AMOCatlas timestamp: `_add_amocatlas_timestamp(fig)`
-- Handle optional dependency gracefully with informative error messages
-
-For detailed PyGMT development, see the existing PyGMT functions in `plotters.py` and refer to [PyGMT documentation](https://www.pygmt.org/).
-
----
-
-## Troubleshooting
-
-### Common Issues
-
-**Pre-commit not running?**
 ```bash
-pre-commit run --all-files  # Run manually
+# One-time: point at the upstream repo
+git remote add upstream https://github.com/AMOCcommunity/amocatlas.git
+
+# Keep your fork current
+git switch main && git fetch upstream && git merge upstream/main && git push origin main
+
+# Work on a branch, never on main
+git switch -c fix-osnap-metadata
 ```
 
-**Tests failing locally but passing in CI?**
-- Check your virtual environment is activated
-- Ensure you have the latest `requirements-dev.txt` installed
-
-**Import errors after installing in editable mode?**
-```bash
-pip install -e . --force-reinstall
-```
-
-**PyGMT installation issues?**
-- Try conda/mamba: `conda install pygmt -c conda-forge`
-- Check [PyGMT installation guide](https://www.pygmt.org/latest/install.html)
-- PyGMT is optional - all other functionality works without it
-
-**VSCode not recognizing virtual environment?**
-- Ensure Python interpreter is set to `./venv/bin/python`
-- Reload VSCode window after activating environment
-
----
-
-## Specialized Guides
-
-For detailed information on specific topics, see these dedicated guides:
-
-- {doc}`git_beginners_guide` - Step-by-step Git workflow with screenshots for beginners
-- {doc}`housekeeping` - Maintenance and dependency management
-- {doc}`actions` - CI/CD workflows and release process
+Use [conventional commit](https://www.conventionalcommits.org/) prefixes in commit messages:
+`feat:`, `fix:`, `docs:`, `style:`, `refactor:`, `test:`, `chore:`. Push your branch and open a PR
+targeting `AMOCcommunity/amocatlas:main`; address review feedback, then merge once approved.
 
 ---
 
 ## Resources
 
-- [AMOCatlas Documentation](https://amoccommunity.github.io/amocatlas/)
-- [GitHub Repository](https://github.com/AMOCcommunity/amocatlas)
-- [Issue Tracker](https://github.com/AMOCcommunity/amocatlas/issues)
-- [AMOC Community Project](https://www.amoccommunity.org/)
-
----
-
-*This developer guide incorporates best practices from the Python scientific computing community and is designed to grow with the project.*
+- [Documentation](https://amoccommunity.github.io/amocatlas/)
+- [GitHub repository](https://github.com/AMOCcommunity/amocatlas)
+- [Issue tracker](https://github.com/AMOCcommunity/amocatlas/issues)

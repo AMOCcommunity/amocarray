@@ -3,7 +3,7 @@ About AMOCatlas
 
 **What is this?**
 
-AMOCatlas is a Python package for loading data from Atlantic Meridional Overturning Circulation (AMOC) observing arrays. It gives you a simple way to access data from different programmes around the Atlantic.
+AMOCatlas is a Python package for loading data on the Atlantic Meridional Overturning Circulation (AMOC), from both in-situ observing arrays and blended or estimated products. It gives you a single way to access data from different programmes around the Atlantic.
 
 **Why AMOC?**
 
@@ -13,23 +13,35 @@ Scientists monitor this circulation at several locations using moorings and othe
 
 **What data sources are included?**
 
+AMOCatlas serves two kinds of source. *Observing arrays* are direct in-situ measurements from moored instruments; *blended/estimated products* derive transports from satellite altimetry, Argo, XBT, or statistical methods. Both are loaded through the same ``read.<name>()`` interface.
+
+*Observing arrays (in-situ):*
+
 * **RAPID (26°N)** - The longest-running basin-wide array, monitoring since 2004
+* **MOCHA (26°N)** - Meridional heat transport, measured alongside RAPID since 2004
 * **MOVE (16°N)** - Tropical Atlantic monitoring, west of the Mid-Atlantic Ridge
-* **OSNAP (Subpolar)** - Covers the subpolar North Atlantic
+* **OSNAP (Subpolar North Atlantic)** - Overturning in the subpolar North Atlantic
 * **SAMBA (34.5°S)** - South Atlantic monitoring
-* **41°N** - Uses Argo float data and altimetry
-* **47°N** - North Atlantic Ocean Current monitoring
-* **DSO** - Denmark Strait overflow
-* **FBC** - Faroe Bank Channel overflow transport monitoring
+* **DSO (Denmark Strait)** - Denmark Strait overflow transport
+* **FBC (Faroe Bank Channel)** - Faroe Bank Channel overflow transport
 * **Arctic Gateway** - Pan-Arctic gateway transports
-* **RAPID/MOCHA** - Heat transport estimates from 26°N
-* **FW2015** - Altimetry-based transport estimates at 26°N
+
+*Blended / estimated products:*
+
+* **NOAC (47°N)** - North Atlantic Current MOC
+* **41°N** - Meridional overturning from Argo floats and altimetry
+* **FW2015 (26°N)** - Satellite altimetry and cable-based transport estimates
+* **SF2021 (26°N)** - Overturning estimate from satellite altimetry
+* **NAC** - North Atlantic Current from satellite and float observations
 * **CALAFAT2025** - Bayesian estimates of Atlantic meridional heat transport
 * **ZHENG2024** - Observation-based Atlantic meridional freshwater transport
+* **LEBRAS35N (35°N)** - Overturning from deep moorings, floats, and satellite altimetry
+* **AXMOC34.5S** - Estimates of AMOC, heat and freshwater transports at 34.5°S
+* **AXMOC22.5S** - Estimates of AMOC and heat transport at 22.5°S
 
 **What can you do with it?**
 
-* Load data from any array of the above arrays (or measurement methods) with just a few lines of code
+* Load data from any of these sources with just a few lines of code
 * Compare data across different locations
 * Make plots with consistent styling
 * Access both raw datasets (with original variable names) and standardised datasets (for ease of use between different sources).
