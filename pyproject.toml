@@ -36,7 +36,15 @@ packages = ["amocatlas", "amocatlas.metadata", "amocatlas.data_sources", "amocat
 include-package-data = true
 
 [tool.setuptools.package-data]
-amocatlas = ["metadata/*.yml", "metadata/*.json", "vocabulary/*.yml", "vocabulary/*.json"]
+# vocabulary is listed explicitly (not globbed) so the working draft — amocvocab_draft.yml
+# and amocvocab_draft.schema.json — is repo-tracked but NOT shipped in the wheel.
+amocatlas = [
+    "metadata/*.yml",
+    "metadata/*.json",
+    "vocabulary/amocvocab.yml",
+    "vocabulary/amocvocab.schema.json",
+    "vocabulary/cf_standard_names.json",
+]
 
 [tool.setuptools.dynamic]
 dependencies = { file = [

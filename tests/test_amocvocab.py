@@ -97,3 +97,64 @@ def test_full_validation_passes():
     assert problems == [], "amocvocab.yml failed full validation:\n" + "\n".join(
         problems
     )
+
+
+# --- staging draft (amocvocab_draft.yml) ------------------------------------------------
+
+DRAFT = V.DEFAULT_DRAFT
+DRAFT_SCHEMA = V.DEFAULT_DRAFT_SCHEMA
+
+
+def test_draft_schema_is_valid_draft2020():
+    from jsonschema import Draft202012Validator
+
+    Draft202012Validator.check_schema(V.load_schema(DRAFT_SCHEMA))
+
+
+def test_seed_draft_shape():
+    draft = inventory.seed_draft()
+    q = draft["quantities"]
+    # Published names carry the 'published' status; unpopulated ones are 'unreviewed' stubs.
+    assert q["MOC"]["review_status"] == "published"
+    assert q["TRANS_RELATIVE_WEST"]["review_status"] == "unreviewed"
+    assert q["TRANS_RELATIVE_WEST"]["entry"] is None
+    # observed is refreshed from the arrays (raw vs sanitised key mismatch is handled).
+    assert q["TRANS_RELATIVE_WEST"]["observed"]["units"] == ["sverdrup"]
+    # _ERR/_QC variants inherit their base; they are not draft quantities.
+    assert not any(k.endswith(("_ERR", "_QC")) for k in q), "reserved-suffix name leaked in"
+
+
+@pytest.mark.skipif(not DRAFT.is_file(), reason="draft not generated")
+def test_committed_draft_validates():
+    problems = V.validate_draft(DRAFT, DRAFT_SCHEMA, SCHEMA, _cf_table() or SCHEMA)
+    assert problems == [], "amocvocab_draft.yml failed:\n" + "\n".join(problems)
+
+
+@pytest.mark.skipif(_cf_table() is None, reason="CF standard-name table not available")
+def test_draft_graduation_guard(tmp_path):
+    """A 'ready' entry is held to the full published-vocab standard; a bad one is rejected."""
+    import yaml
+
+    good_entry = V.load_yaml(VOCAB)["quantities"]["MHT"]  # a real published quantity
+    bad_entry = dict(good_entry, standard_name="not_a_real_cf_name_xyz")
+
+    def _run(entry):
+        path = tmp_path / "d.yml"
+        path.write_text(
+            yaml.safe_dump(
+                {
+                    "version": "0.1-draft",
+                    "quantities": {"MHT": {"review_status": "ready", "entry": entry}},
+                }
+            )
+        )
+        return V.validate_draft(path, DRAFT_SCHEMA, SCHEMA, _cf_table())
+
+    assert _run(good_entry) == []  # a complete, valid entry graduates
+    assert _run(bad_entry) != []  # a fabricated standard_name is caught before graduation
+    # an entry-less 'ready' is also rejected
+    p = tmp_path / "e.yml"
+    p.write_text(
+        "version: '0.1'\nquantities:\n  MHT:\n    review_status: ready\n    entry: null\n"
+    )
+    assert V.validate_draft(p, DRAFT_SCHEMA, SCHEMA, _cf_table()) != []

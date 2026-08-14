@@ -47,6 +47,8 @@ HERE = Path(__file__).resolve().parent
 DEFAULT_VOCAB = HERE / "amocvocab.yml"
 DEFAULT_SCHEMA = HERE / "amocvocab.schema.json"
 DEFAULT_CF_SUBSET = HERE / "cf_standard_names.json"
+DEFAULT_DRAFT = HERE / "amocvocab_draft.yml"
+DEFAULT_DRAFT_SCHEMA = HERE / "amocvocab_draft.schema.json"
 
 # CF source search order: explicit arg > env > committed derived subset > /tmp XML cache.
 # The committed JSON subset (build_cf_subset.py) is the reproducible default that CI reads,
@@ -326,6 +328,52 @@ def validate(vocab_path: Path, schema_path: Path, cf_table_path: Path) -> List[s
     return problems
 
 
+def validate_draft(
+    draft_path: Path,
+    draft_schema_path: Path,
+    strict_schema_path: Path,
+    cf_table_path: Path,
+) -> List[str]:
+    """Validate the staging draft: loose overall, strict on every ``ready`` entry.
+
+    Unreviewed/draft entries only have to satisfy the loose draft schema. Any entry marked
+    ``ready`` must carry an ``entry`` that passes the FULL amocvocab checks (strict schema +
+    name==key + CF-name existence + UDUNITS convertibility) — so nothing can be marked ready,
+    and thus graduate into amocvocab.yml, while still broken.
+    """
+    draft = load_yaml(draft_path)
+    draft_schema = load_schema(draft_schema_path)
+
+    problems: List[str] = []
+    problems += schema_errors(draft, draft_schema)
+    if problems:
+        return problems
+
+    strict_schema = load_schema(strict_schema_path)
+    canonical, valid_names = load_cf_names(cf_table_path)
+
+    for key, item in (draft.get("quantities") or {}).items():
+        if item.get("review_status") != "ready":
+            continue
+        entry = item.get("entry")
+        if not entry:
+            problems.append(f"{key}: review_status 'ready' but no 'entry' to graduate")
+            continue
+        # Re-use the published-vocab checks by wrapping the single entry in a mini vocab.
+        # The synthetic version/table must themselves satisfy the strict top-level schema
+        # (they are not what we are checking — the entry is).
+        mini = {
+            "version": "0.0",
+            "cf_standard_name_table": "draft",
+            "quantities": {key: entry},
+        }
+        problems += [f"{key}.entry: {p}" for p in schema_errors(mini, strict_schema)]
+        problems += [f"{key}.entry: {p}" for p in name_key_errors(mini)]
+        problems += [f"{key}.entry: {p}" for p in cf_name_errors(mini, valid_names)]
+        problems += [f"{key}.entry: {p}" for p in units_errors(mini, canonical)]
+    return problems
+
+
 def main(argv: Optional[List[str]] = None) -> int:
     """CLI entry point. Returns process exit status."""
     ap = argparse.ArgumentParser(description="Validate the amocvocab vocabulary file.")
@@ -339,6 +387,14 @@ def main(argv: Optional[List[str]] = None) -> int:
         help="Path to a CF source (JSON subset or XML table); "
         "defaults to the committed cf_standard_names.json.",
     )
+    ap.add_argument(
+        "--draft",
+        nargs="?",
+        const=str(DEFAULT_DRAFT),
+        default=None,
+        help="Validate the staging draft (loose overall, strict on 'ready' entries) "
+        "instead of the published vocab. Optional path; defaults to amocvocab_draft.yml.",
+    )
     args = ap.parse_args(argv)
 
     try:
@@ -347,13 +403,21 @@ def main(argv: Optional[List[str]] = None) -> int:
         print(f"ERROR: {exc}", file=sys.stderr)
         return 2
 
-    problems = validate(Path(args.vocab), Path(args.schema), cf_table)
+    if args.draft is not None:
+        problems = validate_draft(
+            Path(args.draft), DEFAULT_DRAFT_SCHEMA, Path(args.schema), cf_table
+        )
+        label = f"amocvocab draft ({args.draft})"
+    else:
+        problems = validate(Path(args.vocab), Path(args.schema), cf_table)
+        label = "amocvocab"
+
     if problems:
-        print(f"amocvocab: {len(problems)} problem(s):")
+        print(f"{label}: {len(problems)} problem(s):")
         for p in problems:
             print(f"  - {p}")
         return 1
-    print(f"amocvocab: OK (CF table: {cf_table})")
+    print(f"{label}: OK (CF table: {cf_table})")
     return 0
 
 

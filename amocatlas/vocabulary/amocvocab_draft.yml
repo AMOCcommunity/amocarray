@@ -1,0 +1,1388 @@
+version: 0.1-draft
+description: Working superset of amocvocab. NOT published. Entries graduate into amocvocab.yml when review_status
+  is 'ready'.
+generated_from: inventory of amocatlas/metadata
+quantities:
+  AREA:
+    review_status: unreviewed
+    served_by:
+    - lebras35n
+    - rapid26n
+    observed:
+      standard_names:
+      - cell_area
+      units:
+      - m2
+      - m^2
+      conflict: true
+    notes: ''
+    entry: null
+  BATHYMETRY:
+    review_status: unreviewed
+    served_by:
+    - lebras35n
+    observed:
+      standard_names:
+      - sea_floor_depth_below_geoid
+      units:
+      - m
+      conflict: false
+    notes: ''
+    entry: null
+  DEPTH:
+    review_status: unreviewed
+    served_by:
+    - arcticgateway
+    - lebras35n
+    - mocha26n
+    - move16n
+    - rapid26n
+    - wh41n
+    observed:
+      standard_names:
+      - depth
+      - null
+      units:
+      - m
+      - null
+      conflict: false
+    notes: ''
+    entry: null
+  DISTANCE:
+    review_status: unreviewed
+    served_by:
+    - lebras35n
+    observed:
+      standard_names:
+      - null
+      units:
+      - null
+      conflict: false
+    notes: ''
+    entry: null
+  FOV:
+    review_status: unreviewed
+    served_by:
+    - axmoc34s
+    observed:
+      standard_names:
+      - null
+      units:
+      - sverdrup
+      conflict: false
+    notes: ''
+    entry: null
+  FOV_EKMAN:
+    review_status: unreviewed
+    served_by:
+    - axmoc34s
+    observed:
+      standard_names:
+      - null
+      units:
+      - sverdrup
+      conflict: false
+    notes: ''
+    entry: null
+  FOV_GEOSTROPHIC:
+    review_status: unreviewed
+    served_by:
+    - axmoc34s
+    observed:
+      standard_names:
+      - null
+      units:
+      - sverdrup
+      conflict: false
+    notes: ''
+    entry: null
+  HTC:
+    review_status: unreviewed
+    served_by:
+    - calafat2025
+    observed:
+      standard_names:
+      - null
+      units:
+      - PW
+      conflict: false
+    notes: ''
+    entry: null
+  LATITUDE:
+    review_status: unreviewed
+    served_by:
+    - arcticgateway
+    - calafat2025
+    - lebras35n
+    - move16n
+    - wh41n
+    - zheng2024
+    observed:
+      standard_names:
+      - latitude
+      - null
+      units:
+      - degree_north
+      - null
+      conflict: false
+    notes: ''
+    entry: null
+  LATITUDE_VARYING:
+    review_status: unreviewed
+    served_by:
+    - move16n
+    observed:
+      standard_names:
+      - latitude
+      units:
+      - degree_north
+      conflict: false
+    notes: ''
+    entry: null
+  LONGITUDE:
+    review_status: unreviewed
+    served_by:
+    - arcticgateway
+    - lebras35n
+    - move16n
+    - rapid26n
+    - wh41n
+    observed:
+      standard_names:
+      - longitude
+      - null
+      units:
+      - degree_east
+      - null
+      conflict: false
+    notes: ''
+    entry: null
+  LONGITUDE_VARYING:
+    review_status: unreviewed
+    served_by:
+    - move16n
+    observed:
+      standard_names:
+      - longitude
+      units:
+      - degree_east
+      conflict: false
+    notes: ''
+    entry: null
+  MFT:
+    review_status: published
+    served_by:
+    - osnap55n
+    - rapid26n
+    - zheng2024
+    observed:
+      standard_names:
+      - null
+      units:
+      - sverdrup
+      - null
+      conflict: false
+    notes: ''
+    entry: null
+  MHT:
+    review_status: published
+    served_by:
+    - axmoc22s
+    - axmoc34s
+    - calafat2025
+    - mocha26n
+    - osnap55n
+    - rapid26n
+    - wh41n
+    observed:
+      standard_names:
+      - northward_ocean_heat_transport
+      units:
+      - PW
+      - W
+      conflict: true
+    notes: ''
+    entry: null
+  MHT_EKMAN:
+    review_status: published
+    served_by:
+    - axmoc22s
+    - axmoc34s
+    - mocha26n
+    - wh41n
+    observed:
+      standard_names:
+      - null
+      units:
+      - PW
+      - W
+      conflict: true
+    notes: ''
+    entry: null
+  MHT_FC:
+    review_status: unreviewed
+    served_by:
+    - mocha26n
+    observed:
+      standard_names:
+      - null
+      units:
+      - W
+      conflict: false
+    notes: ''
+    entry: null
+  MHT_GEOSTROPHIC:
+    review_status: unreviewed
+    served_by:
+    - axmoc22s
+    - axmoc34s
+    observed:
+      standard_names:
+      - null
+      units:
+      - PW
+      conflict: false
+    notes: ''
+    entry: null
+  MHT_GYRE:
+    review_status: published
+    served_by:
+    - mocha26n
+    observed:
+      standard_names:
+      - northward_ocean_heat_transport_due_to_gyre
+      units:
+      - W
+      conflict: false
+    notes: ''
+    entry: null
+  MHT_INT:
+    review_status: unreviewed
+    served_by:
+    - mocha26n
+    observed:
+      standard_names:
+      - null
+      units:
+      - W
+      conflict: false
+    notes: ''
+    entry: null
+  MHT_MO:
+    review_status: unreviewed
+    served_by:
+    - mocha26n
+    observed:
+      standard_names:
+      - null
+      units:
+      - W
+      conflict: false
+    notes: ''
+    entry: null
+  MHT_NET:
+    review_status: unreviewed
+    served_by:
+    - wh41n
+    observed:
+      standard_names:
+      - northward_ocean_heat_transport
+      units:
+      - PW
+      conflict: false
+    notes: ''
+    entry: null
+  MHT_OT:
+    review_status: published
+    served_by:
+    - mocha26n
+    observed:
+      standard_names:
+      - northward_ocean_heat_transport_due_to_overturning
+      units:
+      - W
+      conflict: false
+    notes: ''
+    entry: null
+  MHT_WEDGE:
+    review_status: unreviewed
+    served_by:
+    - mocha26n
+    observed:
+      standard_names:
+      - null
+      units:
+      - W
+      conflict: false
+    notes: ''
+    entry: null
+  MOC:
+    review_status: published
+    served_by:
+    - axmoc22s
+    - axmoc34s
+    - fw2015
+    - lebras35n
+    - mocha26n
+    - move16n
+    - rapid26n
+    - samba34s
+    - wh41n
+    observed:
+      standard_names:
+      - ocean_meridional_overturning_streamfunction
+      - null
+      units:
+      - sverdrup
+      conflict: false
+    notes: ''
+    entry: null
+  MOC_BOUNDARY:
+    review_status: unreviewed
+    served_by:
+    - move16n
+    observed:
+      standard_names:
+      - ocean_volume_transport_across_line
+      units:
+      - sverdrup
+      conflict: false
+    notes: ''
+    entry: null
+  MOC_EAST_SIGMA0:
+    review_status: unreviewed
+    served_by:
+    - osnap55n
+    observed:
+      standard_names:
+      - ocean_meridional_overturning_streamfunction
+      units:
+      - sverdrup
+      conflict: false
+    notes: ''
+    entry: null
+  MOC_INTERNAL:
+    review_status: unreviewed
+    served_by:
+    - move16n
+    observed:
+      standard_names:
+      - ocean_volume_transport_across_line
+      units:
+      - sverdrup
+      conflict: false
+    notes: ''
+    entry: null
+  MOC_INTERNAL_OFFSET:
+    review_status: unreviewed
+    served_by:
+    - move16n
+    observed:
+      standard_names:
+      - ocean_volume_transport_across_line
+      units:
+      - sverdrup
+      conflict: false
+    notes: ''
+    entry: null
+  MOC_PROXY:
+    review_status: unreviewed
+    served_by:
+    - fw2015
+    - sf2021
+    observed:
+      standard_names:
+      - ocean_meridional_overturning_streamfunction
+      units:
+      - sverdrup
+      conflict: false
+    notes: ''
+    entry: null
+  MOC_SIGMA0:
+    review_status: unreviewed
+    served_by:
+    - noac47n
+    - osnap55n
+    - rapid26n
+    observed:
+      standard_names:
+      - ocean_meridional_overturning_streamfunction
+      units:
+      - sverdrup
+      conflict: false
+    notes: ''
+    entry: null
+  MOC_SIGMA0_LPF:
+    review_status: unreviewed
+    served_by:
+    - noac47n
+    observed:
+      standard_names:
+      - ocean_meridional_overturning_streamfunction
+      units:
+      - sverdrup
+      conflict: false
+    notes: ''
+    entry: null
+  MOC_SIGMA2:
+    review_status: unreviewed
+    served_by:
+    - lebras35n
+    - rapid26n
+    observed:
+      standard_names:
+      - ocean_meridional_overturning_streamfunction
+      units:
+      - sverdrup
+      conflict: false
+    notes: ''
+    entry: null
+  MOC_WEST_SIGMA0:
+    review_status: unreviewed
+    served_by:
+    - osnap55n
+    observed:
+      standard_names:
+      - ocean_meridional_overturning_streamfunction
+      units:
+      - sverdrup
+      conflict: false
+    notes: ''
+    entry: null
+  N_ENSEMBLE:
+    review_status: unreviewed
+    served_by:
+    - calafat2025
+    observed:
+      standard_names:
+      - realization
+      units:
+      - 1
+      conflict: false
+    notes: ''
+    entry: null
+  PRESSURE:
+    review_status: unreviewed
+    served_by:
+    - lebras35n
+    - move16n
+    - rapid26n
+    observed:
+      standard_names:
+      - sea_water_pressure
+      - null
+      units:
+      - dbar
+      - null
+      conflict: false
+    notes: ''
+    entry: null
+  PSAL:
+    review_status: unreviewed
+    served_by:
+    - move16n
+    - osnap55n
+    observed:
+      standard_names:
+      - sea_water_practical_salinity
+      units:
+      - 1
+      conflict: false
+    notes: ''
+    entry: null
+  PSAL_EAST:
+    review_status: unreviewed
+    served_by:
+    - rapid26n
+    observed:
+      standard_names:
+      - sea_water_practical_salinity
+      units:
+      - 1
+      conflict: false
+    notes: ''
+    entry: null
+  PSAL_EAST_FLAG:
+    review_status: unreviewed
+    served_by:
+    - rapid26n
+    observed:
+      standard_names:
+      - null
+      units:
+      - null
+      conflict: false
+    notes: ''
+    entry: null
+  PSAL_MAREAST:
+    review_status: unreviewed
+    served_by:
+    - rapid26n
+    observed:
+      standard_names:
+      - sea_water_practical_salinity
+      units:
+      - 1
+      conflict: false
+    notes: ''
+    entry: null
+  PSAL_MAREAST_FLAG:
+    review_status: unreviewed
+    served_by:
+    - rapid26n
+    observed:
+      standard_names:
+      - null
+      units:
+      - null
+      conflict: false
+    notes: ''
+    entry: null
+  PSAL_MARWEST:
+    review_status: unreviewed
+    served_by:
+    - rapid26n
+    observed:
+      standard_names:
+      - sea_water_practical_salinity
+      units:
+      - 1
+      conflict: false
+    notes: ''
+    entry: null
+  PSAL_MARWEST_FLAG:
+    review_status: unreviewed
+    served_by:
+    - rapid26n
+    observed:
+      standard_names:
+      - null
+      units:
+      - null
+      conflict: false
+    notes: ''
+    entry: null
+  PSAL_WB3:
+    review_status: unreviewed
+    served_by:
+    - rapid26n
+    observed:
+      standard_names:
+      - sea_water_practical_salinity
+      units:
+      - 1
+      conflict: false
+    notes: ''
+    entry: null
+  PSAL_WB3_FLAG:
+    review_status: unreviewed
+    served_by:
+    - rapid26n
+    observed:
+      standard_names:
+      - null
+      units:
+      - null
+      conflict: false
+    notes: ''
+    entry: null
+  PSAL_WEST:
+    review_status: unreviewed
+    served_by:
+    - rapid26n
+    observed:
+      standard_names:
+      - sea_water_practical_salinity
+      units:
+      - 1
+      conflict: false
+    notes: ''
+    entry: null
+  PSAL_WEST_FLAG:
+    review_status: unreviewed
+    served_by:
+    - rapid26n
+    observed:
+      standard_names:
+      - null
+      units:
+      - null
+      conflict: false
+    notes: ''
+    entry: null
+  PSI_SIGMA0:
+    review_status: unreviewed
+    served_by:
+    - osnap55n
+    - rapid26n
+    observed:
+      standard_names:
+      - ocean_meridional_overturning_streamfunction
+      units:
+      - sverdrup
+      conflict: false
+    notes: ''
+    entry: null
+  PSI_SIGMA0_EAST:
+    review_status: unreviewed
+    served_by:
+    - osnap55n
+    observed:
+      standard_names:
+      - ocean_meridional_overturning_streamfunction
+      units:
+      - sverdrup
+      conflict: false
+    notes: ''
+    entry: null
+  PSI_SIGMA0_WEST:
+    review_status: unreviewed
+    served_by:
+    - osnap55n
+    observed:
+      standard_names:
+      - ocean_meridional_overturning_streamfunction
+      units:
+      - sverdrup
+      conflict: false
+    notes: ''
+    entry: null
+  PSI_SIGMA2:
+    review_status: unreviewed
+    served_by:
+    - rapid26n
+    observed:
+      standard_names:
+      - ocean_meridional_overturning_streamfunction
+      units:
+      - sverdrup
+      conflict: false
+    notes: ''
+    entry: null
+  PSI_Z:
+    review_status: unreviewed
+    served_by:
+    - lebras35n
+    - mocha26n
+    - rapid26n
+    observed:
+      standard_names:
+      - ocean_meridional_overturning_streamfunction
+      units:
+      - sverdrup
+      conflict: false
+    notes: ''
+    entry: null
+  SIGMA0:
+    review_status: unreviewed
+    served_by:
+    - osnap55n
+    - rapid26n
+    observed:
+      standard_names:
+      - sea_water_sigma_theta
+      - null
+      units:
+      - kg m-3
+      - null
+      conflict: false
+    notes: ''
+    entry: null
+  SIGMA2:
+    review_status: unreviewed
+    served_by:
+    - lebras35n
+    - rapid26n
+    observed:
+      standard_names:
+      - sea_water_sigma_theta
+      - null
+      units:
+      - kg/m^3
+      - null
+      conflict: false
+    notes: ''
+    entry: null
+  SSHA:
+    review_status: unreviewed
+    served_by:
+    - fw2015
+    observed:
+      standard_names:
+      - null
+      units:
+      - cm
+      conflict: false
+    notes: ''
+    entry: null
+  TEMP:
+    review_status: unreviewed
+    served_by:
+    - move16n
+    observed:
+      standard_names:
+      - sea_water_temperature
+      units:
+      - degrees Celsius
+      conflict: false
+    notes: ''
+    entry: null
+  TEMP_BASIN:
+    review_status: unreviewed
+    served_by:
+    - mocha26n
+    observed:
+      standard_names:
+      - sea_water_potential_temperature
+      units:
+      - degree_C
+      conflict: false
+    notes: ''
+    entry: null
+  TEMP_BASIN_MEAN:
+    review_status: unreviewed
+    served_by:
+    - mocha26n
+    observed:
+      standard_names:
+      - sea_water_potential_temperature
+      units:
+      - degree_C
+      conflict: false
+    notes: ''
+    entry: null
+  TEMP_EAST:
+    review_status: unreviewed
+    served_by:
+    - rapid26n
+    observed:
+      standard_names:
+      - sea_water_temperature
+      units:
+      - degree_C
+      conflict: false
+    notes: ''
+    entry: null
+  TEMP_EAST_FLAG:
+    review_status: unreviewed
+    served_by:
+    - rapid26n
+    observed:
+      standard_names:
+      - null
+      units:
+      - null
+      conflict: false
+    notes: ''
+    entry: null
+  TEMP_FC_FWT:
+    review_status: unreviewed
+    served_by:
+    - mocha26n
+    observed:
+      standard_names:
+      - sea_water_potential_temperature
+      units:
+      - degree_C
+      conflict: false
+    notes: ''
+    entry: null
+  TEMP_MAREAST:
+    review_status: unreviewed
+    served_by:
+    - rapid26n
+    observed:
+      standard_names:
+      - sea_water_temperature
+      units:
+      - degree_C
+      conflict: false
+    notes: ''
+    entry: null
+  TEMP_MAREAST_FLAG:
+    review_status: unreviewed
+    served_by:
+    - rapid26n
+    observed:
+      standard_names:
+      - null
+      units:
+      - null
+      conflict: false
+    notes: ''
+    entry: null
+  TEMP_MARWEST:
+    review_status: unreviewed
+    served_by:
+    - rapid26n
+    observed:
+      standard_names:
+      - sea_water_temperature
+      units:
+      - degree_C
+      conflict: false
+    notes: ''
+    entry: null
+  TEMP_MARWEST_FLAG:
+    review_status: unreviewed
+    served_by:
+    - rapid26n
+    observed:
+      standard_names:
+      - null
+      units:
+      - null
+      conflict: false
+    notes: ''
+    entry: null
+  TEMP_WB3:
+    review_status: unreviewed
+    served_by:
+    - rapid26n
+    observed:
+      standard_names:
+      - sea_water_temperature
+      units:
+      - degree_C
+      conflict: false
+    notes: ''
+    entry: null
+  TEMP_WB3_FLAG:
+    review_status: unreviewed
+    served_by:
+    - rapid26n
+    observed:
+      standard_names:
+      - null
+      units:
+      - null
+      conflict: false
+    notes: ''
+    entry: null
+  TEMP_WEST:
+    review_status: unreviewed
+    served_by:
+    - rapid26n
+    observed:
+      standard_names:
+      - sea_water_temperature
+      units:
+      - degree_C
+      conflict: false
+    notes: ''
+    entry: null
+  TEMP_WEST_FLAG:
+    review_status: unreviewed
+    served_by:
+    - rapid26n
+    observed:
+      standard_names:
+      - null
+      units:
+      - null
+      conflict: false
+    notes: ''
+    entry: null
+  TIME:
+    review_status: unreviewed
+    served_by:
+    - arcticgateway
+    - axmoc22s
+    - axmoc34s
+    - calafat2025
+    - fw2015
+    - lebras35n
+    - mocha26n
+    - rapid26n
+    - sf2021
+    - wh41n
+    - zheng2024
+    observed:
+      standard_names:
+      - time
+      - null
+      units:
+      - datetime64[ns]
+      - decimal years
+      - seconds since 1970-1-1 00:00:00 UTC
+      - null
+      conflict: true
+    notes: ''
+    entry: null
+  TIME_FRACTION:
+    review_status: unreviewed
+    served_by:
+    - lebras35n
+    observed:
+      standard_names:
+      - time
+      - null
+      units:
+      - year.fractionofyear
+      - null
+      conflict: false
+    notes: ''
+    entry: null
+  TRANSPROF_BASIN:
+    review_status: unreviewed
+    served_by:
+    - mocha26n
+    observed:
+      standard_names:
+      - null
+      units:
+      - sverdrup/m
+      conflict: false
+    notes: ''
+    entry: null
+  TRANSPROF_BASIN_MEAN:
+    review_status: unreviewed
+    served_by:
+    - mocha26n
+    observed:
+      standard_names:
+      - null
+      units:
+      - sverdrup/m
+      conflict: false
+    notes: ''
+    entry: null
+  TRANSPROF_FC:
+    review_status: unreviewed
+    served_by:
+    - mocha26n
+    observed:
+      standard_names:
+      - null
+      units:
+      - sverdrup/m
+      conflict: false
+    notes: ''
+    entry: null
+  TRANSPROF_FC_MEAN:
+    review_status: unreviewed
+    served_by:
+    - mocha26n
+    observed:
+      standard_names:
+      - null
+      units:
+      - sverdrup/m
+      conflict: false
+    notes: ''
+    entry: null
+  TRANS_0_800:
+    review_status: unreviewed
+    served_by:
+    - rapid26n
+    observed:
+      standard_names:
+      - ocean_volume_transport_across_line
+      units:
+      - sverdrup
+      conflict: false
+    notes: ''
+    entry: null
+  TRANS_1100_3000:
+    review_status: unreviewed
+    served_by:
+    - fw2015
+    - rapid26n
+    observed:
+      standard_names:
+      - ocean_volume_transport_across_line
+      units:
+      - sverdrup
+      conflict: false
+    notes: ''
+    entry: null
+  TRANS_3000_5000:
+    review_status: unreviewed
+    served_by:
+    - fw2015
+    - rapid26n
+    observed:
+      standard_names:
+      - ocean_volume_transport_across_line
+      units:
+      - sverdrup
+      conflict: false
+    notes: ''
+    entry: null
+  TRANS_800_1100:
+    review_status: unreviewed
+    served_by:
+    - rapid26n
+    observed:
+      standard_names:
+      - ocean_volume_transport_across_line
+      units:
+      - sverdrup
+      conflict: false
+    notes: ''
+    entry: null
+  TRANS_ABYSSAL:
+    review_status: unreviewed
+    served_by:
+    - samba34s
+    observed:
+      standard_names:
+      - null
+      units:
+      - sverdrup
+      conflict: false
+    notes: ''
+    entry: null
+  TRANS_DSO:
+    review_status: unreviewed
+    served_by:
+    - dso
+    observed:
+      standard_names:
+      - ocean_volume_transport_across_line
+      units:
+      - sverdrup
+      conflict: false
+    notes: ''
+    entry: null
+  TRANS_EKMAN:
+    review_status: unreviewed
+    served_by:
+    - axmoc22s
+    - axmoc34s
+    - fw2015
+    - lebras35n
+    - mocha26n
+    - rapid26n
+    - samba34s
+    - wh41n
+    observed:
+      standard_names:
+      - ocean_volume_transport_across_line
+      - null
+      units:
+      - sverdrup
+      conflict: false
+    notes: ''
+    entry: null
+  TRANS_EKMAN_GRID:
+    review_status: unreviewed
+    served_by:
+    - fw2015
+    observed:
+      standard_names:
+      - ocean_volume_transport_across_line
+      units:
+      - sverdrup
+      conflict: false
+    notes: ''
+    entry: null
+  TRANS_FBC:
+    review_status: unreviewed
+    served_by:
+    - fbc
+    observed:
+      standard_names:
+      - ocean_volume_transport_across_line
+      units:
+      - sverdrup
+      conflict: false
+    notes: ''
+    entry: null
+  TRANS_FC:
+    review_status: unreviewed
+    served_by:
+    - fw2015
+    - mocha26n
+    - rapid26n
+    observed:
+      standard_names:
+      - ocean_volume_transport_across_line
+      units:
+      - sverdrup
+      conflict: false
+    notes: ''
+    entry: null
+  TRANS_FC_GRID:
+    review_status: unreviewed
+    served_by:
+    - fw2015
+    observed:
+      standard_names:
+      - ocean_volume_transport_across_line
+      units:
+      - sverdrup
+      conflict: false
+    notes: ''
+    entry: null
+  TRANS_GEO:
+    review_status: unreviewed
+    served_by:
+    - wh41n
+    observed:
+      standard_names:
+      - ocean_volume_transport_across_line
+      units:
+      - sverdrup
+      conflict: false
+    notes: ''
+    entry: null
+  TRANS_GEOSTROPHIC:
+    review_status: unreviewed
+    served_by:
+    - axmoc22s
+    - axmoc34s
+    observed:
+      standard_names:
+      - ocean_volume_transport_across_line
+      units:
+      - sverdrup
+      conflict: false
+    notes: ''
+    entry: null
+  TRANS_GS_PROXY:
+    review_status: unreviewed
+    served_by:
+    - sf2021
+    observed:
+      standard_names:
+      - ocean_volume_transport_across_line
+      units:
+      - sverdrup
+      conflict: false
+    notes: ''
+    entry: null
+  TRANS_NAC:
+    review_status: unreviewed
+    served_by:
+    - nac
+    observed:
+      standard_names:
+      - ocean_volume_transport_across_line
+      units:
+      - sverdrup
+      conflict: false
+    notes: ''
+    entry: null
+  TRANS_NAC_PROXY:
+    review_status: unreviewed
+    served_by:
+    - nac
+    observed:
+      standard_names:
+      - ocean_volume_transport_across_line
+      units:
+      - sverdrup
+      conflict: false
+    notes: ''
+    entry: null
+  TRANS_NAC_UNCERTAINTY:
+    review_status: unreviewed
+    served_by:
+    - nac
+    observed:
+      standard_names:
+      - null
+      units:
+      - sverdrup
+      conflict: false
+    notes: ''
+    entry: null
+  TRANS_REFERENCE:
+    review_status: unreviewed
+    served_by:
+    - samba34s
+    observed:
+      standard_names:
+      - null
+      units:
+      - sverdrup
+      conflict: false
+    notes: ''
+    entry: null
+  TRANS_REFERENCE_EAST:
+    review_status: unreviewed
+    served_by:
+    - samba34s
+    observed:
+      standard_names:
+      - null
+      units:
+      - sverdrup
+      conflict: false
+    notes: ''
+    entry: null
+  TRANS_REFERENCE_WEST:
+    review_status: unreviewed
+    served_by:
+    - samba34s
+    observed:
+      standard_names:
+      - null
+      units:
+      - sverdrup
+      conflict: false
+    notes: ''
+    entry: null
+  TRANS_RELATIVE:
+    review_status: unreviewed
+    served_by:
+    - samba34s
+    observed:
+      standard_names:
+      - null
+      units:
+      - sverdrup
+      conflict: false
+    notes: ''
+    entry: null
+  TRANS_RELATIVE_EAST:
+    review_status: unreviewed
+    served_by:
+    - samba34s
+    observed:
+      standard_names:
+      - null
+      units:
+      - sverdrup
+      conflict: false
+    notes: ''
+    entry: null
+  TRANS_RELATIVE_WEST:
+    review_status: unreviewed
+    served_by:
+    - samba34s
+    observed:
+      standard_names:
+      - null
+      units:
+      - sverdrup
+      conflict: false
+    notes: ''
+    entry: null
+  TRANS_UMO:
+    review_status: unreviewed
+    served_by:
+    - fw2015
+    - rapid26n
+    observed:
+      standard_names:
+      - ocean_volume_transport_across_line
+      units:
+      - sverdrup
+      conflict: false
+    notes: ''
+    entry: null
+  TRANS_UMO_PROXY:
+    review_status: unreviewed
+    served_by:
+    - fw2015
+    - sf2021
+    observed:
+      standard_names:
+      - ocean_volume_transport_across_line
+      units:
+      - sverdrup
+      conflict: false
+    notes: ''
+    entry: null
+  TRANS_UPPER:
+    review_status: unreviewed
+    served_by:
+    - samba34s
+    observed:
+      standard_names:
+      - null
+      units:
+      - sverdrup
+      conflict: false
+    notes: ''
+    entry: null
+  TRANS_below_5000:
+    review_status: unreviewed
+    served_by:
+    - rapid26n
+    observed:
+      standard_names:
+      - ocean_volume_transport_across_line
+      units:
+      - sverdrup
+      conflict: false
+    notes: ''
+    entry: null
+  UCUR:
+    review_status: unreviewed
+    served_by:
+    - move16n
+    observed:
+      standard_names:
+      - eastward_sea_water_velocity
+      units:
+      - m/s
+      conflict: false
+    notes: ''
+    entry: null
+  VCUR:
+    review_status: unreviewed
+    served_by:
+    - arcticgateway
+    - move16n
+    - osnap55n
+    observed:
+      standard_names:
+      - northward_sea_water_velocity
+      - null
+      units:
+      - m s-1
+      - m/s
+      conflict: true
+    notes: ''
+    entry: null
+  VCUR_EKMAN:
+    review_status: unreviewed
+    served_by:
+    - rapid26n
+    observed:
+      standard_names:
+      - northward_sea_water_velocity
+      units:
+      - m s-1
+      conflict: false
+    notes: ''
+    entry: null
+  VCUR_INSITU:
+    review_status: unreviewed
+    served_by:
+    - rapid26n
+    observed:
+      standard_names:
+      - northward_sea_water_velocity
+      units:
+      - m s-1
+      conflict: false
+    notes: ''
+    entry: null
+  VCUR_NET:
+    review_status: unreviewed
+    served_by:
+    - rapid26n
+    observed:
+      standard_names:
+      - northward_sea_water_velocity
+      units:
+      - m s-1
+      conflict: false
+    notes: ''
+    entry: null
+  V_GEOSTROPHIC:
+    review_status: unreviewed
+    served_by:
+    - lebras35n
+    observed:
+      standard_names:
+      - null
+      units:
+      - m/s
+      conflict: false
+    notes: ''
+    entry: null

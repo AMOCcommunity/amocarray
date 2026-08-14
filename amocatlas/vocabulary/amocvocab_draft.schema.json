@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://amoccommunity.github.io/amocatlas/amocvocab_draft.schema.json",
+  "title": "amocvocab draft (staging)",
+  "description": "Working superset of amocvocab: every standardised short name served by the arrays, with a review_status and the observed per-array state. NOT published. Entries graduate into amocvocab.yml when review_status is 'ready' (validated strictly at that point by validate_draft). Loose by design so unreviewed stubs and in-progress decisions are valid.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "quantities"],
+  "properties": {
+    "version": {"type": "string"},
+    "description": {"type": "string"},
+    "generated_from": {"type": "string", "description": "How the observed fields were seeded (e.g. inventory of amocatlas/metadata)."},
+    "quantities": {
+      "type": "object",
+      "additionalProperties": {"$ref": "#/$defs/draft_entry"}
+    }
+  },
+  "$defs": {
+    "draft_entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["review_status"],
+      "properties": {
+        "review_status": {
+          "enum": ["unreviewed", "draft", "ready", "published"],
+          "description": "Lifecycle: unreviewed (auto-seeded stub) -> draft (decisions in progress) -> ready (`entry` complete, validated strictly, eligible to graduate) -> published (already lives in amocvocab.yml; not edited here). Only 'ready' entries are strict-checked and graduate."
+        },
+        "served_by": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Arrays that serve this short name (refreshed from the metadata inventory; do not hand-edit)."
+        },
+        "observed": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "What the per-array metadata YAMLs currently say for this short name (refreshed from inventory; do not hand-edit).",
+          "properties": {
+            "standard_names": {"type": "array", "description": "Distinct standard_names across arrays (null = omitted / Case C)."},
+            "units": {"type": "array", "description": "Distinct units across arrays."},
+            "conflict": {"type": "boolean", "description": "True if arrays disagree on standard_name or units."}
+          }
+        },
+        "notes": {"type": "string", "description": "Working notes / open questions for this short name."},
+        "entry": {
+          "type": ["object", "null"],
+          "description": "The in-progress amocvocab quantity for this short name. Free-form while unreviewed/draft; validated against amocvocab.schema.json #/$defs/quantity (plus CF-name and UDUNITS checks) by validate_draft once review_status is 'ready'."
+        }
+      }
+    }
+  }
+}
