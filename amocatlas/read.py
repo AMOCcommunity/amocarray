@@ -55,6 +55,7 @@ from .data_sources import (
     read_lebras35n,
     read_axmoc22s,
     read_axmoc34s,
+    read_ovide,
 )
 
 # Import file constants for list_files() functionality
@@ -76,6 +77,7 @@ from .data_sources.sf2021 import SF2021_DEFAULT_FILES
 from .data_sources.lebras35n import LEBRAS35N_DEFAULT_FILES
 from .data_sources.axmoc22s import AXMOC22S_DEFAULT_FILES
 from .data_sources.axmoc34s import AXMOC34S_DEFAULT_FILES
+from .data_sources.ovide import OVIDE_DEFAULT_FILES
 
 # Import standardization functions
 from . import standardise
@@ -100,6 +102,7 @@ SUPPORTED_STANDARDIZATION = {
     "lebras35n",
     "axmoc22s",
     "axmoc34s",
+    "ovide",
 }
 
 
@@ -464,6 +467,11 @@ axmoc34s = _create_array_function(
     "AXMOC 34.5°S",
     available_files=AXMOC34S_DEFAULT_FILES,
 )
+ovide = _create_array_function(
+    read_ovide,
+    "OVIDE",
+    available_files=OVIDE_DEFAULT_FILES,
+)
 
 # Define __all__ to control what's exported
 __all__ = [
@@ -485,4 +493,5 @@ __all__ = [
     "lebras35n",
     "axmoc22s",
     "axmoc34s",
+    "ovide",
 ]

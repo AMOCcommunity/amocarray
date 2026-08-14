@@ -1,0 +1,55 @@
+metadata:
+  description: "Time series of the Meridional Overturning Circulation intensity across the Greenland-Portugal A25 OVIDE line"
+  program: "OVIDE"
+  project: "OVIDE"
+  weblink: "https://www.seanoe.org/data/00353/46445/"
+  comment: >
+    Dataset accessed and processed via http://github.com/AMOCcommunity/amocatlas
+  acknowledgement: >
+    The authors request that Mercier et al. (2015, Progress in Oceanography) be cited alongside this dataset.
+  citation: >
+    Mercier Herle, Daniault Nathalie, Lherminier Pascale (2016). Time series of the Meridional Overturning Circulation intensity at OVIDE. SEANOE. https://doi.org/10.17882/46445
+  license: CC-BY-NC-4.0
+  featureType: timeSeries
+  Conventions: CF-1.8, ACDD-1.3
+  time_coverage_start: '1993-01-15'
+  time_coverage_end: '2015-12-15'
+  contributor_name: "Herlé Mercier, Nathalie Daniault, Pascale Lherminier"
+  contributor_role: "originator"
+  contributor_role_vocabulary: "https://vocab.nerc.ac.uk/collection/G04/current/"
+  contributing_institutions: "Laboratoire d'Océanographie Physique et Spatiale"
+
+files:
+  46195.nc:
+    source_url: "https://www.seanoe.org/data/00353/46445/data/46195.nc"
+    data_product: "Monthly MOC-intensity time series across the Greenland-Portugal A25 OVIDE line, derived from AVISO altimetry and Argo/ISAS temperature and salinity"
+    citation: >
+      Mercier Herle, Daniault Nathalie, Lherminier Pascale (2016). Time series of the Meridional Overturning Circulation intensity at OVIDE. SEANOE. https://doi.org/10.17882/46445
+    variable_mapping:
+      "date_AVISO": "TIME"
+      "MOC_index_ISAS": "MOC_SIGMA1"
+      "MOC_index_AVISO": "MOC_SIGMA1_PROXY"
+      "err_index_ISAS": "MOC_SIGMA1_ERR"
+    original_variable_metadata:
+      # MOC index = the maximum of the overturning streamfunction over SIGMA1 (potential
+      # density anomaly referenced to 1000 dbar), per the OVIDE method (Mercier et al. 2015).
+      "MOC_index_ISAS":
+        long_name: "meridional overturning circulation intensity"
+        description: "MOC index over 2002-2015: AVISO surface velocities combined with the time-varying Argo/ISAS-derived geostrophic velocity shear; maximum of the overturning streamfunction in sigma1 density space"
+        units: sverdrup
+        standard_name: ocean_meridional_overturning_streamfunction
+        cell_methods: "SIGMA1: maximum"
+        reference_pressure: 1000
+      "MOC_index_AVISO":
+        long_name: "meridional overturning circulation intensity, altimetry proxy"
+        source_long_name: "MOC_index_AVISO"
+        description: "MOC index over 1993-2015: AVISO surface velocities combined with the 2002-2015 mean Argo/ISAS interior (fixed-interior altimetry proxy); maximum of the overturning streamfunction in sigma1 density space"
+        units: sverdrup
+        standard_name: ocean_meridional_overturning_streamfunction
+        cell_methods: "SIGMA1: maximum"
+        reference_pressure: 1000
+      "err_index_ISAS":
+        long_name: "meridional overturning circulation intensity, ensemble standard deviation"
+        source_long_name: "err_index_ISAS"
+        description: "Standard deviation of a 100-member ensemble of MOC index estimates over 2002-2015, from random perturbations of the ISAS fields and altimetry-derived surface dynamic heights"
+        units: sverdrup

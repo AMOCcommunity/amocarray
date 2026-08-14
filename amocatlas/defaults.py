@@ -243,6 +243,7 @@ ARRAY_NAMES = [
     "lebras35n",  # Lebras 2023 AMOC transport at 35°N
     "axmoc22s",  # AXMOC and heat transport from sustained in situ observations at 22.5°S
     "axmoc34s",  # AXMOC, heat and freshwater transport from sustained in situ observations 34.5°S
+    "ovide",  # OVIDE - MOC intensity across the Greenland-Portugal A25 OVIDE line
 ]
 
 # Mapping from array names to their full descriptions
@@ -265,6 +266,7 @@ ARRAY_DESCRIPTIONS = {
     "lebras35n": "Le Bras 2023 - AMOC transport estimates at 35°N from satellite altimetry and in situ data",
     "axmoc22s": "AXMOC 22.5°S - AMOC and heat transport from sustained in situ observations at 22.5°S",
     "axmoc34s": "AXMOC 34.5°S - AMOC, heat and freshwater transport from sustained in situ observations at 34.5°S",
+    "ovide": "OVIDE - MOC intensity across the Greenland-Portugal A25 OVIDE line (altimetry + Argo/ISAS)",
 }
 
 # Preferred units

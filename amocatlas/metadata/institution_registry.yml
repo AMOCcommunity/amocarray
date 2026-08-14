@@ -17,7 +17,18 @@ institutions:
     country: "UK"
     id_url: "https://edmo.seadatanet.org/report/17"
     website: "https://noc.ac.uk"
-    
+
+  "4536":  # LOPS (Ifremer / CNRS / UBO / IRD, UMR 6523)
+    standard_name: "Laboratory for Ocean Physics and Satellite remote sensing (LOPS)"
+    name_variants:
+      - "Laboratoire d'Océanographie Physique et Spatiale"
+      - "Laboratoire d'Oceanographie Physique et Spatiale"
+      - "Laboratoire d'Océanographie Physique et Spatiale, UMR 6523"
+      - "LOPS"
+    country: "France"
+    id_url: "https://edmo.seadatanet.org/report/4536"
+    website: "https://www.umr-lops.fr/"
+
   "1224": # NASA JPL
     standard_name: "National Aeronautics and Space Administration - Jet Propulsion Laboratory (NASA JPL)"
     name_variants:

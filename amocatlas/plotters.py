@@ -1,5 +1,7 @@
 """AMOCatlas plotting functions for visualization and publication figures."""
 
+import textwrap
+
 import matplotlib.pyplot as plt
 import pandas as pd
 import xarray as xr
@@ -7,6 +9,36 @@ import numpy as np
 from pandas import DataFrame
 from pandas.io.formats.style import Styler
 from typing import Union, Dict
+
+
+def _vlabel(label: str, width: int = 24) -> str:
+    """Word-wrap a long variable label for a plot axis.
+
+    Standardised ``long_name`` values (e.g. "meridional overturning transport anomaly,
+    western-boundary bottom-pressure contribution") overflow a y-axis. This breaks the label
+    onto multiple lines at word boundaries so it fits, without splitting words. Short labels
+    are returned unchanged.
+
+    A future version may translate names via a label registry (cf. ``oceanarray``'s
+    ``vlabel``); for now it only wraps.
+
+    Parameters
+    ----------
+    label : str
+        The axis label text.
+    width : int, optional
+        Target maximum characters per line (default 24).
+
+    Returns
+    -------
+    str
+        The label with newlines inserted, or the original if it is short or empty.
+
+    """
+    if not label or len(label) <= width:
+        return label
+    wrapped = textwrap.wrap(label, width=width, break_long_words=False)
+    return "\n".join(wrapped) if wrapped else label
 
 
 def format_variable_name_for_plotting(name: str) -> str:
@@ -616,8 +648,9 @@ def plot_amoc_timeseries(
             label_text = da.attrs.get(
                 "long_name", da.attrs.get("standard_name", da.name or "Data")
             )
-            # Format variable names with Greek characters
+            # Format variable names with Greek characters, then wrap long labels.
             label_text = format_variable_name_for_plotting(label_text)
+            label_text = _vlabel(label_text)
 
             units = da.attrs.get("units", "")
             if units:

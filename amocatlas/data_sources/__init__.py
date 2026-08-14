@@ -32,6 +32,7 @@ from .sf2021 import read_sf2021
 from .lebras35n import read_lebras35n
 from .axmoc22s import read_axmoc22s
 from .axmoc34s import read_axmoc34s
+from .ovide import read_ovide
 
 __all__ = [
     "read_rapid",
@@ -53,4 +54,5 @@ __all__ = [
     "read_lebras35n",
     "read_axmoc22s",
     "read_axmoc34s",
+    "read_ovide",
 ]

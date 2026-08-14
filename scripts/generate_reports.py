@@ -20,6 +20,7 @@ AVAILABLE_SOURCES = ARRAY_NAMES
 
 ALL_SOURCES = AVAILABLE_SOURCES + ["all"]
 
+
 def main() -> int:
     """Generate dataset report and save to docs directory."""
     parser = argparse.ArgumentParser(
@@ -27,24 +28,24 @@ def main() -> int:
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog=f"""
 Available data sources:
-{', '.join(AVAILABLE_SOURCES)}
+{", ".join(AVAILABLE_SOURCES)}
 
 Examples:
   python scripts/generate_reports.py                      # generates all reports (default)
   python scripts/generate_reports.py --data_source rapid  # generates only RAPID report
   python scripts/generate_reports.py --data_source osnap  # generates only OSNAP report
-        """
+        """,
     )
     parser.add_argument(
         "--data_source",
         default="all",
         choices=ALL_SOURCES,
-        help="Data source to generate report for (default: 'all' to generate all reports)"
+        help="Data source to generate report for (default: 'all' to generate all reports)",
     )
     parser.add_argument(
         "--output_dir",
         default="docs/source/reports",
-        help="Output directory for the report (default: docs/source/reports)"
+        help="Output directory for the report (default: docs/source/reports)",
     )
 
     args = parser.parse_args()
@@ -74,6 +75,7 @@ Examples:
             print(f"Generated report with {len(content)} characters")
         except Exception as e:  # noqa: BLE001 - batch tool: continue past a failing array
             import traceback
+
             error_msg = f"Error generating {source} report: {e}"
             print(error_msg)
             print("Full traceback:")
@@ -84,7 +86,7 @@ Examples:
         # Write the report
         output_file = output_dir / f"{source}_report.rst"
         try:
-            with open(output_file, 'w', encoding='utf-8') as f:
+            with open(output_file, "w", encoding="utf-8") as f:
                 f.write(content)
             print(f"Report saved to: {output_file}")
             print(f"File size: {output_file.stat().st_size} bytes")
@@ -107,6 +109,7 @@ Examples:
     print("cd docs && make clean html")
 
     return 0
+
 
 if __name__ == "__main__":
     exit(main())

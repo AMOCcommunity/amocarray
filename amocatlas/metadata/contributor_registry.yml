@@ -10,6 +10,31 @@ contributors:
       - "Wilken-Jon von Appen"
     id_url: "https://orcid.org/0000-0002-7200-0099"
 
+  "0000-0002-1940-617X":
+    standard_name: "Herlé Mercier"
+    name_variants:
+      - "Herlé Mercier"
+      - "Herle Mercier"
+      - "Mercier Herle"
+      - "H. Mercier"
+    id_url: "https://orcid.org/0000-0002-1940-617X"
+
+  "0000-0001-8357-6627":
+    standard_name: "Nathalie Daniault"
+    name_variants:
+      - "Nathalie Daniault"
+      - "Daniault Nathalie"
+      - "N. Daniault"
+    id_url: "https://orcid.org/0000-0001-8357-6627"
+
+  "0000-0001-9007-2160":
+    standard_name: "Pascale Lherminier"
+    name_variants:
+      - "Pascale Lherminier"
+      - "Lherminier Pascale"
+      - "P. Lherminier"
+    id_url: "https://orcid.org/0000-0001-9007-2160"
+
   "0000-0002-4007-5862":
     standard_name: "Tiago Carrilho Biló"
     name_variants:

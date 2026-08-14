@@ -49,29 +49,30 @@ AMOCatlas serves two kinds of source, distinguished below. **Observing arrays** 
 
 | Data Source | Location | Description | Read Command |
 |-------------|----------|-------------|--------------|
+| **Arctic Gateway** | Arctic Ocean | Pan-Arctic gateway transports | `read.arcticgateway()` |
+| **DSO** | Denmark Strait | Overflow transport | `read.dso()` |
+| **FBC** | Faroe Bank Channel | Overflow transport monitoring | `read.fbc()` |
+| **OSNAP** | Subpolar North Atlantic | Meridional overturning since 2014 | `read.osnap()` |
 | **RAPID** | 26°N | MOC and overturning transports since 2004 | `read.rapid()` |
 | **MOCHA** | 26°N | Meridional heat transport since 2004 | `read.mocha()` |
 | **MOVE** | 16°N | Meridional overturning since 2001 | `read.move()` |
-| **OSNAP** | Subpolar North Atlantic | Meridional overturning since 2014 | `read.osnap()` |
 | **SAMBA** | 34.5°S | South Atlantic MOC *anomaly* | `read.samba()` |
-| **DSO** | Denmark Strait | Overflow transport | `read.dso()` |
-| **FBC** | Faroe Bank Channel | Overflow transport monitoring | `read.fbc()` |
-| **Arctic Gateway** | Arctic Ocean | Pan-Arctic gateway transports | `read.arcticgateway()` |
 
 ### Blended / estimated products
 
 | Data Source | Location | Description | Read Command |
 |-------------|----------|-------------|--------------|
-| **NOAC 47°N** | 47°N | North Atlantic Ocean Current MOC | `read.noac47n()` |
-| **41°N Array** | 41°N | Meridional overturning from Argo + altimetry | `read.wh41n()` |
-| **FW2015** | 26°N | Frajka-Williams 2015 satellite–cable estimate at 26°N | `read.fw2015()` |
-| **SF2021** | 26°N | Meridional overturning estimate at 26°N from satellite altimetry | `read.sf2021()` |
-| **NAC** | Atlantic | North Atlantic Current from satellite and float observations | `read.nac()` |
 | **CALAFAT2025** | Atlantic | Bayesian estimates of Atlantic meridional heat transport spanning latitudes | `read.calafat2025()` |
 | **ZHENG2024** | Atlantic | Observation-based Atlantic meridional freshwater transport spanning latitudes | `read.zheng2024()` |
+| **NAC** | Atlantic | North Atlantic Current from satellite and float observations | `read.nac()` |
+| **OVIDE** | Greenland–Portugal (A25) | MOC intensity across the A25 OVIDE line (altimetry + Argo/ISAS) | `read.ovide()` |
+| **NOAC 47°N** | 47°N | North Atlantic Ocean Current MOC | `read.noac47n()` |
+| **41°N Array** | 41°N | Meridional overturning from Argo + altimetry | `read.wh41n()` |
 | **LEBRAS35N** | 35°N | Meridional overturning at 35°N from deep moorings, floats, and satellite altimeter | `read.lebras35n()` |
-| **AXMOC34.5S** | 34.5°S | Estimates of AMOC, heat and freshwater transports at 34.5°S | `read.axmoc34s()` |
+| **FW2015** | 26°N | Frajka-Williams 2015 satellite–cable estimate at 26°N | `read.fw2015()` |
+| **SF2021** | 26°N | Meridional overturning estimate at 26°N from satellite altimetry | `read.sf2021()` |
 | **AXMOC22.5S** | 22.5°S | Estimates of AMOC and heat transport at 22.5°S | `read.axmoc22s()` |
+| **AXMOC34.5S** | 34.5°S | Estimates of AMOC, heat and freshwater transports at 34.5°S | `read.axmoc34s()` |
 
 For more detail on the AMOC and observing arrays, see: 
 
