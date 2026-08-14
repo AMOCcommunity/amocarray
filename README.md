@@ -8,7 +8,7 @@
 
 **One Python API for loading and comparing AMOC transport datasets — from moored observing arrays to satellite/Argo-based estimates — with consistent variable names, units, and metadata.**
 
-AMOCatlas provides unified access to data on the Atlantic Meridional Overturning Circulation (AMOC), which transports heat northward in the Atlantic and is a key component of the climate system. It spans both in-situ observing arrays (RAPID, OSNAP, MOVE, SAMBA, …) and blended or estimation-based products (satellite altimetry, Argo, and reanalysis-derived estimates). Instead of hand-parsing a different file format for each source, you load any of 18 datasets through one interface and get back standardised, analysis-ready `xarray` datasets.
+AMOCatlas provides unified access to data on the Atlantic Meridional Overturning Circulation (AMOC), which transports heat northward in the Atlantic and is a key component of the climate system. It spans both in-situ observing arrays (RAPID, OSNAP, MOVE, SAMBA, …) and blended or estimation-based products (satellite altimetry, Argo, and reanalysis-derived estimates). Instead of hand-parsing a different file format for each source, you load any of 20 datasets through one interface and get back standardised, analysis-ready `xarray` datasets.
 
 AMOCatlas does not alter the underlying data. It re-serves the same values as the source publications, adding standardised units, variable names, attribution, and provenance metadata — so the numbers you analyse are the numbers you would cite from the original dataset.
 
@@ -53,6 +53,7 @@ AMOCatlas serves two kinds of source, distinguished below. **Observing arrays** 
 | **DSO** | Denmark Strait | Overflow transport | `read.dso()` |
 | **FBC** | Faroe Bank Channel | Overflow transport monitoring | `read.fbc()` |
 | **OSNAP** | Subpolar North Atlantic | Meridional overturning since 2014 | `read.osnap()` |
+| **SCOTIA** | Scotland–Canada | Overturning in neutral-density space, subpolar North Atlantic | `read.scotia()` |
 | **RAPID** | 26°N | MOC and overturning transports since 2004 | `read.rapid()` |
 | **MOCHA** | 26°N | Meridional heat transport since 2004 | `read.mocha()` |
 | **MOVE** | 16°N | Meridional overturning since 2001 | `read.move()` |

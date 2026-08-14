@@ -109,6 +109,10 @@
         "remove_unwanted_attributes": {
           "type": "array"
         },
+        "report_plot_variable": {
+          "description": "Standardised variable name to feature in the generated report figure, overriding the report's auto-selection heuristic. Report directive; not a CF/ACDD attribute.",
+          "type": "string"
+        },
         "rtqc_method": true,
         "rtqc_method_doi": true,
         "sea_name": true,

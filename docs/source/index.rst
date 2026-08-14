@@ -31,22 +31,24 @@ For recommendations or bug reports, please visit https://github.com/AMOCcommunit
    :maxdepth: 2
    :caption: Dataset Reports
 
-   reports/rapid_report
    reports/osnap_report
+   reports/rapid_report
    reports/move_report
    reports/samba_report
-   reports/axmoc22s_report
-   reports/axmoc34s_report
-   reports/fw2015_report
-   reports/sf2021_report
-   reports/mocha_report
-   reports/wh41n_report
-   reports/lebras35n_report
-   reports/noac47n_report
-   reports/nac_report
-   reports/arcticgateway_report
    reports/dso_report
    reports/fbc_report
+   reports/arcticgateway_report
+   reports/scotia_report
+   reports/ovide_report
+   reports/noac47n_report
+   reports/wh41n_report
+   reports/lebras35n_report
+   reports/mocha_report
+   reports/fw2015_report
+   reports/sf2021_report
+   reports/axmoc22s_report
+   reports/axmoc34s_report
+   reports/nac_report
    reports/calafat2025_report
    reports/zheng2024_report
 

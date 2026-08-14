@@ -244,6 +244,7 @@ ARRAY_NAMES = [
     "axmoc22s",  # AXMOC and heat transport from sustained in situ observations at 22.5°S
     "axmoc34s",  # AXMOC, heat and freshwater transport from sustained in situ observations 34.5°S
     "ovide",  # OVIDE - MOC intensity across the Greenland-Portugal A25 OVIDE line
+    "scotia",  # SCOTIA - overturning across the Scotland-Canada line in neutral-density space
 ]
 
 # Mapping from array names to their full descriptions
@@ -267,6 +268,7 @@ ARRAY_DESCRIPTIONS = {
     "axmoc22s": "AXMOC 22.5°S - AMOC and heat transport from sustained in situ observations at 22.5°S",
     "axmoc34s": "AXMOC 34.5°S - AMOC, heat and freshwater transport from sustained in situ observations at 34.5°S",
     "ovide": "OVIDE - MOC intensity across the Greenland-Portugal A25 OVIDE line (altimetry + Argo/ISAS)",
+    "scotia": "SCOTIA - Scotland-Canada overturning array, subpolar North Atlantic overturning in neutral-density space",
 }
 
 # Preferred units

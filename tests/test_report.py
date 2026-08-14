@@ -386,6 +386,53 @@ class TestErrorHandling:
         temporal = ReportUtils.analyze_temporal_coverage(ds)
         assert temporal["has_time"] is False
 
+    def test_report_plot_variable_override(self):
+        """`report_plot_variable` selects the figure variable over the heuristic.
+
+        A dataset with a 1D MOC and a 2D transport: the heuristic prefers the 2D
+        variable, but the override forces the 1D MOC time series.
+        """
+        import numpy as np
+
+        time = np.arange("2004-01", "2004-05", dtype="datetime64[M]").astype(
+            "datetime64[ns]"
+        )
+        ds = xr.Dataset(
+            {
+                "MOC_GAMMA": (["TIME"], np.arange(len(time), dtype=float)),
+                "TRANS_GAMMA": (
+                    ["TIME", "GAMMA"],
+                    np.arange(len(time) * 3, dtype=float).reshape(len(time), 3),
+                ),
+            },
+            coords={"TIME": time, "GAMMA": [26.0, 27.0, 28.0]},
+        )
+
+        plots_dir = Path("docs/source/_static/reports")
+        created = []
+        try:
+            # With the override -> 1D MOC time series.
+            ds_flag = ds.copy()
+            ds_flag.attrs["report_plot_variable"] = "MOC_GAMMA"
+            path_flag = ReportUtils.generate_plot(ds_flag, "override_test_flag")
+            created.append(plots_dir / Path(path_flag).name)
+            assert path_flag.endswith("_timeseries.png")
+
+            # Without it -> heuristic falls to the 2D variable.
+            path_heur = ReportUtils.generate_plot(ds, "override_test_heur")
+            created.append(plots_dir / Path(path_heur).name)
+            assert path_heur.endswith("_2d_gridded.png")
+
+            # An override naming a missing variable falls back to the heuristic.
+            ds_bad = ds.copy()
+            ds_bad.attrs["report_plot_variable"] = "NOPE"
+            path_bad = ReportUtils.generate_plot(ds_bad, "override_test_bad")
+            created.append(plots_dir / Path(path_bad).name)
+            assert path_bad.endswith("_2d_gridded.png")
+        finally:
+            for p in created:
+                p.unlink(missing_ok=True)
+
 
 class TestDatabaseErrorHandling:
     """Tests for contributors database error handling and edge cases."""

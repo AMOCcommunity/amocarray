@@ -56,6 +56,7 @@ from .data_sources import (
     read_axmoc22s,
     read_axmoc34s,
     read_ovide,
+    read_scotia,
 )
 
 # Import file constants for list_files() functionality
@@ -78,6 +79,7 @@ from .data_sources.lebras35n import LEBRAS35N_DEFAULT_FILES
 from .data_sources.axmoc22s import AXMOC22S_DEFAULT_FILES
 from .data_sources.axmoc34s import AXMOC34S_DEFAULT_FILES
 from .data_sources.ovide import OVIDE_DEFAULT_FILES
+from .data_sources.scotia import SCOTIA_DEFAULT_FILES
 
 # Import standardization functions
 from . import standardise
@@ -103,6 +105,7 @@ SUPPORTED_STANDARDIZATION = {
     "axmoc22s",
     "axmoc34s",
     "ovide",
+    "scotia",
 }
 
 
@@ -472,6 +475,11 @@ ovide = _create_array_function(
     "OVIDE",
     available_files=OVIDE_DEFAULT_FILES,
 )
+scotia = _create_array_function(
+    read_scotia,
+    "SCOTIA",
+    available_files=SCOTIA_DEFAULT_FILES,
+)
 
 # Define __all__ to control what's exported
 __all__ = [
@@ -494,4 +502,5 @@ __all__ = [
     "axmoc22s",
     "axmoc34s",
     "ovide",
+    "scotia",
 ]

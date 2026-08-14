@@ -1,0 +1,97 @@
+metadata:
+  description: "Monthly overturning diagnostics of the Scotland-Canada overturning array (SCOTIA), computed in neutral-density space across the subpolar North Atlantic"
+  program: "SCOTIA"
+  project: "SCOTIA"
+  weblink: "https://thredds.sams.ac.uk/thredds/catalog/Fox_et_al_2026/catalog.html"
+  comment: >
+    Dataset accessed and processed via http://github.com/AMOCcommunity/amocatlas
+  acknowledgement: >
+    The authors request that Fox et al. (2026) be cited alongside this dataset.
+  citation: >
+    Jones, S. C., Fox, A., Burmeister, K., & Fraser, N. (2026). Code and data for "The Scotland-Canada overturning array (SCOTIA)" [Data set]. Zenodo. https://doi.org/10.5281/zenodo.19682610
+  references: >
+    Fox, A. D., Fraser, N. J., Burmeister, K., Jones, S. C., Cunningham, S. A., Drysdale, L. A., Dilmahamod, A. F., and Karstensen, J. (2026). The Scotland-Canada overturning array (SCOTIA): twenty years of meridional overturning in the subpolar North Atlantic. Ocean Science, 22, 1439-1456. https://doi.org/10.5194/os-22-1439-2026
+  license: CC-BY-4.0
+  featureType: timeSeries
+  Conventions: CF-1.8, ACDD-1.3
+  report_plot_variable: MOC_GAMMA
+  time_coverage_start: '2004-01-15'
+  time_coverage_end: '2024-06-15'
+  contributor_name: "Sam Jones, Alan Fox, Kristin Burmeister, Neil Fraser"
+  contributor_role: "originator"
+  contributor_role_vocabulary: "https://vocab.nerc.ac.uk/collection/G04/current/"
+  contributing_institutions: "Scottish Association for Marine Science"
+
+files:
+  SCOTIA_overturning_diagnostics.nc:
+    source_url: "https://thredds.sams.ac.uk/thredds/fileServer/Fox_et_al_2026/SCOTIA_overturning_diagnostics.nc"
+    data_product: "Monthly overturning diagnostics of the Scotland-Canada overturning array in neutral-density (gamma-n) space"
+    citation: >
+      Jones, S. C., Fox, A., Burmeister, K., & Fraser, N. (2026). Code and data for "The Scotland-Canada overturning array (SCOTIA)" [Data set]. Zenodo. https://doi.org/10.5281/zenodo.19682610
+    variable_mapping:
+      "time": "TIME"
+      "gamma_n_bin": "GAMMA"
+      "moc": "MOC_GAMMA"
+      "psi": "PSI_GAMMA"
+      "transport": "TRANS_GAMMA"
+      "gamma_moc": "GAMMA_MOC"
+      "df": "DENSITY_FLUX"
+      "hf": "MHT"
+      "ff": "MFT"
+    original_variable_metadata:
+      # Neutral-density coordinate (Jackett & McDougall 1997 gamma-n), bin centres.
+      "gamma_n_bin":
+        long_name: "neutral density"
+        source_long_name: "centre of neutral density bin"
+        standard_name: sea_water_neutral_density
+        units: kg m-3
+      # MOC = maximum over neutral density of the overturning streamfunction psi.
+      "moc":
+        long_name: "meridional overturning circulation"
+        source_long_name: "MOC"
+        description: "Maximum over neutral density of the overturning streamfunction"
+        units: sverdrup
+        standard_name: ocean_meridional_overturning_streamfunction
+        cell_methods: "GAMMA: maximum"
+      # Overturning streamfunction as a function of neutral density (cumulative transport).
+      "psi":
+        long_name: "ocean meridional overturning streamfunction"
+        source_long_name: "Overturning streamfunction"
+        description: "Overturning streamfunction across the SCOTIA section, cumulative in neutral density"
+        units: sverdrup
+        standard_name: ocean_meridional_overturning_streamfunction
+      # Transport within each neutral-density class (integrated per bin, sums to zero across
+      # the section). No CF standard_name for transport-by-density-class (Case-C).
+      "transport":
+        long_name: "sea water volume transport across line by neutral density class"
+        source_long_name: "Transport by density class"
+        description: "Sea water volume transport within each neutral-density class across the SCOTIA section"
+        units: sverdrup
+      # Neutral density at which the overturning streamfunction is maximal.
+      "gamma_moc":
+        long_name: "neutral density at overturning maximum"
+        source_long_name: "gamma_moc"
+        description: "Neutral density at which the maximum of the overturning streamfunction occurs"
+        units: kg m-3
+        standard_name: sea_water_neutral_density
+      # Northward density flux (integral of psi in density). No CF standard_name (Case-C).
+      "df":
+        long_name: "northward density flux across line"
+        source_long_name: "density flux"
+        description: "Northward density flux across the SCOTIA section (integral of the streamfunction in density)"
+        units: Gg s-1
+      # Northward heat flux across the section. PW is convertible to CF canonical W.
+      "hf":
+        long_name: "northward ocean heat transport"
+        source_long_name: "northward heat flux"
+        description: "Northward heat flux across the SCOTIA section"
+        units: PW
+        standard_name: northward_ocean_heat_transport
+      # Northward freshwater flux referenced to the section-mean salinity. Sverdrup is not
+      # convertible to CF northward_ocean_freshwater_transport (kg s-1), so no standard_name
+      # (Case-B), following the OSNAP MFT precedent.
+      "ff":
+        long_name: "northward ocean freshwater transport"
+        source_long_name: "northward freshwater flux"
+        description: "Northward freshwater flux across the SCOTIA section, referenced to the section-mean salinity"
+        units: sverdrup

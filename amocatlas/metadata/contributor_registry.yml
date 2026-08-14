@@ -115,6 +115,13 @@ contributors:
       - "S. Elipot"
     id_url: "https://orcid.org/0000-0001-6051-5426"
 
+  "0000-0002-9047-1986":
+    standard_name: "Alan Fox"
+    name_variants:
+      - "Alan Fox"
+      - "A. Fox"
+    id_url: "https://orcid.org/0000-0002-9047-1986"
+
   "0000-0001-8773-7838":
     standard_name: "Eleanor Frajka-Williams"
     name_variants:
@@ -191,6 +198,15 @@ contributors:
       - "W. Johns"
       - "Bill Johns"
     id_url: "https://orcid.org/0000-0002-1093-7871"
+
+  "0000-0001-7371-9014":
+    standard_name: "Sam Jones"
+    name_variants:
+      - "Sam Jones"
+      - "Sam Charles Jones"
+      - "S. C. Jones"
+      - "S. Jones"
+    id_url: "https://orcid.org/0000-0001-7371-9014"
 
   "0000-0001-5683-0570":
     standard_name: "M. Femke de Jong"

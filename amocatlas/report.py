@@ -900,86 +900,103 @@ class ReportUtils:
                 ):  # true 2D variable
                     twod_vars.append(var)
 
-            # Determine plotting strategy: prefer 2D for certain variables, fall back to 1D
+            # Determine plotting strategy. An explicit per-array override
+            # (metadata `report_plot_variable`) wins; otherwise fall back to a
+            # keyword-priority heuristic (2D preferred, then 1D time series).
             plot_2d = False
             var_to_plot = None
             plot_type = "Time Series"
 
-            # Priority order for 2D variables (using standardized names)
-            twod_priority = [
-                "streamfunction",
-                "vcur",  # Standardized name for meridional velocity
-                "temperature",
-                "temp",  # Temperature variables
-                "moc",
-                "sal",
-                "density",
-                "profile",
-            ]
-
-            # Find best 2D variable based on priority
-            for priority_term in twod_priority:
-                matching_vars = [
-                    var for var in twod_vars if priority_term in var.lower()
-                ]
-                if matching_vars:
-                    var_to_plot = matching_vars[0]
-                    plot_type = "2D Data"
-                    plot_2d = True
-                    break
-
-            if not plot_2d and twod_vars:
-                # Any other 2D variable
-                var_to_plot = twod_vars[0]
-                plot_type = "2D Data"
-                plot_2d = True
-
-            if not plot_2d:
-                # Fall back to 1D time series
-                if not timeseries_vars:
+            override_var = dataset.attrs.get("report_plot_variable")
+            if override_var:
+                if override_var in twod_vars:
+                    var_to_plot, plot_2d, plot_type = override_var, True, "2D Data"
+                elif override_var in timeseries_vars:
+                    var_to_plot, plot_2d, plot_type = override_var, False, "Time Series"
+                else:
                     print(
-                        f"  No suitable variables found for plotting in {dataset_name}"
+                        f"  report_plot_variable {override_var!r} is not a plottable "
+                        f"time series in {dataset_name}; using heuristic"
                     )
-                    return None
 
-                # Priority order for 1D variables
-                oned_priority = [
+            if var_to_plot is None:
+                # Priority order for 2D variables (using standardized names)
+                twod_priority = [
+                    "streamfunction",
+                    "vcur",  # Standardized name for meridional velocity
+                    "temperature",
+                    "temp",  # Temperature variables
                     "moc",
-                    "mht",
-                    "trans",
-                    "transport",
-                    "_t_",
-                    "t_",
-                    "stream",
-                    "temp",
-                    "tg_",
+                    "sal",
+                    "density",
+                    "profile",
                 ]
 
-                # Find best 1D variable based on priority
-                for priority_term in oned_priority:
+                # Find best 2D variable based on priority
+                for priority_term in twod_priority:
                     matching_vars = [
-                        var for var in timeseries_vars if priority_term in var.lower()
+                        var for var in twod_vars if priority_term in var.lower()
                     ]
                     if matching_vars:
                         var_to_plot = matching_vars[0]
-                        if "moc" in priority_term:
-                            plot_type = "MOC"
-                        elif "mht" in priority_term:
-                            plot_type = "Heat Transport"
-                        elif any(
-                            x in priority_term
-                            for x in ["trans", "transport", "_t_", "t_", "stream"]
-                        ):
-                            plot_type = "Transport"
-                        elif any(x in priority_term for x in ["temp", "tg_"]):
-                            plot_type = "Temperature"
-                        else:
-                            plot_type = "Time Series"
+                        plot_type = "2D Data"
+                        plot_2d = True
                         break
 
-                if var_to_plot is None:
-                    var_to_plot = timeseries_vars[0]
-                    plot_type = "Time Series"
+                if not plot_2d and twod_vars:
+                    # Any other 2D variable
+                    var_to_plot = twod_vars[0]
+                    plot_type = "2D Data"
+                    plot_2d = True
+
+                if not plot_2d:
+                    # Fall back to 1D time series
+                    if not timeseries_vars:
+                        print(
+                            f"  No suitable variables found for plotting in {dataset_name}"
+                        )
+                        return None
+
+                    # Priority order for 1D variables
+                    oned_priority = [
+                        "moc",
+                        "mht",
+                        "trans",
+                        "transport",
+                        "_t_",
+                        "t_",
+                        "stream",
+                        "temp",
+                        "tg_",
+                    ]
+
+                    # Find best 1D variable based on priority
+                    for priority_term in oned_priority:
+                        matching_vars = [
+                            var
+                            for var in timeseries_vars
+                            if priority_term in var.lower()
+                        ]
+                        if matching_vars:
+                            var_to_plot = matching_vars[0]
+                            if "moc" in priority_term:
+                                plot_type = "MOC"
+                            elif "mht" in priority_term:
+                                plot_type = "Heat Transport"
+                            elif any(
+                                x in priority_term
+                                for x in ["trans", "transport", "_t_", "t_", "stream"]
+                            ):
+                                plot_type = "Transport"
+                            elif any(x in priority_term for x in ["temp", "tg_"]):
+                                plot_type = "Temperature"
+                            else:
+                                plot_type = "Time Series"
+                            break
+
+                    if var_to_plot is None:
+                        var_to_plot = timeseries_vars[0]
+                        plot_type = "Time Series"
 
             print(
                 f"  Generating plot for {dataset_name} using variable: {var_to_plot} ({'2D' if plot_2d else '1D'})"
